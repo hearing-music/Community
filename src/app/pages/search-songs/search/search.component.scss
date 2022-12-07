@@ -1,0 +1,29 @@
+.search{
+			// margin-left: 48px;
+			width: 300px;
+			height: 30px;
+			position: relative;
+			.search-ipt{
+				box-sizing: border-box;
+				height: 100%;
+				width: 100%;
+				border: 1px solid #E6ECFD;
+				border-radius: 100px;
+				padding: 8px 16px;
+				font-size: 14px;
+				color: #222637;
+			}
+			.search-ipt:focus{
+			    outline: 1px solid #E6ECFD;
+			}
+			.search-icon{
+				position: absolute;
+				right:16px;
+				top:50%;
+				transform: translateY(-50%);
+				width: 20px;
+				height: 20px;
+				cursor: pointer;
+				background-color: #fff;
+			}
+		}

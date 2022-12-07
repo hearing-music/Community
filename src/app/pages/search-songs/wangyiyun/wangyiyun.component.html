@@ -1,0 +1,63 @@
+<nz-empty *ngIf="wangyiyunList.length==0" style="margin-top: 160px;"></nz-empty>
+<div class="list" *ngIf='wangyiyunList.length!=0'>
+	<div class="list-item" *ngFor="let item of wangyiyunList" :key='item.id'>
+		<div class="item-left">
+			<div class="left-icon">
+				<img src="/assets/img/play-red.png" style="width: 100%;height: 100%;" />
+				<!-- <image src="/assets/img/pause.png" style="width: 100%;height: 100%;"> -->
+			</div>
+			<div class="left-text">
+				<div class="title-area">
+					<!-- 歌名 -->
+					<div class="title u-line-1" (click)="openLink(item.songid)">
+						{{item.songname}}
+					</div>
+					<!-- <div style="margin-left: 8px;cursor: pointer;">
+						<span nz-icon nzType="linkedin" nzTheme="outline" style='color:blue'></span>
+					</div> -->
+				</div>
+				<div class="subTitle">
+					<!-- 歌手 发行时间 -->
+					<div style="display: flex;align-items: center;">
+						<div>
+							{{item.singername}}
+						</div>
+						<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+						<div>
+							{{common.getDate(item.publishTime)}}
+						</div>
+					</div>
+					<!-- 图标 -->
+					<div style="display: flex;margin-left: 4px;">
+						<!-- 钱币图标 -->
+						<img [src]="!item.vip?'/assets/img/price.png':'/assets/img/price-b.png'"
+							class="icon" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item-center">
+			<!-- 专辑名字 -->
+			<div class="exophanie-item">
+				{{item.albumname}}
+			</div>
+			<div class="">
+				{{item.company}}
+			</div>
+		</div>
+		<div class="item-right">
+			<div style="display: flex;align-items: center;justify-content: flex-end;">
+				<!-- 播放量 -->
+				<img src="/assets/img/bofang.png" class="icon" />
+				<div>{{0}}</div>
+			</div>
+			<div style="display: flex;align-items: center;margin-top: 6px;">
+				<div style="display: flex;align-items: center;">
+					<!-- 评论图标 -->
+					<img src="/assets/img/pinglun.png" class="icon" />
+					<div>{{common.toThousands(item.commentCount)}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

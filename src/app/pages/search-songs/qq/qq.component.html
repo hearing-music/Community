@@ -1,0 +1,135 @@
+<nz-empty *ngIf="qqList.length==0" style="margin-top: 160px;"></nz-empty>
+<div class="list" *ngIf='qqList.length!=0'>
+	<div class="list-item" *ngFor="let item of qqList" :key='item.id'>
+		<div class="item-left">
+			<div class="left-icon">
+				<img src="/assets/img/play-green.png" style="width: 100%;height: 100%;" />
+				<!-- <image src="/assets/img/pause.png" style="width: 100%;height: 100%;"> -->
+			</div>
+			<div class="left-text">
+				<div class="title-area">
+					<!-- 歌名 -->
+					<div class="title u-line-1" (click)="openSongDetail(item.id)">
+						{{item.name}}
+					</div>
+					<div (click)="openLink(item.mid)" style="margin-left: 8px;cursor: pointer;">
+						<span nz-icon nzType="linkedin" nzTheme="outline" style='color:blue'></span>
+					</div>
+					<!-- 收听 -->
+					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
+						<img src="/assets/img/erji.png" class="icon" />
+						<div>{{common.toThousands(item.cnt)}}</div>
+					</div>
+					<!-- 指数 -->
+					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
+						<img src="/assets/img/shuangzhexian.png" class="icon" />
+						<div>{{common.toThousands(item.todayIndex)}}</div>
+					</div>
+					<!-- 昨日指数 -->
+					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
+						<img src="/assets/img/shijian.png" class="icon" />
+						<div>{{common.toThousands(item.yesterdayIndex)}}</div>
+					</div>
+					<!-- 指数增长率 -->
+					<div class="" v-if='item.indexRate!=0' style="display: flex;align-items: center;margin-left: 8px;">
+						<span *ngIf='item.indexRate<0' nz-icon nzType="arrow-down" style='color:green;'
+							nzTheme="outline"></span>
+						<span *ngIf='item.indexRate>0' nz-icon nzType="arrow-up" style='color:red;'
+							nzTheme="outline"></span>
+						<div>{{common.tFixed(item.indexRate)}}</div>
+					</div>
+				</div>
+				<div class="subTitle">
+					<!-- 歌手 发行时间 -->
+					<div style="display: flex;align-items: center;">
+						<div>
+							{{item.singer.name}}
+						</div>
+						<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+						<div>
+							{{item.time_public}}
+						</div>
+						<span *ngIf='item.time_public' nz-icon nzType="right" nzTheme="outline"
+							style='color:#ccc;'></span>
+					</div>
+					<!-- 排行 -->
+					<div style="display: flex;margin-left: 8px;cursor: pointer;" (click)='popRank(item)'>
+						<span *ngIf='!item.record.newData' nz-icon nzType="profile" nzTheme="outline"
+							style='color:grey'></span>
+						<span *ngIf='item.record.newData' nz-icon nzType="profile" nzTheme="outline"
+							style='color:blue'></span>
+					</div>
+					<!-- 图标 -->
+					<div style="display: flex;margin-left: 4px;">
+						<!-- 钱币图标 -->
+						<img [src]="item.pay.pay_play==0?'/assets/img/price.png':'/assets/img/price-b.png'"
+							class="icon" />
+						<!-- 音乐图标 -->
+						<img [src]="item.pay.pay_down==0?'/assets/img/music.png':'/assets/img/music-b.png'" class="icon" />
+					</div>
+					<!-- 价格 -->
+					<div style="margin-left: 8px;">
+						<div>￥{{common.toThousands(item.price_track)}}</div>
+					</div>
+					<!-- 排名 -->
+					<div style="display: flex;align-items: center;margin-left: 8px;">
+						<img src="/assets/img/zhexiandian.png" class="icon" />
+						<div>{{common.toThousands(item.todayRank)}}</div>
+					</div>
+					<!-- 指数增长 -->
+					<div class="" v-if='item.rankRate!=0' style="display: flex;align-items: center;margin-left: 8px;">
+						<span *ngIf='item.rankRate<0' nz-icon nzType="arrow-down" style='color:green;'
+							nzTheme="outline"></span>
+						<span *ngIf='item.rankRate>0' nz-icon nzType="arrow-up" style='color:red;'
+							nzTheme="outline"></span>
+						<div>{{item.rankRate}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item-center">
+			<!-- 专辑名字 -->
+			<div>
+				{{item.album.name}}
+			</div>
+			<div class="exophanie-item u-line-1" (click)="openCompay(item.detail.company_id)">
+				外显：{{item.detail.company}}</div>
+			<div class="exophanie-item u-line-1" (click)="openCompay(item.detail.albumCompany_id)">
+				原始：{{item.detail.albumCompanyName}}</div>
+		</div>
+		<div class="item-right">
+			<div style="display: flex;align-items: center;justify-content: flex-end;">
+				<!-- 收藏图标 -->
+				<img src="/assets/img/love.png" class="icon" style='width: 18px;height:16px' />
+				<div>{{common.toThousands(item.col_number)}}</div>
+			</div>
+			<div style="display: flex;align-items: center;margin-top: 6px;">
+				<!-- 播放量 -->
+				<div v-if='item.listenCnt!="-"'>
+					<div>{{item.listenCnt}}</div>
+				</div>
+				<div style="margin: 0 8px;"> | </div>
+				<div style="display: flex;align-items: center;">
+					<!-- 评论图标 -->
+					<img src="/assets/img/pinglun.png" class="icon" />
+					<div>{{common.toThousands(item.commentCount)}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 排名弹窗 -->
+<nz-modal [(nzVisible)]="popRankShow" nzTitle="歌曲排行" [nzFooter]='null' (nzOnCancel)='handleCancel()'>
+	<ng-container *nzModalContent>
+		<div class="popBox">
+			<div *ngFor="let item of rankItem" class="rankBox">
+				<div class="rankBox-time">
+					{{item.date}}
+				</div>
+				<div class="rankBox-value">
+					{{item.value}}
+				</div>
+			</div>
+		</div>
+	</ng-container>
+</nz-modal>

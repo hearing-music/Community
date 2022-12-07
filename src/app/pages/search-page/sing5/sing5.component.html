@@ -1,0 +1,44 @@
+<div class="sing5">
+	<nz-table #basicTable [nzData]="sing5List" nzTitle='' [nzFrontPagination]='false'>
+	  <thead>
+	    <tr>
+	      <th nzWidth='80px' nzAlign='center'>ID</th>
+	      <th nzAlign='center'>歌手名字</th>
+	      <th nzAlign='center'>QQ</th>
+	      <th nzAlign='center'>身份</th>
+	      <th nzAlign='center'>出生日期</th>
+	      <th nzAlign='center'>所在地</th>
+	      <th nzAlign='center'>擅长风格</th>
+	      <th nzWidth='80px' nzAlign='center'>查看</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr *ngFor="let item of basicTable.data; let i = index">
+	     <td  nzAlign='center'>
+	        {{(i+1)+(pageCurrent-1)*pageSize}}
+	      </td>
+		  <td nzAlign='center'>
+		  	{{item.singername}}	  
+		  </td>
+		  <td nzAlign='center'>
+		  	{{item.singername}}	  
+		  </td>
+		  <td nzAlign='center'>
+		  	{{item.singername}}	  
+		  </td>
+		  <td nzAlign='center'>
+		  	{{item.singername}}	  
+		  </td>
+		  <td nzAlign='center'>
+		  	{{item.singername}}	  
+		  </td>
+		  <td nzAlign='center'>
+		  	{{item.singername}}	  
+		  </td>
+		  <td nzAlign='center' style="color:blue;cursor: pointer;" (click)='openLink(item)'>
+		  	查看
+		  </td>
+	    </tr>
+	  </tbody>
+	</nz-table>
+</div>

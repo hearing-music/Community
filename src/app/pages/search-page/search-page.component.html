@@ -1,0 +1,31 @@
+<div class="home">
+	<div class="home-top">
+		<!-- tab栏 -->
+		<div class="tagList">
+			<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
+				[ngClass]="{'tagList-itemActive': item.name==selectItem}">
+				{{item.name}}
+			</div>
+		</div>
+		<!-- 搜索 -->
+		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
+		</ngx-search>
+	</div>
+	<!-- 数据 -->
+	<div class="home-main">
+		<ngx-musician-tx *ngIf='selectItem=="腾讯音乐人"' [musicianTxList]="musicianTxList"></ngx-musician-tx>
+		<ngx-wangyisixin *ngIf='selectItem=="网易私信"' [wangyisixinList]="musicianTxList"></ngx-wangyisixin>
+		<ngx-brand-user *ngIf='selectItem=="厂牌用户"' [brandUserList]="musicianTxList"></ngx-brand-user>
+		<ngx-sing5 *ngIf='selectItem=="5SING用户"' [sing5List]="musicianTxList"></ngx-sing5>
+	</div>
+	<!-- 分页 -->
+	<div class="pagination">
+		<span *ngIf='selectItem=="腾讯音乐人"&&musicianTxList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+			(click)='musicianTxPageNext()' style="cursor: pointer;"></span>
+		<span *ngIf='selectItem=="网易私信"&&wangyisixinList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+			(click)='kuwoPageNext()' style="cursor: pointer;"></span>
+		<nz-pagination *ngIf='selectItem=="厂牌用户"&&brandUserList.length>0' [nzPageIndex]="brandUserPage" [nzPageSize]='brandUserPageSize' [nzTotal]="brandUserPageTotal" (nzPageIndexChange)='nzPageIndexChangeBrandUser()'></nz-pagination>
+		<nz-pagination *ngIf='selectItem=="5SING用户"&&sing5List.length>0' [nzPageIndex]="sing5Page" [nzPageSize]='sing5PageSize' [nzTotal]="sing5PageTotal" (nzPageIndexChange)='nzPageIndexChangesing5()'></nz-pagination>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

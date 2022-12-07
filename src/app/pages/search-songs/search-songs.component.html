@@ -1,0 +1,33 @@
+<div class="home">
+	<div class="home-top">
+		<!-- tab栏 -->
+		<div class="tagList">
+			<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
+				[ngClass]="{'tagList-itemActive': item.name==selectItem}">
+				{{item.name}}
+			</div>
+		</div>
+		<!-- 搜索 -->
+		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
+		</ngx-search>
+	</div>
+	<!-- 数据 -->
+	<div class="home-main">
+		<ngx-qq *ngIf='selectItem=="QQ音乐"' [qqList]="qqList"></ngx-qq>
+		<ngx-v3 *ngIf='selectItem=="酷狗V3"' [kugouV3List]="kugouV3List"></ngx-v3>
+		<ngx-kuwo *ngIf='selectItem=="酷我音乐"' [kuwoList]="kuwoList"></ngx-kuwo>
+		<ngx-wangyiyun *ngIf='selectItem=="网易云"' [wangyiyunList]="wangyiyunList"></ngx-wangyiyun>
+	</div>
+	<!-- 分页 -->
+	<div class="pagination">
+		<span *ngIf='selectItem=="QQ音乐"&&qqList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+			(click)='qqPageNext()' style="cursor: pointer;"></span>
+		<span *ngIf='selectItem=="酷狗V3"&&kugouV3List.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+			(click)='kugouV3PageNext()' style="cursor: pointer;"></span>
+		<span *ngIf='selectItem=="酷我音乐"&&kuwoList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+			(click)='kuwoPageNext()' style="cursor: pointer;"></span>
+		<span *ngIf='selectItem=="网易云"&&wangyiyunList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+			(click)='wangyiyunPageNext()' style="cursor: pointer;"></span>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>
