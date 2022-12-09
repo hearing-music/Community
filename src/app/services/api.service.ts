@@ -10,6 +10,7 @@ export class ApiService{
 	constructor(private http:HttpClient) {
 		
 	}
+	
 	getQQ(params: any) {
 		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=search_qq&params="+JSON.stringify({keyword:params.keyword,page:params.page}))
 	}
