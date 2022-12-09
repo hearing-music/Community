@@ -1,0 +1,43 @@
+<div class="kugou-soaring">
+	<div class="kugou-soaring-title">
+		<div>
+			酷狗飙升榜
+		</div>
+	</div>
+	<nz-table #basicTable [nzData]="list" nzTitle='' [nzFrontPagination]='false'>
+		<thead>
+			<tr>
+				<th nzWidth='80px' nzAlign='center'>排名</th>
+				<th nzAlign='center'>歌手</th>
+				<th nzAlign='center'>状态</th>
+				<th nzAlign='center'>查看</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of basicTable.data; let i = index">
+				<td nzAlign='center'>
+					{{item.ran}}
+				</td>
+				<td nzAlign='center'>
+					{{item.name}}
+				</td>
+				<td nzAlign='center' style="display: flex;align-items: center;justify-content: center;">
+					<span *ngIf='item.strend=="up"' nz-icon nzType="arrow-up" nzTheme="outline" style="color:green;"></span>
+					<span *ngIf='item.strend=="down"' nz-icon nzType="arrow-down" nzTheme="outline" style="color:red;"></span>
+					<span *ngIf='item.strend=="normal"' nz-icon nzType="minus" nzTheme="outline" style="color:blue;"></span>
+					<span style="margin-left: 4px;">
+						{{item.trend=='排名没有变化'?0:item.trend}}
+					</span>
+				</td>
+				<td nzAlign='center' style="color:blue;cursor: pointer;" (click)='openLink(item.id)'>
+					查看
+				</td>
+			</tr>
+		</tbody>
+	</nz-table>
+	<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='list.length>0'>
+		<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+			(nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

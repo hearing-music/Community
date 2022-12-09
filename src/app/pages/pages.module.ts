@@ -1,0 +1,74 @@
+import { NgModule } from '@angular/core';
+import { NbMenuModule } from '@nebular/theme';
+import { FormsModule } from '@angular/forms';
+import { ThemeModule } from '../@theme/theme.module';
+import { PagesComponent } from './pages.component';
+// import { DashboardModule } from './dashboard/dashboard.module';
+// import { ECommerceModule } from './e-commerce/e-commerce.module';
+import { PagesRoutingModule } from './pages-routing.module';
+import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
+// Module
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+// page
+import { FreeSongsComponent } from './free-songs/free-songs.component';
+import { SearchSongsComponent } from './search-songs/search-songs.component';
+import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
+import { SearchPageComponent } from './search-page/search-page.component';
+// componet
+import { QqComponent } from './search-songs/qq/qq.component';
+import { V3Component } from './search-songs/v3/v3.component';
+import { WangyiyunComponent } from './search-songs/wangyiyun/wangyiyun.component';
+import { KuwoComponent } from './search-songs/kuwo/kuwo.component';
+import { MusicianTxComponent } from './search-page/musician-tx/musician-tx.component';
+import { SearchComponent } from './search-songs/search/search.component';
+import { IconsProviderModule } from './icons-provider.module';
+import { LoadingComponent } from '../components/loading/loading.component';
+import { BrandUserComponent } from './search-page/brand-user/brand-user.component';
+import { Sing5Component } from './search-page/sing5/sing5.component';
+import { WangyisixinComponent } from './search-page/wangyisixin/wangyisixin.component';
+import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.component';
+@NgModule({
+  imports: [
+		NzMessageModule,
+		NzModalModule,
+		NzToolTipModule,
+		NzTableModule,
+		NzPaginationModule,
+		NzEmptyModule,
+		FormsModule,
+		IconsProviderModule,
+		
+    PagesRoutingModule,
+    ThemeModule,
+    NbMenuModule,
+    // DashboardModule,
+    // ECommerceModule,
+    MiscellaneousModule,
+  ],
+  declarations: [
+    PagesComponent,
+    FreeSongsComponent,
+    SearchSongsComponent,
+	SearchPageComponent,
+	QuerySonglistComponent,
+	
+	QqComponent,
+	V3Component,
+	WangyiyunComponent,
+	KuwoComponent,
+	MusicianTxComponent,
+	SearchComponent,
+	LoadingComponent,
+ BrandUserComponent,
+ Sing5Component,
+ WangyisixinComponent,
+ KugouSoaringComponent,
+  ],
+})
+export class PagesModule {
+}

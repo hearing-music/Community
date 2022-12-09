@@ -1,0 +1,19 @@
+	.header-menu{
+		display: flex;
+		align-items: center;
+		height: 100%;
+		.menu-item{
+			text-decoration:none;
+			font-weight: bold;
+			font-size: 14px;
+			padding:4px 16px;
+			// color: #222637;
+			margin-right: 24px;
+		}
+		.menu-item-active{
+			// color:#fff;
+			// background: #222637;
+			border: 2px solid #9EA3B4;
+			border-radius: 100px;
+		}
+	}

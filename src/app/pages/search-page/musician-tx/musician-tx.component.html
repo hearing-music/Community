@@ -1,0 +1,45 @@
+<nz-empty *ngIf="musicianTxList.length==0" style="margin-top: 160px;"></nz-empty>
+<div class="list" v-if='musicianTxList.length!=0'>
+	<div class="list-item" *ngFor='let item of musicianTxList' :key='item.uin'>
+		<div class="item-left">
+			<div class="left-avatar">
+				<!-- 头像 -->
+				<img [src]="item.pic" style="height:100%;"/>
+			</div>
+			<div class="left-text">
+				<div style="display: flex;align-items: center;width: 100%;">
+					<!-- 标题 -->
+					<div class="title">
+						{{item.title}}
+					</div>
+					<!-- 图标 -->
+					<div class="" style="flex:1;">
+						<span nz-tooltip [nzTooltipTitle]="item.identify_title">
+							<img [src]="item.iconurl" style='width: 18px;height: 18px;margin-left: 8px;'>
+						</span>
+						<!-- <uni-tooltip :content="item.identify_title">
+							<img [src]="item.iconurl" style='width: 18px;height: 18px;margin-left: 8px;'>
+						</uni-tooltip> -->
+					</div>
+				</div>
+				<!-- 粉丝 -->
+				<div class="subTitle">
+					{{item.fans_title}}
+				</div>
+				<!-- 歌单 -->
+				<div class="subTitle">
+					{{item.gedan_title}}
+				</div>
+			</div>
+		</div>
+		<div class="item-center">
+
+		</div>
+		<div class="item-right">
+			<!-- uin -->
+			<div class="right-uin">
+				<div>{{item.uin}}</div>
+			</div>
+		</div>
+	</div>
+</div>

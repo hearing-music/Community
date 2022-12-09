@@ -1,0 +1,52 @@
+<nz-empty *ngIf="wangyisixinList.length==0" style="margin-top: 160px;"></nz-empty>
+<div class="list" v-if='wangyisixinList.length!=0'>
+	<div class="list-item" *ngFor='let item of wangyisixinList' >
+		<div class="item-left">
+			<div class="left-avatar">
+				<!-- 头像 -->
+				<img [src]="item.avatarUrl" style="height:100%;"/>
+			</div>
+			<div class="left-text">
+				<div style="display: flex;align-items: center;width: 100%;">
+					<!-- 标题 -->
+					<div class="title">
+						{{item.nickname}}
+					</div>
+					<!-- 图标 -->
+					<div class="" style="" *ngIf='item.avatarDetail'>
+						<span nz-tooltip [nzTooltipTitle]="">
+							<img [src]="item.avatarDetail.identityIconUrl" style='width: 18px;height: 18px;margin-left: 8px;'>
+						</span>
+					</div>
+					<!-- 图标 -->
+					<img *ngIf='item.user_detail.tag.includes("网易音乐人")' src="/assets/img/yinyueren.png" style='width: 68px;height: 21px;margin-left: 8px;'>
+					<img *ngIf='item.user_detail.tag.includes("<p class=\"djp f-fs1 s-fc3\">")' src="/assets/img/daren.png" style='width: 68px;height: 21px;margin-left: 8px;'>
+					<!-- 性别 -->
+					<span *ngIf='item.gender==1' nz-icon nzType="man" nzTheme="outline" style='color:blue;margin-left: 6px;'></span>
+					<span *ngIf='item.gender==2' nz-icon nzType="woman" nzTheme="outline" style='color:red;margin-left: 6px;'></span>
+				</div>
+				<!-- signature -->
+				<div class="subTitle">
+					个人介绍：{{item.signature?item.signature:'无'}}
+				</div>
+				<div class="subTitle">
+					<div>地址：{{item.user_detail.location?item.user_detail.location:'无'}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="item-center">
+			{{common.filterTag(item.user_detail.tag)}}
+		</div>
+		<div class="item-right">
+			<!-- uin -->
+			<div *ngIf='item.user_detail.weibo_url!=""' class="right-weibo" (click)='openWeibo(item.user_detail.weibo_url)'>
+				<img src="/assets/img/weibo-icon.png" style='width: 18px;height: 18px;margin-left: 8px;'>
+			</div>
+			<div style="">
+				<div>动态数：{{item.user_detail.event_count}}</div>
+				<div>粉丝数：{{item.user_detail.fan_count}}</div>
+				<div>关注数：{{item.user_detail.follow_count}}</div>
+			</div>
+		</div>
+	</div>
+</div>
