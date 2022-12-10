@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class CommonService {
 	getDate(date: number) {
@@ -12,31 +12,44 @@ export class CommonService {
 		var mydate = year + "-" + month + "-" + day + '';
 		return mydate
 	}
-	filterTag(str:string){
-		if(str === '') return ''
+	download(src: string, name: string) {//下载图片地址和图片名
+		fetch(src).then((res) => {
+		  res.blob().then((blob) => {
+		    const blobUrl = window.URL.createObjectURL(blob);
+		    // 这里的文件名根据实际情况从响应头或者url里获取
+		    const a = document.createElement('a');
+		    a.href = blobUrl;
+		    a.download = name;
+		    a.click();
+		    window.URL.revokeObjectURL(blobUrl);
+		  });
+		});
+	};
+	filterTag(str: string) {
+		if (str === '') return ''
 		// console.log(str)
-		str = str.replace(/\n/g,'-')
-		str = str.replace(/网易音乐人/g,'-')
-		str = str.replace(/<span class=\"yyrtag\">/g,'-')
-		str = str.replace(/<i class="tag u-icn2 u-icn2-pfdr">/g,'-')
-		str = str.replace(/<p class=\"djp f-fs1 s-fc3\">/g,'-')
-		str = str.replace(new RegExp("</i>","gm"),'-')
-		str = str.replace(new RegExp("</span>","gm"),'-')
-		str = str.replace(new RegExp("</p>","gm"),'-')
-		str = str.replace(new RegExp("--","gm"),'')
-		str = str.replace(new RegExp("-","gm"),' ')
+		str = str.replace(/\n/g, '-')
+		str = str.replace(/网易音乐人/g, '-')
+		str = str.replace(/<span class=\"yyrtag\">/g, '-')
+		str = str.replace(/<i class="tag u-icn2 u-icn2-pfdr">/g, '-')
+		str = str.replace(/<p class=\"djp f-fs1 s-fc3\">/g, '-')
+		str = str.replace(new RegExp("</i>", "gm"), '-')
+		str = str.replace(new RegExp("</span>", "gm"), '-')
+		str = str.replace(new RegExp("</p>", "gm"), '-')
+		str = str.replace(new RegExp("--", "gm"), '')
+		str = str.replace(new RegExp("-", "gm"), ' ')
 		return str
 	}
-	round(num:any){
+	round(num: any) {
 		return Math.round(num)
 	}
-	tFixed(indexRate:any){
+	tFixed(indexRate: any) {
 		return (indexRate.toFixed(4) * 100).toFixed(2) + '%'
 	}
-	deleteEM(str:string){
-		if(str === '') return ''
-		str = str.replace('<em>','')
-		str = str.replace('</em>','')
+	deleteEM(str: string) {
+		if (str === '') return ''
+		str = str.replace('<em>', '')
+		str = str.replace('</em>', '')
 		return str;
 	}
 	toThousands(num: any) {
@@ -54,5 +67,5 @@ export class CommonService {
 		}
 		return result.join('');
 	}
-  constructor() { }
+	constructor() { }
 }

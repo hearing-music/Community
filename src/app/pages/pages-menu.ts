@@ -23,6 +23,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
 	    
 	  ],
 	},
+	{
+		title: '抖音',
+		icon: 'layout-outline',
+		link: '/pages/douyin',
+	},
   // {
   //   title: 'E-commerce',
   //   icon: 'shopping-cart-outline',

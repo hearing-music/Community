@@ -14,6 +14,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 // page
 import { FreeSongsComponent } from './free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
@@ -32,6 +33,7 @@ import { BrandUserComponent } from './search-page/brand-user/brand-user.componen
 import { Sing5Component } from './search-page/sing5/sing5.component';
 import { WangyisixinComponent } from './search-page/wangyisixin/wangyisixin.component';
 import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.component';
+import { DouyinComponent } from './douyin/douyin.component';
 @NgModule({
   imports: [
 		NzMessageModule,
@@ -40,6 +42,7 @@ import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.compo
 		NzTableModule,
 		NzPaginationModule,
 		NzEmptyModule,
+		NzButtonModule,
 		FormsModule,
 		IconsProviderModule,
 		
@@ -68,6 +71,7 @@ import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.compo
  Sing5Component,
  WangyisixinComponent,
  KugouSoaringComponent,
+ DouyinComponent,
   ],
 })
 export class PagesModule {

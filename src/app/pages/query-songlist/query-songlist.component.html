@@ -7,50 +7,56 @@
 		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
 		</ngx-search>
 	</div>
-	<nz-table #basicTable [nzData]="list" nzTitle='' [nzFrontPagination]='false'>
-	  <thead>
-	    <tr>
-	      <th nzWidth='80px' nzAlign='center'>ID</th>
-	      <th nzAlign='center'>名称</th>
-	      <th nzAlign='center'>创造者</th>
-	      <th nzAlign='center'>歌曲数量</th>
-	      <th nzAlign='center'>听众</th>
-	      <th nzAlign='center'>收藏</th>
-	      <th nzAlign='center'>评论</th>
-	      <th nzWidth='80px' nzAlign='center'>查看</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr *ngFor="let item of basicTable.data; let i = index">
-	      <td  nzAlign='center'>
-	        {{(i+1)+(pageCurrent-1)*pageSize}}
-	      </td>
-		  <td nzAlign='center'>
-			  {{item.album_name}}
-		  </td>
-		  <td nzAlign='center'>
-		  	{{item.company?item.company:''}}	  
-		  </td>
-		  <td nzAlign='center'>
-		  	{{item.publish_time?common.getDate(item.publish_time):''}}	 
-		  </td>
-		  <td nzAlign='center'>
-		  	{{item.songname}}	  
-		  </td>
-		  <td nzAlign='center'>
-		  	{{item.singername}}	  
-		  </td>
-		  <td nzAlign='center'>
-		  	{{item.exponent?common.toThousands(item.exponent):0}}	  
-		  </td>
-		  <td nzAlign='center' style="color:blue;cursor: pointer;" (click)='openLink(item)'>
-		  	查看
-		  </td>
-	    </tr>
-	  </tbody>
+	<nz-table #basicTable [nzData]="list" nzTitle='' [nzFrontPagination]='false' style="min-height: 550px;">
+		<thead>
+			<tr>
+				<th nzWidth='80px' nzAlign='center'>ID</th>
+				<th nzAlign='center'>名称</th>
+				<th nzAlign='center'>创造者</th>
+				<th nzAlign='center'>歌曲数量</th>
+				<th nzAlign='center'>听众</th>
+				<th nzAlign='center'>收藏</th>
+				<th nzAlign='center'>评论</th>
+				<th nzWidth='80px' nzAlign='center'>查看</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of basicTable.data; let i = index">
+				<td nzAlign='center'>
+					{{item.dissid}}
+				</td>
+		 	<td nzAlign='center'>
+					{{item.dissname}}
+				</td>
+				<td nzAlign='center'>
+					<div>
+						{{item.creator.name}}
+					</div>
+					<div class="qq" (click)='openQQ(item.creator.qq)'>
+						qq：{{item.creator.qq}}
+					</div>
+				</td>
+				<td nzAlign='center'>
+					{{common.toThousands(item.song_count)}}
+				</td>
+				<td nzAlign='center'>
+					{{common.toThousands(item.listennum)}}
+				</td>
+				<td nzAlign='center'>
+					{{common.toThousands(item.ordernum)}}
+				</td>
+				<td nzAlign='center'>
+					{{common.toThousands(item.commentCount)}}
+				</td>
+				<td nzAlign='center' style="color:blue;cursor: pointer;" (click)='openLink(item.dissid)'>
+					查看
+				</td>
+			</tr>
+		</tbody>
 	</nz-table>
 	<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='list.length>0'>
-		<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal" (nzPageIndexChange)='nzPageIndexChange()'></nz-pagination>
+		<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+			(nzPageIndexChange)='nzPageIndexChange()'></nz-pagination>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>

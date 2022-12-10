@@ -13,6 +13,7 @@ export class WangyisixinComponent implements OnInit {
  	  
    }
 	openWeibo(url:string){
+		if(!url) return
 		window.open(url)
 	}
 }

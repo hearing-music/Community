@@ -8,6 +8,7 @@ import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
 import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { DouyinComponent } from './douyin/douyin.component';
 // import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 const routes: Routes = [{
@@ -33,6 +34,10 @@ const routes: Routes = [{
 		{
 			path:'kugou/kugou-soaring',
 			component:KugouSoaringComponent
+		},
+		{
+			path:'douyin',
+			component:DouyinComponent
 		},
     // {
     //   path: 'dashboard',

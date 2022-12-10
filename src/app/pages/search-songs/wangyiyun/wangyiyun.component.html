@@ -12,9 +12,9 @@
 					<div class="title u-line-1" (click)="openLink(item.songid)">
 						{{item.songname}}
 					</div>
-					<!-- <div style="margin-left: 8px;cursor: pointer;">
-						<span nz-icon nzType="linkedin" nzTheme="outline" style='color:blue'></span>
-					</div> -->
+					<div style="margin-left: 8px;cursor: pointer;" (click)='downloadUrl(item.downloadUrl,item.songname)'>
+						<span nz-icon nzType="download" nzTheme="outline" style='color:blue;width: 18px;height: 18px;'></span>
+					</div>
 				</div>
 				<div class="subTitle">
 					<!-- 歌手 发行时间 -->

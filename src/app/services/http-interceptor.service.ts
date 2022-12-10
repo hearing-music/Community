@@ -44,7 +44,7 @@ export class HttpInterceptorService implements HttpInterceptor {
         },
         (error: any) => {
           // 处理错误的数据
-		  this.message.error(error.statusText)
+		  this.message.error(error.error.code)
           console.log(error)
         }
       )
