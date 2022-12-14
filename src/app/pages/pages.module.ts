@@ -42,6 +42,7 @@ import { WangyisixinComponent } from './search-page/wangyisixin/wangyisixin.comp
 import { CopyrightSearchComponent } from './copyright-scanning/copyright-search/copyright-search.component';
 import { CopyrightCheckComponent } from './copyright-scanning/copyright-check/copyright-check.component';
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
+import { NotOpenComponent } from '../components/not-open/not-open.component';
 @NgModule({
   imports: [
 		NzMessageModule,
@@ -85,6 +86,7 @@ import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 	SearchComponent,
 	LoadingComponent,
 	UploadFileComponent,
+	NotOpenComponent,
  BrandUserComponent,
  Sing5Component,
  WangyisixinComponent,

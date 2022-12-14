@@ -21,18 +21,15 @@ export class YinghuoComponent implements OnInit {
 	searchValue = '';
 	searchHolder = '搜索';
 
-	genderValue = '全部';
-	characteristicValue = '全部';
-	styleValue = '全部';
-	tagDataArr = []
-	// 性别
-	gender = ['全部', '男', '女'];
-	// 声音特点
-	characteristic = ['全部', '烟嗓', '甜美', '磁性', '戏腔', '民族', '抒情', '清亮', '低沉', '伤感', '粤语', '御姐音', '成熟', '欧巴音', '公子音', '复古感'];
-	// 音乐风格
-	style = ['全部', '流行', '国风', '说唱', '摇滚', 'R&B', '网络情歌', '欧美', '电子', 'Funk', 'Disco'];
-	ngModelChange(value: any) {
-		console.log(value)
+	tagDataArr = [] //value id
+	
+	popInfoShow=false;
+	infoText = '';
+	audioSrc = '';
+	ngModelChange(value: any,index:number) {
+		var id = this.tagDataArr[index].items.find(e=>e.desc == value).id
+		this.tagDataArr[index].id = id;
+		// console.log(this.tagDataArr)
 		this.getKugouYinghuo()
 	}
 	search(value: any) {
@@ -49,6 +46,10 @@ export class YinghuoComponent implements OnInit {
 		this.api.getKugou_yinghuoTag().subscribe((res: any) => {
 			this.loading = false;
 			console.log(res)
+			res.result.data.forEach((item:any)=>{
+				item.id = undefined
+				item.value = '全部'
+			})
 			if(res.success){
 				this.tagDataArr = res.result.data;
 			}
@@ -59,14 +60,20 @@ export class YinghuoComponent implements OnInit {
 	}
 	getKugouYinghuo() {
 		this.loading = true;
+		let params = {}
+		this.tagDataArr.forEach((item:any)=>{
+			params[item.tag] = item.id;
+		})
 		this.api.getKugou_yinghuo({
 			keyword: this.searchValue,
 			page: this.page,
-			pageSize: this.pageSize
+			pageSize: this.pageSize,
+			...params
 		}).subscribe((res: any) => {
 			this.loading = false;
 			console.log(res)
 			if(res.success){
+				this.audioSrc = ''
 				this.list = res.result;
 				this.pageTotal = res.totalCount;
 			}
@@ -75,4 +82,18 @@ export class YinghuoComponent implements OnInit {
 			this.loading = false;
 		})
 	}
+	
+	// 弹出 隐藏 简介
+	popInfo(item:any){
+		this.infoText = item.singerInfo.intro;
+		this.popInfoShow = true;
+	}
+	handleCancel(): void {
+	  this.popInfoShow = false;
+	}
+	// 播放歌曲
+	songsPlay(item:any){
+		this.audioSrc = item.detail.data.url;
+	}
+	
 }

@@ -1,31 +1,15 @@
 <div class="yinghuo">
 	<div class="yinghuo-top">
 		<div class="top-left">
-			<div class="top-select">
+			<div class="top-select" *ngFor="let item of tagDataArr;let i = index">
 				<div>
-					性别：
+					{{item.tagName}}：
 				</div>
-				<nz-select style="width: 100px;" [(ngModel)]="genderValue" (ngModelChange)='ngModelChange($event)'>
-					<nz-option *ngFor="let item of gender" [nzValue]="item" [nzLabel]="item"></nz-option>
+				<nz-select style="width: 100px;" [(ngModel)]="item.value" (ngModelChange)='ngModelChange($event,i)'>
+					<nz-option *ngFor="let c of item.items" [nzValue]="c.desc" [nzLabel]="c.desc"></nz-option>
 				</nz-select>
 			</div>
-			<div class="top-select">
-				<div>
-					声音特点：
-				</div>
-				<nz-select style="width: 100px;" [(ngModel)]="characteristicValue"
-					(ngModelChange)='ngModelChange($event)'>
-					<nz-option *ngFor="let item of characteristic" [nzValue]="item" [nzLabel]="item"></nz-option>
-				</nz-select>
-			</div>
-			<div class="top-select">
-				<div>
-					音乐风格：
-				</div>
-				<nz-select style="width: 100px;" [(ngModel)]="styleValue" (ngModelChange)='ngModelChange($event)'>
-					<nz-option *ngFor="let item of style" [nzValue]="item" [nzLabel]="item"></nz-option>
-				</nz-select>
-			</div>
+			
 		</div>
 		<!-- 搜索 -->
 		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
@@ -35,15 +19,19 @@
 	<div class="list">
 		<div *ngFor="let item of list" class="list-item">
 			<div class="item-left">
-				<div class="left-icon">
-					<img src="/assets/img/play-blue.png" style="width: 100%;height: 100%;" />
-					<!-- <image src="/assets/img/pause.png" style="width: 100%;height: 100%;"> -->
+				<div class="left-avatar">
+					<!-- 头像 -->
+					<img [src]="item.singerInfo.imgurl.replace('{size}','240')" style="height:100%;width: 100%;"/>
 				</div>
 				<div class="left-text">
 					<div class="title-area">
 						<!-- 歌手 -->
 						<div class="title u-line-1">
 							{{item.singerName}}
+						</div>
+						<!-- 简介 -->
+						<div (click)='popInfo(item)' style="margin-left: 8px;cursor: pointer;margin-top: -2px;" *ngIf='item.singerInfo.intro'>
+							<span nz-icon nzType="info-circle" nzTheme="outline" style='color:blue;font-size: 14px;'></span>
 						</div>
 						<!-- 身份 -->
 						<div style="margin-left: 8px;cursor: pointer;margin-top: -2px;" *ngIf='item.introduction'>
@@ -53,14 +41,20 @@
 						</div>
 					</div>
 					<div class="subTitle">
-						
+						<div>歌曲数：{{item.singerInfo.songcount}}</div>
+						<div style="margin: 0 6px;">mv数：{{item.singerInfo.mvcount}}</div>
+						<div>专辑数：{{item.singerInfo.albumcount}}</div>
 					</div>
 				</div>
 			</div>
 			<div class="item-center">
 				<!-- 歌曲 -->
-				<div *ngFor="let citem of item.songs" class="songs-item">
-					<img src="/assets/img/play-blue.png" style="width: 16px;height: 16px;" />
+				<div *ngFor="let citem of item.songs" class="songs-item" (click)='songsPlay(citem)'>
+					<div class="music-playIcon" [ngClass]="{'music-playIcon_animation': audioSrc == citem.detail.data.url}">
+						<div class="icon1"></div>
+						<div class="icon2"></div>
+						<div class="icon3"></div>
+					</div>
 					{{citem.audioName}}
 				</div>
 			</div>
@@ -72,9 +66,24 @@
 		</div>
 
 	</div>
-	<div style="display: flex;justify-content: center;padding-bottom: 20px;" *ngIf='list.length>0'>
+	<div style="display: flex;justify-content: center;padding-bottom: 20px;align-items: center;" *ngIf='list.length>0'>
 		<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
 			(nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
+		<div style="margin-left: 6px;">
+			共{{pageTotal}}个
+		</div>
+	</div>
+	<div class="play" *ngIf='audioSrc'>
+		<audio controls [autoplay]='true' [src]="audioSrc">
+		</audio>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>
+<!-- 排名弹窗 -->
+<nz-modal [(nzVisible)]="popInfoShow" nzTitle="歌手简介" [nzFooter]='null' (nzOnCancel)='handleCancel()'>
+	<ng-container *nzModalContent>
+		<div>
+			{{infoText}}
+		</div>
+	</ng-container>
+</nz-modal>

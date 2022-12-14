@@ -1,7 +1,7 @@
 .yinghuo{
 	background-color: #fff;
 	border-radius: 12px;
-	min-height: 600px;
+	min-height: 82vh;
 	.yinghuo-top{
 		padding: 24px;
 		display: flex;
@@ -31,10 +31,11 @@
 			background: #FFFFFF;
 			border: 1px solid rgba(0,0,0,0.12);
 			border-radius: 12px;
-			height: 80px;
+			height: 100px;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+			overflow: hidden;
 			padding: 0 16px;
 			.icon {
 				width: 16px;
@@ -46,11 +47,12 @@
 				display: flex;
 				flex-shrink: 0;
 				align-items: center;
-				.left-icon{
+				.left-avatar{
 					flex-shrink: 0;
-					width: 32px;
-					height: 32px;
-					cursor: pointer;
+					height: 60px;
+					width: 60px;
+					border-radius: 50%;
+					overflow: hidden;
 				}
 				.left-text{
 					margin-left: 16px;
@@ -77,11 +79,13 @@
 				flex:1;
 				.songs-item {
 					font-weight: bold;
-					width:200px;
+					// width:200px;
+					margin:4px 0;
+					display: flex;align-items: center;
 					cursor: pointer;
-					 overflow: hidden;
-					        white-space: nowrap;
-					        text-overflow: ellipsis;
+					 // overflow: hidden;
+					 //        white-space: nowrap;
+					 //        text-overflow: ellipsis;
 				}
 			}
 			.item-right{
@@ -91,3 +95,77 @@
 		}
 	}
 }
+.play{
+	position: fixed;
+	right:110px;
+	bottom:30px;
+}
+	.music-playIcon {
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		margin-right: 4px;
+		.icon1{
+			width: 3px;
+			height: 7px;
+			background-color: royalblue;
+			margin-right: 2.5px;
+		}
+		.icon2{
+			width: 3px;
+			height: 10px;
+			background-color: royalblue;
+			margin-right: 2.5px;
+		}
+		.icon3{
+			width: 3px;
+			height: 13px;
+			background-color: royalblue;
+		}
+	}
+	.music-playIcon_animation{
+		.icon1{
+			animation: playIcon1 1s ease infinite;
+		}
+		.icon2{
+			animation: playIcon1 1s ease 0.3s infinite;
+		}
+		.icon3{
+			animation: playIcon1 1s ease 0.6s infinite;
+		}
+	}
+	@keyframes playIcon1 {
+		0% {
+			height: 6px;
+		}
+		10%{
+			height: 7.5px;
+		}
+		20%{
+			height: 9px;
+		}
+		30%{
+			height: 10.5px;
+		}
+		40%{
+			height: 12px;
+		}
+		50% {
+			height: 13.5px;
+		}
+		60%{
+			height: 12px;
+		}
+		70%{
+			height: 10.5px;
+		}
+		80%{
+			height: 9px;
+		}
+		90%{
+			height: 7.5px;
+		}
+		100% {
+			height: 6px;
+		}
+	}

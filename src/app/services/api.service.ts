@@ -48,7 +48,7 @@ export class ApiService{
 	}
 	// 酷狗 萤火计划
 	getKugou_yinghuo(params:any){
-		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=kugou_yinghuo&params="+JSON.stringify({page:params.page,pageSize:params.pageSize,keyword:params.keyword}))
+		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=kugou_yinghuo&params="+JSON.stringify(params))
 	}
 	// 腾讯音乐人搜索
 	getMusicianTx(params:any){

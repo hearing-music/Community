@@ -17,13 +17,15 @@ export class SearchPageComponent implements OnInit {
 	}, {
 		name: '网易私信',
 		holder: '网易私信搜索'
-	}, {
-		name: '厂牌用户',
-		holder: '用户搜索'
-	}, {
-		name: '5SING用户',
-		holder: '5SING搜索'
-	}]
+	}, 
+	// {
+	// 	name: '厂牌用户',
+	// 	holder: '用户搜索'
+	// }, {
+	// 	name: '5SING用户',
+	// 	holder: '5SING搜索'
+	// }
+	]
 	selectItem = '腾讯音乐人';
 	searchValue = '';
 	loading = false;
