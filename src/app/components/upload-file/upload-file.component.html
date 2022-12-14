@@ -1,0 +1,12 @@
+<div style="margin: 16px 0;">
+	<div class="uploadArea">
+		<div class="uploadAreaText">
+			<span nz-icon nzType="upload" nzTheme="outline" style="font-size: 20px;color:#333;margin-right: 6px;"></span>
+			<div>选择文件</div>
+		</div>
+		<input type="file" class="uploadAreaInput" (change)='inputChange($event)' (click)='click($event)'>
+	</div>
+	<div class="fileName" *ngIf='file'>
+		{{file.name}}
+	</div>
+</div>

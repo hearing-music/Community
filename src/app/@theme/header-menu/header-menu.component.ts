@@ -21,11 +21,18 @@ export class HeaderMenuComponent implements OnInit {
 			window.open(link)
 			return
 		}
+		// 去除左侧active
+		document.getElementsByClassName('active').length!=0?document.getElementsByClassName('active')[0].classList.remove('active'):''
+		document.getElementsByClassName('active')[0]?document.getElementsByClassName('active')[0].classList.remove('active'):''
 		this.pathname = link;
 		this.myRouter.navigateByUrl(link);
 		// console.log(window.location.pathname)
 	}
 	headerMenu = [
+		{
+			name:'歌曲信息',
+			link:'/pages/search-songs'
+		},
 		{
 			name:'查询歌单',
 			link:'/pages/query-songlist'

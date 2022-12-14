@@ -42,6 +42,14 @@ export class ApiService{
 	getKugou_soaring(params:any){
 		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=kugou_soaring&params="+JSON.stringify({page:params.page}))
 	}
+	// 酷狗萤火计划 获取标签
+	getKugou_yinghuoTag(){
+		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=kugou_yinghuo_tag")
+	}
+	// 酷狗 萤火计划
+	getKugou_yinghuo(params:any){
+		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=kugou_yinghuo&params="+JSON.stringify({page:params.page,pageSize:params.pageSize,keyword:params.keyword}))
+	}
 	// 腾讯音乐人搜索
 	getMusicianTx(params:any){
 		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=search_qq_musician&params="+JSON.stringify({keyword:params.keyword,page:params.page}))
@@ -55,6 +63,15 @@ export class ApiService{
 		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=douyin_video&params="+JSON.stringify({keyword:params.keyword}))
 		
 	}
-
-  
+	// 听歌识曲
+	getIdentification(params:any){
+		const formData: FormData = new FormData();
+		formData.append('media', params.file);
+		let url = "https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=getIdentification"
+		return this.http.post(url,formData)
+	}
+	//版权搜索
+	copyrightSearch(params:any){
+		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=copyright_search&params="+JSON.stringify({keyword:params.keyword}))
+	}
 }

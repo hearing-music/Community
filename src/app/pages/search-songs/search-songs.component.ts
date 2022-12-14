@@ -818,7 +818,7 @@ searchQQ(){
 	}).subscribe((res: any) => {
 		this.loading = false;
 		console.log(res)
-		res.results.forEach((item: any) => {
+		res.result.forEach((item: any) => {
 			item.topinfo = item.topinfo || {}
 			item.playinfo = item.playinfo || {}
 		})

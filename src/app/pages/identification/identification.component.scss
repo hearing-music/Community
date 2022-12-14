@@ -1,0 +1,21 @@
+.identification{
+	background-color: #fff;
+	border-radius: 8px;
+	min-height: 600px;
+	.identification-top{
+		padding:24px;
+		.identification-title{
+			font-weight: bold;
+			font-size: 16px;
+			color: #000;
+		}
+		.identification-sub{
+			margin-top: 18px;
+			color: #666;
+			font-size: 13px;
+		}
+	}
+	.uploadFile-box{
+		margin-top: -18px;padding:0 24px;
+	}
+}

@@ -1,0 +1,80 @@
+<div class="yinghuo">
+	<div class="yinghuo-top">
+		<div class="top-left">
+			<div class="top-select">
+				<div>
+					性别：
+				</div>
+				<nz-select style="width: 100px;" [(ngModel)]="genderValue" (ngModelChange)='ngModelChange($event)'>
+					<nz-option *ngFor="let item of gender" [nzValue]="item" [nzLabel]="item"></nz-option>
+				</nz-select>
+			</div>
+			<div class="top-select">
+				<div>
+					声音特点：
+				</div>
+				<nz-select style="width: 100px;" [(ngModel)]="characteristicValue"
+					(ngModelChange)='ngModelChange($event)'>
+					<nz-option *ngFor="let item of characteristic" [nzValue]="item" [nzLabel]="item"></nz-option>
+				</nz-select>
+			</div>
+			<div class="top-select">
+				<div>
+					音乐风格：
+				</div>
+				<nz-select style="width: 100px;" [(ngModel)]="styleValue" (ngModelChange)='ngModelChange($event)'>
+					<nz-option *ngFor="let item of style" [nzValue]="item" [nzLabel]="item"></nz-option>
+				</nz-select>
+			</div>
+		</div>
+		<!-- 搜索 -->
+		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
+		</ngx-search>
+	</div>
+	<nz-empty *ngIf="list.length==0" style="margin-top: 160px;"></nz-empty>
+	<div class="list">
+		<div *ngFor="let item of list" class="list-item">
+			<div class="item-left">
+				<div class="left-icon">
+					<img src="/assets/img/play-blue.png" style="width: 100%;height: 100%;" />
+					<!-- <image src="/assets/img/pause.png" style="width: 100%;height: 100%;"> -->
+				</div>
+				<div class="left-text">
+					<div class="title-area">
+						<!-- 歌手 -->
+						<div class="title u-line-1">
+							{{item.singerName}}
+						</div>
+						<!-- 身份 -->
+						<div style="margin-left: 8px;cursor: pointer;margin-top: -2px;" *ngIf='item.introduction'>
+							<span nz-tooltip [nzTooltipTitle]="item.introduction">
+								<span nz-icon nzType="bulb" nzTheme="outline" style='color:blue;font-size: 14px;'></span>
+							</span>
+						</div>
+					</div>
+					<div class="subTitle">
+						
+					</div>
+				</div>
+			</div>
+			<div class="item-center">
+				<!-- 歌曲 -->
+				<div *ngFor="let citem of item.songs" class="songs-item">
+					<img src="/assets/img/play-blue.png" style="width: 16px;height: 16px;" />
+					{{citem.audioName}}
+				</div>
+			</div>
+			<div class="item-right">
+				<div>
+					level：{{item.level}}
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div style="display: flex;justify-content: center;padding-bottom: 20px;" *ngIf='list.length>0'>
+		<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+			(nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

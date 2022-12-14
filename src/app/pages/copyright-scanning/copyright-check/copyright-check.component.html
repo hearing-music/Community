@@ -1,0 +1,59 @@
+<!-- 检查 -->
+<div class="uploadFile-box">
+	<ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+</div>
+<nz-table #basicTable [nzData]="copyrightList" nzTitle='' [nzFrontPagination]='false'>
+	<thead>
+		<tr>
+			<th nzAlign='center'>歌曲名</th>
+			<th nzAlign='center'>专辑名</th>
+			<th nzAlign='center'>发行公司</th>
+			<th nzAlign='center'>歌手</th>
+			<th nzAlign='center'>音乐分区</th>
+			<th nzAlign='center'>歌曲时长</th>
+			<th nzAlign='center'>发行时间</th>
+			<th nzAlign='center'>Spotify</th>
+			<th nzAlign='center'>Deezer</th>
+			<th nzWidth='80px' nzAlign='center'>youtube</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let item of basicTable.data; let i = index">
+			<td nzAlign='center'>
+				{{item.name}}
+			</td>
+			<td nzAlign='center'>
+				{{item.album.name}}
+			</td>
+			<td nzAlign='center'>
+				{{item.label}}
+			</td>
+			<td nzAlign='center'>
+				{{item.artists[0].name}}
+			</td>
+			<td nzAlign='center'>
+				
+			</td>
+			<td nzAlign='center'>
+				{{item.duration_ms/1000 + 's'}}
+			</td>
+			<td nzAlign='center'>
+				{{item.album.release_date}}
+			</td>
+			<td nzAlign='center'>
+				<a *ngIf='item.external_metadata.spotify' [href]="item.external_metadata.spotify[0].link" target="_blank">spotify</a>
+			</td>
+			<td nzAlign='center'>
+				<a *ngIf='item.external_metadata.deezer' [href]="item.external_metadata.deezer[0].link.slice(0,23) + 'us/'+ item.external_metadata.deezer[0].link.slice(23)" target="_blank">deezer</a>
+			</td>
+			<td nzAlign='center'>
+				<a *ngIf='item.external_metadata.youtube' [href]="item.external_metadata.youtube[0].link" target="_blank">youtube</a>
+			</td>
+		</tr>
+	</tbody>
+</nz-table>
+<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='copyrightList.length>0'>
+	<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+		(nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
+</div>
+<ngx-loading *ngIf='loading'></ngx-loading>

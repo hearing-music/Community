@@ -15,25 +15,33 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 // page
-import { FreeSongsComponent } from './free-songs/free-songs.component';
+import { FreeSongsComponent } from './kugou/free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.component';
+import { DouyinComponent } from './douyin/douyin.component';
+import { IdentificationComponent } from './identification/identification.component';
+import { ConverterComponent } from './converter/converter.component';
+import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
 // componet
 import { QqComponent } from './search-songs/qq/qq.component';
 import { V3Component } from './search-songs/v3/v3.component';
 import { WangyiyunComponent } from './search-songs/wangyiyun/wangyiyun.component';
 import { KuwoComponent } from './search-songs/kuwo/kuwo.component';
 import { MusicianTxComponent } from './search-page/musician-tx/musician-tx.component';
-import { SearchComponent } from './search-songs/search/search.component';
+import { SearchComponent } from '../components/search/search.component';
 import { IconsProviderModule } from './icons-provider.module';
 import { LoadingComponent } from '../components/loading/loading.component';
+import { UploadFileComponent } from '../components/upload-file/upload-file.component';
 import { BrandUserComponent } from './search-page/brand-user/brand-user.component';
 import { Sing5Component } from './search-page/sing5/sing5.component';
 import { WangyisixinComponent } from './search-page/wangyisixin/wangyisixin.component';
-import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.component';
-import { DouyinComponent } from './douyin/douyin.component';
+import { CopyrightSearchComponent } from './copyright-scanning/copyright-search/copyright-search.component';
+import { CopyrightCheckComponent } from './copyright-scanning/copyright-check/copyright-check.component';
+import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 @NgModule({
   imports: [
 		NzMessageModule,
@@ -43,6 +51,7 @@ import { DouyinComponent } from './douyin/douyin.component';
 		NzPaginationModule,
 		NzEmptyModule,
 		NzButtonModule,
+		NzSelectModule,
 		FormsModule,
 		IconsProviderModule,
 		
@@ -59,6 +68,14 @@ import { DouyinComponent } from './douyin/douyin.component';
     SearchSongsComponent,
 	SearchPageComponent,
 	QuerySonglistComponent,
+	KugouSoaringComponent,
+	DouyinComponent,
+	IdentificationComponent,
+	ConverterComponent,
+	CopyrightScanningComponent,
+	
+	
+	
 	
 	QqComponent,
 	V3Component,
@@ -67,11 +84,13 @@ import { DouyinComponent } from './douyin/douyin.component';
 	MusicianTxComponent,
 	SearchComponent,
 	LoadingComponent,
+	UploadFileComponent,
  BrandUserComponent,
  Sing5Component,
  WangyisixinComponent,
- KugouSoaringComponent,
- DouyinComponent,
+ CopyrightSearchComponent,
+ CopyrightCheckComponent,
+ YinghuoComponent,
   ],
 })
 export class PagesModule {

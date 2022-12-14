@@ -1,0 +1,14 @@
+<div class="scanning">
+	<!-- tab栏 -->
+	<div class="tagList">
+		<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
+			[ngClass]="{'tagList-itemActive': item==activeTag}">
+			{{item}}
+		</div>
+	</div>
+	<div>
+		<ngx-copyright-search *ngIf='activeTag=="搜索版权"'></ngx-copyright-search>
+		<ngx-copyright-check *ngIf='activeTag=="检查文件版权"'></ngx-copyright-check>
+	</div>
+	
+</div>

@@ -1,0 +1,61 @@
+<div class="identification">
+	<div class="identification-top">
+		<div class="identification-title">
+			听歌识曲
+		</div>
+		<div class="identification-sub">
+			从歌曲片段中识别专辑名称、演唱者等信息
+		</div>
+	</div>
+	<div class="uploadFile-box">
+		<ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+	</div>
+	
+	<nz-table #basicTable [nzData]="identList" nzTitle='' [nzFrontPagination]='false'>
+		<thead>
+			<tr>
+				<th nzAlign='center'>文件名</th>
+				<th nzAlign='center'>歌曲</th>
+				<th nzAlign='center'>专辑</th>
+				<th nzAlign='center'>歌手</th>
+				<th nzAlign='center'>时长</th>
+				<th nzAlign='center'>作曲家</th>
+				<th nzAlign='center'>专辑发布时间</th>
+				<th nzAlign='center'>版权方</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of basicTable.data; let i = index">
+				<td nzAlign='center'>
+					{{item.name}}
+				</td>
+				<td nzAlign='center'>
+					{{item.album.name}}
+				</td>
+				<td nzAlign='center'>
+					{{item.label}}
+				</td>
+				<td nzAlign='center'>
+					{{item.artists[0].name}}
+				</td>
+				<td nzAlign='center'>
+					
+				</td>
+				<td nzAlign='center'>
+					{{item.duration_ms/1000 + 's'}}
+				</td>
+				<td nzAlign='center'>
+					{{item.album.release_date}}
+				</td>
+				<td nzAlign='center'>
+					<a *ngIf='item.external_metadata.spotify' [href]="item.external_metadata.spotify[0].link" target="_blank">spotify</a>
+				</td>
+			</tr>
+		</tbody>
+	</nz-table>
+	<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='identList.length>0'>
+		<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+			(nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>
