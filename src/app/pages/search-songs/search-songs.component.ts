@@ -781,7 +781,7 @@ searchKuwo(){
 	}).subscribe((res: any) => {
 		this.loading = false;
 		console.log(res)
-		res.result.forEach(item=>{
+		res.result.forEach((item:any)=>{
 			item.payInfo.feeType = item.payInfo.feeType || {}
 		})
 		if (this.kuwoPage == 1) {

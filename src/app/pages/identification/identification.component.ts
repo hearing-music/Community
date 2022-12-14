@@ -11,14 +11,17 @@ export class IdentificationComponent implements OnInit {
 	ngOnInit(): void {
 	}
 	file = '';
-	identList = [];
+	identList :any[]= [];
 	loading=false;
-	onFile(file:any){
+	pageCurrent=1;
+	pageSize=20;
+	pageTotal=20;
+	onFile(file:any): void{
 		console.log(file)
 		this.file = file;
 		this.getIdentification()
 	}
-	getIdentification() {
+	getIdentification(): void {
 		this.api.getIdentification({
 			file: this.file
 		}).subscribe((res: any) => {
@@ -26,5 +29,8 @@ export class IdentificationComponent implements OnInit {
 		}, (err: any) => {
 			console.log(err)
 		})
+	}
+	nzPageIndexChange(e:any): void{
+		console.log(e)
 	}
 }

@@ -6,7 +6,7 @@ import { ApiService } from "../../../services/api.service";
 	styleUrls: ['./kugou-soaring.component.scss']
 })
 export class KugouSoaringComponent implements OnInit {
-	list = [];
+	list:any[] = [];
 	loading = false;
 	pageCurrent = 1;
 	pageSize = 30;

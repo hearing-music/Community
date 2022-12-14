@@ -13,7 +13,7 @@ export class CopyrightSearchComponent implements OnInit {
 	}
 	searchValue = '';
 	searchHolder = '搜索';
-	copyrightList = [];
+	copyrightList:any[] = [];
 	pageSize = 20;
 	pageCurrent = 1;
 	pageTotal = 20;

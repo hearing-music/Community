@@ -21,13 +21,13 @@ export class YinghuoComponent implements OnInit {
 	searchValue = '';
 	searchHolder = '搜索';
 
-	tagDataArr = [] //value id
+	tagDataArr:any[] = [] //value id
 	
 	popInfoShow=false;
 	infoText = '';
 	audioSrc = '';
 	ngModelChange(value: any,index:number) {
-		var id = this.tagDataArr[index].items.find(e=>e.desc == value).id
+		var id = this.tagDataArr[index].items.find((e:any)=>e.desc == value).id
 		this.tagDataArr[index].id = id;
 		// console.log(this.tagDataArr)
 		this.getKugouYinghuo()
@@ -52,6 +52,7 @@ export class YinghuoComponent implements OnInit {
 			})
 			if(res.success){
 				this.tagDataArr = res.result.data;
+				this.getKugouYinghuo()
 			}
 		}, (err: any) => {
 			console.log(err)
@@ -60,7 +61,7 @@ export class YinghuoComponent implements OnInit {
 	}
 	getKugouYinghuo() {
 		this.loading = true;
-		let params = {}
+		let params :any = {}
 		this.tagDataArr.forEach((item:any)=>{
 			params[item.tag] = item.id;
 		})

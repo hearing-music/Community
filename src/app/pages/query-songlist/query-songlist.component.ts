@@ -24,8 +24,9 @@ export class QuerySonglistComponent implements OnInit {
 	pageCurrent=1;
 	pageSize=20;
 	pageTotal=20;
-	nzPageIndexChange(e){
-		
+	nzPageIndexChange(e:any){
+		this.pageCurrent = e;
+		this.getSongList()
 	}
 	list:any = []
 	

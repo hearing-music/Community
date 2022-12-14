@@ -10,7 +10,7 @@ export class CopyrightScanningComponent implements OnInit {
 
   ngOnInit(): void {
   }
-	tagList = [
+	tagList :any[]= [
 		'搜索版权',
 		'检查文件版权'
 	]

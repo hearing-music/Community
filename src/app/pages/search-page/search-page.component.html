@@ -24,8 +24,8 @@
 			(click)='musicianTxPageNext()' style="cursor: pointer;"></span>
 		<span *ngIf='selectItem=="网易私信"&&wangyisixinList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='wangyisixinPageNext()' style="cursor: pointer;"></span>
-		<nz-pagination *ngIf='selectItem=="厂牌用户"&&brandUserList.length>0' [nzPageIndex]="brandUserPage" [nzPageSize]='brandUserPageSize' [nzTotal]="brandUserPageTotal" (nzPageIndexChange)='nzPageIndexChangeBrandUser()'></nz-pagination>
-		<nz-pagination *ngIf='selectItem=="5SING用户"&&sing5List.length>0' [nzPageIndex]="sing5Page" [nzPageSize]='sing5PageSize' [nzTotal]="sing5PageTotal" (nzPageIndexChange)='nzPageIndexChangesing5()'></nz-pagination>
+		<nz-pagination *ngIf='selectItem=="厂牌用户"&&brandUserList.length>0' [nzPageIndex]="brandUserPage" [nzPageSize]='brandUserPageSize' [nzTotal]="brandUserPageTotal" (nzPageIndexChange)='nzPageIndexChangeBrandUser($event)'></nz-pagination>
+		<nz-pagination *ngIf='selectItem=="5SING用户"&&sing5List.length>0' [nzPageIndex]="sing5Page" [nzPageSize]='sing5PageSize' [nzTotal]="sing5PageTotal" (nzPageIndexChange)='nzPageIndexChangeSing5($event)'></nz-pagination>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>

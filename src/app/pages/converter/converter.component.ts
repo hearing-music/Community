@@ -10,11 +10,17 @@ export class ConverterComponent implements OnInit {
   constructor(public api: ApiService) { }
   ngOnInit(): void {
   }
+  pageCurrent = 1;
+  pageSize=20;
+  pageTotal = 20;
   file = '';
-  converterList = [];
+  converterList:any[] = [];
   loading=false;
   onFile(file:any){
   	console.log(file)
+  }
+  nzPageIndexChange(e:any):void{
+	  console.log(e)
   }
   getIdentification() {
   	this.api.getIdentification({

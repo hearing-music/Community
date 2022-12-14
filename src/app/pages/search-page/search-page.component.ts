@@ -11,7 +11,7 @@ export class SearchPageComponent implements OnInit {
 
 	ngOnInit(): void {
 	}
-	tagList = [{
+	tagList: any[] = [{
 		name: '腾讯音乐人',
 		holder: '腾讯音乐人搜索'
 	}, {
@@ -34,20 +34,20 @@ export class SearchPageComponent implements OnInit {
 	sing5Page=1;
 	sing5PageSize=30;
 	sing5PageTotal=30;
-	sing5List=[];
+	sing5List: any[]=[];
 	
 	brandUserPage=1;
-	brandUserList=[];
+	brandUserList: any[]=[];
 	brandUserPageSize=30;
 	brandUserPageTotal=30;
 	
 	wangyisixinPage=1;
-	wangyisixinList=[];
+	wangyisixinList: any[]=[];
 	
 	musicianTxPage = 1;
 	musicianTxList: any[] = []
 
-	search(value: string) {
+	search(value: string): void {
 		console.log(value)
 		this.searchValue = value;
 		this.musicianTxPage = 1;
@@ -60,13 +60,13 @@ export class SearchPageComponent implements OnInit {
 		}
 		
 	}
-	onSelect(item: any) {
+	onSelect(item: any): void {
 		this.selectItem = item.name;
 		this.searchHolder = item.holder;
 		this.searchValue = '';
 	}
 
-	musicianTxPageNext(){
+	musicianTxPageNext(): void{
 		if (this.musicianTxList.length == 0) {
 			return
 		}
@@ -74,7 +74,7 @@ export class SearchPageComponent implements OnInit {
 		this.loading = true;
 		this.searchMusicianTx()
 	}
-	wangyisixinPageNext(){
+	wangyisixinPageNext(): void{
 		if (this.wangyisixinList.length == 0) {
 			return
 		}
@@ -82,13 +82,13 @@ export class SearchPageComponent implements OnInit {
 		this.loading = true;
 		this.searchWangyisixin()
 	}
-	nzPageIndexChangeBrandUser(){
-		
+	nzPageIndexChangeBrandUser(e:any): void{
+		console.log(e)
 	}
-	nzPageIndexChangeSing5(){
-		
+	nzPageIndexChangeSing5(e:any): void{
+		console.log(e)
 	}
-	searchWangyisixin(){
+	searchWangyisixin(): void{
 		this.api.getWangyiyun_user({
 			keyword: this.searchValue,
 			page: this.wangyisixinPage
@@ -110,7 +110,7 @@ export class SearchPageComponent implements OnInit {
 			this.loading = false;
 		})
 	}
-	searchMusicianTx(){
+	searchMusicianTx(): void{
 		this.api.getMusicianTx({
 			keyword: this.searchValue,
 			page: this.musicianTxPage

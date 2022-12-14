@@ -12,7 +12,7 @@ export class CopyrightCheckComponent implements OnInit {
   ngOnInit(): void {
   }
   file = '';
-  copyrightList = [];
+  copyrightList:any[] = [];
   pageSize = 20;
   pageCurrent = 1;
   pageTotal = 20;

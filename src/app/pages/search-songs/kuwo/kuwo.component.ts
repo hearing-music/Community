@@ -18,7 +18,7 @@ export class KuwoComponent implements OnInit {
 		}).subscribe((res: any) => {
 			console.log(res.result.total)
 			if(res.success){
-				this.kuwoList.find(e=>e.rid == rid).commentCount = res.result.total;
+				this.kuwoList.find((e:any)=>e.rid == rid).commentCount = res.result.total;
 			}
 	}, (err: any) => {
 		console.log(err)

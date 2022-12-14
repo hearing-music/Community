@@ -8,8 +8,8 @@ import { NzMessageService  } from 'ng-zorro-antd/message';
   styleUrls: ['./douyin.component.scss']
 })
 export class DouyinComponent implements OnInit {
- word_list = [];//热点
- trending_list = [];//实时热点
+ word_list:any[] = [];//热点
+ trending_list:any[] = [];//实时热点
  tagList = ['热点','实时热点']
  activeTag = '热点';
  loading=false;
@@ -17,7 +17,7 @@ export class DouyinComponent implements OnInit {
  searchValue='';
  // https://v.douyin.com/h6Ds2dW/
  searchHolder = '请输入链接';
- videoData = []
+ videoData:any[] = []
   constructor(public api: ApiService,public common: CommonService,private message: NzMessageService) {
   }
 

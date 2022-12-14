@@ -75,15 +75,15 @@
 				<img [src]="videoData[0].dynamic_url" class="right-img">
 			</div>
 			<div class="main-download">
-				<button nz-button nzType="primary" class="download-a" [nzSize]="size" nzShape="round" (click)='downloadUrl(videoData[0].dynamic_url,videoData[1].nickname)'>
+				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData[0].dynamic_url,videoData[1].nickname)'>
 					<span nz-icon nzType="download"></span>
 					 下载图片
 				</button>
-				<button nz-button nzType="primary" class="download-a" [nzSize]="size" nzShape="round" (click)='downloadUrl(videoData[1].music_url,videoData[1].nickname)'>
+				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData[1].music_url,videoData[1].nickname)'>
 					<span nz-icon nzType="download"></span>
 					下载音乐
 				</button>
-				<button nz-button nzType="primary" class="download-a" [nzSize]="size" nzShape="round" (click)='downloadUrl(videoData[0].video_url,videoData[1].nickname)'>
+				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData[0].video_url,videoData[1].nickname)'>
 					 <span nz-icon nzType="download"></span>
 					 下载视频
 				</button>
