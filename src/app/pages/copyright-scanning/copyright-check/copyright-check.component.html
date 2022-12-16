@@ -20,34 +20,34 @@
 	<tbody>
 		<tr *ngFor="let item of basicTable.data; let i = index">
 			<td nzAlign='center'>
-				{{item.name}}
+				<!-- {{item.name}} -->
 			</td>
 			<td nzAlign='center'>
-				{{item.album.name}}
+				<!-- {{item.album.name}} -->
 			</td>
 			<td nzAlign='center'>
-				{{item.label}}
+				<!-- {{item.label}} -->
 			</td>
 			<td nzAlign='center'>
-				{{item.artists[0].name}}
+				<!-- {{item.artists[0].name}} -->
 			</td>
 			<td nzAlign='center'>
 				
 			</td>
 			<td nzAlign='center'>
-				{{item.duration_ms/1000 + 's'}}
+				{{common.toFixed2(item.duration) + 's'}}
 			</td>
 			<td nzAlign='center'>
-				{{item.album.release_date}}
+				<!-- {{item.album.release_date}} -->
 			</td>
 			<td nzAlign='center'>
-				<a *ngIf='item.external_metadata.spotify' [href]="item.external_metadata.spotify[0].link" target="_blank">spotify</a>
+				<!-- <a *ngIf='item.external_metadata.spotify' [href]="item.external_metadata.spotify[0].link" target="_blank">spotify</a> -->
 			</td>
 			<td nzAlign='center'>
-				<a *ngIf='item.external_metadata.deezer' [href]="item.external_metadata.deezer[0].link.slice(0,23) + 'us/'+ item.external_metadata.deezer[0].link.slice(23)" target="_blank">deezer</a>
+				<!-- <a *ngIf='item.external_metadata.deezer' [href]="item.external_metadata.deezer[0].link.slice(0,23) + 'us/'+ item.external_metadata.deezer[0].link.slice(23)" target="_blank">deezer</a> -->
 			</td>
 			<td nzAlign='center'>
-				<a *ngIf='item.external_metadata.youtube' [href]="item.external_metadata.youtube[0].link" target="_blank">youtube</a>
+				<!-- <a *ngIf='item.external_metadata.youtube' [href]="item.external_metadata.youtube[0].link" target="_blank">youtube</a> -->
 			</td>
 		</tr>
 	</tbody>

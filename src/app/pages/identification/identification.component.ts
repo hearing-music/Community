@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../services/api.service";
+import {CommonService} from "../../services/common.service";
 @Component({
 	selector: 'ngx-identification',
 	templateUrl: './identification.component.html',
@@ -7,10 +8,11 @@ import { ApiService } from "../../services/api.service";
 })
 export class IdentificationComponent implements OnInit {
 
-	constructor(public api: ApiService) { }
+	constructor(public api: ApiService,public common: CommonService) { }
 	ngOnInit(): void {
 	}
-	file = '';
+	file:any = {};
+	fileName = '';
 	identList :any[]= [];
 	loading=false;
 	pageCurrent=1;
@@ -22,12 +24,19 @@ export class IdentificationComponent implements OnInit {
 		this.getIdentification()
 	}
 	getIdentification(): void {
+		this.loading = true;
 		this.api.getIdentification({
 			file: this.file
 		}).subscribe((res: any) => {
+			this.loading = false;
+			if(res.success){
+				this.fileName = this.file.name;
+				this.identList = res.result;
+			}
 			console.log(res)
 		}, (err: any) => {
 			console.log(err)
+			this.loading = false;
 		})
 	}
 	nzPageIndexChange(e:any): void{

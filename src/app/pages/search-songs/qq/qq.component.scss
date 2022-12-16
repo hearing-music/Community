@@ -59,6 +59,9 @@
 					width:200px;
 					cursor: pointer;
 					text-decoration-line: underline;
+					overflow: hidden;
+					        white-space: nowrap;
+					        text-overflow: ellipsis;
 				}
 			}
 			.item-right{

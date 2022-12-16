@@ -43,6 +43,9 @@ export class CommonService {
 	round(num: any) {
 		return Math.round(num)
 	}
+	toFixed2(value:string|number){
+		return Number(value).toFixed(2)
+	}
 	tFixed(indexRate: any) {
 		return (indexRate.toFixed(4) * 100).toFixed(2) + '%'
 	}

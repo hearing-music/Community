@@ -66,12 +66,19 @@ export class ApiService{
 	// 听歌识曲
 	getIdentification(params:any){
 		const formData: FormData = new FormData();
-		formData.append('media', params.file);
+		formData.append('file', params.file);
 		let url = "https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=getIdentification"
 		return this.http.post(url,formData)
 	}
 	//版权搜索
 	copyrightSearch(params:any){
 		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=copyright_search&params="+JSON.stringify({keyword:params.keyword}))
+	}
+	// 版权扫描
+	copyrightCheck(params:any){
+		const formData: FormData = new FormData();
+		formData.append('file', params.file);
+		let url = "https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=copyright_check&params="+JSON.stringify({name:params.name})
+		return this.http.post(url,formData)
 	}
 }

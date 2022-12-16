@@ -27,28 +27,28 @@
 		<tbody>
 			<tr *ngFor="let item of basicTable.data; let i = index">
 				<td nzAlign='center'>
-					{{item.name}}
+					{{fileName}}
 				</td>
 				<td nzAlign='center'>
-					{{item.album.name}}
+					{{item.songname}}
 				</td>
 				<td nzAlign='center'>
-					{{item.label}}
+					{{item.albumname}}
 				</td>
 				<td nzAlign='center'>
-					{{item.artists[0].name}}
+					{{item.singer}}
 				</td>
 				<td nzAlign='center'>
-					
+					{{common.toFixed2(item.timelength/1000) + 's'}}
 				</td>
 				<td nzAlign='center'>
-					{{item.duration_ms/1000 + 's'}}
+					{{item.verison}}
 				</td>
 				<td nzAlign='center'>
-					{{item.album.release_date}}
+					{{item.publish_date}}
 				</td>
 				<td nzAlign='center'>
-					<a *ngIf='item.external_metadata.spotify' [href]="item.external_metadata.spotify[0].link" target="_blank">spotify</a>
+					{{item.copyright}}
 				</td>
 			</tr>
 		</tbody>
