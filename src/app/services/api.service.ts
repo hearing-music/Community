@@ -78,7 +78,19 @@ export class ApiService{
 	copyrightCheck(params:any){
 		const formData: FormData = new FormData();
 		formData.append('file', params.file);
-		let url = "https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=copyright_check&params="+JSON.stringify({name:params.name})
+		let url = "https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=copyright_check&params="+JSON.stringify({name:params.name,type:params.type})
 		return this.http.post(url,formData)
+	}
+	//铃声多多热铃榜
+	lsddHot(){
+		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=lsdd_hot")
+	}
+	//铃声多多热铃榜
+	lsddSoar(){
+		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=lsdd_soar")
+	}
+	//铃声多多古风榜
+	lsddArchaic(){
+		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=lsdd_archaic")
 	}
 }

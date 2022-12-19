@@ -10,6 +10,7 @@ import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.compo
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinComponent } from './douyin/douyin.component';
+import { LsddComponent } from './lsdd/lsdd.component';
 import { ConverterComponent } from './converter/converter.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
@@ -53,6 +54,11 @@ const routes: Routes = [{
 		{
 			path: 'douyin',
 			component: DouyinComponent
+		},
+		// 抖音
+		{
+			path: 'lsdd',
+			component: LsddComponent
 		},
 		// 文件转换
 		{

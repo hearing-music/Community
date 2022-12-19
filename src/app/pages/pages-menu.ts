@@ -32,6 +32,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
 		link: '/pages/douyin',
 	},
 	{
+		title: '铃声多多',
+		icon: 'cube',
+		link: '/pages/lsdd',
+	},
+	{
 		title: '版权扫描',
 		icon: 'link-2',
 		link: '/pages/copyright-scanning',

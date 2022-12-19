@@ -1,0 +1,29 @@
+<div class="home">
+	<div class="home-top">
+		<!-- tab栏 -->
+		<div class="tagList">
+			<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
+				[ngClass]="{'tagList-itemActive': item.name==selectItem}">
+				{{item.name}}
+			</div>
+		</div>
+		<!-- 刷新 -->
+		<button nz-button nzType="primary" (click)="reload()">
+		 刷新
+		</button>
+	</div>
+	<!-- 数据 -->
+	<div class="home-main">
+		<ngx-template [list]="list"></ngx-template>
+	</div>
+	<!-- 分页 -->
+	<div style="display: flex;justify-content: center;">
+		<nz-pagination *ngIf='selectItem=="热歌榜"&&list.length>0' [nzPageIndex]="hotPage" [nzPageSize]='hotPageSize'
+			[nzTotal]="hotPageTotal" (nzPageIndexChange)='nzPageIndexChangeHot($event)'></nz-pagination>
+		<nz-pagination *ngIf='selectItem=="飙升榜"&&list.length>0' [nzPageIndex]="soarPage" [nzPageSize]='soarPageSize'
+			[nzTotal]="soarPageTotal" (nzPageIndexChange)='nzPageIndexChangeSoar($event)'></nz-pagination>
+		<nz-pagination *ngIf='selectItem=="古风榜"&&list.length>0' [nzPageIndex]="archaicPage" [nzPageSize]='archaicPageSize'
+			[nzTotal]="archaicPageTotal" (nzPageIndexChange)='nzPageIndexChangeArchaic($event)'></nz-pagination>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

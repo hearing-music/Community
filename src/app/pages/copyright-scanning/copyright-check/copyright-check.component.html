@@ -5,11 +5,13 @@
 <nz-table #basicTable [nzData]="copyrightList" nzTitle='' [nzFrontPagination]='false'>
 	<thead>
 		<tr>
+			<th nzAlign='center'>文件名</th>
 			<th nzAlign='center'>歌曲名</th>
 			<th nzAlign='center'>专辑名</th>
 			<th nzAlign='center'>发行公司</th>
 			<th nzAlign='center'>歌手</th>
 			<th nzAlign='center'>音乐分区</th>
+			<th nzAlign='center'>分数</th>
 			<th nzAlign='center'>歌曲时长</th>
 			<th nzAlign='center'>发行时间</th>
 			<th nzAlign='center'>Spotify</th>
@@ -20,34 +22,42 @@
 	<tbody>
 		<tr *ngFor="let item of basicTable.data; let i = index">
 			<td nzAlign='center'>
-				<!-- {{item.name}} -->
+				{{item.name}}
 			</td>
 			<td nzAlign='center'>
-				<!-- {{item.album.name}} -->
+				{{item.results.result.title}}
 			</td>
 			<td nzAlign='center'>
-				<!-- {{item.label}} -->
+				{{item.results.result.album.name}}
 			</td>
 			<td nzAlign='center'>
-				<!-- {{item.artists[0].name}} -->
+				{{item.results.result.label}}
 			</td>
 			<td nzAlign='center'>
-				
+				{{item.results.result.artists[0].name}}
 			</td>
 			<td nzAlign='center'>
-				{{common.toFixed2(item.duration) + 's'}}
+				<span *ngFor="let genres of item.results.result.genres;let genresIndex = index">
+					{{genresIndex == item.results.result.genres.length - 1?genres.name:genres.name+','}}
+				</span>
 			</td>
 			<td nzAlign='center'>
-				<!-- {{item.album.release_date}} -->
+				{{item.results.result.score}}
 			</td>
 			<td nzAlign='center'>
-				<!-- <a *ngIf='item.external_metadata.spotify' [href]="item.external_metadata.spotify[0].link" target="_blank">spotify</a> -->
+				{{item.results.result.duration_ms?common.toFixed2(item.results.result.duration_ms/1000) + 's':''}}
 			</td>
 			<td nzAlign='center'>
-				<!-- <a *ngIf='item.external_metadata.deezer' [href]="item.external_metadata.deezer[0].link.slice(0,23) + 'us/'+ item.external_metadata.deezer[0].link.slice(23)" target="_blank">deezer</a> -->
+				{{item.results.result.release_date}}
 			</td>
 			<td nzAlign='center'>
-				<!-- <a *ngIf='item.external_metadata.youtube' [href]="item.external_metadata.youtube[0].link" target="_blank">youtube</a> -->
+				<a *ngIf='item.results.result.external_metadata.spotify' [href]="'https://open.spotify.com/track/'+item.results.result.external_metadata.spotify.track.id" target="_blank">spotify</a>
+			</td>
+			<td nzAlign='center'>
+				<a *ngIf='item.results.result.external_metadata.deezer' [href]="'https://www.deezer.com/us/track/'+ item.results.result.external_metadata.deezer.track.id" target="_blank">deezer</a>
+			</td>
+			<td nzAlign='center'>
+				<a *ngIf='item.results.result.external_metadata.youtube' [href]="'https://www.toutube.com/watch?v='+item.results.result.external_metadata.youtube.vid" target="_blank">youtube</a>
 			</td>
 		</tr>
 	</tbody>

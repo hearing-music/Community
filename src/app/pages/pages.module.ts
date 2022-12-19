@@ -43,6 +43,8 @@ import { CopyrightSearchComponent } from './copyright-scanning/copyright-search/
 import { CopyrightCheckComponent } from './copyright-scanning/copyright-check/copyright-check.component';
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 import { NotOpenComponent } from '../components/not-open/not-open.component';
+import { LsddComponent } from './lsdd/lsdd.component';
+import { TemplateComponent } from './lsdd/template/template.component';
 @NgModule({
   imports: [
 		NzMessageModule,
@@ -93,6 +95,8 @@ import { NotOpenComponent } from '../components/not-open/not-open.component';
  CopyrightSearchComponent,
  CopyrightCheckComponent,
  YinghuoComponent,
+ LsddComponent,
+ TemplateComponent,
   ],
 })
 export class PagesModule {

@@ -31,7 +31,8 @@ export class CopyrightCheckComponent implements OnInit {
   	this.loading = true;
   	this.api.copyrightCheck({
   		file: this.file,
-		name:this.file.name
+		name:this.file.name,
+		type:this.file.type
   	}).subscribe((res: any) => {
   		console.log(res)
   		this.loading = false;
@@ -39,11 +40,13 @@ export class CopyrightCheckComponent implements OnInit {
 		if(res.success){
 			res.result.forEach((item:any)=>{
 				if(item.results){
+					item.results = item.results.music[0]
 					arr.push(item)
 				}
 			})
 			this.copyrightList = arr;
 			if(this.copyrightList.length == 0){
+				res.res1.results = res.res1.results || {result:{album:{},artists:[{}],genres:[],external_metadata:{}}}
 				this.copyrightList = [res.res1];
 			}
 		}

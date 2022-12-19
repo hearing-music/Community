@@ -25,6 +25,16 @@ export class CommonService {
 		  });
 		});
 	};
+	durationFormat(num:number){
+		if(!num) return '0:00'
+		var m:number = num / 60;
+		m = parseInt(m+'')
+		var s:number|string = num % 60;
+		if(s<10){
+			s = '0'+s
+		}
+		return m+':'+s
+	};
 	filterTag(str: string) {
 		if (str === '') return ''
 		// console.log(str)

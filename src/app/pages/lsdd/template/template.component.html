@@ -1,0 +1,68 @@
+<nz-empty *ngIf="list.length==0" style="margin-top: 160px;"></nz-empty>
+<div class="list" *ngIf='list.length!=0'>
+	<div class="list-item" *ngFor="let item of list;let i = index;" :key='item.id'>
+		<div class="item-left">
+			<div class="left-avatar" (click)='playAudio(item.mp3url,i)'>
+				<img [src]="item.head_url" style="width: 100%;height: 100%;" onerror='this.src="/assets/img/imgError.png"'/>
+				<!-- <image src="/assets/img/pause.png" style="width: 100%;height: 100%;"> -->
+				<span *ngIf='!item.isPlay' nz-icon nzType="caret-right" nzTheme="outline" class="avatar-play"></span>
+				<span *ngIf='item.isPlay' nz-icon nzType="pause" nzTheme="outline" class="avatar-play"></span>
+			</div>
+			<div class="left-text">
+				<div class="title-area">
+					<!-- 歌名 -->
+					<div class="title u-line-1" [title]='item.name'>
+						{{item.name}}
+					</div>
+					<!-- 收听 -->
+					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
+						<img src="/assets/img/erji.png" class="icon" />
+						<div>{{common.toThousands(item.playcnt)}}</div>
+					</div>
+					<!-- 评论 -->
+					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
+						<img src="/assets/img/pinglun.png" class="icon" />
+						<div>{{common.toThousands(item.comment_num)}}</div>
+					</div>
+					<!-- 分数 -->
+					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
+						<span nz-icon nzType="star" nzTheme="outline" style="margin-right: 4px;"></span>
+						<div>{{item.score}}</div>
+					</div>
+				</div>
+				<div class="subTitle">
+					<!-- 歌手 发行时间 -->
+					<div style="display: flex;align-items: center;">
+						<div>
+							{{item.artist?item.artist:'无'}}
+						</div>
+						<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+						<div>
+							{{item.date}}
+						</div>
+						<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+						<div>
+							{{common.durationFormat(item.duration)}}
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="item-center">
+			<!-- 联系方式 -->
+			<div>
+				{{item.contact}}
+			</div>
+		</div>
+		<div class="item-right">
+			<div>
+				level：{{item.level}}
+			</div>
+		</div>
+	</div>
+	<div class="play" *ngIf='audioSrc'>
+		<audio controls [autoplay]='true' [src]="audioSrc">
+		</audio>
+	</div>
+</div>
