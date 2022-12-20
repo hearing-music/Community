@@ -34,7 +34,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 	{
 		title: '铃声多多',
 		icon: 'cube',
-		link: '/pages/lsdd',
+		link: '/pages/lsdd-page',
 	},
 	{
 		title: '版权扫描',

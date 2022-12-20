@@ -19,16 +19,21 @@ export class SearchSongsComponent implements OnInit {
 	}, {
 		name: '网易云',
 		holder: '网易云搜索'
+	}, {
+		name: '铃声多多',
+		holder: '铃声多多搜索'
 	}]
 	selectItem = 'QQ音乐';
 	searchValue = '';
 	loading = false;
 	searchHolder = "qq搜索";
 	wangyiyunList:any[]=[]
+	wangyiyunPage=1
 	kuwoList:any[]=[]
 	kuwoPage=1
-	wangyiyunPage=1
-
+	
+	lsddPage=1;
+	lsddList:any[]= []
 qqList: any[] = []
 kugouV3List: any[] = []
 qqPage = 1;
@@ -43,6 +48,9 @@ search(value: string) {
 	this.searchValue = value;
 	this.qqPage = 1;
 	this.kugouV3Page = 1;
+	this.kuwoPage = 1;
+	this.wangyiyunPage = 1;
+	this.lsddPage = 1;
 	this.loading = true;
 	if (this.selectItem == 'QQ音乐') {
 		this.searchQQ()
@@ -55,6 +63,9 @@ search(value: string) {
 	}
 	if (this.selectItem == '网易云') {
 		this.searchWangyiyun()
+	}
+	if (this.selectItem == '铃声多多') {
+		this.searchLsdd()
 	}
 }
 searchKuwo(){
@@ -135,6 +146,29 @@ searchV3(){
 		this.loading = false;
 	})
 }
+searchLsdd(){
+	this.api.getLsdd({
+		keyword: this.searchValue,
+		page: this.lsddPage,
+		pageSize:10
+	}).subscribe((res: any) => {
+		this.loading = false;
+		console.log(res)
+		if (res.success) {
+			res.result.forEach((item:any)=>{
+				item.isPlay = false;
+			})
+			if (this.lsddPage == 1) {
+				this.lsddList = res.result;
+			} else {
+				this.lsddList = [...this.lsddList, ...res.result];
+			}
+		}
+	}, (err: any) => {
+		console.log(err)
+		this.loading = false;
+	})
+}
 qqPageNext(){
 	if (this.qqList.length == 0) {
 		return
@@ -167,7 +201,14 @@ kugouV3PageNext(){
 	this.loading = true;
 	this.searchV3()
 }
-
+lsddPageNext(){
+	if (this.lsddList.length == 0) {
+		return
+	}
+	this.lsddPage += 1;
+	this.loading = true;
+	this.searchLsdd()
+}
 ngOnInit(): void {
 
 }

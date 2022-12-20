@@ -17,6 +17,7 @@
 		<ngx-v3 *ngIf='selectItem=="酷狗V3"' [kugouV3List]="kugouV3List"></ngx-v3>
 		<ngx-kuwo *ngIf='selectItem=="酷我音乐"' [kuwoList]="kuwoList"></ngx-kuwo>
 		<ngx-wangyiyun *ngIf='selectItem=="网易云"' [wangyiyunList]="wangyiyunList"></ngx-wangyiyun>
+		<ngx-lsdd *ngIf='selectItem=="铃声多多"' [lsddList]="lsddList"></ngx-lsdd>
 	</div>
 	<!-- 分页 -->
 	<div class="pagination">
@@ -28,6 +29,8 @@
 			(click)='kuwoPageNext()' style="cursor: pointer;"></span>
 		<span *ngIf='selectItem=="网易云"&&wangyiyunList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='wangyiyunPageNext()' style="cursor: pointer;"></span>
+		<!-- <span *ngIf='selectItem=="铃声多多"&&lsddList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+			(click)='lsddPageNext()' style="cursor: pointer;"></span> -->
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>

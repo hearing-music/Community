@@ -11,9 +11,11 @@
 			<div class="left-text">
 				<div class="title-area">
 					<!-- 歌名 -->
-					<div class="title u-line-1" [title]='item.name'>
-						{{item.name}}
-					</div>
+					<span nz-tooltip [nzTooltipTitle]="item.name">
+						<div class="title u-line-1">
+							{{item.name}}
+						</div>
+					</span>
 					<!-- 收听 -->
 					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
 						<img src="/assets/img/erji.png" class="icon" />

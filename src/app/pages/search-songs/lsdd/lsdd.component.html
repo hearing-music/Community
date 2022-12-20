@@ -1,0 +1,40 @@
+<nz-empty *ngIf="lsddList.length==0" style="margin-top: 160px;"></nz-empty>
+<div class="list" *ngIf='lsddList.length!=0'>
+	<div class="list-item" *ngFor="let item of lsddList;let i = index" :key='item.id'>
+		<div class="item-left">
+			<div class="left-icon" (click)='playAudio(item.src,i)'>
+				<img *ngIf='!item.isPlay' src="/assets/img/play-purple.png" style="width: 100%;height: 100%;" />
+				<img *ngIf='item.isPlay' src="/assets/img/pause-purple.png" style="width: 100%;height: 100%;"/>
+			</div>
+			<div class="left-text">
+				<div class="title-area">
+					<!-- 歌名 -->
+					<span nz-tooltip [nzTooltipTitle]="item.name">
+						<div class="title u-line-1">
+							{{item.name}}
+						</div>
+					</span>
+					
+				</div>
+				<div class="subTitle">
+					<!-- 歌手 发行时间 -->
+					<div style="display: flex;align-items: center;">
+						<div>
+							{{item.author}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item-center">
+			
+		</div>
+		<div class="item-right">
+			
+		</div>
+	</div>
+	<div class="play">
+		<audio id='audio' controls [src]="audioSrc" (play)='play($event)' (pause)='pause()'>
+		</audio>
+	</div>
+</div>

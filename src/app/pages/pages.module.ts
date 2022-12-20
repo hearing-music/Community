@@ -31,6 +31,7 @@ import { QqComponent } from './search-songs/qq/qq.component';
 import { V3Component } from './search-songs/v3/v3.component';
 import { WangyiyunComponent } from './search-songs/wangyiyun/wangyiyun.component';
 import { KuwoComponent } from './search-songs/kuwo/kuwo.component';
+import { LsddComponent } from './search-songs/lsdd/lsdd.component';
 import { MusicianTxComponent } from './search-page/musician-tx/musician-tx.component';
 import { SearchComponent } from '../components/search/search.component';
 import { IconsProviderModule } from './icons-provider.module';
@@ -43,8 +44,8 @@ import { CopyrightSearchComponent } from './copyright-scanning/copyright-search/
 import { CopyrightCheckComponent } from './copyright-scanning/copyright-check/copyright-check.component';
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 import { NotOpenComponent } from '../components/not-open/not-open.component';
-import { LsddComponent } from './lsdd/lsdd.component';
-import { TemplateComponent } from './lsdd/template/template.component';
+import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
+import { TemplateComponent } from './lsdd-page/template/template.component';
 @NgModule({
   imports: [
 		NzMessageModule,
@@ -84,6 +85,7 @@ import { TemplateComponent } from './lsdd/template/template.component';
 	V3Component,
 	WangyiyunComponent,
 	KuwoComponent,
+	LsddComponent,
 	MusicianTxComponent,
 	SearchComponent,
 	LoadingComponent,
@@ -95,7 +97,7 @@ import { TemplateComponent } from './lsdd/template/template.component';
  CopyrightSearchComponent,
  CopyrightCheckComponent,
  YinghuoComponent,
- LsddComponent,
+ LsddPageComponent,
  TemplateComponent,
   ],
 })

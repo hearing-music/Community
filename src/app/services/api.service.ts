@@ -93,4 +93,8 @@ export class ApiService{
 	lsddArchaic(){
 		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=lsdd_archaic")
 	}
+	// 铃声多多搜索
+	getLsdd(params:any){
+		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=search_lsdd&params="+JSON.stringify({page:params.page,pageSize:params.pageSize,keyword:params.keyword}))
+	}
 }

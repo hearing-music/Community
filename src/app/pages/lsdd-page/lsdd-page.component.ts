@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
 @Component({
-  selector: 'ngx-lsdd',
-  templateUrl: './lsdd.component.html',
-  styleUrls: ['./lsdd.component.scss']
+  selector: 'ngx-lsdd-page',
+  templateUrl: './lsdd-page.component.html',
+  styleUrls: ['./lsdd-page.component.scss']
 })
-export class LsddComponent implements OnInit {
+export class LsddPageComponent implements OnInit {
   constructor(public api: ApiService,public common: CommonService) { }
 
   ngOnInit(): void {
