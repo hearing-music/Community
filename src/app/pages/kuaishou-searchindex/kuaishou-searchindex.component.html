@@ -1,0 +1,37 @@
+<div class="kuaishou">
+    <div class="kuaishou-left" *ngIf='hotSearchList.length!==0'>
+        <div class="tagList">
+            <div *ngFor="let item of tagList;let i=index" (click)='changeTag(item,i)' class="tagList-item"
+                [ngClass]="{'tagList-itemActive': item==activeTag}">
+                <div>{{item}}</div>
+            </div>
+            <nz-select ngModel="0" ngModelChange (ngModelChange)="onProjectChange($event)">
+                <nz-option nzValue="0" nzLabel="近24小时"></nz-option>
+                <nz-option nzValue="1" nzLabel="2天前"></nz-option>
+                <nz-option nzValue="2" nzLabel="3天前"></nz-option>
+                <nz-option nzValue="3" nzLabel="4天前"></nz-option>
+                <nz-option nzValue="4" nzLabel="5天前"></nz-option>
+                <nz-option nzValue="5" nzLabel="6天前"></nz-option>
+            </nz-select>
+        </div>
+        <div class="hotTag">
+            <div *ngFor="let item of hotSearchList[index1][dayTime].verticalList;let i=index" class="vertical-item"
+                (click)="changeVertical(item.vertical,i)"
+                [ngClass]="{'vertical-itemActive': item.vertical==hotactiveTag}">
+                {{item.vertical}}
+            </div>
+        </div>
+        <div>
+            <div *ngFor="let item of hotSearchList[index1][dayTime].verticalList[index2].rankList" class="rankList">
+                <div class="list-left">
+                    <div>
+                        {{item.query}}
+                    </div>
+                </div>
+                <div class="list-right">
+                    热度值：{{item.value}}万
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

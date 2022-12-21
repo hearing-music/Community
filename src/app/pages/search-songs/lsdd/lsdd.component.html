@@ -3,8 +3,8 @@
 	<div class="list-item" *ngFor="let item of lsddList;let i = index" :key='item.id'>
 		<div class="item-left">
 			<div class="left-icon" (click)='playAudio(item.src,i)'>
-				<img *ngIf='!item.isPlay' src="/assets/img/play-purple.png" style="width: 100%;height: 100%;" />
-				<img *ngIf='item.isPlay' src="/assets/img/pause-purple.png" style="width: 100%;height: 100%;"/>
+				<img *ngIf='!item.isPlay' src="../../../assets/img/play-purple.png" style="width: 100%;height: 100%;" />
+				<img *ngIf='item.isPlay' src="../../../assets/img/pause-purple.png" style="width: 100%;height: 100%;"/>
 			</div>
 			<div class="left-text">
 				<div class="title-area">

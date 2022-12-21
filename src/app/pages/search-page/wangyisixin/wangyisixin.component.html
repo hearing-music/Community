@@ -18,8 +18,8 @@
 						
 					</div>
 					<!-- 图标 -->
-					<img *ngIf='item.user_detail.tag.includes("网易音乐人")' src="/assets/img/yinyueren.png" style='width: 68px;height: 21px;margin-left: 8px;'>
-					<img *ngIf='item.user_detail.tag.includes("<p class=\"djp f-fs1 s-fc3\">")' src="/assets/img/daren.png" style='width: 68px;height: 21px;margin-left: 8px;'>
+					<img *ngIf='item.user_detail.tag.includes("网易音乐人")' src="../../../assets/img/yinyueren.png" style='width: 68px;height: 21px;margin-left: 8px;'>
+					<img *ngIf='item.user_detail.tag.includes("<p class=\"djp f-fs1 s-fc3\">")' src="../../../assets/img/daren.png" style='width: 68px;height: 21px;margin-left: 8px;'>
 					<!-- 性别 -->
 					<span *ngIf='item.gender==1' nz-icon nzType="man" nzTheme="outline" style='color:blue;margin-left: 6px;'></span>
 					<span *ngIf='item.gender==2' nz-icon nzType="woman" nzTheme="outline" style='color:red;margin-left: 6px;'></span>
@@ -39,7 +39,7 @@
 		<div class="item-right">
 			<!-- uin -->
 			<div *ngIf='item.user_detail.weibo_url!=""' class="right-weibo" (click)='openWeibo(item.user_detail.weibo_url)'>
-				<img src="/assets/img/weibo-icon.png" style='width: 18px;height: 18px;margin-left: 8px;'>
+				<img src="../../../assets/img/weibo-icon.png" style='width: 18px;height: 18px;margin-left: 8px;'>
 			</div>
 			<div style="">
 				<div>动态数：{{item.user_detail.event_count}}</div>

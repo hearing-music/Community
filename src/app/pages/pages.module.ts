@@ -46,6 +46,7 @@ import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 import { NotOpenComponent } from '../components/not-open/not-open.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { TemplateComponent } from './lsdd-page/template/template.component';
+import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
 @NgModule({
   imports: [
 		NzMessageModule,
@@ -99,6 +100,7 @@ import { TemplateComponent } from './lsdd-page/template/template.component';
  YinghuoComponent,
  LsddPageComponent,
  TemplateComponent,
+ KuaishouSearchindexComponent,
   ],
 })
 export class PagesModule {

@@ -12,6 +12,7 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinComponent } from './douyin/douyin.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ConverterComponent } from './converter/converter.component';
+import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
 // import { ECommerceComponent } from './e-commerce/e-commerce.component';
@@ -55,10 +56,15 @@ const routes: Routes = [{
 			path: 'douyin',
 			component: DouyinComponent
 		},
-		// 抖音
+		// 铃声多多
 		{
 			path: 'lsdd-page',
 			component: LsddPageComponent
+		},
+		// 快手
+		{
+			path: 'kuaishou-searchindex',
+			component: KuaishouSearchindexComponent
 		},
 		// 文件转换
 		{

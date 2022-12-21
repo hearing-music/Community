@@ -3,7 +3,7 @@
 	<div class="list-item" *ngFor="let item of kugouV3List" :key='item.id'>
 		<div class="item-left">
 			<div class="left-icon">
-				<img src="/assets/img/play-blue.png" style="width: 100%;height: 100%;" />
+				<img src="../../../assets/img/play-blue.png" style="width: 100%;height: 100%;" />
 				<!-- <img src="/assets/img/pause.png" style="width: 100%;height: 100%;"> -->
 			</div>
 			<div class="left-text">
@@ -14,7 +14,7 @@
 					</div>
 					<!-- 指数 -->
 					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
-						<img src="/assets/img/shuangzhexian.png" class="icon" />
+						<img src="../../../assets/img/shuangzhexian.png" class="icon" />
 						<div>{{common.toThousands(item.exponent)}}</div>
 					</div>
 				</div>
@@ -31,7 +31,7 @@
 						<img [src]="item.price==0?'/asse/price.png':'/assets/img/price-b.png'" class="icon"/>
 						<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 8px;'></span>
 						<!-- 音乐图标 -->
-						<img [src]="true?'/assets/img/music.png':'/assets/img/music-b.png'" class="icon">
+						<img [src]="true?'../../../assets/img/music.png':'../../../assets/img/music-b.png'" class="icon">
 					</div>
 				</div>
 			</div>
@@ -52,12 +52,12 @@
 			<div style="display: flex;align-items: center;justify-content: flex-end;">
 				<div style="display: flex;align-items: center;">
 					<!-- 收藏 -->
-					<img src="/assets/img/love.png" class="icon" style="width: 20px;height: 18px;">
+					<img src="../../../assets/img/love.png" class="icon" style="width: 20px;height: 18px;">
 					<div>{{'-'}}</div>
 				</div>
 				<div style="display: flex;align-items: center;margin-left: 6px;">
 					<!-- 评论 -->
-					<img src="/assets/img/pinglun.png" class="icon">
+					<img src="../../../assets/img/pinglun.png" class="icon">
 					<div>{{'-'}}</div>
 				</div>
 			</div>

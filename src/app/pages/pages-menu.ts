@@ -37,6 +37,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
 		link: '/pages/lsdd-page',
 	},
 	{
+		title: '快手',
+		icon: 'cube',
+		link: '/pages/kuaishou-searchindex',
+	},
+	{
 		title: '版权扫描',
 		icon: 'link-2',
 		link: '/pages/copyright-scanning',

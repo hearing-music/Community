@@ -3,7 +3,7 @@
 	<div class="list-item" *ngFor="let item of qqList" :key='item.id'>
 		<div class="item-left">
 			<div class="left-icon">
-				<img src="/assets/img/play-green.png" style="width: 100%;height: 100%;" />
+				<img src="../../../assets/img/play-green.png" style="width: 100%;height: 100%;" />
 				<!-- <image src="/assets/img/pause.png" style="width: 100%;height: 100%;"> -->
 			</div>
 			<div class="left-text">
@@ -17,17 +17,17 @@
 					</div>
 					<!-- 收听 -->
 					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
-						<img src="/assets/img/erji.png" class="icon" />
+						<img src="../../../assets/img/erji.png" class="icon" />
 						<div>{{common.toThousands(item.cnt)}}</div>
 					</div>
 					<!-- 指数 -->
 					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
-						<img src="/assets/img/shuangzhexian.png" class="icon" />
+						<img src="../../../assets/img/shuangzhexian.png" class="icon" />
 						<div>{{common.toThousands(item.todayIndex)}}</div>
 					</div>
 					<!-- 昨日指数 -->
 					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
-						<img src="/assets/img/shijian.png" class="icon" />
+						<img src="../../../assets/img/shijian.png" class="icon" />
 						<div>{{common.toThousands(item.yesterdayIndex)}}</div>
 					</div>
 					<!-- 指数增长率 -->
@@ -62,10 +62,10 @@
 					<!-- 图标 -->
 					<div style="display: flex;margin-left: 4px;">
 						<!-- 钱币图标 -->
-						<img [src]="item.pay.pay_play==0?'/assets/img/price.png':'/assets/img/price-b.png'"
+						<img [src]="item.pay.pay_play==0?'../../../assets/img/price.png':'../../../assets/img/price-b.png'"
 							class="icon" />
 						<!-- 音乐图标 -->
-						<img [src]="item.pay.pay_down==0?'/assets/img/music.png':'/assets/img/music-b.png'" class="icon" />
+						<img [src]="item.pay.pay_down==0?'../../../assets/img/music.png':'../../../assets/img/music-b.png'" class="icon" />
 					</div>
 					<!-- 价格 -->
 					<div style="margin-left: 8px;">
@@ -73,7 +73,7 @@
 					</div>
 					<!-- 排名 -->
 					<div style="display: flex;align-items: center;margin-left: 8px;">
-						<img src="/assets/img/zhexiandian.png" class="icon" />
+						<img src="../../../assets/img/zhexiandian.png" class="icon" />
 						<div>{{common.toThousands(item.todayRank)}}</div>
 					</div>
 					<!-- 指数增长 -->
@@ -100,7 +100,7 @@
 		<div class="item-right">
 			<div style="display: flex;align-items: center;justify-content: flex-end;">
 				<!-- 收藏图标 -->
-				<img src="/assets/img/love.png" class="icon" style='width: 18px;height:16px' />
+				<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
 				<div>{{common.toThousands(item.col_number)}}</div>
 			</div>
 			<div style="display: flex;align-items: center;margin-top: 6px;">
@@ -111,7 +111,7 @@
 				<div style="margin: 0 8px;"> | </div>
 				<div style="display: flex;align-items: center;">
 					<!-- 评论图标 -->
-					<img src="/assets/img/pinglun.png" class="icon" />
+					<img src="../../../assets/img/pinglun.png" class="icon" />
 					<div>{{common.toThousands(item.commentCount)}}</div>
 				</div>
 			</div>

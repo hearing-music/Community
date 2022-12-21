@@ -67,7 +67,8 @@ export class ApiService{
 	getIdentification(params:any){
 		const formData: FormData = new FormData();
 		formData.append('file', params.file);
-		let url = "https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=getIdentification"
+		let url = 'http://localhost:3000/articles/getIdentification'
+		// let url = "https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=getIdentification"
 		return this.http.post(url,formData)
 	}
 	//版权搜索
@@ -96,5 +97,9 @@ export class ApiService{
 	// 铃声多多搜索
 	getLsdd(params:any){
 		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=search_lsdd&params="+JSON.stringify({page:params.page,pageSize:params.pageSize,keyword:params.keyword}))
+	}
+	//快手指数搜索
+	getkuaishouSearch() {
+	    return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=test")
 	}
 }

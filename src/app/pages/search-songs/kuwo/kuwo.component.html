@@ -3,7 +3,7 @@
 	<div class="list-item" *ngFor="let item of kuwoList" :key='item.rid'>
 		<div class="item-left">
 			<div class="left-icon">
-				<img src="/assets/img/play-yellow.png" style="width: 100%;height: 100%;" />
+				<img src="../../../assets/img/play-yellow.png" style="width: 100%;height: 100%;" />
 				<!-- <image src="/assets/img/pause.png" style="width: 100%;height: 100%;"> -->
 			</div>
 			<div class="left-text">
@@ -30,7 +30,7 @@
 					<!-- 图标 -->
 					<div style="display: flex;margin-left: 4px;">
 						<!-- 钱币图标 -->
-						<img [src]="!item.payInfo.feeType.song?'/assets/img/price.png':'/assets/img/price-b.png'"
+						<img [src]="!item.payInfo.feeType.song?'../../../assets/img/price.png':'../../../assets/img/price-b.png'"
 							class="icon" />
 					</div>
 				</div>
@@ -45,14 +45,14 @@
 		<div class="item-right">
 			<div style="display: flex;align-items: center;justify-content: flex-end;">
 				<!-- 播放量 -->
-				<img src="/assets/img/bofang.png" class="icon" />
+				<img src="../../../assets/img/bofang.png" class="icon" />
 				<div>{{0}}</div>
 			</div>
 			<div style="display: flex;align-items: center;margin-top: 6px;">
 				<div style="display: flex;align-items: center;">
 					<span (click)='reloadComment(item.rid)' *ngIf='item.commentCount==="-"' nz-icon nzType="reload" nzTheme="outline" style='cursor: pointer;margin-right: 8px;'></span>
 					<!-- 评论图标 -->
-					<img src="/assets/img/pinglun.png" class="icon" />
+					<img src="../../../assets/img/pinglun.png" class="icon" />
 					<div>{{item.commentCount == '-'?'-':common.toThousands(item.commentCount)}}</div>
 				</div>
 			</div>
