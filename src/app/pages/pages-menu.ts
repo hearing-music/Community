@@ -19,11 +19,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
 	      title: '酷狗萤火',
 	      link: '/pages/kugou/yinghuo',
 	    },
-		{
-			title: '免费歌曲',
-			// icon: 'credit-card',
-			link: '/pages/kugou/free-songs',
-		},
+		// {
+		// 	title: '免费歌曲',
+		// 	// icon: 'credit-card',
+		// 	link: '/pages/kugou/free-songs',
+		// },
 	  ],
 	},
 	{
@@ -46,11 +46,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
 		icon: 'link-2',
 		link: '/pages/copyright-scanning',
 	},
-	{
-		title: '文件转换',
-		icon: 'folder',
-		link: '/pages/converter',
-	},
+	// {
+	// 	title: '文件转换',
+	// 	icon: 'folder',
+	// 	link: '/pages/converter',
+	// },
 	{
 		title: '听歌识曲',
 		icon: 'headphones',
