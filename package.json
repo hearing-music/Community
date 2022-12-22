@@ -14,7 +14,7 @@
     "conventional-changelog": "conventional-changelog",
     "start": "ng serve --host 0.0.0.0",
     "build": "ng build",
-    "build:prod": "npm run build -- --configuration production --aot",
+    "build:prod": "ng build --prod --base-href /Community/",
     "test": "ng test",
     "test:coverage": "rimraf coverage && npm run test -- --code-coverage",
     "lint": "ng lint",

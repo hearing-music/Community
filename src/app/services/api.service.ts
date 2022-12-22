@@ -67,7 +67,7 @@ export class ApiService{
 	getIdentification(params:any){
 		const formData: FormData = new FormData();
 		formData.append('file', params.file);
-		let url = 'http://localhost:3000/articles/getIdentification'
+		let url = 'http://communityapi.jinzhoushaokao.top/articles/getIdentification'
 		// let url = "https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=getIdentification"
 		return this.http.post(url,formData)
 	}
