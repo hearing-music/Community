@@ -1,14 +1,15 @@
-<!-- 检查 -->
-<div class="check-sub">
-	注：该功能请求时间大约在10s以上，请耐心等待O(∩_∩)O
-</div>
-<div class="uploadFile-box">
-	<ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+<!-- 搜索 -->
+<div class="scanning-search">
+	<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
+	</ngx-search>
+	<div class="link-sub">
+		注：该功能请求时间大约在10s以上，请耐心等待O(∩_∩)O
+	</div>
 </div>
 <nz-table #basicTable [nzData]="copyrightList" nzTitle='' [nzFrontPagination]='false'>
 	<thead>
 		<tr>
-			<th nzAlign='center'>文件名</th>
+			<!-- <th nzAlign='center'>文件名</th> -->
 			<th nzAlign='center'>歌曲名</th>
 			<th nzAlign='center'>专辑名</th>
 			<th nzAlign='center'>发行公司</th>
@@ -24,9 +25,9 @@
 	</thead>
 	<tbody>
 		<tr *ngFor="let item of basicTable.data; let i = index">
-			<td nzAlign='center'>
+			<!-- <td nzAlign='center'>
 				{{item.name}}
-			</td>
+			</td> -->
 			<td nzAlign='center'>
 				{{item.results.result.title}}
 			</td>

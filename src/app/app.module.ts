@@ -11,7 +11,7 @@ import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {
-	NbChatModule,
+	// NbChatModule,
 	NbDatepickerModule,
 	NbDialogModule,
 	NbMenuModule,
@@ -19,10 +19,11 @@ import {
 	NbToastrModule,
 	NbWindowModule,
 } from '@nebular/theme';
-import { NZ_I18N } from 'ng-zorro-antd/i18n';
-import { zh_CN } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
-import zh from '@angular/common/locales/zh';
+// import { NZ_I18N } from 'ng-zorro-antd/i18n';
+// import { zh_CN } from 'ng-zorro-antd/i18n';
+// import { registerLocaleData } from '@angular/common';
+// import zh from '@angular/common/locales/zh';
+// ----
 import { FormsModule } from '@angular/forms';
 // -------------
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -32,7 +33,7 @@ import { CommonService } from './services/common.service';
 
 
 import { NzMessageModule } from 'ng-zorro-antd/message';
-registerLocaleData(zh);
+// registerLocaleData(zh);
 
 @NgModule({
 	declarations: [AppComponent,
@@ -49,16 +50,16 @@ registerLocaleData(zh);
 		NbDialogModule.forRoot(),
 		NbWindowModule.forRoot(),
 		NbToastrModule.forRoot(),
-		NbChatModule.forRoot({
-			messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
-		}),
+		// NbChatModule.forRoot({
+		// 	messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
+		// }),
 		CoreModule.forRoot(),
 		ThemeModule.forRoot(),
 		FormsModule,
 	],
 	bootstrap: [AppComponent],
 	providers: [
-		{ provide: NZ_I18N, useValue: zh_CN },
+		// { provide: NZ_I18N, useValue: zh_CN },
 
 		CommonService,
 		ApiService,

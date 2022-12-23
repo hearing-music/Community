@@ -47,6 +47,7 @@ import { NotOpenComponent } from '../components/not-open/not-open.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { TemplateComponent } from './lsdd-page/template/template.component';
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
+import { CopyrightLinkComponent } from './copyright-scanning/copyright-link/copyright-link.component';
 @NgModule({
   imports: [
 		NzMessageModule,
@@ -101,6 +102,7 @@ import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-se
  LsddPageComponent,
  TemplateComponent,
  KuaishouSearchindexComponent,
+ CopyrightLinkComponent,
   ],
 })
 export class PagesModule {

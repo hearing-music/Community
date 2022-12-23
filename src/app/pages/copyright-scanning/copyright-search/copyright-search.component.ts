@@ -12,7 +12,7 @@ export class CopyrightSearchComponent implements OnInit {
 	ngOnInit(): void {
 	}
 	searchValue = '';
-	searchHolder = '搜索';
+	searchHolder = '搜索名字';
 	copyrightList:any[] = [];
 	pageSize = 20;
 	pageCurrent = 1;

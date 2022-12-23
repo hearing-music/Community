@@ -12,7 +12,8 @@ export class CopyrightScanningComponent implements OnInit {
   }
 	tagList :any[]= [
 		'搜索版权',
-		'检查文件版权'
+		'检查文件版权',
+		'搜索版权链接'
 	]
 	activeTag = '搜索版权'
 	

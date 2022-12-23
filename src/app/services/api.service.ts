@@ -71,11 +71,15 @@ export class ApiService{
 		// let url = "https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=getIdentification"
 		return this.http.post(url,formData)
 	}
-	//版权搜索
+	//版权搜索 名字
 	copyrightSearch(params:any){
 		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=copyright_search&params="+JSON.stringify({keyword:params.keyword}))
 	}
-	// 版权扫描
+	// 版权搜索链接
+	copyrightSearchLink(params:any){
+		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=copyright_searchLink&params="+JSON.stringify({url:params.keyword}))
+	}
+	// 版权扫描 上传文件
 	copyrightCheck(params:any){
 		const formData: FormData = new FormData();
 		formData.append('file', params.file);
@@ -98,8 +102,8 @@ export class ApiService{
 	getLsdd(params:any){
 		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=search_lsdd&params="+JSON.stringify({page:params.page,pageSize:params.pageSize,keyword:params.keyword}))
 	}
-	//快手指数搜索
+	//快手热度搜索
 	getkuaishouSearch() {
-	    return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=test")
+	    return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=kuaishou_hot")
 	}
 }

@@ -23,10 +23,15 @@ export class KuaishouSearchindexComponent implements OnInit {
     this.getkuaishouSearch()
   }
   getkuaishouSearch() {
+		this.loading = true;
     this.api.getkuaishouSearch()
       .subscribe((res: any) => {
-        this.hotSearchList = [res.result.home.hot, res.result.home.soar]
+				this.loading = false;
+				if(res.success){
+					this.hotSearchList = [res.result.home.hot, res.result.home.soar]
+				}
       }, (err: any) => {
+				this.loading = false;
         console.log(err)
       })
   }

@@ -1,5 +1,5 @@
 <div class="kuaishou">
-    <div class="kuaishou-left" *ngIf='hotSearchList.length!==0'>
+    <div class="kuaishou-left" >
         <div class="tagList">
             <div *ngFor="let item of tagList;let i=index" (click)='changeTag(item,i)' class="tagList-item"
                 [ngClass]="{'tagList-itemActive': item==activeTag}">
@@ -14,17 +14,17 @@
                 <nz-option nzValue="5" nzLabel="6天前"></nz-option>
             </nz-select>
         </div>
-        <div class="hotTag">
+        <div class="hotTag" *ngIf='hotSearchList.length!==0'>
             <div *ngFor="let item of hotSearchList[index1][dayTime].verticalList;let i=index" class="vertical-item"
                 (click)="changeVertical(item.vertical,i)"
                 [ngClass]="{'vertical-itemActive': item.vertical==hotactiveTag}">
                 {{item.vertical}}
             </div>
         </div>
-        <div>
+        <div *ngIf='hotSearchList.length!==0'>
             <div *ngFor="let item of hotSearchList[index1][dayTime].verticalList[index2].rankList" class="rankList">
                 <div class="list-left">
-                    <div>
+                    <div style="font-weight: bold;">
                         {{item.query}}
                     </div>
                 </div>
@@ -34,4 +34,5 @@
             </div>
         </div>
     </div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>
