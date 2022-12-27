@@ -14,6 +14,9 @@ export class ApiService{
 	getQQ(params: any) {
 		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=search_qq&params="+JSON.stringify({keyword:params.keyword,page:params.page}))
 	}
+	getQQLyric(params:any){
+		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=qq_lyric&params="+JSON.stringify({songmid:params.songmid}))
+	}
 	// 搜索qq歌单
 	get_qq_songlist(params:any){
 		return this.http.get("https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/search?action=search_qq_songlist&params="+JSON.stringify({pageSize:params.pageSize,keyword:params.keyword,page:params.page}))

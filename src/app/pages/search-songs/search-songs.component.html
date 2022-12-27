@@ -13,11 +13,11 @@
 	</div>
 	<!-- 数据 -->
 	<div class="home-main">
-		<ngx-qq *ngIf='selectItem=="QQ音乐"' [qqList]="qqList"></ngx-qq>
+		<ngx-qq *ngIf='selectItem=="QQ音乐"' [qqList]="qqList" (change)="qqSrcChange($event)"></ngx-qq>
 		<ngx-v3 *ngIf='selectItem=="酷狗V3"' [kugouV3List]="kugouV3List"></ngx-v3>
 		<ngx-kuwo *ngIf='selectItem=="酷我音乐"' [kuwoList]="kuwoList"></ngx-kuwo>
 		<ngx-wangyiyun *ngIf='selectItem=="网易云"' [wangyiyunList]="wangyiyunList"></ngx-wangyiyun>
-		<ngx-lsdd *ngIf='selectItem=="铃声多多"' [lsddList]="lsddList"></ngx-lsdd>
+		<ngx-lsdd *ngIf='selectItem=="铃声多多"' [lsddList]="lsddList" (change)="lsddSrcChange($event)"></ngx-lsdd>
 	</div>
 	<!-- 分页 -->
 	<div class="pagination">
@@ -33,4 +33,11 @@
 			(click)='lsddPageNext()' style="cursor: pointer;"></span> -->
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
+	<!-- 歌词 -->
+	<ngx-lyric #lyric [lyricData]='lyricData'></ngx-lyric>
+	<!-- 播放器 -->
+	<div class="play">
+		<audio id='audio' controls [src]="audioSrc" (play)='play($event)' (pause)='pause()' (timeupdate)="timeupdate($event)">
+		</audio>
+	</div>
 </div>

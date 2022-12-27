@@ -37,6 +37,7 @@ import { SearchComponent } from '../components/search/search.component';
 import { IconsProviderModule } from './icons-provider.module';
 import { LoadingComponent } from '../components/loading/loading.component';
 import { UploadFileComponent } from '../components/upload-file/upload-file.component';
+import { LyricComponent } from '../components/lyric/lyric.component';
 import { BrandUserComponent } from './search-page/brand-user/brand-user.component';
 import { Sing5Component } from './search-page/sing5/sing5.component';
 import { WangyisixinComponent } from './search-page/wangyisixin/wangyisixin.component';
@@ -92,6 +93,7 @@ import { CopyrightLinkComponent } from './copyright-scanning/copyright-link/copy
 	SearchComponent,
 	LoadingComponent,
 	UploadFileComponent,
+	LyricComponent,
 	NotOpenComponent,
  BrandUserComponent,
  Sing5Component,

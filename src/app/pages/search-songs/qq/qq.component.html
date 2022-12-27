@@ -1,10 +1,10 @@
 <nz-empty *ngIf="qqList.length==0" style="margin-top: 160px;"></nz-empty>
 <div class="list" *ngIf='qqList.length!=0'>
-	<div class="list-item" *ngFor="let item of qqList" :key='item.id'>
+	<div class="list-item" *ngFor="let item of qqList;let i =index;" :key='item.id'>
 		<div class="item-left">
-			<div class="left-icon">
-				<img src="../../../assets/img/play-green.png" style="width: 100%;height: 100%;" />
-				<!-- <image src="/assets/img/pause.png" style="width: 100%;height: 100%;"> -->
+			<div class="left-icon" (click)='playAudio(item.musicUrl,i)'>
+				<img *ngIf='!item.isPlay' src="../../../assets/img/play-green.png" style="width: 100%;height: 100%;" />
+				<img *ngIf='item.isPlay' src="../../../assets/img/pause-green.png" style="width: 100%;height: 100%;">
 			</div>
 			<div class="left-text">
 				<div class="title-area">

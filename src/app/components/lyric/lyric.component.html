@@ -1,0 +1,7 @@
+<div class="music-lrc" *ngIf='lyricData.length>0'>
+	<div class="" *ngFor="let lyricItem of lyricData;">
+		 <div *ngIf='lyricItem.key == lyricIndex'>
+			 {{lyricItem.value}}
+		 </div>
+	</div>
+</div>
