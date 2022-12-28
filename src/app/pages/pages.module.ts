@@ -49,6 +49,8 @@ import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { TemplateComponent } from './lsdd-page/template/template.component';
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
 import { CopyrightLinkComponent } from './copyright-scanning/copyright-link/copyright-link.component';
+import { TrackSeparateComponent } from './track-separate/track-separate.component';
+import { MusiryToolsComponent } from './musiry-tools/musiry-tools.component';
 @NgModule({
   imports: [
 		NzMessageModule,
@@ -105,6 +107,8 @@ import { CopyrightLinkComponent } from './copyright-scanning/copyright-link/copy
  TemplateComponent,
  KuaishouSearchindexComponent,
  CopyrightLinkComponent,
+ TrackSeparateComponent,
+ MusiryToolsComponent,
   ],
 })
 export class PagesModule {

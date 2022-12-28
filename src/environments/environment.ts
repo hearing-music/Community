@@ -10,4 +10,7 @@
 
 export const environment = {
   production: false,
+	downloadUrl:'http://localhost:3223',
+	baseUrl:'http://localhost:3222',
+	tencentUrl:'https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com'
 };

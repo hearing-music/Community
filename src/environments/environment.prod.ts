@@ -5,4 +5,7 @@
  */
 export const environment = {
   production: true,
+	downloadUrl:'http://communityapi.jinzhoushaokao.top',
+	baseUrl:'http://communityapi.jinzhoushaokao.top',
+	tencentUrl:'https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com'
 };

@@ -134,7 +134,7 @@ export class SearchSongsComponent implements OnInit {
 	onSelect(item: any) {
 		this.selectItem = item.name;
 		this.searchHolder = item.holder;
-		this.searchValue = '';
+		// this.searchValue = '';
 	}
 	search(value: string) {
 		console.log(value)

@@ -57,6 +57,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
 		link: '/pages/identification',
 	},
 	// {
+	// 	title: '音乐工具',
+	// 	icon: 'clipboard',
+	// 	link: '/pages/musiry-tools',
+	// },
+	// {
 	//   title: 'UI Features',
 	//   icon: 'keypad-outline',
 	//   link: '/pages/ui-features',

@@ -1,0 +1,73 @@
+<div class="body">
+    <div class="header">
+        <ul>
+            <li *ngFor="let item of navList;" (click)="showItem(item)">
+                <span nz-icon nzType='{{item.icon}}'></span>
+                <span>{{item.text}}</span>
+            </li>
+            <li>
+                <a href="https://evgeny-nadymov.github.io/telegram-react/" target="_blank" class="link">
+                    <span nz-icon nzType='whats-app'></span>
+                    <span>电报</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="main" *ngIf="navNow=='首页'">
+        <div class="minBody">
+            <div class="content">
+                <span>
+                    听见音乐 工具
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="main" *ngIf="navNow=='银行'">
+        <div class="mainContent">
+            <div class="userName also">
+                <span>名字</span>
+                <div>
+                    <input type="text" placeholder="名字" [(ngModel)]="username">
+                </div>
+            </div>
+            <div class="cardId also">
+                <span>身份证号</span>
+                <div>
+                    <input type="text" placeholder="身份证号" [(ngModel)]="cardId" maxlength="18">
+                </div>
+            </div>
+            <div class="bankId also">
+                <span>银行卡号</span>
+                <div>
+                    <input type="text" placeholder="银行卡号" [(ngModel)]="bankId" maxlength="19">
+                </div>
+            </div>
+            <div class="search">
+                <button (click)="submitForm()">搜索</button>
+            </div>
+        </div>
+    </div>
+    <div class="main" *ngIf="navNow=='转换文件'">
+        <div class="uploadFile-box">
+            <ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+            <div class="select">
+                <nz-select ngModel="请选择文件">
+                    <nz-option nzValue="请选择文件" nzLabel="请选择文件"></nz-option>
+                    <nz-option nzValue=".json" nzLabel=".json"></nz-option>
+                    <nz-option nzValue=".xlsx" nzLabel=".xlsx"></nz-option>
+                </nz-select>
+            </div>
+            <div class="uploadCommit">
+                <button>处理</button>
+            </div>
+        </div>
+    </div>
+    <div class="main" *ngIf="navNow=='监测'">
+        <div class="uploadFile-box">
+            <ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+            <div class="uploadCommit">
+                <button>监测</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+.track{
+	background-color: #fff;
+	border-radius: 12px;
+	min-height: 82vh;
+	position: relative;
+	.track-top{
+		padding:24px;
+		.track-title{
+			font-weight: bold;
+			font-size: 16px;
+			color: #000;
+		}
+		.track-sub{
+			margin-top: 18px;
+			color: #666;
+			font-size: 13px;
+		}
+	}
+	.uploadFile-box{
+		margin-top: -18px;padding:0 24px;
+	}
+	.download{
+		margin: 0 auto;
+		margin-top: 24px;
+		width: 100px;
+		padding:4px 8px;
+		border-radius: 4px;
+		border: 1px solid #ccc;
+		text-align:center;
+		a{
+			color:blue!important;
+			text-decoration: none;
+		}
+	}
+	.downloadTip{
+		margin: 0 auto;
+		margin-top: 12px;
+		text-align:center;
+		font-size: 12px;
+		color: #666;
+	}
+}

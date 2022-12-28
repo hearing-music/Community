@@ -38,6 +38,10 @@ export class HeaderMenuComponent implements OnInit {
 			link:'/pages/query-songlist'
 		},
 		{
+			name:'音轨分离',
+			link:'/pages/track-separate'
+		},
+		{
 			name:'搜索',
 			link:'/pages/search-page'
 		},

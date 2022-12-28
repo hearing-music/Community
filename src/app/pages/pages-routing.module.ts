@@ -15,6 +15,8 @@ import { ConverterComponent } from './converter/converter.component';
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
+import { TrackSeparateComponent } from './track-separate/track-separate.component';
+import { MusiryToolsComponent } from './musiry-tools/musiry-tools.component';
 // import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 const routes: Routes = [{
@@ -30,6 +32,11 @@ const routes: Routes = [{
 		{
 			path: 'query-songlist',
 			component: QuerySonglistComponent
+		},
+		// 音轨分离
+		{
+			path: 'track-separate',
+			component: TrackSeparateComponent
 		},
 		// 搜索
 		{
@@ -81,6 +88,16 @@ const routes: Routes = [{
 			path: 'copyright-scanning',
 			component: CopyrightScanningComponent
 		},
+		//音乐工具
+		{
+			path: 'musiry-tools',
+			component: MusiryToolsComponent
+		},
+		{
+		  path: 'ui-features',
+		  loadChildren: () => import('./ui-features/ui-features.module')
+		    .then(m => m.UiFeaturesModule),
+		},
 		// {
 		//   path: 'dashboard',
 		//   component: ECommerceComponent,
@@ -88,11 +105,6 @@ const routes: Routes = [{
 		// {
 		//   path: 'iot-dashboard',
 		//   component: DashboardComponent,
-		// },
-		// {
-		//   path: 'ui-features',
-		//   loadChildren: () => import('./ui-features/ui-features.module')
-		//     .then(m => m.UiFeaturesModule),
 		// },
 		// {
 		//   path: 'layout',

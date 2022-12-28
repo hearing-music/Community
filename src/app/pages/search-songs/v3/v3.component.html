@@ -9,9 +9,11 @@
 			<div class="left-text">
 				<div class="title-area">
 					<!-- 歌名 -->
-					<div class="title u-line-1" (click)="openSongDetail(item.scid,item.FileHash)">
-						{{item.songName}}
-					</div>
+					<span nz-tooltip [nzTooltipTitle]="item.songName">
+						<div class="title" (click)="openSongDetail(item.scid,item.FileHash)">
+							{{common.deleteEM(item.songName)}}
+						</div>
+					</span>
 					<!-- 指数 -->
 					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
 						<img src="../../../assets/img/shuangzhexian.png" class="icon" />

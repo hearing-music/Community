@@ -1,0 +1,20 @@
+<div class="track">
+	<div class="track-top">
+		<div class="track-title">
+			音轨分离
+		</div>
+		<div class="track-sub">
+			从任何歌曲中提取人声、器乐和各种乐器
+		</div>
+	</div>
+	<div class="uploadFile-box">
+		<ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+	</div>
+	<div *ngIf='downloadZip' class="download">
+		<a [href]="downloadZip" download target="_blank">点击下载zip</a>
+	</div>
+	<div *ngIf='downloadZip' class="downloadTip">
+		十分钟后将删除，请及时下载
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

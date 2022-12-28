@@ -9,9 +9,11 @@
 			<div class="left-text">
 				<div class="title-area">
 					<!-- 歌名 -->
-					<div class="title u-line-1" (click)="openLink(item.rid)">
-						{{item.name}}
-					</div>
+					<span nz-tooltip [nzTooltipTitle]="item.name">
+						<div class="title" (click)="openLink(item.rid)">
+							{{item.name}}
+						</div>
+					</span>
 					<!-- <div (click)="openLink(item.rid)" style="margin-left: 8px;cursor: pointer;">
 						<span nz-icon nzType="linkedin" nzTheme="outline" style='color:blue'></span>
 					</div> -->
