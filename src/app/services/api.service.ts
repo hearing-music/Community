@@ -72,7 +72,7 @@ export class ApiService{
 	getIdentification(params:any){
 		const formData: FormData = new FormData();
 		formData.append('file', params.file);
-		let url = this.baseUrl+'/articles/getIdentification'
+		let url = this.baseUrl +'/articles/getIdentification'
 		// let url = "https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=getIdentification"
 		return this.http.post(url,formData)
 	}
@@ -80,7 +80,7 @@ export class ApiService{
 	trackSeparate(params:any){
 		const formData: FormData = new FormData();
 		formData.append('file', params.file);
-		let url = this.baseUrl+'/articles/trackSeparate'
+		let url = this.baseUrl +'/articles/trackSeparate'
 		return this.http.post(url,formData)
 	}
 	//版权搜索 名字
