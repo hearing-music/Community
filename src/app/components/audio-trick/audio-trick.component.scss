@@ -1,0 +1,73 @@
+.track-item{
+		border: 1px solid rgba(0, 0, 0, 0.12);
+		border-radius: 4px;
+		padding: 3.2px 8px;
+		margin: 0 24px;
+		margin-top: 18px;
+		button{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.sonogram{
+			height: 50px;
+			width: 100%;
+			background-color: #fff;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+			canvas{
+			            background:linear-gradient(
+			                135deg,
+			                rgb(142,132,133) 0%,
+			                rgb(230,132,110) 100%
+			            );
+			        }
+		}
+		.track-item_line2{
+			display: flex;
+			align-items: center;
+			padding:8px 0;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+			.volume{
+				position: relative;
+				margin: 0 4px;
+				.volume-size{
+					position: absolute;
+					width: 30px;
+					height: 80px;
+					bottom:30px;
+					border-radius: 8px;
+					background-color: #fff;
+					padding-bottom:12px;
+					z-index: 100;
+					box-shadow: 2px 2px 2px #F5F5F5;
+				}
+			}
+		}
+		.track-item_line3{
+			padding:8px 0;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			
+			.mute{
+				border-right: 1px solid rgba(0,0,0,0.12);
+				padding:0 8px;
+			}
+			.vocalTract{
+				border-right: 1px solid rgba(0,0,0,0.12);
+				padding:0 10px;
+				color: rgb(237, 108, 2);
+				font-weight: bold;
+				width: 150px;
+				display: flex;
+				align-items: center;
+			}
+			.line3-right{
+				display: flex;align-items: center;border-left: 1px solid rgba(0,0,0,0.12);
+				padding:0 4px;
+				a{
+					text-decoration: none;
+				}
+			}
+		}
+	}

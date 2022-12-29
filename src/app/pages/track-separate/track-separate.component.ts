@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
 import { environment } from '../../../environments/environment';
@@ -8,18 +8,54 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./track-separate.component.scss']
 })
 export class TrackSeparateComponent implements OnInit {
-
   constructor(public api: ApiService,public common: CommonService) { }
-
+	@ViewChild('drums') drums:any;
+	@ViewChild('other')	other:any;
+	@ViewChild('vocals') vocals:any;
+	@ViewChild('piano') piano:any;
+	@ViewChild('bass') bass:any;
   ngOnInit(): void {
+  }
+  // 页面卸载 删除文件
+  ngOnDestroy():void{
+	  console.log('卸载')
+	  if(this.downloadName){
+		  this.api.removeFile({
+		  		 filename:this.downloadName
+		  }).subscribe((res: any) => {
+		  			console.log(res)
+		  		}, (err: any) => {
+		  			console.log(err)
+		  		})
+	  }
   }
 	file:any = '';
 	loading=false;
 	downloadZip = ''
 	host = environment.downloadUrl;
+	downloadName = ''
+	downloadUrl = ''
+	isPlay = false;
+	// 一起播放
+	allPlay(){
+		this.isPlay = !this.isPlay;
+		if(this.isPlay){
+			this.drums.playForce()
+			this.other.playForce()
+			this.vocals.playForce()
+			this.piano.playForce()
+			this.bass.playForce()
+		}else{
+			this.drums.pauseForce()
+			this.other.pauseForce()
+			this.vocals.pauseForce()
+			this.piano.pauseForce()
+			this.bass.pauseForce()
+		}
+	}
 	onFile(file:any): void{
 		console.log(file)
-		console.log(this.host)
+		// console.log(this.host)
 		this.file = file;
 		this.trackSeparate()
 	}
@@ -31,7 +67,9 @@ export class TrackSeparateComponent implements OnInit {
 			this.loading = false;
 			console.log(res)
 			if(res.success){
-				this.downloadZip = this.host + res.result.url;
+				this.downloadUrl = this.host + res.result.url;
+				this.downloadName = res.result.name;
+				this.downloadZip = this.downloadUrl + this.downloadName + '.zip';
 			}
 		}, (err: any) => {
 			console.log(err)

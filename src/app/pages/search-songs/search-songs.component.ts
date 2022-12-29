@@ -109,7 +109,7 @@ export class SearchSongsComponent implements OnInit {
 		}, 50)
 	}
 	play(element: any) {
-		// console.log(element.srcElement.currentSrc)
+		console.log(element)
 		if (this.selectItem == 'QQ音乐') {
 			var i = this.qqList.findIndex((e: any) => e.musicUrl == element.srcElement.currentSrc)
 			if (i !== -1) {

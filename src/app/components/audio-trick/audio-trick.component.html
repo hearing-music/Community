@@ -1,0 +1,85 @@
+<div class="track-item">
+	<div class="sonogram">
+		<canvas [id]="nameEn+'canvas'"></canvas>
+	</div>
+	<div class="track-item_line2">
+		<div style="margin: 0 4px;">
+			<button nz-button nzShape="circle" nzType="text" class="downloadBtn" (click)='playMusic()'>
+				<span *ngIf='isPlay' nz-icon nzType="pause-circle" nzTheme="outline"
+					style="color:#3B29AA;font-size: 13px;"></span>
+				<span *ngIf='!isPlay' nz-icon nzType="play-circle" nzTheme="outline"
+					style="color:#3B29AA;font-size: 13px;"></span>
+			</button>
+		</div>
+		<div style="margin: 0 4px;" class="volume" (mouseenter)='volumemouseenter()' (mouseleave)='volumemouseleave()'>
+			<!-- 音量大小 -->
+			<div class="volume-size" *ngIf='volumeShow'>
+				<nz-slider nzVertical [ngModel]="volume" (ngModelChange)='volumeChange($event)'></nz-slider>
+			</div>
+			<button nz-button nzShape="circle" nzType="text" class="downloadBtn">
+				<img src="../../assets/img/rounded.png" style="width: 13.5px;height: 13px;">
+			</button>
+		</div>
+		<div style='font-size: 12px;color: rgb(25, 118, 210);font-weight: bold;margin: 0 4px;'>
+			[ {{nameCn}} ]
+		</div>
+		<div style="flex:1;margin: 0 4px;">
+			<nz-slider [(ngModel)]="currentTime" [nzDisabled]="disable1" [nzMax]='duration'
+				(ngModelChange)='currentTimeStop()' (nzOnAfterChange)='currentTimeChange($event)'></nz-slider>
+		</div>
+		<div style="font-size: 12px;margin:0 18px;">
+			{{currentTime}} - {{duration}}
+		</div>
+	</div>
+	<div class="track-item_line3">
+		<div style="display: flex;align-items: center;">
+			<div class="mute">
+				<button nz-button nzShape="circle" nzType="text" class="downloadBtn" (click)='muteMusic()'>
+					<img *ngIf='!isMute' src="../../assets/img/mute-1.png" style="width: 13px;height: 13px;">
+					<img *ngIf='isMute' src="../../assets/img/mute-2.png" style="width: 13px;height: 13px;">
+				</button>
+			</div>
+			<div class="vocalTract">
+				<div>
+					L
+				</div>
+				<nz-slider style="flex:1;" [(ngModel)]="value2" [nzDisabled]="disable2"></nz-slider>
+				<div>
+					R
+				</div>
+			</div>
+		</div>
+		<div class="line3-right">
+			<div>
+				<button nz-button nzType="text" class="downloadBtn"
+					(click)="download(url+folderName+'/'+nameEn+'.mp3')">
+					<span style="font-size: 12px;color:green;font-weight: bold;">
+						Mp3
+					</span>
+					<span nz-icon nzType="download" nzTheme="outline" style="color:green;font-size: 13px;"></span>
+				</button>
+			</div>
+			<div>
+				<button nz-button nzType="text" class="downloadBtn" 
+				(click)="download(url+folderName+'/'+nameEn+'.wav')">
+					<span style="font-size: 12px;color:green;font-weight: bold;">
+						Wav
+					</span>
+					<span nz-icon nzType="download" nzTheme="outline" style="color:green;font-size: 13px;"></span>
+				</button>
+			</div>
+			<div>
+				<a [href]="url+folderName+'/'+nameEn+'.mid'" download>
+					<button nz-button nzType="text" class="downloadBtn">
+						<span style="font-size: 12px;color:green;font-weight: bold;">
+							Mid
+						</span>
+						<span nz-icon nzType="download" nzTheme="outline" style="color:green;font-size: 13px;"></span>
+					</button>
+				</a>
+			</div>
+		</div>
+	</div>
+	<audio [id]='nameEn' (loadstart)='loadstart($event)' (play)='play()' (pause)='pause()'
+		(timeupdate)="timeupdate($event)" [src]="url+folderName+'/'+nameEn+'.mp3'"></audio>
+</div>

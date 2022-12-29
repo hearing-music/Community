@@ -83,6 +83,11 @@ export class ApiService{
 		let url = this.baseUrl +'/articles/trackSeparate'
 		return this.http.post(url,formData)
 	}
+	// 删除音轨分离文件
+	removeFile(params:any){
+		let url = this.baseUrl +'/articles/removeFileTrackSeparate?filename='+params.filename
+		return this.http.get(url)
+	}
 	//版权搜索 名字
 	copyrightSearch(params:any){
 		return this.http.get(this.tencentUrl+"/search?action=copyright_search&params="+JSON.stringify({keyword:params.keyword}))

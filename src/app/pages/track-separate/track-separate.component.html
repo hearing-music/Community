@@ -10,11 +10,44 @@
 	<div class="uploadFile-box">
 		<ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
 	</div>
-	<div *ngIf='downloadZip' class="download">
-		<a [href]="downloadZip" download target="_blank">点击下载zip</a>
+	<!-- 下载zip -->
+	<div *ngIf='downloadName' class="download">
+		<div>
+			{{downloadName}}
+		</div>
+		<a [href]="downloadZip" download>
+			<button nz-button nzType="text" class="downloadBtn">
+				<span>
+					下载zip
+				</span>
+				<span nz-icon nzType="file-zip" nzTheme="outline" style="color: blue;margin-left: 4px;"></span>
+			</button>
+		</a>
 	</div>
-	<div *ngIf='downloadZip' class="downloadTip">
+	
+	<!-- 五种音轨 -->
+	<div *ngIf='downloadName' class="trackFive">
+		<!-- 鼓 -->
+		<ngx-audio-trick #drums [nameCn]='"鼓"' [nameEn]='"drums"' [url]='downloadUrl' [folderName]='downloadName'></ngx-audio-trick>
+		<ngx-audio-trick #bass [nameCn]='"贝斯"' [nameEn]='"bass"' [url]='downloadUrl' [folderName]='downloadName'></ngx-audio-trick>
+		<ngx-audio-trick #other [nameCn]='"其他"' [nameEn]='"other"' [url]='downloadUrl' [folderName]='downloadName'></ngx-audio-trick>
+		<ngx-audio-trick #vocals [nameCn]='"人声"' [nameEn]='"vocals"' [url]='downloadUrl' [folderName]='downloadName'></ngx-audio-trick>
+		<ngx-audio-trick #piano [nameCn]='"钢琴"' [nameEn]='"piano"' [url]='downloadUrl' [folderName]='downloadName'></ngx-audio-trick>
+		
+	</div>
+	<!-- 混音 -->
+	<div *ngIf='downloadName' class="allTrack">
+		<button nz-button nzType="text" class="downloadBtn" (click)='allPlay()'>
+			<span>全部{{isPlay?'暂停':'播放'}}</span>
+			<span *ngIf='isPlay' nz-icon nzType="pause-circle" nzTheme="outline"
+				style="color:#3B29AA;font-size: 24px;"></span>
+			<span *ngIf='!isPlay' nz-icon nzType="play-circle" nzTheme="outline"
+				style="color:#3B29AA;font-size: 24px;"></span>
+		</button>
+	</div>
+	<!-- <div *ngIf='downloadZip' class="downloadTip">
 		十分钟后将删除，请及时下载
-	</div>
+	</div> -->
+	
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>

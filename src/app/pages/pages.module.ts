@@ -16,6 +16,7 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSliderModule } from 'ng-zorro-antd/slider';
 // page
 import { FreeSongsComponent } from './kugou/free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
@@ -51,6 +52,7 @@ import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-se
 import { CopyrightLinkComponent } from './copyright-scanning/copyright-link/copyright-link.component';
 import { TrackSeparateComponent } from './track-separate/track-separate.component';
 import { MusiryToolsComponent } from './musiry-tools/musiry-tools.component';
+import { AudioTrickComponent } from '../components/audio-trick/audio-trick.component';
 @NgModule({
   imports: [
 		NzMessageModule,
@@ -61,6 +63,7 @@ import { MusiryToolsComponent } from './musiry-tools/musiry-tools.component';
 		NzEmptyModule,
 		NzButtonModule,
 		NzSelectModule,
+		NzSliderModule,
 		FormsModule,
 		IconsProviderModule,
 		
@@ -109,6 +112,7 @@ import { MusiryToolsComponent } from './musiry-tools/musiry-tools.component';
  CopyrightLinkComponent,
  TrackSeparateComponent,
  MusiryToolsComponent,
+ AudioTrickComponent,
   ],
 })
 export class PagesModule {
