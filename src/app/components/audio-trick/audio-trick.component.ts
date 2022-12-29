@@ -66,7 +66,7 @@ export class AudioTrickComponent implements OnInit {
 		this.currentTime = parseInt(e.srcElement.currentTime);
 		setTimeout(()=>{
 			this.duration = parseInt(e.srcElement.duration);
-		},100)
+		},500)
 		
 	  }
 	// 静音按钮
