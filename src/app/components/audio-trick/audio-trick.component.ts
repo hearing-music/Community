@@ -104,6 +104,7 @@ export class AudioTrickComponent implements OnInit {
 	timeupdate(e:any){
 		if(!this.stopCurrentTime){
 			this.currentTime = parseInt(e.srcElement.currentTime);
+			this.duration = parseInt(e.srcElement.duration);
 		}
 	}
 	
