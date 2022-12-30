@@ -80,6 +80,7 @@ export class ApiService{
 	trackSeparate(params:any){
 		const formData: FormData = new FormData();
 		formData.append('file', params.file);
+		formData.append('compress',params.compress)
 		let url = this.baseUrl +'/articles/trackSeparate'
 		return this.http.post(url,formData)
 	}

@@ -4,7 +4,13 @@
 			音轨分离
 		</div>
 		<div class="track-sub">
-			从任何歌曲中提取人声、器乐和各种乐器
+			<div>
+				从任何歌曲中提取人声、器乐和各种乐器(文件过大容易失败,可选压缩分离)
+			</div>
+			<div>
+				<span style="margin-right: 8px;">是否压缩</span>
+				<nz-switch [(ngModel)]="compress"></nz-switch>
+			</div>
 		</div>
 	</div>
 	<div class="uploadFile-box">

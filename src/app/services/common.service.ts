@@ -45,18 +45,20 @@ export class CommonService {
 		var mydate = year + "-" + month + "-" + day + '';
 		return mydate
 	}
-	download(src: string, name: string) {//下载图片地址和图片名
-		fetch(src).then((res) => {
-		  res.blob().then((blob) => {
-		    const blobUrl = window.URL.createObjectURL(blob);
-		    // 这里的文件名根据实际情况从响应头或者url里获取
-		    const a = document.createElement('a');
-		    a.href = blobUrl;
-		    a.download = name;
-		    a.click();
-		    window.URL.revokeObjectURL(blobUrl);
-		  });
-		});
+	download(src: string, name: string) {//下载地址和名
+		var request = new XMLHttpRequest();
+			request.responseType = "blob";
+			let fileUrl = src; // 文件路径
+			request.open("GET", fileUrl );
+			request.onload = function() {
+			    var url = window.URL.createObjectURL(this.response);
+			    var a = document.createElement("a");
+			    document.body.appendChild(a);
+			    a.href = url;
+			    a.download = name;
+			    a.click();
+			}
+			request.send();
 	};
 	durationFormat(num:number){
 		if(!num) return '0:00'

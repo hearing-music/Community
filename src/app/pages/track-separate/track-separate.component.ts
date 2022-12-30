@@ -36,6 +36,8 @@ export class TrackSeparateComponent implements OnInit {
 	downloadName = ''
 	downloadUrl = ''
 	isPlay = false;
+	// 是否压缩
+	compress=false;
 	// 一起播放
 	allPlay(){
 		this.isPlay = !this.isPlay;
@@ -62,7 +64,8 @@ export class TrackSeparateComponent implements OnInit {
 	trackSeparate(): void {
 		this.loading = true;
 		this.api.trackSeparate({
-			file: this.file
+			file: this.file,
+			compress:this.compress
 		}).subscribe((res: any) => {
 			this.loading = false;
 			console.log(res)
