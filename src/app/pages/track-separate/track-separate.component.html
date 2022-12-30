@@ -21,25 +21,28 @@
 		<div>
 			{{downloadName}}
 		</div>
-		<a [href]="downloadZip" download>
-			<button nz-button nzType="text" class="downloadBtn">
-				<span>
-					下载zip
-				</span>
-				<span nz-icon nzType="file-zip" nzTheme="outline" style="color: blue;margin-left: 4px;"></span>
-			</button>
-		</a>
+		<button nz-button nzType="text" class="downloadBtn" (click)='download()'>
+			<span>
+				下载zip
+			</span>
+			<span nz-icon nzType="file-zip" nzTheme="outline" style="color: blue;margin-left: 4px;"></span>
+		</button>
 	</div>
-	
+
 	<!-- 五种音轨 -->
 	<div *ngIf='downloadName' class="trackFive">
 		<!-- 鼓 -->
-		<ngx-audio-trick #drums [nameCn]='"鼓"' [nameEn]='"drums"' [url]='downloadUrl' [folderName]='downloadName'></ngx-audio-trick>
-		<ngx-audio-trick #bass [nameCn]='"贝斯"' [nameEn]='"bass"' [url]='downloadUrl' [folderName]='downloadName'></ngx-audio-trick>
-		<ngx-audio-trick #other [nameCn]='"其他"' [nameEn]='"other"' [url]='downloadUrl' [folderName]='downloadName'></ngx-audio-trick>
-		<ngx-audio-trick #vocals [nameCn]='"人声"' [nameEn]='"vocals"' [url]='downloadUrl' [folderName]='downloadName'></ngx-audio-trick>
-		<ngx-audio-trick #piano [nameCn]='"钢琴"' [nameEn]='"piano"' [url]='downloadUrl' [folderName]='downloadName'></ngx-audio-trick>
-		
+		<ngx-audio-trick #drums [nameCn]='"鼓"' [nameEn]='"drums"' [url]='downloadUrl' [folderName]='downloadName'>
+		</ngx-audio-trick>
+		<ngx-audio-trick #bass [nameCn]='"贝斯"' [nameEn]='"bass"' [url]='downloadUrl' [folderName]='downloadName'>
+		</ngx-audio-trick>
+		<ngx-audio-trick #other [nameCn]='"其他"' [nameEn]='"other"' [url]='downloadUrl' [folderName]='downloadName'>
+		</ngx-audio-trick>
+		<ngx-audio-trick #vocals [nameCn]='"人声"' [nameEn]='"vocals"' [url]='downloadUrl' [folderName]='downloadName'>
+		</ngx-audio-trick>
+		<ngx-audio-trick #piano [nameCn]='"钢琴"' [nameEn]='"piano"' [url]='downloadUrl' [folderName]='downloadName'>
+		</ngx-audio-trick>
+
 	</div>
 	<!-- 混音 -->
 	<div *ngIf='downloadName' class="allTrack">
@@ -54,6 +57,6 @@
 	<!-- <div *ngIf='downloadZip' class="downloadTip">
 		十分钟后将删除，请及时下载
 	</div> -->
-	
+
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>

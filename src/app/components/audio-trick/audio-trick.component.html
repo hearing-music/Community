@@ -60,8 +60,8 @@
 				</button>
 			</div>
 			<div>
-				<button nz-button nzType="text" class="downloadBtn" 
-				(click)="download(url+folderName+'/'+nameEn+'.wav')">
+				<button nz-button nzType="text" class="downloadBtn"
+					(click)="download(url+folderName+'/'+nameEn+'.wav')">
 					<span style="font-size: 12px;color:green;font-weight: bold;">
 						Wav
 					</span>
@@ -69,14 +69,13 @@
 				</button>
 			</div>
 			<div>
-				<a [href]="url+folderName+'/'+nameEn+'.mid'" download>
-					<button nz-button nzType="text" class="downloadBtn">
-						<span style="font-size: 12px;color:green;font-weight: bold;">
-							Mid
-						</span>
-						<span nz-icon nzType="download" nzTheme="outline" style="color:green;font-size: 13px;"></span>
-					</button>
-				</a>
+				<button nz-button nzType="text" class="downloadBtn"
+					(click)="download(url+folderName+'/'+nameEn+'.mid')">
+					<span style="font-size: 12px;color:green;font-weight: bold;">
+						Mid
+					</span>
+					<span nz-icon nzType="download" nzTheme="outline" style="color:green;font-size: 13px;"></span>
+				</button>
 			</div>
 		</div>
 	</div>

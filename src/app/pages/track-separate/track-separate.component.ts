@@ -38,6 +38,9 @@ export class TrackSeparateComponent implements OnInit {
 	isPlay = false;
 	// 是否压缩
 	compress=false;
+	download(){
+		this.common.download(this.downloadZip,this.downloadName)
+	}
 	// 一起播放
 	allPlay(){
 		this.isPlay = !this.isPlay;
