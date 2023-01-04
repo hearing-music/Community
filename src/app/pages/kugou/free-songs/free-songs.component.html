@@ -3,19 +3,28 @@
 		<div>
 			酷狗免费歌曲
 		</div>
-		<!-- 搜索
-		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
-		</ngx-search> -->
+		<div style="display: flex;align-items: center;">
+			<label nz-checkbox [(ngModel)]="checked" (ngModelChange)='ngModelChangeCheckBox($event)'>新增歌曲</label>
+			<div style="width: 16px;"></div>
+			<nz-select style="width: 120px;" [(ngModel)]="type" (ngModelChange)='ngModelChange($event)'>
+				<nz-option *ngFor="let item of typeList;" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
+			</nz-select>
+			<div style="width: 16px;"></div>
+			<!-- 搜索 -->
+			<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
+			</ngx-search>
+		</div>
 	</div>
 	<nz-table #basicTable [nzData]="list" nzTitle='' [nzFrontPagination]='false'>
 	  <thead>
 	    <tr>
 	      <th nzWidth='80px' nzAlign='center'>排序</th>
-	      <th nzAlign='center'>专辑名称</th>
+		  <th nzAlign='center'>歌曲名称</th>
 	      <th nzAlign='center'>发行公司</th>
 	      <th nzAlign='center'>发行时间</th>
-	      <th nzAlign='center'>歌曲名称</th>
+		  <th nzAlign='center'>专辑名称</th>
 	      <th nzAlign='center'>歌手名称</th>
+	      <th nzAlign='center'>aduioID</th>
 	      <th nzAlign='center'>指数</th>
 	      <th nzWidth='80px' nzAlign='center'>查看</th>
 	    </tr>
@@ -25,8 +34,10 @@
 	      <td  nzAlign='center'>
 	        {{(i+1)+(pageCurrent-1)*pageSize}}
 	      </td>
-		  <td nzAlign='center'>
-			  {{item.album_name}}
+		  <td nzAlign='center' style="cursor: pointer;" (click)='copy(item.songname)'>
+			  <span nz-tooltip [nzTooltipTitle]="'点击复制'">
+				  {{item.songname}}
+			  </span>
 		  </td>
 		  <td nzAlign='center'>
 		  	{{item.company?item.company:''}}	  
@@ -35,13 +46,26 @@
 		  	{{item.publish_time?common.getDate(item.publish_time):''}}	 
 		  </td>
 		  <td nzAlign='center'>
-		  	{{item.songname}}	  
+		  	{{item.album_name}}
 		  </td>
 		  <td nzAlign='center'>
 		  	{{item.singername}}	  
 		  </td>
-		  <td nzAlign='center'>
-		  	{{item.exponent?common.toThousands(item.exponent):0}}	  
+		  <td nzAlign='center' style="cursor: pointer;" (click)='copy(item.audio_id)'>
+			  <span nz-tooltip [nzTooltipTitle]="'点击复制'">
+				{{item.audio_id}}  
+			</span>
+		  </td>
+		  <td nzAlign='center' style="cursor: pointer;" (click)='reloadExponent(item)'>
+			  <span nz-tooltip [nzTooltipTitle]="'点击刷新'">
+			  <span nz-icon nzType="redo" nzTheme="outline"></span>
+				  <div>
+				  				  {{item.exponent?common.toThousands(item.exponent):0}}
+				  </div>
+			  <div style="color: red;">
+				  {{item.newExponent?common.toThousands(item.newExponent):''}}
+			  </div>
+			  </span>
 		  </td>
 		  <td nzAlign='center' style="color:blue;cursor: pointer;" (click)='openLink(item)'>
 		  	查看
@@ -49,9 +73,8 @@
 	    </tr>
 	  </tbody>
 	</nz-table>
-	<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='list.length>0'>
-		<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal" (nzPageIndexChange)='nzPageIndexChange()'></nz-pagination>
+	<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='list.length>0&&pageTotal>50'>
+		<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal" (nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
-	<ngx-not-open></ngx-not-open>
 </div>

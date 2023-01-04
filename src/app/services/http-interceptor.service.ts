@@ -44,7 +44,12 @@ export class HttpInterceptorService implements HttpInterceptor {
         },
         (error: any) => {
           // 处理错误的数据
-		  this.message.error(error.error.code)
+		  if(error.url == "http://communityapi.jinzhoushaokao.top/articles/trackSeparate"&&error.status == 500){
+			  this.message.error('文件过大，请选择压缩处理')
+		  }else{
+			  this.message.error(error.error.code||error.statusText)
+		  }
+		  
           console.log(error)
         }
       )

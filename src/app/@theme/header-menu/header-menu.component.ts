@@ -17,7 +17,7 @@ export class HeaderMenuComponent implements OnInit {
 	}
 	pathname='';
 	clickMenu(link:string,name:string){
-		if(name=='官网'){
+		if(name=='官网' || name=='Telegram'){
 			window.open(link)
 			return
 		}
@@ -48,6 +48,10 @@ export class HeaderMenuComponent implements OnInit {
 		{
 			name:'官网',
 			link:'http://www.tingjianmusic.top/'
+		},
+		{
+			name:'Telegram',
+			link:'https://evgeny-nadymov.github.io/telegram-react/'
 		}
 	]
   ngOnInit(): void {

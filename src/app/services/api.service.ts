@@ -12,6 +12,7 @@ export class ApiService{
 	constructor(private http:HttpClient) {
 		
 	}
+	
 	// qq搜索歌曲
 	getQQ(params: any) {
 		return this.http.get(this.tencentUrl+"/search?action=search_qq&params="+JSON.stringify({keyword:params.keyword,page:params.page}))
@@ -55,6 +56,16 @@ export class ApiService{
 	getKugou_yinghuo(params:any){
 		return this.http.get(this.tencentUrl+"/search?action=kugou_yinghuo&params="+JSON.stringify(params))
 	}
+	// 酷狗 id获取指数
+	getKugou_exponent(params:any){
+		let url = this.tencentUrl+"/search?action=kugou_exponent&params="+JSON.stringify(params)
+		return this.http.get(url)
+	}
+	// 酷狗免费歌曲
+	getKugou_freeSongs(params:any){
+		let url = this.baseUrl +'/kugou/freeSongs?page='+params.page+'&pageSize='+params.pageSize+'&keyword='+params.keyword+'&type='+params.type+'&newly='+params.newly
+		return this.http.get(url)
+	}
 	// 腾讯音乐人搜索
 	getMusicianTx(params:any){
 		return this.http.get(this.tencentUrl+"/search?action=search_qq_musician&params="+JSON.stringify({keyword:params.keyword,page:params.page}))
@@ -82,6 +93,7 @@ export class ApiService{
 		formData.append('file', params.file);
 		formData.append('compress',params.compress)
 		let url = this.baseUrl +'/articles/trackSeparate'
+		// let url = 'http://communityapi.jinzhoushaokao.top'+'/articles/trackSeparate'
 		return this.http.post(url,formData)
 	}
 	// 删除音轨分离文件

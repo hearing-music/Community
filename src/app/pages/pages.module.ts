@@ -18,6 +18,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 // page
 import { FreeSongsComponent } from './kugou/free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
@@ -64,6 +65,7 @@ import { AudioTrickComponent } from '../components/audio-trick/audio-trick.compo
 		NzEmptyModule,
 		NzButtonModule,
 		NzSelectModule,
+		NzCheckboxModule,
 		NzSliderModule,
 		NzSwitchModule,
 		FormsModule,
