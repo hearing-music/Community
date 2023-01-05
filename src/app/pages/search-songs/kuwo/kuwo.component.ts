@@ -24,6 +24,37 @@ export class KuwoComponent implements OnInit {
 		console.log(err)
 	})
 	}
+	
+	// 获取歌词
+	getLyric(item:any){
+		this.api.getKuwoLyric({
+			rid:item.rid,
+		}).subscribe((res: any) => {
+			console.log(res)
+			if(res.success){
+				res.result.forEach((item:any)=>{
+					item.time = this.common.lyricTimeShift(item.time)
+				})
+				item.lyricData2 = res.result
+				item.lyricReadly = true;
+			}
+		}, (err: any) => {
+			console.log(err)
+		})
+		
+	}
+	mouseenter(item:any){
+		item.lyricShow = true;
+		if(item.lyricData2){
+			item.lyricReadly = true;
+		}else{
+			item.lyricReadly = false;
+			this.getLyric(item)
+		}
+	}
+	mouseleave(item:any){
+		item.lyricShow = false;
+	}
   ngOnInit(): void {
   }
 

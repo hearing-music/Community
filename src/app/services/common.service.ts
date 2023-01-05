@@ -56,6 +56,47 @@ export class CommonService {
 			return false
 		}
 	}
+	// 解析歌词
+	parseLRC2(sourceLrc:any) {
+		sourceLrc.replaceAll('\n','')
+		let lrcArr = [];
+		try {
+			// 处理歌词，转化成key为时间，value为歌词的对象
+			let lyricArr = sourceLrc.split('[').slice(1); // 先以[进行分割
+			if (lyricArr.length == 0) {
+				return false
+			}
+			lyricArr.forEach((item:any) => {
+				let arr = item.split(']'); // 再分割右括号
+				let lrcObj = {};
+				if (arr[1] != '\r\n' && arr[1] != null) { // 去除歌词中的换行符
+					// lrcObj[arr[0]] = arr[1];
+					lrcObj['time'] = arr[0];
+					lrcObj['lineLyric'] = arr[1]
+					lrcArr.push(lrcObj)
+				}
+	
+			})
+			// 存储数据
+			return lrcArr;
+		} catch (e) {
+			console.log('歌词出错')
+			console.log(e)
+			return false
+		}
+	}
+	// 秒转分钟
+	lyricTimeShift(time:any){
+		time = time - 0;
+		time = time.toFixed(2)
+		var m:any = parseInt((time/60).toString());
+		if(m < 10) m = '0'+m
+		var s:any = parseInt((time%60).toString());
+		if(s<10) s = '0'+s
+		var ms = time.substr(-2)
+		// if(ms < 10) ms = 0 +ms
+		return m+':'+s+'.'+ms
+	}
 	getDate(date: number) {
 		var time = new Date(date);
 		var year = time.getFullYear()  //年

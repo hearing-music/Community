@@ -19,6 +19,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 // page
 import { FreeSongsComponent } from './kugou/free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
@@ -41,6 +42,7 @@ import { IconsProviderModule } from './icons-provider.module';
 import { LoadingComponent } from '../components/loading/loading.component';
 import { UploadFileComponent } from '../components/upload-file/upload-file.component';
 import { LyricComponent } from '../components/lyric/lyric.component';
+import { LyricAllComponent } from '../components/lyric-all/lyric-all.component';
 import { BrandUserComponent } from './search-page/brand-user/brand-user.component';
 import { Sing5Component } from './search-page/sing5/sing5.component';
 import { WangyisixinComponent } from './search-page/wangyisixin/wangyisixin.component';
@@ -68,6 +70,7 @@ import { AudioTrickComponent } from '../components/audio-trick/audio-trick.compo
 		NzCheckboxModule,
 		NzSliderModule,
 		NzSwitchModule,
+		NzSpinModule,
 		FormsModule,
 		IconsProviderModule,
 		
@@ -103,6 +106,7 @@ import { AudioTrickComponent } from '../components/audio-trick/audio-trick.compo
 	LoadingComponent,
 	UploadFileComponent,
 	LyricComponent,
+	LyricAllComponent,
 	NotOpenComponent,
  BrandUserComponent,
  Sing5Component,

@@ -1,0 +1,16 @@
+<div class="lyric-all">
+	<nz-spin *ngIf='!lyricReadly' nzSimple style="margin-top: 200px;"></nz-spin>
+	<div class="lyric-all_scroll" *ngIf='lyricReadly'>
+		<div *ngFor="let lyric of lyricData;" style="margin-bottom: 10px;display: flex;">
+			<div style="margin-right: 8px;">
+				{{lyric.time}}
+			</div>
+			<div style="color: #000;font-weight: bold;">
+				{{lyric.lineLyric}}
+			</div>
+		</div>
+		<!-- <div>
+			{{lyricData}}
+		</div> -->
+	</div>
+</div>

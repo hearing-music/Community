@@ -55,6 +55,7 @@ export class SearchSongsComponent implements OnInit {
 		}).subscribe((res: any) => {
 			console.log(res)
 			if(res.success){
+				this.qqList[i].lyricText = res.result.lyric
 				this.qqList[i].lyricData = this.common.parseLRC(res.result.lyric)
 				this.lyricData = this.qqList[i].lyricData
 			}
@@ -65,9 +66,10 @@ export class SearchSongsComponent implements OnInit {
 	// qq传参
 	qqSrcChange(params: any) {
 		let { src, i } = params;
-		if(!this.qqList[i].lyricData){
+		if(!this.qqList[i].lyricText){
 			this.getLyric(this.qqList[i].mid,i)
 		}else{
+			this.qqList[i].lyricData = this.common.parseLRC(this.qqList[i].lyricText)
 			this.lyricData = this.qqList[i].lyricData
 		}
 		this.audioSrc = src;

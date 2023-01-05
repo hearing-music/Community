@@ -21,7 +21,38 @@ export class QqComponent implements OnInit {
 	}
 	popRankShow = false;
 	rankItem :any = [];
+	lyricShow = false;
 	
+	
+	// 获取歌词
+	getLyric(item:any){
+		this.api.getQQLyric({
+			songmid: item.mid,
+		}).subscribe((res: any) => {
+			console.log(res)
+			if(res.success){
+				item.lyricText = res.result.lyric
+				item.lyricData2 = this.common.parseLRC2(item.lyricText)
+				item.lyricReadly = true;
+			}
+		}, (err: any) => {
+			console.log(err)
+		})
+		
+	}
+	mouseenter(item:any){
+		item.lyricShow = true;
+		if(item.lyricText){
+			item.lyricData2 = this.common.parseLRC2(item.lyricText)
+			item.lyricReadly = true;
+		}else{
+			item.lyricReadly = false;
+			this.getLyric(item)
+		}
+	}
+	mouseleave(item:any){
+		item.lyricShow = false;
+	}
 	// 打开公司
 	openCompay(id:string|number){
 		window.open('https://y.qq.com/portal/company_detail.html?id='+id+'#sort=1&type=album')

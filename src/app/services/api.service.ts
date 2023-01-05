@@ -15,38 +15,94 @@ export class ApiService{
 	
 	// qq搜索歌曲
 	getQQ(params: any) {
-		return this.http.get(this.tencentUrl+"/search?action=search_qq&params="+JSON.stringify({keyword:params.keyword,page:params.page}))
+		let {
+			keyword,
+			page
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=search_qq&params="+JSON.stringify({keyword,page}))
 	}
+	// qq歌词
 	getQQLyric(params:any){
-		return this.http.get(this.tencentUrl+"/search?action=qq_lyric&params="+JSON.stringify({songmid:params.songmid}))
+		let {
+			songmid
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=qq_lyric&params="+JSON.stringify({songmid}))
+	}
+	// 酷狗歌词
+	getKugouLyric(params:any){
+		let {
+			hash
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=kugou_lyric&params="+JSON.stringify({hash}))
+	}
+	// 酷我歌词
+	getKuwoLyric(params:any){
+		let {
+			rid
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=kuwo_lyric&params="+JSON.stringify({rid}))
+	}
+	// 网易云歌词
+	getWangyiyunLyric(params:any){
+		let {
+			songid
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=wangyiyun_lyric&params="+JSON.stringify({songid}))
 	}
 	// 搜索qq歌单
 	get_qq_songlist(params:any){
-		return this.http.get(this.tencentUrl+"/search?action=search_qq_songlist&params="+JSON.stringify({pageSize:params.pageSize,keyword:params.keyword,page:params.page}))
+		let {
+			pageSize,
+			keyword,
+			page
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=search_qq_songlist&params="+JSON.stringify({pageSize,keyword,page}))
 	}
 	// 酷我搜索歌曲
 	getKuwo(params: any){
-		return this.http.get(this.tencentUrl+"/search?action=search_kuwo&params="+JSON.stringify({keyword:params.keyword,page:params.page}))
+		let {
+			keyword,
+			page
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=search_kuwo&params="+JSON.stringify({keyword,page}))
 	}
 	// 获取酷我单条评论数
 	getKuwoComment(params:any){
-		return this.http.get(this.tencentUrl+"/search?action=search_kuwo_comment&params="+JSON.stringify({rid:params.rid}))
+		let {
+			rid,
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=search_kuwo_comment&params="+JSON.stringify({rid}))
 	}
 	// 网易云搜索歌曲
 	getWangyiyun(params: any){
-		return this.http.get(this.tencentUrl+"/search?action=search_wangyiyun&params="+JSON.stringify({keyword:params.keyword,page:params.page}))
+		let {
+			keyword,
+			page
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=search_wangyiyun&params="+JSON.stringify({keyword,page}))
 	}
 	// 网易云搜索用户
 	getWangyiyun_user(params:any){
-		return this.http.get(this.tencentUrl+"/search?action=search_wangyiyun_user&params="+JSON.stringify({keyword:params.keyword,page:params.page}))
+		let {
+			keyword,
+			page
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=search_wangyiyun_user&params="+JSON.stringify({keyword,page}))
 	}
 	// 酷狗v3搜索歌曲
 	getV3(params: any){
-		return this.http.get(this.tencentUrl+"/search?action=search_kugou&params="+JSON.stringify({keyword:params.keyword,page:params.page}))
+		let {
+			keyword,
+			page
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=search_kugou&params="+JSON.stringify({keyword,page}))
 	}
 	// 酷狗飙升榜
 	getKugou_soaring(params:any){
-		return this.http.get(this.tencentUrl+"/search?action=kugou_soaring&params="+JSON.stringify({page:params.page}))
+		let {
+			page
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=kugou_soaring&params="+JSON.stringify({page}))
 	}
 	// 酷狗萤火计划 获取标签
 	getKugou_yinghuoTag(){
@@ -58,17 +114,31 @@ export class ApiService{
 	}
 	// 酷狗 id获取指数
 	getKugou_exponent(params:any){
-		let url = this.tencentUrl+"/search?action=kugou_exponent&params="+JSON.stringify(params)
+		let {
+			scid
+		} = params
+		let url = this.tencentUrl+"/search?action=kugou_exponent&params="+JSON.stringify({scid})
 		return this.http.get(url)
 	}
 	// 酷狗免费歌曲
 	getKugou_freeSongs(params:any){
-		let url = this.baseUrl +'/kugou/freeSongs?page='+params.page+'&pageSize='+params.pageSize+'&keyword='+params.keyword+'&type='+params.type+'&newly='+params.newly
+		let {
+			page,
+			pageSize,
+			keyword,
+			type,
+			newly
+		} = params;
+		let url = this.baseUrl +'/kugou/freeSongs?page='+page+'&pageSize='+pageSize+'&keyword='+keyword+'&type='+type+'&newly='+newly
 		return this.http.get(url)
 	}
 	// 腾讯音乐人搜索
 	getMusicianTx(params:any){
-		return this.http.get(this.tencentUrl+"/search?action=search_qq_musician&params="+JSON.stringify({keyword:params.keyword,page:params.page}))
+		let {
+			page,
+			keyword,
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=search_qq_musician&params="+JSON.stringify({keyword,page}))
 	}
 	// 抖音热点
 	getDouyinHot(){
@@ -76,44 +146,68 @@ export class ApiService{
 	}
 	//抖音短视频
 	getDouyinVideo(params:any){
-		return this.http.get(this.tencentUrl+"/search?action=douyin_video&params="+JSON.stringify({keyword:params.keyword}))
+		let {
+			keyword
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=douyin_video&params="+JSON.stringify({keyword}))
 		
 	}
 	// 听歌识曲
 	getIdentification(params:any){
+		let {
+			file
+		} = params;
 		const formData: FormData = new FormData();
-		formData.append('file', params.file);
+		formData.append('file', file);
 		let url = this.baseUrl +'/articles/getIdentification'
 		// let url = "https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=getIdentification"
 		return this.http.post(url,formData)
 	}
 	// 音轨分离
 	trackSeparate(params:any){
+		let {
+			file,
+			compress
+		} = params;
 		const formData: FormData = new FormData();
-		formData.append('file', params.file);
-		formData.append('compress',params.compress)
+		formData.append('file', file);
+		formData.append('compress',compress)
 		let url = this.baseUrl +'/articles/trackSeparate'
 		// let url = 'http://communityapi.jinzhoushaokao.top'+'/articles/trackSeparate'
 		return this.http.post(url,formData)
 	}
 	// 删除音轨分离文件
 	removeFile(params:any){
-		let url = this.baseUrl +'/articles/removeFileTrackSeparate?filename='+params.filename
+		let {
+			filename
+		} = params;
+		let url = this.baseUrl +'/articles/removeFileTrackSeparate?filename='+filename
 		return this.http.get(url)
 	}
 	//版权搜索 名字
 	copyrightSearch(params:any){
-		return this.http.get(this.tencentUrl+"/search?action=copyright_search&params="+JSON.stringify({keyword:params.keyword}))
+		let {
+			keyword
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=copyright_search&params="+JSON.stringify({keyword}))
 	}
 	// 版权搜索链接
 	copyrightSearchLink(params:any){
-		return this.http.get(this.tencentUrl+"/search?action=copyright_searchLink&params="+JSON.stringify({url:params.keyword}))
+		let {
+			keyword
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=copyright_searchLink&params="+JSON.stringify({url:keyword}))
 	}
 	// 版权扫描 上传文件
 	copyrightCheck(params:any){
+		let {
+			file,
+			name,
+			type
+		} = params;
 		const formData: FormData = new FormData();
-		formData.append('file', params.file);
-		let url = this.tencentUrl+"/ffm?action=copyright_check&params="+JSON.stringify({name:params.name,type:params.type})
+		formData.append('file', file);
+		let url = this.tencentUrl+"/ffm?action=copyright_check&params="+JSON.stringify({name,type})
 		return this.http.post(url,formData)
 	}
 	//铃声多多热铃榜
@@ -130,7 +224,12 @@ export class ApiService{
 	}
 	// 铃声多多搜索
 	getLsdd(params:any){
-		return this.http.get(this.tencentUrl+"/search?action=search_lsdd&params="+JSON.stringify({page:params.page,pageSize:params.pageSize,keyword:params.keyword}))
+		let {
+			page,
+			pageSize,
+			keyword
+		} = params;
+		return this.http.get(this.tencentUrl+"/search?action=search_lsdd&params="+JSON.stringify({page,pageSize,keyword}))
 	}
 	//快手热度搜索
 	getkuaishouSearch() {
