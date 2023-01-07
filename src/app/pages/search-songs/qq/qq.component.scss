@@ -24,6 +24,14 @@
 				display: flex;
 				flex-shrink: 0;
 				align-items: center;
+				.linkIcon{
+					    display: flex;
+					    align-items: center;
+					    width: 32px;
+					    height: 32px;
+					    cursor: pointer;
+					    justify-content: center;
+				}
 				.left-icon{
 					flex-shrink: 0;
 					width: 32px;

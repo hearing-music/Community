@@ -10,12 +10,15 @@
 				<div class="title-area">
 					<!-- 歌名 -->
 						<div (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
-							<div class="title" (click)="openSongDetail(item.scid,item.FileHash)">
+							<div class="title">
 								{{common.deleteEM(item.songName)}}
 							</div>
 							<!-- 鼠标移入加载歌词 -->
 							<ngx-lyric-all *ngIf='item.lyricShow' [songName]='common.deleteEM(item.songName)' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
 						</div>
+						<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.scid,item.FileHash)" class="linkIcon" style="margin-left: 18px;">
+							<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
+						</button>
 					<!-- 指数 -->
 					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
 						<img src="../../../assets/img/shuangzhexian.png" class="icon" />

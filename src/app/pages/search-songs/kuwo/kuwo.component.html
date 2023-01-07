@@ -3,22 +3,22 @@
 	<div class="list-item" *ngFor="let item of kuwoList" :key='item.rid'>
 		<div class="item-left">
 			<div class="left-icon">
-				<img src="../../../assets/img/play-yellow.png" style="width: 100%;height: 100%;" />
-				<!-- <image src="/assets/img/pause.png" style="width: 100%;height: 100%;"> -->
+				<img src="../../../assets/img/play-orange.png" style="width: 100%;height: 100%;" />
+				<!-- <image src="/assets/img/pause-orange.png" style="width: 100%;height: 100%;"> -->
 			</div>
 			<div class="left-text">
 				<div class="title-area">
 					<!-- 歌名 -->
 					<div (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
-						<div class="title" (click)="openLink(item.rid)">
+						<div class="title" >
 							{{item.name}}
 						</div>
 						<!-- 鼠标移入加载歌词 -->
 						<ngx-lyric-all *ngIf='item.lyricShow' [songName]='item.name' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
 					</div>
-					<!-- <div (click)="openLink(item.rid)" style="margin-left: 8px;cursor: pointer;">
-						<span nz-icon nzType="linkedin" nzTheme="outline" style='color:blue'></span>
-					</div> -->
+					<button nz-button nzShape="circle" nzType="text" (click)="openLink(item.rid)" class="linkIcon" style="margin-left: 18px;">
+						<span nz-icon nzType="select" nzTheme="outline" style="color:orange;font-size: 14px;"></span>
+					</button>
 				</div>
 				<div class="subTitle">
 					<!-- 歌手 发行时间 -->
@@ -34,7 +34,7 @@
 					<!-- 图标 -->
 					<div style="display: flex;margin-left: 4px;">
 						<!-- 钱币图标 -->
-						<img [src]="!item.payInfo.feeType.song?'../../../assets/img/price.png':'../../../assets/img/price-b.png'"
+						<img [src]="!item.payInfo.feeType.song?'../../../assets/img/price.png':'../../../assets/img/price-orange.png'"
 							class="icon" />
 					</div>
 				</div>

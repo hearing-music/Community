@@ -16,11 +16,11 @@
 						<!-- 鼠标移入加载歌词 -->
 						<ngx-lyric-all *ngIf='item.lyricShow' [rankList]='rankItem' [songName]='item.name' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
 					</div>
-					<div (click)="openLink(item.mid)" style="margin-left: 8px;cursor: pointer;">
-						<span nz-icon nzType="link" nzTheme="outline" style='color:blue'></span>
-					</div>
+					<button nz-button nzShape="circle" nzType="text" (click)="openLink(item.mid)" class="linkIcon" style="margin-left: 18px;">
+						<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
+					</button>
 					<!-- 收听 -->
-					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
+					<div class="" style="display: flex;align-items: center;margin-left: 2px;">
 						<img src="../../../assets/img/erji.png" class="icon" />
 						<div>{{common.toThousands(item.cnt)}}</div>
 					</div>
@@ -29,8 +29,12 @@
 						<img src="../../../assets/img/shuangzhexian.png" class="icon" />
 						<div>{{common.toThousands(item.todayIndex)}}</div>
 					</div>
+					<!-- 指数链接 -->
+					<button (click)="openLink(item.mid)" nz-button nzShape="circle" nzType="text" class="linkIcon" style="margin-left: 2px;">
+						<span nz-icon nzType="link" nzTheme="outline" style='color:#35C035;font-size: 14px;'></span>
+					</button>
 					<!-- 昨日指数 -->
-					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
+					<div class="" style="display: flex;align-items: center;margin-left: 2px;">
 						<img src="../../../assets/img/shijian.png" class="icon" />
 						<div>{{common.toThousands(item.yesterdayIndex)}}</div>
 					</div>
@@ -66,10 +70,10 @@
 					<!-- 图标 -->
 					<div style="display: flex;margin-left: 4px;">
 						<!-- 钱币图标 -->
-						<img [src]="item.pay.pay_play==0?'../../../assets/img/price.png':'../../../assets/img/price-b.png'"
+						<img [src]="item.pay.pay_play==0?'../../../assets/img/price.png':'../../../assets/img/price-green.png'"
 							class="icon" />
 						<!-- 音乐图标 -->
-						<img [src]="item.pay.pay_down==0?'../../../assets/img/music.png':'../../../assets/img/music-b.png'" class="icon" />
+						<img [src]="item.pay.pay_down==0?'../../../assets/img/music.png':'../../../assets/img/music-green.png'" class="icon" />
 					</div>
 					<!-- 价格 -->
 					<div style="margin-left: 8px;">
