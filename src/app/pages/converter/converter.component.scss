@@ -1,7 +1,7 @@
 .converter{
 	background-color: #fff;
 	border-radius: 12px;
-	min-height: 82vh;
+	min-height: calc(100vh - 4.75rem - 4rem);
 	position: relative;
 	.converter-title{
 		padding: 24px;

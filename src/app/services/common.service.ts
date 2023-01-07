@@ -56,6 +56,20 @@ export class CommonService {
 			return false
 		}
 	}
+	parseLRC3(sourceLrc:any){
+		const reg_attr = /].*([：:])/g;
+		const reg_remove = /\[([a-zA-Z].*)\]/g;
+		const summary = sourceLrc.split('\n').filter((f:any) => f?.match(reg_attr));
+		const content = sourceLrc.split('\n').filter((f:any) => !f?.match(reg_attr) && !f?.match(reg_remove)).join('\n');
+		let arr = []
+		summary.forEach((s:any) => {
+			arr.push(s.replace(/\[[\d\:\.]*\]/g,'').split(/[:：]/))
+		})
+		return {
+			summary:arr,
+			content
+		}
+	}
 	// 解析歌词
 	parseLRC2(sourceLrc:any) {
 		sourceLrc.replaceAll('\n','')

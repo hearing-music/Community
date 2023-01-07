@@ -1,16 +1,31 @@
 <div class="lyric-all">
-	<nz-spin *ngIf='!lyricReadly' nzSimple style="margin-top: 200px;"></nz-spin>
-	<div class="lyric-all_scroll" *ngIf='lyricReadly'>
-		<div *ngFor="let lyric of lyricData;" style="margin-bottom: 10px;display: flex;">
-			<div style="margin-right: 8px;">
-				{{lyric.time}}
+	<div *ngIf='!lyricReadly' class="lyric-all_spin">
+		<nz-spin nzSimple></nz-spin>
+	</div>
+	<div class="lyric-all_info" *ngIf='lyricReadly'>
+		<div style="text-align: center;padding:18px 0;font-weight: bold;">
+			{{songName}}
+		</div>
+		<div *ngFor="let lyric of lyricData.summary;" class="line">
+			<div style="font-weight: bold;">
+				{{lyric[0]}}
 			</div>
-			<div style="color: #000;font-weight: bold;">
-				{{lyric.lineLyric}}
+			<div style="">
+				{{lyric[1]}}
 			</div>
 		</div>
-		<!-- <div>
-			{{lyricData}}
-		</div> -->
+	</div>
+	<div class="lyric-all_content" *ngIf='lyricReadly'>
+		{{lyricData.content}}
+	</div>
+	<div class="lyric-all_rank" *ngIf='rankList.length>0&&lyricReadly'>
+		<div *ngFor="let item of rankList" class="rankBox">
+			<div class="rankBox-time">
+				{{item.date}}
+			</div>
+			<div class="rankBox-value">
+				{{item.value}}
+			</div>
+		</div>
 	</div>
 </div>

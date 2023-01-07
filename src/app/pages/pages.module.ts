@@ -21,7 +21,8 @@ import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 // page
-import { FreeSongsComponent } from './kugou/free-songs/free-songs.component';
+import { FreeSongs_kugouComponent } from './kugou/free-songs/free-songs.component';
+import { FreeSongs_qqComponent } from './qq/free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
 import { SearchPageComponent } from './search-page/search-page.component';
@@ -83,7 +84,8 @@ import { AudioTrickComponent } from '../components/audio-trick/audio-trick.compo
   ],
   declarations: [
     PagesComponent,
-    FreeSongsComponent,
+    FreeSongs_kugouComponent,
+	FreeSongs_qqComponent,
     SearchSongsComponent,
 	SearchPageComponent,
 	QuerySonglistComponent,

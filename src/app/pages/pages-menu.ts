@@ -8,6 +8,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
 	// 	home: true,
 	// },
 	{
+	  title: 'QQ',
+	  icon: 'cube',
+	  children: [
+		{
+			title: '免费歌曲',
+			link: '/pages/qq/free-songs',
+		},
+	  ],
+	},
+	{
 	  title: '酷狗',
 	  icon: 'cube',
 	  children: [

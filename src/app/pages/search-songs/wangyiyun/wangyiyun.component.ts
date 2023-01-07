@@ -25,7 +25,7 @@ export class WangyiyunComponent implements OnInit {
 			console.log(res)
 			if(res.success){
 				item.lyricText = res.result
-				item.lyricData2 = this.common.parseLRC2(item.lyricText)
+				item.lyricData2 = this.common.parseLRC3(item.lyricText)
 				item.lyricReadly = true;
 			}
 		}, (err: any) => {

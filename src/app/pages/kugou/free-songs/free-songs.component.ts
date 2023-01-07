@@ -6,7 +6,7 @@ import { ApiService } from "../../../services/api.service";
   templateUrl: './free-songs.component.html',
   styleUrls: ['./free-songs.component.scss']
 })
-export class FreeSongsComponent implements OnInit {
+export class FreeSongs_kugouComponent implements OnInit {
 	constructor(public common: CommonService, public api: ApiService) { }
 	
 	ngOnInit(): void {

@@ -1,0 +1,106 @@
+<div class="freeSongs">
+	<div class="freeSongs-title">
+		<div>
+			QQ免费歌曲
+		</div>
+		<div style="display: flex;align-items: center;">
+			<label nz-checkbox [(ngModel)]="checked" (ngModelChange)='ngModelChangeCheckBox($event)'>新增歌曲</label>
+			<div style="width: 16px;"></div>
+			<nz-select style="width: 120px;" [(ngModel)]="type" (ngModelChange)='ngModelChange($event)'>
+				<nz-option *ngFor="let item of typeList;" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
+			</nz-select>
+			<div style="width: 16px;"></div>
+			<!-- 搜索 -->
+			<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
+			</ngx-search>
+		</div>
+	</div>
+	<nz-table #basicTable [nzData]="list" nzTitle='' [nzFrontPagination]='false'>
+		<thead>
+			<tr>
+				<th nzAlign='center'>歌曲名称</th>
+				<th nzAlign='center'>专辑名称</th>
+				<th nzAlign='center'>歌手名称</th>
+				<th nzAlign='center'>发行公司</th>
+				<th nzAlign='center'>发行时间</th>
+				<th nzAlign='center'>评论数</th>
+				<th nzAlign='center'>收藏数</th>
+				<th nzAlign='center'>排名</th>
+				<th nzAlign='center'>指数</th>
+				<th nzAlign='center' nzWidth='80px'>收听数</th>
+				<th nzWidth='80px' nzAlign='center'>查看</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of basicTable.data; let i = index">
+				<td nzAlign='center' style="cursor: pointer;" (click)='copy(item.songname)'>
+					<span nz-tooltip [nzTooltipTitle]="'点击复制'">
+						{{item.songname}}
+					</span>
+				</td>
+				<td nzAlign='center' >
+					{{item.albumname?item.albumname:''}}
+				</td>
+				<td nzAlign='center'>
+					{{item.singername?item.singername:''}}
+				</td>
+				<td nzAlign='center' style="color:rgba(0, 0, 0, 0.6);font-size: 12px;">
+					<div style="text-decoration: underline;cursor: pointer;" (click)='openCompay(item.publisher_id)'>
+						{{item.publisher?'外显：'+item.publisher:''}}
+					</div>
+					<div style="text-decoration: underline;cursor: pointer;margin-top: 8px;"
+						(click)='openCompay(item.company_id)'>
+						{{item.company?'原始：'+item.company:''}}
+					</div>
+				</td>
+				<td nzAlign='center' >
+					{{common.getDate(item.time_public)}}
+				</td>
+				<td nzAlign='center' >
+					{{common.toThousands(item.comment_count)}}
+				</td>
+				<td nzAlign='center' >
+					{{common.toThousands(item.favorite_count)}}
+				</td>
+				<td nzAlign='center' (click)='reloadExponent(item)' style="cursor: pointer;">
+					<span nz-tooltip [nzTooltipTitle]="'点击刷新'">
+						<span nz-icon nzType="redo" nzTheme="outline" style="color: royalblue;"></span>
+						<div>
+							{{item.yesterday_rank?item.yesterday_rank:''}}
+						</div>
+						<div style="color: red;">
+							{{item.today_rank?item.today_rank:''}}
+						</div>
+					</span>
+				</td>
+				<td nzAlign='center' (click)='reloadExponent(item)' style="cursor: pointer;">
+					<span nz-tooltip [nzTooltipTitle]="'点击刷新'">
+						<span nz-icon nzType="redo" nzTheme="outline" style="color: royalblue;"></span>
+						<div>
+							{{item.yesterday_index?common.toThousands(item.yesterday_index):''}}
+						</div>
+						<div style="color: red;">
+							{{item.today_index?common.toThousands(item.today_index):''}}
+						</div>
+					</span>
+				</td>
+				<td nzAlign='center' (click)='reloadExponent(item)' style="cursor: pointer;">
+					<span nz-tooltip [nzTooltipTitle]="'点击刷新'">
+						<span nz-icon nzType="redo" nzTheme="outline" style="color: royalblue;"></span>
+						<div style="color: red;">
+							{{item.cnt?common.toThousands(item.cnt):''}}
+						</div>
+					</span>
+				</td>
+				<td nzAlign='center' style="color:blue;cursor: pointer;" (click)='openLink(item)'>
+					查看
+				</td>
+			</tr>
+		</tbody>
+	</nz-table>
+	<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='list.length>0&&pageTotal>50'>
+		<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+			(nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

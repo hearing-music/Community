@@ -21,6 +21,26 @@ export class ApiService{
 		} = params;
 		return this.http.get(this.tencentUrl+"/search?action=search_qq&params="+JSON.stringify({keyword,page}))
 	}
+	// qq免费歌曲
+	getQq_freeSongs(params:any){
+		let {
+			page,
+			pageSize,
+			keyword,
+			type,
+			newly
+		} = params;
+		let url = this.baseUrl +'/qq/freeSongs?page='+page+'&pageSize='+pageSize+'&keyword='+keyword+'&type='+type+'&newly='+newly
+		return this.http.get(url)
+	}
+	// 根据mid获取 收听 指数 排名
+	getQq_exponent(params:any){
+		let {
+			songmid
+		} = params;
+		let url = this.tencentUrl+"/search?action=qq_exponent&params="+JSON.stringify({songmid})
+		return this.http.get(url)
+	}
 	// qq歌词
 	getQQLyric(params:any){
 		let {

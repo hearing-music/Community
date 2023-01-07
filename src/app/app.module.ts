@@ -28,6 +28,11 @@ import { FormsModule } from '@angular/forms';
 // -------------
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './services/http-interceptor.service';
+
+
+import {HashLocationStrategy , LocationStrategy} from '@angular/common';
+
+
 import { ApiService } from './services/api.service';
 import { CommonService } from './services/common.service';
 
@@ -58,17 +63,25 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 		FormsModule,
 	],
 	bootstrap: [AppComponent],
-	providers: [
-		// { provide: NZ_I18N, useValue: zh_CN },
+	// providers: [
+	// 	// { provide: NZ_I18N, useValue: zh_CN },
 
+	// 	CommonService,
+	// 	ApiService,
+	// 	{
+	// 		provide: HTTP_INTERCEPTORS,
+	// 		useClass: HttpInterceptorService,
+	// 		multi: true,
+	// 	}
+	// ],
+	providers: [
 		CommonService,
 		ApiService,
 		{
-			provide: HTTP_INTERCEPTORS,
-			useClass: HttpInterceptorService,
-			multi: true,
+			provide: LocationStrategy,
+			 useClass: HashLocationStrategy
 		}
-	],
+	]
 })
 export class AppModule {
 }

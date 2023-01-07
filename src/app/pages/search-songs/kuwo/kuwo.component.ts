@@ -32,10 +32,7 @@ export class KuwoComponent implements OnInit {
 		}).subscribe((res: any) => {
 			console.log(res)
 			if(res.success){
-				res.result.forEach((item:any)=>{
-					item.time = this.common.lyricTimeShift(item.time)
-				})
-				item.lyricData2 = res.result
+				item.lyricData2 = this.common.parseLRC3(res.result)
 				item.lyricReadly = true;
 			}
 		}, (err: any) => {

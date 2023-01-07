@@ -1,19 +1,71 @@
 .lyric-all{
 	z-index: 1001;
-	box-shadow:2px 2px 6px #ccc;
 	position: absolute;
-	background-color: #fff;
-	border-radius: 8px;
 	display: flex;
-	justify-content: center;
-	bottom:-320px;
-	width: 350px;
-	height:400px;
-	font-size: 13px;
-	
-	.lyric-all_scroll{
-		overflow-y:scroll;
-		height:400px;width: 350px;
+	flex-direction: column;
+	align-items: center;
+	top:50%;
+	transform: translateY(-50%);
+	width: 430px;
+	height:80vh;
+	overflow-y:scroll;
+	font-size: 16px;
+	padding:24px;
+	padding-left:0;
+	.lyric-all_spin{
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		margin-top: 200px;
+		
+	}
+	.lyric-all_info{
+		box-shadow:2px 2px 6px #ccc;
+		background-color: #fff;
+		border-radius: 4px;
+		width: 380px;
+		padding:20px;
+		color:rgb(76,175,80);
+		.line{
+			border-top: 1px solid #ccc;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			height: 40px;
+		}
+	}
+	.lyric-all_content{
+		white-space: pre-line;
+		margin-top: 24px;
+		width: 380px;
 		padding:24px;
+		box-shadow:2px 2px 6px #ccc;
+		background-color: #fff;
+		border-radius: 4px;
+		line-height: 1.5;
+		font-weight: bold;
+		color:rgba(0,0,0,0.8);
+	}
+	.lyric-all_rank{
+		margin-top: 24px;
+		width: 380px;
+		padding:24px;
+		box-shadow:2px 2px 6px #ccc;
+		background-color: #fff;
+		border-radius: 4px;
+	}
+	.lyric-all_rank{
+		.rankBox{
+			font-size: 14px;
+			color: rgba(0, 0, 0, 0.6);
+			margin-bottom: 12px;
+			.rankBox-time{
+				margin-bottom: 6px;
+			}
+			.rankBox-value{
+				font-weight: bold;
+			}
+		}
 	}
 }

@@ -9,12 +9,12 @@
 			<div class="left-text">
 				<div class="title-area">
 					<!-- 歌名 -->
-					<div style="position: relative;" (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
+					<div (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
 						<div class="title" (click)="openLink(item.songid)">
 							{{item.songname}}
 						</div>
 						<!-- 鼠标移入加载歌词 -->
-						<ngx-lyric-all *ngIf='item.lyricShow' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
+						<ngx-lyric-all *ngIf='item.lyricShow' [songName]='item.songname' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
 					</div>
 					<div style="margin-left: 8px;cursor: pointer;" (click)='downloadUrl(item.downloadUrl,item.songname)'>
 						<span nz-icon nzType="download" nzTheme="outline" style='color:blue;width: 18px;height: 18px;'></span>

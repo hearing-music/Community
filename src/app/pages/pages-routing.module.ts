@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 // import { DashboardComponent } from './dashboard/dashboard.component';
-import { FreeSongsComponent } from './kugou/free-songs/free-songs.component';
+import { FreeSongs_kugouComponent } from './kugou/free-songs/free-songs.component';
+import { FreeSongs_qqComponent } from './qq/free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
 import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.component';
@@ -43,6 +44,11 @@ const routes: Routes = [{
 			path: 'search-page',
 			component: SearchPageComponent
 		},
+		// qq 免费歌曲
+		{
+			path: 'qq/free-songs',
+			component: FreeSongs_qqComponent
+		},
 		// 酷狗 酷狗飙升
 		{
 			path: 'kugou/kugou-soaring',
@@ -56,7 +62,7 @@ const routes: Routes = [{
 		// 酷狗免费歌曲
 		{
 			path: 'kugou/free-songs',
-			component: FreeSongsComponent
+			component: FreeSongs_kugouComponent
 		},
 		// 抖音
 		{
@@ -93,11 +99,11 @@ const routes: Routes = [{
 			path: 'musiry-tools',
 			component: MusiryToolsComponent
 		},
-		{
-		  path: 'ui-features',
-		  loadChildren: () => import('./ui-features/ui-features.module')
-		    .then(m => m.UiFeaturesModule),
-		},
+		// {
+		//   path: 'ui-features',
+		//   loadChildren: () => import('./ui-features/ui-features.module')
+		//     .then(m => m.UiFeaturesModule),
+		// },
 		// {
 		//   path: 'dashboard',
 		//   component: ECommerceComponent,

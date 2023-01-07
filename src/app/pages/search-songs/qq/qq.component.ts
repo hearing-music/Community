@@ -1,7 +1,5 @@
 import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
 import {CommonService} from "../../../services/common.service";
-import { NzMessageService  } from 'ng-zorro-antd/message';
-// import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ApiService } from "../../../services/api.service";
 @Component({
 	selector: 'ngx-qq',
@@ -10,7 +8,7 @@ import { ApiService } from "../../../services/api.service";
 })
 export class QqComponent implements OnInit {
 	@Input() qqList: any;
-	constructor(public common: CommonService,private message: NzMessageService,public api: ApiService) { }
+	constructor(public common: CommonService,public api: ApiService) { }
 	@Output() change: EventEmitter<any> = new EventEmitter<any>();
 	playAudio(url: string, i: number) {
 		if(url){
@@ -19,7 +17,6 @@ export class QqComponent implements OnInit {
 	}
 	ngOnInit(): void {
 	}
-	popRankShow = false;
 	rankItem :any = [];
 	lyricShow = false;
 	
@@ -32,7 +29,7 @@ export class QqComponent implements OnInit {
 			console.log(res)
 			if(res.success){
 				item.lyricText = res.result.lyric
-				item.lyricData2 = this.common.parseLRC2(item.lyricText)
+				item.lyricData2 = this.common.parseLRC3(item.lyricText)
 				item.lyricReadly = true;
 			}
 		}, (err: any) => {
@@ -41,9 +38,10 @@ export class QqComponent implements OnInit {
 		
 	}
 	mouseenter(item:any){
+		this.rankItem = item.record.newData || [];
 		item.lyricShow = true;
 		if(item.lyricText){
-			item.lyricData2 = this.common.parseLRC2(item.lyricText)
+			item.lyricData2 = this.common.parseLRC3(item.lyricText)
 			item.lyricReadly = true;
 		}else{
 			item.lyricReadly = false;
@@ -66,19 +64,6 @@ export class QqComponent implements OnInit {
 	openLink(mid:string|number){
 		window.open('https://y.qq.com/m/client/music_index/index.html?mid='+mid+'&type='+mid+'&ADTAG=wxfshare')
 	}
-	// 弹出排行
-	popRank(item:any){
-		if(!item.record.newData){
-			this.message.error('该歌曲没有排行')
-			return
-		}
-		this.rankItem = item.record.newData;
-		this.popRankShow = true;
-	}
 	
-	  handleCancel(): void {
-	    console.log('Button cancel clicked!');
-	    this.popRankShow = false;
-	  }
 	
 }

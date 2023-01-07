@@ -9,12 +9,12 @@
 			<div class="left-text">
 				<div class="title-area">
 					<!-- 歌名 -->
-						<div style="position: relative;" (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
+						<div (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
 							<div class="title" (click)="openSongDetail(item.scid,item.FileHash)">
 								{{common.deleteEM(item.songName)}}
 							</div>
 							<!-- 鼠标移入加载歌词 -->
-							<ngx-lyric-all *ngIf='item.lyricShow' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
+							<ngx-lyric-all *ngIf='item.lyricShow' [songName]='common.deleteEM(item.songName)' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
 						</div>
 					<!-- 指数 -->
 					<div class="" style="display: flex;align-items: center;margin-left: 8px;">

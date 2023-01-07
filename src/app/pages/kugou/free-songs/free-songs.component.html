@@ -18,7 +18,6 @@
 	<nz-table #basicTable [nzData]="list" nzTitle='' [nzFrontPagination]='false'>
 	  <thead>
 	    <tr>
-	      <th nzWidth='80px' nzAlign='center'>排序</th>
 		  <th nzAlign='center'>歌曲名称</th>
 	      <th nzAlign='center'>发行公司</th>
 	      <th nzAlign='center'>发行时间</th>
@@ -31,9 +30,6 @@
 	  </thead>
 	  <tbody>
 	    <tr *ngFor="let item of basicTable.data; let i = index">
-	      <td  nzAlign='center'>
-	        {{(i+1)+(pageCurrent-1)*pageSize}}
-	      </td>
 		  <td nzAlign='center' style="cursor: pointer;" (click)='copy(item.songname)'>
 			  <span nz-tooltip [nzTooltipTitle]="'点击复制'">
 				  {{item.songname}}
@@ -58,9 +54,9 @@
 		  </td>
 		  <td nzAlign='center' style="cursor: pointer;" (click)='reloadExponent(item)'>
 			  <span nz-tooltip [nzTooltipTitle]="'点击刷新'">
-			  <span nz-icon nzType="redo" nzTheme="outline"></span>
+			  <span nz-icon nzType="redo" nzTheme="outline" style="color: royalblue;"></span>
 				  <div>
-				  				  {{item.exponent?common.toThousands(item.exponent):0}}
+				  	{{item.exponent?common.toThousands(item.exponent):0}}
 				  </div>
 			  <div style="color: red;">
 				  {{item.newExponent?common.toThousands(item.newExponent):''}}

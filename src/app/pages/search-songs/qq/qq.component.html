@@ -9,12 +9,12 @@
 			<div class="left-text">
 				<div class="title-area">
 					<!-- 歌名 -->
-					<div style="position: relative;" (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
+					<div (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
 						<div class="title" (click)="openSongDetail(item.id)">
 							{{item.name}}
 						</div>
 						<!-- 鼠标移入加载歌词 -->
-						<ngx-lyric-all *ngIf='item.lyricShow' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
+						<ngx-lyric-all *ngIf='item.lyricShow' [rankList]='rankItem' [songName]='item.name' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
 					</div>
 					<div (click)="openLink(item.mid)" style="margin-left: 8px;cursor: pointer;">
 						<span nz-icon nzType="link" nzTheme="outline" style='color:blue'></span>
@@ -57,12 +57,12 @@
 							style='color:#ccc;'></span>
 					</div>
 					<!-- 排行 -->
-					<div style="display: flex;margin-left: 8px;cursor: pointer;" (click)='popRank(item)'>
+					<!-- <div style="display: flex;margin-left: 8px;cursor: pointer;" (click)='popRank(item)'>
 						<span *ngIf='!item.record.newData' nz-icon nzType="profile" nzTheme="outline"
 							style='color:grey'></span>
 						<span *ngIf='item.record.newData' nz-icon nzType="profile" nzTheme="outline"
 							style='color:blue'></span>
-					</div>
+					</div> -->
 					<!-- 图标 -->
 					<div style="display: flex;margin-left: 4px;">
 						<!-- 钱币图标 -->
@@ -122,18 +122,3 @@
 		</div>
 	</div>
 </div>
-<!-- 排名弹窗 -->
-<nz-modal [(nzVisible)]="popRankShow" nzTitle="歌曲排行" [nzFooter]='null' (nzOnCancel)='handleCancel()'>
-	<ng-container *nzModalContent>
-		<div class="popBox">
-			<div *ngFor="let item of rankItem" class="rankBox">
-				<div class="rankBox-time">
-					{{item.date}}
-				</div>
-				<div class="rankBox-value">
-					{{item.value}}
-				</div>
-			</div>
-		</div>
-	</ng-container>
-</nz-modal>

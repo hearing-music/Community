@@ -11,6 +11,8 @@
 export const environment = {
   production: false,
 	downloadUrl:'http://localhost:3223',
+	// downloadUrl:'http://39.106.64.253:3223',
 	baseUrl:'http://localhost:3222',
+	// baseUrl:'http://communityapi.jinzhoushaokao.top',
 	tencentUrl:'https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com'
 };

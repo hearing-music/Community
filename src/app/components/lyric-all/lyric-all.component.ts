@@ -8,6 +8,8 @@ import { Component, OnInit,Input } from '@angular/core';
 export class LyricAllComponent implements OnInit {
  @Input() lyricData: any;
  @Input() lyricReadly: any;
+ @Input() songName: any;
+ @Input() rankList: any = [];
   constructor() { }
 
   ngOnInit(): void {
