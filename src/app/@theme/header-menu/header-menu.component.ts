@@ -1,23 +1,76 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,NgZone } from '@angular/core';
 import { Router,NavigationEnd } from '@angular/router'
-
+import {CommonService} from "../../services/common.service";
 @Component({
   selector: 'ngx-header-menu',
   templateUrl: './header-menu.component.html',
   styleUrls: ['./header-menu.component.scss']
 })
 export class HeaderMenuComponent implements OnInit {
-  　constructor ( private myRouter:Router) {
-	   this.myRouter.events.subscribe(event => { 
-	          if(event instanceof NavigationEnd){
-	            // console.log(event);
-				this.pathname = event.url
-	          }    
-	        })
+	constructor ( private myRouter:Router,private common:CommonService,private ngZone: NgZone) {
+		   this.myRouter.events.subscribe(event => { 
+		          if(event instanceof NavigationEnd){
+		            // console.log(event);
+					this.pathname = event.url
+		          }    
+		        })
+			window["NgAppRef"] = { component: this, zone: this.ngZone };
+		}
+	headerMenu = [];
+	// 刷新更新顶部菜单
+	headerMenuUpdate(){
+		this.menuChange()
+	}
+	adminHeaderMenu = [
+		{
+			title:'歌曲信息',
+			link:'/pages/search-songs'
+		},
+		{
+			title:'查询歌单',
+			link:'/pages/query-songlist'
+		},
+		{
+			title:'音轨分离',
+			link:'/pages/track-separate'
+		},
+		{
+			title:'搜索',
+			link:'/pages/search-page'
+		},
+		{
+			title:'官网',
+			link:'http://www.tingjianmusic.top/'
+		},
+		{
+			title:'Telegram',
+			link:'https://evgeny-nadymov.github.io/telegram-react/'
+		}
+	]
+	
+	ngOnInit(): void {
+		  this.menuChange()
+	}
+	menuChange(){
+		// 验证是否为超级管理员
+		if(!this.common.checkAdmin()){
+			let menus_item:any = localStorage.getItem('menus_item')
+			menus_item = JSON.parse(menus_item)
+			let list = menus_item.menuList;
+			let arr = []
+			for(let i = 0;i<list.length;i++){
+				if(list[i].display == 1&&list[i].type=='headerMenu'){
+					arr.push(list[i].value)
+				}
+			}
+			this.headerMenu = arr;
+		}else{
+			this.headerMenu = this.adminHeaderMenu;
+		}
 	}
 	pathname='';
-	clickMenu(link:string,name:string){
-		if(name=='官网' || name=='Telegram'){
+	clickMenu(link:string,title:string){
+		if(title=='官网' || title=='Telegram'){
 			window.open(link)
 			return
 		}
@@ -28,34 +81,4 @@ export class HeaderMenuComponent implements OnInit {
 		this.myRouter.navigateByUrl(link);
 		// console.log(window.location.pathname)
 	}
-	headerMenu = [
-		{
-			name:'歌曲信息',
-			link:'/pages/search-songs'
-		},
-		{
-			name:'查询歌单',
-			link:'/pages/query-songlist'
-		},
-		{
-			name:'音轨分离',
-			link:'/pages/track-separate'
-		},
-		{
-			name:'搜索',
-			link:'/pages/search-page'
-		},
-		{
-			name:'官网',
-			link:'http://www.tingjianmusic.top/'
-		},
-		{
-			name:'Telegram',
-			link:'https://evgeny-nadymov.github.io/telegram-react/'
-		}
-	]
-  ngOnInit(): void {
-	  
-  }
-
 }

@@ -1,5 +1,6 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import {GuardsGuard} from './guards/guards.guard'
 // import {
 //   NbAuthComponent,
 //   NbLoginComponent,
@@ -8,13 +9,21 @@ import { NgModule } from '@angular/core';
 //   NbRequestPasswordComponent,
 //   NbResetPasswordComponent,
 // } from '@nebular/auth';
-
+// import {LoginComponent} from './login/login.component'
 export const routes: Routes = [
+	{
+	 path: 'login',
+	 loadChildren: () => import('./login/login.module')
+	   .then(m => m.LoginModule),
+	// canActivate: [LoginAuthGuard]
+	},
   {
     path: 'pages',
     loadChildren: () => import('./pages/pages.module')
       .then(m => m.PagesModule),
+	canActivate: [GuardsGuard]
   },
+	
   // {
   //   path: 'auth',
   //   component: NbAuthComponent,

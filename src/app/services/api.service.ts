@@ -227,8 +227,16 @@ export class ApiService{
 		} = params;
 		const formData: FormData = new FormData();
 		formData.append('file', file);
-		let url = this.tencentUrl+"/ffm?action=copyright_check&params="+JSON.stringify({name,type})
+		let url = this.baseUrl +'/articles/copyrightCheck?name='+name+'&type='+type
 		return this.http.post(url,formData)
+	}
+	// 版权扫描 上传文件 刷新
+	copyrightCheck_reload(params:any){
+		let {
+			id
+		} = params;
+		let url = this.baseUrl +'/articles/copyrightCheck_reload?id='+id
+		return this.http.get(url)
 	}
 	//铃声多多热铃榜
 	lsddHot(){

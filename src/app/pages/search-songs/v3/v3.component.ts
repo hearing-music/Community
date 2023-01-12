@@ -15,7 +15,9 @@ export class V3Component implements OnInit {
 	openSongDetail(scid:string|number,hash:string|number) {
 		window.open('https://www.kugou.com/song/#hash='+hash+'&album_audio_id='+scid)
 	}
-	
+	openExponentLink(item:any){
+		window.open('https://h5.kugou.com/achievement/v-a34ccad0/index.html?audio_id='+item.scid+'&hash='+item.FileHash+'&mixsongid='+item.MixSongID)
+	}
 	// 获取歌词
 	getLyric(item:any){
 		this.api.getKugouLyric({

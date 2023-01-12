@@ -39,9 +39,10 @@ import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
 import { HeaderMenuComponent } from './header-menu/header-menu.component';
-
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 const NB_MODULES = [
   NbLayoutModule,
+	NzDropDownModule,
   NbMenuModule,
   NbUserModule,
   NbActionsModule,

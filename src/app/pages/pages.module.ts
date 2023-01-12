@@ -20,6 +20,7 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import {LoadingModule} from '../components/loading/loading.module'
 // page
 import { FreeSongs_kugouComponent } from './kugou/free-songs/free-songs.component';
 import { FreeSongs_qqComponent } from './qq/free-songs/free-songs.component';
@@ -40,7 +41,6 @@ import { LsddComponent } from './search-songs/lsdd/lsdd.component';
 import { MusicianTxComponent } from './search-page/musician-tx/musician-tx.component';
 import { SearchComponent } from '../components/search/search.component';
 import { IconsProviderModule } from './icons-provider.module';
-import { LoadingComponent } from '../components/loading/loading.component';
 import { UploadFileComponent } from '../components/upload-file/upload-file.component';
 import { LyricComponent } from '../components/lyric/lyric.component';
 import { LyricAllComponent } from '../components/lyric-all/lyric-all.component';
@@ -60,6 +60,7 @@ import { MusiryToolsComponent } from './musiry-tools/musiry-tools.component';
 import { AudioTrickComponent } from '../components/audio-trick/audio-trick.component';
 @NgModule({
   imports: [
+	  LoadingModule,
 		NzMessageModule,
 		NzModalModule,
 		NzToolTipModule,
@@ -97,7 +98,6 @@ import { AudioTrickComponent } from '../components/audio-trick/audio-trick.compo
 	
 	
 	
-	
 	QqComponent,
 	V3Component,
 	WangyiyunComponent,
@@ -105,7 +105,6 @@ import { AudioTrickComponent } from '../components/audio-trick/audio-trick.compo
 	LsddComponent,
 	MusicianTxComponent,
 	SearchComponent,
-	LoadingComponent,
 	UploadFileComponent,
 	LyricComponent,
 	LyricAllComponent,

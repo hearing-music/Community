@@ -5,7 +5,7 @@
  */
 export const environment = {
   production: true,
-	downloadUrl:'http://39.106.64.253:3223',
-	baseUrl:'http://communityapi.jinzhoushaokao.top',
+	downloadUrl:'http://139.224.133.131:3223',
+	baseUrl:'http://api.tingjianmusic.cn',
 	tencentUrl:'https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com'
 };

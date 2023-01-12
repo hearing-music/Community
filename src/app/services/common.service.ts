@@ -5,6 +5,55 @@ import { NzMessageService  } from 'ng-zorro-antd/message';
 })
 export class CommonService {
 	constructor(private message: NzMessageService) { }
+	// 验证是否为管理员
+	checkAdmin(){
+		let permission_name = localStorage.getItem('permission_name')
+		let permission_name_id = localStorage.getItem('permission_name_id')
+		if(permission_name == '超级管理员' && permission_name_id == '7B444814D1E9720BE875044F66BCFAD2'){
+			return true
+		}
+		return false
+	}
+	// 删除登录态
+	removeLocalStorages(){
+		localStorage.removeItem('token')
+		localStorage.removeItem('token_expiration_time')
+		localStorage.removeItem('permission_name_id')
+		localStorage.removeItem('username')
+		localStorage.removeItem('url')
+		localStorage.removeItem('permission_name')
+		localStorage.removeItem('menus_item')
+	}
+	// 验证验证码合法
+	checkSms(sms:string){
+		if (!sms) {
+		  return false
+		}else{
+			let reg = /^\d{4}$/;
+			if (reg.test(sms)) {
+			  return true;
+			} else {
+			  return false;
+			}
+		}
+	}
+	// 验证手机号合法
+	checkPhone (p:string) {
+	    if (!p) {
+	      return false
+	    } else {
+	      // 必须是1开头，第二位数字可以是0-9任意一个，总长为11
+	      // let reg = /^1([3-9])\d{9}$/;
+		  // var reg = /^((1[3,5,8,7,9][0-9])|(14[5,7])|(17[0,6,7,8])|(19[7]))\d{8}$/; //不带区号校验
+	      // 必须是1开头，第二位数字可以是3|5|6|7|8|9任意一个，总长为11
+	      let reg = /^1([3|4|5|6|7|8|9])\d{9}$/;
+	      if (reg.test(p)) {
+	        return true;
+	      } else {
+	        return false;
+	      }
+	    }
+	  }
 	// 复制
 	copy(text:string){
 		// text是复制文本
@@ -166,6 +215,7 @@ export class CommonService {
 		return Number(value).toFixed(2)
 	}
 	tFixed(indexRate: any) {
+		indexRate = indexRate - 0;
 		return (indexRate.toFixed(4) * 100).toFixed(2) + '%'
 	}
 	deleteEM(str: string) {

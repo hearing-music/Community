@@ -19,10 +19,38 @@
 						<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.scid,item.FileHash)" class="linkIcon" style="margin-left: 18px;">
 							<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
 						</button>
+					<!-- 收听 -->
+					<span *ngIf='item.detailData.listener_num' nz-tooltip [nzTooltipTitle]="item.detailData.date">
+						<div class="" style="display: flex;align-items: center;margin-left: 2px;">
+							<img src="../../../assets/img/erji.png" class="icon" />
+							<div>{{common.toThousands(item.detailData.listener_num)}}</div>
+						</div>
+					</span>
 					<!-- 指数 -->
-					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
+					<div *ngIf='item.detailData.listener_num' style="display: flex;align-items: center;margin-left: 8px;">
+						<img src="../../../assets/img/shuangzhexian.png" class="icon" />
+						<div>{{common.toThousands(item.detailData.exponent)}}</div>
+					</div>
+					<div *ngIf='!item.detailData.listener_num' style="display: flex;align-items: center;margin-left: 8px;">
 						<img src="../../../assets/img/shuangzhexian.png" class="icon" />
 						<div>{{common.toThousands(item.exponent)}}</div>
+					</div>
+					<!-- 指数链接 -->
+					<button (click)="openExponentLink(item)" nz-button nzShape="circle" nzType="text" class="linkIcon" style="margin-left: 2px;">
+						<span nz-icon nzType="link" nzTheme="outline" style='color:blue;font-size: 14px;'></span>
+					</button>
+					<!-- 昨日指数 -->
+					<div *ngIf='item.detailData.listener_num' class="" style="display: flex;align-items: center;margin-left: 2px;">
+						<img src="../../../assets/img/shijian.png" class="icon" />
+						<div>{{common.toThousands(item.detailData.exponent + (item.detailData.exponent_diff - 0))}}</div>
+					</div>
+					<!-- 指数增长率 -->
+					<div *ngIf='item.detailData.listener_num' class="" v-if='item.detailData.exponent_diff!=0' style="display: flex;align-items: center;margin-left: 8px;">
+						<span *ngIf='item.detailData.exponent_diff<0' nz-icon nzType="arrow-down" style='color:green;'
+							nzTheme="outline"></span>
+						<span *ngIf='item.detailData.exponent_diff>0' nz-icon nzType="arrow-up" style='color:red;'
+							nzTheme="outline"></span>
+						<div>{{common.toThousands(item.detailData.exponent_diff)}}</div>
 					</div>
 				</div>
 				<div class="subTitle">
@@ -35,10 +63,23 @@
 					<!-- 图标 -->
 					<div style="display: flex;margin-left: 8px;align-items: center;">
 						<!-- 钱币图标 -->
-						<img [src]="item.price==0?'../../../assets/price.png':'../../../assets/img/price-b.png'" class="icon"/>
+						<img [src]="item.price==0?'../../../assets/img/price.png':'../../../assets/img/price-blue.png'" class="icon"/>
 						<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 8px;'></span>
 						<!-- 音乐图标 -->
-						<img [src]="true?'../../../assets/img/music.png':'../../../assets/img/music-b.png'" class="icon">
+						<img [src]="true?'../../../assets/img/music.png':'../../../assets/img/music-blue.png'" class="icon">
+					</div>
+					<!-- 排名 -->
+					<div *ngIf='item.detailData.listener_num' style="display: flex;align-items: center;margin-left: 8px;">
+						<img src="../../../assets/img/zhexiandian.png" class="icon" />
+						<div>{{common.toThousands(item.detailData.rank)}}</div>
+					</div>
+					<!-- 指数增长 -->
+					<div *ngIf='item.detailData.listener_num' class="" v-if='item.detailData.rank_diff!=0' style="display: flex;align-items: center;margin-left: 8px;">
+						<span *ngIf='item.detailData.rank_diff<0' nz-icon nzType="arrow-down" style='color:green;'
+							nzTheme="outline"></span>
+						<span *ngIf='item.detailData.rank_diff>0' nz-icon nzType="arrow-up" style='color:red;'
+							nzTheme="outline"></span>
+						<div>{{item.detailData.rank_diff}}</div>
 					</div>
 				</div>
 			</div>

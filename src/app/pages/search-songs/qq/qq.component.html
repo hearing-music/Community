@@ -10,13 +10,13 @@
 				<div class="title-area">
 					<!-- 歌名 -->
 					<div (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
-						<div class="title" (click)="openSongDetail(item.id)">
+						<div class="title">
 							{{item.name}}
 						</div>
 						<!-- 鼠标移入加载歌词 -->
 						<ngx-lyric-all *ngIf='item.lyricShow' [rankList]='rankItem' [songName]='item.name' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
 					</div>
-					<button nz-button nzShape="circle" nzType="text" (click)="openLink(item.mid)" class="linkIcon" style="margin-left: 18px;">
+					<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.id)" class="linkIcon" style="margin-left: 18px;">
 						<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
 					</button>
 					<!-- 收听 -->

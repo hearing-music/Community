@@ -20,6 +20,8 @@ import { TrackSeparateComponent } from './track-separate/track-separate.componen
 import { MusiryToolsComponent } from './musiry-tools/musiry-tools.component';
 // import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+
+import {PermissionGuard} from '../guards/permission.guard'
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -27,77 +29,92 @@ const routes: Routes = [{
 		//音乐搜索
 		{
 			path: 'search-songs',
-			component: SearchSongsComponent
+			component: SearchSongsComponent,
+			canActivate: [PermissionGuard]
 		},
 		// 查询歌单
 		{
 			path: 'query-songlist',
-			component: QuerySonglistComponent
+			component: QuerySonglistComponent,
+			canActivate: [PermissionGuard]
 		},
 		// 音轨分离
 		{
 			path: 'track-separate',
-			component: TrackSeparateComponent
+			component: TrackSeparateComponent,
+			canActivate: [PermissionGuard]
 		},
 		// 搜索
 		{
 			path: 'search-page',
-			component: SearchPageComponent
+			component: SearchPageComponent,
+			canActivate: [PermissionGuard]
 		},
 		// qq 免费歌曲
 		{
 			path: 'qq/free-songs',
-			component: FreeSongs_qqComponent
+			component: FreeSongs_qqComponent,
+			canActivate: [PermissionGuard]
 		},
 		// 酷狗 酷狗飙升
 		{
 			path: 'kugou/kugou-soaring',
-			component: KugouSoaringComponent
+			component: KugouSoaringComponent,
+			canActivate: [PermissionGuard]
 		},
 		// 酷狗萤火
 		{
 			path: 'kugou/yinghuo',
-			component: YinghuoComponent
+			component: YinghuoComponent,
+			canActivate: [PermissionGuard]
 		},
 		// 酷狗免费歌曲
 		{
 			path: 'kugou/free-songs',
-			component: FreeSongs_kugouComponent
+			component: FreeSongs_kugouComponent,
+			canActivate: [PermissionGuard]
 		},
 		// 抖音
 		{
 			path: 'douyin',
-			component: DouyinComponent
+			component: DouyinComponent,
+			canActivate: [PermissionGuard]
 		},
 		// 铃声多多
 		{
 			path: 'lsdd-page',
-			component: LsddPageComponent
+			component: LsddPageComponent,
+			canActivate: [PermissionGuard]
 		},
 		// 快手
 		{
 			path: 'kuaishou-searchindex',
-			component: KuaishouSearchindexComponent
+			component: KuaishouSearchindexComponent,
+			canActivate: [PermissionGuard]
 		},
 		// 文件转换
 		{
 			path: 'converter',
-			component: ConverterComponent
+			component: ConverterComponent,
+			canActivate: [PermissionGuard]
 		},
 		//听歌识曲
 		{
 			path: 'identification',
-			component: IdentificationComponent
+			component: IdentificationComponent,
+			canActivate: [PermissionGuard]
 		},
 		//版权扫描
 		{
 			path: 'copyright-scanning',
-			component: CopyrightScanningComponent
+			component: CopyrightScanningComponent,
+			canActivate: [PermissionGuard]
 		},
 		//音乐工具
 		{
 			path: 'musiry-tools',
-			component: MusiryToolsComponent
+			component: MusiryToolsComponent,
+			canActivate: [PermissionGuard]
 		},
 		// {
 		//   path: 'ui-features',

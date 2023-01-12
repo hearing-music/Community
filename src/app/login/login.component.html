@@ -1,0 +1,27 @@
+<div style="height: 100vh;overflow: hidden;">
+	<div class="bannerBox">
+		<div class="loginBox">
+			<div class="imgTop">
+				<div class="logo">
+					<img src="../../assets/img/LOGIN.png" alt="" style="width: 100%;height: 100%;">
+				</div>
+				<div class="logoText">
+					—— 音乐大数据平台
+				</div>
+			</div>
+			<div class="user">
+				<input [(ngModel)]="phone" type="text" placeholder="请输入手机号">
+			</div>
+			<div class="user">
+				<input [(ngModel)]="sms" type="text" placeholder="请输入验证码">
+				<button class="Verification" nz-button nzType="text" [disabled]='smsText!="发送验证码"'
+					(click)='getSms()'>{{smsText}}</button>
+			</div>
+			<button class="login" nz-button nzType="primary" (click)='login()'>登录</button>
+		</div>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+	<nb-layout >
+	
+	</nb-layout>
+</div>

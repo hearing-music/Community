@@ -28,21 +28,16 @@ import { FormsModule } from '@angular/forms';
 // -------------
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './services/http-interceptor.service';
-
-
-import {HashLocationStrategy , LocationStrategy} from '@angular/common';
-
-
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ApiService } from './services/api.service';
 import { CommonService } from './services/common.service';
-
+import { AuthService } from './services/auth.service';
 
 import { NzMessageModule } from 'ng-zorro-antd/message';
 // registerLocaleData(zh);
 
 @NgModule({
-	declarations: [AppComponent,
-	],
+	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
 		NzMessageModule,
@@ -77,9 +72,15 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 	providers: [
 		CommonService,
 		ApiService,
+		AuthService,
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: HttpInterceptorService,
+			multi: true,
+		},
 		{
 			provide: LocationStrategy,
-			 useClass: HashLocationStrategy
+			useClass: HashLocationStrategy
 		}
 	]
 })
