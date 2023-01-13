@@ -38,7 +38,7 @@ export class QqComponent implements OnInit {
 		
 	}
 	mouseenter(item:any){
-		this.rankItem = item.record.newData || [];
+		this.rankItem = item.record.newData || item.record || [];
 		item.lyricShow = true;
 		if(item.lyricText){
 			item.lyricData2 = this.common.parseLRC3(item.lyricText)
