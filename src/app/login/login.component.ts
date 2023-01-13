@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 				this.message.success('发送成功')
 				this.smsInterval()
 			}else{
-				this.message.error(res.message)
+				// this.message.error(res.message)
 			}
 		}, (err: any) => {
 			this.loading = false;
@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
 				// 跳转回重定向路径
 				this.router.navigate([redirectUrl]);
 			}else{
-				this.message.error(res.message)
+				// this.message.error(res.message)
 			}
 			// if (this.authService.isLoggedIn) {
 			//   const redirectUrl = this.authService.redirectUrl || '/'; // 防止用户直接在地址栏输入造成的redirectUrl为空的错误
