@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 		}, (err: any) => {
 			this.loading = false;
 			console.log(err)
-			this.message.error(err)
+			// this.message.error(err)
 		});
 	}
 	login() {
@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
 		}, (err: any) => {
 			this.loading = false;
 			console.log(err)
-			this.message.error(err)
+			// this.message.error(err)
 		});
 	}
 }
