@@ -13,7 +13,7 @@
 				<input [(ngModel)]="phone" type="text" placeholder="请输入手机号">
 			</div>
 			<div class="user">
-				<input [(ngModel)]="sms" type="text" placeholder="请输入验证码">
+				<input [(ngModel)]="sms" type="text" placeholder="请输入验证码" (focus)='focus()' (blur)='blur()'>
 				<button class="Verification" nz-button nzType="text" [disabled]='smsText!="发送验证码"'
 					(click)='getSms()'>{{smsText}}</button>
 			</div>

@@ -30,6 +30,16 @@ export class LoginComponent implements OnInit {
 			}
 		},1000)
 	}
+	focus(){
+		document.onkeydown =  (event_e)=>{
+			if(event_e.code === 'Enter' || event_e.code === 'NumpadEnter'){
+				this.login()
+			}
+		}
+	}
+	blur(){
+		document.onkeydown = null
+	}
 	getSms() {
 		if(!this.common.checkPhone(this.phone)){
 			this.message.error('手机号格式错误')
