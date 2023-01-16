@@ -24,7 +24,7 @@ export class PermissionGuard implements CanActivate {
 		console.log('checkUrl')
 		let menus_item:any = localStorage.getItem('menus_item')
 		menus_item = JSON.parse(menus_item);
-		let menu_list = menus_item.menuList;
+		let menu_list = menus_item.menuList || [];
 		let arr = []
 		for(let i = 0;i<menu_list.length;i++){
 			if(menu_list[i].display == 1){

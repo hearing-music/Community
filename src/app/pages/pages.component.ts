@@ -28,7 +28,7 @@ export class PagesComponent implements OnInit {
 		if(!this.common.checkAdmin()){
 			let menus_item:any = localStorage.getItem('menus_item')
 			menus_item = JSON.parse(menus_item)
-			let list = menus_item.menuList;
+			let list = menus_item.menuList || [];
 			let arr = []
 			for(let i = 0;i<list.length;i++){
 				if(list[i].display == 1&&list[i].type=='leftMenu'){
