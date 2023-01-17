@@ -207,11 +207,13 @@ export class SearchSongsComponent implements OnInit {
 		}).subscribe((res: any) => {
 			this.loading = false;
 			console.log(res)
-			res.result.forEach((item: any) => {
-				item.topinfo = item.topinfo || {}
-				item.playinfo = item.playinfo || {}
-				item.isPlay = false;
-			})
+			if(res.success){
+				res.result.forEach((item: any) => {
+					item.topinfo = item.topinfo || {}
+					item.playinfo = item.playinfo || {}
+					item.isPlay = false;
+				})
+			}
 			if (this.qqPage == 1) {
 				this.qqList = res.result;
 			} else {

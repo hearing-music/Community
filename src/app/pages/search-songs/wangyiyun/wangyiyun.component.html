@@ -9,12 +9,12 @@
 			<div class="left-text">
 				<div class="title-area">
 					<!-- 歌名 -->
-					<div (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
+					<div>
 						<div class="title">
-							{{item.songname}}
+							<span nz-tooltip [nzTooltipTitle]="item.songname">
+								{{item.songname}}
+							</span>
 						</div>
-						<!-- 鼠标移入加载歌词 -->
-						<ngx-lyric-all *ngIf='item.lyricShow' [songName]='item.songname' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
 					</div>
 					<button nz-button nzShape="circle" nzType="text" (click)="openLink(item.songid)" class="linkIcon" style="margin-left: 18px;">
 						<span nz-icon nzType="select" nzTheme="outline" style="color:red;font-size: 14px;"></span>
@@ -22,6 +22,11 @@
 					<button nz-button nzShape="circle" nzType="text"  style="margin-left: 2px;" class="linkIcon" (click)='downloadUrl(item.downloadUrl,item.songname)'>
 						<span nz-icon nzType="download" nzTheme="outline" style='color:red;font-size: 14px;'></span>
 					</button>
+					<div style="margin-left: 18px;" (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
+						<img src="../../../assets/img/lyric-red.png" style="width: 20px;height: 20px;">
+						<!-- 鼠标移入加载歌词 -->
+						<ngx-lyric-all *ngIf='item.lyricShow' [songName]='item.songname' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
+					</div>
 				</div>
 				<div class="subTitle">
 					<!-- 歌手 发行时间 -->

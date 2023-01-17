@@ -36,9 +36,10 @@ export class ApiService{
 	// 根据mid获取 收听 指数 排名
 	getQq_exponent(params:any){
 		let {
-			songmid
+			songmid,
+			keyword
 		} = params;
-		let url = this.tencentUrl+"/music?action=qq_exponent&params="+JSON.stringify({songmid})
+		let url = this.tencentUrl+"/music?action=qq_exponent&params="+JSON.stringify({songmid,keyword})
 		return this.http.get(url)
 	}
 	// qq歌词

@@ -9,12 +9,12 @@
 			<div class="left-text">
 				<div class="title-area">
 					<!-- 歌名 -->
-						<div (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
+						<div >
 							<div class="title">
-								{{common.deleteEM(item.songName)}}
+								<span nz-tooltip [nzTooltipTitle]="common.deleteEM(item.songName)">
+									{{common.deleteEM(item.songName)}}
+								</span>
 							</div>
-							<!-- 鼠标移入加载歌词 -->
-							<ngx-lyric-all *ngIf='item.lyricShow' [songName]='common.deleteEM(item.songName)' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
 						</div>
 						<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.scid,item.FileHash)" class="linkIcon" style="margin-left: 18px;">
 							<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
@@ -51,6 +51,11 @@
 						<span *ngIf='item.detailData.exponent_diff>0' nz-icon nzType="arrow-up" style='color:red;'
 							nzTheme="outline"></span>
 						<div>{{common.toThousands(item.detailData.exponent_diff)}}</div>
+					</div>
+					<div style="margin-left: 18px;" (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
+						<img src="../../../assets/img/lyric-blue.png" style="width: 20px;height: 20px;">
+						<!-- 鼠标移入加载歌词 -->
+						<ngx-lyric-all *ngIf='item.lyricShow' [songName]='common.deleteEM(item.songName)' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
 					</div>
 				</div>
 				<div class="subTitle">

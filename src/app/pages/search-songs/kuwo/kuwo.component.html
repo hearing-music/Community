@@ -9,16 +9,21 @@
 			<div class="left-text">
 				<div class="title-area">
 					<!-- 歌名 -->
-					<div (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
+					<div>
 						<div class="title" >
-							{{item.name}}
+							<span nz-tooltip [nzTooltipTitle]="item.name">
+								{{item.name}}
+							</span>
 						</div>
-						<!-- 鼠标移入加载歌词 -->
-						<ngx-lyric-all *ngIf='item.lyricShow' [songName]='item.name' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
 					</div>
 					<button nz-button nzShape="circle" nzType="text" (click)="openLink(item.rid)" class="linkIcon" style="margin-left: 18px;">
 						<span nz-icon nzType="select" nzTheme="outline" style="color:orange;font-size: 14px;"></span>
 					</button>
+					<div style="margin-left: 18px;" (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
+						<img src="../../../assets/img/lyric-orange.png" style="width: 20px;height: 20px;">
+						<!-- 鼠标移入加载歌词 -->
+						<ngx-lyric-all *ngIf='item.lyricShow' [songName]='item.name' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
+					</div>
 				</div>
 				<div class="subTitle">
 					<!-- 歌手 发行时间 -->

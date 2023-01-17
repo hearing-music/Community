@@ -45,7 +45,8 @@ export class FreeSongs_qqComponent implements OnInit {
   	reloadExponent(item:any){
   		this.loading = true;
   		this.api.getQq_exponent({
-  			songmid:item.songmid
+  			songmid:item.songmid,
+			keyword:item.songname
   		}).subscribe((res: any) => {
   			this.loading = false;
   			console.log(res)

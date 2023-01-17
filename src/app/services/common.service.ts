@@ -231,10 +231,12 @@ export class CommonService {
 			counter = 0;
 		num = (num || 0).toString().split('');
 		for (var i = num.length - 1; i >= 0; i--) {
-			counter++;
+				counter++;
 			result.unshift(num[i]);
 			if (!(counter % 3) && i != 0) {
-				result.unshift(',');
+				if(num[i-1]!='-'){
+					result.unshift(',');
+				}
 			}
 		}
 		return result.join('');
