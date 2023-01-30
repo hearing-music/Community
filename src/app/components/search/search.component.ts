@@ -13,8 +13,8 @@ export class SearchComponent implements OnInit {
 		this.childSearch.emit(this.searchValue)
 	}
 	focus(){
-		document.onkeydown =  (event_e)=>{
-			if(event_e.code === 'Enter' || event_e.code === 'NumpadEnter'){
+		document.onkeydown =  (event_e:any)=>{
+			if(event_e.keyCode === 13){
 				this.search()
 			}
 		}

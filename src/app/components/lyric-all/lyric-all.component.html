@@ -18,7 +18,7 @@
 	<div class="lyric-all_content" *ngIf='lyricReadly'>
 		{{lyricData.content}}
 	</div>
-	<div class="lyric-all_rank" *ngIf='rankList.length>0&&lyricReadly&&rankList.date'>
+	<div class="lyric-all_rank" *ngIf='rankList.length>0&&lyricReadly&&rankList[0].date'>
 		<div *ngFor="let item of rankList" class="rankBox">
 			<div class="rankBox-time">
 				{{item.date}}
@@ -28,7 +28,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="lyric-all_rank" *ngIf='rankList.length>0&&lyricReadly&&!rankList.date'>
+	<div class="lyric-all_rank" *ngIf='rankList.length>0&&lyricReadly&&!rankList[0].date'>
 		<div *ngFor="let item of rankList" class="rankBox">
 			<div class="rankBox-value">
 				{{item}}
