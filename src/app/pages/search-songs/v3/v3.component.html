@@ -103,15 +103,20 @@
 		</div>
 		<div class="item-right">
 			<div style="display: flex;align-items: center;justify-content: flex-end;">
-				<div style="display: flex;align-items: center;">
-					<!-- 收藏 -->
-					<img src="../../../assets/img/love.png" class="icon" style="width: 20px;height: 18px;">
+				<!-- 收藏图标 -->
+				<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
+				<div>{{'-'}}</div>
+			</div>
+			<div style="display: flex;align-items: center;margin-top: 6px;">
+				<!-- 播放量 -->
+				<div v-if='item.listenCnt!="-"'>
 					<div>{{'-'}}</div>
 				</div>
-				<div style="display: flex;align-items: center;margin-left: 6px;">
-					<!-- 评论 -->
-					<img src="../../../assets/img/pinglun.png" class="icon">
-					<div>{{'-'}}</div>
+				<div style="margin: 0 8px;"> | </div>
+				<div style="display: flex;align-items: center;">
+					<!-- 评论图标 -->
+					<img src="../../../assets/img/pinglun.png" class="icon" />
+					<div>{{common.toThousands(item.commentObj.cnt)}}</div>
 				</div>
 			</div>
 		</div>

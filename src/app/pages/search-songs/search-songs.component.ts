@@ -44,6 +44,7 @@ export class SearchSongsComponent implements OnInit {
 	
 	audioSrc = '';
 	lyricData:any = [];
+	isPlay = false;
 	// 歌曲进度
 	timeupdate(e:any){
 		this.lyric.lyricUp(e.srcElement.currentTime);
@@ -65,6 +66,7 @@ export class SearchSongsComponent implements OnInit {
 	}
 	// qq传参
 	qqSrcChange(params: any) {
+		this.isPlay =true;
 		let { src, i } = params;
 		if(!this.qqList[i].lyricText){
 			this.getLyric(this.qqList[i].mid,i)
@@ -92,6 +94,7 @@ export class SearchSongsComponent implements OnInit {
 	
 	// 铃声多多传参
 	lsddSrcChange(params: any) {
+		this.isPlay =true;
 		let { src, i } = params;
 		this.audioSrc = src;
 		let audio: any = document.getElementById('audio')

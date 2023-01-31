@@ -36,7 +36,7 @@
 	<!-- 歌词 -->
 	<ngx-lyric #lyric [lyricData]='lyricData'></ngx-lyric>
 	<!-- 播放器 -->
-	<div class="play">
+	<div class="play" [ngClass]="{hide : !isPlay}">
 		<audio id='audio' controls [src]="audioSrc" (play)='play($event)' (pause)='pause()' (timeupdate)="timeupdate($event)">
 		</audio>
 	</div>
