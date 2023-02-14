@@ -21,12 +21,14 @@
 		<div>
 			{{downloadName}}
 		</div>
-		<button nz-button nzType="text" class="downloadBtn" (click)='download()'>
-			<span>
-				下载zip
-			</span>
-			<span nz-icon nzType="file-zip" nzTheme="outline" style="color: blue;margin-left: 4px;"></span>
-		</button>
+			<a [href]="downloadZip">
+				<button nz-button nzType="text" class="downloadBtn">
+				<span>
+					下载zip
+				</span>
+				<span nz-icon nzType="file-zip" nzTheme="outline" style="color: blue;margin-left: 4px;"></span>
+				</button>
+			</a>
 	</div>
 
 	<!-- 五种音轨 -->

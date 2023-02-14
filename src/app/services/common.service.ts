@@ -172,7 +172,7 @@ export class CommonService {
 		var request = new XMLHttpRequest();
 			request.responseType = "blob";
 			let fileUrl = src; // 文件路径
-			request.open("GET", fileUrl );
+			request.open("GET", fileUrl ,true);
 			request.onload = function() {
 			    var url = window.URL.createObjectURL(this.response);
 			    var a = document.createElement("a");

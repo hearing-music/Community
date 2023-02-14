@@ -42,7 +42,7 @@
 					<!-- 昨日指数 -->
 					<div *ngIf='item.detailData.listener_num' class="" style="display: flex;align-items: center;margin-left: 2px;">
 						<img src="../../../assets/img/shijian.png" class="icon" />
-						<div>{{common.toThousands(item.detailData.exponent + (item.detailData.exponent_diff - 0))}}</div>
+						<div>{{common.toThousands(item.detailData.exponent - (item.detailData.exponent_diff - 0))}}</div>
 					</div>
 					<!-- 指数增长率 -->
 					<div *ngIf='item.detailData.listener_num' class="" v-if='item.detailData.exponent_diff!=0' style="display: flex;align-items: center;margin-left: 8px;">
@@ -108,9 +108,10 @@
 				<div>{{'-'}}</div>
 			</div>
 			<div style="display: flex;align-items: center;margin-top: 6px;">
-				<!-- 播放量 -->
-				<div v-if='item.listenCnt!="-"'>
-					<div>{{'-'}}</div>
+				<!-- 播放量 -->   
+				<!-- id -->
+				<div (click)='copyScid(item.scid)' style="cursor: pointer;">
+					<div>id:{{item.scid}}</div>
 				</div>
 				<div style="margin: 0 8px;"> | </div>
 				<div style="display: flex;align-items: center;">
