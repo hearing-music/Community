@@ -1,0 +1,73 @@
+<div class="mainBox">
+    <div class="semi-row">
+        <div class="semi-col-12">
+            <div class="semi-banner" style="display: flex;flex-direction: row" *ngIf='message'>
+                <div style="display: flex;justify-content: center; flex: 1 1;">
+                    <div style="display: flex;align-items:center;">
+                        <img src="../../../../assets/img/success.png" alt="" style="width: 20px;height: 20px;">
+                    </div>
+                    <span style="display: flex;align-items: center;margin-left: 15px;">{{message}}</span>
+                </div>
+                <button class="closeBtn" (click)="closeMessage()">x</button>
+            </div>
+            <div class="semi-banner" style="display: flex;flex-direction: row" *ngIf='errmessage'>
+                <div style="display: flex;justify-content: center; flex: 1 1;">
+                    <div style="display: flex;align-items:center;">
+                        <img src="../../../../assets/img/False_circle90.png" alt="" style="width: 20px;height: 20px;">
+                    </div>
+                    <span style="display: flex;align-items: center;margin-left: 15px;">{{errmessage}}</span>
+                </div>
+                <button class="closeBtn" (click)="closeMessage()">x</button>
+            </div>
+            <div class="semi-card-bordered">
+                <div class="semi-card-body">
+                    <div class="semi-form-vertical">
+                        <div class="text" style="position: relative;">
+                            名字
+                            <img src="../../../../assets/img/xinghao.png" alt=""
+                                style="width: 12px;position: absolute;">
+                        </div>
+                        <div class="entering">
+                            <input type="text" [(ngModel)]='name' (blur)='onNameBlur()'>
+                        </div>
+                        <div *ngIf='nameNull' style="color:red;display: flex;align-items:center;">
+                            <img src="../../../../assets/img/warn.png" alt="" style="width: 16px;height: 16px;">
+                            {{nameNull}}
+                        </div>
+                    </div>
+                    <div class="semi-form-vertical">
+                        <div class="text" style="position: relative;">
+                            身份证号
+                            <img src="../../../../assets/img/xinghao.png" alt=""
+                                style="width: 12px;position: absolute;">
+                        </div>
+                        <div class="entering">
+                            <input type="text" [(ngModel)]='idCard' (blur)='onidCardBlur()'>
+                        </div>
+                        <div *ngIf='idCardNull' style="color:red;display: flex;align-items:center;">
+                            <img src="../../../../assets/img/warn.png" alt="" style="width: 16px;height: 16px;">
+                            {{idCardNull}}
+                        </div>
+                    </div>
+                    <div class="semi-form-vertical" style="position: relative;">
+                        <div class="text">
+                            银行卡号
+                            <img src="../../../../assets/img/xinghao.png" alt=""
+                                style="width: 12px;position: absolute;">
+                        </div>
+                        <div class="entering">
+                            <input type="text" [(ngModel)]='bankIdCard' (blur)='onidBankBlur()'>
+                        </div>
+                        <div *ngIf='bankIdCardNull' style="color:red;display: flex;align-items:center;">
+                            <img src="../../../../assets/img/warn.png" alt="" style="width: 16px;height: 16px;">
+                            {{bankIdCardNull}}
+                        </div>
+                    </div>
+                    <div class="semi-form-vertical">
+                        <button class="btn" (click)="searchUser()">搜索</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

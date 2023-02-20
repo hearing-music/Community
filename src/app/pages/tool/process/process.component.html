@@ -1,0 +1,56 @@
+<div class="mainBox">
+    <div>
+        <div *ngIf='!location'>
+            <div class="semi-row" style="margin-top:50px">
+                <div class="semi-col-12">
+                    <div class="uploadFile-box">
+                        <div style="color:red;display: flex;flex-direction: column;align-items: center;"
+                            *ngIf='message'>
+                            {{message}}</div>
+                        <ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+                    </div>
+                </div>
+            </div>
+            <div class="semi-row" style="margin-top:50px">
+                <div class="semi-col-12" style="display: flex;flex-direction: column;align-items: center;">
+                    <nz-select nzPlaceHolder="选择后缀名" [(ngModel)]="selectedValue" [compareWith]="compareFn"
+                        (ngModelChange)="changeJsonExel($event)">
+                        <nz-option *ngFor="let option of choseJsonExle" [nzValue]="option"
+                            [nzLabel]="option.label"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div class="semi-row" style="margin-top:90px">
+                <div class="semi-col-12" style="display: flex;flex-direction: column;align-items: center;">
+                    <button class="btn" (click)="changeExelJson()">处理</button>
+                </div>
+            </div>
+            <div class="semi-row" style="margin-top:90px;">
+                <div class="semi-col-12">
+                    <nz-progress [nzPercent]="percent"></nz-progress>
+                </div>
+            </div>
+        </div>
+        <div class="semi-row" style="margin-top:90px" *ngIf='location'>
+            <div class="semi-col-12" style="display: flex;flex-direction: column;align-items: center;">
+                <button (click)="location=''" class=" btn" style="width: 60px;">返回</button>
+            </div>
+            <div class="semi-col-12" style="display: flex;flex-direction: column;align-items: center;margin-top: 50px;">
+                <div class="semi-card semi-card-bordered" style="min-width: 450px;">
+                    <div class="semi-card-body">
+                        <div class="semi-row" x-semi-prop="children">
+                            <div class="semi-col semi-col-12 semi-col-offset-6" x-semi-prop="children"
+                                style="display: flex; align-items: center; justify-content: center;">文件处理成功</div>
+                        </div>
+                        <div class="semi-row" x-semi-prop="children" style="margin-top: 30px;">
+                            <div class="semi-col semi-col-12 semi-col-offset-6" x-semi-prop="children"
+                                style="display: flex; align-items: center; justify-content: center;">
+                                <button (click)="downLoad()" class="btn">下载文件</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

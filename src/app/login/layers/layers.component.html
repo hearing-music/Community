@@ -1,0 +1,62 @@
+<nz-layout>
+    <nz-header class="Top" style="display: flex;align-items: center;">
+        <h2 style="color: green;">
+            歌单合作骗子
+        </h2>
+    </nz-header>
+    <nz-content class="main">
+        <!-- <button (click)="xianshi()">tijiao</button> -->
+        <div style="margin-top: 15px;width: 700px;">
+            <div>
+                <nz-carousel nzAutoPlay *ngIf='allLyers'>
+                    <div nz-carousel-content *ngFor="let index of allLyers">
+                        <div style="display: flex;justify-content: space-around;margin-top: 15px;">
+                            <div>
+                                <img src="https://thirdqq.qlogo.cn/g?b=sdk&k=jkVSicXlX69s5fR14UibicZzg&s=140&t=1557860583"
+                                    alt="" style="width:100px;height: 100px;border-radius: 50%;">
+                            </div>
+                            <div>
+                                <div>
+                                    姓名：{{index.name}}
+                                </div>
+                                <div>
+                                    联系方式：{{index.information[0]}}
+                                </div>
+                                <div>
+                                    QQ:{{index.QQ}}
+                                </div>
+                                <div>
+                                    微信：{{index.wechat}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nz-carousel>
+            </div>
+        </div>
+        <div style="width: 100vh;display: flex;flex-wrap: wrap;justify-content: space-around;margin-top: 15px;">
+            <div class="card" *ngFor="let index of allLyers">
+                <nz-card nzHoverable style="width:200px;height: auto;" [nzCover]="coverTemplate">
+                    <div>
+                        姓名：{{index.name}}
+                    </div>
+                    <div>
+                        联系方式：{{index.information[0]}}
+                    </div>
+                    <div>
+                        QQ：{{index.QQ}}
+                    </div>
+                    <div>
+                        微信：{{index.wechat}}
+                    </div>
+                </nz-card>
+                <ng-template #coverTemplate>
+                    <img alt="example"
+                        src="https://thirdqq.qlogo.cn/g?b=sdk&k=jkVSicXlX69s5fR14UibicZzg&s=140&t=1557860583" />
+                </ng-template>
+            </div>
+        </div>
+    </nz-content>
+    <nb-layout>
+    </nb-layout>
+</nz-layout>

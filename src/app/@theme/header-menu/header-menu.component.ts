@@ -43,6 +43,10 @@ export class HeaderMenuComponent implements OnInit {
 			link:'http://www.tingjianmusic.top/'
 		},
 		{
+			title:'工具',
+			link:'/pages/tool'
+		},
+		{
 			title:'Telegram',
 			link:'https://evgeny-nadymov.github.io/telegram-react/'
 		}

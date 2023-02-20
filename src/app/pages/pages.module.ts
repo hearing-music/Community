@@ -20,7 +20,7 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
-import {LoadingModule} from '../components/loading/loading.module'
+import { LoadingModule } from '../components/loading/loading.module'
 // page
 import { FreeSongs_kugouComponent } from './kugou/free-songs/free-songs.component';
 import { FreeSongs_qqComponent } from './qq/free-songs/free-songs.component';
@@ -58,9 +58,15 @@ import { CopyrightLinkComponent } from './copyright-scanning/copyright-link/copy
 import { TrackSeparateComponent } from './track-separate/track-separate.component';
 import { MusiryToolsComponent } from './musiry-tools/musiry-tools.component';
 import { AudioTrickComponent } from '../components/audio-trick/audio-trick.component';
+import { ToolComponent } from './tool/tool.component';
+import { BankComponent } from './tool/bank/bank.component';
+import { ProcessComponent } from './tool/process/process.component';
+import { JsonFormatComponent } from './tool/json-format/json-format.component';
+import { MonitorComponent } from './tool/monitor/monitor.component';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
 @NgModule({
-  imports: [
-	  LoadingModule,
+	imports: [
+		LoadingModule,
 		NzMessageModule,
 		NzModalModule,
 		NzToolTipModule,
@@ -75,54 +81,56 @@ import { AudioTrickComponent } from '../components/audio-trick/audio-trick.compo
 		NzSpinModule,
 		FormsModule,
 		IconsProviderModule,
-		
-    PagesRoutingModule,
-    ThemeModule,
-    NbMenuModule,
-    // DashboardModule,
-    // ECommerceModule,
-    MiscellaneousModule,
-  ],
-  declarations: [
-    PagesComponent,
-    FreeSongs_kugouComponent,
-	FreeSongs_qqComponent,
-    SearchSongsComponent,
-	SearchPageComponent,
-	QuerySonglistComponent,
-	KugouSoaringComponent,
-	DouyinComponent,
-	IdentificationComponent,
-	ConverterComponent,
-	CopyrightScanningComponent,
-	
-	
-	
-	QqComponent,
-	V3Component,
-	WangyiyunComponent,
-	KuwoComponent,
-	LsddComponent,
-	MusicianTxComponent,
-	SearchComponent,
-	UploadFileComponent,
-	LyricComponent,
-	LyricAllComponent,
-	NotOpenComponent,
- BrandUserComponent,
- Sing5Component,
- WangyisixinComponent,
- CopyrightSearchComponent,
- CopyrightCheckComponent,
- YinghuoComponent,
- LsddPageComponent,
- TemplateComponent,
- KuaishouSearchindexComponent,
- CopyrightLinkComponent,
- TrackSeparateComponent,
- MusiryToolsComponent,
- AudioTrickComponent,
-  ],
+		PagesRoutingModule,
+		ThemeModule,
+		NbMenuModule,
+		// DashboardModule,
+		// ECommerceModule,
+		MiscellaneousModule,
+		NzProgressModule
+	],
+	declarations: [
+		PagesComponent,
+		FreeSongs_kugouComponent,
+		FreeSongs_qqComponent,
+		SearchSongsComponent,
+		SearchPageComponent,
+		QuerySonglistComponent,
+		KugouSoaringComponent,
+		DouyinComponent,
+		IdentificationComponent,
+		ConverterComponent,
+		CopyrightScanningComponent,
+		QqComponent,
+		V3Component,
+		WangyiyunComponent,
+		KuwoComponent,
+		LsddComponent,
+		MusicianTxComponent,
+		SearchComponent,
+		UploadFileComponent,
+		LyricComponent,
+		LyricAllComponent,
+		NotOpenComponent,
+		BrandUserComponent,
+		Sing5Component,
+		WangyisixinComponent,
+		CopyrightSearchComponent,
+		CopyrightCheckComponent,
+		YinghuoComponent,
+		LsddPageComponent,
+		TemplateComponent,
+		KuaishouSearchindexComponent,
+		CopyrightLinkComponent,
+		TrackSeparateComponent,
+		MusiryToolsComponent,
+		AudioTrickComponent,
+		ToolComponent,
+		BankComponent,
+		ProcessComponent,
+		MonitorComponent,
+		JsonFormatComponent,
+	],
 })
 export class PagesModule {
 }

@@ -9,6 +9,13 @@ import {
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { LoginComponent } from './login.component';
 import { LoginRoutingModule } from './login-routing.module';
+import { LayersComponent } from './layers/layers.component';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
+
 @NgModule({
 	imports: [
 		LoginRoutingModule,
@@ -17,10 +24,16 @@ import { LoginRoutingModule } from './login-routing.module';
 		NbLayoutModule,
 		FormsModule,
 		NzButtonModule,
-		LoadingModule
+		LoadingModule,
+		NzCardModule,
+		NzInputModule,
+		NzSelectModule,
+		NzLayoutModule,
+		NzCarouselModule,
 	],
 	declarations: [
 		LoginComponent,
+		LayersComponent,
 	],
 })
 export class LoginModule {

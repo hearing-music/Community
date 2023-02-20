@@ -21,7 +21,8 @@ import { MusiryToolsComponent } from './musiry-tools/musiry-tools.component';
 // import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 
-import {PermissionGuard} from '../guards/permission.guard'
+import { PermissionGuard } from '../guards/permission.guard'
+import { ToolComponent } from './tool/tool.component';
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -114,6 +115,12 @@ const routes: Routes = [{
 		{
 			path: 'musiry-tools',
 			component: MusiryToolsComponent,
+			canActivate: [PermissionGuard]
+		},
+		//工具
+		{
+			path: 'tool',
+			component: ToolComponent,
 			canActivate: [PermissionGuard]
 		},
 		// {
