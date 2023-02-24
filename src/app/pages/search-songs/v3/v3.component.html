@@ -110,6 +110,9 @@
 			<div style="display: flex;align-items: center;margin-top: 6px;">
 				<!-- 播放量 -->   
 				<!-- id -->
+				<span nz-tooltip [nzTooltipTitle]="'添加监测歌曲'">
+					<span style="margin-right: 12px;color: blue;font-size: 16px;cursor: pointer;" (click)='addScid(item.scid)' nz-icon nzType="plus-circle" nzTheme="outline"></span>
+				</span>
 				<div (click)='copyScid(item.scid)' style="cursor: pointer;">
 					<div>id:{{item.scid}}</div>
 				</div>

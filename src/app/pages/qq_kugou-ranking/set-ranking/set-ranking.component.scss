@@ -1,0 +1,57 @@
+.ranking{
+	height: 100%;
+	background-color: #fff;
+	border-radius: 12px;
+	min-height: calc(100vh - 4.75rem - 4rem);
+	color:#000;
+	.flexCcenter{
+		display: flex;align-items: center;flex-direction: column;
+	}
+	.title{
+		font-weight: bold;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding:20px;
+		padding-bottom: 0;
+		color: #222637;
+	}
+	.ranking-ipt{
+		padding:16px;
+		display: flex;
+		align-items: center;
+	}
+	.ranking-search{
+		margin-left: 44px;
+	}
+	.qq{
+		color: #35C035;
+		display: flex;
+		align-items: center;
+	}
+	.kg{
+		color:blue;
+		margin-top: 8px;
+		display: flex;
+		align-items: center;
+	}
+}
+.search{
+			// margin-left: 48px;
+			width: 350px;
+			height: 32px;
+			position: relative;
+			.search-ipt{
+				box-sizing: border-box;
+				height: 100%;
+				width: 100%;
+				border: 1px solid #E6ECFD;
+				border-radius: 100px;
+				padding: 8px 16px;
+				font-size: 14px;
+				color: #222637;
+			}
+			.search-ipt:focus{
+			    outline: 1.5px solid #E6ECFD;
+			}
+		}

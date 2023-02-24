@@ -8,6 +8,7 @@ import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 // Module
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
@@ -81,6 +82,7 @@ import { GetRankingComponent } from './qq_kugou-ranking/get-ranking/get-ranking.
 		NzSliderModule,
 		NzSwitchModule,
 		NzSpinModule,
+		NzCollapseModule,
 		FormsModule,
 		IconsProviderModule,
 		PagesRoutingModule,

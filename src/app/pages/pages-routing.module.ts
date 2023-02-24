@@ -127,9 +127,13 @@ const routes: Routes = [{
 		},
 		//添加监测歌曲
 		{
-			path: 'set-ranking',
+			path: 'set-ranking/:scid',
 			component: SetRankingComponent,
 			canActivate: [PermissionGuard]
+		},
+		{
+			path: 'set-ranking',        
+			redirectTo: 'set-ranking/',
 		},
 		//查询监测歌曲
 		{

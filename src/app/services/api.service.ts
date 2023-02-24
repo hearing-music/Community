@@ -291,7 +291,7 @@ export class ApiService {
 	//加入ranking数据
 	setqq_kugouKeywordInfo(params:any){
 		let url = this.baseUrl +'/qq_kugou/setqq_kugouKeywordInfo'
-		return this.http.post(url, {data:params})
+		return this.http.post(url, {...params})
 	}
 	// 查询ranking数据
 	getqq_kugouInfo(params: any) {

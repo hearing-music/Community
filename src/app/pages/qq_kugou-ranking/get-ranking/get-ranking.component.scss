@@ -1,0 +1,30 @@
+.ranking{
+	height: 100%;
+	background-color: #fff;
+	border-radius: 12px;
+	min-height: calc(100vh - 4.75rem - 4rem);
+	color:#000;
+	.flexCcenter{
+		display: flex;align-items: center;flex-direction: column;
+	}
+	.title{
+		font-weight: bold;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding:20px;
+		padding-bottom: 0;
+		color: #222637;
+	}
+	.qq{
+		color: #35C035;
+		display: flex;
+		align-items: center;
+	}
+	.kg{
+		color:blue;
+		margin-top: 8px;
+		display: flex;
+		align-items: center;
+	}
+}

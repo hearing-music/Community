@@ -1,1 +1,234 @@
-<p>get-ranking works!</p>
+<div class="ranking">
+	<div class="title">
+		<div>
+			监测歌曲
+		</div>
+	</div>
+	<!-- <nz-collapse>
+	      <nz-collapse-panel
+			[nzActive]='active'
+	      >
+	        <p style="margin:0;">
+	          A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome
+	          guest in many households across the world.
+	        </p>
+	      </nz-collapse-panel>
+	</nz-collapse> -->
+	<div style="padding: 16px;display: flex;align-items: center;justify-content: space-between;">
+		<ngx-search [searchValue]='searchValue' [searchHolder]='"请搜索歌曲名字"' (childSearch)='search($event)'>
+		</ngx-search>
+		<div style="margin-right: 20px;">
+			<nz-switch [ngModel]="switch" nzCheckedChildren="我的" nzUnCheckedChildren="全部"
+				(ngModelChange)='ngModelChange($event)'></nz-switch>
+		</div>
+	</div>
+	<nz-table #nestedTable [nzData]="data" nzTitle='' [nzFrontPagination]='false'>
+		<thead>
+			<tr>
+				<th nzAlign='center'></th>
+				<th nzAlign='center'>歌曲ID</th>
+				<th nzAlign='center'>歌曲名称</th>
+				<th nzAlign='center'>作者</th>
+				<th nzAlign='center'>专辑</th>
+				<th nzAlign='center'>发行时间</th>
+				<th nzAlign='center'>关键词排名</th>
+				<th nzAlign='center'>加入时间</th>
+				<th nzAlign='center'>添加者</th>
+			</tr>
+		</thead>
+		<tbody>
+			<ng-template  ngFor let-item [ngForOf]="nestedTable.data">
+			          <tr >
+						<td [(nzExpand)]="item.expand"></td>
+			          	<td nzAlign='center'>
+			          		<div class="flexCcenter">
+			          			<div class="qq">
+			          				{{item.qq_mid}}
+			          			</div>
+			          			<div class='kg'>
+			          				{{item.kg_scid}}
+			          			</div>
+			          		</div>
+			          	</td>
+			          	<td nzAlign='center'>
+			          		<div class="flexCcenter">
+			          			<div class="qq">
+			          				{{item.qq_song_name}}
+			          				<!-- <button nz-button nzShape="circle" nzType="text" (click)='openqq(item.qq.song_mid)' style="margin-left: 8px;display: flex;align-items: center;justify-content: center;">
+			          						<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
+			          					</button> -->
+			          			</div>
+			          			<div class='kg'>
+			          				{{common.deleteEM(item.kg_song_name)}}
+			          				<!-- <button nz-button nzShape="circle" nzType="text" (click)='openkg(item.kg_scid,item.kg_SQFileHash)' class="linkIcon" style="margin-left: 8px;display: flex;align-items: center;justify-content: center;">
+			          						<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
+			          					</button> -->
+			          			</div>
+			          		</div>
+			          	</td>
+			          	<td nzAlign='center'>
+			          		<div class="flexCcenter">
+			          			<div class="qq">
+			          				{{item.qq_singer_name}}
+			          			</div>
+			          			<div class='kg'>
+			          				{{common.deleteEM(item.kg_singer_name)}}
+			          			</div>
+			          		</div>
+			          	</td>
+			          	<td nzAlign='center'>
+			          		<div class="flexCcenter">
+			          			<div class="qq">
+			          				{{item.qq_album_name}}
+			          			</div>
+			          			<div class='kg'>
+			          				{{item.kg_album_name}}
+			          			</div>
+			          		</div>
+			          	</td>
+			          	<td nzAlign='center'>
+			          		<div class="flexCcenter">
+			          			<div class="qq">
+			          				{{item.qq_publish_time}}
+			          			</div>
+			          			<div class='kg'>
+			          				{{item.kg_publish_time}}
+			          			</div>
+			          		</div>
+			          	</td>
+			          	<td nzAlign='center'>
+			          		<div class="flexCcenter">
+			          			<div class="qq">
+			          				{{item.qq_rankingValues[item.qq_rankingValues.length-1].rank}}
+			          				<div *ngIf='item.qq_rankingValues.length>1' style="display: flex;align-items: center;">
+			          					<span
+			          						*ngIf='item.qq_rankingValues[item.qq_rankingValues.length-1].rank<item.qq_rankingValues[item.qq_rankingValues.length-2].rank'
+			          						nz-icon nzType="arrow-down" style='color:#35C035;margin-left: 6px;' nzTheme="outline"></span>
+			          					<span
+			          						*ngIf='item.qq_rankingValues[item.qq_rankingValues.length-2].rank>item.qq_rankingValues[item.qq_rankingValues.length-1].rank'
+			          						nz-icon nzType="arrow-up" style='color:red;margin-left: 6px;' nzTheme="outline"></span>
+			          				</div>
+			          			</div>
+			          			<div class='kg'>
+			          				{{item.kg_rankingValues[item.kg_rankingValues.length-1].myRank}}
+			          				<div *ngIf='item.kg_rankingValues.length>1' style="display: flex;align-items: center;">
+			          					<span
+			          						*ngIf='item.kg_rankingValues[item.kg_rankingValues.length-1].myRank<item.kg_rankingValues[item.kg_rankingValues.length-2].myRank'
+			          						nz-icon nzType="arrow-down" style='color:#35C035;margin-left: 6px;' nzTheme="outline"></span>
+			          					<span
+			          						*ngIf='item.kg_rankingValues[item.kg_rankingValues.length-2].myRank>item.kg_rankingValues[item.kg_rankingValues.length-1].myRank'
+			          						nz-icon nzType="arrow-up" style='color:red;margin-left: 6px;' nzTheme="outline"></span>
+			          				</div>
+			          			</div>
+			          		</div>
+			          	</td>
+						<td nzAlign='center'>
+							{{common.getDate(item.create_time)}}
+						</td>
+			          	<td nzAlign='center'>
+			          		{{item.username}}
+			          	</td>
+			          </tr>
+			          <tr [nzExpand]="item.expand">
+			            <nz-table #innerTable [nzData]="item.ranking" nzSize="middle" [nzShowPagination]="false">
+			              <thead>
+			                <tr>
+			                  <th nzAlign='center'>时间</th>
+			                  <th nzAlign='center'>昨日指数</th>
+			                  <th nzAlign='center'>较前一天</th>
+			                  <th nzAlign='center'>昨日排名</th>
+			                  <th nzAlign='center'>较前一天</th>
+			                  <th nzAlign='center'>关键字排名</th>
+			                </tr>
+			              </thead>
+			              <tbody>
+			                <tr *ngFor="let data of innerTable.data;let i = index">
+			                  <td nzAlign='center'>
+								  <div class="flexCcenter">
+								  	<div class="qq" style="color:#000;">
+								  		{{common.getTime(data.qq.time)}}
+								  	</div>
+								  	<!-- <div class='kg' style="color:#000;">
+								  		{{common.getTime(data.kugou.time)}}
+								  	</div> -->
+								  </div>
+							  </td>
+			                  <td nzAlign='center'>
+								  <div class="flexCcenter">
+								  	<div class="qq" style="color:#000;">
+								  		{{data.qq.yesterdayIndex}}
+								  	</div>
+								  	<div class='kg' style="color:#000;">
+								  		{{data.kugou.yestodayExponent}}
+								  	</div>
+								  </div>
+							  </td>
+			                  <td nzAlign='center'>
+								  <div class="flexCcenter">
+								  	<div class="qq" style="color:#000;">
+								  		{{common.tFixed(data.qq.indexRate)}}
+								  	</div>
+								  	<div class='kg' style="color:#000;">
+								  		{{data.kugou.exponent_diff}}
+								  	</div>
+								  </div>
+			                  </td>
+			                  <td nzAlign='center'>
+								  <div class="flexCcenter">
+								  	<div class="qq" style="color:#000;">
+								  		{{data.qq.yesterdayRank}}
+								  	</div>
+								  	<div class='kg' style="color:#000;">
+								  		{{data.kugou.yestodayRank}}
+								  	</div>
+								  </div>
+							  </td>
+			                  <td nzAlign='center'>
+			                    <div class="flexCcenter">
+			                    	<div class="qq" style="color:#000;">
+			                    		{{data.qq.rankRate}}
+			                    	</div>
+			                    	<div class='kg' style="color:#000;">
+			                    		{{data.kugou.rank_diff}}
+			                    	</div>
+			                    </div>
+			                  </td>
+							  <td nzAlign='center'>
+							    <div class="flexCcenter">
+							    	<div class="qq">
+							    		{{data.qq.rank}}
+										<div *ngIf='item.ranking.length>1&&i!=0' style="display: flex;align-items: center;">
+											<span
+												*ngIf='item.ranking[i-1].qq.rank<data.qq.rank'
+												nz-icon nzType="arrow-down" style='color:#35C035;margin-left: 6px;' nzTheme="outline"></span>
+											<span
+												*ngIf='item.ranking[i-1].qq.rank>data.qq.rank'
+												nz-icon nzType="arrow-up" style='color:red;margin-left: 6px;' nzTheme="outline"></span>
+										</div>
+							    	</div>
+							    	<div class='kg'>
+							    		{{data.kugou.myRank}}
+										<div *ngIf='item.ranking.length>1&&i!=0' style="display: flex;align-items: center;">
+											<span
+												*ngIf='item.ranking[i-1].kugou.myRank<data.kugou.myRank'
+												nz-icon nzType="arrow-down" style='color:#35C035;margin-left: 6px;' nzTheme="outline"></span>
+											<span
+												*ngIf='item.ranking[i-1].kugou.myRank>data.kugou.myRank'
+												nz-icon nzType="arrow-up" style='color:red;margin-left: 6px;' nzTheme="outline"></span>
+										</div>
+							    	</div>
+							    </div>
+							  </td>
+			                </tr>
+			              </tbody>
+			            </nz-table>
+			          </tr>
+			        </ng-template>
+		</tbody>
+	</nz-table>
+	<div style="display: flex;justify-content: center;padding-bottom: 10px;">
+		<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+			(nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

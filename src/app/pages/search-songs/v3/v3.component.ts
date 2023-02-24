@@ -1,6 +1,7 @@
 import { Component, OnInit,Input } from '@angular/core';
 import {CommonService} from "../../../services/common.service";
 import { ApiService } from "../../../services/api.service";
+import { Router } from '@angular/router';
 @Component({
   selector: 'ngx-v3',
   templateUrl: './v3.component.html',
@@ -8,7 +9,7 @@ import { ApiService } from "../../../services/api.service";
 })
 export class V3Component implements OnInit {
 @Input() kugouV3List: any;
-	constructor(public common: CommonService,public api: ApiService) { }
+	constructor(public common: CommonService,public api: ApiService,private router: Router) { }
   ngOnInit(): void {
 	  
   }
@@ -20,6 +21,9 @@ export class V3Component implements OnInit {
 	}
 	copyScid(scid:string|number){
 		this.common.copy(scid+'')
+	}
+	addScid(scid:string|number){
+		this.router.navigate(['/pages/set-ranking/',scid]);
 	}
 	// 获取歌词
 	getLyric(item:any){

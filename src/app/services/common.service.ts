@@ -4,7 +4,7 @@ import { NzMessageService  } from 'ng-zorro-antd/message';
 	providedIn: 'root'
 })
 export class CommonService {
-	constructor(private message: NzMessageService) { }
+	constructor(public message: NzMessageService) { }
 	// 验证是否为管理员
 	checkAdmin(){
 		let permission_name = localStorage.getItem('permission_name')
@@ -160,13 +160,34 @@ export class CommonService {
 		// if(ms < 10) ms = 0 +ms
 		return m+':'+s+'.'+ms
 	}
-	getDate(date: number) {
-		var time = new Date(date);
+	getDate(date: number|string) {
+		var time = new Date(Number(date));
 		var year = time.getFullYear()  //年
 		var month = ("0" + (time.getMonth() + 1)).slice(-2); //月
 		var day = ("0" + time.getDate()).slice(-2); //日
 		var mydate = year + "-" + month + "-" + day + '';
 		return mydate
+	}
+	getTime(date: number|string){
+		var time = new Date(Number(date));
+		var year = time.getFullYear()  //年
+		var month = ("0" + (time.getMonth() + 1)).slice(-2); //月
+		var day = ("0" + time.getDate()).slice(-2); //日
+		var mydate = year + "-" + month + "-" + day + '';
+		 var hour:any = time.getHours() //时
+		 var minutes:any = time.getMinutes() //分
+		 var seconds:any = time.getSeconds() //秒
+		 if(hour<10){
+			 hour = '0'+hour
+		 }
+		 if(minutes<10){
+			minutes = '0'+minutes
+		 }
+		 if(seconds<10){
+		 	seconds = '0'+seconds
+		 }
+		var mytime = ' '+hour+':'+minutes
+		return mydate+mytime
 	}
 	download(src: string, name: string) {//下载地址和名
 		var request = new XMLHttpRequest();
