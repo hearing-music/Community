@@ -26,7 +26,8 @@ export class HttpInterceptorService implements HttpInterceptor {
     let secureReq: HttpRequest<any> = req;
 	let token = localStorage.getItem('token') || ''
 	let token_expiration_time = localStorage.getItem('token_expiration_time') || ''
-	if(!req.url.includes('/login/login') && !req.url.includes('/login/getSms')){
+	console.log(req.url)
+	if(!req.url.includes('/login/login') && !req.url.includes('/login/getSms') && !req.url.includes('/kugou/getLiarUserInfo') && !req.url.includes('/qq/getLiarUserInfo')){
 		if(!token || !token_expiration_time){
 			this.message.error('请登录')
 			isTrue = false;

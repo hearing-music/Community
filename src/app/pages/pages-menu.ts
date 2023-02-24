@@ -61,16 +61,30 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	// 	icon: 'folder',
 	// 	link: '/pages/converter',
 	// },
-	{
-		title: '听歌识曲',
-		icon: 'headphones',
-		link: '/pages/identification',
-	},
 	// {
 	// 	title: '音乐工具',
 	// 	icon: 'clipboard',
 	// 	link: '/pages/musiry-tools',
 	// },
+	{
+		title: '听歌识曲',
+		icon: 'headphones',
+		link: '/pages/identification',
+	},
+	{
+		title: '监测歌曲',
+		icon: 'eye',
+		children: [
+			{
+				title: '添加监测歌曲',
+				link: '/pages/set-ranking',
+			},
+			{
+				title: '查询监测歌曲',
+				link: '/pages/get-ranking',
+			},
+		],
+	},
 	// {
 	//   title: 'UI Features',
 	//   icon: 'keypad-outline',

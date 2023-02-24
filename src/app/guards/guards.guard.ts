@@ -32,7 +32,7 @@ export class GuardsGuard implements CanActivate {
 			this.authService.redirectUrl = url;
 			this.common.removeLocalStorages()
 			// 重定向到登录页面
-			return this.router.parseUrl('/login/layers');
+			return this.router.parseUrl('/login');
 		}
 		if (date > token_expiration_time) {
 			console.log(date)
@@ -42,7 +42,7 @@ export class GuardsGuard implements CanActivate {
 			this.authService.redirectUrl = url;
 			this.common.removeLocalStorages()
 			// 重定向到登录页面
-			return this.router.parseUrl('/login/layers');
+			return this.router.parseUrl('/login');
 
 		}
 		this.authService.isLoggedIn = true;

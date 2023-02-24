@@ -81,6 +81,7 @@ export class LoginComponent implements OnInit {
 		}).subscribe((res: any) => {
 			this.loading = false;
 			console.log(res)
+			document.onkeydown = null
 			if (res.success) {
 				localStorage.setItem('phone', this.phone)
 				localStorage.setItem('token', res.result.token)

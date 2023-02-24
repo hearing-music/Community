@@ -64,6 +64,8 @@ import { ProcessComponent } from './tool/process/process.component';
 import { JsonFormatComponent } from './tool/json-format/json-format.component';
 import { MonitorComponent } from './tool/monitor/monitor.component';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
+import { SetRankingComponent } from './qq_kugou-ranking/set-ranking/set-ranking.component';
+import { GetRankingComponent } from './qq_kugou-ranking/get-ranking/get-ranking.component';
 @NgModule({
 	imports: [
 		LoadingModule,
@@ -130,6 +132,8 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
 		ProcessComponent,
 		MonitorComponent,
 		JsonFormatComponent,
+  SetRankingComponent,
+  GetRankingComponent,
 	],
 })
 export class PagesModule {

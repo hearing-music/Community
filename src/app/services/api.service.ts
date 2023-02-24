@@ -282,4 +282,21 @@ export class ApiService {
 		let url = 'http://api.jinzhoushaokao.top/webtools/excel2json/create'
 		return this.http.post(url, formData)
 	}
+	//查询歌曲搜索排行相关信息 酷狗 qq
+	getqq_kugouKeywordInfo(params: any) {
+		let { mid,scid } = params;
+		let url = this.baseUrl +'/qq_kugou/getqq_kugouKeywordInfo?mid='+mid+'&scid='+scid
+		return this.http.get(url)
+	}
+	//加入ranking数据
+	setqq_kugouKeywordInfo(params:any){
+		let url = this.baseUrl +'/qq_kugou/setqq_kugouKeywordInfo'
+		return this.http.post(url, {data:params})
+	}
+	// 查询ranking数据
+	getqq_kugouInfo(params: any) {
+		let { page,pageSize,type,keyword } = params;
+		let url = this.baseUrl +'/qq_kugou/getqq_kugouInfo?page='+page+'&pageSize='+pageSize+'&type='+type+'&keyword='+keyword
+		return this.http.get(url)
+	}
 }

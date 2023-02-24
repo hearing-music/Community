@@ -18,6 +18,8 @@ import { IdentificationComponent } from './identification/identification.compone
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
 import { TrackSeparateComponent } from './track-separate/track-separate.component';
 import { MusiryToolsComponent } from './musiry-tools/musiry-tools.component';
+import { GetRankingComponent } from './qq_kugou-ranking/get-ranking/get-ranking.component';
+import { SetRankingComponent } from './qq_kugou-ranking/set-ranking/set-ranking.component';
 // import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 
@@ -121,6 +123,18 @@ const routes: Routes = [{
 		{
 			path: 'tool',
 			component: ToolComponent,
+			canActivate: [PermissionGuard]
+		},
+		//添加监测歌曲
+		{
+			path: 'set-ranking',
+			component: SetRankingComponent,
+			canActivate: [PermissionGuard]
+		},
+		//查询监测歌曲
+		{
+			path: 'get-ranking',
+			component: GetRankingComponent,
 			canActivate: [PermissionGuard]
 		},
 		// {
