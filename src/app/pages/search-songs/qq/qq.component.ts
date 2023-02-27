@@ -56,8 +56,8 @@ export class QqComponent implements OnInit {
 		window.open('https://y.qq.com/portal/company_detail.html?id='+id+'#sort=1&type=album')
 	}
 	// 打开链接
-	openSongDetail(songId:string|number){
-		window.open('https://y.qq.com/n/ryqq/songDetail/'+songId+'?songtype=0')
+	openSongDetail(songMid:string){
+		window.open('https://y.qq.com/n/ryqq/songDetail/'+songMid)
 		
 	}
 	// 打开链接

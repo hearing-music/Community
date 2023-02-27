@@ -3,6 +3,7 @@ import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute } from '@angular/router'
+import { NzModalService } from 'ng-zorro-antd/modal';
 @Component({
 	selector: 'ngx-set-ranking',
 	templateUrl: './set-ranking.component.html',
@@ -10,7 +11,7 @@ import { ActivatedRoute } from '@angular/router'
 })
 export class SetRankingComponent implements OnInit {
 
-	constructor(public common: CommonService, public api: ApiService, private message: NzMessageService, public route: ActivatedRoute) {
+	constructor(private modal: NzModalService,public common: CommonService, public api: ApiService, private message: NzMessageService, public route: ActivatedRoute) {
 		this.route.params.subscribe((res) => {
 			// console.log(res)
 			this.kgsearchValue = res.scid;
@@ -99,19 +100,24 @@ export class SetRankingComponent implements OnInit {
 	}
 
 	addRanking() {
-		this.isVisible = true;
+		// this.isVisible = true;
+		this.modal.confirm({
+		      nzTitle: '确定加入监测吗',
+		      // nzContent: '确定加入监测吗',
+		      nzOnOk: () => this.handleOk()
+		    });
 	}
 	handleOk(): void {
-		this.isVisible = false;
+		// this.isVisible = false;
 		let scid = this.data[0].kugou.scid;
 		let mid = this.data[0].qq.song_mid;
 		let qq = this.data[0].qq;
 		let kugou = this.data[0].kugou;
 		this.setqq_kugouKeywordInfo(scid,mid,qq,kugou)
 	}
-	handleCancel(): void {
-		this.isVisible = false;
-	}
+	// handleCancel(): void {
+	// 	this.isVisible = false;
+	// }
 	setqq_kugouKeywordInfo(scid:any,mid:any,qq:any,kugou:any) {
 		this.loading = true;
 		this.api.setqq_kugouKeywordInfo({
@@ -122,7 +128,7 @@ export class SetRankingComponent implements OnInit {
 	}).subscribe((res: any) => {
 				console.log(res)
 				if(res.success){
-					this.message.error(res.message)
+					this.message.success(res.message)
 				}
 				this.loading = false;
 			}, (err: any) => {

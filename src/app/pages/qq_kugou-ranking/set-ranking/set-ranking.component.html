@@ -111,7 +111,7 @@
 				<td nzAlign='center'>
 					<div class="flexCcenter">
 						<div class="qq">
-							{{item.qq.realtimeData.todayIndex}}
+							{{item.qq.realtimeData.yesterdayIndex}}
 						</div>
 						<div class='kg'>
 							{{item.kugou.detail.exponent}}
@@ -126,10 +126,10 @@
 			</tr>
 		</tbody>
 	</nz-table>
-	<nz-modal [(nzVisible)]="isVisible" nzTitle="" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+	<!-- <nz-modal [(nzVisible)]="isVisible" nzTitle="" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
 		<ng-container *nzModalContent>
 		    <p>确定加入监测吗</p>
 		</ng-container>
-	</nz-modal>
+	</nz-modal> -->
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>

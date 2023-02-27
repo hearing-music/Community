@@ -20,6 +20,24 @@ export class GetRankingComponent implements OnInit {
 	pageTotal = 0;
 	switch = false;
 	active = false;
+	refresh(data:any){
+		this.loading = true;
+		this.api.getqq_kugouKeywordRanking({
+			mid:data.qq_mid,
+			scid:data.kg_scid,
+			keyword:data.keyword
+		}).subscribe((res: any) => {
+			console.log(res)
+			if (res.success) {
+				data.newqq_rank = res.result.qqRank;
+				data.newkg_rank = res.result.kugouRank.rank;
+			}
+			this.loading = false;
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
 	openqq(mid: string) {
 		window.open('https://y.qq.com/n/ryqq/songDetail/' + mid)
 	}
@@ -61,6 +79,8 @@ export class GetRankingComponent implements OnInit {
 					item.kg_rankingValues = item.kg_rankingValues.slice(-10)
 					item.kg_rankingKeys = item.kg_rankingKeys.slice(-10)
 					item.ranking = []
+					item.newqq_rank = item.qq_rankingValues[item.qq_rankingValues.length-1].rank;
+					item.newkg_rank = item.kg_rankingValues[item.kg_rankingValues.length-1].myRank;
 					for (let i = 0; i < item.qq_rankingValues.length; i++) {
 						item.ranking.push({ qq: { time: item.qq_rankingKeys[i], ...item.qq_rankingValues[i] }, kugou: item.kg_rankingKeys[i]?{ time: item.kg_rankingKeys[i], ...item.kg_rankingValues[i] }:{}})
 					}

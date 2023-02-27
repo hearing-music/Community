@@ -299,4 +299,10 @@ export class ApiService {
 		let url = this.baseUrl +'/qq_kugou/getqq_kugouInfo?page='+page+'&pageSize='+pageSize+'&type='+type+'&keyword='+keyword
 		return this.http.get(url)
 	}
+	// 刷新ranking数据
+	getqq_kugouKeywordRanking(params: any) {
+		let { mid,scid,keyword } = params;
+		let url = this.baseUrl +'/qq_kugou/getqq_kugouKeywordRanking?scid='+scid+'&mid='+mid+'&keyword='+keyword
+		return this.http.get(url)
+	}
 }

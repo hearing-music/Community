@@ -11,12 +11,12 @@
 					<!-- 歌名 -->
 					<div>
 						<div class="title">
-							<span nz-tooltip [nzTooltipTitle]="item.name">
-								{{item.name}}
+							<span nz-tooltip [nzTooltipTitle]="item.title">
+								{{item.title}}
 							</span>
 						</div>
 					</div>
-					<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.id)" class="linkIcon" style="margin-left: 18px;">
+					<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.mid)" class="linkIcon" style="margin-left: 18px;">
 						<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
 					</button>
 					<!-- 收听 -->
