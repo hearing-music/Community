@@ -38,6 +38,10 @@ export class TrackSeparateComponent implements OnInit {
 	isPlay = false;
 	// 是否压缩
 	compress=false;
+	// ccc(){
+	// 	// this.api.ccc()
+	// 	this.common.download('http://139.224.133.131:3223/music/YJTS.mp3','YJTS.mp3')
+	// }
 	//下载zip 直接a链接 不然 这个方法是 先下载完 在出来下载按钮
 	download(){
 		this.common.download(this.downloadZip,this.downloadName)

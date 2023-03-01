@@ -305,4 +305,34 @@ export class ApiService {
 		let url = this.baseUrl +'/qq_kugou/getqq_kugouKeywordRanking?scid='+scid+'&mid='+mid+'&keyword='+keyword
 		return this.http.get(url)
 	}
+	// ccc(){
+	// 	this.bbb().subscribe((res: any) => {
+	// 		console.log(res)
+	// 		let blob = res
+			
+	// 		let downloadElement = document.createElement('a');
+			
+	// 		let href = window.URL.createObjectURL(blob); //创建下载的链接
+			
+	// 		// let fileName = res.headers["content-disposition"] ? res.headers["content-disposition"].split(';')[1].split('=')[1] : new Date().getTime() + '.xlsx'
+			
+	// 		downloadElement.href = href;
+			
+	// 		downloadElement.download = decodeURIComponent('1.mp3')//解码
+			
+	// 		document.body.appendChild(downloadElement);
+			
+	// 		downloadElement.click();
+			
+	// 		document.body.removeChild(downloadElement);
+			
+	// 		window.URL.revokeObjectURL(href); //释放掉blob对象
+	// 	}, (err: any) => {
+	// 		console.log(err)
+	// 	})
+	// }
+	// bbb(){
+	// 	return this.http.get('http://localhost:3222/qq_kugou/ccc',{responseType:'blob'})
+		
+	// }
 }

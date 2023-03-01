@@ -10,7 +10,7 @@
 
 export const environment = {
   production: false,
-	downloadUrl:'http://localhost:3223',
+	downloadUrl:'http://localhost:3222',
 	// downloadUrl:'http://39.106.64.253:3223',
 	baseUrl:'http://localhost:3222',
 	// baseUrl:'http://communityapi.jinzhoushaokao.top',

@@ -192,10 +192,13 @@ export class CommonService {
 	download(src: string, name: string) {//下载地址和名
 		var request = new XMLHttpRequest();
 			request.responseType = "blob";
+			let token = localStorage.getItem('token');
 			let fileUrl = src; // 文件路径
 			request.open("GET", fileUrl ,true);
+			request.setRequestHeader('token',token)
 			request.onload = function() {
 			    var url = window.URL.createObjectURL(this.response);
+				// console.log(url)
 			    var a = document.createElement("a");
 			    document.body.appendChild(a);
 			    a.href = url;
