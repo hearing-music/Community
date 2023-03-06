@@ -48,6 +48,7 @@ import { LyricAllComponent } from '../components/lyric-all/lyric-all.component';
 import { BrandUserComponent } from './search-page/brand-user/brand-user.component';
 import { Sing5Component } from './search-page/sing5/sing5.component';
 import { WangyisixinComponent } from './search-page/wangyisixin/wangyisixin.component';
+import { ChatgptComponent } from './chatgpt/chatgpt.component';
 import { CopyrightSearchComponent } from './copyright-scanning/copyright-search/copyright-search.component';
 import { CopyrightCheckComponent } from './copyright-scanning/copyright-check/copyright-check.component';
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
@@ -102,6 +103,7 @@ import { GetRankingComponent } from './qq_kugou-ranking/get-ranking/get-ranking.
 		QuerySonglistComponent,
 		KugouSoaringComponent,
 		DouyinComponent,
+		ChatgptComponent,
 		IdentificationComponent,
 		ConverterComponent,
 		CopyrightScanningComponent,

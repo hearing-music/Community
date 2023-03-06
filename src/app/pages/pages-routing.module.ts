@@ -13,6 +13,7 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinComponent } from './douyin/douyin.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ConverterComponent } from './converter/converter.component';
+import { ChatgptComponent } from './chatgpt/chatgpt.component';
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
@@ -139,6 +140,12 @@ const routes: Routes = [{
 		{
 			path: 'get-ranking',
 			component: GetRankingComponent,
+			canActivate: [PermissionGuard]
+		},
+		//chatgpt
+		{
+			path: 'chatgpt',
+			component: ChatgptComponent,
 			canActivate: [PermissionGuard]
 		},
 		// {

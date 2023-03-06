@@ -85,6 +85,11 @@ export let MENU_ITEMS: NbMenuItem[] = [
 			},
 		],
 	},
+	{
+		title:'GPT3.5 Turbo',
+		icon:'message-square',
+		link: '/pages/chatgpt',
+	},
 	// {
 	//   title: 'UI Features',
 	//   icon: 'keypad-outline',

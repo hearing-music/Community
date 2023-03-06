@@ -1,0 +1,32 @@
+<div class="gpt">
+	<div class="chatBox">
+	<!-- 	<div>
+			
+		</div> -->
+		<div class="chatScroll" id='chatScroll'>
+			<div class="chat" >
+				<div *ngFor="let item of chatArr;let i =index;" :key='index'>
+					<div class="my" *ngIf='item.id == 1'>
+						<div class="mytext">
+							{{item.text}}
+						</div>
+						<img src="../../../../assets/img/avatar.jpg" class='avatar'>
+					</div>
+					<div class="chatgpt" *ngIf='item.id == 2'>
+						<img src="../../../../assets/img/cahtgptIcon.png" class='avatar'>
+						<div class="gpttext">
+							{{item.text}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+		<div class="sendBox">
+			<textarea class='input' [(ngModel)]="question" [placeholder]="'请输入您的问题~'" (focus)='focus()' (blur)='blur()'></textarea>
+			<button nz-button nzType="primary" [disabled]='loading' class='sendBtn' (click)='send()'>
+			    发送
+			</button>
+		</div>
+	</div>
+	<!-- <ngx-loading *ngIf='loading'></ngx-loading> -->
+</div>
