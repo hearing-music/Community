@@ -74,10 +74,10 @@ export class GetRankingComponent implements OnInit {
 					item.qq_rankingKeys = Object.keys(item.qq_ranking)
 					item.kg_rankingValues = Object.values(item.kg_ranking)
 					item.kg_rankingKeys = Object.keys(item.kg_ranking)
-					item.qq_rankingValues = item.qq_rankingValues.slice(-10)
-					item.qq_rankingKeys = item.qq_rankingKeys.slice(-10)
-					item.kg_rankingValues = item.kg_rankingValues.slice(-10)
-					item.kg_rankingKeys = item.kg_rankingKeys.slice(-10)
+					item.qq_rankingValues = item.qq_rankingValues.slice(-7)
+					item.qq_rankingKeys = item.qq_rankingKeys.slice(-7)
+					item.kg_rankingValues = item.kg_rankingValues.slice(-7)
+					item.kg_rankingKeys = item.kg_rankingKeys.slice(-7)
 					item.ranking = []
 					item.newqq_rank = item.qq_rankingValues[item.qq_rankingValues.length-1].rank;
 					item.newkg_rank = item.kg_rankingValues[item.kg_rankingValues.length-1].myRank;

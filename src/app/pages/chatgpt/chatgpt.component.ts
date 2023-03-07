@@ -16,7 +16,7 @@ export class ChatgptComponent implements OnInit {
 	btndisabled = false;
 	question='';
 	loading = false;
-	chatArr = [{id:2,text:'我TM无所不知'}]
+	chatArr = [{id:2,text:'我无所不知'}]
 	focus(){
 		document.onkeydown = (event_e:any)=>{
 			if(event_e.keyCode === 13 &&event_e.shiftKey){

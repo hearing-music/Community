@@ -21,7 +21,7 @@
 			<div class="item-left">
 				<div class="left-avatar">
 					<!-- 头像 -->
-					<img [src]="item.singerInfo.imgurl.replace('{size}','240')" style="height:100%;width: 100%;"/>
+					<img [src]="item.singerInfo.imgurl?item.singerInfo.imgurl.replace('{size}','240'):''" style="height:100%;width: 100%;"/>
 				</div>
 				<div class="left-text">
 					<div class="title-area">

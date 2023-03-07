@@ -164,14 +164,14 @@ export class ApiService {
 	}
 	// 抖音热点
 	getDouyinHot() {
-		return this.http.get(this.tencentUrl + "/music?action=douyin_hot")
+		return this.http.get(this.baseUrl + "/douyin/douyin_hot")
 	}
 	//抖音短视频
 	getDouyinVideo(params: any) {
 		let {
 			keyword
 		} = params;
-		return this.http.get(this.tencentUrl + "/music?action=douyin_video&params=" + JSON.stringify({ keyword }))
+		return this.http.get(this.baseUrl + "/douyin/douyin_video?keyword="+keyword)
 
 	}
 	// 听歌识曲
@@ -211,14 +211,14 @@ export class ApiService {
 		let {
 			keyword
 		} = params;
-		return this.http.get(this.tencentUrl + "/music?action=copyright_search&params=" + JSON.stringify({ keyword }))
+		return this.http.get(this.baseUrl + "/articles/copyright_search?keyword=" + keyword )
 	}
 	// 版权搜索链接
 	copyrightSearchLink(params: any) {
 		let {
 			keyword
 		} = params;
-		return this.http.get(this.tencentUrl + "/music?action=copyright_searchLink&params=" + JSON.stringify({ url: keyword }))
+		return this.http.get(this.baseUrl + "/articles/copyright_searchLink?url=" + keyword )
 	}
 	// 版权扫描 上传文件
 	copyrightCheck(params: any) {
@@ -242,15 +242,15 @@ export class ApiService {
 	}
 	//铃声多多热铃榜
 	lsddHot() {
-		return this.http.get(this.tencentUrl + "/music?action=lsdd_hot")
+		return this.http.get(this.baseUrl + "/lsdd/lsdd_hot")
 	}
 	//铃声多多热铃榜
 	lsddSoar() {
-		return this.http.get(this.tencentUrl + "/music?action=lsdd_soar")
+		return this.http.get(this.baseUrl + "/lsdd/lsdd_soar")
 	}
 	//铃声多多古风榜
 	lsddArchaic() {
-		return this.http.get(this.tencentUrl + "/music?action=lsdd_archaic")
+		return this.http.get(this.baseUrl + "/lsdd/lsdd_archaic")
 	}
 	// 铃声多多搜索
 	getLsdd(params: any) {
@@ -259,11 +259,11 @@ export class ApiService {
 			pageSize,
 			keyword
 		} = params;
-		return this.http.get(this.tencentUrl + "/music?action=search_lsdd&params=" + JSON.stringify({ page, pageSize, keyword }))
+		return this.http.get(this.baseUrl + "/lsdd/search_lsdd?keyword="+keyword+"&page="+page+"&pageSize="+pageSize)
 	}
 	//快手热度搜索
 	getkuaishouSearch() {
-		return this.http.get(this.tencentUrl + "/music?action=kuaishou_hot")
+		return this.http.get(this.baseUrl + "/kuaishou/kuaishou_hot")
 	}
 	//工具银行卡
 	getbank(params: { name: any; idcard_number: any; bankcard_number: any; }) {
