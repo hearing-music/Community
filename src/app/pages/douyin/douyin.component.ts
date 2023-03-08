@@ -17,7 +17,7 @@ export class DouyinComponent implements OnInit {
  searchValue='';
  // https://v.douyin.com/h6Ds2dW/
  searchHolder = '请输入链接';
- videoData:any[] = []
+ videoData:any = {}
   constructor(public api: ApiService,public common: CommonService,private message: NzMessageService) {
   }
 
@@ -25,7 +25,8 @@ export class DouyinComponent implements OnInit {
 		this.getDouyinHot()
   }
   downloadUrl(downloadUrl:string,name:string){
-  	this.common.download(downloadUrl,name)
+	 // downloadUrl = downloadUrl.replace('https','http')
+  	this.common.download(downloadUrl,name,false)
   }
   downloadUrlVideo(downloadUrl:string){
 	  window.open(downloadUrl,'_blank')
@@ -53,11 +54,12 @@ export class DouyinComponent implements OnInit {
 	  	console.log(res)
 	  	this.loading = false;
 		if(res.success){
-			if(res.result.res2.code != -1){
-				this.videoData = [res.result.res1,res.result.res2]
-			}else{
-				this.message.error('链接错误')
-			}
+			this.videoData = res.result
+			// if(res.result.res2.code != -1){
+			// 	this.videoData = [res.result.res1,res.result.res2]
+			// }else{
+			// 	this.message.error('链接错误')
+			// }
 		}
 	  }, (err: any) => {
 	  	console.log(err)

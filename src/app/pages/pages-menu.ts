@@ -49,7 +49,16 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	{
 		title: '快手',
 		icon: 'cube',
-		link: '/pages/kuaishou-searchindex',
+		children: [
+			{
+				title: '快手',
+				link: '/pages/kuaishou-searchindex',
+			},
+			{
+				title: 'dj',
+				link: '/pages/kuaishouDj',
+			},
+		],
 	},
 	{
 		title: '版权扫描',

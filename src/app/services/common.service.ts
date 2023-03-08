@@ -189,13 +189,15 @@ export class CommonService {
 		var mytime = ' '+hour+':'+minutes
 		return mydate+mytime
 	}
-	download(src: string, name: string) {//下载地址和名
+	download(src: string, name: string,t:any = true) {//下载地址和名
 		var request = new XMLHttpRequest();
 			request.responseType = "blob";
-			let token = localStorage.getItem('token');
+			// let token = localStorage.getItem('token');
 			let fileUrl = src; // 文件路径
 			request.open("GET", fileUrl ,true);
-			request.setRequestHeader('token',token)
+			// if(t){
+			// 	request.setRequestHeader('token',token)
+			// }
 			request.onload = function() {
 			    var url = window.URL.createObjectURL(this.response);
 				// console.log(url)

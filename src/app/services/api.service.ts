@@ -20,7 +20,7 @@ export class ApiService {
 			page
 		} = params;
 		// return this.http.get(this.tencentUrl + "/music?action=search_qq&params=" + JSON.stringify({ keyword, page }))
-		return this.http.get( this.baseUrl + '/qq/search_qq?page='+page+'&keyword='+keyword)
+		return this.http.get(this.baseUrl + '/qq/search_qq?page=' + page + '&keyword=' + keyword)
 	}
 	// qq免费歌曲
 	getQq_freeSongs(params: any) {
@@ -40,7 +40,7 @@ export class ApiService {
 			songmid,
 			keyword
 		} = params;
-		let url = this.baseUrl + "/qq/qq_exponent?songmid="+songmid
+		let url = this.baseUrl + "/qq/qq_exponent?songmid=" + songmid
 		return this.http.get(url)
 	}
 	// qq歌词
@@ -48,14 +48,14 @@ export class ApiService {
 		let {
 			songmid
 		} = params;
-		return this.http.get(this.baseUrl + "/qq/qq_lyric?songmid="+songmid)
+		return this.http.get(this.baseUrl + "/qq/qq_lyric?songmid=" + songmid)
 	}
 	// 酷狗歌词
 	getKugouLyric(params: any) {
 		let {
 			hash
 		} = params;
-		return this.http.get(this.baseUrl + "/kugou/kugou_lyric?hash="+hash)
+		return this.http.get(this.baseUrl + "/kugou/kugou_lyric?hash=" + hash)
 	}
 	// 酷我歌词
 	getKuwoLyric(params: any) {
@@ -69,7 +69,7 @@ export class ApiService {
 		let {
 			songid
 		} = params;
-		return this.http.get(this.baseUrl + "/wangyiyun/wangyiyun_lyric?songid="+songid)
+		return this.http.get(this.baseUrl + "/wangyiyun/wangyiyun_lyric?songid=" + songid)
 	}
 	// 搜索qq歌单
 	get_qq_songlist(params: any) {
@@ -78,7 +78,7 @@ export class ApiService {
 			keyword,
 			page
 		} = params;
-		return this.http.get(this.baseUrl + "/qq/search_qq_songlist?page="+page+"&pageSize="+pageSize+"&keyword="+keyword)
+		return this.http.get(this.baseUrl + "/qq/search_qq_songlist?page=" + page + "&pageSize=" + pageSize + "&keyword=" + keyword)
 	}
 	// 酷我搜索歌曲
 	getKuwo(params: any) {
@@ -86,14 +86,14 @@ export class ApiService {
 			keyword,
 			page
 		} = params;
-		return this.http.get(this.baseUrl + "/kuwo/search_kuwo?keyword="+keyword+"&page="+page)
+		return this.http.get(this.baseUrl + "/kuwo/search_kuwo?keyword=" + keyword + "&page=" + page)
 	}
 	// 获取酷我单条评论数
 	getKuwoComment(params: any) {
 		let {
 			rid,
 		} = params;
-		return this.http.get(this.baseUrl + "/kuwo/search_kuwo_comment?rid="+rid)
+		return this.http.get(this.baseUrl + "/kuwo/search_kuwo_comment?rid=" + rid)
 	}
 	// 网易云搜索歌曲
 	getWangyiyun(params: any) {
@@ -101,7 +101,7 @@ export class ApiService {
 			keyword,
 			page
 		} = params;
-		return this.http.get(this.baseUrl + "/wangyiyun/search_wangyiyun?keyword="+keyword+"&page="+page)
+		return this.http.get(this.baseUrl + "/wangyiyun/search_wangyiyun?keyword=" + keyword + "&page=" + page)
 	}
 	// 网易云搜索用户
 	getWangyiyun_user(params: any) {
@@ -109,7 +109,7 @@ export class ApiService {
 			keyword,
 			page
 		} = params;
-		return this.http.get(this.baseUrl + "/wangyiyun/search_wangyiyun_user?keyword="+keyword+"&page="+page)
+		return this.http.get(this.baseUrl + "/wangyiyun/search_wangyiyun_user?keyword=" + keyword + "&page=" + page)
 	}
 	// 酷狗v3搜索歌曲
 	getV3(params: any) {
@@ -117,14 +117,14 @@ export class ApiService {
 			keyword,
 			page
 		} = params;
-		return this.http.get(this.baseUrl + "/kugou/search_kugou?keyword="+keyword+"&page="+page)
+		return this.http.get(this.baseUrl + "/kugou/search_kugou?keyword=" + keyword + "&page=" + page)
 	}
 	// 酷狗飙升榜
 	getKugou_soaring(params: any) {
 		let {
 			page
 		} = params;
-		return this.http.get(this.baseUrl + "/kugou/kugou_soaring?page="+page)
+		return this.http.get(this.baseUrl + "/kugou/kugou_soaring?page=" + page)
 	}
 	// 酷狗萤火计划 获取标签
 	getKugou_yinghuoTag() {
@@ -139,7 +139,7 @@ export class ApiService {
 		let {
 			scid
 		} = params
-		let url = this.baseUrl + "/kugou/kugou_exponent?scid="+scid
+		let url = this.baseUrl + "/kugou/kugou_exponent?scid=" + scid
 		return this.http.get(url)
 	}
 	// 酷狗免费歌曲
@@ -160,7 +160,7 @@ export class ApiService {
 			page,
 			keyword,
 		} = params;
-		return this.http.get(this.baseUrl + "/qq/search_qq_musician?page="+page+"&keyword="+keyword)
+		return this.http.get(this.baseUrl + "/qq/search_qq_musician?page=" + page + "&keyword=" + keyword)
 	}
 	// 抖音热点
 	getDouyinHot() {
@@ -171,7 +171,7 @@ export class ApiService {
 		let {
 			keyword
 		} = params;
-		return this.http.get(this.baseUrl + "/douyin/douyin_video?keyword="+keyword)
+		return this.http.get(this.baseUrl + "/douyin/douyin_video?keyword=" + keyword)
 
 	}
 	// 听歌识曲
@@ -211,14 +211,14 @@ export class ApiService {
 		let {
 			keyword
 		} = params;
-		return this.http.get(this.baseUrl + "/articles/copyright_search?keyword=" + keyword )
+		return this.http.get(this.baseUrl + "/articles/copyright_search?keyword=" + keyword)
 	}
 	// 版权搜索链接
 	copyrightSearchLink(params: any) {
 		let {
 			keyword
 		} = params;
-		return this.http.get(this.baseUrl + "/articles/copyright_searchLink?url=" + keyword )
+		return this.http.get(this.baseUrl + "/articles/copyright_searchLink?url=" + keyword)
 	}
 	// 版权扫描 上传文件
 	copyrightCheck(params: any) {
@@ -259,11 +259,16 @@ export class ApiService {
 			pageSize,
 			keyword
 		} = params;
-		return this.http.get(this.baseUrl + "/lsdd/search_lsdd?keyword="+keyword+"&page="+page+"&pageSize="+pageSize)
+		return this.http.get(this.baseUrl + "/lsdd/search_lsdd?keyword=" + keyword + "&page=" + page + "&pageSize=" + pageSize)
 	}
 	//快手热度搜索
 	getkuaishouSearch() {
 		return this.http.get(this.baseUrl + "/kuaishou/kuaishou_hot")
+	}
+	//获取快手dj
+	getkuaishouDj(params: { page: any; pageSize: any; }) {
+		let url = this.baseUrl + "/kuaishou/kuaishou_1?page=" + params.page + "&pageSize=" + params.pageSize
+		return this.http.get(url)
 	}
 	//工具银行卡
 	getbank(params: { name: any; idcard_number: any; bankcard_number: any; }) {
@@ -280,54 +285,54 @@ export class ApiService {
 	}
 	//查询歌曲搜索排行相关信息 酷狗 qq
 	getqq_kugouKeywordInfo(params: any) {
-		let { mid,scid } = params;
-		let url = this.baseUrl +'/qq_kugou/getqq_kugouKeywordInfo?mid='+mid+'&scid='+scid
+		let { mid, scid } = params;
+		let url = this.baseUrl + '/qq_kugou/getqq_kugouKeywordInfo?mid=' + mid + '&scid=' + scid
 		return this.http.get(url)
 	}
 	//加入ranking数据
-	setqq_kugouKeywordInfo(params:any){
-		let url = this.baseUrl +'/qq_kugou/setqq_kugouKeywordInfo'
-		return this.http.post(url, {...params})
+	setqq_kugouKeywordInfo(params: any) {
+		let url = this.baseUrl + '/qq_kugou/setqq_kugouKeywordInfo'
+		return this.http.post(url, { ...params })
 	}
 	// 查询ranking数据
 	getqq_kugouInfo(params: any) {
-		let { page,pageSize,type,keyword } = params;
-		let url = this.baseUrl +'/qq_kugou/getqq_kugouInfo?page='+page+'&pageSize='+pageSize+'&type='+type+'&keyword='+keyword
+		let { page, pageSize, type, keyword } = params;
+		let url = this.baseUrl + '/qq_kugou/getqq_kugouInfo?page=' + page + '&pageSize=' + pageSize + '&type=' + type + '&keyword=' + keyword
 		return this.http.get(url)
 	}
 	// 刷新ranking数据
 	getqq_kugouKeywordRanking(params: any) {
-		let { mid,scid,keyword } = params;
-		let url = this.baseUrl +'/qq_kugou/getqq_kugouKeywordRanking?scid='+scid+'&mid='+mid+'&keyword='+keyword
+		let { mid, scid, keyword } = params;
+		let url = this.baseUrl + '/qq_kugou/getqq_kugouKeywordRanking?scid=' + scid + '&mid=' + mid + '&keyword=' + keyword
 		return this.http.get(url)
 	}
 	// chatgpt
-	getChatgpt(params:any){
+	getChatgpt(params: any) {
 		let { question } = params;
-		let url = this.baseUrl +'/v1/chat/completions?question='+question
+		let url = this.baseUrl + '/v1/chat/completions?question=' + question
 		return this.http.get(url)
 	}
 	// ccc(){
 	// 	this.bbb().subscribe((res: any) => {
 	// 		console.log(res)
 	// 		let blob = res
-			
+
 	// 		let downloadElement = document.createElement('a');
-			
+
 	// 		let href = window.URL.createObjectURL(blob); //创建下载的链接
-			
+
 	// 		// let fileName = res.headers["content-disposition"] ? res.headers["content-disposition"].split(';')[1].split('=')[1] : new Date().getTime() + '.xlsx'
-			
+
 	// 		downloadElement.href = href;
-			
+
 	// 		downloadElement.download = decodeURIComponent('1.mp3')//解码
-			
+
 	// 		document.body.appendChild(downloadElement);
-			
+
 	// 		downloadElement.click();
-			
+
 	// 		document.body.removeChild(downloadElement);
-			
+
 	// 		window.URL.revokeObjectURL(href); //释放掉blob对象
 	// 	}, (err: any) => {
 	// 		console.log(err)
@@ -335,6 +340,6 @@ export class ApiService {
 	// }
 	// bbb(){
 	// 	return this.http.get('http://localhost:3222/qq_kugou/ccc',{responseType:'blob'})
-		
+
 	// }
 }

@@ -1,0 +1,76 @@
+<div class="kuaishou">
+    <div class="kuaishou-left">
+        <nz-empty *ngIf="!dataValue" style="margin-top: 160px;"></nz-empty>
+        <div class="list" *ngIf='dataValue'>
+            <div class="list-item" *ngFor="let item of dataValue;let i = index;" :key='item.id'>
+                <div class="item-left">
+                    <div class="left-avatar" (click)='playAudio(item.links.mp3,i)'>
+                        <img [src]="item.artwork" style="width: 100%;height: 100%;"
+                            onerror='this.src="/assets/img/imgError.png"' />
+                        <span *ngIf='!item.isPlay' nz-icon nzType="caret-right" nzTheme="outline"
+                            class="avatar-play"></span>
+                        <span *ngIf='item.isPlay' nz-icon nzType="pause" nzTheme="outline" class="avatar-play"></span>
+                    </div>
+                    <div class="left-text">
+                        <div class="title-area">
+                            <!-- 歌名 -->
+                            <span nz-tooltip [nzTooltipTitle]="item.name">
+                                <div class="title u-line-1">
+                                    {{item.name}}
+                                </div>
+                            </span>
+                            <!-- 拍每分钟 -->
+                            <div class="" style="display: flex;align-items: center;margin-left: 8px;">
+                                <img src="/assets/img/bpm.png" class="icon" />
+                                <div>{{item.bpm}}</div>
+                            </div>
+
+                        </div>
+                        <div class="subTitle">
+                            <div style="display: flex;align-items: center;">
+                                <div style="width: 20px;height: 20px;overflow: hidden;border-radius: 50%;">
+                                    <img [src]="item.genre.artwork" style="width: 30px;height: 30px"
+                                        onerror='this.src="/assets/img/imgError.png"' />
+                                </div>
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+                                <div>
+                                    {{item.genre.name?item.genre.name:'无'}}
+                                </div>
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+                                <div>
+                                    {{item.createdAt?item.createdAt:'无'}}
+                                </div>
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+                                <!-- 音频长度 -->
+                                <div>
+                                    {{item.length}}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="item-center">
+                    <!-- 联系方式 -->
+                    <div>
+                        ID：{{item.id}}
+                    </div>
+                </div>
+                <div class="item-right">
+                    <div tyle="display: flex">
+                        <img src="/assets/img/pingCount.png" class="icon" style="width: 20px;height: 16px;" />
+                        {{item.trendScore}}
+                    </div>
+                </div>
+            </div>
+            <div class="play" [hidden]="isSurePlay==false">
+                <audio id='audio' controls [src]="audioSrc" (play)='play($event)' (pause)='pause()'>
+                </audio>
+            </div>
+            <div class="pagination">
+                <span *ngIf='dataValue.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+                    (click)='djPageNext()' style="cursor: pointer;"></span>
+            </div>
+        </div>
+    </div>
+</div>

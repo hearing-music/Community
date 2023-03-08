@@ -23,7 +23,7 @@ import { GetRankingComponent } from './qq_kugou-ranking/get-ranking/get-ranking.
 import { SetRankingComponent } from './qq_kugou-ranking/set-ranking/set-ranking.component';
 // import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
-
+import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
 import { PermissionGuard } from '../guards/permission.guard'
 import { ToolComponent } from './tool/tool.component';
 const routes: Routes = [{
@@ -94,6 +94,12 @@ const routes: Routes = [{
 		{
 			path: 'kuaishou-searchindex',
 			component: KuaishouSearchindexComponent,
+			canActivate: [PermissionGuard]
+		},
+		//快手dj
+		{
+			path: 'kuaishouDj',
+			component: DjComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 文件转换

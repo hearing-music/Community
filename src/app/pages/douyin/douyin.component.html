@@ -52,38 +52,38 @@
 			<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
 			</ngx-search>
 		</div>
-		<div *ngIf='videoData.length>0' class="right-main">
+		<div *ngIf='videoData.name' class="right-main">
 			<div>
-				{{videoData[1].nickname}}
+				{{videoData.name}}
 			</div>
 			<div class="main-data">
 				<!-- 点赞 -->
-				<div style="display: flex;align-items: center;">
+				<!-- <div style="display: flex;align-items: center;">
 					<span nz-icon nzType="heart" nzTheme="outline" style="color:red;margin-right: 4px;"></span>
-					{{videoData[0].digg}}
-				</div>
+					{{videoData.digg}}
+				</div> -->
 				<!-- 评论 -->
-				<div style="display: flex;align-items: center;margin-left: 8px;">
+				<!-- <div style="display: flex;align-items: center;margin-left: 8px;">
 					<span nz-icon nzType="comment" nzTheme="outline" style="margin-right: 4px;"></span>
-					{{videoData[0].comment}}
-				</div>
+					{{videoData.comment}}
+				</div> -->
 			</div>
 			<div class="main-sub">
-				{{videoData[0].intro}}
+				{{videoData.title}}
 			</div>
 			<div class="imgBox">
-				<img [src]="videoData[0].dynamic_url" class="right-img">
+				<img [src]="videoData.download_image" class="right-img">
 			</div>
 			<div class="main-download">
-				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData[0].dynamic_url,videoData[1].nickname)'>
+				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData.download_image,videoData.name)'>
 					<span nz-icon nzType="download"></span>
 					 下载图片
 				</button>
-				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData[1].music_url,videoData[1].nickname)'>
+				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData.music.url,videoData.music.author)'>
 					<span nz-icon nzType="download"></span>
 					下载音乐
 				</button>
-				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData[0].video_url,videoData[1].nickname)'>
+				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData.video,videoData.name)'>
 					 <span nz-icon nzType="download"></span>
 					 下载视频
 				</button>
@@ -92,7 +92,7 @@
 				<a href="https://jinzhoushaokao.top/converter" target="_blank">转换格式点击这里</a>
 			</div>
 		</div>
-		<nz-empty *ngIf="videoData.length==0" style="margin-top: 160px;"></nz-empty>
+		<nz-empty *ngIf="!videoData.name" style="margin-top: 160px;"></nz-empty>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>
