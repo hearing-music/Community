@@ -70,7 +70,7 @@
 								<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
 							</button>
 						</div>
-						<div class='kg'>
+						<div class='kg' *ngIf='item.kugou.song_name'>
 							{{common.deleteEM(item.kugou.song_name)}}
 							<button nz-button nzShape="circle" nzType="text" (click)='openkg(item.kugou.scid,item.kugou.SQFileHash)' class="linkIcon" style="margin-left: 8px;display: flex;align-items: center;justify-content: center;">
 								<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
@@ -84,7 +84,7 @@
 							{{item.qq.singer.name}}
 						</div>
 						<div class='kg'>
-							{{common.deleteEM(item.kugou.singer_name)}}
+							{{item.kugou.singer_name?common.deleteEM(item.kugou.singer_name):item.qq.singer.name}}
 						</div>
 					</div>
 				</td>
