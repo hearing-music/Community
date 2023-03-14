@@ -31,9 +31,21 @@
 				<th nzAlign='center'>歌曲版本</th>
 				<th nzAlign='center'>作者</th>
 				<th nzAlign='center'>专辑</th>
-				<th nzAlign='center'>发行时间</th>
+				<th nzAlign='center' style="cursor: pointer;display: flex;align-items: center;" (click)='publish_timeClick()'>
+					<div>
+						发行时间
+					</div>
+					<span *ngIf='publish_timeOrderby == "asc"' nz-icon nzType="caret-up" nzTheme="outline" style="color: blue;"></span>
+					<span *ngIf='publish_timeOrderby == "desc"' nz-icon nzType="caret-down" nzTheme="outline" style="color: blue;"></span>
+				</th>
 				<th nzAlign='center'>关键词排名</th>
-				<th nzAlign='center'>加入时间</th>
+				<th nzAlign='center' style="cursor: pointer;display: flex;align-items: center;" (click)='create_timeClick()'>
+					<div>
+						加入时间
+					</div>
+					<span *ngIf='create_timeOrderby == "asc"' nz-icon nzType="caret-up" nzTheme="outline" style="color: blue;"></span>
+					<span *ngIf='create_timeOrderby == "desc"' nz-icon nzType="caret-down" nzTheme="outline" style="color: blue;"></span>
+				</th>
 				<th nzAlign='center'>添加者</th>
 			</tr>
 		</thead>
@@ -117,7 +129,7 @@
 										<div *ngIf='item.qq_rankingValues.length==1'>
 											{{item.newqq_rank}}
 										</div>
-										<div *ngIf='item.qq_rankingValues.length>1' style="display: flex;align-items: center;">
+										<div *ngIf='item.qq_rankingValues.length>1&&item.newqq_rank!=0' style="display: flex;align-items: center;">
 											<span
 												*ngIf='item.newqq_rank>item.qq_rankingValues[item.qq_rankingValues.length-2].rank'
 												nz-icon nzType="arrow-down" style='color:#35C035;margin-left: 6px;'
@@ -136,7 +148,7 @@
 											<div *ngIf='item.kg_rankingValues.length==1'>
 												{{item.newkg_rank}}
 											</div>
-											<div *ngIf='item.kg_rankingValues.length>1' style="display: flex;align-items: center;">
+											<div *ngIf='item.kg_rankingValues.length>1&&item.newkg_rank!=0' style="display: flex;align-items: center;">
 												<span
 													*ngIf='item.newkg_rank>item.kg_rankingValues[item.kg_rankingValues.length-2].myRank'
 													nz-icon nzType="arrow-down" style='color:#35C035;margin-left: 6px;'
@@ -192,14 +204,14 @@
 											<div style="margin: 0 12px;display: flex; align-items: center;">
 												<div *ngIf='item.ranking.length>1&&i!=0'>
 													<div
-														[ngClass]='{"Gcolor":item.ranking[i-1].qq.rank<data.qq.rank,"Bcolor":item.ranking[i-1].qq.rank>data.qq.rank}'>
+														[ngClass]='{"Gcolor":item.ranking[i-1].qq.rank<data.qq.rank&&data.qq.rank!=0,"Bcolor":item.ranking[i-1].qq.rank>data.qq.rank&&data.qq.rank!=0}'>
 														关键字排名：{{data.qq.rank}}
 													</div>
 												</div>
 												<div *ngIf='i==0'>
 													关键字排名：{{data.qq.rank}}
 												</div>
-												<div *ngIf='item.ranking.length>1&&i!=0' style="display: flex;align-items: center;">
+												<div *ngIf='item.ranking.length>1&&i!=0&&data.qq.rank!=0' style="display: flex;align-items: center;">
 													<span *ngIf='item.ranking[i-1].qq.rank<data.qq.rank' nz-icon nzType="arrow-down"
 														style='color:#35C035;margin-left: 6px;' nzTheme="outline"></span>
 													<span *ngIf='item.ranking[i-1].qq.rank>data.qq.rank' nz-icon nzType="arrow-up"
@@ -230,14 +242,14 @@
 											<div style="margin: 0 12px;display: flex; align-items: center;">
 												<div *ngIf='item.ranking.length>1&&i!=0'>
 													<div
-														[ngClass]='{"Gcolor":item.ranking[i-1].kugou.myRank<data.kugou.myRank,"Bcolor":item.ranking[i-1].kugou.myRank>data.kugou.myRank}'>
+														[ngClass]='{"Gcolor":item.ranking[i-1].kugou.myRank<data.kugou.myRank&&data.kugou.myRank!=0,"Bcolor":item.ranking[i-1].kugou.myRank>data.kugou.myRank&&data.kugou.myRank!=0}'>
 														关键字排名：{{data.kugou.myRank}}
 													</div>
 												</div>
 												<div *ngIf='i==0'>
 													关键字排名：{{data.kugou.myRank}}
 												</div>
-												<div *ngIf='item.ranking.length>1&&i!=0' style="display: flex;align-items: center;">
+												<div *ngIf='item.ranking.length>1&&i!=0&&data.kugou.myRank!=0' style="display: flex;align-items: center;">
 													<span *ngIf='item.ranking[i-1].kugou.myRank<data.kugou.myRank' nz-icon
 														nzType="arrow-down" style='color:#35C035;margin-left: 6px;'
 														nzTheme="outline"></span>

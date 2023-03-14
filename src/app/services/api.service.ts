@@ -296,8 +296,8 @@ export class ApiService {
 	}
 	// 查询ranking数据
 	getqq_kugouInfo(params: any) {
-		let { page, pageSize, type, keyword } = params;
-		let url = this.baseUrl + '/qq_kugou/getqq_kugouInfo?page=' + page + '&pageSize=' + pageSize + '&type=' + type + '&keyword=' + keyword
+		let { page, pageSize, type, keyword,orderby,plain } = params;
+		let url = this.baseUrl + '/qq_kugou/getqq_kugouInfo?page=' + page + '&pageSize=' + pageSize + '&type=' + type + '&keyword=' + keyword+'&orderby='+orderby+'&plain='+plain
 		return this.http.get(url)
 	}
 	// 刷新ranking数据

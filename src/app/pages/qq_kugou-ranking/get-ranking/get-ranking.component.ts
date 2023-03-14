@@ -20,6 +20,34 @@ export class GetRankingComponent implements OnInit {
 	pageTotal = 0;
 	switch = false;
 	active = false;
+	publish_timeOrderby='asc'
+	create_timeOrderby='asc'
+	orderby = 'create_time'
+	plain = 'asc'
+	// 排序
+	publish_timeClick(){
+		if(this.publish_timeOrderby == 'desc'){
+			this.publish_timeOrderby = 'asc'
+		}else{
+			this.publish_timeOrderby = 'desc'
+		}
+		this.orderby = 'publish_time'
+		this.plain = this.publish_timeOrderby
+		this.pageCurrent = 1;
+		this.getqq_kugouInfo()
+	}
+	create_timeClick(){
+		if(this.create_timeOrderby == 'desc'){
+			this.create_timeOrderby = 'asc'
+		}else{
+			this.create_timeOrderby = 'desc'
+		}
+		this.orderby = 'create_time'
+		this.plain = this.create_timeOrderby
+		this.pageCurrent = 1;
+		this.getqq_kugouInfo()
+	}
+	
 	refresh(data:any){
 		this.loading = true;
 		this.api.getqq_kugouKeywordRanking({
@@ -65,7 +93,9 @@ export class GetRankingComponent implements OnInit {
 			page: this.pageCurrent,
 			pageSize: this.pageSize,
 			keyword: this.searchValue,
-			type: this.switch ? 'my' : ''
+			type: this.switch ? 'my' : '',
+			orderby:this.orderby,
+			plain:this.plain
 		}).subscribe((res: any) => {
 			console.log(res)
 			if (res.success) {

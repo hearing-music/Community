@@ -14,6 +14,7 @@ export class PermissionGuard implements CanActivate {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 		const url: string = state.url; // 将要跳转的路径
+		console.log('permission')
 		if(this.common.checkAdmin()){
 			return true
 		}else{
