@@ -28,8 +28,13 @@
 			<!-- <td nzAlign='center'>
 				{{item.name}}
 			</td> -->
-			<td nzAlign='center'>
-				{{item.results.result.title}}
+			<td nzAlign='center' (click)='checkReload(item)'>
+				<span nz-tooltip [nzTooltipTitle]="'点击刷新'">
+					<div>
+						{{item.results.result.title}}
+					</div>
+					<span nz-icon nzType="redo" nzTheme="outline" style="color: royalblue;"></span>
+				</span>
 			</td>
 			<td nzAlign='center'>
 				{{item.results.result.album.name}}

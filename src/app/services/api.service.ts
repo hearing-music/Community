@@ -296,8 +296,8 @@ export class ApiService {
 	}
 	// 查询ranking数据
 	getqq_kugouInfo(params: any) {
-		let { page, pageSize, type, keyword,orderby,plain } = params;
-		let url = this.baseUrl + '/qq_kugou/getqq_kugouInfo?page=' + page + '&pageSize=' + pageSize + '&type=' + type + '&keyword=' + keyword+'&orderby='+orderby+'&plain='+plain
+		let { page, pageSize, type, keyword, orderby, plain } = params;
+		let url = this.baseUrl + '/qq_kugou/getqq_kugouInfo?page=' + page + '&pageSize=' + pageSize + '&type=' + type + '&keyword=' + keyword + '&orderby=' + orderby + '&plain=' + plain
 		return this.http.get(url)
 	}
 	// 刷新ranking数据
@@ -312,6 +312,23 @@ export class ApiService {
 		let url = this.baseUrl + '/v1/chat/completions?question=' + question
 		return this.http.get(url)
 	}
+
+	//获取用户列表
+	getUsersApi() {
+		return this.http.get('http://golang.tingjianmusic.top:3000/getUsersApi')
+	}
+
+	deleteUserApi(id) {
+		let url = 'http://golang.tingjianmusic.top:3000/UserApiUpdate/' + id
+		return this.http.delete(url)
+	}
+
+	addUsersApi(params: any) {
+		let url = 'http://golang.tingjianmusic.top:3000/UserApiAdd'
+		return this.http.post(url, params)
+	}
+	//删除用户
+
 	// ccc(){
 	// 	this.bbb().subscribe((res: any) => {
 	// 		console.log(res)

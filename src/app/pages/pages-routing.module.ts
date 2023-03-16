@@ -26,6 +26,7 @@ import { NotFoundComponent } from './miscellaneous/not-found/not-found.component
 import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
 import { PermissionGuard } from '../guards/permission.guard'
 import { ToolComponent } from './tool/tool.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -139,7 +140,7 @@ const routes: Routes = [{
 			canActivate: [PermissionGuard]
 		},
 		{
-			path: 'set-ranking',        
+			path: 'set-ranking',
 			redirectTo: 'set-ranking/',
 		},
 		//查询监测歌曲
@@ -154,10 +155,16 @@ const routes: Routes = [{
 			component: ChatgptComponent,
 			canActivate: [PermissionGuard]
 		},
+		//用户管理
 		// {
-		//   path: 'ui-features',
-		//   loadChildren: () => import('./ui-features/ui-features.module')
-		//     .then(m => m.UiFeaturesModule),
+		// 	path: 'userManagement',
+		// 	component: UserManagementComponent,
+		// 	canActivate: [PermissionGuard]
+		// },
+		// {
+		// 	path: 'ui-features',
+		// 	loadChildren: () => import('./ui-features/ui-features.module')
+		// 		.then(m => m.UiFeaturesModule),
 		// },
 		// {
 		//   path: 'dashboard',

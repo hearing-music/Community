@@ -19,7 +19,30 @@ export class CopyrightLinkComponent implements OnInit {
   pageCurrent = 1;
   pageTotal = 20;
   loading = false;
-  
+  checkReload(copyrightItem:any){
+  	  this.loading = true;
+  	  this.api.copyrightCheck_reload({
+  	  	id: copyrightItem.id
+  	  }).subscribe((res: any) => {
+  	  	console.log(res)
+  	  	this.loading = false;
+  	  	let arr:any[] = [];
+  	  	if(res.success){
+  	  		res.result.forEach((item:any)=>{
+  	  			if(item.results){
+  	  				item.results = item.results.music[0]
+  	  				arr.push(item)
+  	  			}
+  	  		})
+  			if(arr.length != 0){
+  				this.copyrightList = arr;
+  			}
+  	  	}
+  	  }, (err: any) => {
+  	  	console.log(err)
+  	  	this.loading = false;
+  	  })
+  }
   search(value: string) {
   	console.log(value)
   	this.searchValue = value;

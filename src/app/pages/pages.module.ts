@@ -69,6 +69,9 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { SetRankingComponent } from './qq_kugou-ranking/set-ranking/set-ranking.component';
 import { GetRankingComponent } from './qq_kugou-ranking/get-ranking/get-ranking.component';
 import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
+import { UserManagementComponent } from './user-management/user-management.component';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzInputModule } from 'ng-zorro-antd/input';
 @NgModule({
 	imports: [
 		LoadingModule,
@@ -93,7 +96,9 @@ import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
 		// DashboardModule,
 		// ECommerceModule,
 		MiscellaneousModule,
-		NzProgressModule
+		NzProgressModule,
+		NzDrawerModule,
+		NzInputModule
 	],
 	declarations: [
 		PagesComponent,
@@ -137,9 +142,10 @@ import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
 		ProcessComponent,
 		MonitorComponent,
 		JsonFormatComponent,
-  SetRankingComponent,
-  GetRankingComponent,
-  DjComponent,
+		SetRankingComponent,
+		GetRankingComponent,
+		DjComponent,
+		UserManagementComponent,
 	],
 })
 export class PagesModule {
