@@ -57,8 +57,12 @@ export class GetRankingComponent implements OnInit {
 		}).subscribe((res: any) => {
 			console.log(res)
 			if (res.success) {
-				data.newqq_rank = res.result.qqRank;
-				data.newkg_rank = res.result.kugouRank.rank;
+				if(res.result.qqRank != 0){
+					data.newqq_rank = res.result.qqRank;
+				}
+				if(res.result.kugouRank.rank!=0){
+					data.newkg_rank = res.result.kugouRank.rank;
+				}
 			}
 			this.loading = false;
 		}, (err: any) => {

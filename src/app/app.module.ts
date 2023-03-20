@@ -40,7 +40,6 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
-		NzMessageModule,
 		BrowserAnimationsModule,
 		HttpClientModule,
 		AppRoutingModule,
@@ -56,6 +55,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 		CoreModule.forRoot(),
 		ThemeModule.forRoot(),
 		FormsModule,
+		NzMessageModule,
 	],
 	bootstrap: [AppComponent],
 	// providers: [
