@@ -317,16 +317,16 @@ export class ApiService {
 
 	//获取用户列表
 	getUsersApi() {
-		return this.http.get('http://golang.tingjianmusic.top:3000/getUsersApi')
+		return this.http.get('https://golang.tingjianmusic.top/getUsersApi')
 	}
 
 	deleteUserApi(id) {
-		let url = 'http://golang.tingjianmusic.top:3000/UserApiUpdate/' + id
+		let url = 'https://golang.tingjianmusic.top/UserApiUpdate/' + id
 		return this.http.delete(url)
 	}
 
 	addUsersApi(params: any) {
-		let url = 'http://golang.tingjianmusic.top:3000/UserApiAdd'
+		let url = 'https://golang.tingjianmusic.top/UserApiAdd'
 		return this.http.post(url, params)
 	}
 	//删除用户
