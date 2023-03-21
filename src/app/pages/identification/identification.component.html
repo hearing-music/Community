@@ -8,7 +8,7 @@
 		</div>
 	</div>
 	<div class="uploadFile-box">
-		<ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+		<ngx-upload-file (onFileChild)='onFile($event)' [multiple]='true'></ngx-upload-file>
 	</div>
 	
 	<nz-table #basicTable [nzData]="identList" nzTitle='' [nzFrontPagination]='false'>
@@ -27,7 +27,7 @@
 		<tbody>
 			<tr *ngFor="let item of basicTable.data; let i = index">
 				<td nzAlign='center'>
-					{{fileName}}
+					{{fileNameArr[i]}}
 				</td>
 				<td nzAlign='center'>
 					{{item.songname}}
@@ -39,7 +39,9 @@
 					{{item.singer}}
 				</td>
 				<td nzAlign='center'>
-					{{common.toFixed2(item.timelength/1000) + 's'}}
+					<div *ngIf='item.timelength'>
+						{{common.toFixed2(item.timelength/1000) + 's'}}
+					</div>
 				</td>
 				<td nzAlign='center'>
 					{{item.verison}}

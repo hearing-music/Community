@@ -4,9 +4,15 @@
 			<span nz-icon nzType="upload" nzTheme="outline" style="font-size: 20px;color:#333;margin-right: 6px;"></span>
 			<div>选择文件</div>
 		</div>
-		<input type="file" class="uploadAreaInput" (change)='inputChange($event)' (click)='click($event)'>
+		<input *ngIf='multiple' type="file" multiple="multiple" class="uploadAreaInput" (change)='inputChange($event)' (click)='click($event)'>
+		<input *ngIf='!multiple' type="file" class="uploadAreaInput" (change)='inputChange($event)' (click)='click($event)'>
 	</div>
-	<div class="fileName" *ngIf='file'>
+	<div *ngIf='!multiple&&file' class="fileName">
 		{{file.name}}
+	</div>
+	<div style="display: flex;" *ngIf='multiple&&files.length>0'>
+		<div *ngFor="let item of files;" class="fileName" style="margin-right: 10px;">
+			{{item.name}}
+		</div>
 	</div>
 </div>

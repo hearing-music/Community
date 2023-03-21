@@ -177,10 +177,12 @@ export class ApiService {
 	// 听歌识曲
 	getIdentification(params: any) {
 		let {
-			file
+			files
 		} = params;
 		const formData: FormData = new FormData();
-		formData.append('file', file);
+		for(let i = 0;i<files.length;i++){
+			formData.append('files', files[i]);
+		}
 		let url = this.baseUrl + '/articles/getIdentification'
 		// let url = "https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com/ffm?action=getIdentification"
 		return this.http.post(url, formData)
