@@ -1,0 +1,237 @@
+<div class="xilixili" *ngIf='!err&&isSDKReady'>
+	<!-- 左侧侧边栏 -->
+	<div class="xilisidebar">
+		<img class="xilisidebar-avatar" [src]="npc.avatarUrl" />
+		<div style="position: relative;">
+			<span nz-tooltip nzTooltipTitle="聊天">
+				<span (click)='commentClick()' nz-icon nzType="comment" nzTheme="outline" class="xilisidebar-icon" [ngClass]='{"xilisidebar-icon-active":siderBarActive=="comment"}'></span>
+			</span>
+			<div class="unread" *ngIf="unreadCountAll !== 0">
+				<div class="read-text" *ngIf="unreadCountAll > 99">99+</div>
+				<div class="read-text" *ngIf='unreadCountAll<=99'>{{ unreadCountAll }}</div>
+			</div>
+		</div>
+		<span nz-tooltip nzTooltipTitle="联系人">
+			<span (click)='userClick()' nz-icon nzType="user" nzTheme="outline" class="xilisidebar-icon" [ngClass]='{"xilisidebar-icon-active":siderBarActive=="user"}'></span>
+		</span>
+	</div>
+	<!-- 左侧 联系人-->
+	<div class="xilileft">
+		<div class="left-search">
+			<input type="text" [(ngModel)]="searchText" placeholder="搜索" class="search-input" (focus)='focus2()'
+				(blur)='blur2()'>
+			<span nz-icon nzType="search" nzTheme="outline" class="search-icon" (click)='search1()'></span>
+		</div>
+		<div class="left-main" *ngIf='siderBarActive=="comment"'>
+			<div class="item" (click)='coversationClick(item,i)' [ngClass]='{"item-active":selectItem.info.openid == item.info.openid}'
+				*ngFor="let item of conversationListNow;let i =index;" :key='item.conversationID'>
+				<div style="position: relative;">
+					<img *ngIf='item.info.avatarUrl' [src]="item.info.avatarUrl" class="left-avatar">
+					<img *ngIf='item.info.emoji==0&&!item.info.avatarUrl' src="../../../../assets/img/good.png" class="left-avatar">
+					<img *ngIf='item.info.emoji==1&&!item.info.avatarUrl' src="../../../../assets/img/crazy.png" class="left-avatar">
+					<img *ngIf='item.info.emoji==2&&!item.info.avatarUrl' src="../../../../assets/img/sad.png" class="left-avatar">
+					<div class="emojiBox">
+						<img *ngIf='item.info.emoji==0&&item.info.avatarUrl' src="../../../../assets/img/good.png" class="left-avatar_emoji">
+						<img *ngIf='item.info.emoji==1&&item.info.avatarUrl' src="../../../../assets/img/crazy.png" class="left-avatar_emoji">
+						<img *ngIf='item.info.emoji==2&&item.info.avatarUrl' src="../../../../assets/img/sad.png" class="left-avatar_emoji">
+					</div>
+					<div class="unread" *ngIf="item.unreadCount !== 0">
+						<div class="read-text" *ngIf="item.unreadCount > 99">99+</div>
+						<div class="read-text" *ngIf='item.unreadCount<=99'>{{ item.unreadCount }}</div>
+					</div>
+				</div>
+				<div style='margin-left: 16px;flex:1;'>
+					<div class='item-name'>
+						{{item.info.name}}
+					</div>
+					<div class="item-message">
+						{{item.lastMessage.messageForShow}}
+					</div>
+				</div>
+				<div class="item-time">
+					{{common.timeFormat(item.lastMessage.lastTime*1000,'hh:MM')}}
+				</div>
+			</div>
+			<div *ngIf='conversationListNow.length==0' class="noPeople">
+				暂无会话
+			</div>
+		</div>
+		<div class="left-main" *ngIf='siderBarActive=="user"'>
+			<div class="item" (click)='userItemClick(item,i)' [ngClass]='{"item-active":selectUserItem.openid == item.openid}'
+				*ngFor="let item of userListNow;let i =index;">
+				<div style="position: relative;">
+					<img *ngIf='item.avatarUrl' [src]="item.avatarUrl" class="left-avatar">
+					<img *ngIf='item.emoji==0&&!item.avatarUrl' src="../../../../assets/img/good.png" class="left-avatar">
+					<img *ngIf='item.emoji==1&&!item.avatarUrl' src="../../../../assets/img/crazy.png" class="left-avatar">
+					<img *ngIf='item.emoji==2&&!item.avatarUrl' src="../../../../assets/img/sad.png" class="left-avatar">
+					<div class="emojiBox">
+						<img *ngIf='item.emoji==0&&item.avatarUrl' src="../../../../assets/img/good.png" class="left-avatar_emoji">
+						<img *ngIf='item.emoji==1&&item.avatarUrl' src="../../../../assets/img/crazy.png" class="left-avatar_emoji">
+						<img *ngIf='item.emoji==2&&item.avatarUrl' src="../../../../assets/img/sad.png" class="left-avatar_emoji">
+					</div>
+				</div>
+				<div style='margin-left: 16px;flex:1;'>
+					<div class='item-name'>
+						{{item.name}}
+					</div>
+					<div class="item-message" style="width: 80px;">
+						{{item.phone}}
+					</div>
+				</div>
+				<div class="item-time">
+					上次登录:{{common.timeFrom(item.lastLogin_time)}}
+				</div>
+			</div>
+			<div *ngIf='userListNow.length==0&&!userListErr&&!userLoading' class="noPeople">
+				没有联系人
+			</div>
+			<div (click)='getOpenidList' *ngIf='userListErr&&userListNow.length==0&&!userLoading' class="noPeople">
+				重新加载
+			</div>
+			<div *ngIf='userLoading' class='noPeople'>
+				<nz-spin nzSimple></nz-spin>
+			</div>
+		</div>
+	</div>
+	<!-- 右侧 聊天 -->
+	<div class="xiliright" *ngIf='siderBarActive=="comment"'>
+		<div class="right-title">
+			{{selectItem.info.name}}
+		</div>
+		<div class="right-chat" id='chatScroll'>
+			<!-- <div class="no-message" *ngIf="isCompleted&&selectItem.type">没有更多啦</div> -->
+			<div class="no-message" *ngIf="!isCompleted&&selectItem.type" (click)='refresh()'>点击加载更多</div>
+			<div *ngFor="let item of messageList;let i =index;" class="t-message">
+				<div *ngIf="selectItem.type !== '@TIM#SYSTEM'" [id]="item.ID">
+					<div class="t-message-item">
+						<!-- <TUI-TipMessage v-if="item.type === 'TIMGroupTipElem'" :message="item"></TUI-TipMessage> -->
+						<div *ngIf="item.type !== 'TIMGroupTipElem'"
+							[class]="item.flow === 'out' ? 't-self-message' : 't-recieve-message'">
+							<img *ngIf='selectItem.info.emoji==0&&item.flow==="in"'
+								src="../../../../assets/img/good.png" class="t-message-avatar">
+							<img *ngIf='selectItem.info.emoji==1&&item.flow==="in"'
+								src="../../../../assets/img/crazy.png" class="t-message-avatar">
+							<img *ngIf='selectItem.info.emoji==2&&item.flow==="in"' src="../../../../assets/img/sad.png"
+								class="t-message-avatar">
+							<div class="read-receipts" *ngIf="selectItem.type === 'C2C' && item.flow === 'out'">
+								<div *ngIf="item.isPeerRead">已读</div>
+								<div *ngIf="!item.isPeerRead">未读</div>
+							</div>
+							<div>
+								<!-- 文字消息 -->
+								<div *ngIf="item.type === 'TIMTextElem'"
+									[ngClass]="'text-message ' + (item.flow === 'out' ? 'my-text' : '')">
+									<div *ngFor="let item2 of item.renderDom;let i2 =index;" class="message-body-span">
+										<span class="message-body-span-text"
+											*ngIf="item2.name === 'span'">{{ item2.text }}</span>
+										<img *ngIf="item2.name === 'img'" class="emoji-icon" [src]="item2.src" />
+									</div>
+								</div>
+								<!-- 图片消息 -->
+								<div *ngIf="item.type === 'TIMImageElem'" class="TUI-ImageMessage">
+									<img [ngClass]="'image-message ' + (item.flow === 'out' ? 'my-image' : '')" nz-image
+										[nzSrc]="item.renderDom[0].src" />
+								</div>
+								<!-- 视频消息 -->
+								<div *ngIf="item.type === 'TIMVideoFileElem'"
+									[ngClass]="'video-box ' + (item.flow === 'out' ? 'my-video' : '')"
+									(click)="playerHander(item)">
+									<img class="video-icon" src="../../../assets/img/video-play.png" />
+								</div>
+								<!-- 语音消息 -->
+								<div *ngIf="item.type === 'TIMSoundElem'"
+									[ngClass]="'audio-message ' + (item.flow === 'out' ? 'my-audio' : '')">
+									<img class="audio-icon" src="../../../assets/img/audio-msg.png" />
+									<div class="audio " (click)="handlePlayAudioMessage(item)"
+										[style]="'width: ' + 60 + 'px'">{{ '" ' + item.payload.second }}</div>
+								</div>
+
+								<!-- <TUI-CustomMessage v-if="item.type === 'TIMCustomElem'" :message="item" :isMine="item.flow === 'out'"></TUI-CustomMessage> -->
+								<!-- <TUI-FaceMessage v-if="item.type === 'TIMFaceElem'" :message="item" :isMine="item.flow === 'out'"></TUI-FaceMessage> -->
+								<!-- <TUI-FileMessage v-if="item.type === 'TIMFileElem'" :message="item" :isMine="item.flow === 'out'"></TUI-FileMessage> -->
+							</div>
+							<img class="t-message-avatar" *ngIf="item.flow === 'out'" [src]="npc.avatarUrl" />
+						</div>
+					</div>
+				</div>
+				<!-- 	<div v-*ngIf="selectItem.type === '@TIM#SYSTEM'" [id]="item.ID" [data-value]="item.ID">
+					<TUI-SystemMessage [message]="item"></TUI-SystemMessage>
+				</div> -->
+			</div>
+		</div>
+		<div class="right-entry">
+			<ng-template #contentTemplate>
+			 <div class="TUI-Emoji">
+			 	<div *ngFor="let item of emojiList;let i =index;" class="TUI-emoji-image">
+			 		<img [name]="item.emojiName" class="emoji-image" [src]="item.url" (click)="handleEnterEmoji($event)"/>
+			 	</div>
+			 </div>
+			</ng-template>
+			<div class="tags" *ngIf='selectIndex!=null'>
+				<div class="tag">
+					<span nz-tooltip nzTooltipTitle="表情">
+						<span nz-icon nzType="smile" nzTheme="outline" style="font-size: 18px;" (click)='visible=true'></span>
+					</span>
+					<button
+						  class="emojiBtn"
+					      nz-button
+					      nzType="primary"
+					      nz-popover
+					      nzPopoverTitle="表情"
+					      [(nzPopoverVisible)]="visible"
+						  nzPopoverPlacement='top'
+					      nzPopoverTrigger="click"
+					      [nzPopoverContent]="contentTemplate"
+					    ></button>
+				</div>
+				<div class="tag">
+					<span nz-tooltip nzTooltipTitle="图片">
+						<span nz-icon nzType="file-image" nzTheme="outline" style="font-size: 18px;" (click)='chooseImage()'></span>
+						<input type="file" id='imageFile' multiple="multiple" accept='image/*' style="position:absolute;z-index: -1;">
+					</span>
+				</div>
+				<div class="tag">
+					<span nz-tooltip nzTooltipTitle="视频">
+						<span nz-icon nzType="video-camera" nzTheme="outline" style="font-size: 18px;" (click)='chooseVideo()'></span>
+						<input type="file" id='videoFile' multiple="multiple" accept='video/*' style="position:absolute;z-index: -1;">
+					</span>
+				</div>
+			</div>
+			<textarea id='inputtext' class='entry-input' [disabled]='selectIndex==null' [(ngModel)]="text" (focus)='focus()'
+				(blur)='blur()'></textarea>
+			<button nz-button nzType="primary" class="submitBtn" [disabled]='selectIndex==null'
+				(click)='sendTextMessage()'>发送</button>
+		</div>
+	</div>
+	<!-- 右侧联系人信息 -->
+	<div class="xiliright rightUser" *ngIf='siderBarActive=="user"&&selectUserItem.name'>
+		<div>
+			<img *ngIf='selectUserItem.emoji==0'
+				src="../../../../assets/img/good.png" class="t-message-avatar">
+			<img *ngIf='selectUserItem.emoji==1'
+				src="../../../../assets/img/crazy.png" class="t-message-avatar">
+			<img *ngIf='selectUserItem.emoji==2' src="../../../../assets/img/sad.png"
+				class="t-message-avatar">
+		</div>
+		<div style='margin-top:30px;font-size:16px;'>
+			昵称:{{selectUserItem.name}}
+		</div>
+		<div style='margin-top:30px;color:#666;font-size:13px;'>
+			电话:{{selectUserItem.phone}}
+		</div>
+		<div style='margin-top:30px;color:#666;font-size:13px;'>
+			openid:{{selectUserItem.openid}}
+		</div>
+		<button nz-button nzType="primary" (click)='clickSendMessage()' style='margin-top:30px' >
+			发消息
+		</button>
+	</div>
+</div>
+<ngx-loading *ngIf='loading'></ngx-loading>
+<div>
+	<button *ngIf='!loading&&!isSDKReady' nz-button nzType="primary" nzDanger (click)='getNpc()'>点击重试</button>
+</div>
+<div (click)='stopVideoHander()' class="container-box" *ngIf="videoPlay">
+	<video class="video-message" [src]="videoMessage.payload.videoUrl"
+		[poster]="videoMessage.payload.thumbUrl" object-fit="cover" error="videoError" autoplay="true" direction="0" ></video>
+</div>

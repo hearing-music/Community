@@ -99,6 +99,11 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		icon: 'message-square',
 		link: '/pages/chatgpt',
 	},
+	{
+		title: '西哩xili',
+		icon: 'message-circle',
+		link: '/pages/xilixili',
+	},
 	// {
 	// 	title: '用户管理',
 	// 	icon: 'person',

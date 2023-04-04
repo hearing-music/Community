@@ -180,7 +180,7 @@ export class ApiService {
 			files
 		} = params;
 		const formData: FormData = new FormData();
-		for(let i = 0;i<files.length;i++){
+		for (let i = 0; i < files.length; i++) {
 			formData.append('files', files[i]);
 		}
 		let url = this.baseUrl + '/articles/getIdentification'
@@ -310,11 +310,16 @@ export class ApiService {
 	}
 	// chatgpt
 	getChatgpt(params: any) {
-		let { question } = params;
-		let url = this.baseUrl + '/v1/chat/completions?question=' + question
+		let { question,lastQuestionArr } = params;
+		let url = this.baseUrl + '/v1/chat/completions?question=' + question+'&lastQuestionArr='+JSON.stringify(lastQuestionArr)
 		return this.http.get(url)
 	}
-
+	// chatgpt绘图
+	getChatgptPlot(params: any) {
+		let { question } = params;
+		let url = this.baseUrl + '/v1/chat/chatgptPlot?question=' + question
+		return this.http.get(url)
+	}
 	//获取用户列表
 	getUsersApi() {
 		return this.http.get('https://golang.tingjianmusic.top/getUsersApi')
@@ -329,8 +334,45 @@ export class ApiService {
 		let url = 'https://golang.tingjianmusic.top/UserApiAdd'
 		return this.http.post(url, params)
 	}
-	//删除用户
+	//获取酷狗多少人再搜
+	getV3SearchNum(params: any) {
+		let {
+			keyword,
+		} = params;
+		return this.http.get(this.baseUrl + "/kugou/searchPeople?songname=" + keyword)
+	}
+	//获取酷狗多少人再听
+	getV3ListenPeopleNum(params: any) {
+		let {
+			mixsongid,
+		} = params;
+		return this.http.get(this.baseUrl + "/kugou/listenPeople?mixsongid=" + mixsongid)
+	}
+	//获取酷狗在唱人
+	getV3SingingPeople(params: any) {
+		let {
+			songname,
+		} = params;
+		return this.http.get(this.baseUrl + "/kugou/singingPeople?songname=" + songname)
+	}
 
+	// xilixili获取npc信息和sig id
+	getNpc() {
+		let url = this.baseUrl + '/xilixili/getNpc'
+		return this.http.get(url)
+	}
+	// xilixili 获取用户信息 全部
+	getOpenidList() {
+		let url = this.baseUrl + '/xilixili/getOpenidList'
+		return this.http.get(url)
+	}
+
+	// xilixili 获取用户信息 指定
+	getOpenidInfo(params: any) {
+		let { idArr } = params
+		let url = this.baseUrl + '/xilixili/getOpenidInfo?idArr=' + JSON.stringify(idArr)
+		return this.http.get(url)
+	}
 	// ccc(){
 	// 	this.bbb().subscribe((res: any) => {
 	// 		console.log(res)

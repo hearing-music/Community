@@ -21,6 +21,8 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { LoadingModule } from '../components/loading/loading.module'
 // page
 import { FreeSongs_kugouComponent } from './kugou/free-songs/free-songs.component';
@@ -72,6 +74,7 @@ import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { XilixiliComponent } from './xilixili/xilixili.component';
 @NgModule({
 	imports: [
 		LoadingModule,
@@ -79,15 +82,17 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 		NzModalModule,
 		NzToolTipModule,
 		NzTableModule,
-		NzPaginationModule,
+		NzPaginationModule, 
 		NzEmptyModule,
 		NzButtonModule,
 		NzSelectModule,
 		NzCheckboxModule,
+		NzImageModule,
 		NzSliderModule,
 		NzSwitchModule,
 		NzSpinModule,
 		NzCollapseModule,
+		NzPopoverModule,
 		FormsModule,
 		IconsProviderModule,
 		PagesRoutingModule,
@@ -146,6 +151,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 		GetRankingComponent,
 		DjComponent,
 		UserManagementComponent,
+  XilixiliComponent,
 	],
 })
 export class PagesModule {

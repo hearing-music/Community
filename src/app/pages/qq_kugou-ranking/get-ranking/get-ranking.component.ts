@@ -104,10 +104,19 @@ export class GetRankingComponent implements OnInit {
 			console.log(res)
 			if (res.success) {
 				res.result.forEach((item: any) => {
-					item.qq_rankingValues = Object.values(item.qq_ranking)
 					item.qq_rankingKeys = Object.keys(item.qq_ranking)
-					item.kg_rankingValues = Object.values(item.kg_ranking)
+					item.qq_rankingValues = Object.values(item.qq_ranking)
+					// item.qq_rankingValues.forEach((citem:any,cindex:number)=>{
+					// 	citem.time = item.qq_rankingKeys[cindex]
+					// })
+					// item.qq_rankingKeys.forEach((citem:any,cindex:number)=>{
+					// 	citem = this.common.timeFormat(citem-0,'yyyy-mm-dd')
+					// })
 					item.kg_rankingKeys = Object.keys(item.kg_ranking)
+					item.kg_rankingValues = Object.values(item.kg_ranking)
+					// item.kg_rankingValues.forEach((citem:any,cindex:number)=>{
+					// 	citem.time = item.kg_rankingKeys[cindex]
+					// })
 					item.qq_rankingValues = item.qq_rankingValues.slice(-7)
 					item.qq_rankingKeys = item.qq_rankingKeys.slice(-7)
 					item.kg_rankingValues = item.kg_rankingValues.slice(-7)
@@ -116,7 +125,8 @@ export class GetRankingComponent implements OnInit {
 					item.newqq_rank = item.qq_rankingValues[item.qq_rankingValues.length-1].rank;
 					item.newkg_rank = item.kg_rankingValues[item.kg_rankingValues.length-1].myRank;
 					for (let i = 0; i < item.qq_rankingValues.length; i++) {
-						item.ranking.push({ qq: { time: item.qq_rankingKeys[i], ...item.qq_rankingValues[i] }, kugou: item.kg_rankingKeys[i]?{ time: item.kg_rankingKeys[i], ...item.kg_rankingValues[i] }:{}})
+						let kgIndex = item.kg_rankingKeys.findIndex((e:any)=>this.common.timeFormat(e,'yyyy-mm-dd')==this.common.timeFormat(item.qq_rankingKeys[i],'yyyy-mm-dd'))
+						item.ranking.push({ qq: { time: item.qq_rankingKeys[i], ...item.qq_rankingValues[i] }, kugou: (kgIndex!=-1)?{ time: item.kg_rankingKeys[kgIndex], ...item.kg_rankingValues[kgIndex] }:{}})
 					}
 					item.expand = false;
 				})

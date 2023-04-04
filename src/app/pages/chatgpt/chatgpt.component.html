@@ -14,8 +14,11 @@
 					</div>
 					<div class="chatgpt" *ngIf='item.id == 2'>
 						<img src="../../../../assets/img/cahtgptIcon.png" class='avatar'>
-						<div class="gpttext">
+						<div class="gpttext" *ngIf='item.text'>
 							{{item.text}}
+						</div>
+						<div class="gpttext" *ngIf='item.img'>
+							<img [src]='item.img' style='width: 400px;'>
 						</div>
 					</div>
 				</div>

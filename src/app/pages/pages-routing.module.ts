@@ -26,6 +26,7 @@ import { NotFoundComponent } from './miscellaneous/not-found/not-found.component
 import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
 import { PermissionGuard } from '../guards/permission.guard'
 import { ToolComponent } from './tool/tool.component';
+import { XilixiliComponent } from './xilixili/xilixili.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 const routes: Routes = [{
 	path: '',
@@ -153,6 +154,12 @@ const routes: Routes = [{
 		{
 			path: 'chatgpt',
 			component: ChatgptComponent,
+			canActivate: [PermissionGuard]
+		},
+		// xilixili
+		{
+			path: 'xilixili',
+			component: XilixiliComponent,
 			canActivate: [PermissionGuard]
 		},
 		//用户管理
