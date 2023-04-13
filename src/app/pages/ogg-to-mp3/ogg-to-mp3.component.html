@@ -1,0 +1,32 @@
+<div class="track">
+    <div class="track-top">
+        <div class="track-title">
+            ogg类型转换为MP3和WAR
+        </div>
+        <div style="float: left;padding: 15px;">
+            <!-- <p>默认不选为mp3格式</p> -->
+            <nz-select [(ngModel)]="selectedValue" (ngModelChange)="changeTypeOf($event)" nzPlaceHolder="选择格式">
+                <nz-option *ngFor="let option of optionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+            </nz-select>
+        </div>
+    </div>
+    <div class="uploadFile-box">
+        <ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+    </div>
+    <div *ngIf="mp3File" style="display: flex;justify-content: center;">
+        <div style="margin-top:20px;height: 50px;border: 1px dashed #ccc;border-radius: 5px; width: 500px;">
+            <div *ngIf="isResData" style="line-height: 50px;display: flex;justify-content: space-around;">
+                <span style="padding:0 15px">{{fileNameWithoutExtension}}</span>
+                <i nz-icon nzType="download" nzTheme="outline" style="line-height: 50px;cursor: pointer;"
+                    (click)="download()"></i>
+            </div>
+            <div *ngIf="!isResData">
+                <div style="display: flex;justify-content: space-around;line-height: 50px">
+                    <nz-spin nzSimple></nz-spin><span>请耐心等候，请勿刷新</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <ngx-loading *ngIf='loading'></ngx-loading>
+</div>

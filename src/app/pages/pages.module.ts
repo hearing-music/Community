@@ -25,6 +25,7 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { LoadingModule } from '../components/loading/loading.module'
 // page
+import { OggToMp3Component } from './ogg-to-mp3/ogg-to-mp3.component';
 import { FreeSongs_kugouComponent } from './kugou/free-songs/free-songs.component';
 import { FreeSongs_qqComponent } from './qq/free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
@@ -106,6 +107,7 @@ import { XilixiliComponent } from './xilixili/xilixili.component';
 		NzInputModule
 	],
 	declarations: [
+		OggToMp3Component,
 		PagesComponent,
 		FreeSongs_kugouComponent,
 		FreeSongs_qqComponent,

@@ -52,7 +52,7 @@
 			<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
 			</ngx-search>
 		</div>
-		<div *ngIf='videoData.name' class="right-main">
+		<div *ngIf='videoData.title' class="right-main">
 			<div>
 				{{videoData.name}}
 			</div>
@@ -75,15 +75,15 @@
 				<img [src]="videoData.download_image" class="right-img">
 			</div>
 			<div class="main-download">
-				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData.download_image,videoData.name)'>
+				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData.download_image,videoData.name||"douyin")'>
 					<span nz-icon nzType="download"></span>
 					 下载图片
 				</button>
-				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData.music.url,videoData.music.author)'>
+				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData.music.url,videoData.music.author||"douyin")'>
 					<span nz-icon nzType="download"></span>
 					下载音乐
 				</button>
-				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData.video,videoData.name)'>
+				<button nz-button nzType="primary" class="download-a" nzShape="round" (click)='downloadUrl(videoData.video,videoData.name||"douyin")'>
 					 <span nz-icon nzType="download"></span>
 					 下载视频
 				</button>
@@ -92,7 +92,7 @@
 				<a href="https://jinzhoushaokao.top/converter" target="_blank">转换格式点击这里</a>
 			</div>
 		</div>
-		<nz-empty *ngIf="!videoData.name" style="margin-top: 160px;"></nz-empty>
+		<nz-empty *ngIf="!videoData.title" style="margin-top: 160px;"></nz-empty>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>

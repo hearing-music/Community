@@ -373,6 +373,22 @@ export class ApiService {
 		let url = this.baseUrl + '/xilixili/getOpenidInfo?idArr=' + JSON.stringify(idArr)
 		return this.http.get(url)
 	}
+	// xilixili 发送订阅消息
+	sendSubscribeMessage(params:any){
+		let url = this.baseUrl + '/xilixili/sendSubscribeMessage'
+		return this.http.post(url, {...params})
+	}
+	//ogg文件转换
+		oggConversion(params: any) {
+			let {
+				file,
+				typeOf
+			} = params;
+			const formData: FormData = new FormData();
+			formData.append('file', file);
+			let url = 'http://whaleTail.tingjianmusic.top/v8/SetOggToMp3?typeOf=' + typeOf;
+			return this.http.post(url, formData);
+		}
 	// ccc(){
 	// 	this.bbb().subscribe((res: any) => {
 	// 		console.log(res)

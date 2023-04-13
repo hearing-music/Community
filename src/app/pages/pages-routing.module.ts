@@ -27,6 +27,7 @@ import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
 import { PermissionGuard } from '../guards/permission.guard'
 import { ToolComponent } from './tool/tool.component';
 import { XilixiliComponent } from './xilixili/xilixili.component';
+import {OggToMp3Component} from './ogg-to-mp3/ogg-to-mp3.component'
 import { UserManagementComponent } from './user-management/user-management.component';
 const routes: Routes = [{
 	path: '',
@@ -104,6 +105,12 @@ const routes: Routes = [{
 			component: DjComponent,
 			canActivate: [PermissionGuard]
 		},
+		//音频转换oggToMp3
+				{
+					path: 'oggToMp3',
+					component: OggToMp3Component,
+					canActivate: [PermissionGuard]
+				},
 		// 文件转换
 		{
 			path: 'converter',

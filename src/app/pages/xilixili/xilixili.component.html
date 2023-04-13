@@ -107,12 +107,23 @@
 						<!-- <TUI-TipMessage v-if="item.type === 'TIMGroupTipElem'" :message="item"></TUI-TipMessage> -->
 						<div *ngIf="item.type !== 'TIMGroupTipElem'"
 							[class]="item.flow === 'out' ? 't-self-message' : 't-recieve-message'">
-							<img *ngIf='selectItem.info.emoji==0&&item.flow==="in"'
+							<!-- <img *ngIf='selectItem.info.emoji==0&&item.flow==="in"'
 								src="../../../../assets/img/good.png" class="t-message-avatar">
 							<img *ngIf='selectItem.info.emoji==1&&item.flow==="in"'
 								src="../../../../assets/img/crazy.png" class="t-message-avatar">
 							<img *ngIf='selectItem.info.emoji==2&&item.flow==="in"' src="../../../../assets/img/sad.png"
-								class="t-message-avatar">
+								class="t-message-avatar"> -->
+								<div style='position:relative;margin-right: 6px;'>
+									<img *ngIf='selectItem.info.avatarUrl&&item.flow==="in"' [src]="selectItem.info.avatarUrl" class="left-avatar">
+									<img *ngIf='selectItem.info.emoji==0&&!selectItem.info.avatarUrl&&item.flow==="in"' src="../../../../assets/img/good.png" class="left-avatar">
+									<img *ngIf='selectItem.info.emoji==1&&!selectItem.info.avatarUrl&&item.flow==="in"' src="../../../../assets/img/crazy.png" class="left-avatar">
+									<img *ngIf='selectItem.info.emoji==2&&!selectItem.info.avatarUrl&&item.flow==="in"' src="../../../../assets/img/sad.png" class="left-avatar">
+									<div class="emojiBox" *ngIf='selectItem.info.avatarUrl'>
+										<img *ngIf='selectItem.info.emoji==0&&selectItem.info.avatarUrl&&item.flow==="in"' src="../../../../assets/img/good.png" class="left-avatar_emoji">
+										<img *ngIf='selectItem.info.emoji==1&&selectItem.info.avatarUrl&&item.flow==="in"' src="../../../../assets/img/crazy.png" class="left-avatar_emoji">
+										<img *ngIf='selectItem.info.emoji==2&&selectItem.info.avatarUrl&&item.flow==="in"' src="../../../../assets/img/sad.png" class="left-avatar_emoji">
+									</div>
+								</div>
 							<div class="read-receipts" *ngIf="selectItem.type === 'C2C' && item.flow === 'out'">
 								<div *ngIf="item.isPeerRead">已读</div>
 								<div *ngIf="!item.isPeerRead">未读</div>

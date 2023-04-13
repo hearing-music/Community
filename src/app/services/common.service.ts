@@ -278,6 +278,7 @@ export class CommonService {
 			// let token = localStorage.getItem('token');
 			let fileUrl = src; // 文件路径
 			request.open("GET", fileUrl ,true);
+			// request.setRequestHeader('Access-Control-Allow-Origin','*')
 			// if(t){
 			// 	request.setRequestHeader('token',token)
 			// }

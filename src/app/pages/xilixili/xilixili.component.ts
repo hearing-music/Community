@@ -321,6 +321,8 @@ export class XilixiliComponent implements OnInit {
 		this.messageList = [...this.messageList, obj];
 		this.scrollToButtom();
 		this.tim.sendMessage(message).then((res: any) => {
+			// 发送订阅消息
+			this.sendSubscribeMessage(message)
 			// if(this.firstSendMessage) {
 
 			// }
@@ -351,7 +353,7 @@ export class XilixiliComponent implements OnInit {
 			this.tim.on(TIM.EVENT.MESSAGE_READ_BY_PEER, this.onMessageReadByPeer);
 			this.getMessageList(this.selectItem)
 		}
-		this.setMessageRead(this.selectItem.conversationID)
+		this.setMessageRead(item.conversationID)
 	}
 	// 消息已读更新
 	onMessageReadByPeer = () => {
@@ -436,12 +438,40 @@ export class XilixiliComponent implements OnInit {
 			conversationID: id
 		}).then(() => { });
 	}
+	// 发送订阅消息
+	sendSubscribeMessage(message:any){
+		let openid = message.conversationID.replace('C2C','')
+		let time = this.common.timeFormat(message.time*1000,'yyyy-mm-dd hh:MM:ss')
+		let messageText = '*****';
+		if(message.type == "TIMTextElem"){
+			messageText = '[文字消息]'
+		}
+		if(message.type == "TIMImageElem"){
+			messageText = '[图片消息]'
+		}
+		if(message.type == "TIMVideoFileElem"){
+			messageText = '[视频消息]'
+		}
+		if(message.type == "TIMSoundElem"){
+			messageText = '[语音消息]'
+		}
+		// let name = localStorage.getItem('username')
+		this.api.sendSubscribeMessage({
+			name:this.npc.name,
+			time,
+			openid,
+			message:messageText
+		}).subscribe((res: any) => {
+			console.log(res)
+		}, (err: any) => {
+			console.log(err)
+		})
+	}
 	// 获取npc有没有权限聊天 以及相关信息
 	getNpc() {
 		this.loading = true;
 		this.api.getNpc().subscribe((res: any) => {
 			console.log(res)
-			this.loading = false;
 			if (res.success) {
 				this.err = false;
 				this.sig = res.sig;
@@ -450,6 +480,7 @@ export class XilixiliComponent implements OnInit {
 				this.chatUserId = res.chatUserId;
 				this.timCreate(this.sdkid, this.sig, this.chatUserId)
 			} else {
+				this.loading = false;
 				this.err = true;
 			}
 		}, (err: any) => {
@@ -460,6 +491,7 @@ export class XilixiliComponent implements OnInit {
 	}
 	// 创建聊天 
 	timCreate(SDKAppID: number, sig: string, chatUserId: string) {
+		let that = this;
 		this.tim = TIM.create({
 			SDKAppID: SDKAppID
 		});
@@ -564,13 +596,15 @@ export class XilixiliComponent implements OnInit {
 		document.onkeydown = null
 	}
 	focus() {
-		document.onkeydown = (event_e: any) => {
+		document.onkeydown = (event_e: any) :any=> {
+			console.log()
 			if (event_e.keyCode === 13 && event_e.shiftKey) {
 
 			}
 			if (event_e.keyCode === 13 && !event_e.shiftKey) {
 				// todo send
 				this.sendTextMessage()
+				return false
 			}
 		}
 	}

@@ -61,6 +61,16 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		],
 	},
 	{
+			title: '音频转换',
+			icon: 'flip-2',
+			children: [
+				{
+					title: 'ogg',
+					link: '/pages/oggToMp3',
+				},
+			],
+		},
+	{
 		title: '版权扫描',
 		icon: 'link-2',
 		link: '/pages/copyright-scanning',

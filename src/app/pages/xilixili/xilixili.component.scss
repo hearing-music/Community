@@ -177,7 +177,6 @@
 			overflow-y: scroll;
 			box-sizing: border-box;
 			padding:16px 32px;
-			
 			// text
 			.t-message-item {
 				/*max-width: 60vw;*/
@@ -190,6 +189,24 @@
 				justify-items: flex-start;
 				align-items: center;
 				width: 100%;
+				.left-avatar{
+					 width:40px;height:40px;
+					 border-radius: 4px;
+					 flex-shrink: 0;
+					 background-color: #fff;
+				}
+				.emojiBox{
+					position: absolute;
+					bottom:0;
+					right:0;
+					background-color: #fff;
+					border-radius: 4px;
+					height:16px;width:16px;
+					.left-avatar_emoji{
+						width: 16px;height: 16px;
+						display: block;
+					}
+				}
 			}
 			
 			.t-message-avatar {
