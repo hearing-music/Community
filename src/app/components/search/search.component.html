@@ -1,4 +1,4 @@
-<div class="search" >
-	<input [(ngModel)]="searchValue" [placeholder]="searchHolder" class="search-ipt" type="text" (focus)="focus()" (blur)="blur()">
+<div class="search" [style]='{"width":searchWidth}'>
+	<input [(ngModel)]="searchValue" [placeholder]="searchHolder" class="search-ipt" type="text" (focus)="focus($event)" (blur)="blur()">
 	<span nz-icon nzType="search" nzTheme="outline" style="font-size: 20px; color: #08c;" (click)="search()" class="search-icon"></span>
 </div>

@@ -12,6 +12,11 @@
 	font-size: 16px;
 	padding:24px;
 	padding-left:0;
+	.close{
+		position: absolute;
+		right:25px;
+		top:18px;
+	}
 	.lyric-all_spin{
 		width: 100%;
 		height: 100%;
@@ -67,5 +72,21 @@
 				font-weight: bold;
 			}
 		}
+	}
+}
+.lyric-all-phone{
+	left:0;
+	padding:12px;
+	width:100%;
+	height:70vh;
+	overflow-x: hidden;
+	.lyric-all_info{
+		width:100%;
+	}
+	.lyric-all_content{
+		width:100%;
+	}
+	.lyric-all_rank{
+		width:100%;
 	}
 }

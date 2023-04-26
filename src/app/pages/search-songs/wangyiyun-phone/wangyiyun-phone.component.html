@@ -1,0 +1,79 @@
+<nz-empty *ngIf="wangyiyunList.length==0" style="margin-top: 160px;"></nz-empty>
+<div class="list" *ngIf='wangyiyunList.length!=0'>
+	<div class="list-item" *ngFor="let item of wangyiyunList;let idx = index;" :key='item.id'>
+		<div class="item-left">
+			<!-- <div class="left-icon"> -->
+				<!-- <img src="../../../assets/img/play-red.png" style="width: 100%;height: 100%;" /> -->
+				<!-- <image src="/assets/img/pause.png" style="width: 100%;height: 100%;"> -->
+			<!-- </div> -->
+			<div class="left-text">
+				<div class="title-area">
+					<!-- 歌名 -->
+					<div>
+						<div class="title">
+							<span nz-tooltip [nzTooltipTitle]="item.songname">
+								{{item.songname}}
+							</span>
+						</div>
+					</div>
+					<button nz-button nzShape="circle" nzType="text" (click)="openLink(item.songid)" class="linkIcon" style="margin-left: 4px;">
+						<span nz-icon nzType="select" nzTheme="outline" style="color:red;font-size: 14px;"></span>
+					</button>
+				<!-- 	<button nz-button nzShape="circle" nzType="text"  style="margin-left: 2px;" class="linkIcon" (click)='downloadUrl(item.downloadUrl,item.songname)'>
+						<span nz-icon nzType="download" nzTheme="outline" style='color:red;font-size: 14px;'></span>
+					</button> -->
+					<div style="margin-left: 4px;" (click)='lyricClick(item)'>
+						<img src="../../../assets/img/lyric-red.png" style="width: 20px;height: 20px;">
+						<!-- 鼠标移入加载歌词 -->
+						<ngx-lyric-all *ngIf='item.lyricShow' (closeLyric)='closeLyric(idx)' [isphone]='true'  [songName]='item.songname' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
+					</div>
+				</div>
+				<div class="subTitle">
+					<!-- 歌手 发行时间 -->
+					<div style="display: flex;align-items: center;">
+						<div>
+							{{item.singername}}
+						</div>
+						<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+						<div>
+							{{common.getDate(item.publishTime)}}
+						</div>
+					</div>
+					<!-- 图标 -->
+					<div style="display: flex;margin-left: 4px;">
+						<!-- 钱币图标 -->
+						<img [src]="!item.vip?'../../../assets/img/price-default.png':'../../../assets/img/price-red.png'"
+							class="icon" />
+					</div>
+				</div>
+				<div class="item-center">
+					<!-- 专辑名字 -->
+					<div class="exophanie-item">
+						{{item.albumname}}
+					</div>
+					<div class="">
+						{{item.company}}
+					</div>
+					<div>
+						{{item.alias.length>0?item.alias[0]:''}}
+					</div>
+				</div>
+				<div class="item-right">
+					<div style="display: flex;align-items: center;">
+						<!-- 播放量 -->
+						<img src="../../../assets/img/bofang.png" class="icon" />
+						<div>{{0}}</div>
+					</div>
+					<div style="display: flex;align-items: center;margin-left: 8px;">
+						<div style="display: flex;align-items: center;">
+							<!-- 评论图标 -->
+							<img src="../../../assets/img/pinglun.png" class="icon" />
+							<div>{{common.toThousands(item.commentCount)}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>

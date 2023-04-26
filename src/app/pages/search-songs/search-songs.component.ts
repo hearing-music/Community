@@ -10,6 +10,25 @@ export class SearchSongsComponent implements OnInit {
 	constructor(public api: ApiService,public common: CommonService) { }
 	@ViewChild('lyric')
 	lyric:any;
+	ismobile:any=null;
+	tagListPhone = [{
+		name: 'QQ音乐',
+		holder: 'qq搜索'
+	}, {
+		name: '酷狗V3',
+		holder: '酷狗V3搜索'
+	},{
+		name: '酷我音乐',
+		holder: '酷我搜索'
+	},
+	{
+		name: '网易云',
+		holder: '网易云搜索'
+	},
+	{
+		name: '腾讯音乐人',
+		holder: '腾讯音乐人搜索'
+	}]
 	tagList = [{
 		name: 'QQ音乐',
 		holder: 'qq搜索'
@@ -38,13 +57,51 @@ export class SearchSongsComponent implements OnInit {
 	lsddPage = 1;
 	lsddList: any[] = []
 	qqList: any[] = []
-	kugouV3List: any[] = []
+	kugouV3List: any[] =[]
 	qqPage = 1;
 	kugouV3Page = 1;
 	
 	audioSrc = '';
 	lyricData:any = [];
 	isPlay = false;
+	
+	musicianTxPage = 1;
+	musicianTxList: any[] = []
+	searchMusicianTx(): void{
+		this.api.getMusicianTx({
+			keyword: this.searchValue,
+			page: this.musicianTxPage
+		}).subscribe((res: any) => {
+			this.loading = false;
+			console.log(res)
+			// res.data.results.forEach((item:any)=>{
+			// 	item.topinfo = item.topinfo || {}
+			// })
+			if (res.success) {
+				if (this.musicianTxPage == 1) {
+					this.musicianTxList = res.result;
+				} else {
+					this.musicianTxList = [...this.musicianTxList, ...res.result];
+				}
+			}
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	musicianTxPageNext(): void{
+		if (this.musicianTxList.length == 0) {
+			return
+		}
+		this.musicianTxPage += 1;
+		this.loading = true;
+		this.searchMusicianTx()
+	}
+	ngModelChange(e:any){
+		let O = this.tagListPhone.find((an:any)=>an.name == e)
+		this.selectItem = e;
+		this.searchHolder = O.holder
+	}
 	// 歌曲进度
 	timeupdate(e:any){
 		this.lyric.lyricUp(e.srcElement.currentTime);
@@ -164,6 +221,9 @@ export class SearchSongsComponent implements OnInit {
 		}
 		if (this.selectItem == '铃声多多') {
 			this.searchLsdd()
+		}
+		if(this.selectItem == '腾讯音乐人'){
+			this.searchMusicianTx()
 		}
 	}
 	searchKuwo() {
@@ -311,7 +371,7 @@ export class SearchSongsComponent implements OnInit {
 		this.searchLsdd()
 	}
 	ngOnInit(): void {
-
+		this.ismobile = this.common.isMobile()
 	}
 
 }

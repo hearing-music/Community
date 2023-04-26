@@ -7,12 +7,14 @@ import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 export class SearchComponent implements OnInit {
 	@Input() searchValue: any;
 	@Input() searchHolder: any;
+	@Input() searchWidth: any='350px';
 	@Output() childSearch=new EventEmitter();
 	search() {
 		console.log('search')
 		this.childSearch.emit(this.searchValue)
 	}
-	focus(){
+	focus(e:any){
+		e.preventDefault();
 		document.onkeydown =  (event_e:any)=>{
 			if(event_e.keyCode === 13){
 				this.search()

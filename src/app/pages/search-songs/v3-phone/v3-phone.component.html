@@ -1,0 +1,185 @@
+<nz-empty *ngIf="kugouV3List.length==0" style="margin-top: 160px;"></nz-empty>
+<div class="list" v-if='kugouV3List.length!=0'>
+	<div class="list-item" *ngFor="let item of kugouV3List;let idx=index" :key='item.id'>
+		<div class="item-left">
+			<div class="left-text">
+				<div class="title-area">
+					<!-- 歌名 -->
+					<div>
+						<div class="title">
+							<span nz-tooltip [nzTooltipTitle]="common.deleteEM(item.songName)">
+								{{common.deleteEM(item.songName)}}
+							</span>
+						</div>
+					</div>
+					<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.scid,item.FileHash)"
+						class="linkIcon" style="margin-left: 18px;">
+						<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
+					</button>
+					<!-- 指数链接 -->
+					<button (click)="openExponentLink(item)" nz-button nzShape="circle" nzType="text" class="linkIcon"
+						style="margin-left: 2px;">
+						<span nz-icon nzType="link" nzTheme="outline" style='color:blue;font-size: 14px;'></span>
+					</button>
+					<div style="margin-left: 6px;" (click)='lyricClick(item)'>
+						<img src="../../../assets/img/lyric-blue.png" style="width: 20px;height: 20px;">
+						<!-- 鼠标移入加载歌词 -->
+						<ngx-lyric-all *ngIf='item.lyricShow' (closeLyric)='closeLyric(idx)' [isphone]='true' [songName]='common.deleteEM(item.songName)'
+							[lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
+					</div>
+				</div>
+				<div class="subTitle">
+					<!-- 歌手 发行时间 -->
+					<div style="display: flex;align-items: center;">
+						<div>
+							{{common.deleteEM(item.singers[0].name)}}
+						</div>
+					</div>
+					<!-- 图标 -->
+					<div style="display: flex;margin-left: 8px;align-items: center;">
+						<!-- 钱币图标 -->
+						<img [src]="item.price==0?'../../../assets/img/price.png':'../../../assets/img/price-blue.png'"
+							class="icon" />
+						<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 8px;'></span>
+						<!-- 音乐图标 -->
+						<img [src]="true?'../../../assets/img/music.png':'../../../assets/img/music-blue.png'"
+							class="icon">
+					</div>
+					<!-- 排名 -->
+					<div *ngIf='item.detailData.listener_num'
+						style="display: flex;align-items: center;margin-left: 8px;">
+						<img src="../../../assets/img/zhexiandian.png" class="icon" />
+						<div>{{common.toThousands(item.detailData.rank)}}</div>
+					</div>
+					<!-- 指数增长 -->
+					<div *ngIf='item.detailData.listener_num' class="" v-if='item.detailData.rank_diff!=0'
+						style="display: flex;align-items: center;margin-left: 8px;">
+						<span *ngIf='item.detailData.rank_diff<0' nz-icon nzType="arrow-down" style='color:green;'
+							nzTheme="outline"></span>
+						<span *ngIf='item.detailData.rank_diff>0' nz-icon nzType="arrow-up" style='color:red;'
+							nzTheme="outline"></span>
+						<div>{{item.detailData.rank_diff}}</div>
+					</div>
+					
+				</div>
+				<div class="item-center">
+					<!-- 专辑名字 -->
+					<div class="exophanie-item" style="font-weight: bold;margin-top: 0;">
+						{{item.albumName}}
+					</div>
+					<div class="exophanie-item u-line-1">
+						{{item.company}}
+					</div>
+					<div class="exophanie-item u-line-1">
+						{{item.time_public}}
+					</div>
+				</div>
+				<div class="subTitle">
+					<!-- 收听 -->
+					<span *ngIf='item.detailData.listener_num' nz-tooltip [nzTooltipTitle]="item.detailData.date">
+						<div class="" style="display: flex;align-items: center;margin-left: 2px;">
+							<img src="../../../assets/img/erji.png" class="icon" />
+							<div>{{common.toThousands(item.detailData.listener_num)}}</div>
+						</div>
+					</span>
+					<!-- 指数 -->
+					<div *ngIf='item.detailData.listener_num'
+						style="display: flex;align-items: center;margin-left: 8px;">
+						<img src="../../../assets/img/shuangzhexian.png" class="icon" />
+						<div>{{common.toThousands(item.detailData.exponent)}}</div>
+					</div>
+					<div *ngIf='!item.detailData.listener_num'
+						style="display: flex;align-items: center;margin-left: 8px;">
+						<img src="../../../assets/img/shuangzhexian.png" class="icon" />
+						<div>{{common.toThousands(item.exponent)}}</div>
+					</div>
+					<!-- 昨日指数 -->
+					<div *ngIf='item.detailData.listener_num' class=""
+						style="display: flex;align-items: center;margin-left: 2px;">
+						<img src="../../../assets/img/shijian.png" class="icon" />
+						<div>{{common.toThousands(item.detailData.exponent - (item.detailData.exponent_diff - 0))}}
+						</div>
+					</div>
+					<!-- 指数增长率 -->
+					<div *ngIf='item.detailData.listener_num' class="" v-if='item.detailData.exponent_diff!=0'
+						style="display: flex;align-items: center;margin-left: 8px;">
+						<span *ngIf='item.detailData.exponent_diff<0' nz-icon nzType="arrow-down" style='color:green;'
+							nzTheme="outline"></span>
+						<span *ngIf='item.detailData.exponent_diff>0' nz-icon nzType="arrow-up" style='color:red;'
+							nzTheme="outline"></span>
+						<div>{{common.toThousands(item.detailData.exponent_diff)}}</div>
+					</div>
+					
+				</div>
+				<div class="subTitle">
+					<div style="display: flex;align-items: center;justify-content: flex-end;">
+						<!-- 收藏图标 -->
+						<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
+						<div>{{'-'}}</div>
+					</div>
+					<div style="display: flex;align-items: center;margin-top: 6px;">
+						<!-- 播放量 -->
+						<div style="margin: 0 8px;"> | </div>
+						<div style="display: flex;align-items: center;">
+							<!-- 评论图标 -->
+							<img src="../../../assets/img/pinglun.png" class="icon" />
+							<div>{{common.toThousands(item.commentObj.cnt)}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="subTitle">
+					<div class="" style="display: flex;align-items: center;">
+						<!-- 在搜人数 -->
+						<!-- <span style="margin-left: 10px;">
+							<span style="color:rgb(78, 194, 223)">{{item.searchPeopleCount}}</span>人在搜
+						</span>
+						<span>
+							在搜照片
+							<span *ngFor="let ele of item.searchPeopleArr">
+								<img [src]="ele.user_image" alt=""
+									style="width: 10px;height:10px;border-radius: 50%;margin-left: 4px;">
+							</span>
+							在搜刷新
+							<span nz-icon nzType="reload" nzTheme="outline"
+								style="width: 15px;height: 15px;padding: 5px;vertical-align:0em;cursor: pointer;"
+								(click)="refreshSearchPeopleNum(item.songName,idx)">
+							</span>
+						</span> -->
+						<!-- 在听人数 -->
+						<span style="">
+							<span style="color:rgb(78, 194, 223)">{{item.listenPeopleCount}}</span>人在听
+						</span>
+						<span>
+							<!-- 在听照片 -->
+							<span *ngFor="let ele of item.listenPeopleArr">
+								<img [src]="ele.uri" alt=""
+									style="width: 10px;height: 10px;border-radius: 50%;margin-left: 4px;">
+							</span>
+							<!-- 在听刷新 -->
+							<span nz-icon nzType="reload" nzTheme="outline"
+								style="width: 15px;height: 15px;padding: 5px;vertical-align:0em;cursor: pointer;"
+								(click)="refreshListenPeopleNum(item.MixSongID,idx)">
+							</span>
+						</span>
+					</div>
+					<!-- 在唱人 -->
+					<div>
+						<!-- 在唱人图片 -->
+						<span>
+							<img [src]="item.singingPeople.imagePath" alt=""
+								style="width: 10px;height:10px;border-radius: 50%;margin-left: 4px;margin-left: 8px;">
+						</span>
+						<span><span style="color:rgb(78, 194, 223);cursor: pointer;"
+								(click)="goToSeeSinger(item.singingPeople.roomUrl,idx)">{{item.singingPeople.nickName}}</span>在唱
+						</span>
+						<!-- 在唱刷新 -->
+						<span nz-icon nzType="reload" nzTheme="outline"
+							style="width: 15px;height: 15px;padding: 5px;vertical-align:0em;cursor: pointer;"
+							(click)="refreshSingingPeopleNum(item.songName,idx)">
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

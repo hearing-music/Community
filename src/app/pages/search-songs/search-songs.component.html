@@ -1,4 +1,4 @@
-<div class="home">
+<div class="home" *ngIf='ismobile===false'>
 	<div class="home-top">
 		<!-- tab栏 -->
 		<div class="tagList">
@@ -40,4 +40,37 @@
 		<audio id='audio' controls [src]="audioSrc" (play)='play($event)' (pause)='pause()' (timeupdate)="timeupdate($event)">
 		</audio>
 	</div>
+</div>
+<div class="home" *ngIf='ismobile===true' style="padding:10px;overflow-x: hidden;padding-bottom:100px;">
+	<div class="home-top" style="margin-bottom: 12px;justify-content: center;">
+		<!-- tab栏 -->
+		<nz-select [ngModel]="selectItem" (ngModelChange)='ngModelChange($event)'>
+		      <nz-option *ngFor="let item of tagListPhone" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
+		</nz-select>
+	</div>
+	<!-- 搜索 -->
+	<ngx-search [searchValue]='searchValue' [searchWidth]='"100%"' [searchHolder]='searchHolder' (childSearch)='search($event)'>
+	</ngx-search>
+	<!-- 数据 -->
+	<div class="home-main">
+		<ngx-qq-phone *ngIf='selectItem=="QQ音乐"' [qqList]="qqList" (change)="qqSrcChange($event)"></ngx-qq-phone>
+		<ngx-v3-phone *ngIf='selectItem=="酷狗V3"' [kugouV3List]="kugouV3List"></ngx-v3-phone>
+		<ngx-kuwo-phone *ngIf='selectItem=="酷我音乐"' [kuwoList]="kuwoList"></ngx-kuwo-phone>
+		<ngx-wangyiyun-phone *ngIf='selectItem=="网易云"' [wangyiyunList]="wangyiyunList"></ngx-wangyiyun-phone>
+		<ngx-musician-tx-phone *ngIf='selectItem=="腾讯音乐人"' [musicianTxList]="musicianTxList"></ngx-musician-tx-phone>
+	</div>
+	<!-- 分页 -->
+	<div class="pagination">
+		<span *ngIf='selectItem=="QQ音乐"&&qqList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+			(click)='qqPageNext()' style="cursor: pointer;"></span>
+		<span *ngIf='selectItem=="酷狗V3"&&kugouV3List.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+			(click)='kugouV3PageNext()' style="cursor: pointer;"></span>
+		<span *ngIf='selectItem=="网易云"&&wangyiyunList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+			(click)='wangyiyunPageNext()' style="cursor: pointer;"></span>
+		<span *ngIf='selectItem=="酷我音乐"&&kuwoList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+			(click)='kuwoPageNext()' style="cursor: pointer;"></span>
+		<span *ngIf='selectItem=="腾讯音乐人"&&musicianTxList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+			(click)='musicianTxPageNext()' style="cursor: pointer;"></span>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>

@@ -5,6 +5,13 @@ import { NzMessageService  } from 'ng-zorro-antd/message';
 })
 export class CommonService {
 	constructor(public message: NzMessageService) { }
+	// 是否是移动端
+	isMobile() {
+	    let userAgentInfo = navigator.userAgent;
+	    let Agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod'];
+	    let getArr = Agents.filter(i => userAgentInfo.includes(i));
+	    return getArr.length ? true : false;
+	  }
 	// 验证是否为管理员
 	checkAdmin(){
 		let permission_name = localStorage.getItem('permission_name')

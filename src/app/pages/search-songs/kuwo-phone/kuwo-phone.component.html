@@ -1,0 +1,71 @@
+<nz-empty *ngIf="kuwoList.length==0" style="margin-top: 160px;"></nz-empty>
+<div class="list" *ngIf='kuwoList.length!=0'>
+	<div class="list-item" *ngFor="let item of kuwoList;let i=index;" :key='item.rid'>
+		<div class="item-left">
+			<!-- <div class="left-icon"> -->
+				<!-- <img src="../../../assets/img/play-orange.png" style="width: 100%;height: 100%;" /> -->
+				<!-- <image src="/assets/img/pause-orange.png" style="width: 100%;height: 100%;"> -->
+			<!-- </div> -->
+			<div class="left-text">
+				<div class="title-area">
+					<!-- 歌名 -->
+					<div>
+						<div class="title" >
+							<span nz-tooltip [nzTooltipTitle]="item.name">
+								{{item.name}}
+							</span>
+						</div>
+					</div>
+					<button nz-button nzShape="circle" nzType="text" (click)="openLink(item.rid)" class="linkIcon" style="margin-left: 6px;">
+						<span nz-icon nzType="select" nzTheme="outline" style="color:orange;font-size: 14px;"></span>
+					</button>
+					<div style="margin-left: 6px;" (click)='lyricClick(item)'>
+						<img src="../../../assets/img/lyric-orange.png" style="width: 20px;height: 20px;">
+						<!-- 鼠标移入加载歌词 -->
+						<ngx-lyric-all *ngIf='item.lyricShow' (closeLyric)='closeLyric(i)' [isphone]='true' [songName]='item.name' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
+					</div>
+				</div>
+				<div class="subTitle">
+					<!-- 歌手 发行时间 -->
+					<div style="display: flex;align-items: center;">
+						<div>
+							{{item.artist}}
+						</div>
+						<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+						<div>
+							{{item.releaseDate}}
+						</div>
+					</div>
+					<!-- 图标 -->
+					<div style="display: flex;margin-left: 4px;">
+						<!-- 钱币图标 -->
+						<img [src]="!item.payInfo.feeType.song?'../../../assets/img/price.png':'../../../assets/img/price-orange.png'"
+							class="icon" />
+					</div>
+				</div>
+				<div class="item-center">
+					<!-- 专辑名字 -->
+					<div class="exophanie-item">
+						{{item.album}}
+					</div>
+				</div>
+				<div class="subTitle" style=''>
+					<div style="display: flex;align-items: center;">
+						<!-- 播放量 -->
+						<img src="../../../assets/img/bofang.png" class="icon" />
+						<div>{{0}}</div>
+					</div>
+					<div style="display: flex;align-items: center;margin-left:4px;">
+						<div style="display: flex;align-items: center;">
+							<span (click)='reloadComment(item.rid)' *ngIf='item.commentCount==="-"' nz-icon nzType="reload" nzTheme="outline" style='cursor: pointer;margin-right: 8px;'></span>
+							<!-- 评论图标 -->
+							<img src="../../../assets/img/pinglun.png" class="icon" />
+							<div>{{item.commentCount == '-'?'-':common.toThousands(item.commentCount)}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>

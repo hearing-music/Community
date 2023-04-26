@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'ngx-lyric-all',
@@ -9,9 +9,17 @@ export class LyricAllComponent implements OnInit {
  @Input() lyricData: any;
  @Input() lyricReadly: any;
  @Input() songName: any;
+ @Input() isphone: any=false;
  @Input() rankList: any = [];
+ @Output() closeLyric=new EventEmitter();
+ close(e:any) {
+ 	this.closeLyric.emit()
+	e.stopPropagation();
+ }
   constructor() { }
-
+mousemove(e:any){
+	e.stopPropagation();
+}
   ngOnInit(): void {
   }
 }

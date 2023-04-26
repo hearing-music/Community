@@ -1,4 +1,7 @@
-<div class="lyric-all">
+<div class="lyric-all" [ngClass]='{"lyric-all-phone":isphone}' (mousemove)='mousemove($event)' (mouseenter)='mousemove($event)'>
+	<div *ngIf='isphone&&lyricReadly' (click)='close($event)' class="close">
+		<span nz-icon nzType="close-circle" nzTheme="outline"></span>
+	</div>
 	<div *ngIf='!lyricReadly' class="lyric-all_spin">
 		<nz-spin nzSimple></nz-spin>
 	</div>

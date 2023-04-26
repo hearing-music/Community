@@ -38,9 +38,14 @@ import { ConverterComponent } from './converter/converter.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
 // componet
 import { QqComponent } from './search-songs/qq/qq.component';
+import { QqPhoneComponent } from './search-songs/qq-phone/qq-phone.component'
 import { V3Component } from './search-songs/v3/v3.component';
+import { V3PhoneComponent } from './search-songs/v3-phone/v3-phone.component';
 import { WangyiyunComponent } from './search-songs/wangyiyun/wangyiyun.component';
+import { WangyiyunPhoneComponent } from './search-songs/wangyiyun-phone/wangyiyun-phone.component';
+import { MusicianTxPhoneComponent } from './search-songs/musician-tx-phone/musician-tx-phone.component';
 import { KuwoComponent } from './search-songs/kuwo/kuwo.component';
+import { KuwoPhoneComponent } from './search-songs/kuwo-phone/kuwo-phone.component';
 import { LsddComponent } from './search-songs/lsdd/lsdd.component';
 import { MusicianTxComponent } from './search-page/musician-tx/musician-tx.component';
 import { SearchComponent } from '../components/search/search.component';
@@ -121,11 +126,16 @@ import { XilixiliComponent } from './xilixili/xilixili.component';
 		ConverterComponent,
 		CopyrightScanningComponent,
 		QqComponent,
+		QqPhoneComponent,
 		V3Component,
+		V3PhoneComponent,
 		WangyiyunComponent,
+		WangyiyunPhoneComponent,
 		KuwoComponent,
+		KuwoPhoneComponent,
 		LsddComponent,
 		MusicianTxComponent,
+		MusicianTxPhoneComponent,
 		SearchComponent,
 		UploadFileComponent,
 		LyricComponent,
