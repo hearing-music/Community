@@ -1,0 +1,15 @@
+<div class="radar">
+	<div class="radar-top">
+			<!-- 平台 -->
+			<nz-select style="width: 150px;margin-right: 16px;" [(ngModel)]="tabsActive" nzPlaceHolder='请选择平台' (ngModelChange)='ngModelChange($event)'>
+				<nz-option *ngFor="let c of tabs" [nzValue]="c.value" [nzLabel]="c.desc"></nz-option>
+			</nz-select>
+			<!-- 榜单 -->
+			<nz-select *ngIf='nowList.length>0' style="width: 150px;margin-right: 16px;" [(ngModel)]="listActive" nzPlaceHolder='请选择榜单' (ngModelChange)='ngModelChange2($event)'>
+				<nz-option *ngFor="let c of nowList" [nzValue]="c.value" [nzLabel]="c.desc"></nz-option>
+			</nz-select>
+			<!-- 日期 -->
+			<nz-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker>
+	</div>
+	
+</div>
