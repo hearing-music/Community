@@ -114,6 +114,11 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		icon: 'message-circle',
 		link: '/pages/xilixili',
 	},
+	{
+		title: '雷达音乐',
+		icon: 'radio',
+		link: '/pages/radar',
+	},
 	// {
 	// 	title: '用户管理',
 	// 	icon: 'person',

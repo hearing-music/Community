@@ -59,7 +59,9 @@ export class ChatgptComponent implements OnInit {
 			// this.loading = false;
 			if(res.success){
 				this.lastQuestionArr.push(question)
-				this.setGptChat(res.result)
+				var result = res.result.replaceAll('\n','')
+				// console.log(res.result)
+				this.setGptChat(result)
 			}else{
 				this.setGptChat(res.message)
 			}

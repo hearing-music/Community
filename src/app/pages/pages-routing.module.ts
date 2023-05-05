@@ -29,6 +29,7 @@ import { ToolComponent } from './tool/tool.component';
 import { XilixiliComponent } from './xilixili/xilixili.component';
 import {OggToMp3Component} from './ogg-to-mp3/ogg-to-mp3.component'
 import { UserManagementComponent } from './user-management/user-management.component';
+import {RadarComponent} from './radar/radar.component'
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -167,6 +168,12 @@ const routes: Routes = [{
 		{
 			path: 'xilixili',
 			component: XilixiliComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 雷达音乐
+		{
+			path: 'radar',
+			component: RadarComponent,
 			canActivate: [PermissionGuard]
 		},
 		//用户管理

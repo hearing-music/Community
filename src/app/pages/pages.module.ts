@@ -24,6 +24,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { LoadingModule } from '../components/loading/loading.module'
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 // page
 import { OggToMp3Component } from './ogg-to-mp3/ogg-to-mp3.component';
 import { FreeSongs_kugouComponent } from './kugou/free-songs/free-songs.component';
@@ -36,6 +37,7 @@ import { DouyinComponent } from './douyin/douyin.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { ConverterComponent } from './converter/converter.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
+import { RadarComponent } from './radar/radar.component';
 // componet
 import { QqComponent } from './search-songs/qq/qq.component';
 import { QqPhoneComponent } from './search-songs/qq-phone/qq-phone.component'
@@ -81,9 +83,13 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { XilixiliComponent } from './xilixili/xilixili.component';
+import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+registerLocaleData(zh);
 @NgModule({
 	imports: [
 		LoadingModule,
+		NzDatePickerModule,
 		NzMessageModule,
 		NzModalModule,
 		NzToolTipModule,
@@ -125,6 +131,7 @@ import { XilixiliComponent } from './xilixili/xilixili.component';
 		IdentificationComponent,
 		ConverterComponent,
 		CopyrightScanningComponent,
+		RadarComponent,
 		QqComponent,
 		QqPhoneComponent,
 		V3Component,
