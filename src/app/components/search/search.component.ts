@@ -9,9 +9,15 @@ export class SearchComponent implements OnInit {
 	@Input() searchHolder: any;
 	@Input() searchWidth: any='350px';
 	@Output() childSearch=new EventEmitter();
+	@Output() childInput=new EventEmitter();
 	search() {
 		console.log('search')
 		this.childSearch.emit(this.searchValue)
+	}
+	input(e:any){
+		setTimeout(()=>{
+			this.childInput.emit(this.searchValue)
+		},10)
 	}
 	focus(e:any){
 		e.preventDefault();

@@ -1,0 +1,64 @@
+<div class="radar-table">
+    <nz-table #basicTable [nzData]="listOfData" [nzFrontPagination]="false">
+        <thead>
+            <tr>
+                <th nzAlign="center">排名</th>
+                <th nzAlign="center">热搜词</th>
+                <th nzAlign="center">搜索人数</th>
+                <th nzAlign="center">歌曲总排名</th>
+                <th nzAlign="center">匹配歌曲</th>
+                <th nzAlign="center">Q音链接</th>
+                <th nzAlign="center">酷狗链接</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data;let i=index">
+                <td nzAlign="center">{{i+1}}</td>
+                <td nzAlign="center">{{data.HotSearchTerms}}</td>
+                <td nzAlign="center">
+                    <div style="display: flex;justify-content: space-around;">
+                        <div>
+                            <div>
+                                {{data.Start}}到{{data.HourCountPv}}
+                            </div>
+                            <div>
+                                飙升{{data.Spike*100 | number:'1.0-0'}}%
+                            </div>
+                        </div>
+                        <div style="display: flex;justify-content: center;flex-direction: column;align-items: center;">
+                            <span *ngIf='data.Spike<0' nz-icon nzType="arrow-down" style='color:green;'
+                                nzTheme="outline"></span>
+                            <span *ngIf='data.Spike>0' nz-icon nzType="arrow-up" style='color:red;'
+                                nzTheme="outline"></span>
+                        </div>
+                    </div>
+                </td>
+                <td nzAlign="center">
+                    <div>
+                        {{data['24HoursCount']}}
+                    </div>
+                    <div>
+                        总排名{{data['24HoursStartCount']}}
+                    </div>
+                </td>
+                <td nzAlign="center">{{data.SongName}}-{{data.SingerName}}</td>
+                <td nzAlign="center">
+                    <div style="cursor: pointer;" (click)="toQq(data.QqId)">
+                        Q音链接
+                    </div>
+                    <div style="margin-top: 8px;cursor: pointer;" (click)="toQqIndex(data)">
+                        Q音指数链接
+                    </div>
+                </td>
+                <td nzAlign="center">
+                    <div style="cursor: pointer;" (click)="toKg(data)">
+                        酷狗链接
+                    </div>
+                    <div style="margin-top: 8px;cursor: pointer;" (click)="toKqIndex(data.KgMixSongID)">
+                        酷狗指数链接
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

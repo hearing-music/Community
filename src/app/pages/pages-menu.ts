@@ -21,10 +21,10 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		title: '酷狗',
 		icon: 'cube',
 		children: [
-			{
-				title: '酷狗飙升榜',
-				link: '/pages/kugou/kugou-soaring',
-			},
+			// {
+			// 	title: '酷狗飙升榜',
+			// 	link: '/pages/kugou/kugou-soaring',
+			// },
 			{
 				title: '酷狗萤火',
 				link: '/pages/kugou/yinghuo',
@@ -61,15 +61,35 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		],
 	},
 	{
-			title: '音频转换',
-			icon: 'flip-2',
-			children: [
-				{
-					title: 'ogg',
-					link: '/pages/oggToMp3',
-				},
-			],
-		},
+		title: '雷达音乐',
+		icon: 'radio',
+		link: '/pages/radar',
+	},
+	{
+		title: '启明星',
+		icon: 'star',
+		children: [
+			{
+				title:'精选歌手',
+				link:'/pages/venus/enlightenment'
+			},
+			{
+				title: '酷狗飙升榜',
+				link: '/pages/venus/kugou-soaring',
+			},
+			
+		],
+	},
+	{
+		title: '音频转换',
+		icon: 'flip-2',
+		children: [
+			{
+				title: 'ogg',
+				link: '/pages/oggToMp3',
+			},
+		],
+	},
 	{
 		title: '版权扫描',
 		icon: 'link-2',
@@ -114,11 +134,7 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		icon: 'message-circle',
 		link: '/pages/xilixili',
 	},
-	{
-		title: '雷达音乐',
-		icon: 'radio',
-		link: '/pages/radar',
-	},
+
 	// {
 	// 	title: '用户管理',
 	// 	icon: 'person',

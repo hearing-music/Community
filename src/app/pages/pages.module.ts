@@ -8,6 +8,7 @@ import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 // Module
+import { NgxEchartsModule } from 'ngx-echarts';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
@@ -32,13 +33,15 @@ import { FreeSongs_qqComponent } from './qq/free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
 import { SearchPageComponent } from './search-page/search-page.component';
-import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.component';
+import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.component';
+import {EnlightenmentComponent} from './venus/enlightenment/enlightenment.component'
 import { DouyinComponent } from './douyin/douyin.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { ConverterComponent } from './converter/converter.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
 import { RadarComponent } from './radar/radar.component';
 // componet
+import {EnlightenmentSongsComponent} from './venus/enlightenment-songs/enlightenment-songs.component'
 import { QqComponent } from './search-songs/qq/qq.component';
 import { QqPhoneComponent } from './search-songs/qq-phone/qq-phone.component'
 import { V3Component } from './search-songs/v3/v3.component';
@@ -85,6 +88,9 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { XilixiliComponent } from './xilixili/xilixili.component';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
+import { DYComponent } from './radar/dy/dy.component';
+import { RSComponent } from './radar/rs/rs.component';
+import { WYComponent } from './radar/wy/wy.component';
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -94,7 +100,7 @@ registerLocaleData(zh);
 		NzModalModule,
 		NzToolTipModule,
 		NzTableModule,
-		NzPaginationModule, 
+		NzPaginationModule,
 		NzEmptyModule,
 		NzButtonModule,
 		NzSelectModule,
@@ -104,6 +110,7 @@ registerLocaleData(zh);
 		NzSwitchModule,
 		NzSpinModule,
 		NzCollapseModule,
+		NgxEchartsModule,
 		NzPopoverModule,
 		FormsModule,
 		IconsProviderModule,
@@ -118,6 +125,7 @@ registerLocaleData(zh);
 		NzInputModule
 	],
 	declarations: [
+		EnlightenmentSongsComponent,
 		OggToMp3Component,
 		PagesComponent,
 		FreeSongs_kugouComponent,
@@ -126,6 +134,7 @@ registerLocaleData(zh);
 		SearchPageComponent,
 		QuerySonglistComponent,
 		KugouSoaringComponent,
+		EnlightenmentComponent,
 		DouyinComponent,
 		ChatgptComponent,
 		IdentificationComponent,
@@ -170,7 +179,10 @@ registerLocaleData(zh);
 		GetRankingComponent,
 		DjComponent,
 		UserManagementComponent,
-  XilixiliComponent,
+		XilixiliComponent,
+		DYComponent,
+		RSComponent,
+		WYComponent
 	],
 })
 export class PagesModule {

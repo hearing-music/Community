@@ -1,0 +1,107 @@
+.radar-table {
+    width: 100%;
+    margin-top: 15px;
+
+    .tableTop {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        margin-bottom: 5px;
+    }
+
+    .table {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.6);
+        margin-bottom: 20px;
+        background: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        border-radius: 12px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+
+        .hotIndex {
+            display: flex;
+            width: 400px;
+
+            .hotImg {
+                position: relative;
+                width: 55px;
+                height: 55px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                .hotNum {
+                    position: absolute;
+                    left: 50%;
+                    top: 55%;
+                    color: #FFFFFF;
+                    font-size: 16px;
+                    font-weight: bold;
+                    transform: translate(-50%, -50%);
+                }
+
+                .New {
+                    position: absolute;
+                    left: 50%;
+                    bottom: -35%;
+                    transform: translate(-50%, -50%);
+                    color: #d6932ee7;
+                }
+
+                .NewTop {
+                    position: absolute;
+                    left: 50%;
+                    bottom: -10%;
+                    transform: translate(-50%, -50%);
+                    color: #d6932ee7;
+                }
+
+                .noneHot {
+                    width: 55px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #ccc;
+                    display: flex;
+                    justify-content: center;
+                    text-align: center;
+                    margin-bottom: 17px;
+                }
+            }
+
+
+            .SongInformation {
+                margin-left: 15px;
+                font-size: 16px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .songName {
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .Company {
+            width: 500px;
+        }
+
+        .usersNum {
+            width: 100px;
+            font-size: 14px;
+
+            .usersNumText {
+                float: right;
+            }
+        }
+    }
+}

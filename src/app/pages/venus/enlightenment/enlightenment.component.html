@@ -1,0 +1,266 @@
+<div class="home">
+	<div>
+		<div style="margin-bottom: 24px;display: flex;justify-content: space-between;align-items: center;">
+			<div style="display: flex;">
+				<!-- 身份 -->
+				<div class="selectC" *ngIf='identityList.length>0' >
+					<div>身份</div>
+					<nz-select style="width: 150px;margin-right: 16px;" [(ngModel)]="identity" nzPlaceHolder='请选择身份'
+						(ngModelChange)='ngModelChange1($event)'>
+						<nz-option *ngFor="let c of identityList" [nzValue]="c.value" [nzLabel]="c.desc"></nz-option>
+					</nz-select>
+				</div>
+				<!-- 评分等级 -->
+				<div class="selectC" *ngIf='levelList.length>0'>
+					<div>评分等级</div>
+					<nz-select style="width: 150px;margin-right: 16px;" [(ngModel)]="level"
+						nzPlaceHolder='请选择评分等级' (ngModelChange)='ngModelChange2($event)'>
+						<nz-option *ngFor="let c of levelList" [nzValue]="c.value" [nzLabel]="c.desc"></nz-option>
+					</nz-select>
+				</div>
+				<!-- 听感 -->
+				<div class="selectC" *ngIf='tagList.length>0'>
+					<div>听感</div>
+					<nz-select style="width: 150px;margin-right: 16px;" [(ngModel)]="tag"
+						nzPlaceHolder='请选择听感' (ngModelChange)='ngModelChange3($event)'>
+						<nz-option *ngFor="let c of tagList" [nzValue]="c.value" [nzLabel]="c.desc"></nz-option>
+					</nz-select>
+				</div>
+				<!-- 音色 -->
+				<div class="selectC" *ngIf='granularityList.length>0'>
+					<div>音色</div>
+					<nz-select style="width: 150px;margin-right: 16px;" [(ngModel)]="granularity"
+						nzPlaceHolder='请选择音色' (ngModelChange)='ngModelChange4($event)'>
+						<nz-option *ngFor="let c of granularityList" [nzValue]="c.value" [nzLabel]="c.desc"></nz-option>
+					</nz-select>
+				</div>
+			</div>
+			<!-- 搜索 -->
+			<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)' (childInput)='input($event)'>
+			</ngx-search>
+		</div>
+		<div class='list'>
+			<div class="list-item" *ngFor='let item of list;let i = index;'>
+				<div class='list-item2'>
+					<div class="item-left">
+						<div style="position: relative;cursor: pointer;" (click)='playMusicClick(item,i)'>
+							<img [src]="item.photo" style='width:64px;height:64px;border-radius: 50%;display: block;'>
+							
+							<img *ngIf='!item.isPlay' src="../../../assets/img/play-blue.png" class="item-left_play">
+							<img *ngIf='item.isPlay' src="../../../assets/img/pause-blue.png" class="item-left_play">
+						</div>
+						<div class="left-text">
+							<div class="title-area">
+								<!-- 歌名 -->
+								<div>
+									<span nz-tooltip [nzTooltipTitle]="item.changJiangDesc">
+									<div class="title" (click)="openSongDetail(item.homepageUrl)">
+										{{item.changJiangName}}
+									</div>
+									</span>
+								</div>
+								<!-- 评分等级 -->
+								<span nz-tooltip [nzTooltipTitle]="'评分等级'">
+								<div style="margin-left: 6px;">
+									<img *ngIf='item.levelName=="S"' src="../../../assets/img/S_round.svg" class="icon" style='width: 20px;height:20px' />
+									<img *ngIf='item.levelName=="A"' src="../../../assets/img/A_round.svg" class="icon" style='width: 20px;height:20px' />
+									<img *ngIf='item.levelName=="B"' src="../../../assets/img/B_round.svg" class="icon" style='width: 20px;height:20px' />
+									<img *ngIf='item.levelName=="C"' src="../../../assets/img/C_round.svg" class="icon" style='width: 20px;height:20px' />
+									<img *ngIf='item.levelName=="D"' src="../../../assets/img/D_round.svg" class="icon" style='width: 20px;height:20px' />
+								</div>
+								</span>
+								<!-- 听感 -->
+								<span nz-tooltip [nzTooltipTitle]="'听感'">
+								<div style="display: flex;align-items: center;margin-left: 4px;">
+									<img src="../../../assets/img/tinggan.svg" class="icon" style='width: 18px;height:18px' />
+									<div>
+										{{item.tagname}}
+									</div>
+								</div>
+								</span>
+								<!-- 音色 -->
+								<span nz-tooltip [nzTooltipTitle]="'音色'">
+								<div style="display: flex;align-items: center;margin-left: 4px;">
+									<img src="../../../assets/img/yinse.svg" class="icon" style='width: 16px;height:16px' />
+									<div>
+										{{item.granularityName}}
+									</div>
+								</div>
+								</span>
+								<!-- 热度分数 -->
+								<span nz-tooltip [nzTooltipTitle]="'热度分数'">
+								<div style="display: flex;align-items: center;margin-left: 6px;">
+									<img src="../../../assets/img/redu1.svg" class="icon" style='width: 16px;height:16px' />
+									<div>
+										{{item.scoreParse}}
+									</div>
+								</div>
+								</span>
+								<!-- 热度评分 -->
+								<span nz-tooltip [nzTooltipTitle]="'热度评分'">
+								<div style="display: flex;align-items: center;margin-left: 4px;">
+									<img src="../../../assets/img/redu2.svg" class="icon" style='width: 16px;height:16px' />
+									<div>
+										{{item.pdmScore}}
+									</div>
+								</div>
+								</span>
+								<!-- 热度分数排名 -->
+								<span nz-tooltip nzTooltipTitle="热度排名">
+								<div style="display: flex;align-items: center;margin-left: 4px;">
+									<img src="../../../assets/img/redu3.svg" class="icon" style='width: 16px;height:16px' />
+									<div>{{item.scoreIdx}}</div>
+								</div>
+								</span>
+							</div>
+							<div class="subTitle">
+								<!-- 歌手 发行时间 -->
+								<div style="display: flex;align-items: center;">
+									<div>
+										{{item.company}}
+									</div>
+									<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+									<div>
+										{{item.identityName}}
+									</div>
+									<span *ngIf='item.time_public' nz-icon nzType="right" nzTheme="outline"
+										style='color:#ccc;'></span>
+								</div>
+								<!-- 图标 -->
+								<span nz-tooltip nzTooltipTitle="歌手报酬">
+								<div style="display: flex;margin-left: 4px;align-items: center;" *ngIf='item.reward!=-1&&item.reward'>
+									<!-- 钱币图标 -->
+									<img [src]="'../../../assets/img/price-blue.png'"
+										class="icon" />
+									<div>{{item.reward}}</div>
+								</div>
+								</span>
+								<!-- 歌曲 -->
+								<span nz-tooltip nzTooltipTitle="歌曲">
+								<div style="display: flex;margin-left: 8px;align-items: center;" (click)='openSongs(item,i)'>
+									<!-- 音乐歌曲 -->
+									<img [src]="'../../../assets/img/musicVenus.svg'"
+										class="icon" style="width: 20px;height: 20px;cursor: pointer;" />
+								</div>
+								</span>
+								<!-- 用户画像 -->
+								<span nz-tooltip nzTooltipTitle="用户画像">
+								<div style="display: flex;margin-left: 8px;align-items: center;" (click)='openData(item)'>
+									<!-- 用户画像 -->
+									<img [src]="'../../../assets/img/chartVenus.svg'"
+										class="icon" style="width: 20px;height: 20px;cursor: pointer;"/>
+								</div>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="item-center">
+						<!-- 报酬 -->
+						<div style="text-align: center;">
+							{{item.coWorkRule}}
+						</div>
+					</div>
+					<div class="item-right">
+						<div style="display: flex;align-items: center;justify-content: flex-end;">
+							<!-- tme -->
+							<img src="../../../assets/img/tme.jpg" class="icon" style='width: 16.6px;height:6px' />
+							<!-- TME日播量 -->
+							<span nz-tooltip nzTooltipTitle="TME日播量">
+							<div>
+								<div>{{common.toThousands(item.ycpPlayCnt)}}</div>
+							</div>
+							</span>
+							<div style="margin: 0 8px;"> | </div>
+							<!-- TME总粉丝数 -->
+							<span nz-tooltip nzTooltipTitle="TME总粉丝数">
+							<div style="display: flex;align-items: center;">
+								<img src="../../../assets/img/FANS.svg" class="icon" />
+								<div>{{common.toThousands(item.tmeFansCnt)}}</div>
+							</div>
+							</span>
+						</div>
+						<div style="display: flex;align-items: center;margin-top: 6px;justify-content: flex-end;">
+							<!-- 抖音图标 -->
+							<span nz-tooltip nzTooltipTitle="跳转抖音主页">
+							<img (click)='openDouyin(item.dyHomepageUrl)' src="../../../assets/img/douyin.svg" class="icon" style='width: 18px;height:18px;cursor: pointer;' />
+							</span>
+							<!-- dy点赞数 -->
+							<span nz-tooltip nzTooltipTitle="抖音点赞数">
+							<div>
+								<div>{{common.toThousands(item.likeCnt)}}</div>
+							</div>
+							</span>
+							<div style="margin: 0 8px;"> | </div>
+							<!-- dy总粉丝 -->
+							<span nz-tooltip nzTooltipTitle="抖音总粉丝">
+							<div style="display: flex;align-items: center;">
+								<img src="../../../assets/img/FANS.svg" class="icon" />
+								<div>{{common.toThousands(item.fansCnt)}}</div>
+							</div>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div *ngIf='item.isSongs' style="padding:16px;">
+					<div style="height: 16px;"></div>
+					<!-- 精选歌曲 -->
+					<ngx-enlightenment-songs  [songsListFree]='item.songsListFree' [songsListPay]='item.songsListPay'></ngx-enlightenment-songs>
+					<div style="display: flex;align-items: center;width:100%;">
+						<div style="flex:1;display: flex;justify-content: center;padding-bottom: 10px;">
+							<nz-pagination *ngIf='item.songsListFree.length>0' [nzPageIndex]="item.songsPageFree" [nzPageSize]='songsPageSize' [nzTotal]="item.songsPageTotalFree"
+								(nzPageIndexChange)='nzSongsPageIndexChange1($event,item)'></nz-pagination>
+						</div>
+						<div style="flex:1;display: flex;justify-content: center;padding-bottom: 10px;">
+							<nz-pagination *ngIf='item.songsListPay.length>0' [nzPageIndex]="item.songsPagePay" [nzPageSize]='songsPageSize' [nzTotal]="item.songsPageTotalPay"
+								(nzPageIndexChange)='nzSongsPageIndexChange2($event,item)'></nz-pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='list.length>0'>
+			<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+				(nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
+		</div>
+		<nz-empty *ngIf="list.length==0" style="margin-top: 160px;"></nz-empty>
+		<!-- 歌词 -->
+		<ngx-lyric #lyric [lyricData]='lyricData'></ngx-lyric>
+		<!-- 播放器 -->
+		<div class="play" [ngClass]="{hide : !isPlay}">
+			<audio id='audio' controls [src]="audioSrc" (play)='play($event)' (pause)='pause()' (ended)='ended()' (timeupdate)="timeupdate($event)">
+			</audio>
+		</div>
+		<!-- 抽屉 -->
+		<nz-drawer
+		      [nzClosable]="false"
+		      [nzVisible]="visible"
+		      nzPlacement="right"
+		      [nzTitle]="'用户画像-'+singerName"
+		      (nzOnClose)="closeData()"
+			  [nzWidth]='850'
+		>
+		      <ng-container *nzDrawerContent>
+				  <div *ngIf='!singerDataLoading&&singerData.addTime' style="display: flex;flex-direction: column;justify-content: space-between;height:100%;">
+					  <div style="display: flex;align-items: center;justify-content: space-between;">
+						  <!-- 性别 -->
+						  <div echarts [options]="circleOption" class="echartsDemo"></div>
+						  <!-- 城市 -->
+						  <div echarts [options]="circleOption2" class="echartsDemo"></div>
+					  </div>
+					  <!-- 年龄 -->
+					  <div style="display: flex;justify-content: center;">
+						  <div echarts [options]="barOption" class="echartsDemo" style="width: 600px;"></div>
+					  </div>
+				  </div>
+				  <div>
+					  <nz-empty *ngIf="!singerDataLoading&&!singerData.addTime" style="margin-top: 160px;"></nz-empty>
+				  </div>
+				  <div *ngIf='singerDataLoading' style="width: 100%;display: flex;align-items: center;justify-content: center;padding-top:160px;">
+					  <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+				  </div>
+		      </ng-container>
+		    </nz-drawer>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

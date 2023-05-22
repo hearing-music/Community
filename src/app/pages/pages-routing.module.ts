@@ -7,7 +7,8 @@ import { FreeSongs_kugouComponent } from './kugou/free-songs/free-songs.componen
 import { FreeSongs_qqComponent } from './qq/free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
-import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.component';
+import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.component';
+import {EnlightenmentComponent} from './venus/enlightenment/enlightenment.component'
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinComponent } from './douyin/douyin.component';
@@ -62,12 +63,6 @@ const routes: Routes = [{
 		{
 			path: 'qq/free-songs',
 			component: FreeSongs_qqComponent,
-			canActivate: [PermissionGuard]
-		},
-		// 酷狗 酷狗飙升
-		{
-			path: 'kugou/kugou-soaring',
-			component: KugouSoaringComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 酷狗萤火
@@ -174,6 +169,18 @@ const routes: Routes = [{
 		{
 			path: 'radar',
 			component: RadarComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 启明星 酷狗飙升
+		{
+			path: 'venus/kugou-soaring',
+			component: KugouSoaringComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 启明星 qq
+		{
+			path: 'venus/enlightenment',
+			component: EnlightenmentComponent,
 			canActivate: [PermissionGuard]
 		},
 		//用户管理

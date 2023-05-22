@@ -1,15 +1,31 @@
 <div class="radar">
 	<div class="radar-top">
-			<!-- 平台 -->
-			<nz-select style="width: 150px;margin-right: 16px;" [(ngModel)]="tabsActive" nzPlaceHolder='请选择平台' (ngModelChange)='ngModelChange($event)'>
-				<nz-option *ngFor="let c of tabs" [nzValue]="c.value" [nzLabel]="c.desc"></nz-option>
-			</nz-select>
-			<!-- 榜单 -->
-			<nz-select *ngIf='nowList.length>0' style="width: 150px;margin-right: 16px;" [(ngModel)]="listActive" nzPlaceHolder='请选择榜单' (ngModelChange)='ngModelChange2($event)'>
-				<nz-option *ngFor="let c of nowList" [nzValue]="c.value" [nzLabel]="c.desc"></nz-option>
-			</nz-select>
-			<!-- 日期 -->
-			<nz-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker>
+		<!-- 平台 -->
+		<nz-select style="width: 150px;margin-right: 16px;" [(ngModel)]="tabsActive" nzPlaceHolder='请选择平台'
+			(ngModelChange)='ngModelChange($event)'>
+			<nz-option *ngFor="let c of tabs" [nzValue]="c.value" [nzLabel]="c.desc"></nz-option>
+		</nz-select>
+		<!-- 榜单 -->
+		<nz-select *ngIf='nowList.length>0' style="width: 150px;margin-right: 16px;" [(ngModel)]="listActive"
+			nzPlaceHolder='请选择榜单' (ngModelChange)='ngModelChange2($event)'>
+			<nz-option *ngFor="let c of nowList" [nzValue]="c.value" [nzLabel]="c.desc"></nz-option>
+		</nz-select>
+		<!-- 日期 -->
+		<nz-date-picker [nzDisabledDate]='disabledDate' [(ngModel)]="date"
+			(ngModelChange)="onChange($event)"></nz-date-picker>
+		<div class="messageTip">
+			更新时间与小程序同步
+		</div>
 	</div>
-	
+	<div>
+		<ngx-rs *ngIf='tabsActive==3&&time' [listOfData]="listOfData"></ngx-rs>
+		<ngx-dy [listOfData]="listOfData" *ngIf='tabsActive == 1 && time && listActive'></ngx-dy>
+		<ngx-wy [listOfData]="listOfData" *ngIf=' tabsActive==2&&time'></ngx-wy>
+	</div>
+	<div class="pagination"
+		*ngIf='(tabsActive == 1 && time && listActive||tabsActive == 2 && time)||(tabsActive==3&&time)||(tabsActive==2&&time)'>
+		<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+			(nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
+	</div>
 </div>
+<ngx-loading *ngIf='loading'></ngx-loading>

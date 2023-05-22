@@ -1,0 +1,63 @@
+<div class="radar-table">
+    <div class="tableTop">
+        <div style="width: 400px;">歌曲信息</div>
+        <div style="width: 500px;">版权状态</div>
+        <div style="width: 100px;">
+            <span style="float: right;">
+                累计使用人数
+            </span>
+        </div>
+    </div>
+    <div class="table" *ngFor="let data of listOfData;let i=index">
+        <div class="hotIndex">
+            <div class="hotImg">
+                <img *ngIf="data.ID==1" src=" ../../../../assets/img/hot1.png" alt="" style="width:40px">
+                <img *ngIf="data.ID==2" src="../../../../assets/img/hot2.png" alt=""
+                    style="width:40px;color: rgb(174, 70, 32);">
+                <img *ngIf="data.ID==3" src="../../../../assets/img/hot3.png" alt=""
+                    style="width:40px;color: rgb(169, 104, 81);">
+                <div class="hotNum" *ngIf="data.ID==3||data.ID==1||data.ID==2">
+                    {{data.ID}}
+                </div>
+                <div *ngIf="data.ID!=3&&data.ID!=1&&data.ID!=2" class="noneHot">
+                    {{data.ID}}
+                </div>
+                <div class="New">
+                    <span *ngIf="data.IsNew" style="font-size: 12px;">新</span>
+                    <span *ngIf="data.RankIndexDelta!=0">
+                        <span *ngIf="data.RankIndexDelta>0" style="color: red;">
+                            {{data.RankIndexDelta}}
+                        </span>
+                        <span *ngIf="data.RankIndexDelta<0" style="color: green;">
+                            {{data.RankIndexDelta}}
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="SongInformation">
+                <div class="songName">
+                    {{data.SongName}}
+                </div>
+                <div style="font-size: 14px;">
+                    {{data.SingerName}}
+                </div>
+            </div>
+        </div>
+        <div class="Company">
+            <div>
+                {{data.CpStatus}}
+            </div>
+            <div>
+                发行时间:{{data.FPublicTime}}
+            </div>
+            <div>
+                版权公司:{{data.CpName}}
+            </div>
+        </div>
+        <div class="usersNum">
+            <div class="usersNumText">
+                {{data.KeyMetric}}
+            </div>
+        </div>
+    </div>
+</div>

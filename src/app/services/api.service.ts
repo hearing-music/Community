@@ -310,8 +310,8 @@ export class ApiService {
 	}
 	// chatgpt
 	getChatgpt(params: any) {
-		let { question,lastQuestionArr } = params;
-		let url = this.baseUrl + '/v1/chat/completions?question=' + question+'&lastQuestionArr='+JSON.stringify(lastQuestionArr)
+		let { question, lastQuestionArr } = params;
+		let url = this.baseUrl + '/v1/chat/completions?question=' + question + '&lastQuestionArr=' + JSON.stringify(lastQuestionArr)
 		return this.http.get(url)
 	}
 	// chatgpt绘图
@@ -374,21 +374,82 @@ export class ApiService {
 		return this.http.get(url)
 	}
 	// xilixili 发送订阅消息
-	sendSubscribeMessage(params:any){
+	sendSubscribeMessage(params: any) {
 		let url = this.baseUrl + '/xilixili/sendSubscribeMessage'
-		return this.http.post(url, {...params})
+		return this.http.post(url, { ...params })
 	}
 	//ogg文件转换
-		oggConversion(params: any) {
-			let {
-				file,
-				typeOf
-			} = params;
-			const formData: FormData = new FormData();
-			formData.append('file', file);
-			let url = 'http://whaleTail.tingjianmusic.top/v8/SetOggToMp3?typeOf=' + typeOf;
-			return this.http.post(url, formData);
-		}
+	oggConversion(params: any) {
+		let {
+			file,
+			typeOf
+		} = params;
+		const formData: FormData = new FormData();
+		formData.append('file', file);
+		let url = 'http://whaleTail.tingjianmusic.top/v8/SetOggToMp3?typeOf=' + typeOf;
+		return this.http.post(url, formData);
+	}
+	getRadarList(params: any) {
+		let {
+			platform,
+			time,
+			page,
+		} = params;
+		return this.http.get(this.baseUrl + "/radar/getRadarList?platform=" + platform + "&time=" + time + "&page=" + page)
+	}
+	getKuGouHash(params: any) {
+		let {
+			keyword,
+			mixSongId,
+		} = params;
+		return this.http.get(this.baseUrl + "/kugou/getHash?keyword=" + keyword + "&mixSongId=" + mixSongId)
+	}
+	getQqIdExponent(params: any) {
+		let {
+			keyword,
+			songid,
+		} = params;
+		return this.http.get(this.baseUrl + "/qq/qq_idSearchMid?keyword=" + keyword + "&songid=" + songid)
+	}
+	//获取启明星标签
+	getVenusTags(params:any){
+		return this.http.get(this.baseUrl + "/venus/getVenusTags")
+	}
+	//获取启明星列表
+	getVenusList(params:any){
+		let {
+			keyword,
+			page,
+			level,//等级评分
+			granularity,//音色
+			tag,//听感
+			identity//身份
+		} = params;
+		return this.http.get(this.baseUrl + "/venus/getVenusList?keyword=" + keyword + "&page=" + page+"&level="+level+"&granularity="+granularity+"&tag="+tag+"&identity="+identity)
+	}
+	// qq 获取指定作者10首个mid 歌曲地址 歌词
+	getqq_singerSongs(params:any){
+		let {
+			singerId
+		} = params;
+		return this.http.get(this.baseUrl + "/qq/qq_singerSongs?singerId=" + singerId)
+	}
+	// 获取歌手 歌曲信息
+	getVenusSongs(params:any){
+		let {
+			id,
+			page,
+			type
+		} = params;
+		return this.http.get(this.baseUrl + "/venus/getVenusSongs?page="+page+"&id=" + id+'&type='+type)
+	}
+	// 获取歌手用户画像
+	getVenusSingerData(params:any){
+		let {
+			id
+		} = params;
+		return this.http.get(this.baseUrl + "/venus/getVenusSingerData?id=" + id)
+	}
 	// ccc(){
 	// 	this.bbb().subscribe((res: any) => {
 	// 		console.log(res)
