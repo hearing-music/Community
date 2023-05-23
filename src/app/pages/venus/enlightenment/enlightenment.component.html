@@ -44,8 +44,7 @@
 				<div class='list-item2'>
 					<div class="item-left">
 						<div style="position: relative;cursor: pointer;" (click)='playMusicClick(item,i)'>
-							<img [src]="item.photo" style='width:64px;height:64px;border-radius: 50%;display: block;'>
-							
+							<img nz-image width="64px" height="64px" [nzSrc]="item.photo" style="border-radius: 50%;" [nzFallback]="fallback" alt="" />
 							<img *ngIf='!item.isPlay' src="../../../assets/img/play-blue.png" class="item-left_play">
 							<img *ngIf='item.isPlay' src="../../../assets/img/pause-blue.png" class="item-left_play">
 						</div>
@@ -67,6 +66,7 @@
 									<img *ngIf='item.levelName=="B"' src="../../../assets/img/B_round.svg" class="icon" style='width: 20px;height:20px' />
 									<img *ngIf='item.levelName=="C"' src="../../../assets/img/C_round.svg" class="icon" style='width: 20px;height:20px' />
 									<img *ngIf='item.levelName=="D"' src="../../../assets/img/D_round.svg" class="icon" style='width: 20px;height:20px' />
+									<img *ngIf='item.levelName=="E"' src="../../../assets/img/E_round.svg" class="icon" style='width: 20px;height:20px' />
 								</div>
 								</span>
 								<!-- 听感 -->
@@ -208,11 +208,11 @@
 					<div style="display: flex;align-items: center;width:100%;">
 						<div style="flex:1;display: flex;justify-content: center;padding-bottom: 10px;">
 							<nz-pagination *ngIf='item.songsListFree.length>0' [nzPageIndex]="item.songsPageFree" [nzPageSize]='songsPageSize' [nzTotal]="item.songsPageTotalFree"
-								(nzPageIndexChange)='nzSongsPageIndexChange1($event,item)'></nz-pagination>
+								(nzPageIndexChange)='nzSongsPageIndexChange1($event,item)' nzShowQuickJumper></nz-pagination>
 						</div>
 						<div style="flex:1;display: flex;justify-content: center;padding-bottom: 10px;">
 							<nz-pagination *ngIf='item.songsListPay.length>0' [nzPageIndex]="item.songsPagePay" [nzPageSize]='songsPageSize' [nzTotal]="item.songsPageTotalPay"
-								(nzPageIndexChange)='nzSongsPageIndexChange2($event,item)'></nz-pagination>
+								(nzPageIndexChange)='nzSongsPageIndexChange2($event,item)' nzShowQuickJumper></nz-pagination>
 						</div>
 					</div>
 				</div>
@@ -221,7 +221,7 @@
 		</div>
 		<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='list.length>0'>
 			<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
-				(nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
+				(nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
 		</div>
 		<nz-empty *ngIf="list.length==0" style="margin-top: 160px;"></nz-empty>
 		<!-- 歌词 -->
