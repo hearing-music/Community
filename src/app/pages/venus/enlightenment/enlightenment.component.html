@@ -151,6 +151,30 @@
 										class="icon" style="width: 20px;height: 20px;cursor: pointer;"/>
 								</div>
 								</span>
+								<!-- 免费总播放指数 -->
+								<span nz-tooltip nzTooltipTitle="免费总播放指数">
+									<div style="display: flex;margin-left: 4px;align-items: center;">
+										<img [src]="'../../../assets/img/mian.svg'"
+											class="icon"/>
+										<div *ngIf='item.freeIndexAll'>
+											{{item.freeIndexAll}}
+										</div>
+										<nz-spin *ngIf='!item.freeIndexAll' nzSimple nzSize='small' style="transform: scale(0.75);margin-bottom: -4px;"></nz-spin>
+									</div>
+								</span>
+								<!-- 付费总播放指数 -->
+								<span nz-tooltip nzTooltipTitle="付费总播放指数" >
+								<div style="display: flex;margin-left: 4px;align-items: center;">
+									<div style="display: flex;margin-left: 4px;align-items: center;">
+										<img [src]="'../../../assets/img/fu.svg'"
+											class="icon" style="width: 18px;height: 18px;"/>
+										<div *ngIf='item.payIndexAll'>
+											{{item.payIndexAll}}
+										</div>
+										<nz-spin *ngIf='!item.payIndexAll' nzSimple nzSize='small' style="transform: scale(0.75);margin-bottom: -4px;"></nz-spin>
+									</div>
+								</div>
+								</span>
 							</div>
 						</div>
 					</div>

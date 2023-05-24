@@ -87,7 +87,7 @@ export class EnlightenmentComponent implements OnInit {
 			granularity: this.granularity,//音色
 			tag: this.tag,//听感
 			identity: this.identity//身份
-		}).subscribe((res: any) => {
+		}).subscribe(async (res: any) => {
 			this.loading = false;
 			console.log(res)
 			res.result.forEach((item: any) => {
@@ -102,6 +102,7 @@ export class EnlightenmentComponent implements OnInit {
 				item.songsListPay = [];
 				item.songsPageTotalFree = 0;
 				item.songsPageTotalPay = 0;
+				this.getVenusSongsAllIndex(item)
 			})
 			this.list = res.result;
 			this.pageTotal = res.total;
@@ -212,7 +213,7 @@ export class EnlightenmentComponent implements OnInit {
 			res.result.forEach((item: any) => {
 				item.isPlay = false;
 				item.priceShow = false;
-				item.priceList = this.filterPrice(item)
+				item.priceList = this.common.filterPrice(item)
 			})
 			if(type == 0){
 				item.songsListFree = res.result;
@@ -227,39 +228,15 @@ export class EnlightenmentComponent implements OnInit {
 			this.loading = false;
 		})
 	}
-	//计算价格
-	filterPrice(item:any){
-		let time = item.publicTime;
-		let playIndex = item.playIndex;
-		playIndex = playIndex || 0;
-		let timeIndex:any = 1
-		if(!time || time =='null'){
-			timeIndex = 1; //其他
-		}
-		let year:any = new Date(time).getFullYear()
-		if(year == '2023'){
-			timeIndex = 0.5
-		}else if(year == '2022'){
-			timeIndex = 0.7
-		}else if(year == '2021'){
-			timeIndex = 0.8
-		}else if(year == '2020'){
-			timeIndex = 0.9
-		}else{
-			timeIndex = 1
-		}
-		// 独家最低 最高
-		let dujiaLowest:any = (playIndex*1*30*timeIndex).toFixed(2)
-		let dujiaHighest:any = (playIndex*1*90*timeIndex).toFixed(2)
-		//非独家 最低 最高
-		let feidujiaLowest:any = (playIndex*1*30*timeIndex*0.5).toFixed(2)
-		let feidujiaHighest:any = (playIndex*1*90*timeIndex*0.5).toFixed(2)
-		//采买 最低 最高
-		let caimaiLowest:any= (playIndex*1*180*timeIndex).toFixed(2)
-		let caimaiHighest:any = (playIndex*1*360*timeIndex).toFixed(2);
-		return [{name:'独',lowest:dujiaLowest,highest:dujiaHighest},
-		{name:'非',lowest:feidujiaLowest,highest:feidujiaHighest},
-		{name:'买',lowest:caimaiLowest,highest:caimaiHighest}]
+	// 获取 付费 免费 播放指数总和
+	getVenusSongsAllIndex(item:any){
+				this.api.getVenusSongsAllIndex({changJiangId:item.changJiangId }).subscribe((res: any) => {
+					item.payIndexAll = res.payIndexAll?res.payIndexAll.toFixed(2):'0.00';
+					item.freeIndexAll = res.freeIndexAll?res.freeIndexAll.toFixed(2):'0.00'
+				}, (err: any) => {
+					console.log(err)
+				})
+		
 	}
 	nzSongsPageIndexChange1(e: any,item:any) {
 		console.log(e)

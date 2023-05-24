@@ -42,6 +42,7 @@ import { CopyrightScanningComponent } from './copyright-scanning/copyright-scann
 import { RadarComponent } from './radar/radar.component';
 // componet
 import {EnlightenmentSongsComponent} from './venus/enlightenment-songs/enlightenment-songs.component'
+import { EnlightenmentTop20Component} from './search-songs/enlightenment-top20/enlightenment-top20.component'
 import { QqComponent } from './search-songs/qq/qq.component';
 import { QqPhoneComponent } from './search-songs/qq-phone/qq-phone.component'
 import { V3Component } from './search-songs/v3/v3.component';
@@ -126,6 +127,7 @@ registerLocaleData(zh);
 	],
 	declarations: [
 		EnlightenmentSongsComponent,
+		EnlightenmentTop20Component,
 		OggToMp3Component,
 		PagesComponent,
 		FreeSongs_kugouComponent,

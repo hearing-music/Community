@@ -1,0 +1,103 @@
+<nz-empty *ngIf="enlightenmentList.length==0" style="margin-top: 160px;"></nz-empty>
+<div class="list" *ngIf='enlightenmentList.length!=0'>
+	<!-- <div style='font-size: 14px;color: #d91818;font-weight: bold;'>{{s==1?'免费歌曲':'付费歌曲'}}</div> -->
+	<div class="list-item" *ngFor='let item of enlightenmentList;let i = index;'>
+		<div class="item-left">
+			<div class="left-text">
+				<div class="title-area">
+					<!-- 歌名 -->
+					<div style="display: flex;align-items: flex-end;">
+						<span nz-tooltip [nzTooltipTitle]="item.trackName">
+						<div class="title">
+							{{item.trackName}}
+						</div>
+						</span>
+						<span nz-tooltip nzTooltipTitle="专辑">
+						<div *ngIf='item.albumName' style="color: #d91818;font-size: 12px;">
+							>{{item.albumName}}
+						</div>
+						</span>
+					</div>
+				</div>
+				<div class="subTitle">
+					<!--  发行时间 语种 付费模式-->
+					<div style="display: flex;align-items: center;">
+						<div>
+							{{item.publicTime?item.publicTime:''}}
+						</div>
+						<span *ngIf='item.publicTime' nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+						<span nz-tooltip nzTooltipTitle="语种: 普:普通话 未:未知 其他:其他">
+						<div>
+							<img *ngIf='item.languageName=="未知"' src="../../../assets/img/wei.svg" class="icon">
+							<img *ngIf='item.languageName=="普通话"' src="../../../assets/img/pu.svg" class="icon">
+							<img *ngIf='item.languageName=="其他"' src="../../../assets/img/qita.svg" class="icon">
+						</div>
+						</span>
+						<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+						<span nz-tooltip nzTooltipTitle="付费类型: 免:免费 未:未知 1:付费1.0 2:付费2.0 3:付费3.0">
+							<div>
+								<img *ngIf='item.paymentType=="免费"' src="../../../assets/img/mian.svg" class="icon">
+								<img *ngIf='item.paymentType=="未知"' src="../../../assets/img/wei.svg" class="icon">
+								<img *ngIf='item.paymentType=="付费1.0"' src="../../../assets/img/shuzi1.svg" class="icon" style="width:18px;height:18px;">
+								<img *ngIf='item.paymentType=="付费2.0"' src="../../../assets/img/shuzi2.svg" class="icon" style="width:18px;height:18px;">
+								<img *ngIf='item.paymentType=="付费3.0"' src="../../../assets/img/shuzi3.svg" class="icon" style="width:18px;height:18px;">
+							</div>
+						</span>
+						<span *ngIf='item.changJiangName' nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+						<div *ngIf='item.changJiangName' style="cursor: pointer;" (click)='goChangJiangHome(item.homepageUrl)'>
+							<span style="color: #000;">唱：</span>{{item.changJiangName}}
+						</div>
+						<span *ngIf='item.lyricAuthor||item.musicAuthor' nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+						<div *ngIf='item.lyricAuthor'>
+							<span style="color: #000;">词：</span>{{item.lyricAuthor}}
+						</div>
+						<span *ngIf='item.lyricAuthor' nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+						<div *ngIf='item.musicAuthor'>
+							<span style="color: #000;">曲：</span>{{item.musicAuthor}}
+						</div>
+					</div>
+				
+				</div>
+				<div class="item-right">
+						<div style="margin-right: 6px;"><span style="color:#000;">播：</span>{{item.playIndex}}</div>
+						<div style="margin-right: 6px;"><span style="color:#000;">搜：</span>{{item.searchPlayIndex}}</div>
+						<div style="margin-right: 6px;"><span style="color:#000;">藏：</span>{{item.favIndex}}</div>
+						<div><span style="color:#000;">享：</span>{{item.shareIndex}}</div>
+					<!-- favIndex playIndex searchPlayIndex shareIndex  -->
+				</div>
+				
+			</div>
+			
+		</div>
+		<div (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)' style="position: relative;">
+			<div *ngFor='let p of item.priceList;' style="margin-right: 3px;">
+				<span style="color:#000;">{{p.name}}:</span>￥{{p.lowest}}-￥{{p.highest}}
+			</div>
+			<div *ngIf='item.pricemouseShow' class="pricemouse">
+					<div>
+						1.独家预付最低价格 - 独家预付最高价格
+					</div>
+					<div>
+						(原创且独家清下，此价格为推荐价格)
+					</div>
+					<div style="height: 4px;"></div>
+					<div>
+						2.非独预付最低价格 - 非独预付最高价格
+					</div>
+					<div>
+						(原创情况下，此价格为推荐价格)
+					</div>
+					<!-- <div>
+						{{item.priceList[1].lowest}} - {{item.priceList[1].highest}}
+					</div> -->
+					<div style="height: 4px;"></div>
+					<div>
+						3.采买最低价格 - 采买最高价格
+					</div>
+					<div>
+						(原创且独家情况下，非原创需沟通词曲价格后拆分)
+					</div>
+			</div>
+		</div>
+	</div>
+</div>

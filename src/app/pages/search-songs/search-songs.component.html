@@ -18,6 +18,7 @@
 		<ngx-kuwo *ngIf='selectItem=="酷我音乐"' [kuwoList]="kuwoList"></ngx-kuwo>
 		<ngx-wangyiyun *ngIf='selectItem=="网易云"' [wangyiyunList]="wangyiyunList"></ngx-wangyiyun>
 		<ngx-lsdd *ngIf='selectItem=="铃声多多"' [lsddList]="lsddList" (change)="lsddSrcChange($event)"></ngx-lsdd>
+		<ngx-enlightenment-top20 *ngIf='selectItem=="唱将音乐"' [enlightenmentList]="enlightenmentList"></ngx-enlightenment-top20>
 	</div>
 	<!-- 分页 -->
 	<div class="pagination">
@@ -29,6 +30,8 @@
 			(click)='kuwoPageNext()' style="cursor: pointer;"></span>
 		<span *ngIf='selectItem=="网易云"&&wangyiyunList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='wangyiyunPageNext()' style="cursor: pointer;"></span>
+		<nz-pagination *ngIf='selectItem=="唱将音乐"&&enlightenmentList.length>0' [nzPageIndex]="enlightenmentPage" [nzPageSize]='20' [nzTotal]="enlightenmentTotal"
+			(nzPageIndexChange)='enlightenmentPageNext($event)' nzShowQuickJumper></nz-pagination>
 		<!-- <span *ngIf='selectItem=="铃声多多"&&lsddList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='lsddPageNext()' style="cursor: pointer;"></span> -->
 	</div>
@@ -71,6 +74,7 @@
 			(click)='kuwoPageNext()' style="cursor: pointer;"></span>
 		<span *ngIf='selectItem=="腾讯音乐人"&&musicianTxList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='musicianTxPageNext()' style="cursor: pointer;"></span>
+		
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>

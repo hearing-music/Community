@@ -44,6 +44,9 @@ export class SearchSongsComponent implements OnInit {
 	}, {
 		name: '铃声多多',
 		holder: '铃声多多搜索'
+	},{
+		name: '唱将音乐',
+		holder: '唱将音乐搜索'
 	}]
 	selectItem = 'QQ音乐';
 	searchValue = '';
@@ -67,6 +70,34 @@ export class SearchSongsComponent implements OnInit {
 	
 	musicianTxPage = 1;
 	musicianTxList: any[] = []
+	
+	enlightenmentPage = 1;
+	enlightenmentTotal = 0;
+	enlightenmentList : any[]=[]
+	enlightenmentPageNext(e: any) {
+		this.enlightenmentPage = e;
+		this.searchEnlightenmentSongs()
+	}
+	searchEnlightenmentSongs(){
+		this.loading = true;
+		this.api.searchEnlightenmentSongs({
+			keyword: this.searchValue,
+			page: this.enlightenmentPage
+		}).subscribe((res: any) => {
+			this.loading = false;
+			res.result.forEach((item: any) => {
+				item.isPlay = false;
+				item.priceShow = false;
+				item.priceList = this.common.filterPrice(item)
+			})
+			this.enlightenmentList = res.result;
+			this.enlightenmentTotal = res.total;
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	
 	searchMusicianTx(): void{
 		this.api.getMusicianTx({
 			keyword: this.searchValue,
@@ -206,6 +237,7 @@ export class SearchSongsComponent implements OnInit {
 		this.kuwoPage = 1;
 		this.wangyiyunPage = 1;
 		this.lsddPage = 1;
+		this.enlightenmentPage =1;
 		this.loading = true;
 		if (this.selectItem == 'QQ音乐') {
 			this.searchQQ()
@@ -224,6 +256,9 @@ export class SearchSongsComponent implements OnInit {
 		}
 		if(this.selectItem == '腾讯音乐人'){
 			this.searchMusicianTx()
+		}
+		if(this.selectItem == '唱将音乐'){
+			this.searchEnlightenmentSongs()
 		}
 	}
 	searchKuwo() {

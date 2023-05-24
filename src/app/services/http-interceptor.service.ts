@@ -26,7 +26,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     let secureReq: HttpRequest<any> = req;
 	let token = localStorage.getItem('token') || ''
 	let token_expiration_time = localStorage.getItem('token_expiration_time') || ''
-	console.log(req.url)
+	// console.log(req.url)
 	if(!req.url.includes('/login/login') && !req.url.includes('/login/getSms') && !req.url.includes('/kugou/getLiarUserInfo') && !req.url.includes('/qq/getLiarUserInfo')){
 		if(!token || !token_expiration_time){
 			this.message.error('请登录')
@@ -50,7 +50,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 		  tap(
 		    (response: any) => {
 		      // 处理响应的数据
-		      console.log(response)
+		      // console.log(response)
 			  if(response.type==0){
 				  return
 			  }

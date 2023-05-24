@@ -427,6 +427,13 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/venus/getVenusList?keyword=" + keyword + "&page=" + page+"&level="+level+"&granularity="+granularity+"&tag="+tag+"&identity="+identity)
 	}
+	// 获取 付费 免费 播放指数总和
+	getVenusSongsAllIndex(params:any){
+		let {
+			changJiangId
+		} = params;
+		return this.http.get(this.baseUrl + "/venus/getVenusSongsAllIndex?changJiangId=" + changJiangId)
+	}
 	// qq 获取指定作者10首个mid 歌曲地址 歌词
 	getqq_singerSongs(params:any){
 		let {
@@ -449,6 +456,14 @@ export class ApiService {
 			id
 		} = params;
 		return this.http.get(this.baseUrl + "/venus/getVenusSingerData?id=" + id)
+	}
+	//唱将音乐搜索
+	searchEnlightenmentSongs(params:any){
+		let {
+			keyword,
+			page
+		} = params;
+		return this.http.get(this.baseUrl + "/venus/searchEnlightenmentSongs2?page=" + page+'&keyword='+keyword)
 	}
 	// ccc(){
 	// 	this.bbb().subscribe((res: any) => {
