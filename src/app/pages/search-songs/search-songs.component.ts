@@ -80,7 +80,7 @@ export class SearchSongsComponent implements OnInit {
 	}
 	searchEnlightenmentSongs(){
 		this.loading = true;
-		this.api.searchEnlightenmentSongs({
+		this.api.searchEnlightenmentSongs2({
 			keyword: this.searchValue,
 			page: this.enlightenmentPage
 		}).subscribe((res: any) => {

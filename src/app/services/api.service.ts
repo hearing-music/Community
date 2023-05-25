@@ -458,7 +458,7 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/venus/getVenusSingerData?id=" + id)
 	}
 	//唱将音乐搜索
-	searchEnlightenmentSongs(params:any){
+	searchEnlightenmentSongs2(params:any){
 		let {
 			keyword,
 			page
