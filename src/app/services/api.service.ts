@@ -174,6 +174,14 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/douyin/douyin_video?keyword=" + keyword)
 
 	}
+	// 抖音达人搜索
+	douyin_darenSearch(params:any){
+		let {
+			keyword,
+			page
+		} = params;
+		return this.http.get(this.baseUrl + "/douyin/douyin_darenSearch?keyword=" + keyword+'&page='+page)
+	}
 	// 听歌识曲
 	getIdentification(params: any) {
 		let {

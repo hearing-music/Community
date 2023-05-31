@@ -39,7 +39,17 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	{
 		title: '抖音',
 		icon: 'cube',
-		link: '/pages/douyin',
+		children: [
+			{
+				title: '抖音热点',
+				link: '/pages/douyin/douyin-hot',
+			},
+			{
+				title: '达人搜索',
+				// icon: 'credit-card',
+				link: '/pages/douyin/douyin-daren',
+			},
+		],
 	},
 	{
 		title: '铃声多多',

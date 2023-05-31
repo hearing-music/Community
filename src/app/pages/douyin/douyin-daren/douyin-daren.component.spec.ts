@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DouyinComponent } from './douyin.component';
+import { DouyinDarenComponent } from './douyin-daren.component';
 
-describe('DouyinComponent', () => {
-  let component: DouyinComponent;
-  let fixture: ComponentFixture<DouyinComponent>;
+describe('DouyinDarenComponent', () => {
+  let component: DouyinDarenComponent;
+  let fixture: ComponentFixture<DouyinDarenComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DouyinComponent ]
+      declarations: [ DouyinDarenComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DouyinComponent);
+    fixture = TestBed.createComponent(DouyinDarenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

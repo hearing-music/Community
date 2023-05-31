@@ -5,6 +5,14 @@ import { NzMessageService  } from 'ng-zorro-antd/message';
 })
 export class CommonService {
 	constructor(public message: NzMessageService) { }
+	strToJson(keyValuePairs:any){
+		  keyValuePairs = keyValuePairs.split(",");
+		  // 初始化结果对象
+		  let result = {};
+		  // 使用正则表达式解析键值对并将其添加到结果对象中
+		  keyValuePairs.forEach((pair:any) => { const [key, value] = pair.match(/(\w+):(.*)/).slice(1); result[key.trim()] = value.trim();});
+		 return result
+	}
 	//计算价格
 	filterPrice(item:any){
 		let time = item.publicTime;

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from "../../services/api.service";
-import {CommonService} from "../../services/common.service";
+import { ApiService } from "../../../services/api.service";
+import {CommonService} from "../../../services/common.service";
 import { NzMessageService  } from 'ng-zorro-antd/message';
 @Component({
-  selector: 'ngx-douyin',
-  templateUrl: './douyin.component.html',
-  styleUrls: ['./douyin.component.scss']
+  selector: 'ngx-douyin-hot',
+  templateUrl: './douyin-hot.component.html',
+  styleUrls: ['./douyin-hot.component.scss']
 })
-export class DouyinComponent implements OnInit {
+export class DouyinHotComponent implements OnInit {
  word_list:any[] = [];//热点
  trending_list:any[] = [];//实时热点
  tagList = ['热点','实时热点']

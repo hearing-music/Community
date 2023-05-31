@@ -11,7 +11,8 @@ import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.compo
 import {EnlightenmentComponent} from './venus/enlightenment/enlightenment.component'
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 import { SearchPageComponent } from './search-page/search-page.component';
-import { DouyinComponent } from './douyin/douyin.component';
+import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
+import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ConverterComponent } from './converter/converter.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
@@ -77,10 +78,16 @@ const routes: Routes = [{
 			component: FreeSongs_kugouComponent,
 			canActivate: [PermissionGuard]
 		},
-		// 抖音
+		// 抖音热点
 		{
-			path: 'douyin',
-			component: DouyinComponent,
+			path: 'douyin/douyin-hot',
+			component: DouyinHotComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 抖音达人
+		{
+			path: 'douyin/douyin-daren',
+			component: DouyinDarenComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 铃声多多
