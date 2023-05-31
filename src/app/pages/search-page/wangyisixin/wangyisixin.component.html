@@ -1,5 +1,5 @@
 <nz-empty *ngIf="wangyisixinList.length==0" style="margin-top: 160px;"></nz-empty>
-<div class="list" v-if='wangyisixinList.length!=0'>
+<div class="list" *ngIf='wangyisixinList.length!=0'>
 	<div class="list-item" *ngFor='let item of wangyisixinList' >
 		<div class="item-left">
 			<div class="left-avatar">
