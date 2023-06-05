@@ -28,7 +28,7 @@
 				height: 16px;
 			}
 			.item-left {
-				width: 620px;
+				width: 660px;
 				display: flex;
 				flex-shrink: 0;
 				align-items: center;
@@ -108,4 +108,44 @@
 		align-items: center;
 		justify-content: center;
 	}
+	
 }
+.modalBtns{
+		margin-top:16px;
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		.btnCancel{
+			width:120px;
+			height:40px;
+			border-radius: 4px;
+			background: rgba(0, 0, 0, 0.05);
+			display:flex;
+			align-items:center;
+			justify-content:center;
+			color: rgba(7, 193, 96, 1);
+			font-size:17px;
+			font-weight:bold;
+			border:none!important;
+			outline:none!important;
+		}
+		.btnDis{
+			opacity: 0.5;
+			cursor: not-allowed!important;
+		}
+		.btnConfirm{
+			margin-left:16px;
+			width:120px;
+			height:40px;
+			border-radius: 4px;
+			background: rgba(7, 193, 96, 1);
+			display:flex;
+			align-items:center;
+			justify-content:center;
+			color: #fff;
+			font-size:17px;
+			font-weight:bold;
+			border:none!important;
+			outline:none!important;
+		}
+	}

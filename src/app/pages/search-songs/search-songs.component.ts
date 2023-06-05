@@ -1,6 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
+
 @Component({
 	selector: 'ngx-search-songs',
 	templateUrl: './search-songs.component.html',
@@ -407,6 +408,6 @@ export class SearchSongsComponent implements OnInit {
 	}
 	ngOnInit(): void {
 		this.ismobile = this.common.isMobile()
+			
 	}
-
 }

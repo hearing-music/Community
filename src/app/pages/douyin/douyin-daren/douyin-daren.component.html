@@ -106,7 +106,7 @@
 								<span style="color:#000;">抖音号：</span>{{item.UniqueId}}
 							</div>
 							<div style='margin-left:4px;'>
-								<span style="color:#000;">抖音ID：</span>{{item.ShortId}}
+								<span style="color:#000;">抖音ID：</span>{{item.AwemeId}}
 							</div>
 						</div>
 						<!-- 推荐抖+ -->
@@ -141,7 +141,7 @@
 						复制链接
 					</div>
 				</div>
-				<div class='right-btn' style='margin-left:12px;'>
+				<div class='right-btn' style='margin-left:12px;' (click)='listenDaren(item,i)'>
 					<span nz-icon nzType="user-add" nzTheme="outline" style='font-size:24px;'></span>
 					<div>
 						监控达人
@@ -157,4 +157,77 @@
 			(click)='pageNext()' style="cursor: pointer;"></span>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
+	<nz-modal [(nzVisible)]="isVisible" [nzFooter]='null' (nzOnCancel)='handleCancel()'  [nzClosable]='false' nzTitle="抖音达人数据监控申请" >
+	      <ng-container *nzModalContent>
+	        <p>输入达人的微信或手机号码</p>
+	        <input [disabled]='selectIndex===""?true:list[selectIndex].isListen' nz-input placeholder="微信/电话" [(ngModel)]="information" />
+	        <!-- 艺人主页 Home -->
+			<p style="margin-top:14px;">艺人主页</p>
+			<input [disabled]='selectIndex===""?true:list[selectIndex].isListen' nz-input placeholder="艺人主页" [(ngModel)]="Home" />
+			<div style="display:flex;justify-content: space-between;margin-top:14px;">
+				<div>
+					<!-- 艺人类型 Type -->
+					<p>艺人类型</p>
+					<input [disabled]='selectIndex===""?true:list[selectIndex].isListen' nz-input placeholder="艺人类型" [(ngModel)]="Type" />
+				</div>
+				<div>
+					<!-- 艺人风格 Style -->
+					<p>艺人风格</p>
+					<input [disabled]='selectIndex===""?true:list[selectIndex].isListen' nz-input placeholder="艺人风格" [(ngModel)]="Style" />
+				</div>
+				<div>
+					<!-- 嗓音特点 Characteristics -->
+					<p>嗓音特点</p>
+					<input [disabled]='selectIndex===""?true:list[selectIndex].isListen' nz-input placeholder="嗓音特点" [(ngModel)]="Characteristics" />
+				</div>
+			</div>
+			<div style="display:flex;justify-content: space-between;margin-top:14px;">
+				<div>
+					<!-- 翻唱唱酬 Vocals -->
+					<p>翻唱唱酬</p>
+					<input [disabled]='selectIndex===""?true:list[selectIndex].isListen' nz-input placeholder="翻唱唱酬" [(ngModel)]="Vocals" />
+				</div>
+				<div>
+					<!-- 翻唱分成 Split -->
+					<p>翻唱分成</p>
+					<input [disabled]='selectIndex===""?true:list[selectIndex].isListen' nz-input placeholder="翻唱分成" [(ngModel)]="Split" />
+				</div>
+			</div>
+			<div style="display:flex;justify-content: space-between;margin-top:14px;">
+				<div>
+					<!-- 原创唱酬 Original -->
+					<p>原创唱酬</p>
+					<input [disabled]='selectIndex===""?true:list[selectIndex].isListen' nz-input placeholder="原创唱酬" [(ngModel)]="Original" />
+				</div>
+				<div>
+					<!-- 原创分成 OriginalShare -->
+					<p>原创分成</p>
+					<input [disabled]='selectIndex===""?true:list[selectIndex].isListen' nz-input placeholder="原创分成" [(ngModel)]="OriginalShare" />
+				</div>
+				<div>
+					<!-- 翻唱视频费用 Fees -->
+					<p>翻唱视频费用</p>
+					<input [disabled]='selectIndex===""?true:list[selectIndex].isListen' nz-input placeholder="翻唱视频费用" [(ngModel)]="Fees" />
+				</div>
+			</div>
+			<!-- 备注  Note -->
+			<p style="margin-top:10px;">备注</p>
+			<input [disabled]='selectIndex===""?true:list[selectIndex].isListen' nz-input placeholder="备注" [(ngModel)]="Note" />
+			
+			<div *ngIf='selectIndex===""?false:list[selectIndex].isListen' style='display:flex;align-items:center;justify-content:center;margin-top:12px;'>
+				该达人已添加监控。
+			</div>
+			<div class='modalBtns'>
+				<button class='btnCancel' (click)='handleCancel()'>
+					取消
+				</button>
+				<button (click)='handleOk()' *ngIf='selectIndex===""?false:!list[selectIndex].isListen' class='btnConfirm'>
+					录入
+				</button>
+				<button *ngIf='selectIndex===""?true:list[selectIndex].isListen' class='btnConfirm btnDis'>
+					录入
+				</button>
+			</div>
+	      </ng-container>
+	    </nz-modal>
 </div>

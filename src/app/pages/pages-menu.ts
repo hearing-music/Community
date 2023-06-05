@@ -46,8 +46,11 @@ export let MENU_ITEMS: NbMenuItem[] = [
 			},
 			{
 				title: '达人搜索',
-				// icon: 'credit-card',
 				link: '/pages/douyin/douyin-daren',
+			},
+			{
+				title: '监控达人',
+				link: '/pages/douyin/douyin-listenDaren',
 			},
 		],
 	},
@@ -57,19 +60,23 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		link: '/pages/lsdd-page',
 	},
 	{
-		title: '快手',
-		icon: 'cube',
-		children: [
-			{
-				title: '快手',
-				link: '/pages/kuaishou-searchindex',
-			},
-			{
-				title: 'dj',
-				link: '/pages/kuaishouDj',
-			},
-		],
-	},
+	        title: '快手',
+	        icon: 'cube',
+	        children: [
+	            {
+	                title: '快手',
+	                link: '/pages/kuaishou-searchindex',
+	            },
+	            {
+	                title: 'dj',
+	                link: '/pages/kuaishouDj',
+	            },
+	            {
+	                title: '素材',
+	                link: '/pages/sourcePhoto',
+	            },
+	        ],
+	    },
 	{
 		title: '雷达音乐',
 		icon: 'radio',

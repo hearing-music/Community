@@ -1,0 +1,43 @@
+<div class="douyin">
+	
+	<div style='margin-bottom:16px;'>
+		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
+		</ngx-search>
+	</div>
+	<nz-table #basicTable [nzData]="list" [nzFrontPagination]='false'>
+	  <thead>
+	    <tr>
+	      <th nzAlign='center'>博主名称</th>
+		  <th nzAlign='center'>UniqueId</th>
+	      <th nzAlign='center'>抖音主页</th>
+	      <th nzAlign='center'>点赞数</th>
+	      <th nzAlign='center'>粉丝数</th>
+	      <th nzAlign='center'>关注</th>
+	      <th nzAlign='center'>视频数</th>
+	      <th nzAlign='center'>达人联系方式</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr *ngFor="let data of basicTable.data">
+	      <td nzAlign='center'>{{data.Nickname}}</td>
+		  <td nzAlign='center'>{{data.UniqueId}}</td>
+	      <td nzAlign='center'>
+			  <a href="{{data.homeUrl}}" target='_blank'>主页链接</a>
+		  </td>
+	      <td nzAlign='center'>{{common.toThousands(data.Clicklike)}}</td>
+	      <td nzAlign='center'>{{common.toThousands(data.Fans)}}</td>
+	      <td nzAlign='center'>{{common.toThousands(data.Follow)}}</td>
+	      <td nzAlign='center'>{{common.toThousands(data.Works)}}</td>
+	      <td nzAlign='center'>{{data.Information}}</td>
+	     
+	    </tr>
+	  </tbody>
+	</nz-table>
+	
+	<!-- 分页 -->
+	<div class="pagination">
+		<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+			(nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

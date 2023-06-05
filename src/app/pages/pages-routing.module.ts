@@ -13,6 +13,7 @@ import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
 import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
+import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-listenDaren.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ConverterComponent } from './converter/converter.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
@@ -26,6 +27,7 @@ import { SetRankingComponent } from './qq_kugou-ranking/set-ranking/set-ranking.
 // import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
+import { SourcePhotoComponent } from './kuaishou-searchindex/source-photo/source-photo.component';
 import { PermissionGuard } from '../guards/permission.guard'
 import { ToolComponent } from './tool/tool.component';
 import { XilixiliComponent } from './xilixili/xilixili.component';
@@ -90,6 +92,12 @@ const routes: Routes = [{
 			component: DouyinDarenComponent,
 			canActivate: [PermissionGuard]
 		},
+		// 抖音监控达人
+		{
+			path: 'douyin/douyin-listenDaren',
+			component: DouyinListenDarenComponent,
+			canActivate: [PermissionGuard]
+		},
 		// 铃声多多
 		{
 			path: 'lsdd-page',
@@ -108,6 +116,12 @@ const routes: Routes = [{
 			component: DjComponent,
 			canActivate: [PermissionGuard]
 		},
+		//素材
+		        {
+		            path: 'sourcePhoto',
+		            component: SourcePhotoComponent,
+		            canActivate: [PermissionGuard]
+		        },
 		//音频转换oggToMp3
 				{
 					path: 'oggToMp3',

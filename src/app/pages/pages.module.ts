@@ -37,6 +37,7 @@ import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.compo
 import {EnlightenmentComponent} from './venus/enlightenment/enlightenment.component'
 import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
 import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
+import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-listenDaren.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { ConverterComponent } from './converter/converter.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
@@ -84,6 +85,7 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { SetRankingComponent } from './qq_kugou-ranking/set-ranking/set-ranking.component';
 import { GetRankingComponent } from './qq_kugou-ranking/get-ranking/get-ranking.component';
 import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
+import { SourcePhotoComponent } from './kuaishou-searchindex/source-photo/source-photo.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -140,6 +142,7 @@ registerLocaleData(zh);
 		EnlightenmentComponent,
 		DouyinHotComponent,
 		DouyinDarenComponent,
+		DouyinListenDarenComponent,
 		ChatgptComponent,
 		IdentificationComponent,
 		ConverterComponent,
@@ -182,6 +185,7 @@ registerLocaleData(zh);
 		SetRankingComponent,
 		GetRankingComponent,
 		DjComponent,
+		SourcePhotoComponent,
 		UserManagementComponent,
 		XilixiliComponent,
 		DYComponent,

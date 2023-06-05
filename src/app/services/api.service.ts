@@ -180,7 +180,26 @@ export class ApiService {
 			keyword,
 			page
 		} = params;
-		return this.http.get(this.baseUrl + "/douyin/douyin_darenSearch?keyword=" + keyword+'&page='+page)
+		return this.http.get(this.baseUrl + "/douyin/DouYinSearch?keyword=" + keyword+'&offset='+page)
+	}
+	// 抖音达人是否被监控 true为被监控
+	douyin_isListen(params:any){
+		let {
+			SecUid
+		} = params;
+		return this.http.get(this.baseUrl + "/douyin/douyin_isListen?SecUid=" + SecUid)
+	}
+	//抖音 添加监控达人
+	douyin_listenDaren(params:any){
+		return this.http.post(this.baseUrl + "/douyin/douyin_listenDaren", { ...params })
+	}
+	//抖音 获取本人监控列表
+	douyin_getListenDaren(params:any){
+		let {
+			page,
+			keyword
+		} = params;
+		return this.http.get(this.baseUrl + "/douyin/douyin_getListenDaren?page=" + page+'&keyword='+keyword)
 	}
 	// 听歌识曲
 	getIdentification(params: any) {
@@ -280,6 +299,13 @@ export class ApiService {
 		let url = this.baseUrl + "/kuaishou/kuaishou_1?page=" + params.page + "&pageSize=" + params.pageSize
 		return this.http.get(url)
 	}
+	//获取素材
+	    getSourcePhoto(params: any) {
+	        let {
+	            page,
+	        } = params;
+	        return this.http.get(this.baseUrl + "/kuaishou/discover?page=" + page)
+	    }
 	//工具银行卡
 	getbank(params: { name: any; idcard_number: any; bankcard_number: any; }) {
 		let url = "http://betaapi.tingjianmusic.cn/egress/aliyun/bank/validate"
