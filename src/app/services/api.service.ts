@@ -499,6 +499,16 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/venus/searchEnlightenmentSongs2?page=" + page+'&keyword='+keyword)
 	}
+	// mgg转ogg
+	QqAudioDecryptio(params:any){
+		let {
+			file
+		} = params;
+		const formData: FormData = new FormData();
+		formData.append('file', file);
+		let url = this.baseUrl + '/zhuanhuanyun/QqAudioDecryptio'
+		return this.http.post(url, formData);
+	}
 	// ccc(){
 	// 	this.bbb().subscribe((res: any) => {
 	// 		console.log(res)

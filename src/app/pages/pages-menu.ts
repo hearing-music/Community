@@ -105,6 +105,10 @@ export let MENU_ITEMS: NbMenuItem[] = [
 				title: 'ogg',
 				link: '/pages/oggToMp3',
 			},
+			{
+				title: 'mgg',
+				link: '/pages/mggToWav',
+			},
 		],
 	},
 	{

@@ -31,7 +31,8 @@ import { SourcePhotoComponent } from './kuaishou-searchindex/source-photo/source
 import { PermissionGuard } from '../guards/permission.guard'
 import { ToolComponent } from './tool/tool.component';
 import { XilixiliComponent } from './xilixili/xilixili.component';
-import {OggToMp3Component} from './ogg-to-mp3/ogg-to-mp3.component'
+import {OggToMp3Component} from './audio-conversion/ogg-to-mp3/ogg-to-mp3.component'
+import {MggToWavComponent} from './audio-conversion/mgg-to-wav/mgg-to-wav.component'
 import { UserManagementComponent } from './user-management/user-management.component';
 import {RadarComponent} from './radar/radar.component'
 const routes: Routes = [{
@@ -126,6 +127,12 @@ const routes: Routes = [{
 				{
 					path: 'oggToMp3',
 					component: OggToMp3Component,
+					canActivate: [PermissionGuard]
+				},
+		// mgg - wav
+				{
+					path: 'mggToWav',
+					component: MggToWavComponent,
 					canActivate: [PermissionGuard]
 				},
 		// 文件转换

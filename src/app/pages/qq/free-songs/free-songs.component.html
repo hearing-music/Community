@@ -100,7 +100,7 @@
 	</nz-table>
 	<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='list.length>0&&pageTotal>50'>
 		<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
-			(nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
+			(nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>

@@ -27,7 +27,8 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { LoadingModule } from '../components/loading/loading.module'
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 // page
-import { OggToMp3Component } from './ogg-to-mp3/ogg-to-mp3.component';
+import { OggToMp3Component } from './audio-conversion/ogg-to-mp3/ogg-to-mp3.component';
+import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.component';
 import { FreeSongs_kugouComponent } from './kugou/free-songs/free-songs.component';
 import { FreeSongs_qqComponent } from './qq/free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
@@ -132,6 +133,7 @@ registerLocaleData(zh);
 		EnlightenmentSongsComponent,
 		EnlightenmentTop20Component,
 		OggToMp3Component,
+		MggToWavComponent,
 		PagesComponent,
 		FreeSongs_kugouComponent,
 		FreeSongs_qqComponent,
