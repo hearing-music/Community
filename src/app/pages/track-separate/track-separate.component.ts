@@ -44,7 +44,7 @@ export class TrackSeparateComponent implements OnInit {
 	// }
 	//下载zip 直接a链接 不然 这个方法是 先下载完 在出来下载按钮
 	download(){
-		this.common.download(this.downloadZip,this.downloadName)
+		this.common.downloadServer(this.downloadZip)
 	}
 	// 一起播放
 	allPlay(){

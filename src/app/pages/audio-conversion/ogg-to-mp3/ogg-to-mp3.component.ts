@@ -50,7 +50,7 @@ export class OggToMp3Component implements OnInit {
       })
     }
   download() {
-    this.common.download(this.fileURL, this.fileNameWithoutExtension)
+    this.common.downloadServer(this.fileURL)
     // window.open(this.fileURL)
   }
 }

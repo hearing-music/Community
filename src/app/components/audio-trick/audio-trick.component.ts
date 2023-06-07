@@ -35,7 +35,7 @@ export class AudioTrickComponent implements OnInit {
   }
   // 下载音频
   download(downloadUrl:string){
-  	this.common.download(downloadUrl,this.folderName)
+  	this.common.downloadServer(downloadUrl)
   }
   // 播放进度调节
   currentTimeChange(e:any){
