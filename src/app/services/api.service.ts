@@ -22,6 +22,10 @@ export class ApiService {
 		// return this.http.get(this.tencentUrl + "/music?action=search_qq&params=" + JSON.stringify({ keyword, page }))
 		return this.http.get(this.baseUrl + '/qq/search_qq?page=' + page + '&keyword=' + keyword)
 	}
+	// qq获取公司名字
+	getCompanyName(params:any){
+		return this.http.get(this.baseUrl + '/qq/getCompanyName?idlist='+JSON.stringify(params.idlist))
+	}
 	// qq免费歌曲
 	getQq_freeSongs(params: any) {
 		let {

@@ -311,6 +311,24 @@ export class SearchSongsComponent implements OnInit {
 					item.topinfo = item.topinfo || {}
 					item.playinfo = item.playinfo || {}
 					item.isPlay = false;
+					let historyArrS = []
+					let historyArrI = []
+					let history=[]
+					for(let i = 0;i<item.VS.length;i++){
+						if(item.VS[i]){
+							historyArrS.push({id:item.VS[i],name:''})
+							history.push(item.VS[i])
+						}
+					}
+					for(let i = 0;i<item.VI.length;i++){
+						if(item.VI[i]){
+							historyArrI.push({id:item.VI[i],name:''})
+							history.push(item.VI[i])
+						}
+					}
+					item.historyS = historyArrS
+					item.historyI = historyArrI
+					item.history = history
 				})
 			}
 			if (this.qqPage == 1) {

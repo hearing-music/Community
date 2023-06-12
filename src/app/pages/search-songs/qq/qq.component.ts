@@ -37,6 +37,22 @@ export class QqComponent implements OnInit {
 		})
 		
 	}
+	getCompanyName(item:any){
+		this.api.getCompanyName({idlist:item.history}).subscribe((res: any) => {
+			console.log(res)
+			for(let i = 0;i<res.result.length;i++){
+				if(res.result[i]&&typeof item.history[i]=='number'){
+					item.historyI[0].name = res.result[i]
+				}
+				if(res.result[i]&&typeof item.history[i]=='string'){
+					item.historyS[i].name = res.result[i]
+				}
+			}
+				item.historyReady = true;
+		}, (err: any) => {
+			console.log(err)
+		})
+	}
 	mouseenter(item:any){
 		this.rankItem = item.record.newData || item.record || [];
 		item.lyricShow = true;
@@ -50,6 +66,15 @@ export class QqComponent implements OnInit {
 	}
 	mouseleave(item:any){
 		item.lyricShow = false;
+	}
+	mouseenter2(item:any){
+		item.historyShow = true;
+		if(!item.historyReady){
+			this.getCompanyName(item)
+		}
+	}
+	mouseleave2(item:any){
+		item.historyShow = false;
 	}
 	// 打开公司
 	openCompay(id:string|number){

@@ -44,6 +44,22 @@
 				.title-area {
 					display: flex;
 					align-items: center;
+					.history{
+						min-width: 200px;
+						position: absolute;
+						left:0;top:0;
+						padding:24px;
+						background-color: #fff;
+						border-radius: 4px;
+						z-index: 1001;
+						box-shadow:2px 2px 6px #ccc;
+						.link{
+							color:blue;
+							cursor: pointer;
+							font-size: 13px;
+							font-weight: bold;
+						}
+					}
 					.title {
 						font-weight: bold;
 						font-size: 16px;
