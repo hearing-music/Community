@@ -12,8 +12,10 @@ import {EnlightenmentComponent} from './venus/enlightenment/enlightenment.compon
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
+import { DouyinVideoComponent } from './douyin/douyin-video/douyin-video.component';
 import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
 import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-listenDaren.component';
+import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-listenVideo.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ConverterComponent } from './converter/converter.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
@@ -97,6 +99,18 @@ const routes: Routes = [{
 		{
 			path: 'douyin/douyin-listenDaren',
 			component: DouyinListenDarenComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 抖音视频搜索
+		{
+			path: 'douyin/douyin-video',
+			component: DouyinVideoComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 抖音视频监控
+		{
+			path: 'douyin/douyin-listenVideo',
+			component: DouyinListenVideoComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 铃声多多

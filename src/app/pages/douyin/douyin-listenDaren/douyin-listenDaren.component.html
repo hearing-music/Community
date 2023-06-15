@@ -1,39 +1,88 @@
 <div class="douyin">
-	
-	<div style='margin-bottom:16px;'>
+
+	<div style='margin-bottom:16px;display: flex;align-items: center;justify-content: space-between;'>
 		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
 		</ngx-search>
+		<nz-switch *ngIf='common.highUserList.indexOf(userId) != -1' [ngModel]="type" nzCheckedChildren="我的" nzUnCheckedChildren="全部" (ngModelChange)='ngModelChange()'></nz-switch>
 	</div>
-	<nz-table #basicTable [nzData]="list" [nzFrontPagination]='false'>
-	  <thead>
-	    <tr>
-	      <th nzAlign='center'>博主名称</th>
-		  <th nzAlign='center'>UniqueId</th>
-	      <th nzAlign='center'>抖音主页</th>
-	      <th nzAlign='center'>点赞数</th>
-	      <th nzAlign='center'>粉丝数</th>
-	      <th nzAlign='center'>关注</th>
-	      <th nzAlign='center'>视频数</th>
-	      <th nzAlign='center'>达人联系方式</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr *ngFor="let data of basicTable.data">
-	      <td nzAlign='center'>{{data.Nickname}}</td>
-		  <td nzAlign='center'>{{data.UniqueId}}</td>
-	      <td nzAlign='center'>
-			  <a href="{{data.homeUrl}}" target='_blank'>主页链接</a>
-		  </td>
-	      <td nzAlign='center'>{{common.toThousands(data.Clicklike)}}</td>
-	      <td nzAlign='center'>{{common.toThousands(data.Fans)}}</td>
-	      <td nzAlign='center'>{{common.toThousands(data.Follow)}}</td>
-	      <td nzAlign='center'>{{common.toThousands(data.Works)}}</td>
-	      <td nzAlign='center'>{{data.Information}}</td>
-	     
-	    </tr>
-	  </tbody>
+	<nz-table #nestedTable [nzData]="list" [nzFrontPagination]='false'>
+		<thead>
+			<tr>
+				<th nzAlign='center'></th>
+				<th nzAlign='center'>博主名称</th>
+				<th nzAlign='center'>UniqueId</th>
+				<th nzAlign='center'>抖音主页</th>
+				<th nzAlign='center'>艺人主页</th>
+				<th nzAlign='center'>点赞数</th>
+				<th nzAlign='center'>粉丝数</th>
+				<th nzAlign='center'>达人联系方式</th>
+				<th nzAlign='center'>加入时间</th>
+				<th nzAlign='center'>归属人</th>
+			</tr>
+		</thead>
+		<tbody>
+			<ng-template ngFor let-item [ngForOf]="nestedTable.data">
+				<tr>
+					<td [(nzExpand)]="item.expand"></td>
+					<td nzAlign='center'>
+						<div style="display: flex;align-items: center;justify-content: center;">
+							<div>
+								{{item.Nickname}}
+							</div>
+							<img *ngIf='item.Sex=="男"' src="../../../assets/img/nan.svg" class="icon" />
+							<img *ngIf='item.Sex=="女"' src="../../../assets/img/nv.svg" class="icon" />
+						</div>
+					</td>
+					<td nzAlign='center'>{{item.UniqueId}}</td>
+					<td nzAlign='center'>
+						<a href="{{item.homeUrl}}" target='_blank'>主页链接</a>
+					</td>
+					<td nzAlign='center'>
+						<a href="{{item.Home}}" target='_blank'>主页链接</a>
+					</td>
+					<td nzAlign='center'>{{common.toThousands(item.Clicklike)}}</td>
+					<td nzAlign='center'>{{common.toThousands(item.Fans)}}</td>
+					<td nzAlign='center'>{{item.Information}}</td>
+					<td nzAlign='center'>{{common.getDate(item.RecordingTime)}}</td>
+					<td nzAlign='center'>{{item.username}}</td>
+				</tr>
+				<tr [nzExpand]="item.expand">
+					<div style="display: flex;">
+						<div>
+							类型：<span class="value">{{item.Type}}</span>
+						</div>
+						<div style="margin-left: 20px;">
+							风格：<span class="value">{{item.Style}}</span>
+						</div>
+						<div style="margin-left: 20px;">
+							嗓音：<span class="value">{{item.Characteristics}}</span>
+						</div>
+					</div>
+					<div style="display: flex;">
+						<div>
+							翻唱唱筹：<span class="value">{{item.Vocals}}</span>
+						</div>
+						<div style="margin-left: 16px;">
+							翻唱分成：<span class="value">{{item.Split}}</span>
+						</div>
+						<div style="margin-left: 16px;">
+							原创唱筹：<span class="value">{{item.Original}}</span>
+						</div>
+						<div style="margin-left: 16px;">
+							原创分成：<span class="value">{{item.OriginalShare}}</span>
+						</div>
+						<div style="margin-left: 16px;">
+							翻唱视频费用：<span class="value">{{item.Fees}}</span>
+						</div>
+					</div>
+					<div style="display: flex;">
+						备注：<span class="value">{{item.Note}}</span>
+					</div>
+				</tr>
+			</ng-template>
+		</tbody>
 	</nz-table>
-	
+
 	<!-- 分页 -->
 	<div class="pagination">
 		<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"

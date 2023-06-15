@@ -5,6 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class CommonService {
 	constructor(public message: NzMessageService) { }
+	highUserList=['1','2','4','5','8','13','26','34']
 	strToJson(keyValuePairs: any) {
 		keyValuePairs = keyValuePairs.split(",");
 		// 初始化结果对象
@@ -66,6 +67,7 @@ export class CommonService {
 	// 删除登录态
 	removeLocalStorages() {
 		localStorage.removeItem('token')
+		localStorage.removeItem('userId')
 		localStorage.removeItem('token_expiration_time')
 		localStorage.removeItem('permission_name_id')
 		localStorage.removeItem('username')

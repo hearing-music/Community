@@ -37,8 +37,10 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.component';
 import {EnlightenmentComponent} from './venus/enlightenment/enlightenment.component'
 import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
+import { DouyinVideoComponent } from './douyin/douyin-video/douyin-video.component';
 import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
 import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-listenDaren.component';
+import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-listenVideo.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { ConverterComponent } from './converter/converter.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
@@ -142,9 +144,11 @@ registerLocaleData(zh);
 		QuerySonglistComponent,
 		KugouSoaringComponent,
 		EnlightenmentComponent,
+		DouyinVideoComponent,
 		DouyinHotComponent,
 		DouyinDarenComponent,
 		DouyinListenDarenComponent,
+		DouyinListenVideoComponent,
 		ChatgptComponent,
 		IdentificationComponent,
 		ConverterComponent,

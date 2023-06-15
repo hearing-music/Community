@@ -7,9 +7,15 @@
 	display: flex;
 	flex-direction: column;
 	color: #000;
+	.icon2 {
+		width: 18px;
+		margin-right: 4px;
+		height: 18px;
+	}
 	.icon {
-		width: 16px;
-		height: 16px;
+		width: 18px;
+		margin-left: 4px;
+		height: 18px;
 	}
 	.pagination{
 		display: flex;

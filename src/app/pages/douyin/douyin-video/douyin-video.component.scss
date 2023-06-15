@@ -27,6 +27,11 @@
 				margin-right: 4px;
 				height: 16px;
 			}
+			.icon2 {
+				width: 18px;
+				margin-right: 4px;
+				height: 18px;
+			}
 			.item-left {
 				width: 660px;
 				display: flex;
@@ -63,7 +68,7 @@
 						text-overflow: ellipsis;
 					}
 					.signature{
-						max-width: 550px;
+						max-width: 800px;
 						overflow: hidden;
 						white-space: nowrap;
 						text-overflow: ellipsis;

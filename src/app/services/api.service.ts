@@ -179,13 +179,20 @@ export class ApiService {
 
 	}
 	// 抖音达人搜索
-	douyin_darenSearch(params:any){
+	DouYinSearchBigV(params:any){
 		let {
 			keyword,
 			page
 		} = params;
-		return this.http.get(this.baseUrl + "/douyin/DouYinSearch?keyword=" + keyword+'&offset='+page)
+		return this.http.get(this.baseUrl + "/douyin/DouYinSearchBigV?keyword="+keyword+"&offset="+(page-1)+"&count=10")
 	}
+	// douyin_darenSearch(params:any){
+	// 	let {
+	// 		keyword,
+	// 		page
+	// 	} = params;
+	// 	return this.http.get(this.baseUrl + "/douyin/DouYinSearch?keyword=" + keyword+'&offset='+page)
+	// }
 	// 抖音达人是否被监控 true为被监控
 	douyin_isListen(params:any){
 		let {
@@ -197,13 +204,43 @@ export class ApiService {
 	douyin_listenDaren(params:any){
 		return this.http.post(this.baseUrl + "/douyin/douyin_listenDaren", { ...params })
 	}
-	//抖音 获取本人监控列表
+	//抖音 获取监控列表
 	douyin_getListenDaren(params:any){
 		let {
 			page,
-			keyword
+			keyword,
+			type
 		} = params;
-		return this.http.get(this.baseUrl + "/douyin/douyin_getListenDaren?page=" + page+'&keyword='+keyword)
+		return this.http.get(this.baseUrl + "/douyin/douyin_getListenDaren?page=" + page+'&keyword='+keyword+'&type='+type)
+	}
+	// 抖音 视频id搜索
+	DouYinSearchVideoDetails(params:any){
+		let {
+			keyword,
+			type
+		} = params;
+		return this.http.get(this.baseUrl + "/douyin/DouYinSearchVideoDetails?keyword=" + keyword+'&type='+type)
+	}
+	// 抖音 视频是否被本人监控 并且必须监控该达人
+	douyin_videoisListen(params:any){
+		let {
+			awemeId,
+			secUid
+		} = params;
+		return this.http.get(this.baseUrl + "/douyin/douyin_videoisListen?awemeId=" + awemeId+'&secUid='+secUid)
+	}
+	//抖音 添加监控视频
+	douyin_listenVideo(params:any){
+		return this.http.post(this.baseUrl + "/douyin/douyin_listenVideo", { ...params })
+	}
+	// 抖音 获取视频监控列表
+	douyin_getListenVideo(params:any){
+		let {
+			page,
+			keyword,
+			type
+		} = params;
+		return this.http.get(this.baseUrl + "/douyin/douyin_getListenVideo?page=" + page+'&keyword='+keyword+'&type='+type)
 	}
 	// 听歌识曲
 	getIdentification(params: any) {

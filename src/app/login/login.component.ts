@@ -84,6 +84,7 @@ export class LoginComponent implements OnInit {
 			document.onkeydown = null
 			if (res.success) {
 				localStorage.setItem('phone', this.phone)
+				localStorage.setItem('userId', res.result.userId)
 				localStorage.setItem('token', res.result.token)
 				localStorage.setItem('token_expiration_time', res.result.token_expiration_time)
 				localStorage.setItem('permission_name_id', res.result.permission_name_id)

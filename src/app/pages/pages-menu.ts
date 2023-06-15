@@ -52,6 +52,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
 				title: '监控达人',
 				link: '/pages/douyin/douyin-listenDaren',
 			},
+			{
+				title: '视频搜索',
+				link: '/pages/douyin/douyin-video',
+			},
+			{
+				title: '监控视频',
+				link: '/pages/douyin/douyin-listenVideo',
+			},
 		],
 	},
 	{
