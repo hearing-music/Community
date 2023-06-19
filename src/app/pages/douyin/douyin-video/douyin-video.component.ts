@@ -42,7 +42,7 @@ export class DouyinVideoComponent implements OnInit {
 	Fees: any = ''
 	// <!-- 备注  Note -->
 	Note: any = ''
-	Sex:any='男'
+	Sex:any=''
 	sexList:any=[{value:'男',label:'男'},{value:'女',label:'女'}]
 	search(e: any) {
 		this.searchValue = e;
@@ -91,10 +91,10 @@ export class DouyinVideoComponent implements OnInit {
 		var fees = this.Fees;
 		var note = this.Note;
 		var sex = this.Sex;
-		if (!information || !home || !type || !style || !characteristics || !vocals || !split || !original || !originalShare || !fees) {
-			this.message.info('缺少必填参数')
-			return
-		}
+		// if (!sex||!information || !home || !type || !style || !characteristics || !vocals || !split || !original || !originalShare || !fees) {
+		// 	this.message.info('缺少必填参数')
+		// 	return
+		// }
 		var nickname = obj.nickName;
 		var secUid = obj.secUid;
 		var uniqueId = obj.uniqueId;
@@ -117,6 +117,7 @@ export class DouyinVideoComponent implements OnInit {
 				this.OriginalShare = '';
 				this.Fees = '';
 				this.Note = '';
+				this.Sex=''
 			}
 		}, (err: any) => {
 			console.log(err)

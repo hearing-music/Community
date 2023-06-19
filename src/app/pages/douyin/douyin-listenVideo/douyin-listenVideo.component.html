@@ -55,30 +55,30 @@
 							<div style="margin-left: 18px;">
 								<a href="{{item.homeUrl}}" target='_blank'>博主抖音</a>
 							</div>
-							<div style="margin-left: 18px;">
-								<a href="{{item.Home}}" target='_blank'>博主Q音</a>
+							<div style="margin-left: 18px;" >
+								<a *ngIf='item.Home' href="{{item.Home}}" target='_blank' style="color:#3366ff!important;">博主Q音</a>
 							</div>
-							<div style="margin-left: 18px;">
+							<div style="margin-left: 18px;" *ngIf='item.Information'>
 								联系方式：<span class="value">{{item.Information}}</span>
 							</div>
-							<div style="margin-left: 18px;">
+							<div style="margin-left: 18px;" *ngIf='item.Note'>
 								备注：<span class="value">{{item.Note}}</span>
 							</div>
 						</div>
 						<div style="display: flex;">
-							<div>
+							<div *ngIf='item.Vocals!==""'>
 								翻唱唱筹：<span class="value">{{item.Vocals}}</span>
 							</div>
-							<div style="margin-left: 18px;">
+							<div style="margin-left: 18px;" *ngIf='item.Split!==""'>
 								翻唱分成：<span class="value">{{item.Split}}</span>
 							</div>
-							<div style="margin-left: 18px;">
+							<div style="margin-left: 18px;" *ngIf='item.Original!==""'>
 								原创唱筹：<span class="value">{{item.Original}}</span>
 							</div>
-							<div style="margin-left: 18px;">
+							<div style="margin-left: 18px;" *ngIf='item.OriginalShare!==""'>
 								原创分成：<span class="value">{{item.OriginalShare}}</span>
 							</div>
-							<div style="margin-left: 18px;">
+							<div style="margin-left: 18px;" *ngIf='item.Fees!==""'>
 								翻唱视频费用：<span class="value">{{item.Fees}}</span>
 							</div>
 						</div>
@@ -89,13 +89,13 @@
 							<div style="margin-left: 18px;">
 								博主粉丝：<span class="value">{{common.toThousands(item.Fans)}}</span>
 							</div>
-							<div style="margin-left: 18px;">
+							<div style="margin-left: 18px;" *ngIf='item.Type'>
 								类型：<span class="value">{{item.Type}}</span>
 							</div>
-							<div style="margin-left: 18px;">
+							<div style="margin-left: 18px;" *ngIf='item.Style'>
 								风格：<span class="value">{{item.Style}}</span>
 							</div>
-							<div style="margin-left: 18px;">
+							<div style="margin-left: 18px;" *ngIf='item.Characteristics'>
 								嗓音：<span class="value">{{item.Characteristics}}</span>
 							</div>
 						</div>
@@ -115,6 +115,14 @@
 								点赞：<span class="value">{{common.toThousands(item.commentList[item.position].diggCount)}}</span>
 							</div>
 							<div style="margin-left: 18px;">
+								归属地：<span class="value">{{item.commentList[item.position].ipLabel}}</span>
+							</div>
+							<div style="margin-left: 18px;">
+								时间：<span class="value">{{common.getTime(item.commentList[item.position].createTime*1000)}}</span>
+							</div>
+						</div>
+						<div style="display: flex;" *ngIf='item.position!=0'>
+							<div>
 								位置：<span class="value">{{item.position}}</span>
 							</div>
 							<div style="margin-left: 18px;">
@@ -124,16 +132,10 @@
 								</span>
 							</div>
 							<div style="margin-left: 18px;display:flex;align-items: center;">
-								实时评论：
+								评论：
 								<div class="value">
 									<div [innerHTML]="assembleHTML(item.textHtml)"></div>
 								</div>
-							</div>
-							<div style="margin-left: 18px;">
-								归属地：<span class="value">{{item.commentList[item.position].ipLabel}}</span>
-							</div>
-							<div style="margin-left: 18px;">
-								评论时间：<span class="value">{{common.getTime(item.commentList[item.position].createTime*1000)}}</span>
 							</div>
 						</div>
 					</div>

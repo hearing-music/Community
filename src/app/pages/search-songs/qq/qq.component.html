@@ -53,7 +53,6 @@
 					</div>
 					<div style="margin-left: 18px;position:relative" (mouseenter)='mouseenter2(item)' (mouseleave)='mouseleave2(item)'>
 						<img src="../../../assets/img/lishi.svg" style="width: 20px;height: 20px;">
-						<!-- 鼠标移入加载歌词 -->
 						<div *ngIf='item.historyShow' class="history">
 							<div>
 								上游公司
@@ -78,6 +77,30 @@
 							<div *ngIf='item.historyReady'>
 								<div *ngFor="let h of item.historyS;let c = index;" class="link" (click)='openCompay(h.id)' >
 									{{h.name?h.name:h.id}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style="margin-left: 18px;position:relative" (mouseenter)='mouseenter3(item)' (mouseleave)='mouseleave3(item)'>
+						<img src="../../../assets/img/lishi2.svg" style="width: 20px;height: 20px;">
+						<div *ngIf='item.historyShow2' class="history">
+							<div>
+								上游公司
+							</div>
+							<div >
+								<div class="link" *ngIf='item.historyI.length!=0' (click)='openCompay(item.historyI[0].id)' >
+									{{item.historyI[0].id}}
+								</div>
+								<div *ngIf='item.historyI.length==0'>
+									无
+								</div>
+							</div>
+							<div>
+								历史上游公司
+							</div>
+							<div>
+								<div *ngFor="let h of item.historyS;let c = index;" class="link" (click)='openCompay(h.id)' >
+									{{h.id}}
 								</div>
 							</div>
 						</div>

@@ -48,34 +48,34 @@
 				</tr>
 				<tr [nzExpand]="item.expand">
 					<div style="display: flex;">
-						<div>
+						<div *ngIf='item.Type'>
 							类型：<span class="value">{{item.Type}}</span>
 						</div>
-						<div style="margin-left: 20px;">
+						<div *ngIf='item.Style' style="margin-left: 20px;">
 							风格：<span class="value">{{item.Style}}</span>
 						</div>
-						<div style="margin-left: 20px;">
+						<div *ngIf='item.Characteristics' style="margin-left: 20px;">
 							嗓音：<span class="value">{{item.Characteristics}}</span>
 						</div>
 					</div>
 					<div style="display: flex;">
-						<div>
+						<div *ngIf='item.Vocals!==""'>
 							翻唱唱筹：<span class="value">{{item.Vocals}}</span>
 						</div>
-						<div style="margin-left: 16px;">
+						<div *ngIf='item.Split!==""' style="margin-left: 16px;">
 							翻唱分成：<span class="value">{{item.Split}}</span>
 						</div>
-						<div style="margin-left: 16px;">
+						<div *ngIf='item.Original' style="margin-left: 16px;">
 							原创唱筹：<span class="value">{{item.Original}}</span>
 						</div>
-						<div style="margin-left: 16px;">
+						<div *ngIf='item.OriginalShare!==""' style="margin-left: 16px;">
 							原创分成：<span class="value">{{item.OriginalShare}}</span>
 						</div>
-						<div style="margin-left: 16px;">
+						<div *ngIf='item.Fees!==""' style="margin-left: 16px;">
 							翻唱视频费用：<span class="value">{{item.Fees}}</span>
 						</div>
 					</div>
-					<div style="display: flex;">
+					<div *ngIf='item.Note' style="display: flex;">
 						备注：<span class="value">{{item.Note}}</span>
 					</div>
 				</tr>

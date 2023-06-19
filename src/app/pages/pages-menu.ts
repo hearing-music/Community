@@ -63,28 +63,33 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		],
 	},
 	{
+		title: '浮浮雷达',
+		icon: 'cube',
+		link: '/pages/fufuleida',
+	},
+	{
 		title: '铃声多多',
 		icon: 'cube',
 		link: '/pages/lsdd-page',
 	},
 	{
-	        title: '快手',
-	        icon: 'cube',
-	        children: [
-	            {
-	                title: '快手',
-	                link: '/pages/kuaishou-searchindex',
-	            },
-	            {
-	                title: 'dj',
-	                link: '/pages/kuaishouDj',
-	            },
-	            {
-	                title: '素材',
-	                link: '/pages/sourcePhoto',
-	            },
-	        ],
-	    },
+		title: '快手',
+		icon: 'cube',
+		children: [
+			{
+				title: '快手',
+				link: '/pages/kuaishou-searchindex',
+			},
+			{
+				title: 'dj',
+				link: '/pages/kuaishouDj',
+			},
+			{
+				title: '素材',
+				link: '/pages/sourcePhoto',
+			},
+		],
+	},
 	{
 		title: '雷达音乐',
 		icon: 'radio',
@@ -95,14 +100,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		icon: 'star',
 		children: [
 			{
-				title:'精选歌手',
-				link:'/pages/venus/enlightenment'
+				title: '精选歌手',
+				link: '/pages/venus/enlightenment'
 			},
 			{
 				title: '酷狗飙升榜',
 				link: '/pages/venus/kugou-soaring',
 			},
-			
+
 		],
 	},
 	{

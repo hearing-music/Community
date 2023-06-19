@@ -43,7 +43,7 @@ export class DouyinDarenComponent implements OnInit {
 	Fees: any = ''
 	// <!-- 备注  Note -->
 	Note: any = ''
-    Sex:any='男'
+    Sex:any=''
 	sexList:any=[{value:'男',label:'男'},{value:'女',label:'女'}]
 	search(e: any) {
 		this.searchValue = e;
@@ -99,24 +99,20 @@ export class DouyinDarenComponent implements OnInit {
 		var fees = this.Fees;
 		var note = this.Note;
 		var sex = this.Sex;
-		if (!information || !home || !type || !style || !characteristics || !vocals || !split || !original || !originalShare || !fees) {
-			this.message.info('缺少必填参数')
-			return
-		}
+		// if (!sex||!information || !home || !type || !style || !characteristics || !vocals || !split || !original || !originalShare || !fees) {
+		// 	this.message.info('缺少必填参数')
+		// 	return
+		// }
 		var nickname = obj.nickName;
 		var secUid = obj.secUid;
 		var uniqueId = obj.uniqueId;
-		// var Clicklike = obj.Weighting.clicklike[0];
-		// var Fans = obj.Weighting.fans[0];
-		// var Follow = obj.Weighting.follow[0];
-		// var Works = obj.Weighting.works[0];
 		this.loading = true;
 		this.api.douyin_listenDaren({ nickname,sex, secUid, uniqueId, information,clicklike:obj.totalFavorited,fans:obj.followerCount,
 		home,type,style,characteristics,vocals,split,original,originalShare,fees,note}).subscribe((res: any) => {
 			console.log(res)
+			this.loading = false;
 			if(res.success){
 				this.message.success('添加监控成功')
-				this.loading = false;
 				this.isVisible = false;
 				this.information = ''
 				this.Home = '';
@@ -129,6 +125,7 @@ export class DouyinDarenComponent implements OnInit {
 				this.OriginalShare = '';
 				this.Fees = '';
 				this.Note = '';
+				this.Sex = ''
 			}
 		}, (err: any) => {
 			console.log(err)

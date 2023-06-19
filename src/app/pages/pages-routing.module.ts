@@ -8,7 +8,7 @@ import { FreeSongs_qqComponent } from './qq/free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
 import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.component';
-import {EnlightenmentComponent} from './venus/enlightenment/enlightenment.component'
+import { EnlightenmentComponent } from './venus/enlightenment/enlightenment.component'
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
@@ -19,6 +19,7 @@ import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-l
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ConverterComponent } from './converter/converter.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
+import {FufuleidaComponent} from './fufuleida/fufuleida.component'
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
@@ -33,10 +34,10 @@ import { SourcePhotoComponent } from './kuaishou-searchindex/source-photo/source
 import { PermissionGuard } from '../guards/permission.guard'
 import { ToolComponent } from './tool/tool.component';
 import { XilixiliComponent } from './xilixili/xilixili.component';
-import {OggToMp3Component} from './audio-conversion/ogg-to-mp3/ogg-to-mp3.component'
-import {MggToWavComponent} from './audio-conversion/mgg-to-wav/mgg-to-wav.component'
+import { OggToMp3Component } from './audio-conversion/ogg-to-mp3/ogg-to-mp3.component'
+import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.component'
 import { UserManagementComponent } from './user-management/user-management.component';
-import {RadarComponent} from './radar/radar.component'
+import { RadarComponent } from './radar/radar.component'
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -113,6 +114,12 @@ const routes: Routes = [{
 			component: DouyinListenVideoComponent,
 			canActivate: [PermissionGuard]
 		},
+		//浮浮雷达
+		{
+			path: 'fufuleida',
+			component: FufuleidaComponent,
+			canActivate: [PermissionGuard]
+		},
 		// 铃声多多
 		{
 			path: 'lsdd-page',
@@ -132,23 +139,23 @@ const routes: Routes = [{
 			canActivate: [PermissionGuard]
 		},
 		//素材
-		        {
-		            path: 'sourcePhoto',
-		            component: SourcePhotoComponent,
-		            canActivate: [PermissionGuard]
-		        },
+		{
+			path: 'sourcePhoto',
+			component: SourcePhotoComponent,
+			canActivate: [PermissionGuard]
+		},
 		//音频转换oggToMp3
-				{
-					path: 'oggToMp3',
-					component: OggToMp3Component,
-					canActivate: [PermissionGuard]
-				},
+		{
+			path: 'oggToMp3',
+			component: OggToMp3Component,
+			canActivate: [PermissionGuard]
+		},
 		// mgg - wav
-				{
-					path: 'mggToWav',
-					component: MggToWavComponent,
-					canActivate: [PermissionGuard]
-				},
+		{
+			path: 'mggToWav',
+			component: MggToWavComponent,
+			canActivate: [PermissionGuard]
+		},
 		// 文件转换
 		{
 			path: 'converter',

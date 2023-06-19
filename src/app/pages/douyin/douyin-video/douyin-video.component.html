@@ -245,7 +245,7 @@
 				</div>
 				<div>
 					<p>性别</p>
-					<nz-select [(ngModel)]="Sex" [nzDisabled]='BloggerInfo.isListen'>
+					<nz-select nzPlaceHolder='性别' [(ngModel)]="Sex" [nzDisabled]='BloggerInfo.isListen'>
 						<nz-option *ngFor="let l of sexList;" [nzValue]="l.value" [nzLabel]="l.label"></nz-option>
 					</nz-select>
 				</div>

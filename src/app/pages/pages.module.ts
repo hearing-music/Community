@@ -45,6 +45,7 @@ import { IdentificationComponent } from './identification/identification.compone
 import { ConverterComponent } from './converter/converter.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
 import { RadarComponent } from './radar/radar.component';
+import { FufuleidaComponent } from './fufuleida/fufuleida.component';
 // componet
 import {EnlightenmentSongsComponent} from './venus/enlightenment-songs/enlightenment-songs.component'
 import { EnlightenmentTop20Component} from './search-songs/enlightenment-top20/enlightenment-top20.component'
@@ -149,6 +150,7 @@ registerLocaleData(zh);
 		DouyinDarenComponent,
 		DouyinListenDarenComponent,
 		DouyinListenVideoComponent,
+		FufuleidaComponent,
 		ChatgptComponent,
 		IdentificationComponent,
 		ConverterComponent,

@@ -1,0 +1,84 @@
+<div class="kuaishou">
+    <div class="kuaishou-left">
+        <nz-empty *ngIf="!fufuleidaList" style="margin-top: 160px;"></nz-empty>
+        <div class="list">
+            <div class="list-item" *ngFor="let item of fufuleidaList;let i = index;" :key='item.id'>
+                <div class="item-left">
+                    <div style="font-size: 18px;color: #ccc;width: 35px;text-align: center;" *ngIf="i>2">
+                        {{i+1}}
+                    </div>
+                    <div *ngIf="i==0">
+                        <img src="../../../assets/img/first.png" alt="" style="width: 35px;">
+                    </div>
+                    <div *ngIf="i==1">
+                        <img src="../../../assets/img/second.png" alt="" style="width: 35px;">
+                    </div>
+                    <div *ngIf="i==2">
+                        <img src="../../../assets/img/third.png" alt="" style="width: 35px;">
+                    </div>
+                    <div class="left-avatar">
+                        <img [src]="item.cover" style="width: 100%;height: 100%;"
+                            onerror='this.src="/assets/img/imgError.png"' />
+                    </div>
+                    <div class="left-text">
+                        <div class="title-area">
+                            <!-- 歌名 -->
+                            <span nz-tooltip [nzTooltipTitle]="item.songName">
+                                <div class="title u-line-1" (click)="copy(item.songName)">
+                                    {{item.songName}}
+                                </div>
+                            </span>
+                            <div style="margin-left: 5px;">
+                                <button nz-button nzShape="circle" nzType="text"
+                                    (click)='openkg(item.hash,item.albumId)'
+                                    style="margin-left: 8px;display: flex;align-items: center;justify-content: center;">
+                                    <span nz-icon nzType="select" nzTheme="outline"
+                                        style="color:#35adc0;font-size: 14px;"></span>
+                                </button>
+                            </div>
+                            <div style="margin-left: 10px;">
+                                作者：{{item.singer}}
+                            </div>
+                            <div style="margin-left: 15px;">
+                                专辑：{{item.albumName }}
+                            </div>
+                        </div>
+                        <div class="subTitle">
+                            <div style="display: flex;align-items: center;">
+                                {{item.language}}
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+                                <div>
+                                    {{item.recgTimes}}次识别
+                                </div>
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+                                <div>
+                                    {{item.payType}}.0
+                                </div>
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+                                <div>
+                                    是否原创{{item.isOriginal }}
+                                </div>
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+                                <div>
+                                    等级{{item.cpyGrade}}
+                                </div>
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+                                <div>
+                                    级别{{item.cpyLevel}}
+                                </div>
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+                                <div>
+                                    特权{{item.privilege }}
+                                </div>
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+                                <div>
+                                    版本{{item.version }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

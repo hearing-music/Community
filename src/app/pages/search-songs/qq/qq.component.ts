@@ -76,6 +76,12 @@ export class QqComponent implements OnInit {
 	mouseleave2(item:any){
 		item.historyShow = false;
 	}
+	mouseenter3(item:any){
+		item.historyShow2 = true;
+	}
+	mouseleave3(item:any){
+		item.historyShow2 = false;
+	}
 	// 打开公司
 	openCompay(id:string|number){
 		window.open('https://y.qq.com/portal/company_detail.html?id='+id+'#sort=1&type=album')
