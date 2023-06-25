@@ -1,0 +1,21 @@
+<div class="PhotoToText">
+    <div class="converter-title">
+        图片识别文字
+    </div>
+    <div class="selectLanguage">
+        <nz-select [ngModel]="language" (ngModelChange)="changeLanguage($event)">
+            <nz-option nzValue="eng" nzLabel="英语"></nz-option>
+            <nz-option nzValue="chinese" nzLabel="中文"></nz-option>
+        </nz-select>
+    </div>
+    <div class="uploadFile-box">
+        <ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+    </div>
+    <div class="TextInner" *ngIf="text" (click)="copy()">
+        <span nz-tooltip nzTooltipTitle="点击复制">
+            <div class="title u-line-1">
+                {{text}}
+            </div>
+        </span>
+    </div>
+</div>

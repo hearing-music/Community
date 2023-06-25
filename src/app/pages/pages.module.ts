@@ -83,6 +83,8 @@ import { AudioTrickComponent } from '../components/audio-trick/audio-trick.compo
 import { ToolComponent } from './tool/tool.component';
 import { BankComponent } from './tool/bank/bank.component';
 import { ProcessComponent } from './tool/process/process.component';
+import { WhisperComponent } from './whisper/whisper.component';
+import { PhotoIdentifyingTextComponent } from './photo-identifying-text/photo-identifying-text.component';
 import { JsonFormatComponent } from './tool/json-format/json-format.component';
 import { MonitorComponent } from './tool/monitor/monitor.component';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
@@ -93,7 +95,7 @@ import { SourcePhotoComponent } from './kuaishou-searchindex/source-photo/source
 import { UserManagementComponent } from './user-management/user-management.component';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { XilixiliComponent } from './xilixili/xilixili.component';
+// import { XilixiliComponent } from './xilixili/xilixili.component';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { DYComponent } from './radar/dy/dy.component';
@@ -188,6 +190,8 @@ registerLocaleData(zh);
 		ToolComponent,
 		BankComponent,
 		ProcessComponent,
+		WhisperComponent,
+		PhotoIdentifyingTextComponent,
 		MonitorComponent,
 		JsonFormatComponent,
 		SetRankingComponent,
@@ -195,7 +199,7 @@ registerLocaleData(zh);
 		DjComponent,
 		SourcePhotoComponent,
 		UserManagementComponent,
-		XilixiliComponent,
+		// XilixiliComponent,
 		DYComponent,
 		RSComponent,
 		WYComponent

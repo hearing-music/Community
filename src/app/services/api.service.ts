@@ -550,6 +550,18 @@ export class ApiService {
 		let url = this.baseUrl + '/zhuanhuanyun/QqAudioDecryptio'
 		return this.http.post(url, formData);
 	}
+	    // 图片识别文字
+	    TextExtractionImage(params: any) {
+	        let {
+	            file,
+	            language
+	        } = params;
+	        const formData: FormData = new FormData();
+	        formData.append('file', file);
+	        formData.append('language', language);
+	        let url = this.baseUrl+'/text_extraction/TextExtractionImage'
+	        return this.http.post(url, formData);
+	    }
 	    //浮浮雷达获取数据
 	    getfufuleida() {
 	        return this.http.get(this.baseUrl + '/fufuleida/GetDailyList')

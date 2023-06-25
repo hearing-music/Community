@@ -125,6 +125,20 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		],
 	},
 	{
+		title: '文字识别',
+		icon: 'text',
+		children: [
+			{
+				title: '歌词识别',
+				link: '/pages/whisper',
+			},
+			{
+				title: '图片识别',
+				link: '/pages/photo-identifying-text',
+			},
+		],
+	},
+	{
 		title: '版权扫描',
 		icon: 'link-2',
 		link: '/pages/copyright-scanning',
@@ -163,11 +177,11 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		icon: 'message-square',
 		link: '/pages/chatgpt',
 	},
-	{
-		title: '西哩xili',
-		icon: 'message-circle',
-		link: '/pages/xilixili',
-	},
+	// {
+	// 	title: '西哩xili',
+	// 	icon: 'message-circle',
+	// 	link: '/pages/xilixili',
+	// },
 
 	// {
 	// 	title: '用户管理',

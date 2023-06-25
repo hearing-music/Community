@@ -33,7 +33,9 @@ import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
 import { SourcePhotoComponent } from './kuaishou-searchindex/source-photo/source-photo.component';
 import { PermissionGuard } from '../guards/permission.guard'
 import { ToolComponent } from './tool/tool.component';
-import { XilixiliComponent } from './xilixili/xilixili.component';
+import { WhisperComponent } from './whisper/whisper.component';
+import { PhotoIdentifyingTextComponent } from './photo-identifying-text/photo-identifying-text.component';
+// import { XilixiliComponent } from './xilixili/xilixili.component';
 import { OggToMp3Component } from './audio-conversion/ogg-to-mp3/ogg-to-mp3.component'
 import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.component'
 import { UserManagementComponent } from './user-management/user-management.component';
@@ -156,6 +158,18 @@ const routes: Routes = [{
 			component: MggToWavComponent,
 			canActivate: [PermissionGuard]
 		},
+		// whisper 歌词识别
+		{
+			path: 'whisper',
+			component: WhisperComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 文字识别
+		{
+			path: 'photo-identifying-text',
+			component: PhotoIdentifyingTextComponent,
+			canActivate: [PermissionGuard]
+		},
 		// 文件转换
 		{
 			path: 'converter',
@@ -209,11 +223,11 @@ const routes: Routes = [{
 			canActivate: [PermissionGuard]
 		},
 		// xilixili
-		{
-			path: 'xilixili',
-			component: XilixiliComponent,
-			canActivate: [PermissionGuard]
-		},
+		// {
+		// 	path: 'xilixili',
+		// 	component: XilixiliComponent,
+		// 	canActivate: [PermissionGuard]
+		// },
 		// 雷达音乐
 		{
 			path: 'radar',

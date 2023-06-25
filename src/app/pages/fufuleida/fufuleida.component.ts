@@ -9,6 +9,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class FufuleidaComponent implements OnInit {
   fufuleidaList: any = []
+	update:any=''
   isSurePlay: boolean = false
   audioSrc = '';
   constructor(public api: ApiService, private message: NzMessageService) { }
@@ -19,6 +20,7 @@ export class FufuleidaComponent implements OnInit {
   getFufuList() {
     this.api.getfufuleida().subscribe((res: any) => {
       this.fufuleidaList = res.data
+			this.update = res.update
       console.log(res)
     })
   }
