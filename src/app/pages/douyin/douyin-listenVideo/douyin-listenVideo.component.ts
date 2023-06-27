@@ -42,6 +42,7 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 	  .subscribe((res: any) => {
 	  	console.log(res)
 		res.result.forEach((item:any)=>{
+			item.isplay=false;
 			item.homeUrl='https://www.douyin.com/user/'+item.SecUid
 			item.videoUrl = `https://www.douyin.com/user/${item.SecUid}?modal_id=${item.awemeId}`
 			item.expand = false;
@@ -54,8 +55,9 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 			item.shareCountArr = Object.values(item.shareCount)
 			item.textExtra = item.textExtra.split(',')
 			item.commentTextArr = item.text.split(',')
+			item.position = item.position-1
 			// 处理高亮
-			if(item.position!=0){
+			if(item.position!=-1){
 				item.commentList[item.position].text = item.commentList[item.position].text || ''
 				let textHtml:any = item.commentList[item.position].text
 				for(let i = 0;i<item.commentTextArr.length;i++){
@@ -85,4 +87,36 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 		window.open(url)
 	}
 	
+	audioSrc:any=''
+	isPlay:any=false
+	play() {
+		let audio: any = document.getElementById('audio')
+		audio.play()
+		this.list.forEach((item:any)=>{
+			if(item.originalSound==this.audioSrc){
+				item.isplay=true;
+			}
+		})
+	}
+	pause() {
+		let audio: any = document.getElementById('audio')
+		audio.pause()
+		this.list.forEach((item:any)=>{
+			item.isplay=false;
+		})
+	}
+	playMusic(item:any){
+		this.isPlay = true;
+		this.audioSrc = item.originalSound
+		setTimeout(() => {
+			this.list.forEach((item:any)=>{
+				item.isplay=false;
+			})
+			item.isplay=true;
+			this.play()
+		},50)
+	}
+	pauseMusic(item:any){
+		this.pause()
+	}
 }

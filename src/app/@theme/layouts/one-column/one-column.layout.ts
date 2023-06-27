@@ -25,3 +25,4 @@ import { Component } from '@angular/core';
  //        <ngx-footer></ngx-footer>
  //      </nb-layout-footer>
 export class OneColumnLayoutComponent {}
+

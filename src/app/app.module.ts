@@ -19,6 +19,7 @@ import {
 	NbToastrModule,
 	NbWindowModule,
 } from '@nebular/theme';
+import {SiderbarIconModule} from './siderbarIcon.module'
 // import { NZ_I18N } from 'ng-zorro-antd/i18n';
 // import { zh_CN } from 'ng-zorro-antd/i18n';
 // import { registerLocaleData } from '@angular/common';
@@ -45,6 +46,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 		AppRoutingModule,
 		NbSidebarModule.forRoot(),
 		NbMenuModule.forRoot(),
+		SiderbarIconModule,
 		NbDatepickerModule.forRoot(),
 		NbDialogModule.forRoot(),
 		NbWindowModule.forRoot(),
@@ -84,5 +86,10 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 		}
 	]
 })
-export class AppModule {
-}
+export class AppModule { }
+// export class AppModule { 
+// 	constructor(private library: NbIconLibraries, private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+// 		this.matIconRegistry.addSvgIcon('my_icon', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/img/age.svg'));
+// 		 this.matIconRegistry.setDefaultFontSetClass('material-icons-outlined');
+// 		  }
+// 	}

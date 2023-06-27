@@ -1,0 +1,146 @@
+<div class="jianying">
+	<div style='margin-bottom:16px;display: flex;align-items: center;justify-content: space-between;'>
+		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
+		</ngx-search>
+	</div>
+	<nz-empty *ngIf="!result.name" style="margin-top: 160px;"></nz-empty>
+	<div class="result" *ngIf='result.name'>
+		<div class="author">
+			<img nz-image width="64px" height="64px" [nzSrc]="result.avatarUrl" style="border-radius: 50%;" [nzFallback]="fallback" alt="" />
+			<div style="margin-left: 16px;color: rgba(0, 0, 0, 0.6);font-size: 12px;width: 100%;">
+				<div style="display: flex;align-items: center;">
+					<span nz-tooltip [nzTooltipTitle]="'作者名字'">
+						<div style="font-size: 16px;font-weight: bold;color: #000;">
+							{{result.name}}
+						</div>
+					</span>
+					<div style="font-size: 12px;margin-left: 12px;">
+						用户id:{{result.uid}}
+					</div>
+					<div style="font-size: 12px;margin-left: 12px;">
+						音频id:{{result.id}}
+					</div>
+				</div>
+				<span nz-tooltip [nzTooltipTitle]="'音频标题'">
+					<div style="font-size: 14px;color: #000;margin: 4px 0;">
+						{{result.title}}
+					</div>
+				</span>
+				<div style="display: flex;align-items: center;">
+					<div>
+						{{common.getTime(result.createTime*1000)}}
+					</div>
+					<span nz-tooltip [nzTooltipTitle]="'使用量'">
+					<div style="margin-left: 14px;display: flex;align-items: center;">
+							<img src="../../assets/img/shiyong.svg" class="icon" />
+							<div>
+								{{common.toThousands(result.usageAmount)}}
+							</div>
+					</div>
+					</span>
+					<span nz-tooltip [nzTooltipTitle]="'喜欢'">
+					<div style="margin-left: 14px;display: flex;align-items: center;">
+							<img src="../../assets/img/xihuan.svg" class="icon" />
+							<div>
+								{{common.toThousands(result.likeCount)}}
+							</div>
+					</div>
+					</span>
+					<span nz-tooltip [nzTooltipTitle]="'播放量'">
+					<div style="margin-left: 14px;display: flex;align-items: center;">
+							<img src="../../assets/img/bofang.svg" class="icon" />
+							<div>
+								{{common.toThousands(result.playAmount)}}
+							</div>
+					</div>
+					</span>
+					<span nz-tooltip [nzTooltipTitle]="'是否可以更新音乐'">
+					<div style="margin-left: 14px;">
+						<img *ngIf='result.canUpdateMusic' src="../../assets/img/zhengque.svg" class="icon" />
+						<img *ngIf='!result.canUpdateMusic' src="../../assets/img/cuowu.svg" class="icon" />
+					</div>
+					</span>
+				</div>
+				<!-- jsonStr -->
+			</div>
+		</div>
+		<div style="margin-top: 16px;display: flex;align-items: center;color: rgba(0,0,0,0.6);font-size: 14px;">
+			<span nz-tooltip [nzTooltipTitle]="'价格'">
+			<div style="display: flex;align-items: center;">
+				<img src="../../assets/img/price-blue.png" class="icon">
+				<div>
+					{{result.jsonStr.amount}}
+				</div>
+			</div>
+			</span>
+			<div style="margin-left: 14px;">
+				<span style="color: #000;">
+					产品id：
+				</span>
+				{{result.jsonStr.product_id}}
+			</div>
+			<div style="margin-left: 14px;">
+				<span style="color: #000;">
+					货币code：
+				</span>
+				{{result.jsonStr.currency_code}}
+			</div>
+			<div style="margin-left: 14px;">
+				<span style="color: #000;">
+					need_purchase：
+				</span>
+				{{result.jsonStr.need_purchase}}
+			</div>
+			<div style="margin-left: 14px;">
+				<span style="color: #000;">
+					info_del：
+				</span>
+				{{result.jsonStr.info_del}}
+			</div>
+			<div style="margin-left: 14px;">
+				<span style="color: #000;">
+					need_unlock_by_ad：
+				</span>
+				{{result.jsonStr.need_unlock_by_ad}}
+			</div>
+			<div style="margin-left: 14px;">
+				<span style="color: #000;">
+					countdown_type：
+				</span>
+				{{result.jsonStr.countdown_type}}
+			</div>
+			<div style="margin-left: 14px;">
+				<span style="color: #000;">
+					unblock_by_vip：
+				</span>
+				{{result.jsonStr.unblock_by_vip}}
+			</div>
+		</div>
+		<div style="margin-top: 16px;display: flex;">
+			<div>
+				<div>
+					模板图片
+				</div>
+				<img nz-image width="260px" [nzSrc]="result.coverUrl" style="" [nzFallback]="fallback" alt="" />
+			</div>
+			<div style="margin-left: 30px;">
+				<div>
+					视频
+				</div>
+				<video [src]="result.videoUrl" style="width: 260px;" controls="controls"></video>
+			</div>
+			<div style="margin-left: 30px;">
+				<div>
+					音频
+				</div>
+				<!-- 播放器 -->
+				<div class="play">
+					<audio id='audio' controls [src]="result.playUrl" (play)='play()' (pause)='pause()'>
+					</audio>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

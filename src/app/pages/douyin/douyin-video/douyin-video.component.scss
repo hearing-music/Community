@@ -22,89 +22,101 @@
 			align-items: center;
 			justify-content: space-between;
 			padding: 12px 16px;
-			.icon {
-				width: 16px;
-				margin-right: 4px;
-				height: 16px;
-			}
-			.icon2 {
-				width: 18px;
-				margin-right: 4px;
-				height: 18px;
-			}
-			.item-left {
-				width: 660px;
-				display: flex;
-				flex-shrink: 0;
-				align-items: center;
-				.linkIcon{
-					    display: flex;
-					    align-items: center;
-					    width: 32px;
-					    height: 32px;
-					    cursor: pointer;
-					    justify-content: center;
-				}
-				.left-icon{
-					flex-shrink: 0;
-					width: 32px;
-					height: 32px;
-					cursor: pointer;
-				}
-				.left-text{
-					margin-left: 16px;
-				}
-				.title-area {
-					display: flex;
-					align-items: center;
-					.title {
-						font-weight: bold;
-						font-size: 16px;
-						color: #000;
-						max-width: 155px;
-						cursor: pointer;
-						overflow: hidden;
-						white-space: nowrap;
-						text-overflow: ellipsis;
-					}
-					.signature{
-						max-width: 800px;
-						overflow: hidden;
-						white-space: nowrap;
-						text-overflow: ellipsis;
-					}
-				}
-				.subTitle {
-					margin-top: 6px;
-					display: flex;
-					align-items: center;
-				}
-			}
-			.item-center{
-				flex-shrink: 0;
-				flex:1;
-				.exophanie-item {
-					margin-top: 6px;
-					font-weight: bold;
-					width:200px;
-					cursor: pointer;
-					text-decoration-line: underline;
-					overflow: hidden;
-					        white-space: nowrap;
-					        text-overflow: ellipsis;
-				}
-			}
-			.item-right{
-				display: flex;
-				align-items: center;
-				.right-btn{
-					cursor: pointer;
-					display: flex;
-					align-items: center;
-					flex-direction: column;
-					color:rgba(35, 35, 35, 1);
-				}
-			}
+			
+		}
+	}
+	.icon {
+		width: 16px;
+		margin-right: 4px;
+		height: 16px;
+	}
+	.icon2 {
+		width: 18px;
+		margin-right: 4px;
+		height: 18px;
+	}
+	.item-left {
+		width: 500px;
+		display: flex;
+		flex-shrink: 0;
+		align-items: center;
+		
+	}
+	.linkIcon{
+		    display: flex;
+		    align-items: center;
+		    width: 32px;
+		    height: 32px;
+		    cursor: pointer;
+		    justify-content: center;
+	}
+	.left-icon{
+		flex-shrink: 0;
+		width: 32px;
+		height: 32px;
+		cursor: pointer;
+	}
+	.left-text{
+		margin-left: 16px;
+	}
+	.title-area {
+		display: flex;
+		align-items: center;
+		.title {
+			font-weight: bold;
+			font-size: 16px;
+			color: #000;
+			max-width: 155px;
+			cursor: pointer;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.signature{
+			max-width: 300px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+	}
+	.subTitle {
+		margin-top: 6px;
+		display: flex;
+		align-items: center;
+	}
+	.item-center{
+		flex-shrink: 0;
+		flex:1;
+		display:flex;
+		align-items: center;
+		
+		.exophanie-item {
+			margin-top: 6px;
+			font-weight: bold;
+			width:200px;
+			cursor: pointer;
+			text-decoration-line: underline;
+			overflow: hidden;
+			        white-space: nowrap;
+			        text-overflow: ellipsis;
+		}
+	}
+	.douyinId{
+		max-width: 300px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	.item-right{
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		.right-btn{
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			color:rgba(35, 35, 35, 1);
 		}
 	}
 	.pagination{
@@ -152,4 +164,12 @@
 			border:none!important;
 			outline:none!important;
 		}
+	}
+	.hide{
+		display: none;
+	}
+	.play{
+		position: fixed;
+		right:80px;
+		bottom:30px;
 	}

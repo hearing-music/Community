@@ -9,6 +9,7 @@ import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
 import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.component';
 import { EnlightenmentComponent } from './venus/enlightenment/enlightenment.component'
+import {JianyingComponent} from './jianying/jianying.component'
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
@@ -17,7 +18,6 @@ import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.compone
 import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-listenDaren.component';
 import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-listenVideo.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
-import { ConverterComponent } from './converter/converter.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
 import {FufuleidaComponent} from './fufuleida/fufuleida.component'
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
@@ -170,12 +170,6 @@ const routes: Routes = [{
 			component: PhotoIdentifyingTextComponent,
 			canActivate: [PermissionGuard]
 		},
-		// 文件转换
-		{
-			path: 'converter',
-			component: ConverterComponent,
-			canActivate: [PermissionGuard]
-		},
 		//听歌识曲
 		{
 			path: 'identification',
@@ -244,6 +238,12 @@ const routes: Routes = [{
 		{
 			path: 'venus/enlightenment',
 			component: EnlightenmentComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 剪映
+		{
+			path: 'jianying',
+			component: JianyingComponent,
 			canActivate: [PermissionGuard]
 		},
 		//用户管理

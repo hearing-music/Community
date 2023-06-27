@@ -566,4 +566,11 @@ export class ApiService {
 	    getfufuleida() {
 	        return this.http.get(this.baseUrl + '/fufuleida/GetDailyList')
 	    }
+		// 剪映
+		getJianying(params:any){
+			let {
+				webId
+			}=params
+			return this.http.get(this.baseUrl+'/jianying/GetTemplates?webId='+webId)
+		}
 }

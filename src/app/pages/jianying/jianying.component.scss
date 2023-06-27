@@ -1,0 +1,24 @@
+.jianying{
+	background-color: #fff;
+	border-radius: 12px;
+	padding: 20px;
+	min-height: calc(100vh - 4.75rem - 4rem);
+	position: relative;
+	.result{
+		border-radius: 4px;
+		border: 1px solid #ccc;
+		padding:12px;
+		.author{
+			display: flex;
+			align-items: center;
+			
+		}
+	}
+	.play{
+		display: flex;
+	}
+	.icon {
+		width: 18px;
+		height: 18px;
+	}
+}

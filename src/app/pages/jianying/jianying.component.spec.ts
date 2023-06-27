@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConverterComponent } from './converter.component';
+import { JianyingComponent } from './jianying.component';
 
-describe('ConverterComponent', () => {
-  let component: ConverterComponent;
-  let fixture: ComponentFixture<ConverterComponent>;
+describe('JianyingComponent', () => {
+  let component: JianyingComponent;
+  let fixture: ComponentFixture<JianyingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConverterComponent ]
+      declarations: [ JianyingComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConverterComponent);
+    fixture = TestBed.createComponent(JianyingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

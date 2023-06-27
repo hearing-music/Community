@@ -42,10 +42,10 @@ import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.compone
 import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-listenDaren.component';
 import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-listenVideo.component';
 import { IdentificationComponent } from './identification/identification.component';
-import { ConverterComponent } from './converter/converter.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
 import { RadarComponent } from './radar/radar.component';
 import { FufuleidaComponent } from './fufuleida/fufuleida.component';
+import { JianyingComponent } from './jianying/jianying.component';
 // componet
 import {EnlightenmentSongsComponent} from './venus/enlightenment-songs/enlightenment-songs.component'
 import { EnlightenmentTop20Component} from './search-songs/enlightenment-top20/enlightenment-top20.component'
@@ -153,9 +153,9 @@ registerLocaleData(zh);
 		DouyinListenDarenComponent,
 		DouyinListenVideoComponent,
 		FufuleidaComponent,
+		JianyingComponent,
 		ChatgptComponent,
 		IdentificationComponent,
-		ConverterComponent,
 		CopyrightScanningComponent,
 		RadarComponent,
 		QqComponent,

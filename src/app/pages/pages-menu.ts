@@ -9,7 +9,10 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	// { "menuList": [{ "type": "leftMenu", "value": {"title": '抖音',"icon": "cube","link": "/pages/douyin"}, "display": 1 },{ "type": "leftMenu", "value": {"title": "铃声多多","icon": "cube","link": "/pages/lsdd-page"}, "display": 1 },{ "type": "leftMenu", "value": {"title": "快手","icon": "cube","link": "/pages/kuaishou-searchindex",}, "display": 1 },{ "type": "headerMenu", "value": {"title":"官网","link":"http://www.tingjianmusic.top/"},"display":1 },{ "type":"headerMenu","value":{"title":"Telegram","link":"https://evgeny-nadymov.github.io/telegram-react/"}, "display": 1 }] }
 	{
 		title: 'QQ',
-		icon: 'cube',
+		icon: {
+			icon:'qq_icon',
+			pack:'my-icons',
+		},
 		children: [
 			{
 				title: '免费歌曲',
@@ -19,26 +22,27 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	},
 	{
 		title: '酷狗',
-		icon: 'cube',
+		icon: {
+			icon:'kg_icon',
+			pack:'my-icons',
+		},
 		children: [
-			// {
-			// 	title: '酷狗飙升榜',
-			// 	link: '/pages/kugou/kugou-soaring',
-			// },
 			{
 				title: '酷狗萤火',
 				link: '/pages/kugou/yinghuo',
 			},
 			{
 				title: '免费歌曲',
-				// icon: 'credit-card',
 				link: '/pages/kugou/free-songs',
 			},
 		],
 	},
 	{
 		title: '抖音',
-		icon: 'cube',
+		icon: {
+			icon:'dy_icon',
+			pack:'my-icons',
+		},
 		children: [
 			{
 				title: '抖音热点',
@@ -63,18 +67,11 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		],
 	},
 	{
-		title: '浮浮雷达',
-		icon: 'cube',
-		link: '/pages/fufuleida',
-	},
-	{
-		title: '铃声多多',
-		icon: 'cube',
-		link: '/pages/lsdd-page',
-	},
-	{
 		title: '快手',
-		icon: 'cube',
+		icon: {
+			icon:'ks_icon',
+			pack:'my-icons',
+		},
 		children: [
 			{
 				title: '快手',
@@ -89,6 +86,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
 				link: '/pages/sourcePhoto',
 			},
 		],
+	},
+	{
+		title: '浮浮雷达',
+		icon: {
+			icon:'ffld_icon',
+			pack:'my-icons',
+		},
+		link: '/pages/fufuleida',
 	},
 	{
 		title: '雷达音乐',
@@ -108,6 +113,36 @@ export let MENU_ITEMS: NbMenuItem[] = [
 				link: '/pages/venus/kugou-soaring',
 			},
 
+		],
+	},
+	{
+		title: '剪映',
+		icon: {
+			icon:'jy_icon',
+			pack:'my-icons',
+		},
+		link: '/pages/jianying',
+	},
+	{
+		title: '铃声多多',
+		icon: {
+			icon:'lsdd_icon',
+			pack:'my-icons',
+		},
+		link: '/pages/lsdd-page',
+	},
+	{
+		title: '监测歌曲',
+		icon: 'eye',
+		children: [
+			{
+				title: '添加监测歌曲',
+				link: '/pages/set-ranking',
+			},
+			{
+				title: '查询监测歌曲',
+				link: '/pages/get-ranking',
+			},
 		],
 	},
 	{
@@ -143,40 +178,19 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		icon: 'link-2',
 		link: '/pages/copyright-scanning',
 	},
-	// {
-	// 	title: '文件转换',
-	// 	icon: 'folder',
-	// 	link: '/pages/converter',
-	// },
-	// {
-	// 	title: '音乐工具',
-	// 	icon: 'clipboard',
-	// 	link: '/pages/musiry-tools',
-	// },
 	{
 		title: '听歌识曲',
 		icon: 'headphones',
 		link: '/pages/identification',
 	},
 	{
-		title: '监测歌曲',
-		icon: 'eye',
-		children: [
-			{
-				title: '添加监测歌曲',
-				link: '/pages/set-ranking',
-			},
-			{
-				title: '查询监测歌曲',
-				link: '/pages/get-ranking',
-			},
-		],
-	},
-	{
 		title: 'GPT3.5 Turbo',
 		icon: 'message-square',
 		link: '/pages/chatgpt',
 	},
+	
+	
+	
 	// {
 	// 	title: '西哩xili',
 	// 	icon: 'message-circle',

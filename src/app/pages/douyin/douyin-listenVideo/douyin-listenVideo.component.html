@@ -27,7 +27,10 @@
 		<tbody>
 			<ng-template ngFor let-item [ngForOf]="nestedTable.data">
 				<tr>
-					<td [(nzExpand)]="item.expand"></td>
+					<td [(nzExpand)]="item.expand">
+						<span (click)='playMusic(item)' *ngIf='!item.isplay&&item.originalSound' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+						<span (click)='pauseMusic(item)' *ngIf='item.isplay&&item.originalSound' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+					</td>
 					<td nzAlign='center'>{{item.previewTitle}}</td>
 					<td nzAlign='center'>{{item.title}}</td>
 					<td nzAlign='center' >
@@ -99,7 +102,7 @@
 								嗓音：<span class="value">{{item.Characteristics}}</span>
 							</div>
 						</div>
-						<div style="display: flex;" *ngIf='item.position!=0'>
+						<div style="display: flex;" *ngIf='item.position!=-1&&item.commentList[item.position].createTime'>
 							<div style="display: flex;align-items: center;">
 								评论人：
 								<span class="value" *ngIf='item.commentList[item.position].uid==item.commentSecUid||item.commentList[item.position].secUid==item.commentSecUid'>
@@ -108,7 +111,7 @@
 								<span class="value" style="color: red;" *ngIf='item.commentList[item.position].uid!=item.commentSecUid&&item.commentList[item.position].secUid!=item.commentSecUid'>
 									{{item.commentList[item.position].nickName}}
 								</span>
-								<img *ngIf='item.commentList[item.position].uid==item.commentSecUid||item.commentList[item.position].secUid==item.commentSecUid' src="../../../assets/img/zhengque.svg" class="icoc" />
+								<img *ngIf='item.commentList[item.position].uid==item.commentSecUid||item.commentList[item.position].secUid==item.commentSecUid' src="../../../assets/img/zhengque.svg" class="icon" />
 								<img *ngIf='item.commentList[item.position].uid!=item.commentSecUid&&item.commentList[item.position].secUid!=item.commentSecUid' src="../../../assets/img/cuowu.svg" class="icon" />
 							</div>
 							<div style="margin-left: 18px;">
@@ -121,7 +124,7 @@
 								时间：<span class="value">{{common.getTime(item.commentList[item.position].createTime*1000)}}</span>
 							</div>
 						</div>
-						<div style="display: flex;" *ngIf='item.position!=0'>
+						<div style="display: flex;" *ngIf='item.position!=-1&&item.commentList[item.position].createTime'>
 							<div>
 								位置：<span class="value">{{item.position}}</span>
 							</div>
@@ -210,6 +213,11 @@
 	<div class="pagination">
 		<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
 			(nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
+	</div>
+	<!-- 播放器 -->
+	<div class="play" [ngClass]="{hide : !isPlay}">
+		<audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()'>
+		</audio>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>
