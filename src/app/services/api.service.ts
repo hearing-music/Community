@@ -238,9 +238,10 @@ export class ApiService {
 		let {
 			page,
 			keyword,
-			type
+			type,
+			isdownload
 		} = params;
-		return this.http.get(this.baseUrl + "/douyin/douyin_getListenVideo?page=" + page+'&keyword='+keyword+'&type='+type)
+		return this.http.get(this.baseUrl + "/douyin/douyin_getListenVideo?page=" + page+'&keyword='+keyword+'&type='+type+'&isdownload='+isdownload)
 	}
 	// 听歌识曲
 	getIdentification(params: any) {

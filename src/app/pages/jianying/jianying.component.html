@@ -65,8 +65,14 @@
 			</div>
 		</div>
 		<div style="margin-top: 16px;display: flex;align-items: center;color: rgba(0,0,0,0.6);font-size: 14px;">
+			<div style="">
+				<span style="color: #000;">
+					产品id：
+				</span>
+				{{result.jsonStr.product_id}}
+			</div>
 			<span nz-tooltip [nzTooltipTitle]="'价格'">
-			<div style="display: flex;align-items: center;">
+			<div style="display: flex;align-items: center;margin-left: 14px;">
 				<img src="../../assets/img/price-blue.png" class="icon">
 				<div>
 					{{result.jsonStr.amount}}
@@ -75,45 +81,30 @@
 			</span>
 			<div style="margin-left: 14px;">
 				<span style="color: #000;">
-					产品id：
-				</span>
-				{{result.jsonStr.product_id}}
-			</div>
-			<div style="margin-left: 14px;">
-				<span style="color: #000;">
-					货币code：
+					货币类型：
 				</span>
 				{{result.jsonStr.currency_code}}
 			</div>
 			<div style="margin-left: 14px;">
 				<span style="color: #000;">
-					need_purchase：
+					是否付费：
 				</span>
-				{{result.jsonStr.need_purchase}}
+				<img *ngIf='result.jsonStr.need_purchase' src="../../assets/img/zhengque.svg" class="icon" />
+				<img *ngIf='!result.jsonStr.need_purchase' src="../../assets/img/cuowu.svg" class="icon" />
 			</div>
 			<div style="margin-left: 14px;">
 				<span style="color: #000;">
-					info_del：
+					是否需要广告解锁：
 				</span>
-				{{result.jsonStr.info_del}}
+				<img *ngIf='result.jsonStr.need_unlock_by_ad' src="../../assets/img/zhengque.svg" class="icon" />
+				<img *ngIf='!result.jsonStr.need_unlock_by_ad' src="../../assets/img/cuowu.svg" class="icon" />
 			</div>
 			<div style="margin-left: 14px;">
 				<span style="color: #000;">
-					need_unlock_by_ad：
+					是否需要VIP：
 				</span>
-				{{result.jsonStr.need_unlock_by_ad}}
-			</div>
-			<div style="margin-left: 14px;">
-				<span style="color: #000;">
-					countdown_type：
-				</span>
-				{{result.jsonStr.countdown_type}}
-			</div>
-			<div style="margin-left: 14px;">
-				<span style="color: #000;">
-					unblock_by_vip：
-				</span>
-				{{result.jsonStr.unblock_by_vip}}
+				<img *ngIf='result.jsonStr.unblock_by_vip' src="../../assets/img/zhengque.svg" class="icon" />
+				<img *ngIf='!result.jsonStr.unblock_by_vip' src="../../assets/img/cuowu.svg" class="icon" />
 			</div>
 		</div>
 		<div style="margin-top: 16px;display: flex;">

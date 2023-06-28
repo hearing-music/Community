@@ -3,7 +3,13 @@
 	<div style='margin-bottom:16px;display: flex;align-items: center;justify-content: space-between;'>
 		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
 		</ngx-search>
-		<nz-switch *ngIf='common.highUserList.indexOf(userId) != -1' [ngModel]="type" nzCheckedChildren="我的" nzUnCheckedChildren="全部" (ngModelChange)='ngModelChange()'></nz-switch>
+		<div style="display: flex;align-items: center;">
+			<button nz-button nzType="primary" style='margin-right: 20px;' (click)='exportXlsb()'>
+			      <span nz-icon nzType="download"></span>
+			      导出XLSB
+			    </button>
+			<nz-switch *ngIf='common.highUserList.indexOf(userId) != -1' [ngModel]="type" nzCheckedChildren="我的" nzUnCheckedChildren="全部" (ngModelChange)='ngModelChange()'></nz-switch>
+		</div>
 	</div>
 	<nz-table #nestedTable [nzData]="list" [nzFrontPagination]='false'>
 		<thead>

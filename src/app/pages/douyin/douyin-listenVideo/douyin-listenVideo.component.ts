@@ -3,6 +3,7 @@ import { ApiService } from "../../../services/api.service";
 import {CommonService} from "../../../services/common.service";
 import { NzMessageService  } from 'ng-zorro-antd/message';
 import { DomSanitizer } from '@angular/platform-browser';
+import * as XLSX from 'xlsx'
 @Component({
   selector: 'ngx-douyin-listenVideo',
   templateUrl: './douyin-listenVideo.component.html',
@@ -38,7 +39,7 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
   }
   douyin_getListenVideo(){
 	  this.loading = true;
-	  this.api.douyin_getListenVideo({page:this.page,keyword:this.searchValue,type:this.type?'我的':'全部'})
+	  this.api.douyin_getListenVideo({page:this.page,keyword:this.searchValue,type:this.type?'我的':'全部',isdownload:''})
 	  .subscribe((res: any) => {
 	  	console.log(res)
 		res.result.forEach((item:any)=>{
@@ -118,5 +119,78 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 	}
 	pauseMusic(item:any){
 		this.pause()
+	}
+	
+	
+	
+	
+	listAll:any=[]
+	exportXlsb(){
+		this.douyin_getListenVideoAll()
+	}
+	douyin_getListenVideoAll(){
+		  this.loading = true;
+		  this.api.douyin_getListenVideo({page:this.page,keyword:this.searchValue,type:this.type?'我的':'全部',isdownload:1})
+		  .subscribe((res: any) => {
+		  	console.log(res)
+			if(res.result.length==0){
+				this.message.info('没有数据可以导出')
+				return
+			}
+			res.result.forEach((item:any)=>{
+				item.homeUrl='https://www.douyin.com/user/'+item.SecUid
+				item.videoUrl = `https://www.douyin.com/user/${item.SecUid}?modal_id=${item.awemeId}`
+				item.admireCountArr = Object.values(item.admireCount)
+				item.admireCountKeys = Object.keys(item.admireCount)
+				item.collectCountArr = Object.values(item.collectCount)
+				item.commentCountArr = Object.values(item.commentCount)
+				item.diggCountArr = Object.values(item.diggCount)
+				item.playCountArr = Object.values(item.playCount)
+				item.shareCountArr = Object.values(item.shareCount)
+			})
+		  	this.loading = false;
+			this.listAll=res.result;
+			this.toXlsb()
+		  }, (err: any) => {
+		  	console.log(err)
+		  	this.loading = false;
+		  })
+	}
+	toXlsb(){
+		let titleArr = ["视频名", "声源","标签","视频发布时间","期望点赞","点赞","评论","收藏","分享","播放","待定","最后数据获取时间","博主名","视频链接","博主链接","博主获赞","博主粉丝",
+		"录入时间","归属人"]
+		let valueArr:any = []
+		this.listAll.forEach((item:any)=>{
+			valueArr.push([
+				item.previewTitle,
+				item.title,
+				item.textExtra,
+				this.common.getTime(item.createTime*1000),
+				item.expectations,
+				item.diggCountArr[item.diggCountArr.length-1],
+				item.commentCountArr[item.commentCountArr.length-1],
+				item.collectCountArr[item.collectCountArr.length-1],
+				item.shareCountArr[item.shareCountArr.length-1],
+				item.playCountArr[item.playCountArr.length-1],
+				item.admireCountArr[item.admireCountArr.length-1],
+				this.common.getTime(item.updateTime),
+				item.Nickname,
+				item.videoUrl,
+				item.homeUrl,
+				item.Clicklike,
+				item.Fans,
+				this.common.getTime(item.addTime),
+				item.username
+			])
+		})
+		var wb = XLSX.utils.book_new();
+		 var ws = XLSX.utils.aoa_to_sheet([ titleArr,...valueArr]);
+		 XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+		  var xlsbData = XLSX.write(wb, { bookType: "xlsb", type: "array" });
+		   var blob = new Blob([xlsbData], { type: "application/vnd.ms-excel.sheet.binary.macroenabled.12" });
+		   var downloadLink = document.createElement("a");
+		   downloadLink.href = URL.createObjectURL(blob);
+		   downloadLink.download = "DouYinVideoListen.xlsb";
+			downloadLink.click();
 	}
 }
