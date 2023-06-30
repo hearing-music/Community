@@ -221,6 +221,14 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/douyin/DouYinSearchVideoDetails?keyword=" + keyword+'&type='+type)
 	}
+	// 抖音批量搜索 视频id url
+	DouYinSearchVideoDetailsList(params:any){
+		let {
+			arr,
+			type
+		} = params;
+		return this.http.post(this.baseUrl + "/douyin/DouYinSearchVideoDetailsList", { arr,type })
+	}
 	// 抖音 视频是否被本人监控 并且必须监控该达人
 	douyin_videoisListen(params:any){
 		let {

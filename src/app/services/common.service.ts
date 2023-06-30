@@ -212,7 +212,10 @@ export class CommonService {
 		return m + ':' + s + '.' + ms
 	}
 	getDate(date: number | string) {
-		var time = new Date(Number(date));
+		if(!isNaN(Number(date))){
+			date = Number(date)
+		}
+		var time:any = new Date(date);
 		var year = time.getFullYear()  //年
 		var month = ("0" + (time.getMonth() + 1)).slice(-2); //月
 		var day = ("0" + time.getDate()).slice(-2); //日
