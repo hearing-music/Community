@@ -1,0 +1,84 @@
+<div class="kuaishou">
+	<div style="display: flex;justify-content: space-between;align-items: center;margin-bottom: 12px;">
+		<!-- 搜索 -->
+		<ngx-search [searchValue]='searchValue' [searchHolder]='"请搜索歌曲名或歌手"' (childSearch)='search($event)'>
+		</ngx-search>
+	</div>
+    <div class="kuaishou-left">
+       <nz-empty *ngIf="fufuleidaList.length==0" style="margin-top: 160px;"></nz-empty>
+        <div class="list">
+            <div class="list-item" *ngFor="let item of fufuleidaList;let i = index;">
+                <div class="item-left">
+                    <div style="font-size: 18px;color: #ccc;width: 35px;text-align: center;" *ngIf="i>2">
+                        {{i+1}}
+                    </div>
+                    <div *ngIf="i==0">
+                        <img src="../../../assets/img/first.png" alt="" style="width: 35px;">
+                    </div>
+                    <div *ngIf="i==1">
+                        <img src="../../../assets/img/second.png" alt="" style="width: 35px;">
+                    </div>
+                    <div *ngIf="i==2">
+                        <img src="../../../assets/img/third.png" alt="" style="width: 35px;">
+                    </div>
+                    <!-- <div class="left-avatar">
+                        <img [src]="item.cover" style="width: 100%;height: 100%;"
+                            onerror='this.src="/assets/img/imgError.png"' />
+                    </div> -->
+                    <div class="left-text">
+                        <div class="title-area">
+                            <!-- 歌名 -->
+                            <span nz-tooltip [nzTooltipTitle]="item.song_name">
+                                <div class="title u-line-1" (click)="common.copy(item.song_name)">
+                                    {{item.song_name}}
+                                </div>
+                            </span>
+                            <div style="margin-left: 10px;">
+                                作者：{{item.singer_name}}
+                            </div>
+                            <div style="margin-left: 15px;">
+                                专辑：{{item.album_name }}
+                            </div>
+                        </div>
+                        <div class="subTitle">
+                            <div style="display: flex;align-items: center;">
+                                {{item.public_time}}
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
+                                <div>
+                                    {{item.company}}
+                                </div>
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
+                                <div>
+                                    {{item.company_name}}
+                                </div>
+                               <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
+                                <div>
+                                    {{item.platform_id?'平台ID：'+item.platform_id:'' }}
+                                </div>
+                               <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
+                                <div>
+									{{item.tme_id?'tmeID：'+item.tme_id:'' }}
+                                </div>
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
+                                <div>
+									{{item.pay_mode?'付费模式：'+item.pay_mode:'' }}
+                                </div>
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
+                                <div style="display: flex;align-items: center;">
+									<img src="../../../assets/img/metric.svg" class="icon" />
+									<div>{{common.toThousands(item.key_metric)}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<!-- 分页 -->
+	<div class="pagination">
+		<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+			(nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

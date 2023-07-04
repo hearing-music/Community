@@ -1,9 +1,9 @@
 <div class="kuaishou">
-	<div style="text-align: right;padding-right: 12px;padding-bottom: 12px;">
+		<div style="text-align: right;padding-right: 12px;padding-bottom: 12px;">
 			{{update}}
-	</div>
+		</div>
     <div class="kuaishou-left">
-        <nz-empty *ngIf="!fufuleidaList" style="margin-top: 160px;"></nz-empty>
+        <nz-empty *ngIf="fufuleidaList.length==0" style="margin-top: 160px;"></nz-empty>
         <div class="list">
             <div class="list-item" *ngFor="let item of fufuleidaList;let i = index;" :key='item.id'>
                 <div class="item-left">
@@ -84,4 +84,5 @@
             </div>
         </div>
     </div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>

@@ -575,6 +575,9 @@ export class ApiService {
 	    getfufuleida() {
 	        return this.http.get(this.baseUrl + '/fufuleida/GetDailyList')
 	    }
+		getfufuleidaQuerySongs(params:any){
+			return this.http.get(this.baseUrl + '/fufuleida/QuerySongsResult?query_word='+params.keyword+'&page='+params.page)
+		}
 		// 剪映
 		getJianying(params:any){
 			let {

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FufuleidaComponent } from './fufuleida.component';
+import { FufuBillboardComponent } from './fufu-billboard.component';
 
-describe('FufuleidaComponent', () => {
-  let component: FufuleidaComponent;
-  let fixture: ComponentFixture<FufuleidaComponent>;
+describe('FufuBillboardComponent', () => {
+  let component: FufuBillboardComponent;
+  let fixture: ComponentFixture<FufuBillboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FufuleidaComponent ]
+      declarations: [ FufuBillboardComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FufuleidaComponent);
+    fixture = TestBed.createComponent(FufuBillboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
