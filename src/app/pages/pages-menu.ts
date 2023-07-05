@@ -93,16 +93,7 @@ export let MENU_ITEMS: NbMenuItem[] = [
 			icon:'ffld_icon',
 			pack:'my-icons',
 		},
-		children: [
-			{
-				title: '浮浮搜索',
-				link: '/pages/fufu-search',
-			},
-			{
-				title: '浮浮榜单',
-				link: '/pages/fufu-billboard',
-			},
-		],
+		link: '/pages/fufu-billboard',
 	},
 	{
 		title: '雷达音乐',

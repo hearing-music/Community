@@ -1,15 +1,8 @@
-<div class="kuaishou">
-	<div style="display: flex;justify-content: space-between;align-items: center;margin-bottom: 12px;">
-		<!-- 搜索 -->
-		<ngx-search [searchValue]='searchValue' [searchHolder]='"请搜索歌曲名或歌手"' (childSearch)='search($event)'>
-		</ngx-search>
-	</div>
-    <div class="kuaishou-left">
-       <nz-empty *ngIf="fufuleidaList.length==0" style="margin-top: 160px;"></nz-empty>
+       <nz-empty *ngIf="fufuList.length==0" style="margin-top: 160px;"></nz-empty>
         <div class="list">
-            <div class="list-item" *ngFor="let item of fufuleidaList;let i = index;">
+            <div class="list-item" *ngFor="let item of fufuList;let i = index;">
                 <div class="item-left">
-                    <div style="font-size: 18px;color: #ccc;width: 35px;text-align: center;" *ngIf="i>2">
+                    <!-- <div style="font-size: 18px;color: #ccc;width: 35px;text-align: center;" *ngIf="i>2">
                         {{i+1}}
                     </div>
                     <div *ngIf="i==0">
@@ -20,7 +13,7 @@
                     </div>
                     <div *ngIf="i==2">
                         <img src="../../../assets/img/third.png" alt="" style="width: 35px;">
-                    </div>
+                    </div> -->
                     <!-- <div class="left-avatar">
                         <img [src]="item.cover" style="width: 100%;height: 100%;"
                             onerror='this.src="/assets/img/imgError.png"' />
@@ -74,11 +67,3 @@
                 </div>
             </div>
         </div>
-    </div>
-	<!-- 分页 -->
-	<div class="pagination">
-		<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
-			(nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
-	</div>
-	<ngx-loading *ngIf='loading'></ngx-loading>
-</div>

@@ -44,7 +44,7 @@ import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-l
 import { IdentificationComponent } from './identification/identification.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
 import { RadarComponent } from './radar/radar.component';
-import { FufuSearchComponent } from './fufuleida/fufu-search/fufu-search.component';
+import { FufuSearchComponent } from './search-songs/fufu-search/fufu-search.component';
 import { FufuBillboardComponent } from './fufuleida/fufu-billboard/fufu-billboard.component';
 import { JianyingComponent } from './jianying/jianying.component';
 // componet

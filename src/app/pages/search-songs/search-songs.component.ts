@@ -48,6 +48,9 @@ export class SearchSongsComponent implements OnInit {
 	},{
 		name: '唱将音乐',
 		holder: '唱将音乐搜索'
+	},{
+		name: '浮浮雷达',
+		holder: '浮浮雷达搜索'
 	}]
 	selectItem = 'QQ音乐';
 	searchValue = '';
@@ -75,6 +78,26 @@ export class SearchSongsComponent implements OnInit {
 	enlightenmentPage = 1;
 	enlightenmentTotal = 0;
 	enlightenmentList : any[]=[]
+	
+	fufuPage=1;
+	fufuTotal=0;
+	fufuList : any[]= []
+	fufuPageNext(e:any){
+		  this.fufuPage = e;
+		  this.getfufuleidaQuerySongs()
+	}
+	getfufuleidaQuerySongs() {
+		  this.loading = true;
+	  this.api.getfufuleidaQuerySongs({keyword:this.searchValue,page:this.fufuPage}).subscribe((res: any) => {
+	    this.fufuList = res.data
+		this.fufuTotal = res.total
+	    console.log(res)
+		  this.loading = false;
+	  }, (err: any) => {
+		console.log(err)
+		this.loading = false;
+		})
+	}
 	enlightenmentPageNext(e: any) {
 		this.enlightenmentPage = e;
 		this.searchEnlightenmentSongs()
@@ -239,6 +262,7 @@ export class SearchSongsComponent implements OnInit {
 		this.wangyiyunPage = 1;
 		this.lsddPage = 1;
 		this.enlightenmentPage =1;
+		this.fufuPage =1;
 		this.loading = true;
 		if (this.selectItem == 'QQ音乐') {
 			this.searchQQ()
@@ -260,6 +284,9 @@ export class SearchSongsComponent implements OnInit {
 		}
 		if(this.selectItem == '唱将音乐'){
 			this.searchEnlightenmentSongs()
+		}
+		if(this.selectItem == '浮浮雷达'){
+			this.getfufuleidaQuerySongs()
 		}
 	}
 	searchKuwo() {

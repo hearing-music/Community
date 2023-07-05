@@ -19,6 +19,7 @@
 		<ngx-wangyiyun *ngIf='selectItem=="网易云"' [wangyiyunList]="wangyiyunList"></ngx-wangyiyun>
 		<ngx-lsdd *ngIf='selectItem=="铃声多多"' [lsddList]="lsddList" (change)="lsddSrcChange($event)"></ngx-lsdd>
 		<ngx-enlightenment-top20 *ngIf='selectItem=="唱将音乐"' [enlightenmentList]="enlightenmentList"></ngx-enlightenment-top20>
+		<ngx-fufu-search *ngIf='selectItem=="浮浮雷达"' [fufuList]="fufuList"></ngx-fufu-search>
 	</div>
 	<!-- 分页 -->
 	<div class="pagination">
@@ -32,6 +33,8 @@
 			(click)='wangyiyunPageNext()' style="cursor: pointer;"></span>
 		<nz-pagination *ngIf='selectItem=="唱将音乐"&&enlightenmentList.length>0' [nzPageIndex]="enlightenmentPage" [nzPageSize]='20' [nzTotal]="enlightenmentTotal"
 			(nzPageIndexChange)='enlightenmentPageNext($event)' nzShowQuickJumper></nz-pagination>
+			<nz-pagination *ngIf='selectItem=="浮浮雷达"&&fufuList.length>0' [nzPageIndex]="fufuPage" [nzPageSize]='20' [nzTotal]="fufuTotal"
+				(nzPageIndexChange)='fufuPageNext($event)' nzShowQuickJumper></nz-pagination>
 		<!-- <span *ngIf='selectItem=="铃声多多"&&lsddList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='lsddPageNext()' style="cursor: pointer;"></span> -->
 	</div>

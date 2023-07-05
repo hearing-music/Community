@@ -19,7 +19,6 @@ import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-l
 import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-listenVideo.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
-import {FufuSearchComponent} from './fufuleida/fufu-search/fufu-search.component'
 import {FufuBillboardComponent} from './fufuleida/fufu-billboard/fufu-billboard.component'
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
 import { IdentificationComponent } from './identification/identification.component';
@@ -118,11 +117,6 @@ const routes: Routes = [{
 			canActivate: [PermissionGuard]
 		},
 		//浮浮雷达
-		{
-			path: 'fufu-search',
-			component: FufuSearchComponent,
-			canActivate: [PermissionGuard]
-		},
 		{
 			path: 'fufu-billboard',
 			component: FufuBillboardComponent,
