@@ -9,7 +9,7 @@ import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
 import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.component';
 import { EnlightenmentComponent } from './venus/enlightenment/enlightenment.component'
-import {JianyingComponent} from './jianying/jianying.component'
+import { JianyingComponent } from './jianying/jianying.component'
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
@@ -19,7 +19,7 @@ import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-l
 import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-listenVideo.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
-import {FufuBillboardComponent} from './fufuleida/fufu-billboard/fufu-billboard.component'
+import { FufuBillboardComponent } from './fufuleida/fufu-billboard/fufu-billboard.component'
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
@@ -40,6 +40,7 @@ import { OggToMp3Component } from './audio-conversion/ogg-to-mp3/ogg-to-mp3.comp
 import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.component'
 import { UserManagementComponent } from './user-management/user-management.component';
 import { RadarComponent } from './radar/radar.component'
+import { ToMvComponent } from './to-mv/to-mv.component';
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -244,6 +245,12 @@ const routes: Routes = [{
 		{
 			path: 'jianying',
 			component: JianyingComponent,
+			canActivate: [PermissionGuard]
+		},
+		//生成mv
+		{
+			path: 'to-mv',
+			component: ToMvComponent,
 			canActivate: [PermissionGuard]
 		},
 		//用户管理

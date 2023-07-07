@@ -3,14 +3,14 @@ import { ApiService } from '../../../services/api.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import {CommonService} from "../../../services/common.service";
 @Component({
-  selector: 'ngx-fufu-search',
-  templateUrl: './fufu-search.component.html',
-  styleUrls: ['./fufu-search.component.scss']
+  selector: 'ngx-fufu-hot',
+  templateUrl: './fufu-hot.component.html',
+  styleUrls: ['./fufu-hot.component.scss']
 })
 
-export class FufuSearchComponent implements OnInit {
+export class FufuHotComponent implements OnInit {
   constructor(public api: ApiService, private message: NzMessageService,public common: CommonService,) { }
-  @Input() fufuList: any;
+  @Input() fufuHotList: any;
   ngOnInit(): void {
     
   }

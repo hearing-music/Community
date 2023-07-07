@@ -49,8 +49,14 @@ export class SearchSongsComponent implements OnInit {
 		name: '唱将音乐',
 		holder: '唱将音乐搜索'
 	},{
-		name: '浮浮雷达',
-		holder: '浮浮雷达搜索'
+		name: '雷达音乐',
+		holder: '雷达音乐搜索'
+	},{
+		name: '雷达热搜',
+		holder: '雷达热搜搜索'
+	},{
+		name: '雷达艺人',
+		holder: '雷达艺人搜索'
 	}]
 	selectItem = 'QQ音乐';
 	searchValue = '';
@@ -82,6 +88,51 @@ export class SearchSongsComponent implements OnInit {
 	fufuPage=1;
 	fufuTotal=0;
 	fufuList : any[]= []
+	
+	
+	fufuHotPage=1;
+	fufuHotTotal=0;
+	fufuHotList : any[]= []
+	
+	fufuSingerPage=1;
+	fufuSingerTotal=0;
+	fufuSingerList : any[]= []
+	
+	fufuSingerPageNext(e:any){
+		  this.fufuSingerPage = e;
+		  this.getfufuleidaQuerySingers()
+	}
+	getfufuleidaQuerySingers(){
+		this.loading = true;
+		this.api.getfufuleidaQuerySingers({keyword:this.searchValue,page:this.fufuSingerPage}).subscribe((res: any) => {
+		  this.fufuSingerList = res.data
+				this.fufuSingerTotal = res.total
+		  console.log(res)
+				  this.loading = false;
+		}, (err: any) => {
+				console.log(err)
+				this.loading = false;
+				})
+	}
+	
+	
+	fufuHotPageNext(e:any){
+		  this.fufuHotPage = e;
+		  this.getfufuleidaQueryHotSongs()
+	}
+	getfufuleidaQueryHotSongs(){
+		this.loading = true;
+		this.api.getfufuleidaQueryHotSongs({keyword:this.searchValue,page:this.fufuHotPage}).subscribe((res: any) => {
+		  this.fufuHotList = res.data
+				this.fufuHotTotal = res.total
+		  console.log(res)
+				  this.loading = false;
+		}, (err: any) => {
+				console.log(err)
+				this.loading = false;
+				})
+	}
+	
 	fufuPageNext(e:any){
 		  this.fufuPage = e;
 		  this.getfufuleidaQuerySongs()
@@ -285,8 +336,14 @@ export class SearchSongsComponent implements OnInit {
 		if(this.selectItem == '唱将音乐'){
 			this.searchEnlightenmentSongs()
 		}
-		if(this.selectItem == '浮浮雷达'){
+		if(this.selectItem == '雷达音乐'){
 			this.getfufuleidaQuerySongs()
+		}
+		if(this.selectItem == '雷达热搜'){
+			this.getfufuleidaQueryHotSongs()
+		}
+		if(this.selectItem == '雷达艺人'){
+			this.getfufuleidaQuerySingers()
 		}
 	}
 	searchKuwo() {

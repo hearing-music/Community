@@ -575,8 +575,17 @@ export class ApiService {
 	getfufuleida() {
 		return this.http.get(this.baseUrl + '/fufuleida/GetDailyList')
 	}
+	// 雷达音乐 搜索
 	getfufuleidaQuerySongs(params: any) {
 		return this.http.get(this.baseUrl + '/fufuleida/QuerySongsResult?query_word=' + params.keyword + '&page=' + params.page)
+	}
+	// 雷达音乐热 搜索
+	getfufuleidaQueryHotSongs(params:any){
+		return this.http.get(this.baseUrl + '/fufuleida/QueryHotSearchTermsResult?query_word=' + params.keyword + '&page=' + params.page)
+	}
+	// 雷达音乐艺人 搜索
+	getfufuleidaQuerySingers(params:any){
+		return this.http.get(this.baseUrl + '/fufuleida/QueryArtisteResult?query_word=' + params.keyword + '&page=' + params.page)
 	}
 	// 剪映
 	getJianying(params: any) {
@@ -585,24 +594,24 @@ export class ApiService {
 		} = params
 		return this.http.get(this.baseUrl + '/jianying/GetTemplates?webId=' + webId)
 	}
-	// 下载文件
-	downloadFile(params: any) {
-		let {
-			path,
-			type
-		} = params;
-		return this.http.get(this.baseUrl + '/articles/downloadFile/' + path + '?flag=download&type=' + type)
-	}
-	// 合成mv
-	createMV(params: any) {
-		let {
-			zip,
-		} = params;
-		const formData: FormData = new FormData();
-		for(let i = 0;i<zip.length;i++){
-			formData.append('zip', zip[i]);
-		}
-		let url = this.baseUrl + '/articles/createMV'
-		return this.http.post(url, formData);
-	}
+	   // 下载文件
+	    downloadFile(params: any) {
+	        let {
+	            path,
+	            type
+	        } = params;
+	        return this.http.get(this.baseUrl + '/articles/downloadFile/' + path + '?flag=download&type=' + type)
+	    }
+	    // 合成mv
+	    createMV(params: any) {
+	        let {
+	            zip,
+	        } = params;
+	        const formData: FormData = new FormData();
+	        for (let i = 0; i < zip.length; i++){
+	            formData.append('zip', zip[i]);
+	        }
+	        let url = this.baseUrl + '/articles/createMV'
+	        return this.http.post(url, formData);
+	    }
 }

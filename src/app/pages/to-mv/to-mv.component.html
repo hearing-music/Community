@@ -1,0 +1,24 @@
+<div class="to-mv">
+  <div>
+    <div style="margin-bottom: 15px;color: #969494;">
+      上传文件为mp4视频、lrc歌词、mp3的原唱和伴奏的zip压缩文件
+    </div>
+    <span nz-tooltip nzTooltipTitle="文件支持多选">
+      <ngx-upload-file multiple="true" (onFileChild)='onFile($event)'></ngx-upload-file>
+    </span>
+  </div>
+  <div *ngIf="downloadList!=0">
+    <div *ngFor="let item of downloadList" class="downLoadBox"  (click)="download(item)">
+      <div class="downLoadText" *ngIf="item.success">
+        {{item.result}}
+      </div>
+      <div class="downLoadButton" *ngIf="item.success">
+        <i nz-icon nzType="download" nzTheme="outline" style="line-height: 50px;cursor: pointer;"></i>
+      </div>
+      <div class="ToErro" *ngIf="!item.success">
+        {{item.message}}
+      </div>
+    </div>
+  </div>
+  <ngx-loading *ngIf='loading'></ngx-loading>
+</div>

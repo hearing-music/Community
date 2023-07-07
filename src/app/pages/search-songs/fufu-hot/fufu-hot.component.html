@@ -1,0 +1,47 @@
+       <nz-empty *ngIf="fufuHotList.length==0" style="margin-top: 160px;"></nz-empty>
+        <div class="list">
+            <div class="list-item" *ngFor="let item of fufuHotList;let i = index;">
+                <div class="item-left">
+                    <div class="left-text">
+                        <div class="title-area">
+                            <!-- 歌名 -->
+                            <span nz-tooltip [nzTooltipTitle]="item.query_word">
+                                <div class="title u-line-1" (click)="common.copy(item.query_word)">
+                                    {{item.query_word}}
+                                </div>
+                            </span>
+                           
+                        </div>
+                        
+                    </div>
+                </div>
+				<div class="item-left" style="display: block;">
+					<div>
+						<span style="color:#000;">近1H搜索量：</span>{{common.toThousands(item.pv_1)}}
+					</div>
+					<div>
+						<span style="color:#000;">近24H搜索量：</span>{{common.toThousands(item.pv_24)}}
+					</div>
+				</div>
+				<div class="item-left" style="display: block;">
+					<div>
+						<span style="color:#000;">匹配歌曲名称：</span>{{item.song_name}}
+					</div>
+					<div>
+						<span style="color:#000;">匹配歌手名称：</span>{{item.singer_name}}
+					</div>
+					<span nz-tooltip [nzTooltipTitle]="'点击复制'" [nzTooltipArrowPointAtCenter]='false'>
+					<div style="cursor: pointer;" (click)='common.copy(item.tme_id)'>
+						<span style="color:#000;">匹配歌曲中央曲库ID：</span>{{item.tme_id}}
+					</div>
+					</span>
+				</div>
+            </div>
+        </div>
+		
+		<ng-template #payMode>
+		   <div>1=1.0</div>
+		   <div>2=2.0</div>
+		   <div>3=3.0</div>
+		   <div>其他=免费</div>
+		</ng-template>

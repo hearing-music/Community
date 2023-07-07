@@ -1,0 +1,49 @@
+       <nz-empty *ngIf="fufuSingerList.length==0" style="margin-top: 160px;"></nz-empty>
+        <div class="list">
+            <div class="list-item" *ngFor="let item of fufuSingerList;let i = index;">
+                <div class="item-left">
+                    <div class="left-avatar">
+                        <img [src]="item.fsinger_photo_url" style="width: 100%;height: 100%;"
+                            onerror='this.src="/assets/img/imgError.png"' />
+                    </div>
+                    <div class="left-text">
+                        <div class="title-area">
+                            <!-- 艺人名字 -->
+                            <span nz-tooltip [nzTooltipTitle]="item.fsinger_name">
+                                <div class="title u-line-1" (click)="common.copy(item.fsinger_name)">
+                                    {{item.fsinger_name}}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="subTitle">
+                            <div style="display: flex;align-items: center;">
+								<span nz-tooltip [nzTooltipTitle]="'地区'">
+								<div>
+									{{item.fsinger_area}}
+								</div>
+								</span>
+                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
+								<span nz-tooltip [nzTooltipTitle]="'等级'">
+                                <div>
+                                    {{item.fsinger_grade}}
+                                </div>
+								</span>
+								<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
+								<span nz-tooltip [nzTooltipTitle]="'ID 点击复制'">
+								<div style="cursor: pointer;" (click)="common.copy(item.fsinger_id)">
+									{{item.fsinger_id?'id：'+item.fsinger_id:''}}
+								</div>
+								</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		<ng-template #payMode>
+		   <div>1=1.0</div>
+		   <div>2=2.0</div>
+		   <div>3=3.0</div>
+		   <div>其他=免费</div>
+		</ng-template>

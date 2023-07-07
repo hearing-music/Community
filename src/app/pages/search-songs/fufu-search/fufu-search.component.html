@@ -37,33 +37,40 @@
                             <div style="display: flex;align-items: center;">
                                 {{item.public_time}}
                                 <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
+								<span nz-tooltip [nzTooltipTitle]="'录音版权公司'">
                                 <div>
                                     {{item.company}}
                                 </div>
-                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
-                                <div>
-                                    {{item.company_name}}
-                                </div>
+								</span>
                                <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
-                                <div>
-                                    {{item.platform_id?'平台ID：'+item.platform_id:'' }}
-                                </div>
-                               <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
-                                <div>
+							   <span nz-tooltip [nzTooltipTitle]="'中央曲库ID 点击复制'">
+                                <div (click)='common.copy(item.tme_id)' style="cursor: pointer;">
 									{{item.tme_id?'tmeID：'+item.tme_id:'' }}
                                 </div>
+								</span>
                                 <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
+								<span nz-tooltip [nzTooltipTitle]="payMode">
                                 <div>
 									{{item.pay_mode?'付费模式：'+item.pay_mode:'' }}
                                 </div>
+								</span>
                                 <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
+								<span nz-tooltip [nzTooltipTitle]="'近1小时TME播放量，仅供参考'">
                                 <div style="display: flex;align-items: center;">
-									<img src="../../../assets/img/metric.svg" class="icon" />
+									<img src="../../../assets/img/erji.png" class="icon" />
 									<div>{{common.toThousands(item.key_metric)}}</div>
                                 </div>
+								</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+		
+		<ng-template #payMode>
+		   <div>1=1.0</div>
+		   <div>2=2.0</div>
+		   <div>3=3.0</div>
+		   <div>其他=免费</div>
+		</ng-template>

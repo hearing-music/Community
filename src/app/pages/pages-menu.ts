@@ -159,6 +159,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
 			},
 		],
 	},
+	    {
+	        title: '生成mv',
+	        icon: {
+	            icon:'mv',
+	            pack:'my-icons',
+	        },
+	        link: '/pages/to-mv',
+	    },
 	{
 		title: '文字识别',
 		icon: 'text',
