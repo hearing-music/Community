@@ -606,11 +606,13 @@ export class ApiService {
 	    createMV(params: any) {
 	        let {
 	            zip,
+				type
 	        } = params;
 	        const formData: FormData = new FormData();
 	        for (let i = 0; i < zip.length; i++){
 	            formData.append('zip', zip[i]);
 	        }
+			formData.append('type',type);
 	        let url = this.baseUrl + '/articles/createMV'
 	        return this.http.post(url, formData);
 	    }

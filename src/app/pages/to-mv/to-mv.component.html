@@ -3,6 +3,13 @@
     <div style="margin-bottom: 15px;color: #969494;">
       上传文件为mp4视频、lrc歌词、mp3的原唱和伴奏的zip压缩文件
     </div>
+	<div>
+		选择生成模式
+		<nz-select [nzDropdownMatchSelectWidth]='false' [(ngModel)]="type" nzPlaceHolder="选择生成模式" >
+			<nz-option [nzValue]="'ktv'" [nzLabel]="'ktv'"></nz-option>
+			<nz-option [nzValue]="'mv'" [nzLabel]="'mv'"></nz-option>
+		</nz-select>
+	</div>
     <span nz-tooltip nzTooltipTitle="文件支持多选">
       <ngx-upload-file multiple="true" (onFileChild)='onFile($event)'></ngx-upload-file>
     </span>
