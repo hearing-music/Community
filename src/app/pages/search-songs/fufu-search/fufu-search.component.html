@@ -21,9 +21,9 @@
                     <div class="left-text">
                         <div class="title-area">
                             <!-- 歌名 -->
-                            <span nz-tooltip [nzTooltipTitle]="item.song_name">
+                            <span nz-tooltip [nzTooltipTitle]="item.song_name+(item.fsrc_version?'  版本:' +item.fsrc_version:'')">
                                 <div class="title u-line-1" (click)="common.copy(item.song_name)">
-                                    {{item.song_name}}
+                                    {{item.song_name}} <span style="font-size:14px;">{{item.fsrc_version}}</span>
                                 </div>
                             </span>
                             <div style="margin-left: 10px;">

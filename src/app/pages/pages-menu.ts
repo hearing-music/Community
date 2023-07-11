@@ -18,6 +18,10 @@ export let MENU_ITEMS: NbMenuItem[] = [
 				title: '免费歌曲',
 				link: '/pages/qq/free-songs',
 			},
+			{
+				title: '标签',
+				link: '/pages/qq/qq-label',
+			},
 		],
 	},
 	{

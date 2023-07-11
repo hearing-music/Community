@@ -41,6 +41,9 @@ import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.comp
 import { UserManagementComponent } from './user-management/user-management.component';
 import { RadarComponent } from './radar/radar.component'
 import { ToMvComponent } from './to-mv/to-mv.component';
+import { QqLabelComponent } from './qq/qq-label/qq-label.component';
+import { SingerLabelComponent } from './qq/qq-label/singer-label/singer-label.component';
+import { SongListLabelComponent } from './qq/qq-label/song-list-label/song-list-label.component';
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -73,6 +76,24 @@ const routes: Routes = [{
 		{
 			path: 'qq/free-songs',
 			component: FreeSongs_qqComponent,
+			canActivate: [PermissionGuard]
+		},
+		// qq 标签
+		{
+			path: 'qq/qq-label',
+			component: QqLabelComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 歌手标签
+		{
+			path: 'qq/qq-label/singerLabel/:id',
+			component: SingerLabelComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 歌单标签
+		{
+			path: 'qq/qq-label/songListLabel/:id',
+			component: SongListLabelComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 酷狗萤火

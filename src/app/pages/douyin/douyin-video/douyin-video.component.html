@@ -35,7 +35,7 @@
 					<div class="item-left">
 						<div class="left-text" style="margin-left: 0;">
 							<div class="title-area">
-								<div class="title" style="max-width: 500px;font-size: 15px;"
+								<div class="title" style="max-width: 470px;font-size: 15px;"
 									(click)='goHomeUrl(item.videoUrl)'>
 									<span nz-tooltip [nzTooltipTitle]="item.previewTitle">
 										{{item.previewTitle}}
@@ -204,10 +204,18 @@
 						{{item.url?'url：'+item.url:''}}
 					</div>
 				</div>
-				<!-- 播放器 -->
-				<div class="play" [ngClass]="{hide : !isPlay}">
-					<audio [id]='"audio"+i' controls [src]="item.originalSound" (play)='play2(i)' (pause)='pause2(i)'>
-					</audio>
+				<div style="display: flex;align-items: center;">
+					<!-- 播放器 -->
+					<div class="play" [ngClass]="{hide : !isPlay}">
+						<audio [id]='"audio"+i' controls [src]="item.originalSound" (play)='play2(i)' (pause)='pause2(i)'>
+						</audio>
+					</div>
+					<button *ngIf='item.isVideo' nz-button nzType="primary" style='margin-left: 20px;' (click)='playVideo(item.originalSound,item.previewTitle)' nzGhost>
+						播放视频
+					</button>
+					<button [disabled]='true' *ngIf='!item.isVideo' nz-button nzType="primary" style='margin-left: 20px;' nzGhost>
+						该条是图文
+					</button>
 				</div>
 			</div>
 		</div>
@@ -221,7 +229,7 @@
 					<div class="item-left">
 						<div class="left-text" style="margin-left: 0;">
 							<div class="title-area">
-								<div class="title" style="max-width: 500px;font-size: 15px;"
+								<div class="title" style="max-width: 470px;font-size: 15px;"
 									(click)='goHomeUrl(result.videoUrl)'>
 									<span nz-tooltip [nzTooltipTitle]="result.previewTitle">
 										{{result.previewTitle}}
@@ -379,10 +387,18 @@
 						</div>
 					</div>
 				</div>
-				<!-- 播放器 -->
-				<div class="play" [ngClass]="{hide : !isPlay}">
-					<audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()'>
-					</audio>
+				<div style="display: flex;align-items: center;">
+					<!-- 播放器 -->
+					<div class="play" [ngClass]="{hide : !isPlay}">
+						<audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()'>
+						</audio>
+					</div>
+					<button *ngIf='result.isVideo' nz-button nzType="primary" style='margin-left: 20px;' (click)='playVideo(audioSrc,result.previewTitle)' nzGhost>
+						播放视频
+					</button>
+					<button [disabled]='true' *ngIf='!result.isVideo' nz-button nzType="primary" style='margin-left: 20px;' nzGhost>
+						该条是图文
+					</button>
 				</div>
 			</div>
 		
@@ -403,8 +419,14 @@
 			</div>
 		</div>
 	</div>
-	
-
+	<nz-modal [(nzVisible)]="videoShow" [nzFooter]='null' (nzOnCancel)='closeVideo()' [nzClosable]='false'
+		[nzTitle]="videoTitle">
+		<ng-container *nzModalContent>
+			<div style="display: flex;justify-content: center;">
+				<video  [src]="videoSrc" style="width: 260px;" id='v' controls></video>
+			</div>
+		</ng-container>
+	</nz-modal>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 	<!-- 监控视频 -->
 	<nz-modal [(nzVisible)]="isVisible2" [nzFooter]='null' (nzOnCancel)='handleCancel2()' [nzClosable]='false'

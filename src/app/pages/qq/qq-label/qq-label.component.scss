@@ -1,0 +1,24 @@
+.label{
+    background-color: #fff;
+	border-radius: 12px;
+	height: 100%;
+	min-height: calc(100vh - 4.75rem - 4rem);
+	padding: 20px;
+	color: #000;
+    .QqSinger{
+        .singerTittle{
+            font-size: 25px;
+        }
+        .singerInner:hover{
+            background-color: #9fc68f;
+        }
+    }
+    .QqSongList{
+        .songListTittle{
+            font-size: 25px;
+        }
+        .singerListInner:hover{
+            background-color: #9fc68f;
+        }
+    }
+}

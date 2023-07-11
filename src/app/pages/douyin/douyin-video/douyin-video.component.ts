@@ -297,8 +297,17 @@ export class DouyinVideoComponent implements OnInit {
 		let audio: any = document.getElementById('audio'+i)
 		audio.pause()
 	}
-
-
+	videoSrc:any=''
+	videoShow = false;
+	videoTitle=''
+	playVideo(src:any,title:any){
+		this.videoTitle = title;
+		this.videoSrc = src;
+		this.videoShow = true;
+	}
+	closeVideo(){
+		this.videoShow = false;
+	}
 	excelSearch() {
 		var inputElement = document.createElement('input');
 		// 设置input的type为file

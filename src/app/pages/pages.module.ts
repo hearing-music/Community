@@ -105,6 +105,9 @@ import zh from '@angular/common/locales/zh';
 import { DYComponent } from './radar/dy/dy.component';
 import { RSComponent } from './radar/rs/rs.component';
 import { WYComponent } from './radar/wy/wy.component';
+import { QqLabelComponent } from './qq/qq-label/qq-label.component';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { SongListLabelComponent } from './qq/qq-label/song-list-label/song-list-label.component';
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -136,7 +139,8 @@ registerLocaleData(zh);
 		MiscellaneousModule,
 		NzProgressModule,
 		NzDrawerModule,
-		NzInputModule
+		NzInputModule,
+		NzCardModule
 	],
 	declarations: [
 		EnlightenmentSongsComponent,
@@ -210,7 +214,9 @@ registerLocaleData(zh);
 		DYComponent,
 		RSComponent,
 		WYComponent,
-		ToMvComponent
+		ToMvComponent,
+		QqLabelComponent,
+  SongListLabelComponent,
 	],
 })
 export class PagesModule {

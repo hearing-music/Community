@@ -1,0 +1,17 @@
+<div class="label">
+    <div class="QqSinger">
+        <div class="singerList">
+            <nz-card nzTitle="歌手" nzBorderless="true" style="margin-bottom: 15px;">
+                <div nz-card-grid  [ngStyle]="SingerStyle" *ngFor="let item of singer" class="singerInner" (click)="ToSonger(item)">{{item.Alphabet}}</div>
+              </nz-card>
+        </div>
+    </div>
+    <div class="QqSongList">
+        <div class="singerList">
+            <nz-card nzTitle="歌单" nzBorderless="true">
+                <div nz-card-grid  [ngStyle]="singerListStyle" *ngFor="let item of song_list" class="singerListInner" (click)="ToSongList(item)">{{item.topics}}</div>
+              </nz-card>
+        </div>
+    </div>
+    <ngx-loading *ngIf='loading'></ngx-loading>
+</div>

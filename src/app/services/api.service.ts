@@ -38,6 +38,14 @@ export class ApiService {
 		let url = this.baseUrl + '/qq/freeSongs?page=' + page + '&pageSize=' + pageSize + '&keyword=' + keyword + '&type=' + type + '&newly=' + newly
 		return this.http.get(url)
 	}
+	// qq 免费歌手 歌曲列表 标签 
+	getQq_freeSongsLabel(params:any){
+		let {
+			label
+		} = params;
+		let url = this.baseUrl + '/qq/freeSongsLabel?Label=' + label 
+		return this.http.get(url)
+	}
 	// 根据mid获取 收听 指数 排名
 	getQq_exponent(params: any) {
 		let {
