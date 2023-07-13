@@ -85,8 +85,8 @@
 				<div class="subTitle">
 					<!-- 歌手 发行时间 -->
 					<div style="display: flex;align-items: center;">
-						<div>
-							{{common.deleteEM(item.singers[0].name)}}
+						<div *ngFor="let s of item.singers;let si = index;">
+							{{common.deleteEM(s.name)}}{{si!=item.singers.length-1?'、':''}}
 						</div>
 					</div>
 					<!-- 图标 -->
