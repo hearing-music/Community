@@ -8,6 +8,7 @@ import { FreeSongs_qqComponent } from './qq/free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
 import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.component';
+import { AutoSearchComponent } from './kugou/auto-search/auto-search.component';
 import { EnlightenmentComponent } from './venus/enlightenment/enlightenment.component'
 import { JianyingComponent } from './jianying/jianying.component'
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
@@ -44,6 +45,7 @@ import { ToMvComponent } from './to-mv/to-mv.component';
 import { QqLabelComponent } from './qq/qq-label/qq-label.component';
 import { SingerLabelComponent } from './qq/qq-label/singer-label/singer-label.component';
 import { SongListLabelComponent } from './qq/qq-label/song-list-label/song-list-label.component';
+import { MappingComponent } from './mapping/mapping.component';
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -100,6 +102,12 @@ const routes: Routes = [{
 		{
 			path: 'kugou/yinghuo',
 			component: YinghuoComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 酷狗自动搜索
+		{
+			path: 'kugou/auto-search',
+			component: AutoSearchComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 酷狗免费歌曲
@@ -236,6 +244,12 @@ const routes: Routes = [{
 		{
 			path: 'chatgpt',
 			component: ChatgptComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 画图
+		{
+			path: 'mapping',
+			component: MappingComponent,
 			canActivate: [PermissionGuard]
 		},
 		// xilixili

@@ -90,6 +90,7 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 	
 	audioSrc:any=''
 	isPlay:any=false
+	audioErr:any=false;
 	play() {
 		let audio: any = document.getElementById('audio')
 		audio.play()
@@ -106,16 +107,35 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 			item.isplay=false;
 		})
 	}
+	error(e:any){
+		if(this.audioSrc){
+			this.audioErr = true;
+		}
+	}
+	reloadAudio(item:any){
+		this.loading = true;
+		this.api.getDouyinAudio({awemeId:item.awemeId})
+		.subscribe((res: any) => {
+			console.log(res)
+			item.originalSound = res.result.originalSound;
+			this.audioErr = false;
+			this.loading = false;
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
 	playMusic(item:any){
-		this.isPlay = true;
-		this.audioSrc = item.originalSound
-		setTimeout(() => {
-			this.list.forEach((item:any)=>{
-				item.isplay=false;
-			})
-			item.isplay=true;
-			this.play()
-		},50)
+			this.isPlay = true;
+			this.audioSrc = item.originalSound
+			setTimeout(() => {
+				this.list.forEach((item:any)=>{
+					item.isplay=false;
+				})
+				item.isplay=true;
+				this.play()
+			},50)
+		
 	}
 	pauseMusic(item:any){
 		this.pause()

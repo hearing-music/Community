@@ -4,8 +4,8 @@
 			QQ免费歌曲
 		</div>
 		<div style="display: flex;align-items: center;">
-			<label nz-checkbox [(ngModel)]="checked" (ngModelChange)='ngModelChangeCheckBox($event)'>新增歌曲</label>
-			<div style="width: 16px;"></div>
+			<!-- <label nz-checkbox [(ngModel)]="checked" (ngModelChange)='ngModelChangeCheckBox($event)'>新增歌曲</label> -->
+			<!-- <div style="width: 16px;"></div> -->
 			<nz-select style="width: 120px;" [(ngModel)]="type" (ngModelChange)='ngModelChange($event)'>
 				<nz-option *ngFor="let item of typeList;" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
 			</nz-select>
@@ -18,9 +18,10 @@
 	<nz-table #basicTable [nzData]="list" nzTitle='' [nzFrontPagination]='false'>
 		<thead>
 			<tr>
+				<th nzAlign='center'></th>
 				<th nzAlign='center'>歌曲名称</th>
-				<th nzAlign='center'>专辑名称</th>
-				<th nzAlign='center'>歌手名称</th>
+				<!-- <th nzAlign='center'>专辑名称</th> -->
+				<!-- <th nzAlign='center'>歌手名称</th> -->
 				<th nzAlign='center'>发行公司</th>
 				<th nzAlign='center'>发行时间</th>
 				<th nzAlign='center'>评论数</th>
@@ -33,17 +34,21 @@
 		</thead>
 		<tbody>
 			<tr *ngFor="let item of basicTable.data; let i = index">
-				<td nzAlign='center' style="cursor: pointer;" (click)='copy(item.songname)'>
+				<td nzAlign='center'>
+					<span (click)='playMusic(item)' *ngIf='!item.isplay&&item.musicUrl' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+					<span (click)='pauseMusic(item)' *ngIf='item.isplay&&item.musicUrl' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='copy(item.name)'>
 					<span nz-tooltip [nzTooltipTitle]="'点击复制'">
-						{{item.songname}}
+						{{item.name}}
 					</span>
 				</td>
-				<td nzAlign='center' >
+				<!-- <td nzAlign='center' >
 					{{item.albumname?item.albumname:''}}
 				</td>
 				<td nzAlign='center'>
 					{{item.singername?item.singername:''}}
-				</td>
+				</td> -->
 				<td nzAlign='center' style="color:rgba(0, 0, 0, 0.6);font-size: 12px;">
 					<div style="text-decoration: underline;cursor: pointer;" (click)='openCompay(item.publisher_id)'>
 						{{item.publisher?'外显：'+item.publisher:''}}
@@ -54,7 +59,7 @@
 					</div>
 				</td>
 				<td nzAlign='center' >
-					{{common.getDate(item.time_public)}}
+					{{item.time_public?common.getDate(item.time_public):'无'}}
 				</td>
 				<td nzAlign='center' >
 					{{common.toThousands(item.comment_count)}}
@@ -103,4 +108,9 @@
 			(nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
+	<!-- 播放器 -->
+	<div class="play" [ngClass]="{playhide : !isPlay}">
+		<audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()'>
+		</audio>
+	</div>
 </div>

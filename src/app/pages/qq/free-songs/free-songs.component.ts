@@ -16,7 +16,7 @@ export class FreeSongs_qqComponent implements OnInit {
   loading=false;
   	pageCurrent=1;
   	pageSize=50;
-  	pageTotal=50;
+  	pageTotal=0;
   	searchValue='';
   	searchHolder='搜索歌曲名'
   	list:any=[];
@@ -24,7 +24,7 @@ export class FreeSongs_qqComponent implements OnInit {
   	typeList = [{
   		name:'歌曲名',
   	},{
-  		name:'歌手Mid'
+  		name:'歌曲Mid'
   	}]
   	checked=false
   	nzPageIndexChange(e:any){
@@ -32,7 +32,7 @@ export class FreeSongs_qqComponent implements OnInit {
   		this.getQq_freeSongs()
   	}
   	openLink(item:any) {
-		let url = 'https://y.qq.com/n/ryqq/songDetail/'+item.songmid+'/'
+		let url = 'https://y.qq.com/n/ryqq/songDetail/'+item.mid+'/'
   		window.open(url)
   	}
 	openCompay(id:any){
@@ -45,7 +45,7 @@ export class FreeSongs_qqComponent implements OnInit {
   	reloadExponent(item:any){
   		this.loading = true;
   		this.api.getQq_exponent({
-  			songmid:item.songmid,
+  			songmid:item.mid,
 			keyword:item.songname
   		}).subscribe((res: any) => {
   			this.loading = false;
@@ -69,7 +69,7 @@ export class FreeSongs_qqComponent implements OnInit {
   		if(this.type == '歌曲名'){
   			this.searchHolder = '搜索歌曲名'
   		}else{
-  			this.searchHolder = '搜索歌手Mid'
+  			this.searchHolder = '搜索歌曲Mid'
   		}
   	}
   	ngModelChangeCheckBox(e:any){
@@ -102,4 +102,36 @@ export class FreeSongs_qqComponent implements OnInit {
   			this.loading = false;
   		})
   	}
+	audioSrc:any=''
+	isPlay:any=false
+	play() {
+		let audio: any = document.getElementById('audio')
+		audio.play()
+		this.list.forEach((item:any)=>{
+			if(item.musicUrl==this.audioSrc){
+				item.isplay=true;
+			}
+		})
+	}
+	pause() {
+		let audio: any = document.getElementById('audio')
+		audio.pause()
+		this.list.forEach((item:any)=>{
+			item.isplay=false;
+		})
+	}
+	playMusic(item:any){
+		this.isPlay = true;
+		this.audioSrc = item.musicUrl
+		setTimeout(() => {
+			this.list.forEach((item:any)=>{
+				item.isplay=false;
+			})
+			item.isplay=true;
+			this.play()
+		},50)
+	}
+	pauseMusic(item:any){
+		this.pause()
+	}
 }

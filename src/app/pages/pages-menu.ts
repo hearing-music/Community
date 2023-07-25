@@ -39,6 +39,10 @@ export let MENU_ITEMS: NbMenuItem[] = [
 				title: '免费歌曲',
 				link: '/pages/kugou/free-songs',
 			},
+			{
+				title: '自动搜索',
+				link: '/pages/kugou/auto-search',
+			},
 		],
 	},
 	{
@@ -200,6 +204,11 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		icon: 'message-square',
 		link: '/pages/chatgpt',
 	},
+	// {
+	// 	title: 'maaping',
+	// 	icon: 'message-square',
+	// 	link: '/pages/mapping',
+	// },
 	
 	
 	

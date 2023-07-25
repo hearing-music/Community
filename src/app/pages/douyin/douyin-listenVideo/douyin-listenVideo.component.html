@@ -34,8 +34,11 @@
 			<ng-template ngFor let-item [ngForOf]="nestedTable.data">
 				<tr>
 					<td [(nzExpand)]="item.expand">
-						<span (click)='playMusic(item)' *ngIf='!item.isplay&&item.originalSound' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
-						<span (click)='pauseMusic(item)' *ngIf='item.isplay&&item.originalSound' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+						<span (click)='playMusic(item)' *ngIf='!audioErr&&!item.isplay&&item.originalSound' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+						<span (click)='pauseMusic(item)' *ngIf='!audioErr&&item.isplay&&item.originalSound' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+						<button *ngIf='audioErr&&item.originalSound==audioSrc' nz-button nzType="primary" nzSize='small' (click)='reloadAudio(item)'>
+						    重新加载
+						</button>
 					</td>
 					<td nzAlign='center'>{{item.previewTitle}}</td>
 					<td nzAlign='center'>{{item.title}}</td>
@@ -222,7 +225,7 @@
 	</div>
 	<!-- 播放器 -->
 	<div class="play" [ngClass]="{hide : !isPlay}">
-		<audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()'>
+		<audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()' (error)='error($event)'>
 		</audio>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>

@@ -51,6 +51,7 @@ import { FufuBillboardComponent } from './fufuleida/fufu-billboard/fufu-billboar
 import { JianyingComponent } from './jianying/jianying.component';
 import { ToMvComponent } from './to-mv/to-mv.component';
 // componet
+import { MappingComponent } from './mapping/mapping.component';
 import {EnlightenmentSongsComponent} from './venus/enlightenment-songs/enlightenment-songs.component'
 import { EnlightenmentTop20Component} from './search-songs/enlightenment-top20/enlightenment-top20.component'
 import { QqComponent } from './search-songs/qq/qq.component';
@@ -76,6 +77,7 @@ import { ChatgptComponent } from './chatgpt/chatgpt.component';
 import { CopyrightSearchComponent } from './copyright-scanning/copyright-search/copyright-search.component';
 import { CopyrightCheckComponent } from './copyright-scanning/copyright-check/copyright-check.component';
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
+import { AutoSearchComponent } from './kugou/auto-search/auto-search.component';
 import { NotOpenComponent } from '../components/not-open/not-open.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { TemplateComponent } from './lsdd-page/template/template.component';
@@ -143,6 +145,7 @@ registerLocaleData(zh);
 		NzCardModule
 	],
 	declarations: [
+		MappingComponent,
 		EnlightenmentSongsComponent,
 		EnlightenmentTop20Component,
 		OggToMp3Component,
@@ -154,6 +157,7 @@ registerLocaleData(zh);
 		SearchPageComponent,
 		QuerySonglistComponent,
 		KugouSoaringComponent,
+		AutoSearchComponent,
 		EnlightenmentComponent,
 		DouyinVideoComponent,
 		DouyinHotComponent,

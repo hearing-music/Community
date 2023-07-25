@@ -259,6 +259,10 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/douyin/douyin_getListenVideo?page=" + page + '&keyword=' + keyword + '&type=' + type + '&isdownload=' + isdownload)
 	}
+	// 重新获取抖音audio地址 并存入库中
+	getDouyinAudio(params:any){
+		return this.http.get(this.baseUrl + "/douyin/getDouyinAudio?awemeId="+params.awemeId)
+	}
 	// 听歌识曲
 	getIdentification(params: any) {
 		let {
