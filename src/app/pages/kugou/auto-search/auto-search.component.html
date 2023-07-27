@@ -1,3 +1,88 @@
 <div class="autoSearch">
-	
+  <div class="inputBox">
+    <div class="input">
+      <span class="inputName">歌曲名:</span>
+      <input
+        nz-input
+        placeholder="歌曲名"
+        nzSize="default"
+        [(ngModel)]="songName"
+        [disabled]="isFinish"
+        style="border-radius: 5px; margin-top: 3px"
+      />
+    </div>
+    <div class="input">
+      <span class="inputName">歌手名:</span>
+      <input
+        nz-input
+        placeholder="歌手名"
+        nzSize="default"
+        [(ngModel)]="singerName"
+        [disabled]="isFinish"
+        style="border-radius: 5px; margin-top: 3px"
+      />
+    </div>
+    <div class="input">
+      <span class="inputName">歌曲地址:</span>
+      <input
+        nz-input
+        placeholder="歌曲地址"
+        nzSize="default"
+        [(ngModel)]="playLink"
+        [disabled]="isFinish"
+        style="border-radius: 5px; margin-top: 3px"
+      />
+    </div>
+    <div class="input">
+      <span class="inputName">时间:</span>
+      <input
+        nz-input
+        placeholder="时间"
+        nzSize="default"
+        [(ngModel)]="playTime"
+        [disabled]="isFinish"
+        style="border-radius: 5px; margin-top: 3px"
+      />
+    </div>
+    <div class="input">
+      <span class="inputName">循环次数:</span>
+      <input
+        nz-input
+        placeholder="循环次数"
+        nzSize="default"
+        [(ngModel)]="playCount"
+        [disabled]="isFinish"
+        style="border-radius: 5px; margin-top: 3px"
+      />
+    </div>
+    <div class="input">
+      <button
+        nz-button
+        nzType="primary"
+        nzBlock
+        (click)="requestNum()"
+        [disabled]="isFinish"
+      >
+        提交
+      </button>
+    </div>
+  </div>
+  <div class="terminal">
+    <div>
+      <div
+        class="terminalCard"
+        *ngFor="let item of requestMessage; let i = index"
+      >
+        <div>第{{ i + 1 }}次</div>
+        <div>{{ item.result.proxy }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="nzProgress">
+    <nz-progress
+      [nzPercent]="completionProgress"
+      [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"
+    ></nz-progress>
+  </div>
+  <ngx-loading *ngIf="loading"></ngx-loading>
 </div>

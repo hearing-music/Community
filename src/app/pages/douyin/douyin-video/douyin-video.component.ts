@@ -127,11 +127,24 @@ export class DouyinVideoComponent implements OnInit {
 		}
 		if (this.type == "链接搜索") {
 			let index = v.indexOf('modal_id=')
-			if (index == -1) {
+			let index2 = v.indexOf('https://www.douyin.com/video/')
+			if (index == -1&&index2==-1) {
 				this.message.error('链接格式错误')
 				return
 			}
-			v = v.substr(index + 9)
+			if(index!=-1){
+				v = v.substr(index + 9)
+				let index3 = v.indexOf('&');
+				if(index3!=-1){
+					v = v.substr(0,index3)
+				}
+			}else if(index2!=-1){
+				v = v.substr(index2 + 29)
+				let index4 = v.indexOf('?');
+				if(index4!=-1){
+					v = v.substr(0,index4)
+				}
+			}
 		}
 		if (this.type == "ID搜索" && isNaN(Number(v))) {
 			this.message.error('ID格式错误')

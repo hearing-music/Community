@@ -45,7 +45,7 @@ import { ToMvComponent } from './to-mv/to-mv.component';
 import { QqLabelComponent } from './qq/qq-label/qq-label.component';
 import { SingerLabelComponent } from './qq/qq-label/singer-label/singer-label.component';
 import { SongListLabelComponent } from './qq/qq-label/song-list-label/song-list-label.component';
-import { MappingComponent } from './mapping/mapping.component';
+import { MermaidComponent } from './mermaid/mermaid.component';
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -248,8 +248,8 @@ const routes: Routes = [{
 		},
 		// 画图
 		{
-			path: 'mapping',
-			component: MappingComponent,
+			path: 'mermaid',
+			component: MermaidComponent,
 			canActivate: [PermissionGuard]
 		},
 		// xilixili

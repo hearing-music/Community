@@ -387,6 +387,17 @@ export class ApiService {
 		let url = this.baseUrl + '/qq_kugou/getqq_kugouKeywordInfo?mid=' + mid + '&scid=' + scid
 		return this.http.get(url)
 	}
+	 //酷狗刷搜索
+	  kuGouAutoSearch(params: any) {
+	    let { songName, singerName, playLink, playTime } = params;
+	    const formData: FormData = new FormData();
+	    formData.append("songName", songName);
+	    formData.append("singerName", singerName);
+	    formData.append("playLink", playLink);
+	    formData.append("playTime", playTime);
+	    let url = this.baseUrl + "/kugou/kuGouAutoSearch";
+	    return this.http.post(url, formData);
+	  }
 	//加入ranking数据
 	setqq_kugouKeywordInfo(params: any) {
 		let url = this.baseUrl + '/qq_kugou/setqq_kugouKeywordInfo'

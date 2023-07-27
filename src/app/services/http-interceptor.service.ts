@@ -56,7 +56,13 @@ export class HttpInterceptorService implements HttpInterceptor {
 			  }
 			  if(!response.body.success){
 					if(response.body.message){
-						this.message.error(response.body.message)
+						if(typeof response.body.message=='object'){
+							response.body.message = JSON.stringify(response.body.message)
+						}
+						// 这些接口不弹窗
+						if(!req.url.includes(`kugou/kuGouAutoSearch`)){
+							this.message.error(response.body.message)
+						}
 					}
 					if(response.body.code == 380){
 						// 返回登录页面

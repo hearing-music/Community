@@ -170,7 +170,7 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	    {
 	        title: '生成mv',
 	        icon: {
-	            icon:'mv',
+	            icon:'mv_icon',
 	            pack:'my-icons',
 	        },
 	        link: '/pages/to-mv',
@@ -204,11 +204,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		icon: 'message-square',
 		link: '/pages/chatgpt',
 	},
-	// {
-	// 	title: 'maaping',
-	// 	icon: 'message-square',
-	// 	link: '/pages/mapping',
-	// },
+	{
+		title: 'mermaid',
+		icon: {
+			icon:'mermaid_icon',
+			pack:'my-icons',
+		},
+		link: '/pages/mermaid',
+	},
 	
 	
 	

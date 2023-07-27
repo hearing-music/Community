@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MappingComponent } from './mapping.component';
+import { MermaidComponent } from './mermaid.component';
 
-describe('MappingComponent', () => {
-  let component: MappingComponent;
-  let fixture: ComponentFixture<MappingComponent>;
+describe('MermaidComponent', () => {
+  let component: MermaidComponent;
+  let fixture: ComponentFixture<MermaidComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MappingComponent ]
+      declarations: [ MermaidComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MappingComponent);
+    fixture = TestBed.createComponent(MermaidComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

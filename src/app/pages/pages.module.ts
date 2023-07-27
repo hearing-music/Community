@@ -51,7 +51,7 @@ import { FufuBillboardComponent } from './fufuleida/fufu-billboard/fufu-billboar
 import { JianyingComponent } from './jianying/jianying.component';
 import { ToMvComponent } from './to-mv/to-mv.component';
 // componet
-import { MappingComponent } from './mapping/mapping.component';
+import { MermaidComponent } from './mermaid/mermaid.component';
 import {EnlightenmentSongsComponent} from './venus/enlightenment-songs/enlightenment-songs.component'
 import { EnlightenmentTop20Component} from './search-songs/enlightenment-top20/enlightenment-top20.component'
 import { QqComponent } from './search-songs/qq/qq.component';
@@ -145,7 +145,7 @@ registerLocaleData(zh);
 		NzCardModule
 	],
 	declarations: [
-		MappingComponent,
+		MermaidComponent,
 		EnlightenmentSongsComponent,
 		EnlightenmentTop20Component,
 		OggToMp3Component,
