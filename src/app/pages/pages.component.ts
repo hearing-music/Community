@@ -2,6 +2,7 @@ import { Component,OnInit,NgZone } from '@angular/core';
 
 import { MENU_ITEMS } from './pages-menu';
 import {CommonService} from "../services/common.service";
+import { driver } from "driver.js";
 @Component({
   selector: 'ngx-pages',
   styleUrls: ['pages.component.scss'],
@@ -23,6 +24,20 @@ export class PagesComponent implements OnInit {
 	ngOnInit(): void {
 		console.log('pageinit')
 		this.menuChange()
+		setTimeout(()=>{
+			const driverObj = driver({
+			  showProgress: true,
+		 	  allowClose:false,
+			  showButtons: ['next', 'previous'],
+			  steps: [
+				  { element: '.tagList-item:nth-child(1)', popover: { title: 'Import the Library', description: 'It works the same in vanilla JavaScript as well as frameworks.', side: "bottom", align: 'start' }},
+				  { element: '.sidebar-toggle', popover: { title: 'Import the Library', description: 'It works the same in vanilla JavaScript as well as frameworks.', side: "bottom", align: 'start' }},
+			    { element: '.scrollable', popover: { title: 'Animated Tour Example', description: 'Here is the code example showing animated tour. Let\'s walk you through it.', side: "right", align: 'start' }},
+			  ]
+			});
+			
+			driverObj.drive();
+		},2000)
 	}
 	menuChange(){
 		if(!this.common.checkAdmin()){

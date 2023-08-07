@@ -165,9 +165,19 @@
 		</div>
 		<div class="item-right">
 			<div style="display: flex;align-items: center;justify-content: flex-end;">
-				<!-- 收藏图标 -->
-				<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
-				<div>{{'-'}}</div>
+				<div (click)='common.copy(item.FileHash)' style="max-width: 85px;
+					cursor: pointer;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;">
+					FileHash:{{item.FileHash}}
+				</div>
+				<div style="margin: 0 8px;"> | </div>
+				<div style="display: flex;align-items: center;">
+					<!-- 收藏图标 -->
+					<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
+					<div>{{'-'}}</div>
+				</div>
 			</div>
 			<div style="display: flex;align-items: center;margin-top: 6px;">
 				<!-- 播放量 -->
