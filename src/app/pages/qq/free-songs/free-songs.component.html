@@ -20,8 +20,8 @@
 			<tr>
 				<th nzAlign='center'></th>
 				<th nzAlign='center'>歌曲名称</th>
-				<!-- <th nzAlign='center'>专辑名称</th> -->
-				<!-- <th nzAlign='center'>歌手名称</th> -->
+				<th nzAlign='center'>专辑名称</th>
+				<th nzAlign='center'>歌手名称</th>
 				<th nzAlign='center'>发行公司</th>
 				<th nzAlign='center'>发行时间</th>
 				<th nzAlign='center'>评论数</th>
@@ -43,12 +43,16 @@
 						{{item.name}}
 					</span>
 				</td>
-				<!-- <td nzAlign='center' >
-					{{item.albumname?item.albumname:''}}
+				<td nzAlign='center'>
+					<div (click)='openAlbum(item.album.mid)' style="color:rgba(0, 0, 0, 0.6);cursor: pointer;text-decoration: underline;">
+						{{item.album?item.album.name:''}}
+					</div>
 				</td>
 				<td nzAlign='center'>
-					{{item.singername?item.singername:''}}
-				</td> -->
+					<div *ngFor="let s of item.singer;" style="color:rgba(0, 0, 0, 0.6);cursor: pointer;text-decoration: underline;" (click)='openSinger(s.mid)'>
+						{{s.name?s.name:''}}
+					</div>
+				</td>
 				<td nzAlign='center' style="color:rgba(0, 0, 0, 0.6);font-size: 12px;">
 					<div style="text-decoration: underline;cursor: pointer;" (click)='openCompay(item.publisher_id)'>
 						{{item.publisher?'外显：'+item.publisher:''}}

@@ -84,11 +84,14 @@
 				</div>
 				<div class="subTitle">
 					<!-- 歌手 发行时间 -->
-					<div style="display: flex;align-items: center;">
-						<div *ngFor="let s of item.singers;let si = index;">
-							{{common.deleteEM(s.name)}}{{si!=item.singers.length-1?'、':''}}
+					<span nz-tooltip [nzTooltipTitle]="item.singerNames">
+						<div style="display: flex;align-items: center;max-width: 145px;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;">
+							{{item.singerNames}}
 						</div>
-					</div>
+					</span>
 					<!-- 图标 -->
 					<div style="display: flex;margin-left: 8px;align-items: center;">
 						<!-- 钱币图标 -->

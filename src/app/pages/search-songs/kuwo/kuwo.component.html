@@ -28,9 +28,14 @@
 				<div class="subTitle">
 					<!-- 歌手 发行时间 -->
 					<div style="display: flex;align-items: center;">
-						<div>
-							{{item.artist}}
-						</div>
+							<span nz-tooltip [nzTooltipTitle]="item.artist">
+								<div style="max-width: 150px;
+										overflow: hidden;
+										white-space: nowrap;
+										text-overflow: ellipsis;">
+									{{item.artist}}
+								</div>
+							</span>
 						<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
 						<div>
 							{{item.releaseDate}}

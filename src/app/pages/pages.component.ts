@@ -1,12 +1,12 @@
-import { Component,OnInit,NgZone } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 
 import { MENU_ITEMS } from './pages-menu';
-import {CommonService} from "../services/common.service";
+import { CommonService } from "../services/common.service";
 import { driver } from "driver.js";
 @Component({
-  selector: 'ngx-pages',
-  styleUrls: ['pages.component.scss'],
-  template: `
+	selector: 'ngx-pages',
+	styleUrls: ['pages.component.scss'],
+	template: `
     <ngx-one-column-layout>
       <nb-menu [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
@@ -14,46 +14,56 @@ import { driver } from "driver.js";
   `,
 })
 export class PagesComponent implements OnInit {
-	constructor(public common: CommonService,private ngZone:NgZone) {
+	constructor(public common: CommonService, private ngZone: NgZone) {
 		window["NgAppRef2"] = { component: this, zone: this.ngZone };
 	}
 	// 刷新更新左侧菜单
-	leftMenuUpdate(){
+	leftMenuUpdate() {
 		this.menuChange()
 	}
 	ngOnInit(): void {
 		console.log('pageinit')
 		this.menuChange()
-		setTimeout(()=>{
-			const driverObj = driver({
-			  showProgress: true,
-		 	  allowClose:false,
-			  showButtons: ['next', 'previous'],
-			  steps: [
-				  { element: '.tagList-item:nth-child(1)', popover: { title: 'Import the Library', description: 'It works the same in vanilla JavaScript as well as frameworks.', side: "bottom", align: 'start' }},
-				  { element: '.sidebar-toggle', popover: { title: 'Import the Library', description: 'It works the same in vanilla JavaScript as well as frameworks.', side: "bottom", align: 'start' }},
-			    { element: '.scrollable', popover: { title: 'Animated Tour Example', description: 'Here is the code example showing animated tour. Let\'s walk you through it.', side: "right", align: 'start' }},
-			  ]
-			});
-			
-			driverObj.drive();
-		},2000)
+		this.driverFunction()
 	}
-	menuChange(){
-		if(!this.common.checkAdmin()){
-			let menus_item:any = localStorage.getItem('menus_item')
+	driverFunction(){
+		let guideShow = localStorage.getItem('guideShow') || '';
+		let create_at:any = localStorage.getItem('create_at') || 0;
+		create_at = create_at-0
+		let now = new Date().getTime();
+		if(guideShow=='1'&&create_at+(7*24*60*60*1000)>=now){
+			setTimeout(() => {
+				const driverObj = driver({
+					showProgress: true,
+					allowClose: false,
+					showButtons: ['next', 'previous'],
+					steps: [
+						// { element: '.tagList-item:nth-child(1)', popover: { title: '实打实', description: '这是杀害实打实大大缓解', side: "bottom", align: 'start' } },
+						{ element: '.fixed', popover: { title: '标题1', description: '内容1', side: "bottom", align: 'center' } },
+						{ element: '.scrollable', popover: { title: '标题2', description: '内容2', side: "right", align: 'start' } },
+						{ element: '.home', popover: { title: '标题3', description: '内容3', side: "bottom", align: 'start' } },
+					]
+				});
+				localStorage.setItem('guideShow','2')
+				driverObj.drive();
+			}, 10)
+		}
+	}
+	menuChange() {
+		if (!this.common.checkAdmin()) {
+			let menus_item: any = localStorage.getItem('menus_item')
 			menus_item = JSON.parse(menus_item)
 			let list = menus_item.menuList || [];
 			let arr = []
-			for(let i = 0;i<list.length;i++){
-				if(list[i].display == 1&&list[i].type=='leftMenu'){
+			for (let i = 0; i < list.length; i++) {
+				if (list[i].display == 1 && list[i].type == 'leftMenu') {
 					arr.push(list[i].value)
 				}
 			}
 			this.menu = arr;
-		}else{
+		} else {
 			this.menu = MENU_ITEMS;
 		}
 	}
-  menu = [];
+	menu = [];
 }

@@ -83,6 +83,7 @@ export class LoginComponent implements OnInit {
 			console.log(res)
 			document.onkeydown = null
 			if (res.success) {
+				localStorage.setItem('guideShow', '1')
 				localStorage.setItem('phone', this.phone)
 				localStorage.setItem('userId', res.result.userId)
 				localStorage.setItem('token', res.result.token)
@@ -91,6 +92,7 @@ export class LoginComponent implements OnInit {
 				localStorage.setItem('permission_name', res.result.permission_name)
 				localStorage.setItem('username', res.result.username)
 				localStorage.setItem('menus_item', JSON.stringify(res.result.menus_item))
+				localStorage.setItem('create_at', res.result.create_at)
 				localStorage.setItem('url', res.result.url)
 				this.authService.isLoggedIn = true;
 				const redirectUrl = this.authService.redirectUrl || '/'; // 防止用户直接在地址栏输入造成的redirectUrl为空的错误

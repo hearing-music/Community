@@ -393,8 +393,10 @@ export class CommonService {
 	}
 	deleteEM(str: string) {
 		if (str === '') return ''
-		str = str.replace('<em>', '')
-		str = str.replace('</em>', '')
+		let reg1 = new RegExp('<em>', "g");
+		let reg2 = new RegExp('</em>', "g");
+		str = str.replace(reg1, '')
+		str = str.replace(reg2, '')
 		return str;
 	}
 	toThousands(num: any) {

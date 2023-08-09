@@ -64,10 +64,10 @@
 						</div>
 					</td>
 					<td nzAlign='center'>
-						<div *ngIf='item.qq_song_name == common.deleteEM(item.kg_song_name)'>
+						<div *ngIf='item.qq_song_name == common.deleteEM(item.kg_song_name) || common.deleteEM(item.kg_song_name)==item.qq_song_title'>
 							{{item.qq_song_name}}
 						</div>
-						<div class="flexCcenter" *ngIf='item.qq_song_name != common.deleteEM(item.kg_song_name)'>
+						<div class="flexCcenter" *ngIf='item.qq_song_name != common.deleteEM(item.kg_song_name)&&common.deleteEM(item.kg_song_name)!=item.qq_song_title'>
 							<div class="qq">
 								{{item.qq_song_name}}
 							</div>
@@ -271,7 +271,7 @@
 	</nz-table>
 	<div style="display: flex;justify-content: center;padding-bottom: 10px;">
 		<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
-			(nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
+			(nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>

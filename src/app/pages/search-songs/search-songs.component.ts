@@ -392,6 +392,12 @@ export class SearchSongsComponent implements OnInit {
 			console.log(res)
 			if(res.success){
 				res.result.forEach((item: any) => {
+					let names:any = ''
+					item.singers.forEach((sitem:any)=>{
+						names+=sitem.name+'、'
+					})
+					names=names.substr(0,names.length-1)
+					item.singerNames = names
 					item.topinfo = item.topinfo || {}
 					item.playinfo = item.playinfo || {}
 					item.isPlay = false;
@@ -434,6 +440,14 @@ export class SearchSongsComponent implements OnInit {
 			this.loading = false;
 			console.log(res)
 			if (res.success) {
+				res.result.forEach((item:any)=>{
+					let names:any = ''
+					item.singers.forEach((sitem:any)=>{
+						names+=this.common.deleteEM(sitem.name)+'、'
+					})
+					names=names.substr(0,names.length-1)
+					item.singerNames = names
+				})
 				if (this.kugouV3Page == 1) {
 					this.kugouV3List = res.result;
 				} else {

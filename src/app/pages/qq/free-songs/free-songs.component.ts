@@ -39,6 +39,14 @@ export class FreeSongs_qqComponent implements OnInit {
 		let url = 'https://y.qq.com/portal/company_detail.html?id='+id+'#sort=1&type=album'
 		window.open(url)
 	}
+	openSinger(mid:any){
+		let url = `https://y.qq.com/n/ryqq/singer/${mid}`
+		window.open(url)
+	}
+	openAlbum(mid:any){
+		let url = `https://y.qq.com/n/ryqq/albumDetail/${mid}`
+		window.open(url)
+	}
   	copy(text:string){
   		this.common.copy(text)
   	}
