@@ -112,6 +112,24 @@ export class SearchSongsComponent implements OnInit {
 	getCopyright(){
 		this.loading = true;
 		this.api.getCopyright({keyword:this.searchValue,page:this.copyrightPage}).subscribe((res: any) => {
+			res.result.forEach((item:any)=>{
+				item.lyricAuthors=''
+				item.musicAuthors=''
+				item.lyricAuthor.forEach((litem:any,lindex:number)=>{
+					if(lindex==item.lyricAuthor.length-1){
+						item.lyricAuthors+=litem;
+					}else{
+						item.lyricAuthors+=litem+'、';
+					}
+				})
+				item.musicAuthor.forEach((litem:any,lindex:number)=>{
+					if(lindex==item.musicAuthor.length-1){
+						item.musicAuthors+=litem;
+					}else{
+						item.musicAuthors+=litem+'、';
+					}
+				})
+			})
 		  this.copyrightList = res.result;
 		this.copyrightTotal = res.total
 		  console.log(res)

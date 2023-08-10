@@ -18,7 +18,7 @@
                             </span>
 							<!-- 介绍 -->
 							<span nz-tooltip [nzTooltipTitle]="item.applicationRemarks">
-							<div style="margin-left: 12px;max-width: 250px;
+							<div style="margin-left: 12px;max-width: 280px;
 						overflow: hidden;
 						white-space: nowrap;
 						text-overflow: ellipsis;">
@@ -37,13 +37,13 @@
 								<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
 								<span nz-tooltip [nzTooltipTitle]="'词作者'">
 								<div>
-									{{item.lyricAuthor}}
+									{{item.lyricAuthors}}
 								</div>
 								</span>
                                 <span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
 								<span nz-tooltip [nzTooltipTitle]="'曲作者'">
                                 <div>
-                                    {{item.musicAuthor}}
+                                    {{item.musicAuthors}}
                                 </div>
 								</span>
 								<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;margin:0 2px;'></span>
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-				<div>
+				<div style='flex:1;'>
 					<span nz-tooltip [nzTooltipTitle]="'词版权公司'">
 					<div>
 						<!-- //词版权公司 -->
