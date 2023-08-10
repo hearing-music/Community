@@ -12,7 +12,7 @@ export class ApiService {
 	constructor(private http: HttpClient) {
 
 	}
-
+	
 	// qq搜索歌曲
 	getQQ(params: any) {
 		let {
@@ -212,6 +212,10 @@ export class ApiService {
 	douyin_listenDaren(params: any) {
 		return this.http.post(this.baseUrl + "/douyin/douyin_listenDaren", { ...params })
 	}
+	// 抖音 修改监控达人基本信息
+	douyin_listenDarenEdit(params:any){
+		return this.http.post(this.baseUrl + "/douyin/douyin_listenDarenEdit", { ...params })
+	}
 	//抖音 获取监控列表
 	douyin_getListenDaren(params: any) {
 		let {
@@ -221,6 +225,7 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/douyin/douyin_getListenDaren?page=" + page + '&keyword=' + keyword + '&type=' + type)
 	}
+	
 	// 抖音 视频id搜索
 	DouYinSearchVideoDetails(params: any) {
 		let {
@@ -639,4 +644,12 @@ export class ApiService {
 	        let url = this.baseUrl + '/articles/createMV'
 	        return this.http.post(url, formData);
 	    }
+	// 词曲版权搜索
+		getCopyright(params:any){
+			let {
+			     keyword,
+			     page
+			 } = params;
+			return this.http.get(this.baseUrl + '/venus/demoTrade?keyword=' + keyword+'&page='+page)
+		}
 }

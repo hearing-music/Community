@@ -47,6 +47,7 @@ import { RadarComponent } from './radar/radar.component';
 import { FufuSearchComponent } from './search-songs/fufu-search/fufu-search.component';
 import { FufuHotComponent } from './search-songs/fufu-hot/fufu-hot.component';
 import { FufuSingerComponent } from './search-songs/fufu-singer/fufu-singer.component';
+import { CopyrightComponent } from './search-songs/copyright/copyright.component';
 import { FufuBillboardComponent } from './fufuleida/fufu-billboard/fufu-billboard.component';
 import { JianyingComponent } from './jianying/jianying.component';
 import { ToMvComponent } from './to-mv/to-mv.component';
@@ -167,6 +168,7 @@ registerLocaleData(zh);
 		FufuSearchComponent,
 		FufuHotComponent,
 		FufuSingerComponent,
+		CopyrightComponent,
 		FufuBillboardComponent,
 		JianyingComponent,
 		ChatgptComponent,

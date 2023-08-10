@@ -8,7 +8,7 @@
 			</div>
 		</div>
 		<!-- 搜索 -->
-		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)' [searchWidth]='"320px"'>
+		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)' [searchWidth]='"290px"'>
 		</ngx-search>
 	</div>
 	<!-- 数据 -->
@@ -22,6 +22,7 @@
 		<ngx-fufu-search *ngIf='selectItem=="雷达音乐"' [fufuList]="fufuList"></ngx-fufu-search>
 		<ngx-fufu-hot *ngIf='selectItem=="雷达热搜"' [fufuHotList]="fufuHotList"></ngx-fufu-hot>
 		<ngx-fufu-singer *ngIf='selectItem=="雷达艺人"' [fufuSingerList]="fufuSingerList"></ngx-fufu-singer>
+		<ngx-copyright *ngIf='selectItem=="词曲版权"' [copyrightList]="copyrightList" (change)="copyrightSrcChange($event)"></ngx-copyright>
 	</div>
 	<!-- 分页 -->
 	<div class="pagination">
@@ -41,6 +42,8 @@
 			(nzPageIndexChange)='fufuHotPageNext($event)' nzShowQuickJumper></nz-pagination>
 		<nz-pagination *ngIf='selectItem=="雷达艺人"&&fufuSingerList.length>0' [nzPageIndex]="fufuSingerPage" [nzPageSize]='10' [nzTotal]="fufuSingerTotal"
 			(nzPageIndexChange)='fufuSingerPageNext($event)' nzShowQuickJumper></nz-pagination>
+			<nz-pagination *ngIf='selectItem=="词曲版权"&&copyrightList.length>0' [nzPageIndex]="copyrightPage" [nzPageSize]='10' [nzTotal]="copyrightTotal"
+				(nzPageIndexChange)='copyrightPageNext($event)' nzShowQuickJumper></nz-pagination>
 		<!-- <span *ngIf='selectItem=="铃声多多"&&lsddList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='lsddPageNext()' style="cursor: pointer;"></span> -->
 	</div>

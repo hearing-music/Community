@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { ApiService } from "../../../services/api.service";
 import {CommonService} from "../../../services/common.service";
 import { NzMessageService  } from 'ng-zorro-antd/message';
@@ -8,7 +8,7 @@ import { NzMessageService  } from 'ng-zorro-antd/message';
   styleUrls: ['./douyin-listenDaren.component.scss']
 })
 export class DouyinListenDarenComponent implements OnInit {
-constructor(public api: ApiService,public common: CommonService,private message: NzMessageService) {
+constructor(public api: ApiService,public common: CommonService,private message: NzMessageService,private  changeDetectorRef:ChangeDetectorRef) {
   }
   ngOnInit(): void {
 	  this.userId = localStorage.getItem('userId') || '0'
@@ -60,4 +60,41 @@ constructor(public api: ApiService,public common: CommonService,private message:
 		window.open(url)
 	}
 	
+	tableshow=true;
+	isVisible=false;
+	editItem:any = {}
+	sexList:any=[{value:'男',label:'男'},{value:'女',label:'女'}]
+	popUpEdit(item:any){
+		this.editItem = {...item};
+		this.isVisible=true;
+	}
+	// 点击录入
+	handleOk(): void {
+		let {dy_Monitoring_ID,dy_BloggerInfo_ID,Sex,Information,Home,Type,Style,Characteristics,Vocals,Split,Original,OriginalShare,Fees,Note,SecUid}=this.editItem;
+		this.loading = true;
+		this.api.douyin_listenDarenEdit({dy_Monitoring_ID,dy_BloggerInfo_ID,Sex,Information,Home,Type,Style,Characteristics,Vocals,Split,Original,OriginalShare,Fees,Note,SecUid}).subscribe((res: any) => {
+			console.log(res)
+			this.loading = false;
+			if(res.success){
+				this.message.success('修改成功')
+				let index = this.list.findIndex((e:any)=>e.dy_BloggerInfo_ID==this.editItem.dy_BloggerInfo_ID);
+				this.list[index] = {...this.editItem}
+				this.tableshow =false;
+				setTimeout(()=>{
+					this.tableshow=true;
+				},1)
+				this.isVisible = false;
+			}
+			this.editItem={}
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+			this.message.error('修改失败')
+			this.editItem={}
+		})
+	}
+	// 点击取消
+	handleCancel(): void {
+		this.isVisible = false;
+	}
 }

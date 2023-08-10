@@ -57,6 +57,9 @@ export class SearchSongsComponent implements OnInit {
 	},{
 		name: '雷达艺人',
 		holder: '雷达艺人搜索'
+	},{
+		name: '词曲版权',
+		holder: '词曲版权搜索'
 	}]
 	selectItem = 'QQ音乐';
 	searchValue = '';
@@ -97,6 +100,28 @@ export class SearchSongsComponent implements OnInit {
 	fufuSingerPage=1;
 	fufuSingerTotal=0;
 	fufuSingerList : any[]= []
+	
+	copyrightPage=1;
+	copyrightTotal=0;
+	copyrightList : any[]= []
+	
+	copyrightPageNext(e:any){
+		  this.fufuSingerPage = e;
+		  this.getfufuleidaQuerySingers()
+	}
+	getCopyright(){
+		this.loading = true;
+		this.api.getCopyright({keyword:this.searchValue,page:this.copyrightPage}).subscribe((res: any) => {
+		  this.copyrightList = res.result;
+		this.copyrightTotal = res.total
+		  console.log(res)
+				  this.loading = false;
+		}, (err: any) => {
+				console.log(err)
+				this.loading = false;
+				})
+	}
+	
 	
 	fufuSingerPageNext(e:any){
 		  this.fufuSingerPage = e;
@@ -254,7 +279,27 @@ export class SearchSongsComponent implements OnInit {
 			})
 		}, 50)
 	}
-	
+	// 词曲版权传参
+	copyrightSrcChange(params:any){
+		this.isPlay =true;
+		let { src, i } = params;
+		this.audioSrc = src;
+		let audio: any = document.getElementById('audio')
+		setTimeout(() => {
+			this.copyrightList.forEach((item: any, index: number) => {
+				if (index == i) {
+					item.isPlay = !item.isPlay
+					if (item.isPlay) {
+						audio.play()
+					} else {
+						audio.pause()
+					}
+				} else {
+					item.isPlay = false;
+				}
+			})
+		}, 50)
+	}
 	// 铃声多多传参
 	lsddSrcChange(params: any) {
 		this.isPlay =true;
@@ -289,6 +334,12 @@ export class SearchSongsComponent implements OnInit {
 				this.lsddList[i].isPlay = true;
 				this.lyricData = [];
 			}
+		} else if (this.selectItem == '词曲版权') {
+			var i = this.copyrightList.findIndex((e: any) => e.src == element.srcElement.currentSrc)
+			if (i !== -1) {
+				this.copyrightList[i].isPlay = true;
+				this.lyricData = [];
+			}
 		}
 	}
 	pause() {
@@ -296,6 +347,9 @@ export class SearchSongsComponent implements OnInit {
 			item.isPlay = false;
 		})
 		this.qqList.forEach((item: any) => {
+			item.isPlay = false;
+		})
+		this.copyrightList.forEach((item: any) => {
 			item.isPlay = false;
 		})
 	}
@@ -314,6 +368,10 @@ export class SearchSongsComponent implements OnInit {
 		this.lsddPage = 1;
 		this.enlightenmentPage =1;
 		this.fufuPage =1;
+		this.fufuHotPage=1;
+		this.fufuSingerPage=1;
+		this.copyrightPage=1;
+		
 		this.loading = true;
 		if (this.selectItem == 'QQ音乐') {
 			this.searchQQ()
@@ -344,6 +402,9 @@ export class SearchSongsComponent implements OnInit {
 		}
 		if(this.selectItem == '雷达艺人'){
 			this.getfufuleidaQuerySingers()
+		}
+		if(this.selectItem == '词曲版权'){
+			this.getCopyright()
 		}
 	}
 	searchKuwo() {
