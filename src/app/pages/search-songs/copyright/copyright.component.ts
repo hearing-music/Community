@@ -14,6 +14,10 @@ export class CopyrightComponent implements OnInit {
   audioSrc = ''
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   playAudio(url: string, i: number) {
+	  if(!url) {
+		  this.message.error('没找到歌曲地址😜')
+		  return
+	  }
   	this.audioSrc = url;
   	this.change.emit({src:this.audioSrc,i});
   }

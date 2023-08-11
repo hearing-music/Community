@@ -61,7 +61,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 						}
 						// 这些接口不弹窗
 						if(!req.url.includes(`kugou/kuGouAutoSearch`)){
-							this.message.error(response.body.message)
+							this.message.error('🙊🙉🙈'+response.body.message)
 						}
 					}
 					if(response.body.code == 380){

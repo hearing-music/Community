@@ -5,6 +5,11 @@
 button:focus{
 			outline: none!important;
 		}
+		
+.ant-message-custom-content{
+			display: flex!important;
+			align-items: center!important;
+		}
 $nb-themes: nb-register-theme((
   layout-padding-top: 2.25rem,
 
