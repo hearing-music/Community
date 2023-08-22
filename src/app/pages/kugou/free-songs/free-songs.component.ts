@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonService} from "../../../services/common.service";
 import { ApiService } from "../../../services/api.service";
+import { NzMessageService  } from 'ng-zorro-antd/message';
 @Component({
   selector: 'ngx-free-songs',
   templateUrl: './free-songs.component.html',
   styleUrls: ['./free-songs.component.scss']
 })
 export class FreeSongs_kugouComponent implements OnInit {
-	constructor(public common: CommonService, public api: ApiService) { }
+	constructor(public common: CommonService, public api: ApiService,private message: NzMessageService) { }
 	
 	ngOnInit(): void {
 		this.getKugou_freeSongs()
@@ -31,9 +32,18 @@ loading=false;
 		this.getKugou_freeSongs()
 	}
 	openLink(item:any) {
-		console.log(item)
-		if (!item.song_url) return
-		window.open(item.song_url)
+		if (!item.song_url) {
+			window.open('https://www.kugou.com/song/#hash=' + item.hash + '&album_audio_id=' + item.audio_id)
+		}else{
+			window.open(item.song_url)
+		}
+	}
+	openSingerHome(id:any){
+		if(!id || id=='0'){
+			this.message.info('没找到该歌手id😭')
+			return
+		}
+		window.open(`https://www.kugou.com/singer/${id}.html`)
 	}
 	copy(text:string){
 		this.common.copy(text)
@@ -86,6 +96,34 @@ loading=false;
 			if(res.success){
 				res.result.forEach((item:any)=>{
 					item.newExponent = ''
+					if(typeof item.singerId!= 'object'){
+						try{
+							item.singerId = item.singerId.replaceAll(':','')
+							item.singerId = item.singerId.split('id')
+							let singerId = []
+							for(let i = 1;i<item.singerId.length;i++){
+								let ss = item.singerId[i].split('name')
+								let id = ss[0].replaceAll(',','')
+								let name = ss[1].substr(0,ss[1].indexOf(','))
+								singerId.push({name,id})
+							}
+							item.singerId = singerId;
+						}catch(e){
+							//TODO handle the exception
+							item.singerId = ''
+						}
+						// item.singerId = item.singerId.replaceAll(':','')
+						// item.singerId = item.singerId.split('id')
+						// item.singerId = item.singerId[1].split('name')
+						
+						// item.singerId = item.singerId.replaceAll('}','"}')
+						// item.singerId = item.singerId.replaceAll(':','":"')
+						// item.singerId = item.singerId.replaceAll(',','","')
+						// item.singerId = item.singerId.replaceAll('{"size"}','{size}')
+						// item.singerId = item.singerId.replaceAll('http":"//','http://')
+						// item.singerId = JSON.parse(item.singerId)
+						// item.singerId = eval('('+item.singerId+')')
+					}
 				})
 				this.list = res.result;
 				this.pageTotal = res.pageTotal;

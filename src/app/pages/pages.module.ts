@@ -85,7 +85,6 @@ import { TemplateComponent } from './lsdd-page/template/template.component';
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
 import { CopyrightLinkComponent } from './copyright-scanning/copyright-link/copyright-link.component';
 import { TrackSeparateComponent } from './track-separate/track-separate.component';
-import { MusiryToolsComponent } from './musiry-tools/musiry-tools.component';
 import { AudioTrickComponent } from '../components/audio-trick/audio-trick.component';
 import { ToolComponent } from './tool/tool.component';
 import { BankComponent } from './tool/bank/bank.component';
@@ -99,7 +98,6 @@ import { SetRankingComponent } from './qq_kugou-ranking/set-ranking/set-ranking.
 import { GetRankingComponent } from './qq_kugou-ranking/get-ranking/get-ranking.component';
 import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
 import { SourcePhotoComponent } from './kuaishou-searchindex/source-photo/source-photo.component';
-import { UserManagementComponent } from './user-management/user-management.component';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzInputModule } from 'ng-zorro-antd/input';
 // import { XilixiliComponent } from './xilixili/xilixili.component';
@@ -202,7 +200,6 @@ registerLocaleData(zh);
 		KuaishouSearchindexComponent,
 		CopyrightLinkComponent,
 		TrackSeparateComponent,
-		MusiryToolsComponent,
 		AudioTrickComponent,
 		ToolComponent,
 		BankComponent,
@@ -215,7 +212,6 @@ registerLocaleData(zh);
 		GetRankingComponent,
 		DjComponent,
 		SourcePhotoComponent,
-		UserManagementComponent,
 		// XilixiliComponent,
 		DYComponent,
 		RSComponent,

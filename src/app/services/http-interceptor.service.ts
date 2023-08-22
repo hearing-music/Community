@@ -69,7 +69,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 						setTimeout(()=>{
 							this.common.removeLocalStorages()
 							this.router.navigate(['/login']);
-						},2000)
+						},1400)
 					}
 			  }
 		    },
@@ -88,7 +88,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 	}else{
 		setTimeout(()=>{
 			this.router.navigate(['/login']);
-		},2000)
+		},1400)
 		return []
 	}
     

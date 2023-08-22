@@ -40,13 +40,15 @@ constructor(public api: ApiService,public common: CommonService,private message:
 	  this.api.douyin_getListenDaren({page:this.page,keyword:this.searchValue,type:this.type?'我的':'全部'})
 	  .subscribe((res: any) => {
 	  	console.log(res)
-		res.result.forEach((item:any)=>{
-			item.homeUrl='https://www.douyin.com/user/'+item.SecUid
-			item.expand = false;
-		})
+		if(res.success){
+			res.result.forEach((item:any)=>{
+				item.homeUrl='https://www.douyin.com/user/'+item.SecUid
+				item.expand = false;
+			})
+			this.list=res.result;
+			this.pageTotal=res.total;
+		}
 	  	this.loading = false;
-		this.list=res.result;
-		this.pageTotal=res.total;
 	  }, (err: any) => {
 	  	console.log(err)
 	  	this.loading = false;

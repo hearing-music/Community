@@ -19,6 +19,10 @@ export class V3Component implements OnInit {
 	openExponentLink(item: any) {
 		window.open('https://h5.kugou.com/achievement/v-a34ccad0/index.html?audio_id=' + item.scid + '&hash=' + item.FileHash + '&mixsongid=' + item.MixSongID)
 	}
+	openAlbum(item: any) {
+		if(!item.albumID) return
+		window.open('http://www2.kugou.kugou.com/yueku/v8/album/single/' + item.albumID + '-0-1.html')
+	}
 	copyScid(scid: string | number) {
 		this.common.copy(scid + '')
 	}
@@ -91,5 +95,8 @@ export class V3Component implements OnInit {
 	}
 	goToSeeSinger(url: any, index: any) {
 		window.open(url)
+	}
+	goSingerHome(id:any){
+		window.open(`https://www.kugou.com/singer/${id}.html`)
 	}
 }

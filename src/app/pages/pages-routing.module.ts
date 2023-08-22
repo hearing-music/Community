@@ -25,7 +25,6 @@ import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-se
 import { IdentificationComponent } from './identification/identification.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
 import { TrackSeparateComponent } from './track-separate/track-separate.component';
-import { MusiryToolsComponent } from './musiry-tools/musiry-tools.component';
 import { GetRankingComponent } from './qq_kugou-ranking/get-ranking/get-ranking.component';
 import { SetRankingComponent } from './qq_kugou-ranking/set-ranking/set-ranking.component';
 // import { ECommerceComponent } from './e-commerce/e-commerce.component';
@@ -39,7 +38,6 @@ import { PhotoIdentifyingTextComponent } from './photo-identifying-text/photo-id
 // import { XilixiliComponent } from './xilixili/xilixili.component';
 import { OggToMp3Component } from './audio-conversion/ogg-to-mp3/ogg-to-mp3.component'
 import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.component'
-import { UserManagementComponent } from './user-management/user-management.component';
 import { RadarComponent } from './radar/radar.component'
 import { ToMvComponent } from './to-mv/to-mv.component';
 import { QqLabelComponent } from './qq/qq-label/qq-label.component';
@@ -212,12 +210,6 @@ const routes: Routes = [{
 			component: CopyrightScanningComponent,
 			canActivate: [PermissionGuard]
 		},
-		//音乐工具
-		{
-			path: 'musiry-tools',
-			component: MusiryToolsComponent,
-			canActivate: [PermissionGuard]
-		},
 		//工具
 		{
 			path: 'tool',
@@ -288,12 +280,6 @@ const routes: Routes = [{
 			component: ToMvComponent,
 			canActivate: [PermissionGuard]
 		},
-		//用户管理
-		// {
-		// 	path: 'userManagement',
-		// 	component: UserManagementComponent,
-		// 	canActivate: [PermissionGuard]
-		// },
 		// {
 		// 	path: 'ui-features',
 		// 	loadChildren: () => import('./ui-features/ui-features.module')

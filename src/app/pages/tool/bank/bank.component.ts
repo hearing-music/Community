@@ -29,17 +29,13 @@ export class BankComponent implements OnInit {
       this.message = ""
       this.api.getbank({ name: this.name, idcard_number: this.idCard, bankcard_number: this.bankIdCard }).subscribe((res: any) => {
         console.log(res, '2356 +')
-        if (res.data.success) {
-          if (res.data.data.msg) {
-            this.errmessage = ''
-            this.message = res.data.data.msg
-          }
-        } else {
-          if (res.data.msg) {
-            this.message = ''
-            this.errmessage = res.data.msg
-          }
-        }
+        if (res.data.data.result==0) {
+       		    this.errmessage = ''
+       		    this.message = res.data.data.msg
+       		  }else {
+       		    this.message = ''
+       		    this.errmessage = res.data.data.msg
+       		  }
       })
     }
   }
@@ -82,7 +78,7 @@ export class BankComponent implements OnInit {
       this.testTrue.bankTrue = false
       this.message = ""
     } else {
-      let bankstr = /^([1-9]{1})(\d{14}|\d{18})$/
+      let bankstr = /^([1-9]{1})(\d{13}|\d{14}|\d{15}|\d{16}|\d{17}|\d{18}|\d{19})$/
       if (bankstr.test(this.bankIdCard)) {
         this.bankIdCardNull = ""
         this.testTrue.bankTrue = true

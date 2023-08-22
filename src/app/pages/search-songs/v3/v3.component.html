@@ -89,7 +89,9 @@
 					overflow: hidden;
 					white-space: nowrap;
 					text-overflow: ellipsis;">
-							{{item.singerNames}}
+							<div (click)='goSingerHome(s.id)' *ngFor="let s of item.singers;let si = index;" style="cursor: pointer;">
+								{{common.deleteEM(s.name)}}{{si==item.singers.length-1?'':'、'}}
+							</div>
 						</div>
 					</span>
 					<!-- 图标 -->
@@ -156,11 +158,11 @@
 		</div>
 		<div class="item-center">
 			<!-- 专辑名字 -->
-			<div class="exophanie-item" style="font-weight: bold;margin-top: 0;">
-				{{item.albumName}}
+			<div class="exophanie-item" style="font-weight: bold;margin-top: 0;cursor: pointer;" (click)='openAlbum(item)'>
+				{{common.deleteEM(item.albumName)}}
 			</div>
 			<div class="exophanie-item u-line-1">
-				{{item.company}}
+				{{common.deleteEM(item.company)}}
 			</div>
 			<div class="exophanie-item u-line-1">
 				{{item.time_public}}

@@ -30,22 +30,31 @@
 	  </thead>
 	  <tbody>
 	    <tr *ngFor="let item of basicTable.data; let i = index">
-		  <td nzAlign='center' style="cursor: pointer;" (click)='copy(item.songname)'>
+		  <td nzAlign='center' style="cursor: pointer;" (click)='copy(item.songname||item.songName)'>
 			  <span nz-tooltip [nzTooltipTitle]="'点击复制'">
-				  {{item.songname}}
+				  {{item.songname||item.songName}}
 			  </span>
+			 <!-- <img *ngIf='item.pay_type==0' src="../../../assets/img/0_round.svg" class="icon" nz-tooltip [nzTooltipTitle]="'pay_type'"/>
+			  <img *ngIf='item.pay_type==1' src="../../../assets/img/1_round.svg" class="icon" nz-tooltip [nzTooltipTitle]="'pay_type'" />
+			  <img *ngIf='item.pay_type==2' src="../../../assets/img/2_round.svg" class="icon" nz-tooltip [nzTooltipTitle]="'pay_type'" />
+			  <img *ngIf='item.pay_type==3' src="../../../assets/img/3_round.svg" class="icon" nz-tooltip [nzTooltipTitle]="'pay_type'" />
+				<span *ngIf='item.pay_type!=3&&item.pay_type!=2&&item.pay_type!=1&&item.pay_type!=0' nz-tooltip [nzTooltipTitle]="'pay_type'" style='font-weight: bold;font-size: 12px;'>
+					{{item.pay_type}}
+				</span> -->
 		  </td>
 		  <td nzAlign='center'>
 		  	{{item.company?item.company:''}}	  
 		  </td>
 		  <td nzAlign='center'>
-		  	{{item.publish_time?common.getDate(item.publish_time):''}}	 
+		  	{{item.publish_time?item.publish_time=='无'?'':common.getDate(item.publish_time):''}}	 
 		  </td>
 		  <td nzAlign='center'>
 		  	{{item.album_name}}
 		  </td>
 		  <td nzAlign='center'>
-		  	{{item.singername}}	  
+			<div *ngFor="let s of item.singerId; let si = index" (click)='openSingerHome(s.id)' style="cursor: pointer;">
+				{{s.name}}{{si!=item.singerId.length-1?',':''}}
+			</div>
 		  </td>
 		  <td nzAlign='center' style="cursor: pointer;" (click)='copy(item.audio_id)'>
 			  <span nz-tooltip [nzTooltipTitle]="'点击复制'">

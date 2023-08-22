@@ -39,10 +39,10 @@ export let MENU_ITEMS: NbMenuItem[] = [
 				title: '免费歌曲',
 				link: '/pages/kugou/free-songs',
 			},
-			{
-				title: '自动搜索',
-				link: '/pages/kugou/auto-search',
-			},
+			// {
+			// 	title: '自动搜索',
+			// 	link: '/pages/kugou/auto-search',
+			// },
 		],
 	},
 	{

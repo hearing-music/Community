@@ -24,6 +24,14 @@
 				border-radius: 100px;
 				margin-right: 8px;
 				cursor: pointer;
+				transition: .04s;
+			}
+			.tagList-item:hover{
+				// transform: scale(1.02);
+				box-shadow:rgba(0, 0, 0, 0.1) 0px -50px 36px -28px inset;
+			}
+			.tagList-item:active{
+				transform: scale(1.15);
 			}
 			.tagList-itemActive{
 				background: #4060F6;

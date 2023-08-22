@@ -9,8 +9,9 @@
 		margin-bottom: 20px;
 		background: #FFFFFF;
 		border: 1px solid rgba(0, 0, 0, 0.12);
+		box-shadow:rgb(0 0 0 / 15%) -1.4px 1.4px 3.2px;
 		border-radius: 12px;
-		height: 80px;
+		height: 96px;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -76,8 +77,8 @@
 			flex: 1;
 
 			.exophanie-item {
-				margin-top: 6px;
-				width: 200px;
+				margin-top: 4px;
+				width: 250px;
 			}
 		}
 

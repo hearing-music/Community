@@ -42,35 +42,38 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 	  this.api.douyin_getListenVideo({page:this.page,keyword:this.searchValue,type:this.type?'我的':'全部',isdownload:''})
 	  .subscribe((res: any) => {
 	  	console.log(res)
-		res.result.forEach((item:any)=>{
-			item.isplay=false;
-			item.homeUrl='https://www.douyin.com/user/'+item.SecUid
-			item.videoUrl = `https://www.douyin.com/user/${item.SecUid}?modal_id=${item.awemeId}`
-			item.expand = false;
-			item.admireCountArr = Object.values(item.admireCount)
-			item.admireCountKeys = Object.keys(item.admireCount)
-			item.collectCountArr = Object.values(item.collectCount)
-			item.commentCountArr = Object.values(item.commentCount)
-			item.diggCountArr = Object.values(item.diggCount)
-			item.playCountArr = Object.values(item.playCount)
-			item.shareCountArr = Object.values(item.shareCount)
-			item.textExtra = item.textExtra.split(',')
-			item.commentTextArr = item.text.split(',')
-			item.position = item.position-1
-			// 处理高亮
-			if(item.position!=-1){
-				item.commentList[item.position].text = item.commentList[item.position].text || ''
-				let textHtml:any = item.commentList[item.position].text
-				for(let i = 0;i<item.commentTextArr.length;i++){
-					let str = '<span style="color:#68f168;">'+item.commentTextArr[i]+'</span>'
-					textHtml = textHtml.replaceAll(item.commentTextArr[i],str)
+		if(res.success){
+			res.result.forEach((item:any)=>{
+				item.isplay=false;
+				item.homeUrl='https://www.douyin.com/user/'+item.SecUid
+				item.videoUrl = `https://www.douyin.com/user/${item.SecUid}?modal_id=${item.awemeId}`
+				item.expand = false;
+				item.admireCountArr = Object.values(item.admireCount)
+				item.admireCountKeys = Object.keys(item.admireCount)
+				item.collectCountArr = Object.values(item.collectCount)
+				item.commentCountArr = Object.values(item.commentCount)
+				item.diggCountArr = Object.values(item.diggCount)
+				item.playCountArr = Object.values(item.playCount)
+				item.shareCountArr = Object.values(item.shareCount)
+				item.textExtra = item.textExtra.split(',')
+				item.commentTextArr = item.text.split(',')
+				item.position = item.position-1
+				// 处理高亮
+				if(item.position!=-1){
+					item.commentList[item.position].text = item.commentList[item.position].text || ''
+					let textHtml:any = item.commentList[item.position].text
+					for(let i = 0;i<item.commentTextArr.length;i++){
+						let str = '<span style="color:#68f168;">'+item.commentTextArr[i]+'</span>'
+						textHtml = textHtml.replaceAll(item.commentTextArr[i],str)
+					}
+					item.textHtml = textHtml;
 				}
-				item.textHtml = textHtml;
-			}
-		})
+			})
+			this.list=res.result;
+			this.pageTotal=res.total;
+		}
+		
 	  	this.loading = false;
-		this.list=res.result;
-		this.pageTotal=res.total;
 	  }, (err: any) => {
 	  	console.log(err)
 	  	this.loading = false;
