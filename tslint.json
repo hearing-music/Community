@@ -4,7 +4,7 @@
   ],
   "rules": {
     "deprecation": {
-      "severity": "none"
+      "severity": "warning"
     },
     "trailing-comma": [
       true,
