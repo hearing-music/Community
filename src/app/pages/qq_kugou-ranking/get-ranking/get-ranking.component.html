@@ -64,10 +64,10 @@
 						</div>
 					</td>
 					<td nzAlign='center'>
-						<div *ngIf='item.qq_song_name == common.deleteEM(item.kg_song_name) || common.deleteEM(item.kg_song_name)==item.qq_song_title'>
-							{{item.qq_song_name}}
+						<div *ngIf='item.qq_song_name == common.deleteEM(item.kg_song_name) || common.deleteEM(item.kg_song_name)==item.qq_song_title||!item.qq_song_name||!item.kg_song_name'>
+							{{item.qq_song_name || common.deleteEM(item.kg_song_name)}}
 						</div>
-						<div class="flexCcenter" *ngIf='item.qq_song_name != common.deleteEM(item.kg_song_name)&&common.deleteEM(item.kg_song_name)!=item.qq_song_title'>
+						<div class="flexCcenter" *ngIf='item.qq_song_name != common.deleteEM(item.kg_song_name)&&common.deleteEM(item.kg_song_name)!=item.qq_song_title&&item.qq_song_name&&item.kg_song_name'>
 							<div class="qq">
 								{{item.qq_song_name}}
 							</div>
@@ -80,10 +80,10 @@
 						{{item.qq_song_title}}
 					</td>
 					<td nzAlign='center'>
-						<div *ngIf='item.qq_singer_name == common.deleteEM(item.kg_singer_name)'>
-							{{item.qq_singer_name}}
+						<div *ngIf='item.qq_singer_name == common.deleteEM(item.kg_singer_name)||!item.qq_singer_name||!item.kg_singer_name'>
+							{{item.qq_singer_name||common.deleteEM(item.kg_singer_name)}}
 						</div>
-						<div class="flexCcenter" *ngIf='item.qq_singer_name != common.deleteEM(item.kg_singer_name)'>
+						<div class="flexCcenter" *ngIf='item.qq_singer_name != common.deleteEM(item.kg_singer_name)&&item.kg_singer_name&&item.qq_singer_name'>
 							<div class="qq">
 								{{item.qq_singer_name}}
 							</div>
@@ -93,10 +93,10 @@
 						</div>
 					</td>
 					<td nzAlign='center'>
-						<div *ngIf='item.qq_album_name == item.kg_album_name'>
-							{{item.qq_album_name}}
+						<div *ngIf='item.qq_album_name == item.kg_album_name||!item.qq_album_name||!item.kg_album_name'>
+							{{item.qq_album_name||item.kg_album_name}}
 						</div>
-						<div class="flexCcenter" *ngIf='item.qq_album_name != item.kg_album_name'>
+						<div class="flexCcenter" *ngIf='item.qq_album_name != item.kg_album_name&&item.qq_album_name&&item.kg_album_name'>
 							<div class="qq">
 								{{item.qq_album_name}}
 							</div>
@@ -106,10 +106,10 @@
 						</div>
 					</td>
 					<td nzAlign='center'>
-						<div *ngIf='item.qq_publish_time == item.kg_publish_time'>
-							{{item.qq_publish_time}}
+						<div *ngIf='item.qq_publish_time == item.kg_publish_time||!item.kg_publish_time||!item.qq_publish_time'>
+							{{item.qq_publish_time||item.kg_publish_time}}
 						</div>
-						<div class="flexCcenter" *ngIf='item.qq_publish_time != item.kg_publish_time'>
+						<div class="flexCcenter" *ngIf='item.qq_publish_time != item.kg_publish_time&&item.kg_publish_time&&item.qq_publish_time'>
 							<div class="qq">
 								{{item.qq_publish_time}}
 							</div>

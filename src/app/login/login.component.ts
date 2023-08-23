@@ -83,17 +83,20 @@ export class LoginComponent implements OnInit {
 			console.log(res)
 			document.onkeydown = null
 			if (res.success) {
-				localStorage.setItem('guideShow', '1')
-				localStorage.setItem('phone', this.phone)
-				localStorage.setItem('userId', res.result.userId)
-				localStorage.setItem('token', res.result.token)
-				localStorage.setItem('token_expiration_time', res.result.token_expiration_time)
-				localStorage.setItem('permission_name_id', res.result.permission_name_id)
-				localStorage.setItem('permission_name', res.result.permission_name)
-				localStorage.setItem('username', res.result.username)
-				localStorage.setItem('menus_item', JSON.stringify(res.result.menus_item))
-				localStorage.setItem('create_at', res.result.create_at)
-				localStorage.setItem('url', res.result.url)
+				this.common.storageSet({
+					"guideShow":"1",
+					"phone":this.phone,
+					"userId":res.result.userId,
+					"token":res.result.token,
+					"token_expiration_time":res.result.token_expiration_time,
+					"permission_name_id":res.result.permission_name_id,
+					"permission_name":res.result.permission_name,
+					"username": res.result.username,
+					"menus_item":JSON.stringify(res.result.menus_item),
+					"create_at":res.result.create_at,
+					"url":res.result.url
+				})
+				
 				this.authService.isLoggedIn = true;
 				const redirectUrl = this.authService.redirectUrl || '/'; // 防止用户直接在地址栏输入造成的redirectUrl为空的错误
 				// 跳转回重定向路径

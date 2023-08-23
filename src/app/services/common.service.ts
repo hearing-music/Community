@@ -5,7 +5,22 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class CommonService {
 	constructor(public message: NzMessageService) { }
-	highUserList=['1','2','4','5','8','13','26','34']
+	highUserList=['1','2','3','4','5','8','13','26','34']
+	storageSet(obj:any){
+		localStorage.setItem('guideShow', obj.guideShow)
+		localStorage.setItem('phone', obj.phone)
+		localStorage.setItem('userId', obj.userId)
+		localStorage.setItem('token', obj.token)
+		localStorage.setItem('token_expiration_time', obj.token_expiration_time)
+		localStorage.setItem('permission_name_id', obj.permission_name_id)
+		localStorage.setItem('permission_name', obj.permission_name)
+		localStorage.setItem('username', obj.username)
+		localStorage.setItem('menus_item', obj.menus_item)
+		localStorage.setItem('create_at', obj.create_at)
+		localStorage.setItem('url', obj.url)
+	}
+	
+	
 	strToJson(keyValuePairs: any) {
 		keyValuePairs = keyValuePairs.split(",");
 		// 初始化结果对象

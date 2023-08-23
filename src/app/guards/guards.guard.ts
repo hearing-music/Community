@@ -20,14 +20,15 @@ export class GuardsGuard implements CanActivate {
 		return this.checkLogin(url);
 		// return true;
 	}
-	private checkLogin(url: string): any {
+	// @ts-ignore 
+	private async checkLogin(url: string) {
 		console.log('checkLogin')
 		let date = new Date(new Date().getTime() + 1000 * 60 * 60 * 8).toISOString()
 		// let phone = localStorage.getItem('phone');
 		let token = localStorage.getItem('token');
 		let token_expiration_time = localStorage.getItem('token_expiration_time');
 		// let permission_name_id = localStorage.getItem('permission_name_id');
-
+		
 		if (!token || !token_expiration_time) {
 			// this.message.error('未登录')
 			// 修改登陆后重定向的地址
