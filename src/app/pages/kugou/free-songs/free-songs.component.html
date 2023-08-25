@@ -19,6 +19,7 @@
 	  <thead>
 	    <tr>
 		  <th nzAlign='center'>歌曲名称</th>
+		  <th nzAlign='center'>更多音源</th>
 	      <th nzAlign='center'>发行公司</th>
 	      <th nzAlign='center'>发行时间</th>
 		  <th nzAlign='center'>专辑名称</th>
@@ -34,6 +35,7 @@
 			  <span nz-tooltip [nzTooltipTitle]="'点击复制'">
 				  {{item.songname||item.songName}}
 			  </span>
+			  <img src="../../../assets/img/yuanchang.svg" class="icon" style='margin-left: 4px;' *ngIf='listRes[i][0].IsOriginal==1'/>
 			 <!-- <img *ngIf='item.pay_type==0' src="../../../assets/img/0_round.svg" class="icon" nz-tooltip [nzTooltipTitle]="'pay_type'"/>
 			  <img *ngIf='item.pay_type==1' src="../../../assets/img/1_round.svg" class="icon" nz-tooltip [nzTooltipTitle]="'pay_type'" />
 			  <img *ngIf='item.pay_type==2' src="../../../assets/img/2_round.svg" class="icon" nz-tooltip [nzTooltipTitle]="'pay_type'" />
@@ -41,6 +43,9 @@
 				<span *ngIf='item.pay_type!=3&&item.pay_type!=2&&item.pay_type!=1&&item.pay_type!=0' nz-tooltip [nzTooltipTitle]="'pay_type'" style='font-weight: bold;font-size: 12px;'>
 					{{item.pay_type}}
 				</span> -->
+		  </td>
+		  <td nzAlign='center'>
+		  	{{listRes[i][0].Grp?listRes[i][0].Grp.length:''}}	  
 		  </td>
 		  <td nzAlign='center'>
 		  	{{item.company?item.company:''}}	  
@@ -78,7 +83,7 @@
 	    </tr>
 	  </tbody>
 	</nz-table>
-	<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='list.length>0&&pageTotal>50'>
+	<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='list.length>0&&pageTotal>25'>
 		<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal" (nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>

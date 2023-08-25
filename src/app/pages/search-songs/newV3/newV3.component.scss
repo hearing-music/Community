@@ -1,0 +1,95 @@
+.list {
+	// overflow: scroll;
+	padding: 12px;
+	padding-top: 0;
+	.more{
+		box-sizing: border-box;
+		transition: all .4s ease-in-out;
+		overflow: hidden;
+		background:linear-gradient(181.2deg, rgb(181, 239, 249) 10.5%, rgb(254, 254, 254) 86.8%);border-radius: 8px;
+	}
+	
+	
+	.list-item {
+		font-size: 12px;
+		color: rgba(0, 0, 0, 0.6);
+		margin-bottom: 20px;
+		background: #FFFFFF;
+		border: 1px solid rgba(0, 0, 0, 0.12);
+		box-shadow:rgb(0 0 0 / 15%) -1.4px 1.4px 3.2px;
+		border-radius: 12px;
+		height: 120px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 16px;
+
+		.icon {
+			margin-right: 4px;
+			width: 16px;
+			height: 16px;
+		}
+
+		.item-left {
+			width: 670px;
+			display: flex;
+			flex-shrink: 0;
+			align-items: center;
+
+			.linkIcon {
+				display: flex;
+				align-items: center;
+				width: 32px;
+				height: 32px;
+				cursor: pointer;
+				justify-content: center;
+			}
+
+			.left-icon {
+				flex-shrink: 0;
+				width: 32px;
+				height: 32px;
+				cursor: pointer;
+			}
+
+			.left-text {
+				margin-left: 16px;
+			}
+
+			.title-area {
+				display: flex;
+				align-items: center;
+
+				.title {
+					font-weight: bold;
+					font-size: 16px;
+					color: #000;
+					max-width: 175px;
+					cursor: pointer;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+			}
+
+			.subTitle {
+				margin-top: 6px;
+				display: flex;
+				align-items: center;
+			}
+		}
+
+		.item-center {
+			flex-shrink: 0;
+			flex: 1;
+
+			.exophanie-item {
+				margin-top: 4px;
+				width: 250px;
+			}
+		}
+
+		.item-right {}
+
+	}
+}

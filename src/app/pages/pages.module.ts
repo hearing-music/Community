@@ -58,6 +58,7 @@ import { EnlightenmentTop20Component} from './search-songs/enlightenment-top20/e
 import { QqComponent } from './search-songs/qq/qq.component';
 import { QqPhoneComponent } from './search-songs/qq-phone/qq-phone.component'
 import { V3Component } from './search-songs/v3/v3.component';
+import { NewV3Component } from './search-songs/newV3/newV3.component';
 import { V3PhoneComponent } from './search-songs/v3-phone/v3-phone.component';
 import { WangyiyunComponent } from './search-songs/wangyiyun/wangyiyun.component';
 import { WangyiyunPhoneComponent } from './search-songs/wangyiyun-phone/wangyiyun-phone.component';
@@ -176,6 +177,7 @@ registerLocaleData(zh);
 		QqComponent,
 		QqPhoneComponent,
 		V3Component,
+		NewV3Component,
 		V3PhoneComponent,
 		WangyiyunComponent,
 		WangyiyunPhoneComponent,

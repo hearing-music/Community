@@ -131,6 +131,13 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/kugou/search_kugou?keyword=" + keyword + "&page=" + page)
 	}
+	getV3_2(params: any) {
+		let {
+			keyword,
+			page
+		} = params;
+		return this.http.get(this.baseUrl + "/kugou/search_kugou2?keyword=" + keyword + "&page=" + page)
+	}
 	// 酷狗飙升榜
 	getKugou_soaring(params: any) {
 		let {

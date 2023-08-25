@@ -35,7 +35,16 @@ export class SearchSongsComponent implements OnInit {
 		holder: 'qq搜索'
 	}, {
 		name: '酷狗V3',
-		holder: '酷狗V3搜索'
+		child:[
+			{
+				name:'酷狗V3',
+				holder: '酷狗V3搜索'
+			},
+			{
+				name:'多版本',
+				holder:'酷狗多版本搜索'
+			}
+		]
 	}, {
 		name: '酷我音乐',
 		holder: '酷我搜索'
@@ -105,9 +114,39 @@ export class SearchSongsComponent implements OnInit {
 	copyrightTotal=0;
 	copyrightList : any[]= []
 	
+	kugouNewV3Page=1;
+	kugouNewV3List:any[]=[]
+	searchNewV3() {
+		this.api.getV3_2({
+			keyword: this.searchValue,
+			page: this.kugouNewV3Page
+		}).subscribe((res: any) => {
+			this.loading = false;
+			console.log(res)
+			if (res.success) {
+				res.result.forEach((item:any)=>{
+					let names:any = ''
+					item.singers.forEach((sitem:any)=>{
+						names+=this.common.deleteEM(sitem.name)+'、'
+					})
+					names=names.substr(0,names.length-1)
+					item.singerNames = names
+				})
+				if (this.kugouNewV3Page == 1) {
+					this.kugouNewV3List = res.result;
+				} else {
+					this.kugouNewV3List = [...this.kugouNewV3List, ...res.result];
+				}
+			}
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	
 	copyrightPageNext(e:any){
-		  this.fufuSingerPage = e;
-		  this.getfufuleidaQuerySingers()
+		  this.copyrightPage = e;
+		  this.getCopyright()
 	}
 	getCopyright(){
 		this.loading = true;
@@ -371,10 +410,24 @@ export class SearchSongsComponent implements OnInit {
 			item.isPlay = false;
 		})
 	}
+	tagNow:any = ''
+	selectItem2 = ''
 	onSelect(item: any) {
 		this.selectItem = item.name;
-		this.searchHolder = item.holder;
+		if(item.child){
+			this.tagNow=item
+			this.searchHolder = item.child[0].holder;
+			this.selectItem2 = item.child[0].name;
+		}else{
+			this.tagNow=''
+			this.selectItem2=''
+			this.searchHolder = item.holder;
+		}
 		// this.searchValue = '';
+	}
+	onSelect2(citem:any){
+		this.selectItem2 = citem.name;
+		this.searchHolder = citem.holder;
 	}
 	search(value: string) {
 		console.log(value)
@@ -389,13 +442,26 @@ export class SearchSongsComponent implements OnInit {
 		this.fufuHotPage=1;
 		this.fufuSingerPage=1;
 		this.copyrightPage=1;
+		this.kugouNewV3Page=1;
 		
 		this.loading = true;
+		if(this.tagNow){
+			if (this.selectItem2 == '酷狗V3') {
+				this.searchV3()
+			}
+			if (this.selectItem2 == '多版本') {
+				this.searchNewV3()
+			}
+			return
+		}
 		if (this.selectItem == 'QQ音乐') {
 			this.searchQQ()
 		}
 		if (this.selectItem == '酷狗V3') {
 			this.searchV3()
+		}
+		if (this.selectItem == '多版本') {
+			this.searchNewV3()
 		}
 		if (this.selectItem == '酷我音乐') {
 			this.searchKuwo()

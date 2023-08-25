@@ -15,11 +15,12 @@ export class FreeSongs_kugouComponent implements OnInit {
 	}
 loading=false;
 	pageCurrent=1;
-	pageSize=50;
-	pageTotal=50;
+	pageSize=25;
+	pageTotal=0;
 	searchValue='';
 	searchHolder='搜索歌曲名'
 	list:any=[];
+	listRes:any=[];
 	type='歌曲名'
 	typeList = [{
 		name:'歌曲名',
@@ -94,7 +95,8 @@ loading=false;
 			this.loading = false;
 			console.log(res)
 			if(res.success){
-				res.result.forEach((item:any)=>{
+				res.result.forEach((item:any,index:any)=>{
+					res.res[index]=res.res[index].length==0?[{}]:res.res[index]
 					item.newExponent = ''
 					if(typeof item.singerId!= 'object'){
 						try{
@@ -126,6 +128,7 @@ loading=false;
 					}
 				})
 				this.list = res.result;
+				this.listRes = res.res;
 				this.pageTotal = res.pageTotal;
 			}
 		}, (err: any) => {

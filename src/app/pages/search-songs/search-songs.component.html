@@ -4,17 +4,26 @@
 		<div class="tagList">
 			<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
 				[ngClass]="{'tagList-itemActive': item.name==selectItem}">
-				{{item.name}}
+					{{item.name}}
+				
 			</div>
 		</div>
 		<!-- 搜索 -->
 		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)' [searchWidth]='"290px"'>
 		</ngx-search>
 	</div>
+	<!-- 二级tab -->
+	<div class="tagList" *ngIf='tagNow' style="justify-content: flex-start;margin-top: 12px;">
+		<div *ngFor='let citem of tagNow.child' (click)="onSelect2(citem)" class="tagList-item" style="font-size: 12px;"
+			[ngClass]="{'tagList-itemActive2': citem.name==selectItem2}">
+			{{citem.name}}
+		</div>
+	</div>
 	<!-- 数据 -->
 	<div class="home-main">
 		<ngx-qq *ngIf='selectItem=="QQ音乐"' [qqList]="qqList" (change)="qqSrcChange($event)"></ngx-qq>
-		<ngx-v3 *ngIf='selectItem=="酷狗V3"' [kugouV3List]="kugouV3List"></ngx-v3>
+		<ngx-v3 *ngIf='selectItem2=="酷狗V3"' [kugouV3List]="kugouV3List"></ngx-v3>
+		<ngx-newV3 *ngIf='selectItem2=="多版本"' [kugouNewV3List]="kugouNewV3List"></ngx-newV3>
 		<ngx-kuwo *ngIf='selectItem=="酷我音乐"' [kuwoList]="kuwoList"></ngx-kuwo>
 		<ngx-wangyiyun *ngIf='selectItem=="网易云"' [wangyiyunList]="wangyiyunList"></ngx-wangyiyun>
 		<ngx-lsdd *ngIf='selectItem=="铃声多多"' [lsddList]="lsddList" (change)="lsddSrcChange($event)"></ngx-lsdd>
@@ -28,7 +37,7 @@
 	<div class="pagination">
 		<span *ngIf='selectItem=="QQ音乐"&&qqList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='qqPageNext()' style="cursor: pointer;"></span>
-		<span *ngIf='selectItem=="酷狗V3"&&kugouV3List.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
+		<span *ngIf='selectItem2=="酷狗V3"&&kugouV3List.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='kugouV3PageNext()' style="cursor: pointer;"></span>
 		<span *ngIf='selectItem=="酷我音乐"&&kuwoList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='kuwoPageNext()' style="cursor: pointer;"></span>
