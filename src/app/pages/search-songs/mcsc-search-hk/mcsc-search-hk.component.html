@@ -1,0 +1,45 @@
+<nz-empty *ngIf="McscSearchHKList.length==0" style="margin-top: 160px;"></nz-empty>
+<div class="list">
+    <div *ngFor="let item of McscSearchHKList;let i = index;">
+        <div style="font-size: 20px;font-weight:bold;margin-top: 5px;background-color: #86878a;padding: 8px;color: #fff;">
+            <div>
+                {{i+1}}.{{item.C_TITLE}}({{item.E_TITLE}})
+            </div>
+            <div style="font-size: 16px;">
+                Ref No {{item.WORK_CODE}} Genre {{item.GENRE_DETAIL}}
+            </div>
+        </div>
+        <div>
+            <div class="list-item-box">
+                <div style="width: 30%;">
+                    <div style="background-color: #ffe97d;color: #fff;">
+                        <div style="padding: 8px;">PERFORMER(S) (Last Name, First Name)</div>
+                    </div>
+                    <div style="padding: 10px;">
+                        <div *ngFor="let items of item.PERFORMERS" >
+                            <span>{{items.LAST_NAME}} {{items.FIRST_NAME}} {{items.CHINESE_NAME}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 70%;">
+                    <div style="background-color:  rgb(193,68,10);color: #fff;display: flex;justify-content: space-around;width: 100%;">
+                        <div style="width: 50%;padding: 8px;">
+                            INTERESTED PARTIES
+                        </div>
+                        <div style="width: 50%;padding: 8px;">
+                            STATUS
+                        </div>
+                    </div>
+                    <div style="width: 100%;">
+                        <div *ngFor="let items of item.INTERESTED_PARTIES" style="display: flex;padding: 8px;width: 100%;" >
+                            <div style="width: 50%;border-bottom: 1px solid #000;line-height: 30px;"><span>{{items.CH_NAME}}</span> <span *ngIf="items.CH_NAME">({{items.NAME}})</span> <span *ngIf="!items.CH_NAME">{{items.NAME}}</span></div>
+                            <div style="width: 50%;border-bottom: 1px solid #000;line-height: 30px;">
+                                {{items.ROLE}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

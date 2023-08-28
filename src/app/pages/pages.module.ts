@@ -110,6 +110,8 @@ import { WYComponent } from './radar/wy/wy.component';
 import { QqLabelComponent } from './qq/qq-label/qq-label.component';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { SongListLabelComponent } from './qq/qq-label/song-list-label/song-list-label.component';
+import { McscSearchCNComponent } from './search-songs/mcsc-search-cn/mcsc-search-cn.component';
+import { McscSearchHKComponent } from './search-songs/mcsc-search-hk/mcsc-search-hk.component';
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -221,6 +223,8 @@ registerLocaleData(zh);
 		ToMvComponent,
 		QqLabelComponent,
   SongListLabelComponent,
+  McscSearchCNComponent,
+  McscSearchHKComponent,
 	],
 })
 export class PagesModule {

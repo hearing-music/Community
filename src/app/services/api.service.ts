@@ -659,4 +659,19 @@ export class ApiService {
 			 } = params;
 			return this.http.get(this.baseUrl + '/venus/demoTrade?keyword=' + keyword+'&page='+page)
 		}
+		    //港台音著协
+		    searchMcscSearchHK(params:any){
+		        let {
+		                 keyword             
+		        } = params;
+		        return this.http.get(this.baseUrl+'/mcsc/McscSearchHK?keyword=' + keyword)
+		    }
+		    //内陆音著协
+		    searchMcscSearchCN(params:any){
+		        let {
+		            keyword,
+		            acsa
+		        } = params;
+		        return this.http.get(this.baseUrl+'/mcsc/McscSearchCN?keyword= '+ keyword+'&acsa='+acsa)
+		    }
 }

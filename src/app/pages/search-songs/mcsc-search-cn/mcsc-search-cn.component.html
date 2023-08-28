@@ -1,0 +1,23 @@
+<nz-empty *ngIf="McscSearchCNList.length==0" style="margin-top: 160px;"></nz-empty>
+<div class="list">
+    <div style="display: flex;justify-content: space-around;padding: 8px;" *ngIf="McscSearchCNList.length!=0">
+        <div style="width: 25%;">作品名称</div>
+        <div style="width: 25%;">曲作者</div>
+        <div style="width: 25%;">词作者</div>
+        <div style="width: 25%;">编译配者</div>
+    </div>
+    <div class="list-item" *ngFor="let item of McscSearchCNList;let i = index;">
+        <div style="width: 25%;">
+            {{item.title}}
+        </div>
+        <div style="width: 25%;">
+            {{item.c}}
+        </div>
+        <div style="width: 25%;">
+            {{item.a}}
+        </div>
+        <div style="width: 25%;">
+            {{item.as}}
+        </div>
+    </div>
+</div>

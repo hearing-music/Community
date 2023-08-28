@@ -1,6 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
 	selector: 'ngx-search-songs',
@@ -8,7 +9,7 @@ import {CommonService} from "../../services/common.service";
 	styleUrls: ['./search-songs.component.scss']
 })
 export class SearchSongsComponent implements OnInit {
-	constructor(public api: ApiService,public common: CommonService) { }
+	constructor(public api: ApiService,public common: CommonService,public message:NzMessageService) { }
 	@ViewChild('lyric')
 	lyric:any;
 	ismobile:any=null;
@@ -69,6 +70,18 @@ export class SearchSongsComponent implements OnInit {
 	},{
 		name: '词曲版权',
 		holder: '词曲版权搜索'
+	},{
+		name: '音著协',
+		child:[
+			{
+				name:'大陆音著协',
+				holder: '大陆音著协搜索'
+			},
+			{
+				name:'港台音著协',
+				holder:'港台音著协搜索'
+			}
+		]
 	}]
 	selectItem = 'QQ音乐';
 	searchValue = '';
@@ -116,6 +129,11 @@ export class SearchSongsComponent implements OnInit {
 	
 	kugouNewV3Page=1;
 	kugouNewV3List:any[]=[]
+
+	searchkeyword={keyword:"",acsa:""};
+	McscSearchHKList:any[]=[]
+	McscSearchCNList:any[]=[]
+
 	searchNewV3() {
 		this.api.getV3_2({
 			keyword: this.searchValue,
@@ -426,6 +444,7 @@ export class SearchSongsComponent implements OnInit {
 		// this.searchValue = '';
 	}
 	onSelect2(citem:any){
+		console.log(citem)
 		this.selectItem2 = citem.name;
 		this.searchHolder = citem.holder;
 	}
@@ -443,7 +462,6 @@ export class SearchSongsComponent implements OnInit {
 		this.fufuSingerPage=1;
 		this.copyrightPage=1;
 		this.kugouNewV3Page=1;
-		
 		this.loading = true;
 		if(this.tagNow){
 			if (this.selectItem2 == '酷狗V3') {
@@ -451,6 +469,12 @@ export class SearchSongsComponent implements OnInit {
 			}
 			if (this.selectItem2 == '多版本') {
 				this.searchNewV3()
+			}
+			if(this.selectItem2 == '大陆音著协'){
+				// this.getCopyright()
+			}
+			if(this.selectItem2 == '港台音著协'){
+				this.searchMcscSearchHK()
 			}
 			return
 		}
@@ -666,6 +690,46 @@ export class SearchSongsComponent implements OnInit {
 		this.lsddPage += 1;
 		this.loading = true;
 		this.searchLsdd()
+	}
+	searchMcscSearchCN(){
+		this.loading=true;
+		if(this.searchkeyword.keyword){
+			this.api.searchMcscSearchCN({
+				keyword: this.searchkeyword.keyword,
+				acsa:this.searchkeyword.acsa
+			}).subscribe((res: any) => {
+				this.loading = false;
+				this.McscSearchCNList=res.result;
+				console.log(res)
+			}, (err: any) => {
+				console.log(err)
+				this.loading = false;
+			})
+		}else{
+			this.loading=false;
+			this.message.create("error", `搜索的歌曲名不能为空`);
+		}
+	}
+	searchMcscSearchHK(){
+		this.api.searchMcscSearchHK({
+			keyword: this.searchValue,
+		}).subscribe((res: any) => {
+			this.loading = false;
+			this.McscSearchHKList=res.result;
+			console.log(res)
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	focus(e:any){
+		e.preventDefault();
+		document.onkeydown =  (event_e:any)=>{
+			if(event_e.keyCode === 13){
+				this.loading=true;
+				this.searchMcscSearchCN()
+			}
+		}
 	}
 	ngOnInit(): void {
 		this.ismobile = this.common.isMobile()
