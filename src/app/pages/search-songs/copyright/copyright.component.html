@@ -152,29 +152,52 @@
               >
                 {{ item.DemoTradePrice.splitSubText }}
               </div>
+				<div style="flex: 1; cursor: pointer;color: blue;margin-left: 8px;" (click)="showRadio(item)">
+					 {{ item.DyCoverSong.length ? "DY高播翻唱视频" : "暂无" }}
+				</div>
             </div>
           </div>
         </div>
       </div>
-      <div style="flex: 1; cursor: pointer" (click)="showRadio(item)">
-        {{ item.DyCoverSong.length ? "DY高播翻唱视频" : "暂无" }}
-      </div>
-      <div style="flex: 1">
-        <div
+    
+      <div style="flex: 1;display: flex;">
+        <div style="flex:1;flex-shrink: 0;"
           nz-tooltip
           [nzTooltipTitle]="'词版权公司'"
           [nzTooltipPlacement]="'topLeft'"
         >
           <!-- //词版权公司 -->
-          {{ item.lyricCompanyName }}
+		  <div *ngFor="let lyric of item.lyricCompanyName;" style="cursor: pointer;" (click)='openCompay(lyric.companyId)'>
+			 <div class="hiddenText">
+			  	{{ lyric.companyName }}
+			  </div>
+			  <div style='display: flex;color: #000;' *ngIf='lyric.lyricPercent!=0'>
+			  	
+			  	<div>
+					词
+					{{(lyric.lyricPercent*100).toFixed(2)}}%
+			  	</div>
+			  </div>
+		  </div>
+          
         </div>
-        <div
+		<div style="flex:1;flex-shrink: 0;margin-left: 18px;"
           nz-tooltip
           [nzTooltipTitle]="'曲版权公司'"
           nzTooltipPlacement="topLeft"
         >
           <!-- //曲版权公司 -->
-          {{ item.musicCompanyName }}
+          <div *ngFor="let music of item.musicCompanyName;" style="cursor: pointer;" (click)='openCompay(music.companyId)'>
+          		<div class="hiddenText">
+					{{ music.companyName }}
+				</div>
+				<div style='display: flex;color: #000;' *ngIf='music.musicPercent!=0'>
+					<div>
+						曲
+						{{(music.musicPercent*100).toFixed(2)}}%
+					</div>
+				</div>
+          </div>
         </div>
       </div>
       <div style="display: flex; flex-direction: column; align-items: flex-end">

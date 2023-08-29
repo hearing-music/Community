@@ -186,6 +186,11 @@ export class SearchSongsComponent implements OnInit {
 						item.musicAuthors+=litem+'、';
 					}
 				})
+				
+				item.lyricCompanyName.forEach((litem:any,lindex:number)=>{
+					let o = item.musicCompanyName.find((e:any)=>e.companyId == litem.companyId)||{}
+					litem.lyricPercent = o.lyricPercent || 0;
+				})
 			})
 		  this.copyrightList = res.result;
 		this.copyrightTotal = res.total

@@ -28,6 +28,10 @@ export class CopyrightComponent implements OnInit {
   dowloadLyric(src: any) {
     window.open(src);
   }
+	// 打开公司
+	openCompay(id:string|number){
+		window.open('https://y.qq.com/portal/company_detail.html?id='+id+'#sort=1&type=album')
+	}
   showRadio(item: any) {
     if (item.DyCoverSong.length > 0 || item.isShowRadio) {
       if (item.isShowRadio) {
