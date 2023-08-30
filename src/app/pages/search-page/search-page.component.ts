@@ -73,13 +73,15 @@ export class SearchPageComponent implements OnInit {
 		})
 	}
 	searchFiveSing(){
-		this.api.GetfiveSing({page:this.sing5Page,pagesize:this.sing5PageSize,keyword:this.searchValue}).subscribe((res:any)=>{
-			console.log(res)
-			this.sing5List=res.company,
-			this.sing5PageTotal=res.count,
-			this.loading=false
-		})
-	}
+	        this.api.GetfiveSing({page:this.sing5Page,pagesize:this.sing5PageSize,keyword:this.searchValue}).subscribe((res:any)=>{
+	            for(let i=0;i<res.company.length;i++){
+	                res.company[i].styles=res.company[i].styles.join(',')
+	            }
+	            this.sing5List=res.company,
+	            this.sing5PageTotal=res.count,
+	            this.loading=false
+	        })
+	    }
 	onSelect(item: any): void {
 		this.selectItem = item.name;
 		this.searchHolder = item.holder;

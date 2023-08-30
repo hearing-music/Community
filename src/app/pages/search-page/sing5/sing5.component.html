@@ -33,11 +33,9 @@
 		  <td nzAlign='center'>
 		  	{{item.province}}	  
 		  </td>
-		  <td nzAlign='center'>
-		  	<span *ngFor="let items of item.styles;let g = index">
-				<span>{{items}}</span><span *ngIf="g==items.length">，</span>
-			</span>	  
-		  </td>
+		  	<td nzAlign='center'>
+		  	            {{item.styles}}
+		  	          </td>
 		  <td nzAlign='center' style="color:blue;cursor: pointer;">
 			<div (click)="OpenFiveSing(item.id)">
 				查看
