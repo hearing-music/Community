@@ -1,0 +1,144 @@
+<nz-empty
+  *ngIf="tmeMapHotList.length == 0"
+  style="margin-top: 160px"></nz-empty>
+<div class="list">
+  <div *ngFor="let item of tmeMapHotList; let i = index">
+    <div class="list-item">
+      <div class="item-left">
+        <div class="left-avatar"><img [src]="item.songCoverUrl" style="width: 100%; height: 100%" onerror='this.src="/assets/img/imgError.png"'/></div>
+        <div class="left-text">
+			<div class="title-area">
+				<div nz-tooltip [nzTooltipTitle]="item.songName" class="title u-line-1" (click)="common.copy(item.songName)">{{ item.songName }}</div>
+			</div>
+			<div class="subTitle hideText" nz-tooltip [nzTooltipTitle]="item.singerName" [nzTooltipPlacement]='"topLeft"'>
+				<div *ngFor="let singer of item.singerName;let singerI=index;">{{singerI==item.singerName.length-1?singer:singer+'、'}}</div>
+			</div>
+		</div>
+	  </div>
+ 
+  <div style="flex: 1;display: flex;" class="title" nz-tooltip [nzTooltipTitle]="'专辑'" [nzTooltipPlacement]='"topLeft"'>
+  	{{item.albumName}}
+  </div>
+  <div style="flex: 1;display: flex;" class="title"  nz-tooltip [nzTooltipTitle]="'发行时间'" [nzTooltipPlacement]='"topLeft"'>
+  	{{common.timeFormat(item.publishTime)}}
+  </div>
+  <div style="flex: 1;display: flex;" class="title" nz-tooltip [nzTooltipTitle]="'近7天均值'" [nzTooltipPlacement]='"topLeft"'>
+  	{{item.avgUniIndex}}
+  </div>
+  <div style="flex: 1;display: flex;" style="color: blue;cursor: pointer;" (click)='openDetail(item)'>
+  	{{item.isMore?'收起':'详情'}}
+  </div>
+</div>
+<!-- 详情 -->
+<div *ngIf='item.isMore'>
+	<div style='display:flex;justify-content: space-around;position: relative;'>
+		<div style="position: relative;">
+			<div style="display: flex;align-items: center;">
+				<img src="../../../../assets/img/wenhao.svg" nz-tooltip [nzTooltipTitle]="tip1"  style="width: 30px;height:30px;">
+				<div style="font-weight: bold;font-size:16px;">歌曲热度指数</div>
+			</div>
+			<div echarts [options]="item.lineOption1" class="echartsDemo"></div>
+		</div>
+		<div style="position: relative;">
+			<div style="display: flex;align-items: center;">
+				<img src="../../../../assets/img/wenhao.svg" nz-tooltip [nzTooltipTitle]="tip2"  style="width: 30px;height:30px;">
+				<div style="font-weight: bold;font-size:16px;">
+					歌曲播放指数
+				</div>
+			</div>
+			<div echarts [options]="item.lineOption2" class="echartsDemo"></div>
+		</div>
+	</div>
+	<div style='display:flex;justify-content: space-around;margin-top: 20px;position: relative;'>
+		<div style="position: relative;">
+			<div style="display: flex;align-items: center;">
+				<img src="../../../../assets/img/wenhao.svg" nz-tooltip [nzTooltipTitle]="tip3"  style="width: 30px;height:30px;">
+				<div style="font-weight: bold;font-size:16px;margin-right: 4px;">歌曲播放来源</div>
+				<button *ngIf='item.type=="kg"' nz-button nzSize='small' nzType="primary" (click)='setE3(item,"qyIndex")'>酷狗</button>
+				<button *ngIf='item.type=="qq"' nz-button nzSize='small' nzType="primary" (click)='setE3(item,"kgIndex")'>QQ</button>
+			</div>
+			<div echarts [options]="item.lineOption3" class="echartsDemo"></div>
+		</div>
+		<div style="position: relative;">
+			<div style="display: flex;align-items: center;">
+				<img src="../../../../assets/img/wenhao.svg" nz-tooltip [nzTooltipTitle]="tip4"  style="width: 30px;height:30px;">
+				<div style="font-weight: bold;font-size:16px;">
+					歌曲互动数据
+				</div>
+			</div>
+			<div echarts [options]="item.lineOption4" class="echartsDemo"></div>
+		</div>
+	</div>
+	<div style="font-weight: bold;font-size:16px;margin-top: 10px;">
+		高频搜索分布
+		<img src="../../../../assets/img/wenhao.svg" nz-tooltip [nzTooltipTitle]="tip5"  style="width: 30px;height:30px;">
+	</div>
+	<div class="gaopin">
+			<div *ngFor="let s of item.searchWord.data;let si =index;" class="searchIndex">
+				<div>
+					{{si+1}} {{s.word}}
+				</div>
+				<div >
+					{{s.searchIndex}}%
+				</div>
+			</div>
+	</div>
+</div>
+
+</div>
+</div>
+
+
+<ng-template #tip1>
+  <div>
+	  歌曲热度指数：根据歌曲在TME三大平台（QQ音乐、酷狗音乐、酷我音乐）APP端登录用户产生的完整播放量、付费收听、及对应专辑的销量综合计算得出，每十分钟更新一次
+  </div>
+</ng-template>
+<ng-template #tip2>
+  <div>
+	  <div>
+		  歌曲播放指数
+	  </div>
+	  <div>
+		  播放指数是由Q音、酷狗、酷我三平台移动端的播放数据过滤计算得到的统一量化数据。
+	  </div>
+	  <div>
+		  歌曲热度指数走势反映歌曲在TME三平台歌曲热度变化。歌曲热度指数 = 播放指数 + 付费指数
+	  </div>
+  </div>
+</ng-template>
+<ng-template #tip3>
+  <div>
+	  <div>
+		 歌曲在Q音、酷狗平台的用户主要收听来源分布情况。数据从2023.1.11起提供，数据每天更新。各来源具体定义：
+	  </div>
+	  <div>
+		  推荐：包括首页推荐、个性化算法推荐、乐馆/乐库等
+	  </div>
+	  <div>
+		  搜索：用户主动搜索，并在搜索结果中收听
+	  </div>
+	  <div>
+	  		 听歌识曲：用户在听歌识曲结果中收听
+	  </div>
+	  <div>
+	  		 排行榜：通过平台榜单收听
+	  </div>
+	  <div>
+	  		 用户主页：用户在“我的”页面下收听歌曲，包括收藏、本地下载、个人歌单、近期收听等
+	  </div>
+	  <div>
+	  		其他：包括了未知来源和很少量主要来源以外的情况。
+	  </div>
+  </div>
+</ng-template>
+<ng-template #tip4>
+  <div>
+		歌曲互动数据：统计歌曲在TME三大平台 (QQ音乐、酷狗音乐、酷我音乐)APP端当天的登录收藏、下载、分享数与播放数的比值，为了保证数据的可信度，对于当天播放数小于100的歌曲不进行统计
+  </div>
+</ng-template>
+<ng-template #tip5>
+  <div>
+		高频搜索分布：统计TME三大平台（QQ音乐、酷狗音乐、酷我音乐），用户搜索播放该歌曲对应搜索关键词的热度分布（且占比不低于0.10%）。
+  </div>
+</ng-template>

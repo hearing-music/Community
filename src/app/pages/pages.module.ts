@@ -112,6 +112,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { SongListLabelComponent } from './qq/qq-label/song-list-label/song-list-label.component';
 import { McscSearchCNComponent } from './search-songs/mcsc-search-cn/mcsc-search-cn.component';
 import { McscSearchHKComponent } from './search-songs/mcsc-search-hk/mcsc-search-hk.component';
+import { TmeMap_hotComponent } from './search-songs/tme-map/tme-map_hot/tme-map_hot.component';
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -225,6 +226,7 @@ registerLocaleData(zh);
   SongListLabelComponent,
   McscSearchCNComponent,
   McscSearchHKComponent,
+  TmeMap_hotComponent,
 	],
 })
 export class PagesModule {

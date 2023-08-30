@@ -82,6 +82,22 @@ export class SearchSongsComponent implements OnInit {
 				holder:'港台音著协搜索'
 			}
 		]
+	},{
+		name: '云图',
+		child:[
+			{
+				name:'最热',
+				holder: '云图最热搜索'
+			},
+			{
+				name:'最新',
+				holder:'云图最新搜索'
+			},
+			{
+				name:'飙升',
+				holder:'云图飙升搜索'
+			}
+		]
 	}]
 	selectItem = 'QQ音乐';
 	searchValue = '';
@@ -133,8 +149,82 @@ export class SearchSongsComponent implements OnInit {
 	searchkeyword={keyword:"",acsa:""};
 	McscSearchHKList:any[]=[]
 	McscSearchCNList:any[]=[]
-
+	
+	//HOT PUBLIC_TIME RISE
+	tmeMapHotPage=1
+	tmeMapHotList:any[]=[]
+	tmeMapHotTotal=0
+	
+	tmeMapNewPage=1
+	tmeMapNewList:any[]=[]
+	tmeMapNewTotal=0
+	
+	tmeMapRisePage=1
+	tmeMapRiseList:any[]=[]
+	tmeMapRiseTotal=0
+	tmeMapRisePageNext(e:any){
+		this.tmeMapRisePage = e;
+		this.searchTmeMapRise()
+	}
+	searchTmeMapRise(){
+		this.loading = true;
+		this.api.searchTmeMap({
+			keyword:this.searchValue,
+			page:this.tmeMapRisePage,
+			pageSize:5,
+			operate:'RISE'
+		}).subscribe((res: any) => {
+			this.loading = false;
+			this.tmeMapRiseList = res.result;
+			this.tmeMapRiseTotal = res.totalCount;
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	tmeMapHotPageNext(e:any){
+		this.tmeMapHotPage = e;
+		this.searchTmeMapHot()
+	}
+	searchTmeMapHot(){
+		this.loading = true;
+		this.api.searchTmeMap({
+			keyword:this.searchValue,
+			page:this.tmeMapHotPage,
+			pageSize:5,
+			operate:'HOT'
+		}).subscribe((res: any) => {
+			this.loading = false;
+			this.tmeMapHotList = res.result;
+			this.tmeMapHotTotal = res.totalCount;
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	tmeMapNewPageNext(e:any){
+		this.tmeMapHotPage = e;
+		this.searchTmeMapNew()
+	}
+	searchTmeMapNew(){
+		this.loading = true;
+		this.api.searchTmeMap({
+			keyword:this.searchValue,
+			page:this.tmeMapNewPage,
+			pageSize:5,
+			operate:'PUBLIC_TIME'
+		}).subscribe((res: any) => {
+			this.loading = false;
+			this.tmeMapNewList = res.result;
+			this.tmeMapNewTotal = res.totalCount;
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	
 	searchNewV3() {
+		this.loading = true;
 		this.api.getV3_2({
 			keyword: this.searchValue,
 			page: this.kugouNewV3Page
@@ -449,7 +539,6 @@ export class SearchSongsComponent implements OnInit {
 		// this.searchValue = '';
 	}
 	onSelect2(citem:any){
-		console.log(citem)
 		this.selectItem2 = citem.name;
 		this.searchHolder = citem.holder;
 	}
@@ -467,6 +556,9 @@ export class SearchSongsComponent implements OnInit {
 		this.fufuSingerPage=1;
 		this.copyrightPage=1;
 		this.kugouNewV3Page=1;
+		this.tmeMapHotPage=1;
+		this.tmeMapNewPage=1;
+		this.tmeMapRisePage=1;
 		this.loading = true;
 		if(this.tagNow){
 			if (this.selectItem2 == '酷狗V3') {
@@ -480,6 +572,15 @@ export class SearchSongsComponent implements OnInit {
 			}
 			if(this.selectItem2 == '港台音著协'){
 				this.searchMcscSearchHK()
+			}
+			if(this.selectItem2=='最热'&&this.selectItem=='云图'){
+				this.searchTmeMapHot()
+			}
+			if(this.selectItem2=='最新'&&this.selectItem=='云图'){
+				this.searchTmeMapNew()
+			}
+			if(this.selectItem2=='飙升'&&this.selectItem=='云图'){
+				this.searchTmeMapRise()
 			}
 			return
 		}

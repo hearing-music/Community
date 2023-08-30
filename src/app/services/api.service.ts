@@ -674,4 +674,14 @@ export class ApiService {
 		        } = params;
 		        return this.http.get(this.baseUrl+'/mcsc/McscSearchCN?keyword= '+ keyword+'&acsa='+acsa)
 		    }
+		// 云图搜索
+		searchTmeMap(params:any){
+			let {
+				keyword,
+				page,
+				pageSize,
+				operate
+			} = params
+			return this.http.get(this.baseUrl+'/tme_map/tmeMap?pageNo='+(page-1)+'&pageSize='+pageSize+'&keyword='+keyword+'&operate='+operate)
+		}
 }

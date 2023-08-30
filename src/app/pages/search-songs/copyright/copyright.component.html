@@ -146,10 +146,7 @@
               <div
                 class="hideText"
                 nz-tooltip
-                [nzTooltipTitle]="
-                  '分成详情：' + item.DemoTradePrice.splitSubText
-                "
-              >
+                [nzTooltipTitle]="'分成详情：' + item.DemoTradePrice.splitSubText">
                 {{ item.DemoTradePrice.splitSubText }}
               </div>
 				<div style="flex: 1; cursor: pointer;color: blue;margin-left: 8px;" (click)="showRadio(item)">
