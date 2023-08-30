@@ -16,27 +16,32 @@
 	    <tr *ngFor="let item of basicTable.data; let i = index">
 	     <td  nzAlign='center'>
 	        <!-- {{(i+1)+(pageCurrent-1)*pageSize}} -->
+			{{item.id}}	  
 	      </td>
 		  <td nzAlign='center'>
-		  	{{item.singername}}	  
+		  	{{item.singer_name}}	  
 		  </td>
 		  <td nzAlign='center'>
-		  	{{item.singername}}	  
+		  	{{item.QQ}}	  
 		  </td>
 		  <td nzAlign='center'>
-		  	{{item.singername}}	  
+		  	{{item.identity.identity[0]?"男":"女"}}	  
 		  </td>
 		  <td nzAlign='center'>
-		  	{{item.singername}}	  
+		  	{{common.timeFormat(item.birthday)}}	  
 		  </td>
 		  <td nzAlign='center'>
-		  	{{item.singername}}	  
+		  	{{item.province}}	  
 		  </td>
 		  <td nzAlign='center'>
-		  	{{item.singername}}	  
+		  	<span *ngFor="let items of item.styles;let g = index">
+				<span>{{items}}</span><span *ngIf="g==items.length">，</span>
+			</span>	  
 		  </td>
 		  <td nzAlign='center' style="color:blue;cursor: pointer;">
-		  	查看
+			<div (click)="OpenFiveSing(item.id)">
+				查看
+			</div>
 		  </td>
 	    </tr>
 	  </tbody>

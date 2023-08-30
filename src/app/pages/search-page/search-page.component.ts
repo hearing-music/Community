@@ -17,14 +17,13 @@ export class SearchPageComponent implements OnInit {
 	}, {
 		name: '网易私信',
 		holder: '网易私信搜索'
-	}, 
-	// {
-	// 	name: '厂牌用户',
-	// 	holder: '用户搜索'
-	// }, {
-	// 	name: '5SING用户',
-	// 	holder: '5SING搜索'
-	// }
+	},{
+		name: '厂牌用户',
+		holder: '用户搜索'
+	}, {
+		name: '5SING用户',
+		holder: '5SING搜索'
+	}
 	]
 	selectItem = '腾讯音乐人';
 	searchValue = '';
@@ -58,7 +57,28 @@ export class SearchPageComponent implements OnInit {
 		if(this.selectItem == '网易私信'){
 			this.searchWangyisixin()
 		}
+		if(this.selectItem=='5SING用户'){
+			this.searchFiveSing()
+		}
+		if(this.selectItem=='厂牌用户'){
+			this.searchbrandUser()
+		}
 		
+	}
+	searchbrandUser(){
+		this.api.GetbrandUser({page:this.brandUserPage,pagesize:this.brandUserPageSize,keyword:this.searchValue}).subscribe((res:any)=>{
+			this.brandUserList=res.company,
+			this.brandUserPageTotal=res.count,
+			this.loading=false
+		})
+	}
+	searchFiveSing(){
+		this.api.GetfiveSing({page:this.sing5Page,pagesize:this.sing5PageSize,keyword:this.searchValue}).subscribe((res:any)=>{
+			console.log(res)
+			this.sing5List=res.company,
+			this.sing5PageTotal=res.count,
+			this.loading=false
+		})
 	}
 	onSelect(item: any): void {
 		this.selectItem = item.name;
@@ -83,10 +103,14 @@ export class SearchPageComponent implements OnInit {
 		this.searchWangyisixin()
 	}
 	nzPageIndexChangeBrandUser(e:any): void{
-		console.log(e)
+		this.brandUserPage=e
+		this.searchbrandUser()
+		this.loading=true
 	}
 	nzPageIndexChangeSing5(e:any): void{
-		console.log(e)
+		this.sing5Page=e
+		this.searchFiveSing()
+		this.loading=true
 	}
 	searchWangyisixin(): void{
 		this.api.getWangyiyun_user({

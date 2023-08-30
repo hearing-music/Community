@@ -11,4 +11,7 @@ export class BrandUserComponent implements OnInit {
 	constructor(public common: CommonService) { }
   ngOnInit(): void {
   }
+  openCompay(id:string|number){
+		window.open('https://y.qq.com/portal/company_detail.html?id='+id+'#sort=1&type=album')
+	}
 }

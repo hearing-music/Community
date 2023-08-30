@@ -684,4 +684,22 @@ export class ApiService {
 			} = params
 			return this.http.get(this.baseUrl+'/tme_map/tmeMap?pageNo='+(page-1)+'&pageSize='+pageSize+'&keyword='+keyword+'&operate='+operate)
 		}
+		    //获取5sing
+		    GetfiveSing(params: any){
+		        let {
+		            page,
+		            pagesize,
+		            keyword,
+		        } = params;
+		        return this.http.get(this.baseUrl + "/searchPage/fiveSing?keyword=" + keyword  + "&page=" + page + "&pagesize="+ pagesize )
+		    }
+		    //获取厂牌
+		    GetbrandUser(params: any){
+		        let {
+		            page,
+		            pagesize,
+		            keyword,
+		        } = params;
+		        return this.http.get(this.baseUrl + "/searchPage/brandUser?keyword=" + keyword  + "&page=" + page + "&pagesize="+ pagesize )
+		    }
 }

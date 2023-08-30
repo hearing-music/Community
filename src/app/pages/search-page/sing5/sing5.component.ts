@@ -11,5 +11,7 @@ export class Sing5Component implements OnInit {
  	constructor(public common: CommonService) { }
    ngOnInit(): void {
    }
-
+   OpenFiveSing(id:string|number){
+    window.open('http://5sing.kugou.com/'+id)
+   }
 }
