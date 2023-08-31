@@ -1,0 +1,8 @@
+<nz-empty
+  *ngIf="!_artists"
+  style="margin-top: 160px"></nz-empty>
+  <div style="display: flex;">
+    <div style="width: 100%;height:calc(100vh - 4.75rem - 4rem - 46px - 20px) ;" *ngIf="_artists" echarts [options]="option" class="echartsDemo" (chartClick)="GetArt($event)"></div>
+  </div>
+
+<ngx-loading *ngIf='loading'></ngx-loading>

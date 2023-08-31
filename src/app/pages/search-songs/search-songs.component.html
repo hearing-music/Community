@@ -5,7 +5,6 @@
 			<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
 				[ngClass]="{'tagList-itemActive': item.name==selectItem}">
 					{{item.name}}
-				
 			</div>
 		</div>
 		<!-- 搜索 -->
@@ -42,6 +41,7 @@
 		<ngx-tme-map_hot *ngIf='selectItem2=="最热"' [tmeMapHotList]="tmeMapHotList"></ngx-tme-map_hot>
 		<ngx-tme-map_hot *ngIf='selectItem2=="最新"' [tmeMapHotList]="tmeMapNewList"></ngx-tme-map_hot>
 		<ngx-tme-map_hot *ngIf='selectItem2=="飙升"' [tmeMapHotList]="tmeMapRiseList"></ngx-tme-map_hot>
+		<ngx-artist-visualization *ngIf='selectItem=="相似歌手"' [artists]="artists"></ngx-artist-visualization>
 	</div>
 	<!-- 分页 -->
 	<div class="pagination">

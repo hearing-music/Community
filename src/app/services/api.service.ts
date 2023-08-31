@@ -505,7 +505,7 @@ export class ApiService {
 		} = params;
 		const formData: FormData = new FormData();
 		formData.append('file', file);
-		let url = 'http://whaleTail.tingjianmusic.top/v8/SetOggToMp3?typeOf=' + typeOf;
+		let url = 'http://whaleTail.tingjianmusic.top:81/v8/SetOggToMp3?typeOf=' + typeOf;
 		return this.http.post(url, formData);
 	}
 	getRadarList(params: any) {
@@ -702,4 +702,11 @@ export class ApiService {
 		        } = params;
 		        return this.http.get(this.baseUrl + "/searchPage/brandUser?keyword=" + keyword  + "&page=" + page + "&pagesize="+ pagesize )
 		    }
+		        //获取歌手关系图
+		        getArtiest(params:any){
+		            let{
+		                singerMid,
+		            }=params;
+		            return this.http.get(this.baseUrl + "/qq/SingerContacts?singerMid="+singerMid + "&num=5")
+		        }
 }

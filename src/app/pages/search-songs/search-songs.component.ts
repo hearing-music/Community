@@ -98,6 +98,9 @@ export class SearchSongsComponent implements OnInit {
 				holder:'云图飙升搜索'
 			}
 		]
+	},{
+		name: '相似歌手',
+		holder: '搜索歌手mid'
 	}]
 	selectItem = 'QQ音乐';
 	searchValue = '';
@@ -162,6 +165,8 @@ export class SearchSongsComponent implements OnInit {
 	tmeMapRisePage=1
 	tmeMapRiseList:any[]=[]
 	tmeMapRiseTotal=0
+
+	artists:any=false
 	tmeMapRisePageNext(e:any){
 		this.tmeMapRisePage = e;
 		this.searchTmeMapRise()
@@ -620,6 +625,17 @@ export class SearchSongsComponent implements OnInit {
 		if(this.selectItem == '词曲版权'){
 			this.getCopyright()
 		}
+		if(this.selectItem == '相似歌手'){
+			this.GetArtists()
+		}
+	}
+	GetArtists(){
+		this.api.getArtiest({singerMid:this.searchValue}).subscribe((res:any)=>{
+			if(res.success){
+				this.artists=res.result
+			}
+			this.loading=false
+		})
 	}
 	searchKuwo() {
 		this.api.getKuwo({
@@ -806,7 +822,6 @@ export class SearchSongsComponent implements OnInit {
 			}).subscribe((res: any) => {
 				this.loading = false;
 				this.McscSearchCNList=res.result;
-				console.log(res)
 			}, (err: any) => {
 				console.log(err)
 				this.loading = false;

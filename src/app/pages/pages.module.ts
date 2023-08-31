@@ -51,7 +51,9 @@ import { CopyrightComponent } from './search-songs/copyright/copyright.component
 import { FufuBillboardComponent } from './fufuleida/fufu-billboard/fufu-billboard.component';
 import { JianyingComponent } from './jianying/jianying.component';
 import { ToMvComponent } from './to-mv/to-mv.component';
+
 // componet
+import { ArtistVisualizationComponent } from './search-songs/artist-visualization/artist-visualization.component';
 import { MermaidComponent } from './mermaid/mermaid.component';
 import {EnlightenmentSongsComponent} from './venus/enlightenment-songs/enlightenment-songs.component'
 import { EnlightenmentTop20Component} from './search-songs/enlightenment-top20/enlightenment-top20.component'
@@ -148,6 +150,7 @@ registerLocaleData(zh);
 		NzCardModule
 	],
 	declarations: [
+		ArtistVisualizationComponent,
 		MermaidComponent,
 		EnlightenmentSongsComponent,
 		EnlightenmentTop20Component,
