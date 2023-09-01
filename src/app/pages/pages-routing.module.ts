@@ -27,6 +27,7 @@ import { CopyrightScanningComponent } from './copyright-scanning/copyright-scann
 import { TrackSeparateComponent } from './track-separate/track-separate.component';
 import { GetRankingComponent } from './qq_kugou-ranking/get-ranking/get-ranking.component';
 import { SetRankingComponent } from './qq_kugou-ranking/set-ranking/set-ranking.component';
+import { OriginalAudioComponent } from './original-audio/original-audio.component';
 // import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
@@ -280,6 +281,12 @@ const routes: Routes = [{
 			component: ToMvComponent,
 			canActivate: [PermissionGuard]
 		},
+		        //原创音频
+		        {
+		            path: 'original-audio',
+		            component: OriginalAudioComponent,
+		            canActivate: [PermissionGuard]
+		        },
 		// {
 		// 	path: 'ui-features',
 		// 	loadChildren: () => import('./ui-features/ui-features.module')

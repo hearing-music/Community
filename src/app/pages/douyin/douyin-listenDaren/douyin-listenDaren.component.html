@@ -95,7 +95,7 @@
 	<!-- 分页 -->
 	<div class="pagination">
 		<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
-			(nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
+			(nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper nzShowSizeChanger [nzPageSizeOptions]='pageSizeOptions' (nzPageSizeChange)='nzPageSizeChange($event)'></nz-pagination>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 	<!-- 修改 -->

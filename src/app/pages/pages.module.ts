@@ -53,7 +53,8 @@ import { JianyingComponent } from './jianying/jianying.component';
 import { ToMvComponent } from './to-mv/to-mv.component';
 
 // componet
-import { ArtistVisualizationComponent } from './search-songs/artist-visualization/artist-visualization.component';
+import { ArtistVisualizationComponent } from './search-page/artist-visualization/artist-visualization.component';
+import { OriginalAudioComponent } from './original-audio/original-audio.component';
 import { MermaidComponent } from './mermaid/mermaid.component';
 import {EnlightenmentSongsComponent} from './venus/enlightenment-songs/enlightenment-songs.component'
 import { EnlightenmentTop20Component} from './search-songs/enlightenment-top20/enlightenment-top20.component'
@@ -179,6 +180,7 @@ registerLocaleData(zh);
 		ChatgptComponent,
 		IdentificationComponent,
 		CopyrightScanningComponent,
+		OriginalAudioComponent,
 		RadarComponent,
 		QqComponent,
 		QqPhoneComponent,

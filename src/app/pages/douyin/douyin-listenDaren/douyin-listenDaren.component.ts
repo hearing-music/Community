@@ -21,7 +21,8 @@ constructor(public api: ApiService,public common: CommonService,private message:
   list:any=[]
   
   page=1;
-  pageSize=10;
+  pageSize:any=10;
+  pageSizeOptions:any[]=[10,100,250,500,1000,9999999]
   pageTotal = 0;
   search(e:any){
 	  this.searchValue = e;
@@ -37,7 +38,7 @@ constructor(public api: ApiService,public common: CommonService,private message:
   }
   douyin_getListenDaren(){
 	  this.loading = true;
-	  this.api.douyin_getListenDaren({page:this.page,keyword:this.searchValue,type:this.type?'我的':'全部'})
+	  this.api.douyin_getListenDaren({pageSize:this.pageSize,page:this.page,keyword:this.searchValue,type:this.type?'我的':'全部'})
 	  .subscribe((res: any) => {
 	  	console.log(res)
 		if(res.success){
@@ -57,6 +58,11 @@ constructor(public api: ApiService,public common: CommonService,private message:
   nzPageIndexChange(e:any){
 	  this.page = e;
 	  this.douyin_getListenDaren()
+  }
+  nzPageSizeChange(e:any){
+	  this.page=1;
+	 this.pageSize = e;
+	 this.douyin_getListenDaren()
   }
 	goHomeUrl(url:string){
 		window.open(url)

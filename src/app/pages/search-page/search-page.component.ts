@@ -23,6 +23,9 @@ export class SearchPageComponent implements OnInit {
 	}, {
 		name: '5SING用户',
 		holder: '5SING搜索'
+	},{
+		name: '相似歌手',
+		holder: '搜索歌手mid'
 	}
 	]
 	selectItem = '腾讯音乐人';
@@ -46,6 +49,8 @@ export class SearchPageComponent implements OnInit {
 	musicianTxPage = 1;
 	musicianTxList: any[] = []
 
+	artists:any=false
+
 	search(value: string): void {
 		console.log(value)
 		this.searchValue = value;
@@ -63,7 +68,17 @@ export class SearchPageComponent implements OnInit {
 		if(this.selectItem=='厂牌用户'){
 			this.searchbrandUser()
 		}
-		
+		if(this.selectItem == '相似歌手'){
+			this.GetArtists()
+		}
+	}
+	GetArtists(){
+		this.api.getArtiest({singerMid:this.searchValue}).subscribe((res:any)=>{
+			if(res.success){
+				this.artists=res.result
+			}
+			this.loading=false
+		})
 	}
 	searchbrandUser(){
 		this.api.GetbrandUser({page:this.brandUserPage,pagesize:this.brandUserPageSize,keyword:this.searchValue}).subscribe((res:any)=>{

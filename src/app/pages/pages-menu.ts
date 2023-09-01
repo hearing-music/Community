@@ -212,7 +212,11 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		},
 		link: '/pages/mermaid',
 	},
-	
+	    {
+	        title: '原创音频',
+	        icon: 'headphones',
+	        link: '/pages/original-audio',
+	    },
 	
 	
 	// {

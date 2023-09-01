@@ -13,7 +13,9 @@ export class WangyiyunComponent implements OnInit {
 		window.open('https://music.163.com/#/song?id='+songid)
 	}
 	downloadUrl(downloadUrl:string,songname:string){
-		this.common.download(downloadUrl,songname)
+		let suxIndex = downloadUrl.lastIndexOf('.')
+		let sux = downloadUrl.substr(suxIndex)
+		this.common.download(downloadUrl,songname+sux)
 	}
   ngOnInit(): void {
   }

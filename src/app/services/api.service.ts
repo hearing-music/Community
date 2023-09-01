@@ -230,7 +230,8 @@ export class ApiService {
 			keyword,
 			type
 		} = params;
-		return this.http.get(this.baseUrl + "/douyin/douyin_getListenDaren?page=" + page + '&keyword=' + keyword + '&type=' + type)
+		let pageSize:any =params.pageSize
+		return this.http.get(this.baseUrl + "/douyin/douyin_getListenDaren?pageSize="+pageSize+"&page=" + page + '&keyword=' + keyword + '&type=' + type)
 	}
 	
 	// 抖音 视频id搜索
@@ -267,9 +268,10 @@ export class ApiService {
 			page,
 			keyword,
 			type,
-			isdownload
+			isdownload,
+			pageSize
 		} = params;
-		return this.http.get(this.baseUrl + "/douyin/douyin_getListenVideo?page=" + page + '&keyword=' + keyword + '&type=' + type + '&isdownload=' + isdownload)
+		return this.http.get(this.baseUrl + "/douyin/douyin_getListenVideo?pageSize="+pageSize+"&page=" + page + '&keyword=' + keyword + '&type=' + type + '&isdownload=' + isdownload)
 	}
 	// 重新获取抖音audio地址 并存入库中
 	getDouyinAudio(params:any){
@@ -709,4 +711,12 @@ export class ApiService {
 		            }=params;
 		            return this.http.get(this.baseUrl + "/qq/SingerContacts?singerMid="+singerMid + "&num=5")
 		        }
+		    //获取原创音频
+		    GetOriginalAudio(params:any){
+		        let{
+		            page,
+		            pagesize
+		        }=params;
+		        return this.http.get(this.baseUrl + "/original-audio/OriginalSong?limit="+pagesize + "&offset="+page)
+		    }
 }

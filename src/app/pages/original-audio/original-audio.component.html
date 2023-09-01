@@ -1,0 +1,39 @@
+<div class="box">
+    <!-- <div class="search">
+        <ngx-search [searchWidth]='"290px"' style="height: 32px;float: right;margin: 10px;" [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'></ngx-search>
+    </div> -->
+    <!-- <nz-empty *ngIf="listOfData.length==0" style="margin-top: 160px;"></nz-empty> -->
+    <div class="main"  *ngIf="listOfData.length!=0">
+        <nz-table #headerTable [nzData]="listOfData" [nzShowPagination]="false">
+            <thead>
+              <tr>
+                <th nzAlign="center">歌曲名</th>
+                <th nzAlign="center">歌曲类型</th>
+                <th nzAlign="center">分类</th>
+                <th nzAlign="center" nzWidth="120px">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of headerTable.data">
+                <td nzAlign="center">{{ data.name }}</td>
+                <td nzAlign="center">{{data.theme_name}}</td>
+                <td nzAlign="center">{{ data.style_name }}</td>
+                <td nzAlign="center">
+                    <div style="display: flex;justify-content: space-around;">
+                        <button nz-button nzType="primary" nzShape="circle" style="display: flex;justify-content: center;align-items: center;" (click)="download(data)"><span nz-icon nzType="download"></span></button>
+                        <button nz-button nzType="primary" nzShape="circle" style="display: flex;justify-content: center;align-items: center;" (click)="play(data)"><span nz-icon nzType="caret-right"></span></button>
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+          <div style="float: right;margin-top: 10px;margin-right: 8px;">
+            <nz-pagination [nzPageIndex]="page" [nzTotal]="total" nzShowQuickJumper (nzPageIndexChange)="changePage($event)"></nz-pagination>
+          </div>
+    </div>
+</div>
+<ngx-loading *ngIf='loading'></ngx-loading>
+<div class="play">
+    <audio id='audio' controls [src]="audioSrc" autoplay="autoplay">
+    </audio>
+</div>

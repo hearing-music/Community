@@ -98,9 +98,6 @@ export class SearchSongsComponent implements OnInit {
 				holder:'云图飙升搜索'
 			}
 		]
-	},{
-		name: '相似歌手',
-		holder: '搜索歌手mid'
 	}]
 	selectItem = 'QQ音乐';
 	searchValue = '';
@@ -625,17 +622,6 @@ export class SearchSongsComponent implements OnInit {
 		if(this.selectItem == '词曲版权'){
 			this.getCopyright()
 		}
-		if(this.selectItem == '相似歌手'){
-			this.GetArtists()
-		}
-	}
-	GetArtists(){
-		this.api.getArtiest({singerMid:this.searchValue}).subscribe((res:any)=>{
-			if(res.success){
-				this.artists=res.result
-			}
-			this.loading=false
-		})
 	}
 	searchKuwo() {
 		this.api.getKuwo({

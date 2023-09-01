@@ -24,6 +24,7 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
   
   page=1;
   pageSize=10;
+  pageSizeOptions=[10,100,250,500,1000,9999999]
   pageTotal = 0;
   search(e:any){
 	  this.searchValue = e;
@@ -39,7 +40,7 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
   }
   douyin_getListenVideo(){
 	  this.loading = true;
-	  this.api.douyin_getListenVideo({page:this.page,keyword:this.searchValue,type:this.type?'我的':'全部',isdownload:''})
+	  this.api.douyin_getListenVideo({pageSize:this.pageSize,page:this.page,keyword:this.searchValue,type:this.type?'我的':'全部',isdownload:''})
 	  .subscribe((res: any) => {
 	  	console.log(res)
 		if(res.success){
@@ -86,6 +87,11 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
   nzPageIndexChange(e:any){
 	  this.page = e;
 	  this.douyin_getListenVideo()
+  }
+  nzPageSizeChange(e:any){
+	  this.page=1;
+  	  this.pageSize = e;
+  	  this.douyin_getListenVideo()
   }
 	goHomeUrl(url:string){
 		window.open(url)

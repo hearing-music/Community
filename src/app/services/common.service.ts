@@ -342,6 +342,7 @@ export class CommonService {
 		return formatStr
 	}
 	download(src: string, name: string, t: any = true) {//下载地址和名
+		
 		var xhr = new XMLHttpRequest(); xhr.open('GET',src, true);
 		xhr.responseType = 'arraybuffer';
 		xhr.onload = function() {
