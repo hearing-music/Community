@@ -6,6 +6,18 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class CommonService {
 	constructor(public message: NzMessageService) { }
 	highUserList=['1','2','3','4','5','8','13','26','34']
+	// 求和 数组对象指定key
+	sum(arr:any,key:any,name:any=false) {
+	    var s = 0;
+	    arr.forEach(function(val:any, idx:any, arr:any) {
+			if(name){
+				s += val[name][key];
+			}else{
+				s += val[key];
+			}
+	    }, 0);
+	    return s.toFixed(2);
+	};
 	storageSet(obj:any){
 		localStorage.setItem('guideShow', obj.guideShow)
 		localStorage.setItem('phone', obj.phone)

@@ -205,7 +205,7 @@ export class SearchSongsComponent implements OnInit {
 		})
 	}
 	tmeMapNewPageNext(e:any){
-		this.tmeMapHotPage = e;
+		this.tmeMapNewPage = e;
 		this.searchTmeMapNew()
 	}
 	searchTmeMapNew(){

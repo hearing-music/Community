@@ -20,6 +20,43 @@ export class QqComponent implements OnInit {
 	rankItem :any = [];
 	lyricShow = false;
 	
+	albumNameDrawer=''
+	visible = false;
+	drawerLoading=false;
+	albumAllSongs:any = []
+	// 抽屉打开
+	drawOpen(albumName:any,albummid:any){
+		this.albumNameDrawer = albumName
+		this.albumAllSongs=[]
+		this.visible=true;
+		let song=this.qqList.find((e:any)=>e.albumAllSongs&&albummid==e.album.mid)
+		if(song){
+			this.albumAllSongs = song.albumAllSongs
+		}else{
+			this.qq_getAlbumExponent(albummid)
+		}
+	}
+	drawClose(){
+		this.visible=false;
+	}
+	qq_getAlbumExponent(albummid:any){
+		this.drawerLoading=true;
+		this.api.qq_getAlbumExponent({albummid}).subscribe((res: any) => {
+			console.log(res)
+			if(res.success){
+				for(let i =0;i<this.qqList.length;i++){
+					if(this.qqList[i].album.mid==albummid){
+						this.qqList[i].albumAllSongs = res.result;
+					}
+				}
+				this.albumAllSongs=res.result;
+			}
+			this.drawerLoading=false;
+		}, (err: any) => {
+			console.log(err)
+			this.drawerLoading=false;
+		})
+	}
 	
 	// 获取歌词
 	getLyric(item:any){

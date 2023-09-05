@@ -73,7 +73,7 @@
 		高频搜索分布
 		<img src="../../../../assets/img/wenhao.svg" nz-tooltip [nzTooltipTitle]="tip5"  style="width: 30px;height:30px;">
 	</div>
-	<div class="gaopin">
+	<div class="gaopin" *ngIf='item.searchWord.data.length>0'>
 			<div *ngFor="let s of item.searchWord.data;let si =index;" class="searchIndex">
 				<div>
 					{{si+1}} {{s.word}}

@@ -1,6 +1,6 @@
 <nz-empty *ngIf="qqList.length==0" style="margin-top: 160px;"></nz-empty>
 <div class="list" *ngIf='qqList.length!=0'>
-	<div class="list-item" *ngFor="let item of qqList;let i =index;" >
+	<div class="list-item" *ngFor="let item of qqList;let i =index;">
 		<div class="item-left">
 			<div class="left-icon" (click)='playAudio(item.musicUrl,i)'>
 				<img *ngIf='!item.isPlay' src="../../../assets/img/play-green.png" style="width: 100%;height: 100%;" />
@@ -16,7 +16,8 @@
 							</span>
 						</div>
 					</div>
-					<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.mid)" class="linkIcon" style="margin-left: 18px;">
+					<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.mid)" class="linkIcon"
+						style="margin-left: 18px;">
 						<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
 					</button>
 					<!-- 收听 -->
@@ -30,7 +31,8 @@
 						<div>{{common.toThousands(item.todayIndex)}}</div>
 					</div>
 					<!-- 指数链接 -->
-					<button (click)="openLink(item.mid)" nz-button nzShape="circle" nzType="text" class="linkIcon" style="margin-left: 2px;">
+					<button (click)="openLink(item.mid)" nz-button nzShape="circle" nzType="text" class="linkIcon"
+						style="margin-left: 2px;">
 						<span nz-icon nzType="link" nzTheme="outline" style='color:#35C035;font-size: 14px;'></span>
 					</button>
 					<!-- 昨日指数 -->
@@ -49,9 +51,11 @@
 					<div style="margin-left: 18px;" (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
 						<img src="../../../assets/img/lyric-green.png" style="width: 20px;height: 20px;">
 						<!-- 鼠标移入加载歌词 -->
-						<ngx-lyric-all *ngIf='item.lyricShow' [rankList]='rankItem' [songName]='item.name' [lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
+						<ngx-lyric-all *ngIf='item.lyricShow' [rankList]='rankItem' [songName]='item.name'
+							[lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
 					</div>
-					<div style="margin-left: 18px;position:relative" (mouseenter)='mouseenter2(item)' (mouseleave)='mouseleave2(item)'>
+					<div style="margin-left: 18px;position:relative" (mouseenter)='mouseenter2(item)'
+						(mouseleave)='mouseleave2(item)'>
 						<img src="../../../assets/img/lishi.svg" style="width: 20px;height: 20px;">
 						<div *ngIf='item.historyShow' class="history">
 							<div>
@@ -61,7 +65,8 @@
 								<nz-spin nzSimple *ngIf='!item.historyReady'></nz-spin>
 							</div>
 							<div *ngIf='item.historyReady'>
-								<div class="link" *ngIf='item.historyI.length!=0' (click)='openCompay(item.historyI[0].id)' >
+								<div class="link" *ngIf='item.historyI.length!=0'
+									(click)='openCompay(item.historyI[0].id)'>
 									{{item.historyI[0].name}}
 								</div>
 								<div *ngIf='item.historyI.length==0'>
@@ -75,20 +80,23 @@
 								<nz-spin nzSimple *ngIf='!item.historyReady'></nz-spin>
 							</div>
 							<div *ngIf='item.historyReady'>
-								<div *ngFor="let h of item.historyS;let c = index;" class="link" (click)='openCompay(h.id)' >
+								<div *ngFor="let h of item.historyS;let c = index;" class="link"
+									(click)='openCompay(h.id)'>
 									{{h.name?h.name:h.id}}
 								</div>
 							</div>
 						</div>
 					</div>
-					<div style="margin-left: 18px;position:relative" (mouseenter)='mouseenter3(item)' (mouseleave)='mouseleave3(item)'>
+					<div style="margin-left: 18px;position:relative" (mouseenter)='mouseenter3(item)'
+						(mouseleave)='mouseleave3(item)'>
 						<img src="../../../assets/img/lishi2.svg" style="width: 20px;height: 20px;">
 						<div *ngIf='item.historyShow2' class="history">
 							<div>
 								上游公司
 							</div>
-							<div >
-								<div class="link" *ngIf='item.historyI.length!=0' (click)='openCompay(item.historyI[0].id)' >
+							<div>
+								<div class="link" *ngIf='item.historyI.length!=0'
+									(click)='openCompay(item.historyI[0].id)'>
 									{{item.historyI[0].id}}
 								</div>
 								<div *ngIf='item.historyI.length==0'>
@@ -99,7 +107,8 @@
 								历史上游公司
 							</div>
 							<div>
-								<div *ngFor="let h of item.historyS;let c = index;" class="link" (click)='openCompay(h.id)' >
+								<div *ngFor="let h of item.historyS;let c = index;" class="link"
+									(click)='openCompay(h.id)'>
 									{{h.id}}
 								</div>
 							</div>
@@ -137,7 +146,8 @@
 						<img [src]="item.pay.pay_play==0?'../../../assets/img/price.png':'../../../assets/img/price-green.png'"
 							class="icon" />
 						<!-- 音乐图标 -->
-						<img [src]="item.pay.pay_down==0?'../../../assets/img/music.png':'../../../assets/img/music-green.png'" class="icon" />
+						<img [src]="item.pay.pay_down==0?'../../../assets/img/music.png':'../../../assets/img/music-green.png'"
+							class="icon" />
 					</div>
 					<!-- 价格 -->
 					<div style="margin-left: 8px;">
@@ -161,9 +171,14 @@
 		</div>
 		<div class="item-center">
 			<!-- 专辑名字 -->
-			<div>
+			<div style="cursor: pointer;" nz-dropdown [nzDropdownMenu]="menu" [nzTrigger]='"click"'>
 				{{item.album.name}}
 			</div>
+			<nz-dropdown-menu #menu="nzDropdownMenu">
+				<ul nz-menu nzSelectable>
+					<li nz-menu-item (click)='drawOpen(item.album.name,item.album.mid)'>专辑歌曲指数</li>
+				</ul>
+			</nz-dropdown-menu>
 			<div class="exophanie-item u-line-1" (click)="openCompay(item.detail.company_id)">
 				外显：{{item.detail.company}}</div>
 			<div class="exophanie-item u-line-1" (click)="openCompay(item.detail.albumCompany_id)">
@@ -190,3 +205,37 @@
 		</div>
 	</div>
 </div>
+<nz-drawer [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" [nzTitle]="albumNameDrawer"
+	(nzOnClose)="drawClose()" [nzWidth]='450'>
+	<ng-container *nzDrawerContent>
+		<div style="display: flex;justify-content: center;">
+			<nz-spin nzSimple [nzSize]="'large'" *ngIf='drawerLoading' style="margin-top: 40px;"></nz-spin>
+		</div>
+		<nz-empty *ngIf="albumAllSongs.length==0&&!drawerLoading" style="margin-top: 120px;"></nz-empty>
+		<div *ngIf='albumAllSongs.length>0&&!drawerLoading'>
+			<div style="display: flex;align-items: center;justify-content: space-between;color:#666;">
+				<div>歌名</div>
+				<div>今日指数</div>
+				<div>昨日指数</div>
+			</div>
+			<div *ngFor='let item of albumAllSongs;'
+				style="margin-top: 20px;display: flex;align-items: center;">
+				<div class="drawerSongname" (click)="openSongDetail(item.songmid)">
+					{{item.songname}}
+				</div>
+				<div style="margin-left: 36px;min-width: 40px;text-align: left;">
+					{{common.toThousands(item.realtimeData.todayIndex)}}
+				</div>
+				<div style="text-align: right;flex:1;">
+					{{common.toThousands(item.realtimeData.yesterdayIndex)}}
+				</div>
+			</div>
+			<div
+				style="display: flex;align-items: center;justify-content: space-between;font-size:16px;margin-top: 20px;">
+				<div>总和</div>
+				<div>{{common.toThousands(common.sum(albumAllSongs,'todayIndex','realtimeData'))}}</div>
+				<div>{{common.toThousands(common.sum(albumAllSongs,'yesterdayIndex','realtimeData'))}}</div>
+			</div>
+		</div>
+	</ng-container>
+</nz-drawer>

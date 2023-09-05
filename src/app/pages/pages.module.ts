@@ -26,6 +26,7 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { LoadingModule } from '../components/loading/loading.module'
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 // page
 import { OggToMp3Component } from './audio-conversion/ogg-to-mp3/ogg-to-mp3.component';
 import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.component';
@@ -148,7 +149,8 @@ registerLocaleData(zh);
 		NzProgressModule,
 		NzDrawerModule,
 		NzInputModule,
-		NzCardModule
+		NzCardModule,
+		NzDropDownModule
 	],
 	declarations: [
 		ArtistVisualizationComponent,
