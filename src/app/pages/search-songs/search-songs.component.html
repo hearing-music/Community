@@ -16,12 +16,14 @@
 				<span nz-icon nzType="search" nzTheme="outline" style="font-size: 20px; color: #08c;" class="search-icon" (click)="searchMcscSearchCN()"></span>
 		</div>
 	</div>
+	<div class="home-top">
 	<!-- 二级tab -->
 	<div class="tagList tagList2" *ngIf='tagNow'>
 		<div *ngFor='let citem of tagNow.child' (click)="onSelect2(citem)" class="tagList-item" style="font-size: 12px;"
 			[ngClass]="{'tagList-itemActive2': citem.name==selectItem2}">
 			{{citem.name}}
 		</div>
+	</div>
 	</div>
 	<!-- 数据 -->
 	<div class="home-main" [ngClass]='{"home-main2":selectItem2!=""}'>

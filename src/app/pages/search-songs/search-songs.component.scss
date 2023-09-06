@@ -31,9 +31,9 @@
 	border-radius: 8px;
 	display: flex;
 	flex-direction: column;
-	position: relative;
 	.home-top{
 		display: flex;
+		position: relative;
 		// align-items: center;
 		justify-content: space-between;
 		
@@ -79,7 +79,7 @@
 		justify-content: flex-start;
 		position: absolute;
 		// top:calc(4.75rem + 2.25rem + 40px + 18px + 6px);
-		top:64px;
+		top:0;
 	}
 	.tagList::-webkit-scrollbar {
 	    // width: 4px;

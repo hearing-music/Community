@@ -11,6 +11,7 @@ export class LyricAllComponent implements OnInit {
  @Input() songName: any;
  @Input() isphone: any=false;
  @Input() rankList: any = [];
+ @Input() top: any = '50%';
  @Output() closeLyric=new EventEmitter();
  close(e:any) {
  	this.closeLyric.emit()

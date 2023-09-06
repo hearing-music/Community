@@ -45,6 +45,17 @@ export class DouyinDarenComponent implements OnInit {
 	Note: any = ''
     Sex:any=''
 	sexList:any=[{value:'男',label:'男'},{value:'女',label:'女'}]
+	
+	openVideoView(item:any){
+		item.isShowRadio = item.isShowRadio?false:true;
+	}
+	
+	ToRadio(aweme_id: any,secUid:any) {
+	  window.open(
+	    "https://www.douyin.com/user/"+secUid+"?modal_id=" +aweme_id
+	  );
+	}
+	
 	search(e: any) {
 		this.searchValue = e;
 		this.page = 1;
@@ -143,6 +154,12 @@ export class DouyinDarenComponent implements OnInit {
 				this.loading = false;
 				res.result.forEach((item: any) => {
 					item.homeUrl = 'https://www.douyin.com/user/' + item.secUid
+					item.BloggerVideo = item.BloggerVideo.filter((e:any)=>e.is_top==0)
+					let diggCountAll =0
+					item.BloggerVideo.forEach((items:any)=>{
+						diggCountAll+=items.VideoDetails.diggCount
+					})
+					item.diggCountAve = parseInt(diggCountAll/item.BloggerVideo.length+'')
 					// try{
 					// 	item.Weighting = this.common.strToJson(item.Weighting)
 					// 	item.Weighting.clicklike = item.Weighting.clicklike.split(' - ')

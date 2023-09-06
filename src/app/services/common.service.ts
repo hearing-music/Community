@@ -18,6 +18,14 @@ export class CommonService {
 	    }, 0);
 	    return s.toFixed(2);
 	};
+	// 切割 每num一组
+	spArr(arr:any, num:any) { //arr是你要分割的数组，num是以几个为一组
+		let newArr = [] //首先创建一个新的空数组。用来存放分割好的数组
+		for (let i = 0; i < arr.length;) { //注意：这里与for循环不太一样的是，没有i++
+			newArr.push(arr.slice(i, i += num));
+		}
+		return newArr
+	}
 	storageSet(obj:any){
 		localStorage.setItem('guideShow', obj.guideShow)
 		localStorage.setItem('phone', obj.phone)
