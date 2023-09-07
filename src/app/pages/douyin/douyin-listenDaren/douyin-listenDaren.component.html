@@ -57,6 +57,15 @@
 									</div>
 								</span>
 							</div>
+							<!-- 活跃度 -->
+							<div style="display: flex;align-items: center;margin-left:6px;">
+								<span nz-tooltip [nzTooltipTitle]="'近期活跃度'">
+									<div style="display: flex;align-items: center;">
+										<img src="../../../assets/img/activity.svg" class="icon" />
+										{{item.activity?common.toThousands(item.activity):0}}
+									</div>
+								</span>
+							</div>
 							<div style="margin-left: 20px;">
 								类型：<span class="value">{{item.Type?item.Type:'无'}}</span>
 							</div>
