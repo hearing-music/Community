@@ -158,9 +158,12 @@
 			    padding: 16px;
 			    border-radius: 8px;
 			  ">
-				<div *ngFor="let items of item.BloggerVideo; let i = index" style="display: flex;flex-direction: column;align-items: center;padding: 0 10px;width: 290px;padding:0 15px;">
+				<div *ngFor="let items of item.BloggerVideo; let i = index" style="position: relative;display: flex;flex-direction: column;align-items: center;padding: 0 10px;width: 290px;padding:0 15px;">
 					<video [src]="items.videoUrl" width="250px" height="408px" id="v"
 						controls></video>
+					<div *ngIf='items.is_cooperation==1' class="gongchuang">
+						共创
+					</div>
 					<div style="
 					      width: 100%;
 					      font-size: 14px;

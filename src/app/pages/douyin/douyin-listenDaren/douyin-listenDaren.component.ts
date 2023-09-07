@@ -110,24 +110,32 @@ export class DouyinListenDarenComponent implements OnInit {
 	
 	async getVideoDetails(arr: any) {
 		for (let i = 0; i < arr.length; i++) {
-			let secUidArr = arr[i].map((e: any) => e.SecUid)
-			let res: any = await this.getDouYinBloggerVideo(secUidArr)
-			if (res) {
-				for (let j = 0; j < res.length; j++) {
-					res[j] = res[j].filter((e: any) => e.is_top == 0)
-					let diggCountAll = 0
-					res[j].forEach((items: any) => {
-						diggCountAll += items.VideoDetails.diggCount
-					})
-					this.list[j + (i * 10)].diggCountAve = parseInt(diggCountAll / res[j].length + '')
-					this.list[j + (i * 10)].BloggerVideo = res[j]
-					if(res[j].length>0){
-						this.list[j + (i * 10)].avatar = res[j][0].VideoDetails.BloggerInfo.urlList
-						this.list[j + (i * 10)].signature = res[j][0].VideoDetails.BloggerInfo.signature
-						this.list[j + (i * 10)].followerCount = res[j][0].VideoDetails.BloggerInfo.followerCount
-						this.list[j + (i * 10)].totalFavorited = res[j][0].VideoDetails.BloggerInfo.totalFavorited
+			// 只加载前十
+			if(i==0){
+				let secUidArr = arr[i].map((e: any) => e.SecUid)
+				let res: any = await this.getDouYinBloggerVideo(secUidArr)
+				if (res) {
+					for (let j = 0; j < res.length; j++) {
+						res[j] = res[j].filter((e: any) => e.is_top == 0)
+						let diggCountAll = 0
+						res[j].forEach((items: any) => {
+							diggCountAll += items.VideoDetails.diggCount
+						})
+						this.list[j + (i * 10)].diggCountAve = parseInt(diggCountAll / res[j].length + '')
+						this.list[j + (i * 10)].BloggerVideo = res[j]
+						if(res[j].length>0){
+							this.list[j + (i * 10)].avatar = res[j][0].VideoDetails.BloggerInfo.urlList
+							this.list[j + (i * 10)].signature = res[j][0].VideoDetails.BloggerInfo.signature
+							this.list[j + (i * 10)].followerCount = res[j][0].VideoDetails.BloggerInfo.followerCount
+							this.list[j + (i * 10)].totalFavorited = res[j][0].VideoDetails.BloggerInfo.totalFavorited
+						}
+						this.list[j + (i * 10)].loadingFinished = true
 					}
-					this.list[j + (i * 10)].loadingFinished = true
+				}else{
+					for (let j = 0; j < 10; j++) {
+						this.list[j + (i * 10)].BloggerVideoErr = true
+						this.list[j + (i * 10)].loadingFinished = true
+					}
 				}
 			}else{
 				for (let j = 0; j < 10; j++) {
@@ -135,6 +143,7 @@ export class DouyinListenDarenComponent implements OnInit {
 					this.list[j + (i * 10)].loadingFinished = true
 				}
 			}
+			
 		}
 		console.log(this.list)
 	}
