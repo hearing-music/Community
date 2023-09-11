@@ -240,12 +240,19 @@ export class ApiService {
 		let pageSize:any =params.pageSize
 		return this.http.get(this.baseUrl + "/douyin/douyin_getListenDaren?pageSize="+pageSize+"&page=" + page + '&keyword=' + keyword + '&type=' + type)
 	}
-	// 获取抖音博主7条视频
+	// 获取抖音博主7条视频 10
 	getDouYinBloggerVideo(params:any){
 		let {
 			secUidArr
 		} = params;
 		return this.http.get(this.baseUrl + "/douyin/GetDouYinBloggerVideo?secUidArr="+JSON.stringify(secUidArr))
+	}
+	// 获取抖音博主7条视频 1 并更新相应数据
+	getDouYinBloggerVideoOne(params:any){
+		let {
+			secUid
+		} = params;
+		return this.http.get(this.baseUrl + "/douyin/getDouYinBloggerVideoOne?secUid="+secUid)
 	}
 	// 抖音 视频id搜索
 	DouYinSearchVideoDetails(params: any) {

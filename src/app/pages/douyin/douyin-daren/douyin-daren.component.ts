@@ -110,6 +110,8 @@ export class DouyinDarenComponent implements OnInit {
 		var fees = this.Fees;
 		var note = this.Note;
 		var sex = this.Sex;
+		let signature = obj.signature
+		let urlList = obj.urlList
 		// if (!sex||!information || !home || !type || !style || !characteristics || !vocals || !split || !original || !originalShare || !fees) {
 		// 	this.message.info('缺少必填参数')
 		// 	return
@@ -118,7 +120,7 @@ export class DouyinDarenComponent implements OnInit {
 		var secUid = obj.secUid;
 		var uniqueId = obj.uniqueId;
 		this.loading = true;
-		this.api.douyin_listenDaren({ nickname,sex, secUid, uniqueId, information,clicklike:obj.totalFavorited,fans:obj.followerCount,
+		this.api.douyin_listenDaren({ signature,urlList,nickname,sex, secUid, uniqueId, information,clicklike:obj.totalFavorited,fans:obj.followerCount,
 		home,type,style,characteristics,vocals,split,original,originalShare,fees,note}).subscribe((res: any) => {
 			console.log(res)
 			this.loading = false;

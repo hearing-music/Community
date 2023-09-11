@@ -25,10 +25,33 @@ export class DouyinListenDarenComponent implements OnInit {
 	pageSize: any = 10;
 	pageSizeOptions: any[] = [10, 100, 250, 500, 1000, 9999999]
 	pageTotal = 0;
-	
+	// 获取视频详情 以及 达人最新信息
+	async getVideoDetail(item:any){
+		item.loadingFinished=false;
+		item.seeVideo=true;
+		let res: any = await this.getDouYinBloggerVideoOne(item.SecUid)
+		if(res){
+			item.urlList = res.urlList
+			item.signature = res.signature
+			item.followerCount = res.followerCount
+			item.totalFavorited = res.totalFavorited
+			item.BloggerVideo = res.BloggerVideo
+			item.loadingFinished = true
+			item.BloggerVideoErr = false
+			item.isShowRadio = true;
+		}else{
+			item.BloggerVideoErr = true
+			item.loadingFinished = true
+		}
+	}
 	
 	openVideoView(item:any){
-		item.isShowRadio = item.isShowRadio?false:true;
+		if(item.seeVideo){
+			item.isShowRadio = item.isShowRadio?false:true;
+		}else{
+			this.getVideoDetail(item)
+			
+		}
 	}
 	
 	ToRadio(aweme_id: any,secUid:any) {
@@ -58,11 +81,12 @@ export class DouyinListenDarenComponent implements OnInit {
 						item.homeUrl = 'https://www.douyin.com/user/' + item.SecUid
 						item.expand = false;
 						item.BloggerVideo = []
+						item.seeVideo = false;
 					})
-					let arr = this.common.spArr(res.result, 10)
+					// let arr = this.common.spArr(res.result, 10)
 					this.list = res.result;
 					this.pageTotal = res.total;
-					this.getVideoDetails(arr)
+					// this.getVideoDetails(arr)
 				}
 				this.loading = false;
 			}, (err: any) => {
@@ -70,87 +94,105 @@ export class DouyinListenDarenComponent implements OnInit {
 				this.loading = false;
 			})
 	}
-	// 重新加载这10个video
-	async reloadVideo(item:any,index:number){
-		let i =  parseInt(index/10+'')
-		let iS = i*10;
-		let iE = iS + 10;
-		let arr = []
-		for(let i = iS;i<iE;i++){
-			this.list[i].loadingFinished = false
-			arr.push(this.list[i])
-		}
-		let secUidArr = arr.map((e: any) => e.SecUid)
-		let res: any = await this.getDouYinBloggerVideo(secUidArr)
-		if (res) {
-			for (let j = 0; j < res.length; j++) {
-				res[j] = res[j].filter((e: any) => e.is_top == 0)
-				let diggCountAll = 0
-				res[j].forEach((items: any) => {
-					diggCountAll += items.VideoDetails.diggCount
-				})
-				this.list[j + iS].diggCountAve = parseInt(diggCountAll / res[j].length + '')
-				this.list[j + iS].BloggerVideo = res[j]
-				if(res[j].length>0){
-					this.list[j + iS].avatar = res[j][0].VideoDetails.BloggerInfo.urlList
-					this.list[j + iS].signature = res[j][0].VideoDetails.BloggerInfo.signature
-					this.list[j + iS].followerCount = res[j][0].VideoDetails.BloggerInfo.followerCount
-					this.list[j + iS].totalFavorited = res[j][0].VideoDetails.BloggerInfo.totalFavorited
-				}
-				this.list[j + iS].loadingFinished = true
-				this.list[j + iS].BloggerVideoErr = false
-			}
-		}else{
-			for (let j = 0; j < 10; j++) {
-				this.list[j + iS].BloggerVideoErr = true
-				this.list[j + iS].loadingFinished = true
-			}
-		}
-	}
+	// // 重新加载这10个video
+	// async reloadVideo(item:any,index:number){
+	// 	let i =  parseInt(index/10+'')
+	// 	let iS = i*10;
+	// 	let iE = iS + 10;
+	// 	let arr = []
+	// 	for(let i = iS;i<iE;i++){
+	// 		this.list[i].loadingFinished = false
+	// 		arr.push(this.list[i])
+	// 	}
+	// 	let secUidArr = arr.map((e: any) => e.SecUid)
+	// 	let res: any = await this.getDouYinBloggerVideo(secUidArr)
+	// 	if (res) {
+	// 		for (let j = 0; j < res.length; j++) {
+	// 			res[j] = res[j].filter((e: any) => e.is_top == 0)
+	// 			let diggCountAll = 0
+	// 			res[j].forEach((items: any) => {
+	// 				diggCountAll += items.VideoDetails.diggCount
+	// 			})
+	// 			this.list[j + iS].diggCountAve = parseInt(diggCountAll / res[j].length + '')
+	// 			this.list[j + iS].BloggerVideo = res[j]
+	// 			if(res[j].length>0){
+	// 				res[j][0].VideoDetails.BloggerInfo = res[j][0].VideoDetails.BloggerInfo || {}
+	// 				this.list[j + iS].avatar = res[j][0].VideoDetails.BloggerInfo.urlList
+	// 				this.list[j + iS].signature = res[j][0].VideoDetails.BloggerInfo.signature
+	// 				this.list[j + iS].followerCount = res[j][0].VideoDetails.BloggerInfo.followerCount
+	// 				this.list[j + iS].totalFavorited = res[j][0].VideoDetails.BloggerInfo.totalFavorited
+	// 			}
+	// 			this.list[j + iS].loadingFinished = true
+	// 			this.list[j + iS].BloggerVideoErr = false
+	// 		}
+	// 	}else{
+	// 		for (let j = 0; j < 10; j++) {
+	// 			this.list[j + iS].BloggerVideoErr = true
+	// 			this.list[j + iS].loadingFinished = true
+	// 		}
+	// 	}
+	// }
 	
-	async getVideoDetails(arr: any) {
-		for (let i = 0; i < arr.length; i++) {
-			// 只加载前十
-			if(i==0){
-				let secUidArr = arr[i].map((e: any) => e.SecUid)
-				let res: any = await this.getDouYinBloggerVideo(secUidArr)
-				if (res) {
-					for (let j = 0; j < res.length; j++) {
-						res[j] = res[j].filter((e: any) => e.is_top == 0)
-						let diggCountAll = 0
-						res[j].forEach((items: any) => {
-							diggCountAll += items.VideoDetails.diggCount
-						})
-						this.list[j + (i * 10)].diggCountAve = parseInt(diggCountAll / res[j].length + '')
-						this.list[j + (i * 10)].BloggerVideo = res[j]
-						if(res[j].length>0){
-							this.list[j + (i * 10)].avatar = res[j][0].VideoDetails.BloggerInfo.urlList
-							this.list[j + (i * 10)].signature = res[j][0].VideoDetails.BloggerInfo.signature
-							this.list[j + (i * 10)].followerCount = res[j][0].VideoDetails.BloggerInfo.followerCount
-							this.list[j + (i * 10)].totalFavorited = res[j][0].VideoDetails.BloggerInfo.totalFavorited
-						}
-						this.list[j + (i * 10)].loadingFinished = true
-					}
-				}else{
-					for (let j = 0; j < 10; j++) {
-						this.list[j + (i * 10)].BloggerVideoErr = true
-						this.list[j + (i * 10)].loadingFinished = true
-					}
-				}
-			}else{
-				for (let j = 0; j < 10; j++) {
-					this.list[j + (i * 10)].BloggerVideoErr = true
-					this.list[j + (i * 10)].loadingFinished = true
-				}
-			}
+	// async getVideoDetails(arr: any) {
+	// 	for (let i = 0; i < arr.length; i++) {
+	// 		// 只加载前十
+	// 		if(i==0){
+	// 			let secUidArr = arr[i].map((e: any) => e.SecUid)
+	// 			let res: any = await this.getDouYinBloggerVideo(secUidArr)
+	// 			if (res) {
+	// 				for (let j = 0; j < res.length; j++) {
+	// 					res[j] = res[j].filter((e: any) => e.is_top == 0)
+	// 					let diggCountAll = 0
+	// 					res[j].forEach((items: any) => {
+	// 						diggCountAll += items.VideoDetails.diggCount
+	// 					})
+	// 					this.list[j + (i * 10)].diggCountAve = parseInt(diggCountAll / res[j].length + '')
+	// 					this.list[j + (i * 10)].BloggerVideo = res[j]
+	// 					if(res[j].length>0){
+	// 						res[j][0].VideoDetails.BloggerInfo = res[j][0].VideoDetails.BloggerInfo || {}
+	// 						this.list[j + (i * 10)].avatar = res[j][0].VideoDetails.BloggerInfo.urlList
+	// 						this.list[j + (i * 10)].signature = res[j][0].VideoDetails.BloggerInfo.signature
+	// 						this.list[j + (i * 10)].followerCount = res[j][0].VideoDetails.BloggerInfo.followerCount
+	// 						this.list[j + (i * 10)].totalFavorited = res[j][0].VideoDetails.BloggerInfo.totalFavorited
+	// 					}
+	// 					this.list[j + (i * 10)].loadingFinished = true
+	// 				}
+	// 			}else{
+	// 				for (let j = 0; j < 10; j++) {
+	// 					this.list[j + (i * 10)].BloggerVideoErr = true
+	// 					this.list[j + (i * 10)].loadingFinished = true
+	// 				}
+	// 			}
+	// 		}else{
+	// 			for (let j = 0; j < 10; j++) {
+	// 				this.list[j + (i * 10)].BloggerVideoErr = true
+	// 				this.list[j + (i * 10)].loadingFinished = true
+	// 			}
+	// 		}
 			
-		}
-		console.log(this.list)
-	}
+	// 	}
+	// 	console.log(this.list)
+	// }
+	// // 获取抖音博主7条视频
+	// getDouYinBloggerVideo(secUidArr: any) {
+	// 	return new Promise((resolve: any) => {
+	// 		this.api.getDouYinBloggerVideo({ secUidArr })
+	// 			.subscribe((res: any) => {
+	// 				if (res.success) {
+	// 					resolve(res.result)
+	// 				} else {
+	// 					resolve(false)
+	// 				}
+	// 			}, (err: any) => {
+	// 				console.log(err)
+	// 				resolve(false)
+	// 			})
+	// 	})
+	// }
 	// 获取抖音博主7条视频
-	getDouYinBloggerVideo(secUidArr: any) {
+	getDouYinBloggerVideoOne(secUid: any) {
 		return new Promise((resolve: any) => {
-			this.api.getDouYinBloggerVideo({ secUidArr })
+			this.api.getDouYinBloggerVideoOne({ secUid })
 				.subscribe((res: any) => {
 					if (res.success) {
 						resolve(res.result)
