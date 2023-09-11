@@ -6,6 +6,16 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class CommonService {
 	constructor(public message: NzMessageService) { }
 	highUserList=['1','2','3','4','5','8','13','26','34']
+	// 免费歌曲来源
+	FreeSongsSource(id:any){
+		let o = {
+			1:'歌手',
+			2:'专辑',
+			3:'歌单',
+			4:'启明星'
+		}
+		return o[id] || ''
+	}
 	// 求和 数组对象指定key
 	sum(arr:any,key:any,name:any=false) {
 	    var s = 0;

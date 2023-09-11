@@ -48,7 +48,7 @@
 
 							</div>
 							<!-- 平均点赞 -->
-							<div style="display: flex;align-items: center;margin-left:6px;">
+							<div style="display: flex;align-items: center;margin-left:6px;" *ngIf='item.diggCountAve'>
 								<span nz-tooltip [nzTooltipTitle]="'平均点赞'">
 									<div style="display: flex;align-items: center;">
 										<img src="../../../assets/img/pingjun.svg" class="icon" />
@@ -118,12 +118,18 @@
 								</div>
 
 							</div>
-							<div *ngIf='item.BloggerVideo.length>0'
+							<div *ngIf='(item.seeVideo&&item.loadingFinished&&item.BloggerVideo.length>0&&!item.BloggerVideoErr)||!item.seeVideo'
 								style="cursor: pointer;color: blue;margin-left: 16px;" (click)='openVideoView(item)'>
 								{{item.isShowRadio?'收起':'查看视频'}}
 							</div>
-							<div *ngIf='item.BloggerVideo.length==0' style="margin-left: 16px;">
+							<div *ngIf='item.seeVideo&&item.loadingFinished&&item.BloggerVideo.length==0&&!item.BloggerVideoErr' style="margin-left: 16px;">
 								暂无
+							</div>
+							<div *ngIf='item.seeVideo&&!item.loadingFinished' style="margin-left: 16px;">
+								<nz-spin nzSimple [nzSize]='"small"'></nz-spin>
+							</div>
+							<div *ngIf='item.seeVideo&&item.BloggerVideoErr&&item.loadingFinished' (click)='getVideoDetail(item)' style="margin-left: 16px;cursor: pointer;color: blue;">
+								重新加载
 							</div>
 							<!-- 推荐抖+ -->
 							<!-- <div style="display: flex;align-items: center;margin-left:4px;">

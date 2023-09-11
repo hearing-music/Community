@@ -46,9 +46,57 @@ export class DouyinDarenComponent implements OnInit {
     Sex:any=''
 	sexList:any=[{value:'男',label:'男'},{value:'女',label:'女'}]
 	
-	openVideoView(item:any){
-		item.isShowRadio = item.isShowRadio?false:true;
+	// 获取视频详情 以及 达人最新信息
+	async getVideoDetail(item:any){
+		item.loadingFinished=false;
+		item.seeVideo=true;
+		let res: any = await this.getDouYinBloggerVideoOne(item.secUid)
+		if(res){
+			let diggCountAll = 0
+			res.BloggerVideo.forEach((items: any) => {
+				diggCountAll += items.VideoDetails.diggCount
+			})
+			item.diggCountAve = parseInt(diggCountAll / res.BloggerVideo.length + '')
+			item.urlList = res.urlList
+			item.Nickname = res.nickName
+			item.signature = res.signature
+			item.followerCount = res.followerCount
+			item.totalFavorited = res.totalFavorited
+			item.BloggerVideo = res.BloggerVideo
+			item.loadingFinished = true
+			item.BloggerVideoErr = false
+			item.isShowRadio = true;
+		}else{
+			item.BloggerVideoErr = true
+			item.loadingFinished = true
+		}
 	}
+	
+	openVideoView(item:any){
+		if(item.seeVideo){
+			item.isShowRadio = item.isShowRadio?false:true;
+		}else{
+			this.getVideoDetail(item)
+		}
+	}
+	// 获取抖音博主7条视频
+	getDouYinBloggerVideoOne(secUid: any) {
+		return new Promise((resolve: any) => {
+			this.api.getDouYinBloggerVideoOne({ secUid })
+				.subscribe((res: any) => {
+					if (res.success) {
+						resolve(res.result)
+					} else {
+						resolve(false)
+					}
+				}, (err: any) => {
+					console.log(err)
+					resolve(false)
+				})
+		})
+	}
+	
+	
 	
 	ToRadio(aweme_id: any,secUid:any) {
 	  window.open(
@@ -72,7 +120,7 @@ export class DouyinDarenComponent implements OnInit {
 		this.douyin_isListen(item)
 		this.selectIndex = index;
 	}
-
+	
 	// 是否被监控
 	douyin_isListen(item: any) {
 		this.loading = true;

@@ -32,6 +32,7 @@ export class DouyinListenDarenComponent implements OnInit {
 		let res: any = await this.getDouYinBloggerVideoOne(item.SecUid)
 		if(res){
 			item.urlList = res.urlList
+			item.Nickname = res.nickName
 			item.signature = res.signature
 			item.followerCount = res.followerCount
 			item.totalFavorited = res.totalFavorited
