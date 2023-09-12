@@ -181,18 +181,25 @@ export class ApiService {
 		let url = this.baseUrl + "/kugou/kugou_exponent?scid=" + scid
 		return this.http.get(url)
 	}
-	// 酷狗免费歌曲
-	getKugou_freeSongs(params: any) {
-		let {
-			page,
-			pageSize,
-			keyword,
-			type,
-			newly
-		} = params;
-		let url = this.baseUrl + '/kugou/freeSongs?page=' + page + '&pageSize=' + pageSize + '&keyword=' + keyword + '&type=' + type + '&newly=' + newly
-		return this.http.get(url)
-	}
+	  // 酷狗免费歌曲
+	  getKugou_freeSongs(params: any) {
+	    let { page, pageSize, keyword, type, newly, sort } = params;
+	    let url =
+	      this.baseUrl +
+	      "/kugou/freeSongs?page=" +
+	      page +
+	      "&pageSize=" +
+	      pageSize +
+	      "&keyword=" +
+	      keyword +
+	      "&type=" +
+	      type +
+	      "&newly=" +
+	      newly +
+	      "&sort=" +
+	      sort;
+	    return this.http.get(url);
+	  }
 	// 腾讯音乐人搜索
 	getMusicianTx(params: any) {
 		let {
