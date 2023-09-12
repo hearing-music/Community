@@ -33,18 +33,31 @@ export class ApiService {
 	getCompanyName(params: any) {
 		return this.http.get(this.baseUrl + '/qq/getCompanyName?idlist=' + JSON.stringify(params.idlist))
 	}
-	// qq免费歌曲
-	getQq_freeSongs(params: any) {
-		let {
-			page,
-			pageSize,
-			keyword,
-			type,
-			newly
-		} = params;
-		let url = this.baseUrl + '/qq/freeSongs?page=' + page + '&pageSize=' + pageSize + '&keyword=' + keyword + '&type=' + type + '&newly=' + newly
-		return this.http.get(url)
-	}
+	  // qq免费歌曲
+	  getQq_freeSongs(params: any) {
+	    let { page, pageSize, keyword, type, newly, sort } = params;
+	    let url =
+	      this.baseUrl +
+	      "/qq/freeSongs?page=" +
+	      page +
+	      "&pageSize=" +
+	      pageSize +
+	      "&keyword=" +
+	      keyword +
+	      "&type=" +
+	      type +
+	      "&newly=" +
+	      newly +
+	      "&sort=" +
+	      sort;
+	    return this.http.get(url);
+	  }
+	  //获取免费歌曲排序标签
+	  GetSortList() {
+	    // GetSortList
+	    let url = this.baseUrl + "/qq/GetSortList";
+	    return this.http.get(url);
+	  }
 	// qq 免费歌手 歌曲列表 标签 
 	getQq_freeSongsLabel(params:any){
 		let {

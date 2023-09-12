@@ -6,6 +6,10 @@
 		<div style="display: flex;align-items: center;">
 			<!-- <label nz-checkbox [(ngModel)]="checked" (ngModelChange)='ngModelChangeCheckBox($event)'>新增歌曲</label> -->
 			<!-- <div style="width: 16px;"></div> -->
+			<nz-select style="width: 120px;margin-right: 15px;" [(ngModel)]="sort" (ngModelChange)='ngModelSort($event)'>
+				<nz-option *ngFor="let item of sortList;" [nzValue]="item.source" [nzLabel]="item.source"></nz-option>
+			</nz-select>
+
 			<nz-select style="width: 120px;" [(ngModel)]="type" (ngModelChange)='ngModelChange($event)'>
 				<nz-option *ngFor="let item of typeList;" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
 			</nz-select>
@@ -28,6 +32,7 @@
 				<th nzAlign='center'>收藏数</th>
 				<th nzAlign='center'>排名</th>
 				<th nzAlign='center'>指数</th>
+				<th nzAlign='center'>来源</th>
 				<th nzAlign='center' nzWidth='80px'>收听数</th>
 				<th nzWidth='80px' nzAlign='center'>查看</th>
 			</tr>
@@ -92,6 +97,9 @@
 							{{item.today_index?common.toThousands(item.today_index):''}}
 						</div>
 					</span>
+				</td>
+				<td nzAlign='center' style="cursor: pointer;">
+						{{common.FreeSongsSource(item.audioSourceID)}}  
 				</td>
 				<td nzAlign='center' (click)='reloadExponent(item)' style="cursor: pointer;">
 					<span nz-tooltip [nzTooltipTitle]="'点击刷新'">
