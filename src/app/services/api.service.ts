@@ -255,10 +255,11 @@ export class ApiService {
 		let {
 			page,
 			keyword,
-			type
+			type,
+			diggCountAveMax,diggCountAveMin,activityNum
 		} = params;
 		let pageSize:any =params.pageSize
-		return this.http.get(this.baseUrl + "/douyin/douyin_getListenDaren?pageSize="+pageSize+"&page=" + page + '&keyword=' + keyword + '&type=' + type)
+		return this.http.get(this.baseUrl + "/douyin/douyin_getListenDaren?maximum="+diggCountAveMax+"&minimum="+diggCountAveMin+"&activeMum="+activityNum+"&pageSize="+pageSize+"&page=" + page + '&keyword=' + keyword + '&type=' + type)
 	}
 	// 获取抖音博主7条视频 10
 	getDouYinBloggerVideo(params:any){
@@ -274,6 +275,14 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/douyin/getDouYinBloggerVideoOne?secUid="+secUid)
 	}
+	  // 抖音达人搜索上传Exle
+	  dyDaRenExle(params: any) {
+	    let { files } = params;
+	    const formData: FormData = new FormData();
+	    formData.append("excel", files[0]);
+	    let url = this.baseUrl + "/douyin/BulkAccessSecUidXlsx";
+	    return this.http.post(url, formData);
+	  }
 	// 抖音 视频id搜索
 	DouYinSearchVideoDetails(params: any) {
 		let {

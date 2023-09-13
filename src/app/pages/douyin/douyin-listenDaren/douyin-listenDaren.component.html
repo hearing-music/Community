@@ -3,7 +3,21 @@
 	<div style='margin-bottom:16px;display: flex;align-items: center;justify-content: space-between;'>
 		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
 		</ngx-search>
-		<nz-switch *ngIf='common.highUserList.indexOf(userId) != -1' [ngModel]="type" nzCheckedChildren="我的" nzUnCheckedChildren="全部" (ngModelChange)='ngModelChange()'></nz-switch>
+		<div style="display: flex;align-items: center;">
+			<div style="font-size: 12px;color: #666;">
+				均赞：
+			</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 120px;margin-right: 15px;" [(ngModel)]="diggCountAve" (ngModelChange)='ngModelAve($event)'>
+				<nz-option *ngFor="let item of diggCountAveList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
+			</nz-select>
+			<div style="font-size: 12px;color: #666;">
+				活跃度：
+			</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 120px;margin-right: 15px;" [(ngModel)]="activity" (ngModelChange)='ngModelActivity($event)'>
+				<nz-option *ngFor="let item of activityList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
+			</nz-select>
+			<nz-switch *ngIf='common.highUserList.indexOf(userId) != -1' [ngModel]="type" nzCheckedChildren="我的" nzUnCheckedChildren="全部" (ngModelChange)='ngModelChange()'></nz-switch>
+		</div>
 	</div>
 	<nz-empty *ngIf="list.length==0" style="margin-top: 160px;"></nz-empty>
 	<div class="list" *ngIf='list.length!=0'>

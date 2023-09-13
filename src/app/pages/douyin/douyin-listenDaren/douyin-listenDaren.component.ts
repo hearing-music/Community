@@ -25,21 +25,92 @@ export class DouyinListenDarenComponent implements OnInit {
 	pageSize: any = 10;
 	pageSizeOptions: any[] = [10, 100, 250, 500, 1000, 9999999]
 	pageTotal = 0;
+	
+	
+	// 条件
+	diggCountAve:any='全部'
+	diggCountAveMax:any=''
+	diggCountAveMin:any=''
+	activity:any='全部'
+	activityNum:any=''
+	activityList:any=[{value:'全部'},{value:0},{value:1},{value:2},{value:3},{value:4},{value:5},{value:6},{value:'7及以上'}]
+	diggCountAveList:any=[{
+		value:'全部'
+	},{
+		value:'2000-5000'
+	},{
+		value:'5001-10000'
+	},{
+		value:'10001-15000'
+	},{
+		value:'15001-20000'
+	},{
+		value:'20000以上'
+	}]
+	ngModelAve(e:any){
+		switch(e) {
+		    case '全部':  
+		        this.diggCountAveMax=''
+		        this.diggCountAveMin=''
+		        break;
+		    case '2000-5000':  
+		       this.diggCountAveMax=5000
+		       this.diggCountAveMin=2000
+		        break;
+		    case '5001-10000':
+		        this.diggCountAveMax=10000
+		        this.diggCountAveMin=5001
+		        break;
+			case '10001-15000':
+			    this.diggCountAveMax=15000
+			    this.diggCountAveMin=10001
+			    break;
+			case '15001-20000':
+			    this.diggCountAveMax=20000
+			    this.diggCountAveMin=15001
+			    break;
+			case '20000以上':
+				this.diggCountAveMax=99999999
+				this.diggCountAveMin=20000
+				break
+		    default:
+		       this.diggCountAveMax=''
+		       this.diggCountAveMin=''
+		       break;
+		}
+		this.page = 1;
+		this.douyin_getListenDaren()
+	}
+	ngModelActivity(e:any){
+		if(e=='全部'){
+			this.activityNum = '';
+		}else if(e=='7及以上'){
+			this.activityNum=7
+		}else{
+			this.activityNum = e;
+		}
+		this.page = 1;
+		this.douyin_getListenDaren()
+	}
+	
+	
 	// 获取视频详情 以及 达人最新信息
 	async getVideoDetail(item:any){
 		item.loadingFinished=false;
 		item.seeVideo=true;
 		let res: any = await this.getDouYinBloggerVideoOne(item.SecUid)
 		if(res){
-			item.urlList = res.urlList
-			item.Nickname = res.nickName
-			item.signature = res.signature
-			item.followerCount = res.followerCount
-			item.totalFavorited = res.totalFavorited
-			item.BloggerVideo = res.BloggerVideo
+			if(res.nickName){
+				item.urlList = res.urlList
+				item.Nickname = res.nickName
+				item.signature = res.signature
+				item.followerCount = res.followerCount
+				item.totalFavorited = res.totalFavorited
+				item.BloggerVideo = res.BloggerVideo
+				item.isShowRadio = true;
+			}
 			item.loadingFinished = true
 			item.BloggerVideoErr = false
-			item.isShowRadio = true;
 		}else{
 			item.BloggerVideoErr = true
 			item.loadingFinished = true
@@ -74,7 +145,7 @@ export class DouyinListenDarenComponent implements OnInit {
 	}
 	douyin_getListenDaren() {
 		this.loading = true;
-		this.api.douyin_getListenDaren({ pageSize: this.pageSize, page: this.page, keyword: this.searchValue, type: this.type ? '我的' : '全部' })
+		this.api.douyin_getListenDaren({diggCountAveMax:this.diggCountAveMax,diggCountAveMin:this.diggCountAveMin,activityNum:this.activityNum, pageSize: this.pageSize, page: this.page, keyword: this.searchValue, type: this.type ? '我的' : '全部' })
 			.subscribe((res: any) => {
 				console.log(res)
 				if (res.success) {
