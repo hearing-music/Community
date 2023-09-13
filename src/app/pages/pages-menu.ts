@@ -86,6 +86,10 @@ export let MENU_ITEMS: NbMenuItem[] = [
 				link: '/pages/kuaishou-searchindex',
 			},
 			{
+				title: '音频使用量',
+				link: '/pages/kuaishouVolumeOfUse',
+			},
+			{
 				title: 'dj',
 				link: '/pages/kuaishouDj',
 			},

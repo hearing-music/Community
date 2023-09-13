@@ -31,6 +31,7 @@ import { OriginalAudioComponent } from './original-audio/original-audio.componen
 // import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import { DjComponent } from './kuaishou-searchindex/dj/dj.component';
+import { VolumeOfUseComponent } from './kuaishou-searchindex/volumeOfUse/volumeOfUse.component';
 import { SourcePhotoComponent } from './kuaishou-searchindex/source-photo/source-photo.component';
 import { PermissionGuard } from '../guards/permission.guard'
 import { ToolComponent } from './tool/tool.component';
@@ -169,10 +170,16 @@ const routes: Routes = [{
 			component: DjComponent,
 			canActivate: [PermissionGuard]
 		},
-		//素材
+		//快手素材
 		{
 			path: 'sourcePhoto',
 			component: SourcePhotoComponent,
+			canActivate: [PermissionGuard]
+		},
+		//快手音频使用量
+		{
+			path:'kuaishouVolumeOfUse',
+			component: VolumeOfUseComponent,
 			canActivate: [PermissionGuard]
 		},
 		//音频转换oggToMp3

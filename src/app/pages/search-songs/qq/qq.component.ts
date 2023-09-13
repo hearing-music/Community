@@ -24,6 +24,10 @@ export class QqComponent implements OnInit {
 	visible = false;
 	drawerLoading=false;
 	albumAllSongs:any = []
+	// 更多版本
+	moreVersion(item:any){
+		item.isMore = item.isMore?false:true;
+	}
 	// 抽屉打开
 	drawOpen(albumName:any,albummid:any){
 		this.albumNameDrawer = albumName

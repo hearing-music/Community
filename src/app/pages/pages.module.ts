@@ -117,6 +117,7 @@ import { SongListLabelComponent } from './qq/qq-label/song-list-label/song-list-
 import { McscSearchCNComponent } from './search-songs/mcsc-search-cn/mcsc-search-cn.component';
 import { McscSearchHKComponent } from './search-songs/mcsc-search-hk/mcsc-search-hk.component';
 import { TmeMap_hotComponent } from './search-songs/tme-map/tme-map_hot/tme-map_hot.component';
+import { VolumeOfUseComponent } from './kuaishou-searchindex/volumeOfUse/volumeOfUse.component';
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -210,6 +211,7 @@ registerLocaleData(zh);
 		LsddPageComponent,
 		TemplateComponent,
 		KuaishouSearchindexComponent,
+		VolumeOfUseComponent,
 		CopyrightLinkComponent,
 		TrackSeparateComponent,
 		AudioTrickComponent,

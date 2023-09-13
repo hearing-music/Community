@@ -1,0 +1,40 @@
+<div class="kuaishou">
+	<div>
+		<!-- 搜索 -->
+		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)' >
+		</ngx-search>
+	</div>
+    <div class="kuaishou-left" style="margin-top: 24px;">
+        <nz-empty *ngIf="!result.tagName" style="margin-top: 160px;"></nz-empty>
+        <div class="list" *ngIf='result.tagName'>
+            <div class="list-item" >
+                <div class="item-left">
+                    <div class="left-avatar" >
+                        <img [src]="result.coverUrls[0].url" style="width: 100%;height: 100%;"
+                            onerror='this.src="/assets/img/imgError.png"' />
+                    </div>
+                    <div class="left-text">
+                        <div class="title-area">
+                            <span nz-tooltip [nzTooltipTitle]="result.tagName">
+                                <div class="title u-line-1">
+                                    {{result.tagName}}
+                                </div>
+                            </span>
+
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="item-center">
+					<div class="" style="display: flex;align-items: center;margin-left: 8px;">
+					    <img src="/assets/img/bpm.png" class="icon" />
+					    <div  nz-tooltip [nzTooltipTitle]="'使用量'" >{{result.usageCount}}</div>
+					</div>
+                </div>
+                <div class="item-right">
+                </div>
+            </div>
+        </div>
+    </div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

@@ -71,6 +71,15 @@
 									</div>
 								</span>
 							</div>
+							<!-- 最低点赞 -->
+							<div style="display: flex;align-items: center;margin-left:6px;">
+								<span nz-tooltip [nzTooltipTitle]="'最低点赞'">
+									<div style="display: flex;align-items: center;">
+										<img src="../../../assets/img/zuidi.svg" class="icon" />
+										{{common.toThousands(item.minimum)}}
+									</div>
+								</span>
+							</div>
 							<!-- 活跃度 -->
 							<div style="display: flex;align-items: center;margin-left:6px;">
 								<span nz-tooltip [nzTooltipTitle]="'近期活跃度'">

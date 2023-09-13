@@ -13,6 +13,10 @@ export class V3Component implements OnInit {
 	ngOnInit(): void {
 
 	}
+	// 更多版本
+	moreVersion(item:any){
+		item.isMore = item.isMore?false:true;
+	}
 	openSongDetail(scid: string | number, hash: string | number) {
 		window.open('https://www.kugou.com/song/#hash=' + hash + '&album_audio_id=' + scid)
 	}
@@ -43,7 +47,7 @@ export class V3Component implements OnInit {
 		}, (err: any) => {
 			console.log(err)
 		})
-
+	
 	}
 	mouseenter(item: any) {
 		item.lyricShow = true;

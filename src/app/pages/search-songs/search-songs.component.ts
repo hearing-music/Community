@@ -696,6 +696,35 @@ export class SearchSongsComponent implements OnInit {
 					item.historyS = historyArrS
 					item.historyI = historyArrI
 					item.history = history
+					item.GrpData.forEach((citem:any)=>{
+						let names:any = ''
+						citem.singers.forEach((sitem:any)=>{
+							names+=sitem.name+'、'
+						})
+						names=names.substr(0,names.length-1)
+						citem.singerNames = names
+						citem.topinfo = citem.topinfo || {}
+						citem.playinfo = citem.playinfo || {}
+						citem.isPlay = false;
+						let historyArrS = []
+						let historyArrI = []
+						let history=[]
+						for(let i = 0;i<citem.VS.length;i++){
+							if(citem.VS[i]){
+								historyArrS.push({id:citem.VS[i],name:''})
+								history.push(citem.VS[i])
+							}
+						}
+						for(let i = 0;i<citem.VI.length;i++){
+							if(citem.VI[i]){
+								historyArrI.push({id:citem.VI[i],name:''})
+								history.push(citem.VI[i])
+							}
+						}
+						citem.historyS = historyArrS
+						citem.historyI = historyArrI
+						citem.history = history
+					})
 				})
 			}
 			if (this.qqPage == 1) {

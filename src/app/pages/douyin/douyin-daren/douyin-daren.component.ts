@@ -69,9 +69,12 @@ export class DouyinDarenComponent implements OnInit {
   }
   listContent = [];
   listKeys = [];
+  awemeArr=[]
   linkToDy = 0;
   secUidIndex = 0;
+	seeVideoIndex=0;
   selectExle() {
+	  
     var inputElement = document.createElement("input");
     // 设置input的type为file
     inputElement.setAttribute("type", "file");
@@ -88,19 +91,50 @@ export class DouyinDarenComponent implements OnInit {
       this.api.dyDaRenExle({ files }).subscribe((res: any) => {
         this.loading = false;
         if (res.success) {
+					res.keys.filter((item: any, index: any) => {
+					  if (item == "主页链接") {
+					    this.linkToDy = index;
+					  }
+					  if (item == "secUid") {
+					    this.secUidIndex = index;
+					  }
+						if(item=='查看视频'){
+							this.seeVideoIndex=index;
+						}
+					});
+			let awemeArr = []
+			res.XlsxArr.forEach((item:any)=>{
+				awemeArr.push(item[this.seeVideoIndex])
+				item.splice(this.seeVideoIndex,1)
+			})
+		  this.awemeArr = awemeArr;
           this.listContent = res.XlsxArr;
           this.listKeys = res.keys;
-          res.keys.filter((item: any, index: any) => {
-            if (item == "主页链接") {
-              this.linkToDy = index;
-            }
-            if (item == "secUid") {
-              this.secUidIndex = index;
-            }
-          });
         }
       });
     });
+  }
+  excelPage=1;
+  nzPageIndexChange(e:any){
+	  this.excelPage = e;
+  }
+  seeVideo(item:any,i:any){
+	  let index = ((this.excelPage-1)*10)+i
+	  let arr = this.awemeArr[index]
+	  let secUid = item[this.secUidIndex]
+	  if(item.isShow){
+		  item.expand=!item.expand
+	  }else{
+		  this.loading = true;
+		  this.api.getAwemeMusicVideo({secUid,arr}).subscribe((res: any) => {
+		    this.loading = false;
+		    if (res.success) {
+		  			item.video = res.result;
+		  			item.isShow = 1
+		  			item.expand=!item.expand
+		    }
+		  });
+	  }
   }
   copy(text: any) {
     var textareaC = document.createElement("textarea");
@@ -114,9 +148,11 @@ export class DouyinDarenComponent implements OnInit {
   }
   ToSee(item: any) {
     if (typeof item == "object") {
-      window.open(item.hyperlink || item.text);
+		this.common.copy(item.hyperlink || item.text)
+      // window.open(item.hyperlink || item.text);
     } else {
-      window.open(item);
+      // window.open(item);
+	  this.common.copy(item)
     }
   }
   // 获取视频详情 以及 达人最新信息
@@ -130,6 +166,8 @@ export class DouyinDarenComponent implements OnInit {
 			res.BloggerVideo.forEach((items: any) => {
 			  diggCountAll += items.VideoDetails.diggCount;
 			});
+			let min = Math.min(...res.BloggerVideo.map((obj:any) => obj.VideoDetails.diggCount));
+			item.diggCountMin=min;
 			item.diggCountAve = parseInt(diggCountAll / res.BloggerVideo.length + "");
 			item.urlList = res.urlList;
 			item.Nickname = res.nickName;
@@ -141,6 +179,7 @@ export class DouyinDarenComponent implements OnInit {
 		}
 		item.loadingFinished = true;
 		item.BloggerVideoErr = false;
+		
     } else {
       item.BloggerVideoErr = true;
       item.loadingFinished = true;

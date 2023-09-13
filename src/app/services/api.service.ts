@@ -228,6 +228,14 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/douyin/DouYinSearchBigV?keyword=" + keyword + "&offset=" + (page - 1) + "&count=10")
 	}
+	// 获取指定视频id信息 跟拍
+	getAwemeMusicVideo(params:any){
+		let {
+			secUid,
+			arr
+		} = params
+		return this.http.get(this.baseUrl + "/douyin/getAwemeMusicVideo?secUid=" + secUid + "&arr="+JSON.stringify(arr) )
+	}
 	// douyin_darenSearch(params:any){
 	// 	let {
 	// 		keyword,
@@ -422,6 +430,12 @@ export class ApiService {
 	//获取快手dj
 	getkuaishouDj(params: { page: any; pageSize: any; }) {
 		let url = this.baseUrl + "/kuaishou/kuaishou_1?page=" + params.page + "&pageSize=" + params.pageSize
+		return this.http.get(url)
+	}
+	// 快手音频使用量
+	getkuaishouVolumeOfUse(params:any){
+		let {keyword} = params
+		let url = this.baseUrl + "/kuaishou/VolumeOfUse?Value="+keyword
 		return this.http.get(url)
 	}
 	//获取素材
