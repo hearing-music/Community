@@ -35,7 +35,7 @@ export class ApiService {
 	}
 	  // qq免费歌曲
 	  getQq_freeSongs(params: any) {
-	    let { page, pageSize, keyword, type, newly, sort } = params;
+	    let { page, pageSize, keyword, type, newly, sort,publish_timeOrderby, exponentOrderby} = params;
 	    let url =
 	      this.baseUrl +
 	      "/qq/freeSongs?page=" +
@@ -49,7 +49,7 @@ export class ApiService {
 	      "&newly=" +
 	      newly +
 	      "&sort=" +
-	      sort;
+	      sort+"&publish_timeOrderby="+publish_timeOrderby+"&exponentOrderby="+exponentOrderby
 	    return this.http.get(url);
 	  }
 	  //获取免费歌曲排序标签
@@ -183,7 +183,7 @@ export class ApiService {
 	}
 	  // 酷狗免费歌曲
 	  getKugou_freeSongs(params: any) {
-	    let { page, pageSize, keyword, type, newly, sort } = params;
+	    let { page, pageSize, keyword, type, newly, sort,publish_timeOrderby,exponentOrderby } = params;
 	    let url =
 	      this.baseUrl +
 	      "/kugou/freeSongs?page=" +
@@ -197,7 +197,7 @@ export class ApiService {
 	      "&newly=" +
 	      newly +
 	      "&sort=" +
-	      sort;
+	      sort+"&publish_timeOrderby="+publish_timeOrderby+"&exponentOrderby="+exponentOrderby;
 	    return this.http.get(url);
 	  }
 	// 腾讯音乐人搜索

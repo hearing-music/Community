@@ -38,6 +38,31 @@ export class FreeSongs_qqComponent implements OnInit {
     },
   ];
   checked = false;
+	
+	publish_timeOrderby:any=''
+	exponentOrderby='desc'
+	// 排序
+	publish_timeClick(){
+		this.exponentOrderby =''
+		if(this.publish_timeOrderby == 'desc'){
+			this.publish_timeOrderby = 'asc'
+		}else{
+			this.publish_timeOrderby = 'desc'
+		}
+		this.pageCurrent = 1;
+		this.getQq_freeSongs()
+	}
+	exponentClick(){
+		this.publish_timeOrderby =''
+		if(this.exponentOrderby == 'desc'){
+			this.exponentOrderby = 'asc'
+		}else{
+			this.exponentOrderby = 'desc'
+		}
+		this.pageCurrent = 1;
+		this.getQq_freeSongs()
+	}
+	
   nzPageIndexChange(e: any) {
     this.pageCurrent = e;
     this.getQq_freeSongs();
@@ -116,6 +141,8 @@ export class FreeSongs_qqComponent implements OnInit {
         type: this.type,
         newly: this.checked,
         sort: this.sortId,
+				publish_timeOrderby:this.publish_timeOrderby,
+				exponentOrderby:this.exponentOrderby
       })
       .subscribe(
         (res: any) => {

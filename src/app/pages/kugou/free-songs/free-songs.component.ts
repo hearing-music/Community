@@ -18,6 +18,7 @@ export class FreeSongs_kugouComponent implements OnInit {
     this.getKugou_freeSongs();
     this.getSortList();
   }
+	
   loading = false;
   pageCurrent = 1;
   sortId = 0;
@@ -44,6 +45,30 @@ export class FreeSongs_kugouComponent implements OnInit {
     },
   ];
   checked = false;
+	publish_timeOrderby:any=''
+	exponentOrderby='desc'
+	// 排序
+	publish_timeClick(){
+		this.exponentOrderby =''
+		if(this.publish_timeOrderby == 'desc'){
+			this.publish_timeOrderby = 'asc'
+		}else{
+			this.publish_timeOrderby = 'desc'
+		}
+		this.pageCurrent = 1;
+		this.getKugou_freeSongs()
+	}
+	exponentClick(){
+		this.publish_timeOrderby =''
+		if(this.exponentOrderby == 'desc'){
+			this.exponentOrderby = 'asc'
+		}else{
+			this.exponentOrderby = 'desc'
+		}
+		this.pageCurrent = 1;
+		this.getKugou_freeSongs()
+	}
+	
   nzPageIndexChange(e: any) {
     this.pageCurrent = e;
     this.getKugou_freeSongs();
@@ -119,14 +144,15 @@ export class FreeSongs_kugouComponent implements OnInit {
   }
   getKugou_freeSongs() {
     this.loading = true;
-    this.api
-      .getKugou_freeSongs({
+    this.api.getKugou_freeSongs({
         page: this.pageCurrent,
         pageSize: this.pageSize,
         keyword: this.searchValue,
         type: this.type,
         newly: this.checked,
         sort: this.sortId,
+		publish_timeOrderby:this.publish_timeOrderby,
+		exponentOrderby:this.exponentOrderby
       })
       .subscribe(
         (res: any) => {

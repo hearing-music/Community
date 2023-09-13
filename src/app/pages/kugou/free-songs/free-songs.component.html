@@ -25,10 +25,24 @@
 		  <th nzAlign='center'>歌曲名称</th>
 		  <th nzAlign='center'>更多音源</th>
 	      <th nzAlign='center'>发行公司</th>
-	      <th nzAlign='center'>发行时间</th>
+	      <th nzAlign='center' (click)='publish_timeClick()' style='cursor: pointer;'>
+			  <div>
+				  发行时间
+			  </div>
+			<span *ngIf='publish_timeOrderby == "asc"' nz-icon nzType="caret-up" nzTheme="outline" style="color: blue;"></span>
+			<span *ngIf='publish_timeOrderby == ""' nz-icon nzType="line" nzTheme="outline" style="color: blue;"></span>
+			<span *ngIf='publish_timeOrderby == "desc"' nz-icon nzType="caret-down" nzTheme="outline" style="color: blue;"></span>
+		  </th>
 		  <th nzAlign='center'>专辑名称</th>
 	      <th nzAlign='center'>歌手名称</th>
-		  <th nzAlign='center'>指数</th>
+		 <th nzAlign='center' (click)='exponentClick()' style='cursor: pointer;'>
+			  <div>
+				  指数
+			  </div>
+			  <span *ngIf='exponentOrderby == "asc"' nz-icon nzType="caret-up" nzTheme="outline" style="color: blue;"></span>
+			  <span *ngIf='exponentOrderby == ""' nz-icon nzType="line" nzTheme="outline" style="color: blue;"></span>
+			  <span *ngIf='exponentOrderby == "desc"' nz-icon nzType="caret-down" nzTheme="outline" style="color: blue;"></span>
+		</th>
 		  <th nzAlign='center'>来源</th>
 	      <th nzAlign='center'>aduioID</th>
 	      <th nzWidth='80px' nzAlign='center'>查看</th>
