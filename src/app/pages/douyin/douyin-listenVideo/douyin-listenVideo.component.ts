@@ -61,13 +61,18 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 				item.position = item.position-1
 				// 处理高亮
 				if(item.position!=-1){
-					item.commentList[item.position].text = item.commentList[item.position].text || ''
-					let textHtml:any = item.commentList[item.position].text
-					for(let i = 0;i<item.commentTextArr.length;i++){
-						let str = '<span style="color:#68f168;">'+item.commentTextArr[i]+'</span>'
-						textHtml = textHtml.replaceAll(item.commentTextArr[i],str)
+					try{
+						item.commentList[item.position].text = item.commentList[item.position].text || ''
+						let textHtml:any = item.commentList[item.position].text
+						for(let i = 0;i<item.commentTextArr.length;i++){
+							let str = '<span style="color:#68f168;">'+item.commentTextArr[i]+'</span>'
+							textHtml = textHtml.replaceAll(item.commentTextArr[i],str)
+						}
+						item.textHtml = textHtml;
+					}catch(e){
+						//TODO handle the exception
+						item.commentList[item.position] = {}
 					}
-					item.textHtml = textHtml;
 				}
 			})
 			this.list=res.result;
