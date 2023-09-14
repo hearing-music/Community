@@ -80,6 +80,10 @@ export class SearchSongsComponent implements OnInit {
 			{
 				name:'港台音著协',
 				holder:'港台音著协搜索'
+			},
+			{
+				name:'中国音著协',
+				holder:'中国音著协搜索'
 			}
 		]
 	},{
@@ -98,6 +102,9 @@ export class SearchSongsComponent implements OnInit {
 				holder:'云图飙升搜索'
 			}
 		]
+	},{
+		name: 'ISRC',
+		holder: 'ISRC搜索'
 	}]
 	selectItem = 'QQ音乐';
 	searchValue = '';
@@ -149,6 +156,10 @@ export class SearchSongsComponent implements OnInit {
 	searchkeyword={keyword:"",acsa:""};
 	McscSearchHKList:any[]=[]
 	McscSearchCNList:any[]=[]
+	McscSearchZGList:any[]=[]
+	McscSearchZGPage=1
+	McscSearchZGTotal=0
+	McscSearchZGPageSize=100
 	
 	//HOT PUBLIC_TIME RISE
 	tmeMapHotPage=1
@@ -164,6 +175,49 @@ export class SearchSongsComponent implements OnInit {
 	tmeMapRiseTotal=0
 
 	artists:any=false
+	
+	ISRCPage=1;
+	ISRCPageSize=100;
+	ISRCTotal=1;
+	ISRCList:any[] = []
+	
+	McscSearchZGPageNext(e:any){
+		this.McscSearchZGPage = e;
+		this.searchMcscSearchZG()
+	}
+	searchMcscSearchZG(){
+		this.loading = true;
+		this.api.searchMcscSearchZG({page:this.McscSearchZGPage,keyword:this.searchValue}).subscribe((res: any) => {
+			this.loading = false;
+			this.McscSearchZGList = res.result;
+			this.McscSearchZGTotal = res.total;
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	
+	ISRCPageNext(e:any){
+		this.ISRCPage = e;
+		this.getISRC()
+	}
+	getISRC(){
+		this.loading = true;
+		this.api.search_ISRC({
+			keyword:this.searchValue,
+			page:this.ISRCPage,
+			pageSize:this.ISRCPageSize,
+		}).subscribe((res: any) => {
+			this.loading = false;
+			this.ISRCList = res.result;
+			this.ISRCTotal = res.total;
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	
+	
 	tmeMapRisePageNext(e:any){
 		this.tmeMapRisePage = e;
 		this.searchTmeMapRise()
@@ -561,6 +615,8 @@ export class SearchSongsComponent implements OnInit {
 		this.tmeMapHotPage=1;
 		this.tmeMapNewPage=1;
 		this.tmeMapRisePage=1;
+		this.ISRCPage=1;
+		this.McscSearchZGPage=1;
 		this.loading = true;
 		if(this.tagNow){
 			if (this.selectItem2 == '酷狗V3') {
@@ -574,6 +630,9 @@ export class SearchSongsComponent implements OnInit {
 			}
 			if(this.selectItem2 == '港台音著协'){
 				this.searchMcscSearchHK()
+			}
+			if(this.selectItem2 == '中国音著协'){
+				this.searchMcscSearchZG()
 			}
 			if(this.selectItem2=='最热'&&this.selectItem=='云图'){
 				this.searchTmeMapHot()
@@ -621,6 +680,9 @@ export class SearchSongsComponent implements OnInit {
 		}
 		if(this.selectItem == '词曲版权'){
 			this.getCopyright()
+		}
+		if(this.selectItem == 'ISRC'){
+			this.getISRC()
 		}
 	}
 	searchKuwo() {

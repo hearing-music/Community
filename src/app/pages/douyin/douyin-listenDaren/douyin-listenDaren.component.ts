@@ -47,6 +47,128 @@ export class DouyinListenDarenComponent implements OnInit {
 	},{
 		value:'20000以上'
 	}]
+	
+	fees:any='全部'
+	feesMax:any=''
+	feesMin:any=''
+	feesList:any=[{
+		value:'全部'
+	},{
+		value:'0-300'
+	},{
+		value:'301-500'
+	},{
+		value:'501-800'
+	},{
+		value:'801-1000'
+	},{
+		value:'1001以上'
+	}]
+	
+	vocals:any='全部'
+	vocalsMax:any=''
+	vocalsMin:any=''
+	vocalsList:any=[{
+		value:'全部'
+	},{
+		value:'1000以内'
+	},{
+		value:'1001-3000'
+	},{
+		value:'3001-5000'
+	},{
+		value:'5001-10000'
+	},{
+		value:'10000以上'
+	}]
+	
+	minimum:any='全部'
+	minimumMax:any=''
+	minimumMin:any=''
+	minimumList:any=[{
+		value:'全部'
+	},{
+		value:'2000以下'
+	},{
+		value:'2000-5000'
+	},{
+		value:'5001-10000'
+	},{
+		value:'10001-15000'
+	},{
+		value:'15001-20000'
+	},{
+		value:'20000以上'
+	}]
+	ngModelFees(e:any){
+		switch(e) {
+		    case '全部':  
+		        this.feesMax=''
+		        this.feesMin=''
+		        break;
+		    case '0-300':  
+		       this.feesMax=300
+		       this.feesMin=0
+		        break;
+		    case '301-500':
+		        this.feesMax=500
+		        this.feesMin=301
+		        break;
+			case '501-800':
+			    this.feesMax=800
+			    this.feesMin=501
+			    break;
+			case '801-1000':
+			    this.feesMax=1000
+			    this.feesMin=801
+			    break;
+			case '1001以上':
+				this.feesMax=99999999
+				this.feesMin=1001
+				break
+		    default:
+		       this.feesMax=''
+		       this.feesMin=''
+		       break;
+		}
+		this.page = 1;
+		this.douyin_getListenDaren()
+	}
+	ngModelVocals(e:any){
+		switch(e) {
+		    case '全部':  
+		        this.vocalsMax=''
+		        this.vocalsMin=''
+		        break;
+			case '1000以内':
+			   this.vocalsMax=1000
+			   this.vocalsMin=0
+			    break;
+		    case '1001-3000':  
+		       this.vocalsMax=3000
+		       this.vocalsMin=1001
+		        break;
+		    case '3001-5000':
+		        this.vocalsMax=5000
+		        this.vocalsMin=3001
+		        break;
+			case '5001-10000':
+			    this.vocalsMax=10000
+			    this.vocalsMin=5001
+			    break;
+			case '10000以上':
+				this.vocalsMax=99999999
+				this.vocalsMin=10000
+				break
+		    default:
+		       this.vocalsMax=''
+		       this.vocalsMin=''
+		       break;
+		}
+		this.page = 1;
+		this.douyin_getListenDaren()
+	}
+	
 	ngModelAve(e:any){
 		switch(e) {
 		    case '全部':  
@@ -76,6 +198,44 @@ export class DouyinListenDarenComponent implements OnInit {
 		    default:
 		       this.diggCountAveMax=''
 		       this.diggCountAveMin=''
+		       break;
+		}
+		this.page = 1;
+		this.douyin_getListenDaren()
+	}
+	ngModelMin(e:any){
+		switch(e) {
+		    case '全部':  
+		        this.minimumMax=''
+		        this.minimumMin=''
+		        break;
+			case '2000以下':
+			   this.minimumMax=2000
+			   this.minimumMin=0
+			    break;
+		    case '2000-5000':  
+		       this.minimumMax=5000
+		       this.minimumMin=2000
+		        break;
+		    case '5001-10000':
+		        this.minimumMax=10000
+		        this.minimumMin=5001
+		        break;
+			case '10001-15000':
+			    this.minimumMax=15000
+			    this.minimumMin=10001
+			    break;
+			case '15001-20000':
+			    this.minimumMax=20000
+			    this.minimumMin=15001
+			    break;
+			case '20000以上':
+				this.minimumMax=99999999
+				this.minimumMin=20000
+				break
+		    default:
+		       this.minimumMax=''
+		       this.minimumMin=''
 		       break;
 		}
 		this.page = 1;
@@ -145,7 +305,7 @@ export class DouyinListenDarenComponent implements OnInit {
 	}
 	douyin_getListenDaren() {
 		this.loading = true;
-		this.api.douyin_getListenDaren({diggCountAveMax:this.diggCountAveMax,diggCountAveMin:this.diggCountAveMin,activityNum:this.activityNum, pageSize: this.pageSize, page: this.page, keyword: this.searchValue, type: this.type ? '我的' : '全部' })
+		this.api.douyin_getListenDaren({vocalsMax:this.vocalsMax,vocalsMin:this.vocalsMin,feesMax:this.feesMax,feesMin:this.feesMin,minimumMax:this.minimumMax,minimumMin:this.minimumMin,diggCountAveMax:this.diggCountAveMax,diggCountAveMin:this.diggCountAveMin,activityNum:this.activityNum, pageSize: this.pageSize, page: this.page, keyword: this.searchValue, type: this.type ? '我的' : '全部' })
 			.subscribe((res: any) => {
 				console.log(res)
 				if (res.success) {
@@ -154,6 +314,7 @@ export class DouyinListenDarenComponent implements OnInit {
 						item.expand = false;
 						item.BloggerVideo = []
 						item.seeVideo = false;
+						item.diggCountAve = parseInt(item.diggCountAve)
 					})
 					// let arr = this.common.spArr(res.result, 10)
 					this.list = res.result;
@@ -300,9 +461,19 @@ export class DouyinListenDarenComponent implements OnInit {
 	}
 	// 点击录入
 	handleOk(): void {
-		let { dy_Monitoring_ID, dy_BloggerInfo_ID, Sex, Information, Home, Type, Style, Characteristics, Vocals, Split, Original, OriginalShare, Fees, Note, SecUid } = this.editItem;
+		let { dy_Monitoring_ID, dy_BloggerInfo_ID, Sex, Information, Home, Type, Style, Characteristics, Vocals, Split, Original, OriginalShare, Fees, Note, SecUid,FeesShow,VocalsShow } = this.editItem;
+		VocalsShow = VocalsShow-0
+		FeesShow = FeesShow-0
+			if(!Number.isInteger(VocalsShow)){
+				this.message.info('翻唱唱酬最低价格必须为数字')
+				return
+			}
+			if(!Number.isInteger(FeesShow)){
+				this.message.info('翻唱视频费用最低价格必须为数字')
+				return
+			}
 		this.loading = true;
-		this.api.douyin_listenDarenEdit({ dy_Monitoring_ID, dy_BloggerInfo_ID, Sex, Information, Home, Type, Style, Characteristics, Vocals, Split, Original, OriginalShare, Fees, Note, SecUid }).subscribe((res: any) => {
+		this.api.douyin_listenDarenEdit({ dy_Monitoring_ID, dy_BloggerInfo_ID, Sex, Information, Home, Type, Style, Characteristics, Vocals, Split, Original, OriginalShare, Fees, Note, SecUid,FeesShow,VocalsShow }).subscribe((res: any) => {
 			console.log(res)
 			this.loading = false;
 			if (res.success) {

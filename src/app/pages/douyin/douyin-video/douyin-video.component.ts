@@ -69,10 +69,12 @@ export class DouyinVideoComponent implements OnInit {
 		var style = this.Style;
 		var characteristics = this.Characteristics;
 		var vocals = this.Vocals;
+		var vocalsShow = 0;
 		var split = this.Split;
 		var original = this.Original;
 		var originalShare = this.OriginalShare;
 		var fees = this.Fees;
+		var feesShow = 0;
 		var note = this.Note;
 		var sex = this.Sex;
 		var nickname = obj.nickName;
@@ -82,8 +84,7 @@ export class DouyinVideoComponent implements OnInit {
 		var urlList = obj.urlList
 		this.loading = true;
 		return new Promise((resolve: any) => {
-			this.api.douyin_listenDaren({
-				isVideo: true,urlList,signature, nickname, sex, secUid, uniqueId, information, clicklike: obj.totalFavorited, fans: obj.followerCount,
+			this.api.douyin_listenDaren({feesShow,vocalsShow,isVideo: true,urlList,signature, nickname, sex, secUid, uniqueId, information, clicklike: obj.totalFavorited, fans: obj.followerCount,
 				home, type, style, characteristics, vocals, split, original, originalShare, fees, note
 			}).subscribe((res: any) => {
 				console.log(res)

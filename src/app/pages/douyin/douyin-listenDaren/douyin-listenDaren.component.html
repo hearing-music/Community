@@ -5,15 +5,33 @@
 		</ngx-search>
 		<div style="display: flex;align-items: center;">
 			<div style="font-size: 12px;color: #666;">
+				翻唱：
+			</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="fees" (ngModelChange)='ngModelFees($event)'>
+				<nz-option *ngFor="let item of feesList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
+			</nz-select>
+			<div style="font-size: 12px;color: #666;">
+				翻唱唱酬：
+			</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="vocals" (ngModelChange)='ngModelVocals($event)'>
+				<nz-option *ngFor="let item of vocalsList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
+			</nz-select>
+			<div style="font-size: 12px;color: #666;">
+				低赞：
+			</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="minimum" (ngModelChange)='ngModelMin($event)'>
+				<nz-option *ngFor="let item of minimumList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
+			</nz-select>
+			<div style="font-size: 12px;color: #666;">
 				均赞：
 			</div>
-			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 120px;margin-right: 15px;" [(ngModel)]="diggCountAve" (ngModelChange)='ngModelAve($event)'>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="diggCountAve" (ngModelChange)='ngModelAve($event)'>
 				<nz-option *ngFor="let item of diggCountAveList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
 			</nz-select>
 			<div style="font-size: 12px;color: #666;">
-				活跃度：
+				活跃：
 			</div>
-			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 120px;margin-right: 15px;" [(ngModel)]="activity" (ngModelChange)='ngModelActivity($event)'>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="activity" (ngModelChange)='ngModelActivity($event)'>
 				<nz-option *ngFor="let item of activityList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
 			</nz-select>
 			<nz-switch *ngIf='common.highUserList.indexOf(userId) != -1' [ngModel]="type" nzCheckedChildren="我的" nzUnCheckedChildren="全部" (ngModelChange)='ngModelChange()'></nz-switch>
@@ -24,19 +42,24 @@
 		<div *ngFor="let item of list;let i =index;">
 			<div class="list-item">
 				<div class="item-left">
-					<div>
+					<div style="position: relative;">
+						<img *ngIf='item.SingleDay' src="../../../assets/img/kulou.svg" class="icon" style="position: absolute;left:0;top:0;width: 20px;height: 20px;"/>
 						<img nz-image width="74px" height="74px" [nzSrc]="item.urlList" style="border-radius: 50%;"
 							[nzFallback]="fallback" alt="" />
 					</div>
 					<div class="left-text">
 						<div class="title-area">
-							<div class="title" (click)='goHomeUrl(item.homeUrl)'>
+							<div class="title" (click)='common.copy(item.Nickname)'>
 								<span nz-tooltip [nzTooltipTitle]="item.Nickname">
 									{{item.Nickname}}
 								</span>
 							</div>
 							<img *ngIf='item.Sex=="男"' src="../../../assets/img/nan.svg" class="icon" />
 							<img *ngIf='item.Sex=="女"' src="../../../assets/img/nv.svg" class="icon" />
+							<button nz-button nzShape="circle" nzType="text" (click)="goHomeUrl(item.homeUrl)" class="linkIcon"
+								style="margin-left: 4px;">
+								<span nz-icon nzType="select" nzTheme="outline" style="color:#000;font-size: 14px;"></span>
+							</button>
 							<div class="signature" style="margin-left: 6px;">
 								<span nz-tooltip [nzTooltipTitle]="item.signature">
 									{{item.signature}}
@@ -63,7 +86,7 @@
 								</span>
 							</div>
 							<!-- 平均点赞 -->
-							<div style="display: flex;align-items: center;margin-left:6px;">
+							<div style="display: flex;align-items: center;margin-left:6px;cursor: pointer;" (click)='common.copy(item.diggCountAve)'>
 								<span nz-tooltip [nzTooltipTitle]="'平均点赞'">
 									<div style="display: flex;align-items: center;">
 										<img src="../../../assets/img/pingjun.svg" class="icon" />
@@ -72,7 +95,7 @@
 								</span>
 							</div>
 							<!-- 最低点赞 -->
-							<div style="display: flex;align-items: center;margin-left:6px;">
+							<div style="display: flex;align-items: center;margin-left:6px;cursor: pointer;" (click)='common.copy(item.minimum)'>
 								<span nz-tooltip [nzTooltipTitle]="'最低点赞'">
 									<div style="display: flex;align-items: center;">
 										<img src="../../../assets/img/zuidi.svg" class="icon" />
@@ -122,7 +145,7 @@
 							备注：<span class="value">{{item.Note?item.Note:'无'}}</span>
 						</div>
 						<div class="subTitle">
-							<div style="display: flex;align-items: center;">
+							<div style="display: flex;align-items: center;cursor: pointer;" (click)='common.copy(item.UniqueId)'>
 								<div>
 									<span style="color:#000;">抖音号：</span>{{item.UniqueId}}
 								</div>
@@ -331,78 +354,98 @@
 			(nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper nzShowSizeChanger [nzPageSizeOptions]='pageSizeOptions' (nzPageSizeChange)='nzPageSizeChange($event)'></nz-pagination>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
+	
+	
+	
+	
 	<!-- 修改 -->
-	<nz-modal [(nzVisible)]="isVisible" [nzFooter]='null' (nzOnCancel)='handleCancel()'  [nzClosable]='false' nzTitle="抖音达人数据修改" >
-	      <ng-container *nzModalContent>
-	        <p>输入达人的微信或手机号码</p>
-	        <input  nz-input placeholder="微信/电话" [(ngModel)]="editItem.Information" />
-	        <!-- 艺人主页 Home -->
-			<p style="margin-top:14px;">艺人主页</p>
-			<input nz-input placeholder="艺人主页" [(ngModel)]="editItem.Home" />
-			<div style="display:flex;justify-content: space-between;margin-top:14px;">
-				<div>
-					<!-- 艺人类型 Type -->
-					<p>艺人类型</p>
-					<input nz-input placeholder="艺人类型" [(ngModel)]="editItem.Type" />
-				</div>
-				<div>
-					<!-- 艺人风格 Style -->
-					<p>艺人风格</p>
-					<input nz-input placeholder="艺人风格" [(ngModel)]="editItem.Style" />
-				</div>
-				<div>
-					<!-- 嗓音特点 Characteristics -->
-					<p>嗓音特点</p>
-					<input nz-input placeholder="嗓音特点" [(ngModel)]="editItem.Characteristics" />
-				</div>
+	<nz-modal [nzStyle]="{'width':'600px'}" [(nzVisible)]="isVisible" [nzFooter]='null' (nzOnCancel)='handleCancel()'  [nzClosable]='false' nzTitle="抖音达人数据修改" >
+	  <ng-container *nzModalContent >
+	    <p>输入达人的微信或手机号码</p>
+	   <input  nz-input placeholder="微信/电话" [(ngModel)]="editItem.Information" />
+		<div style="display: flex; margin-top: 14px; ">
+			<div style="flex:1;">
+				<!-- 艺人主页 Home -->
+				<p >艺人主页</p>
+				<input nz-input placeholder="艺人主页" [(ngModel)]="editItem.Home" />
 			</div>
-			<div style="display:flex;justify-content: space-between;margin-top:14px;">
-				<div>
-					<!-- 翻唱唱酬 Vocals -->
-					<p>翻唱唱酬</p>
-					<input nz-input placeholder="翻唱唱酬" [(ngModel)]="editItem.Vocals" />
-				</div>
-				<div>
-					<!-- 翻唱分成 Split -->
-					<p>翻唱分成</p>
-					<input nz-input placeholder="翻唱分成" [(ngModel)]="editItem.Split" />
-				</div>
-				<div>
-					<p>性别</p>
-					<nz-select [(ngModel)]="editItem.Sex">
-						<nz-option *ngFor="let l of sexList;" [nzValue]="l.value" [nzLabel]="l.label"></nz-option>
-					</nz-select>
-				</div>
+			<div style="margin-left: 10px;">
+				 <p>性别</p>
+				 <nz-select [(ngModel)]="editItem.Sex">
+					<nz-option *ngFor="let l of sexList;" [nzValue]="l.value" [nzLabel]="l.label"></nz-option>
+				 </nz-select>
 			</div>
-			<div style="display:flex;justify-content: space-between;margin-top:14px;">
-				<div>
-					<!-- 原创唱酬 Original -->
-					<p>原创唱酬</p>
-					<input nz-input placeholder="原创唱酬" [(ngModel)]="editItem.Original" />
-				</div>
-				<div>
-					<!-- 原创分成 OriginalShare -->
-					<p>原创分成</p>
-					<input nz-input placeholder="原创分成" [(ngModel)]="editItem.OriginalShare" />
-				</div>
-				<div>
-					<!-- 翻唱视频费用 Fees -->
-					<p>翻唱视频费用</p>
-					<input nz-input placeholder="翻唱视频费用" [(ngModel)]="editItem.Fees" />
-				</div>
+		</div>
+	    <div style="display: flex;justify-content: space-between;margin-top: 14px;">
+	      <div>
+	        <!-- 艺人类型 Type -->
+	        <p>艺人类型</p>
+	        <input nz-input placeholder="艺人类型" [(ngModel)]="editItem.Type" />
+	      </div>
+	      <div>
+	        <!-- 艺人风格 Style -->
+	        <p>艺人风格</p>
+	        <input nz-input placeholder="艺人风格" [(ngModel)]="editItem.Style" />
+	      </div>
+	      <div>
+	        <!-- 嗓音特点 Characteristics -->
+	        <p>嗓音特点</p>
+	        <input nz-input placeholder="嗓音特点" [(ngModel)]="editItem.Characteristics" />
+	      </div>
+	    </div>
+	    <div style="display: flex;justify-content: space-between;margin-top: 14px;" >
+	      <div>
+	        <!-- 翻唱唱酬 Vocals -->
+	        <p>翻唱唱酬</p>
+	        <input nz-input placeholder="翻唱唱酬" [(ngModel)]="editItem.Vocals" />
+	      </div>
+	     <div style="width: 114px;">
+	       <!-- 翻唱唱酬最低价格 VocalsShow -->
+	       <p>最低价格</p>
+		   <input nz-input placeholder="最低价(数字)" [(ngModel)]="editItem.VocalsShow" />
+	     </div>
+		 
+		  <div style="margin-left: 16px;">
+		    <!-- 翻唱视频费用 Fees -->
+		    <p>翻唱视频费用</p>
+			<input nz-input placeholder="翻唱视频费用" [(ngModel)]="editItem.Fees" />
+		  </div>
+		  <div style="width: 114px;">
+		   <!-- 翻唱视频费用 FeesShow -->
+		    <p>最低价格</p>
+		    <input nz-input placeholder="最低价(数字)" [(ngModel)]="editItem.FeesShow" />
+		  </div>
+	    </div>
+	    <div style="display: flex;justify-content: space-between; margin-top: 14px;">
+			<div>
+			  <!-- 翻唱分成 Split -->
+			  <p>翻唱分成</p>
+			  <input nz-input placeholder="翻唱分成" [(ngModel)]="editItem.Split" />
 			</div>
-			<!-- 备注  Note -->
-			<p style="margin-top:10px;">备注</p>
-			<input nz-input placeholder="备注" [(ngModel)]="editItem.Note" />
-			
-			<div class='modalBtns'>
-				<button class='btnCancel' (click)='handleCancel()'>
-					取消
-				</button>
-				<button (click)='handleOk()' class='btnConfirm'>
-					修改
-				</button>
-			</div>
-	      </ng-container>
-	    </nz-modal>
+	      <div>
+	        <!-- 原创唱酬 Original -->
+	        <p>原创唱酬</p>
+	        <input nz-input placeholder="原创唱酬" [(ngModel)]="editItem.Original" />
+	      </div>
+	      <div>
+	        <!-- 原创分成 OriginalShare -->
+	        <p>原创分成</p>
+	        <input nz-input placeholder="原创分成" [(ngModel)]="editItem.OriginalShare" />
+	      </div>
+	      
+	    </div>
+	    <!-- 备注  Note -->
+	    <p style="margin-top: 10px">备注</p>
+	    <input nz-input placeholder="备注" [(ngModel)]="editItem.Note" />
+	    <div class='modalBtns'>
+	    	<button class='btnCancel' (click)='handleCancel()'>
+	    		取消
+	    	</button>
+	    	<button (click)='handleOk()' class='btnConfirm'>
+	    		修改
+	    	</button>
+	    </div>
+	  </ng-container>
+	</nz-modal>
+	
 </div>

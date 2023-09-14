@@ -1,0 +1,42 @@
+<nz-table #basicTable [nzData]="McscSearchZGList" nzTitle='' [nzFrontPagination]='false'>
+		<thead>
+			<tr>
+				<th nzAlign='center'>序号</th>
+				<th nzAlign='center'>图片</th>
+				<th nzAlign='center'>作品名称</th>
+				<th nzAlign='center'>表演者</th>
+				<th nzAlign='center'>语种</th>
+				<th nzAlign='center'>制作者</th>
+				<th nzAlign='center'>权利人</th>
+				<th nzAlign='center'>类型</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of basicTable.data; let i = index">
+				<td nzAlign='center' style="cursor: pointer;">
+					{{i+1}}
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item[0])'>
+					<img src="../../../assets/img/yzx.png" style="width: 60px;">
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item[1])'>
+						{{item[1]}}
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item[2])'>
+						{{item[2]}}
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item[3])'>
+						{{item[3]}}
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item[4])'>
+						{{item[4]}}
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item[5])'>
+					{{item[5]}}
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item[6])'>
+						{{item[6]}}
+				</td>
+			</tr>
+		</tbody>
+	</nz-table>

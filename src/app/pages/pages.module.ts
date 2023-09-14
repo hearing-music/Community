@@ -49,6 +49,7 @@ import { FufuSearchComponent } from './search-songs/fufu-search/fufu-search.comp
 import { FufuHotComponent } from './search-songs/fufu-hot/fufu-hot.component';
 import { FufuSingerComponent } from './search-songs/fufu-singer/fufu-singer.component';
 import { CopyrightComponent } from './search-songs/copyright/copyright.component';
+import { ISRCComponent } from './search-songs/ISRC/ISRC.component'
 import { FufuBillboardComponent } from './fufuleida/fufu-billboard/fufu-billboard.component';
 import { JianyingComponent } from './jianying/jianying.component';
 import { ToMvComponent } from './to-mv/to-mv.component';
@@ -116,6 +117,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { SongListLabelComponent } from './qq/qq-label/song-list-label/song-list-label.component';
 import { McscSearchCNComponent } from './search-songs/mcsc-search-cn/mcsc-search-cn.component';
 import { McscSearchHKComponent } from './search-songs/mcsc-search-hk/mcsc-search-hk.component';
+import { McscSearchZGComponent } from './search-songs/mcsc-search-zg/mcsc-search-zg.component';
 import { TmeMap_hotComponent } from './search-songs/tme-map/tme-map_hot/tme-map_hot.component';
 import { VolumeOfUseComponent } from './kuaishou-searchindex/volumeOfUse/volumeOfUse.component';
 registerLocaleData(zh);
@@ -178,6 +180,7 @@ registerLocaleData(zh);
 		FufuHotComponent,
 		FufuSingerComponent,
 		CopyrightComponent,
+		ISRCComponent,
 		FufuBillboardComponent,
 		JianyingComponent,
 		ChatgptComponent,
@@ -235,6 +238,7 @@ registerLocaleData(zh);
   SongListLabelComponent,
   McscSearchCNComponent,
   McscSearchHKComponent,
+  McscSearchZGComponent,
   TmeMap_hotComponent,
 	],
 })

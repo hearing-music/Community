@@ -11,6 +11,14 @@
 		width: 16px;
 		height: 16px;
 	}
+	.linkIcon{
+		    display: flex;
+		    align-items: center;
+		    width: 32px;
+		    height: 32px;
+		    cursor: pointer;
+		    justify-content: center;
+	}
 	.list {
 		// overflow: scroll;
 		padding: 12px;

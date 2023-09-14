@@ -39,6 +39,7 @@ export class DouyinDarenComponent implements OnInit {
   Characteristics: any = "";
   // <!-- 翻唱唱酬 Vocals -->
   Vocals: any = "";
+  VocalsShow:any="";
   // <!-- 翻唱分成 Split -->
   Split: any = "";
   // <!-- 原创唱酬 Original -->
@@ -47,6 +48,7 @@ export class DouyinDarenComponent implements OnInit {
   OriginalShare: any = "";
   // <!-- 翻唱视频费用 Fees -->
   Fees: any = "";
+  FeesShow:any="";
   // <!-- 备注  Note -->
   Note: any = "";
   Sex: any = "";
@@ -267,10 +269,12 @@ export class DouyinDarenComponent implements OnInit {
     var style = this.Style;
     var characteristics = this.Characteristics;
     var vocals = this.Vocals;
+    var vocalsShow = this.VocalsShow;
     var split = this.Split;
     var original = this.Original;
     var originalShare = this.OriginalShare;
     var fees = this.Fees;
+    var feesShow = this.FeesShow;
     var note = this.Note;
     var sex = this.Sex;
     let signature = obj.signature;
@@ -282,9 +286,21 @@ export class DouyinDarenComponent implements OnInit {
     var nickname = obj.nickName;
     var secUid = obj.secUid;
     var uniqueId = obj.uniqueId;
+	vocalsShow = vocalsShow-0
+	feesShow = feesShow-0
+		if(!Number.isInteger(vocalsShow)){
+			this.message.info('翻唱唱酬最低价格必须为数字')
+			return
+		}
+		if(!Number.isInteger(feesShow)){
+			this.message.info('翻唱视频费用最低价格必须为数字')
+			return
+		}
     this.loading = true;
     this.api
       .douyin_listenDaren({
+		  feesShow,
+		  vocalsShow,
         signature,
         urlList,
         nickname,
@@ -322,6 +338,8 @@ export class DouyinDarenComponent implements OnInit {
             this.Original = "";
             this.OriginalShare = "";
             this.Fees = "";
+            this.FeesShow = "";
+            this.VocalsShow = "";
             this.Note = "";
             this.Sex = "";
           }
@@ -336,7 +354,7 @@ export class DouyinDarenComponent implements OnInit {
 
   // 达人搜索
   douyin_darenSearch() {
-    this.loading = true;
+	this.loading = true;
     this.api
       .DouYinSearchBigV({ page: this.page, keyword: this.searchValue })
       .subscribe(

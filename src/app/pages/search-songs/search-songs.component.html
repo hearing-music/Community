@@ -40,9 +40,11 @@
 		<ngx-copyright *ngIf='selectItem=="词曲版权"' [copyrightList]="copyrightList" (change)="copyrightSrcChange($event)"></ngx-copyright>
 		<ngx-mcsc-search-cn *ngIf='selectItem2=="大陆音著协"' [McscSearchCNList]="McscSearchCNList"></ngx-mcsc-search-cn>
 		<ngx-mcsc-search-hk *ngIf='selectItem2=="港台音著协"' [McscSearchHKList]="McscSearchHKList"></ngx-mcsc-search-hk>
+		<ngx-mcsc-search-zg *ngIf='selectItem2=="中国音著协"' [McscSearchZGList]="McscSearchZGList"></ngx-mcsc-search-zg>
 		<ngx-tme-map_hot *ngIf='selectItem2=="最热"' [tmeMapHotList]="tmeMapHotList"></ngx-tme-map_hot>
 		<ngx-tme-map_hot *ngIf='selectItem2=="最新"' [tmeMapHotList]="tmeMapNewList"></ngx-tme-map_hot>
 		<ngx-tme-map_hot *ngIf='selectItem2=="飙升"' [tmeMapHotList]="tmeMapRiseList"></ngx-tme-map_hot>
+		<ngx-ISRC *ngIf='selectItem=="ISRC"' [ISRCList]="ISRCList"></ngx-ISRC>
 	</div>
 	<!-- 分页 -->
 	<div class="pagination">
@@ -70,6 +72,10 @@
 			(nzPageIndexChange)='tmeMapNewPageNext($event)' nzShowQuickJumper></nz-pagination>
 		<nz-pagination *ngIf='selectItem=="云图"&&selectItem2=="飙升"&&tmeMapRiseList.length>0' [nzPageIndex]="tmeMapRisePage" [nzPageSize]='5' [nzTotal]="tmeMapRiseTotal"
 			(nzPageIndexChange)='tmeMapRisePageNext($event)' nzShowQuickJumper></nz-pagination>
+		<nz-pagination *ngIf='selectItem=="ISRC"&&ISRCList.length>0' [nzPageIndex]="ISRCPage" [nzPageSize]='ISRCPageSize' [nzTotal]="ISRCTotal"
+			(nzPageIndexChange)='ISRCPageNext($event)' nzShowQuickJumper></nz-pagination>
+		<nz-pagination *ngIf='selectItem=="音著协"&&selectItem2=="中国音著协"&&McscSearchZGList.length>0' [nzPageIndex]="McscSearchZGPage" [nzPageSize]='McscSearchZGPageSize' [nzTotal]="McscSearchZGTotal"
+			(nzPageIndexChange)='McscSearchZGPageNext($event)' nzShowQuickJumper></nz-pagination>
 		<!-- <span *ngIf='selectItem=="铃声多多"&&lsddList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='lsddPageNext()' style="cursor: pointer;"></span> -->
 	</div>

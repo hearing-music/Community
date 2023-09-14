@@ -1,0 +1,42 @@
+<nz-table #basicTable [nzData]="ISRCList" nzTitle='' [nzFrontPagination]='false'>
+		<thead>
+			<tr>
+				<th nzAlign='center'>序号</th>
+				<th nzAlign='center'>歌手</th>
+				<th nzAlign='center'>歌曲名</th>
+				<th nzAlign='center'>版本</th>
+				<th nzAlign='center'>年份</th>
+				<th nzAlign='center'>时间</th>
+				<th nzAlign='center'>ISRC码</th>
+				<th nzAlign='center'>歌曲类型</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of basicTable.data; let i = index">
+				<td nzAlign='center' style="cursor: pointer;">
+					{{i+1}}
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item.artistName)'>
+						{{item.artistName}}
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item.trackTitle)'>
+						{{item.trackTitle}}
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item.recordingVersion)'>
+						{{item.recordingVersion}}
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item.recordingYear)'>
+						{{item.recordingYear}}
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item.duration)'>
+						{{item.duration}}
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item.isrcCode)'>
+					{{item.isrcCode}}
+				</td>
+				<td nzAlign='center' style="cursor: pointer;" (click)='common.copy(item.documentType)'>
+						{{item.documentType}}
+				</td>
+			</tr>
+		</tbody>
+	</nz-table>
