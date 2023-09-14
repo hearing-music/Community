@@ -78,10 +78,12 @@ export class DouyinVideoComponent implements OnInit {
 		var nickname = obj.nickName;
 		var secUid = obj.secUid;
 		var uniqueId = obj.uniqueId;
+		var signature = obj.signature
+		var urlList = obj.urlList
 		this.loading = true;
 		return new Promise((resolve: any) => {
 			this.api.douyin_listenDaren({
-				isVideo: true, nickname, sex, secUid, uniqueId, information, clicklike: obj.totalFavorited, fans: obj.followerCount,
+				isVideo: true,urlList,signature, nickname, sex, secUid, uniqueId, information, clicklike: obj.totalFavorited, fans: obj.followerCount,
 				home, type, style, characteristics, vocals, split, original, originalShare, fees, note
 			}).subscribe((res: any) => {
 				console.log(res)
