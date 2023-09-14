@@ -70,7 +70,7 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 						}
 						item.textHtml = textHtml;
 					}catch(e){
-						//TODO handle the exception
+						// TODO handle the exception
 						item.commentList[item.position] = {}
 					}
 				}
