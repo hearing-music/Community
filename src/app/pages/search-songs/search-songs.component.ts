@@ -82,8 +82,8 @@ export class SearchSongsComponent implements OnInit {
 				holder:'港台音著协搜索'
 			},
 			{
-				name:'中国音著协',
-				holder:'中国音著协搜索'
+				name:'中国音集协',
+				holder:'中国音集协搜索'
 			}
 		]
 	},{
@@ -631,7 +631,7 @@ export class SearchSongsComponent implements OnInit {
 			if(this.selectItem2 == '港台音著协'){
 				this.searchMcscSearchHK()
 			}
-			if(this.selectItem2 == '中国音著协'){
+			if(this.selectItem2 == '中国音集协'){
 				this.searchMcscSearchZG()
 			}
 			if(this.selectItem2=='最热'&&this.selectItem=='云图'){
