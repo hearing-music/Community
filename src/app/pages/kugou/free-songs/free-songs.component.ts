@@ -138,7 +138,7 @@ export class FreeSongs_kugouComponent implements OnInit {
     let arrObjFilter = this.sortList.filter((ele: any) => ele.source == item);
     this.sortId = arrObjFilter[0].id;
     this.pageCurrent = 1;
-    this.pageSize = 50;
+    // this.pageSize = 25;
     this.pageTotal = 0;
     this.getKugou_freeSongs();
   }
@@ -160,8 +160,7 @@ export class FreeSongs_kugouComponent implements OnInit {
           console.log(res);
           if (res.success) {
             res.result.forEach((item: any, index: any) => {
-              res.res[index] =
-                res.res[index].length == 0 ? [{}] : res.res[index];
+              // res.res[index] = res.res[index].length == 0 ? [{}] : res.res[index];
               item.newExponent = "";
               if (typeof item.singerId != "object") {
                 try {
@@ -193,7 +192,7 @@ export class FreeSongs_kugouComponent implements OnInit {
               }
             });
             this.list = res.result;
-            this.listRes = res.res;
+            // this.listRes = res.res;
             this.pageTotal = res.pageTotal;
           }
         },
