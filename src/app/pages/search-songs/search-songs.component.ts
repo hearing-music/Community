@@ -209,8 +209,10 @@ export class SearchSongsComponent implements OnInit {
 			pageSize:this.ISRCPageSize,
 		}).subscribe((res: any) => {
 			this.loading = false;
-			this.ISRCList = res.result;
-			this.ISRCTotal = res.total;
+			if(res.success){
+				this.ISRCList = res.result;
+				this.ISRCTotal = res.total;
+			}
 		}, (err: any) => {
 			console.log(err)
 			this.loading = false;
@@ -599,6 +601,7 @@ export class SearchSongsComponent implements OnInit {
 		this.searchHolder = citem.holder;
 	}
 	search(value: string) {
+		if(this.loading) return
 		console.log(value)
 		this.searchValue = value;
 		this.qqPage = 1;
