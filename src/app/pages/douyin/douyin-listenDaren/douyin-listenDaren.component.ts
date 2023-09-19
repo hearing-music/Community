@@ -62,7 +62,15 @@ export class DouyinListenDarenComponent implements OnInit {
 	},{
 		value:'801-1000'
 	},{
-		value:'1001以上'
+		value:'1001-2000'
+	},{
+		value:'2001-3000'
+	},{
+		value:'3001-5000'
+	},{
+		value:'5001-10000'
+	},{
+		value:'10000以上'
 	}]
 	
 	vocals:any='全部'
@@ -122,9 +130,25 @@ export class DouyinListenDarenComponent implements OnInit {
 			    this.feesMax=1000
 			    this.feesMin=801
 			    break;
-			case '1001以上':
+			case '1001-2000':
+			    this.feesMax=2000
+			    this.feesMin=1001
+			    break;
+			case '2001-3000':
+			    this.feesMax=3000
+			    this.feesMin=2001
+			    break;
+			case '3001-5000':
+			    this.feesMax=5000
+			    this.feesMin=3001
+			    break;
+			case '5001-10000':
+			    this.feesMax=10000
+			    this.feesMin=5001
+			    break;
+			case '10000以上':
 				this.feesMax=99999999
-				this.feesMin=1001
+				this.feesMin=10000
 				break
 		    default:
 		       this.feesMax=''
