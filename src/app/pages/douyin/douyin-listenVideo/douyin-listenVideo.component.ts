@@ -14,8 +14,10 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
   }
   ngOnInit(): void {
 	  this.userId = localStorage.getItem('userId') || '0'
+	  this.highUserList = localStorage.getItem('highUserList') || ['1','2','3','4','5','8','11','13','17','26','34']
 	  this.douyin_getListenVideo()
   }
+  highUserList:any=[]
   userId='0'
   loading=false;
   searchValue:any=''

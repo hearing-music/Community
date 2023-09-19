@@ -94,7 +94,8 @@ export class LoginComponent implements OnInit {
 					"username": res.result.username,
 					"menus_item":JSON.stringify(res.result.menus_item),
 					"create_at":res.result.create_at,
-					"url":res.result.url
+					"url":res.result.url,
+					"highUserList":res.result.highUserList
 				})
 				
 				this.authService.isLoggedIn = true;

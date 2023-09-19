@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { CommonService } from "../../../services/common.service";
 import { ApiService } from "../../../services/api.service";
 import { NzMessageService } from "ng-zorro-antd/message";
+import { Router } from '@angular/router';
 @Component({
   selector: "ngx-free-songs",
   templateUrl: "./free-songs.component.html",
@@ -11,7 +12,8 @@ export class FreeSongs_kugouComponent implements OnInit {
   constructor(
     public common: CommonService,
     public api: ApiService,
-    private message: NzMessageService
+    private message: NzMessageService,
+	private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -133,6 +135,10 @@ export class FreeSongs_kugouComponent implements OnInit {
   change(e: any) {
     this.pageCurrent = e.current;
     this.getKugou_freeSongs();
+  }
+  // 跳转词曲版权
+  gotoCopyright(name:any){
+	  this.router.navigate(['/pages/search-songs/copyright/'+name]);
   }
   ngModelSort(item: any) {
     let arrObjFilter = this.sortList.filter((ele: any) => ele.source == item);

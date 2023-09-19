@@ -5,7 +5,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class CommonService {
 	constructor(public message: NzMessageService) { }
-	highUserList=['1','2','3','4','5','8','11','13','17','26','34']
 	// 免费歌曲来源
 	FreeSongsSource(id:any){
 		let o = {
@@ -48,6 +47,7 @@ export class CommonService {
 		localStorage.setItem('menus_item', obj.menus_item)
 		localStorage.setItem('create_at', obj.create_at)
 		localStorage.setItem('url', obj.url)
+		localStorage.setItem('highUserList', obj.highUserList)
 	}
 	
 	

@@ -8,7 +8,7 @@
 			      <span nz-icon nzType="download"></span>
 			      导出XLSB
 			    </button>
-			<nz-switch *ngIf='common.highUserList.indexOf(userId) != -1' [ngModel]="type" nzCheckedChildren="我的" nzUnCheckedChildren="全部" (ngModelChange)='ngModelChange()'></nz-switch>
+			<nz-switch *ngIf='highUserList.indexOf(userId) != -1' [ngModel]="type" nzCheckedChildren="我的" nzUnCheckedChildren="全部" (ngModelChange)='ngModelChange()'></nz-switch>
 		</div>
 	</div>
 	<nz-table #nestedTable [nzData]="list" [nzFrontPagination]='false'>

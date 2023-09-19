@@ -54,7 +54,8 @@
 			  <span nz-tooltip [nzTooltipTitle]="'点击复制'">
 				  {{item.songname||item.songName}}
 			  </span>
-			  <img src="../../../assets/img/yuanchang.svg" class="icon" style='margin-left: 4px;' *ngIf='item.isOriginal==1'/>
+			  <img nz-tooltip [nzTooltipTitle]="'词曲版权搜索'" src="../../../assets/img/banquan.svg" class="icon" style='margin-left: 4px;' *ngIf='item.audioSourceID==4&&(item.songname||item.songName)' (click)='gotoCopyright(item.songname||item.songName)'/>
+			  <img src="../../../assets/img/yuanchang.svg" class="icon" style='margin-left: 7px;' *ngIf='item.isOriginal==1'/>
 			 <!-- <img *ngIf='item.pay_type==0' src="../../../assets/img/0_round.svg" class="icon" nz-tooltip [nzTooltipTitle]="'pay_type'"/>
 			  <img *ngIf='item.pay_type==1' src="../../../assets/img/1_round.svg" class="icon" nz-tooltip [nzTooltipTitle]="'pay_type'" />
 			  <img *ngIf='item.pay_type==2' src="../../../assets/img/2_round.svg" class="icon" nz-tooltip [nzTooltipTitle]="'pay_type'" />

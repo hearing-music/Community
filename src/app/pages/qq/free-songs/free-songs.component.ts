@@ -1,13 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonService } from "../../../services/common.service";
 import { ApiService } from "../../../services/api.service";
+import { Router } from '@angular/router';
 @Component({
   selector: "ngx-free-songs",
   templateUrl: "./free-songs.component.html",
   styleUrls: ["./free-songs.component.scss"],
 })
 export class FreeSongs_qqComponent implements OnInit {
-  constructor(public common: CommonService, public api: ApiService) {}
+  constructor(public common: CommonService, public api: ApiService,private router: Router) {}
 
   ngOnInit(): void {
     this.getSortList();
@@ -130,6 +131,10 @@ export class FreeSongs_qqComponent implements OnInit {
   change(e: any) {
     this.pageCurrent = e.current;
     this.getQq_freeSongs();
+  }
+  // 跳转词曲版权
+  gotoCopyright(name:any){
+  	  this.router.navigate(['/pages/search-songs/copyright/'+name]);
   }
   getQq_freeSongs() {
     this.loading = true;

@@ -52,10 +52,15 @@ const routes: Routes = [{
 	children: [
 		//音乐搜索
 		{
-			path: 'search-songs',
+			path: 'search-songs/:path/:value',
 			component: SearchSongsComponent,
 			canActivate: [PermissionGuard]
 		},
+		{ path: 'search-songs', component: SearchSongsComponent,canActivate: [PermissionGuard] },
+		// {
+		// 	path: 'search-songs',
+		// 	redirectTo: 'search-songs/_/_',
+		// },
 		// 查询歌单
 		{
 			path: 'query-songlist',

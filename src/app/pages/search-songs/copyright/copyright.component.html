@@ -110,7 +110,7 @@
               >
                 <img src="../../../assets/img/price-default.png" class="icon" />
                 <div>
-                  {{ item.DemoTradePrice.buyoutPrice }}
+                  {{common.toThousands(item.DemoTradePrice.buyoutPrice) }}
                 </div>
               </div>
               <div
@@ -140,7 +140,7 @@
               >
                 <img src="../../../assets/img/price-default.png" class="icon" />
                 <div>
-                  {{ item.DemoTradePrice.splitPrice }}
+                  {{ common.toThousands(item.DemoTradePrice.splitPrice) }}
                 </div>
               </div>
               <div

@@ -1,7 +1,8 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewChild  } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
 	selector: 'ngx-search-songs',
@@ -9,7 +10,24 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 	styleUrls: ['./search-songs.component.scss']
 })
 export class SearchSongsComponent implements OnInit {
-	constructor(public api: ApiService,public common: CommonService,public message:NzMessageService) { }
+	constructor(public api: ApiService,public common: CommonService,public message:NzMessageService,public route: ActivatedRoute) {
+		this.route.params.subscribe((res) => {
+			console.log(res)
+			var path=res.path;
+			var value=res.value;
+			this.pathRedirectTo(path,value)
+		})
+	}
+	// 参数跳转
+	pathRedirectTo(path:any,value:any){
+		// 词曲版权
+		if(path=='copyright'){
+			this.selectItem="词曲版权"
+			value = decodeURIComponent(value)
+			this.searchValue = value;
+			this.search(this.searchValue)
+		}
+	}
 	@ViewChild('lyric')
 	lyric:any;
 	ismobile:any=null;

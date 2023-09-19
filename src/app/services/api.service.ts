@@ -258,6 +258,10 @@ export class ApiService {
 	douyin_listenDarenEdit(params: any) {
 		return this.http.post(this.baseUrl + "/douyin/douyin_listenDarenEdit", { ...params })
 	}
+	// 抖音获取权限id
+	douyin_authority(){
+		return this.http.post(this.baseUrl + "/douyin/douyin_authority",{})
+	}
 	//抖音 获取监控列表
 	douyin_getListenDaren(params: any) {
 		// let {

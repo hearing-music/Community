@@ -60,7 +60,8 @@
 				<td nzAlign='center' style="cursor: pointer;" (click)='copy(item.name)'>
 					<span nz-tooltip [nzTooltipTitle]="'点击复制'">
 						{{item.name}}
-					</span>
+					</span> 
+					<img nz-tooltip [nzTooltipTitle]="'词曲版权搜索'" src="../../../assets/img/banquan.svg" class="icon" style='margin-left: 4px;' *ngIf='item.audioSourceID==4&&item.name' (click)='gotoCopyright(item.name)'/>
 				</td>
 				<td nzAlign='center'>
 					<div (click)='openAlbum(item.album.mid)' style="color:rgba(0, 0, 0, 0.6);cursor: pointer;text-decoration: underline;">

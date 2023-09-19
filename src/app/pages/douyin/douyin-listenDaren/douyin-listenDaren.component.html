@@ -34,7 +34,7 @@
 			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="activity" (ngModelChange)='ngModelActivity($event)'>
 				<nz-option *ngFor="let item of activityList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
 			</nz-select>
-			<nz-switch *ngIf='common.highUserList.indexOf(userId) != -1' [ngModel]="type" nzCheckedChildren="我的" nzUnCheckedChildren="全部" (ngModelChange)='ngModelChange()'></nz-switch>
+			<nz-switch *ngIf='highUserList.indexOf(userId) != -1' [ngModel]="type" nzCheckedChildren="我的" nzUnCheckedChildren="全部" (ngModelChange)='ngModelChange()'></nz-switch>
 		</div>
 	</div>
 	<nz-empty *ngIf="list.length==0" style="margin-top: 160px;"></nz-empty>
