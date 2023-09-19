@@ -328,11 +328,15 @@
 								<img *ngIf='items.youtube_channel_id' src="../../../assets/img/youtube-active.svg" class="icon" />
 								<img *ngIf='!items.youtube_channel_id' src="../../../assets/img/youtube.svg" class="icon" />
 							</div>
-							<div style="margin-left: 4px;" nz-tooltip [nzTooltipTitle]="'youtube'">
+							<div style="margin-left: 4px;" nz-tooltip [nzTooltipTitle]="'discord'">
+								<img *ngIf='false' src="../../../assets/img/discord-active.svg" class="icon" />
+								<img *ngIf='true' src="../../../assets/img/discord.svg" class="icon" />
+							</div>
+							<div style="margin-left: 4px;" nz-tooltip [nzTooltipTitle]="'phone'">
 								<img *ngIf='items.is_phone_binded' src="../../../assets/img/phone-active.svg" class="icon" />
 								<img *ngIf='!items.is_phone_binded' src="../../../assets/img/phone.svg" class="icon" />
 							</div>
-							<div style="margin-left: 4px;" nz-tooltip [nzTooltipTitle]="'youtube'">
+							<div style="margin-left: 4px;" nz-tooltip [nzTooltipTitle]="'email'">
 								<img *ngIf='items.has_email' src="../../../assets/img/email-active.svg" class="icon" />
 								<img *ngIf='!items.has_email' src="../../../assets/img/email.svg" class="icon" />
 							</div>

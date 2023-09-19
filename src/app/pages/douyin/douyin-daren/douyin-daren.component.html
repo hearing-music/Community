@@ -726,10 +726,14 @@
                     class="icon"
                   />
                 </div>
+				<div style="margin-left: 4px;" nz-tooltip [nzTooltipTitle]="'discord'">
+					<img *ngIf='false' src="../../../assets/img/discord-active.svg" class="icon" />
+					<img *ngIf='true' src="../../../assets/img/discord.svg" class="icon" />
+				</div>
                 <div
                   style="margin-left: 4px"
                   nz-tooltip
-                  [nzTooltipTitle]="'youtube'"
+                  [nzTooltipTitle]="'phone'"
                 >
                   <img
                     *ngIf="items.is_phone_binded"
@@ -745,7 +749,7 @@
                 <div
                   style="margin-left: 4px"
                   nz-tooltip
-                  [nzTooltipTitle]="'youtube'"
+                  [nzTooltipTitle]="'email'"
                 >
                   <img
                     *ngIf="items.has_email"
