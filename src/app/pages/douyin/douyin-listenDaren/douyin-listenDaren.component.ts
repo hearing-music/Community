@@ -12,7 +12,8 @@ export class DouyinListenDarenComponent implements OnInit {
 	}
 	ngOnInit(): void {
 		this.userId = localStorage.getItem('userId') || '0'
-		this.highUserList = localStorage.getItem('highUserList') || ['1','2','3','4','5','8','11','13','17','26','34']
+		let highUserList = localStorage.getItem('highUserList')=='undefined'?false:localStorage.getItem('highUserList')
+		this.highUserList = highUserList || ['1','2','3','4','5','8','11','13','17','26','34']
 		this.douyin_getListenDaren()
 	}
 	highUserList:any=[]
@@ -56,7 +57,9 @@ export class DouyinListenDarenComponent implements OnInit {
 	feesList:any=[{
 		value:'全部'
 	},{
-		value:'0-300'
+		value:'0'
+	},{
+		value:'1-300'
 	},{
 		value:'301-500'
 	},{
@@ -81,7 +84,9 @@ export class DouyinListenDarenComponent implements OnInit {
 	vocalsList:any=[{
 		value:'全部'
 	},{
-		value:'1000以内'
+		value:'0'
+	},{
+		value:'1-1000'
 	},{
 		value:'1001-3000'
 	},{
@@ -116,9 +121,13 @@ export class DouyinListenDarenComponent implements OnInit {
 		        this.feesMax=''
 		        this.feesMin=''
 		        break;
-		    case '0-300':  
+			case '0':
+			   this.feesMax=0
+			   this.feesMin=0
+			    break;
+		    case '1-300':  
 		       this.feesMax=300
-		       this.feesMin=0
+		       this.feesMin=1
 		        break;
 		    case '301-500':
 		        this.feesMax=500
@@ -166,9 +175,13 @@ export class DouyinListenDarenComponent implements OnInit {
 		        this.vocalsMax=''
 		        this.vocalsMin=''
 		        break;
-			case '1000以内':
-			   this.vocalsMax=1000
+			case '0':
+			   this.vocalsMax=0
 			   this.vocalsMin=0
+			    break;
+			case '1-1000':
+			   this.vocalsMax=1000
+			   this.vocalsMin=1
 			    break;
 		    case '1001-3000':  
 		       this.vocalsMax=3000

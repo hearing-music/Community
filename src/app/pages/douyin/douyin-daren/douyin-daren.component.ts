@@ -286,16 +286,18 @@ export class DouyinDarenComponent implements OnInit {
     var nickname = obj.nickName;
     var secUid = obj.secUid;
     var uniqueId = obj.uniqueId;
+	vocalsShow = vocalsShow==''?'':vocalsShow-0
+	feesShow = feesShow==''?'':feesShow-0
+	if(!Number.isInteger(vocalsShow)&&vocals){
+		this.message.info('翻唱唱酬最低价格必须为数字')
+		return
+	}
+	if(!Number.isInteger(feesShow)&&fees){
+		this.message.info('翻唱视频费用最低价格必须为数字')
+		return
+	}
 	vocalsShow = vocalsShow-0
 	feesShow = feesShow-0
-		if(!Number.isInteger(vocalsShow)){
-			this.message.info('翻唱唱酬最低价格必须为数字')
-			return
-		}
-		if(!Number.isInteger(feesShow)){
-			this.message.info('翻唱视频费用最低价格必须为数字')
-			return
-		}
     this.loading = true;
     this.api
       .douyin_listenDaren({

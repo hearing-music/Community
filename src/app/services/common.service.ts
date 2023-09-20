@@ -4,7 +4,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 	providedIn: 'root'
 })
 export class CommonService {
-	constructor(public message: NzMessageService) { }
+	constructor(private message: NzMessageService) { }
 	// 免费歌曲来源
 	FreeSongsSource(id:any){
 		let o = {
