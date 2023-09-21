@@ -183,7 +183,7 @@ export class ApiService {
 	}
 	// 酷狗免费歌曲
 	getKugou_freeSongs(params: any) {
-		let { page, pageSize, keyword, type, newly, sort, publish_timeOrderby, exponentOrderby } = params;
+		let { page, pageSize, keyword, type, newly, sort, publish_timeOrderby, exponentOrderby,isOriginal } = params;
 		let url =
 			this.baseUrl +
 			"/kugou/freeSongs?page=" +
@@ -197,7 +197,7 @@ export class ApiService {
 			"&newly=" +
 			newly +
 			"&sort=" +
-			sort + "&publish_timeOrderby=" + publish_timeOrderby + "&exponentOrderby=" + exponentOrderby;
+			sort + "&publish_timeOrderby=" + publish_timeOrderby + "&exponentOrderby=" + exponentOrderby+'&isOriginal='+isOriginal;
 		return this.http.get(url);
 	}
 	// 腾讯音乐人搜索
@@ -211,6 +211,37 @@ export class ApiService {
 	// 抖音热点
 	getDouyinHot() {
 		return this.http.get(this.baseUrl + "/douyin/douyin_hot")
+	}
+	//抖音 亚运榜
+	getDouyinYyhList() {
+		return this.http.get(this.baseUrl + "/douyin/SearchHotYyhList")
+	}
+	//抖音 热榜
+	getDouyinHotList() {
+		return this.http.get(this.baseUrl + "/douyin/SearchHotList")
+	}
+	//抖音 音乐热歌榜
+	getDouyinMusicHotList() {
+		return this.http.get(this.baseUrl + "/douyin/SetsListOf?sign=Dgey31RvZq")
+	}
+	//抖音 热门视频榜
+	getDouyinVideoHotList() {
+		return this.http.get(this.baseUrl + "/douyin/SetsListOf?sign=DpQvNABoNE")
+	}
+	// 抖音 视频分析 热点宝贝
+	getDouHotBear(params:any){
+		let {aweme_id} = params;
+		return this.http.get(this.baseUrl + "/douyin/DouHotBear?videoId="+aweme_id)
+	}
+	// 抖音 热点详情 热点宝贝
+	getDouSentenceDetail(params:any){
+		let {sentence_id} = params;
+		return this.http.get(this.baseUrl + "/douyin/DouSentenceDetail?sentence_id="+sentence_id)
+	}
+	// 抖音 作者趋势分析 热点宝贝
+	getDouAuthorInfo(params:any){
+		let {sec_uid} = params;
+		return this.http.get(this.baseUrl + "/douyin/DouAuthorInfo?sec_uid="+sec_uid)
 	}
 	//抖音短视频
 	getDouyinVideo(params: any) {

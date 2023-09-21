@@ -27,6 +27,9 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { LoadingModule } from '../components/loading/loading.module'
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzMentionModule } from 'ng-zorro-antd/mention';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
 // page
 import { OggToMp3Component } from './audio-conversion/ogg-to-mp3/ogg-to-mp3.component';
 import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.component';
@@ -37,7 +40,13 @@ import { QuerySonglistComponent } from './query-songlist/query-songlist.componen
 import { SearchPageComponent } from './search-page/search-page.component';
 import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.component';
 import {EnlightenmentComponent} from './venus/enlightenment/enlightenment.component'
-import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
+// import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
+import { DyHotComponent } from './douyin/douyin-list/dy-hot/dy-hot.component';
+import { DyYyhComponent } from './douyin/douyin-list/dy-yyh/dy-yyh.component';
+import { DyMusicComponent } from './douyin/douyin-list/dy-music/dy-music.component';
+import { DyVideoComponent } from './douyin/douyin-list/dy-video/dy-video.component';
+import { DouyinListComponent } from './douyin/douyin-list/douyin-list.component';
+import { DouyinAssayVideoComponent } from './douyin/douyin-assayVideo/douyin-assayVideo.component';
 import { DouyinVideoComponent } from './douyin/douyin-video/douyin-video.component';
 import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
 import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-listenDaren.component';
@@ -124,6 +133,7 @@ registerLocaleData(zh);
 @NgModule({
 	imports: [
 		LoadingModule,
+		NzTabsModule,
 		NzDatePickerModule,
 		NzMessageModule,
 		NzModalModule,
@@ -153,7 +163,9 @@ registerLocaleData(zh);
 		NzDrawerModule,
 		NzInputModule,
 		NzCardModule,
-		NzDropDownModule
+		NzDropDownModule,
+		NzMentionModule,
+		NzStepsModule
 	],
 	declarations: [
 		ArtistVisualizationComponent,
@@ -171,8 +183,14 @@ registerLocaleData(zh);
 		KugouSoaringComponent,
 		AutoSearchComponent,
 		EnlightenmentComponent,
+		DouyinListComponent,
+		DouyinAssayVideoComponent,
+		DyHotComponent,
+		DyYyhComponent,
+		DyMusicComponent,
+		DyVideoComponent,
 		DouyinVideoComponent,
-		DouyinHotComponent,
+		// DouyinHotComponent,
 		DouyinDarenComponent,
 		DouyinListenDarenComponent,
 		DouyinListenVideoComponent,

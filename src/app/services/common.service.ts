@@ -326,7 +326,7 @@ export class CommonService {
 		return tips
 	}
 	// 时间转化
-	timeFormat(dateTime = null, formatStr = 'yyyy-mm-dd') {
+	timeFormat(dateTime:any = null, formatStr = 'yyyy-mm-dd') {
 		let date: any
 		// 若传入时间为假值，则取当前时间
 		if (!dateTime) {
@@ -445,6 +445,14 @@ export class CommonService {
 		str = str.replace(reg2, '')
 		return str;
 	}
+	toWan(num:any){
+		num = Number(num);
+		if (num == 0 || (num > 0 && num < 10000) ||(num<0&&num>-10000)) {
+			return this.toThousands(num)
+		} else {
+			return (num / 10000).toFixed(2) + '万';
+		}
+	}
 	toThousands(num: any) {
 		if (!num) return '0'
 		num = parseInt(num)
@@ -461,5 +469,14 @@ export class CommonService {
 			}
 		}
 		return result.join('');
+	}
+	getDaysBetween(timestamp1:any, timestamp2:any) {
+	    var date1 = new Date(timestamp1);
+	    var date2 = new Date(timestamp2);
+	
+	    var differenceInMilliseconds = Math.abs(date2.getTime() - date1.getTime());
+	    var differenceInDays = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+	
+	    return differenceInDays;
 	}
 }

@@ -1,0 +1,25 @@
+<div class="douyin">
+	<div class="home-top">
+		<!-- tab栏 -->
+		<div class="tagList">
+			<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
+				[ngClass]="{'tagList-itemActive': item.name==selectItem}">
+					{{item.name}}
+			</div>
+		</div>
+		<div style="display: flex;align-items: center;" *ngIf='selectItem=="音乐热歌榜"||selectItem=="热门视频榜"'>
+			{{time}}
+		</div>
+		<!-- 搜索 -->
+		<!-- <ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)' [searchWidth]='"290px"' >
+		</ngx-search> -->
+	</div>
+	<!-- 数据 -->
+	<div class="home-main">
+		<ngx-dy-hot *ngIf='selectItem=="抖音热榜"' [dyHotList]="dyHotList"></ngx-dy-hot>
+		<ngx-dy-yyh *ngIf='selectItem=="亚运会热榜"' [dyYyhList]="dyYyhList"></ngx-dy-yyh>
+		<ngx-dy-music *ngIf='selectItem=="音乐热歌榜"' [dyMusicList]="dyMusicList"></ngx-dy-music>
+		<ngx-dy-video *ngIf='selectItem=="热门视频榜"' [dyVideoList]="dyVideoList"></ngx-dy-video>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

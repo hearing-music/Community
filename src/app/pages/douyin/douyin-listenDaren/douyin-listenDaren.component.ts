@@ -501,16 +501,27 @@ export class DouyinListenDarenComponent implements OnInit {
 	// 点击录入
 	handleOk(): void {
 		let { dy_Monitoring_ID, dy_BloggerInfo_ID, Sex, Information, Home, Type, Style, Characteristics, Vocals, Split, Original, OriginalShare, Fees, Note, SecUid,FeesShow,VocalsShow } = this.editItem;
+	
+		VocalsShow = VocalsShow==''?'':VocalsShow-0
+		FeesShow = FeesShow==''?'':FeesShow-0
+		if(!Number.isInteger(VocalsShow)&&Vocals){
+			this.message.info('翻唱唱酬最低价格必须为数字')
+			return
+		}
+		if(!Number.isInteger(FeesShow)&&Fees){
+			this.message.info('翻唱视频费用最低价格必须为数字')
+			return
+		}
 		VocalsShow = VocalsShow-0
 		FeesShow = FeesShow-0
-			if(!Number.isInteger(VocalsShow)){
-				this.message.info('翻唱唱酬最低价格必须为数字')
-				return
-			}
-			if(!Number.isInteger(FeesShow)){
-				this.message.info('翻唱视频费用最低价格必须为数字')
-				return
-			}
+		// if(VocalsShow==0&&Vocals){
+		// 	this.message.info('翻唱唱酬最低价格必须为数字0')
+		// 	return
+		// }
+		// if(FeesShow==0&&Fees){
+		// 	this.message.info('翻唱视频费用最低价格不能为0')
+		// 	return
+		// }
 		this.loading = true;
 		this.api.douyin_listenDarenEdit({ dy_Monitoring_ID, dy_BloggerInfo_ID, Sex, Information, Home, Type, Style, Characteristics, Vocals, Split, Original, OriginalShare, Fees, Note, SecUid,FeesShow,VocalsShow }).subscribe((res: any) => {
 			console.log(res)

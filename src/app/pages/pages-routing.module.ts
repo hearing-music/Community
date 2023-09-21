@@ -13,11 +13,13 @@ import { EnlightenmentComponent } from './venus/enlightenment/enlightenment.comp
 import { JianyingComponent } from './jianying/jianying.component'
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 import { SearchPageComponent } from './search-page/search-page.component';
-import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
+import { DouyinListComponent } from './douyin/douyin-list/douyin-list.component';
+// import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
 import { DouyinVideoComponent } from './douyin/douyin-video/douyin-video.component';
 import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
 import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-listenDaren.component';
 import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-listenVideo.component';
+import { DouyinAssayVideoComponent } from './douyin/douyin-assayVideo/douyin-assayVideo.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
 import { FufuBillboardComponent } from './fufuleida/fufu-billboard/fufu-billboard.component'
@@ -122,9 +124,15 @@ const routes: Routes = [{
 			canActivate: [PermissionGuard]
 		},
 		// 抖音热点
+		// {
+		// 	path: 'douyin/douyin-hot',
+		// 	component: DouyinHotComponent,
+		// 	canActivate: [PermissionGuard]
+		// },
+		// 抖音榜单
 		{
-			path: 'douyin/douyin-hot',
-			component: DouyinHotComponent,
+			path: 'douyin/douyin-list',
+			component: DouyinListComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 抖音达人
@@ -149,6 +157,12 @@ const routes: Routes = [{
 		{
 			path: 'douyin/douyin-listenVideo',
 			component: DouyinListenVideoComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 抖音 视频分析
+		{
+			path: 'douyin/douyin-assayVideo',
+			component: DouyinAssayVideoComponent,
 			canActivate: [PermissionGuard]
 		},
 		//浮浮雷达

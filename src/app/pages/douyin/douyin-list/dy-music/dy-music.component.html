@@ -1,0 +1,42 @@
+<nz-empty
+  *ngIf="dyMusicList.length == 0"
+  style="margin-top: 160px"
+></nz-empty>
+<div class="list">
+  <div *ngFor="let item of dyMusicList; let i = index">
+    <div class="list-item">
+      <div class="item-left">
+		  <div style="font-size: 22px;color:#000;font-weight: bold;margin-right: 16px;">
+			  {{i+1}}
+		  </div>
+       <!-- <div class="left-avatar">
+		  <img nz-image width="70px" height="70px" [nzSrc]="item.word_cover.url_list[0]" style="border-radius: 12px;"
+		  	[nzFallback]="fallback" alt="" />
+        </div> -->
+        <div class="left-text">
+          <div class="title-area">
+            <div
+              nz-tooltip
+              [nzTooltipTitle]="item.text"
+              class="title u-line-1"
+			  (click)='common.copy(item.text)'
+            >
+              {{ item.text }}
+            </div>
+			<button nz-button nzShape="circle" nzType="text" (click)="goHomeUrl(item.newLink)" class="linkIcon"
+				style="margin-left: 4px;">
+				<span nz-icon nzType="select" nzTheme="outline" style="color:#000;font-size: 14px;"></span>
+			</button>
+          </div>
+        </div>
+      </div>
+    
+      <div style="flex: 1;display: flex;align-items: center;">
+		  <img src="../../../../assets/img/dianzan.svg" class="icon" />
+		  <div style="margin-left: 4px;">
+			  {{ item.digg }}
+		  </div>
+      </div>
+    </div>
+  </div>
+</div>

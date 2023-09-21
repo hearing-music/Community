@@ -1,0 +1,114 @@
+.douyin{
+	height: 100%;
+	min-height: calc(100vh - 4.75rem - 4rem);
+	background-color: #fff;
+	border-radius: 8px;
+	display: flex;
+	flex-direction: column;
+	padding:20px;
+	.icon{
+		width:16px;height:16px;
+	}
+	.main-top{
+		display: flex;
+		border-radius: 4px;
+		background-color: #dbfffb;
+		padding:14px;
+		justify-content: space-between;
+		.item_title{
+			max-width: 850px;
+			font-weight: bold;
+			font-size: 16px;
+			color: #000;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.sentence-box{
+			font-size: 13px;
+			color:#666;
+			display:flex;align-items:center;
+			.sentence{
+				margin-left: 6px;
+				color: #225500;
+				font-weight:bold;
+				background-color: #a9ff8e;
+				padding:1px 2px;
+				font-size: 12px;
+				border-radius: 2px;
+			}
+		}
+	}
+	.main{
+		padding-bottom:30px;
+		.main-tag{
+			min-width: 210px;
+			height:100px;
+			border-radius: 6px;
+			padding:14px;
+			border:1px solid #ccc;
+			background:#ecffdc;
+			margin-right:12px;
+			cursor: pointer;
+			transition:.25s;
+			.main-tag_num{
+				font-weight:bold;
+				font-size:20px;
+				margin-top:16px;
+			}
+		}
+		.main-tag_active{
+			background-color: #fff;
+		}
+		.echartsDemo{
+			margin-top: 20px;
+		}
+	}
+	.sentence_rank{
+		color:#fff;
+		font-size: 12px;
+		font-weight: bold;
+		margin-left: 6px;
+		background: linear-gradient(to right, #aaaa04, #aa3025);
+		padding:1px 2px;
+		border-radius: 2px;
+	}
+	.hotVideos-box{
+		background: linear-gradient(to bottom, #ccc, #fff);
+		display: flex;
+		border-radius: 6px;
+		padding:10px;
+		flex-wrap: wrap;
+	}
+	.hiddenText2{
+		width: 250px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		-webkit-line-clamp: 2;
+	}
+	.hiddenText1{
+		width: 400px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	.author{
+		border-radius: 4px;
+		background: #dbffff;
+		display: flex;
+		justify-content: space-between;
+		padding:12px;
+		
+		.lichengbei{
+			font-weight: bold;
+			font-size: 10px;
+			color: #225500;
+			margin-left: 6px;
+			padding:1px 2px;
+			background-color: #a9ff8e;
+			border-radius:2px;
+			cursor: pointer;
+		}
+	}
+}

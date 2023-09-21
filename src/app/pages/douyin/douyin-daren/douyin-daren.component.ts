@@ -33,6 +33,14 @@ export class DouyinDarenComponent implements OnInit {
   Home: any = "";
   // <!-- 艺人类型 Type -->
   Type: any = "";
+  // suggestionsType:any=['1','2','3']
+  onSelect(e:any){
+	  console.log(e)
+  }
+  onChange(e:any){
+	  console.log('change')
+	  console.log(e)
+  }
   // <!-- 艺人风格 Style -->
   Style: any = "";
   // <!-- 嗓音特点 Characteristics -->
@@ -298,6 +306,14 @@ export class DouyinDarenComponent implements OnInit {
 	}
 	vocalsShow = vocalsShow-0
 	feesShow = feesShow-0
+	// if(vocalsShow==0&&vocals){
+	// 	this.message.info('翻唱唱酬最低价格必须为数字0')
+	// 	return
+	// }
+	// if(feesShow==0&&fees){
+	// 	this.message.info('翻唱视频费用最低价格不能为0')
+	// 	return
+	// }
     this.loading = true;
     this.api
       .douyin_listenDaren({

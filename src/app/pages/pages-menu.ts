@@ -52,9 +52,13 @@ export let MENU_ITEMS: NbMenuItem[] = [
 			pack:'my-icons',
 		},
 		children: [
+			// {
+			// 	title: '抖音热点',
+			// 	link: '/pages/douyin/douyin-hot',
+			// },
 			{
-				title: '抖音热点',
-				link: '/pages/douyin/douyin-hot',
+				title: '抖音榜单',
+				link: '/pages/douyin/douyin-list',
 			},
 			{
 				title: '达人搜索',
@@ -71,6 +75,10 @@ export let MENU_ITEMS: NbMenuItem[] = [
 			{
 				title: '监控视频',
 				link: '/pages/douyin/douyin-listenVideo',
+			},
+			{
+				title: '热点宝贝儿~',
+				link: '/pages/douyin/douyin-assayVideo',
 			},
 		],
 	},

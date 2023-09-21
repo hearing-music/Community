@@ -49,6 +49,20 @@ export class FreeSongs_kugouComponent implements OnInit {
   checked = false;
 	publish_timeOrderby:any=''
 	exponentOrderby='desc'
+	isOriginal:any='全部'
+	original:any=''
+	originalList:any=[{value:'全部'},{value:'原创'}]
+	ngModelOriginal(e:any){
+		console.log(e)
+		if(e=='全部'){
+			this.original=''
+		}
+		if(e=='原创'){
+			this.original='1'
+		}
+		this.pageCurrent = 1;
+		this.getKugou_freeSongs()
+	}
 	// 排序
 	publish_timeClick(){
 		this.exponentOrderby =''
@@ -158,7 +172,8 @@ export class FreeSongs_kugouComponent implements OnInit {
         newly: this.checked,
         sort: this.sortId,
 		publish_timeOrderby:this.publish_timeOrderby,
-		exponentOrderby:this.exponentOrderby
+		exponentOrderby:this.exponentOrderby,
+		isOriginal:this.original
       })
       .subscribe(
         (res: any) => {
