@@ -249,6 +249,115 @@ export class DouyinDarenComponent implements OnInit {
       this.getVideoDetail(item);
     }
   }
+  
+  // 更多视频
+  openVideoView2(item: any) {
+  	if (item.seeVideo2) {
+  		item.isShowRadio2 = item.isShowRadio2 ? false : true;
+  		item.isShowRadio = false
+  	} else {
+  		this.getVideoDetail2(item)
+  
+  	}
+  }
+  async videoToMore(obj:any){
+  	let {secUid}=obj
+  	let item = this.list.find((e:any)=>e.secUid==secUid)
+  	item.isMoreLoadingFinished=false
+  	await this.getVideoDetailFun(item,item.NewFans2)
+  	item.isMoreLoadingFinished=true
+  }
+  async getVideoDetail2(item:any){
+  	item.loadingFinished2 = false;
+  	item.seeVideo2 = true;
+  	let res:any = await this.getDouMoreVideos2(item.secUid)
+  	item.NewFans2PageTotal = res.length;
+  	item.NewFans2Page = 0;
+  	item.NewFans2PageSize = 4;
+  	await this.getVideoDetailFun(item,res)
+  }
+  async getVideoDetailFun(item:any,res:any){
+  	let newArr = []
+  	if (res) {
+		if(res.length!=0){
+			let NewFans2 = res;
+			item.NewFans2Page=item.NewFans2Page+1;
+			let aweme_idArr = NewFans2.map((e:any)=>e.item_id)
+			aweme_idArr = aweme_idArr.splice((item.NewFans2Page-1)*item.NewFans2PageSize,item.NewFans2PageSize)
+			let res2:any = await this.DouYinSearchVideoDetailsList(aweme_idArr)
+			if(res2){
+				let VideoDetails = res2
+				let music_idArr = VideoDetails.map((e:any)=>e.music_id)
+				let res3 = await this.getMusicInfo(music_idArr,item.secUid)
+				if(res3){
+					let VideoFollowUp = res3
+					for(let i = 0;i<res2.length;i++){
+						newArr.push({VideoDetails:VideoDetails[i],VideoFollowUp:VideoFollowUp[i]})
+					}
+					item.NewFans2 = NewFans2
+					item.BloggerVideo2 = [...item.BloggerVideo2,...newArr];
+					item.isShowRadio = false
+					item.isShowRadio2 = true
+				}
+			}
+			console.log(item)
+		}
+  		item.loadingFinished2 = true
+  		item.BloggerVideoErr2 = false
+  	} else {
+  		item.BloggerVideoErr2 = true
+  		item.loadingFinished2 = true
+  	}
+  }
+  getMusicInfo(music_idArr:any,secUid:any){
+  	return new Promise((resolve)=>{
+  		this.api.getMusicInfo({arr:music_idArr,secUid})
+  		.subscribe((res: any) => {
+  				if (res.success) {
+  					resolve(res.result)
+  				}else{
+  					resolve(false)
+  				}
+  			}, (err: any) => {
+  				console.log(err)
+  				resolve(false)
+  			})
+  	})
+  }
+  DouYinSearchVideoDetailsList(aweme_idArr:any){
+  	return new Promise((resolve)=>{
+  		this.api.DouYinSearchVideoDetailsList({arr:aweme_idArr,type:'ID'})
+  		.subscribe((res: any) => {
+  				if (res.success) {
+  					resolve(res.result)
+  				}else{
+  					resolve(false)
+  				}
+  			}, (err: any) => {
+  				console.log(err)
+  				resolve(false)
+  			})
+  	})
+  }
+  // 更多视频
+  getDouMoreVideos2(sec_uid:any) {
+  	return new Promise((resolve: any) => {
+  		let max_cursor = new Date().getTime()
+  		// 30天前0点
+  		let min_cursor = new Date(this.common.timeFormat(max_cursor-30*60*60*1000*24)).setHours(0, 0, 0, 0)
+  		this.api.getDouMoreVideos({ item_id:[], sec_uid, min_cursor, max_cursor }).subscribe((res: any) => {
+  			if (res.success) {
+  				resolve(res.result)
+  			}else{
+  				resolve(false)
+  			}
+  		}, (err: any) => {
+  			console.log(err)
+  			resolve(false)
+  		})
+  	})
+  }
+  
   // 获取抖音博主7条视频
   getDouYinBloggerVideoOne(secUid: any) {
     return new Promise((resolve: any) => {
@@ -428,6 +537,10 @@ export class DouyinDarenComponent implements OnInit {
           this.loading = false;
           res.result.forEach((item: any) => {
             item.homeUrl = "https://www.douyin.com/user/" + item.secUid;
+			item.BloggerVideo2 = []
+			item.seeVideo2 = false;
+			item.NewFans2PageTotal = 0;
+			item.isMoreLoadingFinished=true
             item.BloggerVideo = item.BloggerVideo.filter(
               (e: any) => e.is_top == 0
             );
@@ -438,33 +551,6 @@ export class DouyinDarenComponent implements OnInit {
             item.diggCountAve = parseInt(
               diggCountAll / item.BloggerVideo.length + ""
             );
-            // try{
-            // 	item.Weighting = this.common.strToJson(item.Weighting)
-            // 	item.Weighting.clicklike = item.Weighting.clicklike.split(' - ')
-            // 	item.Weighting.fans = item.Weighting.fans.split(' - ')
-            // 	item.Weighting.follow = item.Weighting.follow.split(' - ')
-            // 	item.Weighting.location = item.Weighting.location.split(' - ')
-            // 	item.Weighting.location[0] = item.Weighting.location[0].split('IP属地：')
-            // 	item.Weighting.location[0] = item.Weighting.location[0][1]
-            // 	item.Weighting.valuation = item.Weighting.valuation.split(' - ')
-            // 	item.Weighting.works = item.Weighting.works.split(' - ')
-            // 	item.Weighting.flow = item.Weighting.flow.split(' - ')
-            // 	item.Weighting.index = item.Weighting.index.split(' - ')
-            // 	item.Weighting.score = item.Weighting.score.split(' - ')
-            // }catch(e){
-            // 	//TODO handle the exception
-            // 	item.Weighting = {
-            // 		fans:['','',''],
-            // 		clicklike:['','',''],
-            // 		follow:['','',''],
-            // 		location:['','',''],
-            // 		valuation:['','',''],
-            // 		works:['','',''],
-            // 		index:['','',''],
-            // 		score:['','',''],
-            // 		flow:['','',''],
-            // 	}
-            // }
           });
           if (this.page == 1) {
             this.list = res.result;

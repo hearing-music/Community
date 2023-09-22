@@ -138,4 +138,21 @@
 			</div>
 		</div>
 	</div>
+	<div *ngIf='type=="more"&&total!=BloggerVideo.length&&loadingFinished' class="more" (click)='clickToMore()'>
+		<div>展</div>
+		<div style='margin-top:8px;'>示</div>
+		<div style='margin-top:8px;'>更</div>
+		<div style='margin-top:8px;'>多</div>
+		<i nz-icon nzType="right-circle" nzTheme="outline" style='margin-top:8px;'></i>
+	</div>
+	<div *ngIf='type=="more"&&total==BloggerVideo.length&&loadingFinished' class="noMore" >
+		<div>没</div>
+		<div style='margin-top:8px;'>有</div>
+		<div style='margin-top:8px;'>更</div>
+		<div style='margin-top:8px;'>多</div>
+		<div style='margin-top:8px;'>了</div>
+	</div>
+	<div *ngIf='!loadingFinished' class='noMore'>
+		<nz-spin nzSimple></nz-spin>
+	</div>
 </div>

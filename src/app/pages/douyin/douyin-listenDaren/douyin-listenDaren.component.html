@@ -202,7 +202,8 @@
 				</div>
 			</div>
 			<!-- 视频列表 -->
-			<ngx-bloggerVideos *ngIf="item.isShowRadio" [BloggerVideo]='item.BloggerVideo' [secUid]='item.SecUid' [NewFans]='item.NewFans'></ngx-bloggerVideos>
+			<ngx-bloggerVideos *ngIf="item.isShowRadio"  [BloggerVideo]='item.BloggerVideo' [secUid]='item.SecUid' [NewFans]='item.NewFans'></ngx-bloggerVideos>
+			<ngx-bloggerVideos *ngIf="item.isShowRadio2" (toMore)='videoToMore($event)' [type]='"more"' [loadingFinished]='item.isMoreLoadingFinished' [total]='item.NewFans2PageTotal' [BloggerVideo]='item.BloggerVideo2' [secUid]='item.SecUid' [NewFans]='item.NewFans2'></ngx-bloggerVideos>
 		</div>
 	</div>
 	<!-- 分页 -->

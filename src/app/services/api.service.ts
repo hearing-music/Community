@@ -345,6 +345,14 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/douyin/DouYinSearchVideoDetails?keyword=" + keyword + '&type=' + type)
 	}
+	// 抖音 获取音乐跟拍 arr
+	getMusicInfo(params:any){
+		let {
+			secUid,
+			arr
+		} = params;
+		return this.http.get(this.baseUrl + "/douyin/getMusicInfo?secUid=" + secUid + '&arr=' + JSON.stringify(arr))
+	}
 	// 抖音批量搜索 视频id url
 	DouYinSearchVideoDetailsList(params: any) {
 		let {

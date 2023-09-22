@@ -140,6 +140,20 @@
 								<div *ngIf="item.seeVideo &&item.BloggerVideoErr &&item.loadingFinished" (click)="getVideoDetail(item)" style="margin-left: 16px; cursor: pointer; color: blue">
 									重新加载
 								</div>
+								
+								<div *ngIf='(item.seeVideo2&&item.loadingFinished2&&item.BloggerVideo2.length>0&&!item.BloggerVideoErr2)||!item.seeVideo2'
+									style="cursor: pointer;color: blue;margin-left: 16px;" (click)='openVideoView2(item)'>
+									{{item.isShowRadio2?'收起':'更多视频'}}
+								</div>
+								<div *ngIf='item.seeVideo2&&item.loadingFinished2&&item.BloggerVideo2.length==0&&!item.BloggerVideoErr2' style="margin-left: 16px;">
+									暂无
+								</div>
+								<div *ngIf='item.seeVideo2&&!item.loadingFinished2' style="margin-left: 16px;">
+									<nz-spin nzSimple [nzSize]='"small"'></nz-spin>
+								</div>
+								<div *ngIf='item.seeVideo2&&item.BloggerVideoErr2&&item.loadingFinished2' (click)='getVideoDetail2(item)' style="margin-left: 16px;cursor: pointer;color: blue;">
+									重新加载
+								</div>
 							</div>
 						</div>
 					</div>
@@ -157,6 +171,7 @@
 				</div>
 				<!-- 视频列表 -->
 				<ngx-bloggerVideos *ngIf="item.isShowRadio" [BloggerVideo]='item.BloggerVideo' [secUid]='item.secUid' [NewFans]='item.NewFans'></ngx-bloggerVideos>
+				<ngx-bloggerVideos *ngIf="item.isShowRadio2" (toMore)='videoToMore($event)' [type]='"more"' [loadingFinished]='item.isMoreLoadingFinished' [total]='item.NewFans2PageTotal' [BloggerVideo]='item.BloggerVideo2' [secUid]='item.secUid' [NewFans]='item.NewFans2'></ngx-bloggerVideos>
 		</div>
 
 		<!-- 分页 -->

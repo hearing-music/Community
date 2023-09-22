@@ -297,6 +297,7 @@ export class DouyinListenDarenComponent implements OnInit {
 	openVideoView(item: any) {
 		if (item.seeVideo) {
 			item.isShowRadio = item.isShowRadio ? false : true;
+			item.isShowRadio2 = false;
 		} else {
 			this.getVideoDetail(item)
 	
@@ -327,6 +328,7 @@ export class DouyinListenDarenComponent implements OnInit {
 				item.totalFavorited = res.totalFavorited
 				item.BloggerVideo = res.BloggerVideo
 				item.isShowRadio = true;
+				item.isShowRadio2 = false;
 			}
 			console.log(item)
 			item.loadingFinished = true
@@ -340,35 +342,54 @@ export class DouyinListenDarenComponent implements OnInit {
 	openVideoView2(item: any) {
 		if (item.seeVideo2) {
 			item.isShowRadio2 = item.isShowRadio2 ? false : true;
+			item.isShowRadio = false
 		} else {
 			this.getVideoDetail2(item)
 	
 		}
 	}
+	async videoToMore(obj:any){
+		let {secUid}=obj
+		let item = this.list.find((e:any)=>e.SecUid==secUid)
+		item.isMoreLoadingFinished=false
+		await this.getVideoDetailFun(item,item.NewFans2)
+		item.isMoreLoadingFinished=true
+	}
 	async getVideoDetail2(item:any){
 		item.loadingFinished2 = false;
 		item.seeVideo2 = true;
 		let res:any = await this.getDouMoreVideos2(item.SecUid)
+		item.NewFans2PageTotal = res.length;
+		item.NewFans2Page = 0;
+		item.NewFans2PageSize = 4;
+		await this.getVideoDetailFun(item,res)
+	}
+	async getVideoDetailFun(item:any,res:any){
+		let newArr = []
 		if (res) {
-			item.BloggerVideo2 = res;
-			let aweme_idArr = item.BloggerVideo2.map((e:any)=>e.item_id)
-			let res2 = await this.DouYinSearchVideoDetailsList(aweme_idArr)
-			console.log(aweme_idArr)
-			console.log(res2)
-			// let res2:any = await this.getDouMoreVideos2(item.SecUid)
-			// item.NewFans = []
-			// if(res2){
-			// 	for(let i = 0;i<res.BloggerVideo.length;i++){
-			// 		let o = res2.find((e:any)=>e.item_id == res.BloggerVideo[i].aweme_id)
-			// 		if(o){
-			// 			item.NewFans.push(o)
-			// 		}else{
-			// 			item.NewFans.push({net_new_fans:0})
-			// 		}
-			// 	}
-			// }
-			
-			console.log(item)
+			if(res.length!=0){
+				let NewFans2 = res;
+				item.NewFans2Page=item.NewFans2Page+1;
+				let aweme_idArr = NewFans2.map((e:any)=>e.item_id)
+				aweme_idArr = aweme_idArr.splice((item.NewFans2Page-1)*item.NewFans2PageSize,item.NewFans2PageSize)
+				let res2:any = await this.DouYinSearchVideoDetailsList(aweme_idArr)
+				if(res2){
+					let VideoDetails = res2
+					let music_idArr = VideoDetails.map((e:any)=>e.music_id)
+					let res3 = await this.getMusicInfo(music_idArr,item.SecUid)
+					if(res3){
+						let VideoFollowUp = res3
+						for(let i = 0;i<res2.length;i++){
+							newArr.push({VideoDetails:VideoDetails[i],VideoFollowUp:VideoFollowUp[i]})
+						}
+						item.NewFans2 = NewFans2
+						item.BloggerVideo2 = [...item.BloggerVideo2,...newArr];
+						item.isShowRadio = false
+						item.isShowRadio2 = true
+					}
+				}
+				console.log(item)
+			}
 			item.loadingFinished2 = true
 			item.BloggerVideoErr2 = false
 		} else {
@@ -376,13 +397,27 @@ export class DouyinListenDarenComponent implements OnInit {
 			item.loadingFinished2 = true
 		}
 	}
-	DouYinSearchVideoDetailsList(arr:any){
+	getMusicInfo(music_idArr:any,secUid:any){
 		return new Promise((resolve)=>{
-			this.api.DouYinSearchVideoDetailsList({arr,type:'ID'})
+			this.api.getMusicInfo({arr:music_idArr,secUid})
 			.subscribe((res: any) => {
-					console.log(res)
 					if (res.success) {
-						resolve(res)
+						resolve(res.result)
+					}else{
+						resolve(false)
+					}
+				}, (err: any) => {
+					console.log(err)
+					resolve(false)
+				})
+		})
+	}
+	DouYinSearchVideoDetailsList(aweme_idArr:any){
+		return new Promise((resolve)=>{
+			this.api.DouYinSearchVideoDetailsList({arr:aweme_idArr,type:'ID'})
+			.subscribe((res: any) => {
+					if (res.success) {
+						resolve(res.result)
 					}else{
 						resolve(false)
 					}
@@ -421,7 +456,11 @@ export class DouyinListenDarenComponent implements OnInit {
 						item.homeUrl = 'https://www.douyin.com/user/' + item.SecUid
 						item.expand = false;
 						item.BloggerVideo = []
+						item.BloggerVideo2 = []
 						item.seeVideo = false;
+						item.seeVideo2 = false;
+						item.NewFans2PageTotal = 0;
+						item.isMoreLoadingFinished=true
 						item.diggCountAve = parseInt(item.diggCountAve)
 					})
 					// let arr = this.common.spArr(res.result, 10)
