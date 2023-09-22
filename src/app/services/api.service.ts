@@ -293,6 +293,16 @@ export class ApiService {
 	douyin_authority(){
 		return this.http.post(this.baseUrl + "/douyin/douyin_authority",{})
 	}
+	// 抖音 更多视频 涨粉量
+	getDouMoreVideos(params:any){
+		let {
+			item_id,
+			sec_uid,
+			min_cursor,
+			max_cursor
+		} = params
+		return this.http.post(this.baseUrl + "/douyin/DouMoreVideos?sec_uid="+sec_uid+"&min_cursor="+min_cursor+"&max_cursor="+max_cursor,{item_id})
+	}
 	//抖音 获取监控列表
 	douyin_getListenDaren(params: any) {
 		// let {

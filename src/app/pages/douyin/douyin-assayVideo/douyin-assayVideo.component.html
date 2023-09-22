@@ -6,14 +6,16 @@
 	<div style="margin-top: 20px;" *ngIf='result.item_title'>
 		<div class='main-top'>
 			<div style="display: flex;justify-content: center;align-items: center;margin-right:30px;">
-				<video [src]="result.item_url" width='125px' height='204px' id='v' controls style='background: #000;'></video>
+				<video [src]="result.item_url" width='125px' height='204px' id='v' controls
+					style='background: #000;'></video>
 			</div>
 			<div style='flex:1;'>
 				<div style="height: 24px;"></div>
 				<div class='item_title' nz-tooltip [nzTooltipTitle]="result.item_title">
 					{{result.item_title}}
 				</div>
-				<div style='margin-top:24px;display:flex;align-items:center;' *ngIf='result.sentence_rank||result.sentence'>
+				<div style='margin-top:24px;display:flex;align-items:center;'
+					*ngIf='result.sentence_rank||result.sentence'>
 					<div class='sentence-box'>
 						<div *ngIf='result.sentence'>
 							热点
@@ -97,35 +99,40 @@
 							<nz-tab nzTitle="热点详情">
 								<div *ngIf='result.sentenceDetail'>
 									<div style='display:flex;align-items:center;'>
-										<div class='main-tag' [ngClass]='{"main-tag_active":active2=="热度值"}' (click)='changeTag2("热度值")'>
+										<div class='main-tag' [ngClass]='{"main-tag_active":active2=="热度值"}'
+											(click)='changeTag2("热度值")'>
 											<div>热度值</div>
 											<div class='main-tag_num'>
 												{{common.toWan(result.sentenceDetail.score_cnt)}}
 											</div>
 										</div>
-										<div class='main-tag' [ngClass]='{"main-tag_active":active2=="点赞量"}' (click)='changeTag2("点赞量")'>
+										<div class='main-tag' [ngClass]='{"main-tag_active":active2=="点赞量"}'
+											(click)='changeTag2("点赞量")'>
 											<div>点赞量</div>
 											<div class='main-tag_num'>
 												{{common.toWan(result.sentenceDetail.like_cnt)}}
 											</div>
 										</div>
-										<div class='main-tag' [ngClass]='{"main-tag_active":active2=="评论量"}' (click)='changeTag2("评论量")'>
+										<div class='main-tag' [ngClass]='{"main-tag_active":active2=="评论量"}'
+											(click)='changeTag2("评论量")'>
 											<div>评论量</div>
 											<div class='main-tag_num'>
 												{{common.toWan(result.sentenceDetail.comment_cnt)}}
 											</div>
 										</div>
-										<div class='main-tag' [ngClass]='{"main-tag_active":active2=="分享量"}' (click)='changeTag2("分享量")'>
+										<div class='main-tag' [ngClass]='{"main-tag_active":active2=="分享量"}'
+											(click)='changeTag2("分享量")'>
 											<div>分享量</div>
 											<div class='main-tag_num'>
 												{{common.toWan(result.sentenceDetail.share_cnt)}}
 											</div>
 										</div>
 									</div>
-									<div echarts [options]="echartsOptions2" class="echartsDemo" *ngIf='result.sentenceDetail'></div>
+									<div echarts [options]="echartsOptions2" class="echartsDemo"
+										*ngIf='result.sentenceDetail'></div>
 									<div *ngIf='result.sentenceDetail.Top30Video.length>0'>
 										<div style="display: flex;align-items: center;">
-											<div style='font-size: 20px;font-weight: bold;padding:12px 0;' >
+											<div style='font-size: 20px;font-weight: bold;padding:12px 0;'>
 												热点视频
 											</div>
 											<div class='sentence_rank'>
@@ -133,17 +140,22 @@
 											</div>
 										</div>
 										<div class='hotVideos-box'>
-											<div *ngFor='let item of result.sentenceDetail.Top30Video' style="margin: 0 10px;margin-bottom: 20px;">
+											<div *ngFor='let item of result.sentenceDetail.Top30Video'
+												style="margin: 0 10px;margin-bottom: 20px;">
 												<div style="display: flex;justify-content: center;align-items: center;">
-													<video [src]="item.item_url" width="250px" height="408px" id='v' controls style="border-radius: 2px;background: #000;"></video>
+													<video [src]="item.item_url" width="250px" height="408px" id='v'
+														controls style="border-radius: 2px;background: #000;"></video>
 												</div>
 												<div style="width: 250px;">
-													<div style="font-weight: bold;margin-top: 6px;" class="hiddenText2" nz-tooltip [nzTooltipTitle]="item.item_title">
+													<div style="font-weight: bold;margin-top: 6px;" class="hiddenText2"
+														nz-tooltip [nzTooltipTitle]="item.item_title">
 														{{item.item_title}}
 													</div>
-													<div style="display: flex;align-items: center;justify-content: space-between;font-size:13px;color:#666;margin-top:8px;">
+													<div
+														style="display: flex;align-items: center;justify-content: space-between;font-size:13px;color:#666;margin-top:8px;">
 														<div style="display: flex;align-items: center;">
-															<img nz-image width="30px" height="30px" [nzSrc]="item.avatar_url" style="border-radius: 50%;"
+															<img nz-image width="30px" height="30px"
+																[nzSrc]="item.avatar_url" style="border-radius: 50%;"
 																[nzFallback]="fallback" alt="" />
 															<div style="margin-left: 4px;">
 																{{item.nick_name}}
@@ -172,7 +184,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 							</nz-tab>
 							<nz-tab nzTitle="观众分析">
 								暂无内容
@@ -190,8 +202,8 @@
 					<div *ngIf='result.author'>
 						<div class="author">
 							<div style="margin-right: 12px;">
-								<img nz-image width="80px" height="80px" [nzSrc]="result.author.avatar_url" style="border-radius: 50%;"
-									[nzFallback]="fallback" alt="" />
+								<img nz-image width="80px" height="80px" [nzSrc]="result.author.avatar_url"
+									style="border-radius: 50%;" [nzFallback]="fallback" alt="" />
 							</div>
 							<div style="flex:1;">
 								<div style="display: flex;align-items: center; margin-top: 12px;">
@@ -202,19 +214,23 @@
 										查看里程碑>
 									</div>
 								</div>
-								<div style="display: flex;align-items: center;font-size: 12px;color: #999;margin-top: 12px;">
+								<div
+									style="display: flex;align-items: center;font-size: 12px;color: #999;margin-top: 12px;">
 									<div>
 										抖音号：<span style="color: #000;">{{result.author.uniqueId}}</span>
 									</div>
 									<div style="margin-left: 6px;">
-										总粉丝：<span style="color: #000;">{{common.toWan(result.author.follower_count)}}</span>
+										总粉丝：<span
+											style="color: #000;">{{common.toWan(result.author.follower_count)}}</span>
 									</div>
 									<div style="margin-left: 6px;">
-										总获赞量：<span style="color: #000;">{{common.toWan(result.author.total_favorited)}}</span>
+										总获赞量：<span
+											style="color: #000;">{{common.toWan(result.author.total_favorited)}}</span>
 									</div>
 									<div style="margin-left: 6px;">
 										总作品数：
-										<span style="color: #000;">{{common.toThousands(result.author.aweme_count)}}</span>
+										<span
+											style="color: #000;">{{common.toThousands(result.author.aweme_count)}}</span>
 									</div>
 									<div style="margin-left: 6px;" class="hiddenText1">
 										签名：
@@ -225,59 +241,70 @@
 								</div>
 							</div>
 							<div>
-								<button nz-button nzType="default" nz-popover nzPopoverTitle="" [(nzPopoverVisible)]="visible2"
-									(nzPopoverVisibleChange)="visiblechange2($event)" nzPopoverTrigger="click"
-									[nzPopoverContent]="contentTemplate2" [nzPopoverPlacement]='"bottom"'>
+								<button nz-button nzType="default" nz-popover nzPopoverTitle=""
+									[(nzPopoverVisible)]="visible2" (nzPopoverVisibleChange)="visiblechange2($event)"
+									nzPopoverTrigger="click" [nzPopoverContent]="contentTemplate2"
+									[nzPopoverPlacement]='"bottom"'>
 									抖音码
 								</button>
 								<ng-template #contentTemplate2>
-									<img nz-image width="150px" height="150px" [nzSrc]="result.author.fancy_qrcode" [nzFallback]="fallback"
-										alt="" />
+									<img nz-image width="150px" height="150px" [nzSrc]="result.author.fancy_qrcode"
+										[nzFallback]="fallback" alt="" />
 								</ng-template>
 							</div>
 						</div>
 						<nz-tabset [(nzSelectedIndex)]='nzSelectedIndex3'>
 							<nz-tab nzTitle="数据趋势">
-									<div style='display:flex;align-items:center;'>
-										<div class='main-tag' [ngClass]='{"main-tag_active":active3=="新增点赞量"}' (click)='changeTag3("新增点赞量")'>
-											<div>新增点赞量</div>
-											<div class='main-tag_num'>
-												{{common.toWan(result.author.like_cnt)}}
-											</div>
-										</div>
-										<div class='main-tag' [ngClass]='{"main-tag_active":active3=="净增粉丝量"}' (click)='changeTag3("净增粉丝量")'>
-											<div>净增粉丝量</div>
-											<div class='main-tag_num'>
-												{{common.toWan(result.author.new_fans_cnt)}}
-											</div>
-										</div>
-										<div class='main-tag' [ngClass]='{"main-tag_active":active3=="新增分享量"}' (click)='changeTag3("新增分享量")'>
-											<div>新增分享量</div>
-											<div class='main-tag_num'>
-												{{common.toWan(result.author.share_cnt)}}
-											</div>
-										</div>
-										<div class='main-tag' [ngClass]='{"main-tag_active":active3=="新增评论量"}' (click)='changeTag3("新增评论量")'>
-											<div>新增评论量</div>
-											<div class='main-tag_num'>
-												{{common.toWan(result.author.comment_cnt)}}
-											</div>
-										</div>
-										<div class='main-tag' [ngClass]='{"main-tag_active":active3=="新增作品量"}' (click)='changeTag3("新增作品量")'>
-											<div>新增作品量</div>
-											<div class='main-tag_num'>
-												{{common.toWan(result.author.publish_cnt)}}
-											</div>
+								<div style='display:flex;align-items:center;'>
+									<div class='main-tag' [ngClass]='{"main-tag_active":active3=="新增点赞量"}'
+										(click)='changeTag3("新增点赞量")'>
+										<div>新增点赞量</div>
+										<div class='main-tag_num'>
+											{{common.toWan(result.author.like_cnt)}}
 										</div>
 									</div>
-									<div echarts [options]="echartsOptions3" class="echartsDemo" *ngIf='result.author'></div>
+									<div class='main-tag' [ngClass]='{"main-tag_active":active3=="净增粉丝量"}'
+										(click)='changeTag3("净增粉丝量")'>
+										<div>净增粉丝量</div>
+										<div class='main-tag_num'>
+											{{common.toWan(result.author.new_fans_cnt)}}
+										</div>
+									</div>
+									<div class='main-tag' [ngClass]='{"main-tag_active":active3=="新增分享量"}'
+										(click)='changeTag3("新增分享量")'>
+										<div>新增分享量</div>
+										<div class='main-tag_num'>
+											{{common.toWan(result.author.share_cnt)}}
+										</div>
+									</div>
+									<div class='main-tag' [ngClass]='{"main-tag_active":active3=="新增评论量"}'
+										(click)='changeTag3("新增评论量")'>
+										<div>新增评论量</div>
+										<div class='main-tag_num'>
+											{{common.toWan(result.author.comment_cnt)}}
+										</div>
+									</div>
+									<div class='main-tag' [ngClass]='{"main-tag_active":active3=="新增作品量"}'
+										(click)='changeTag3("新增作品量")'>
+										<div>新增作品量</div>
+										<div class='main-tag_num'>
+											{{common.toWan(result.author.publish_cnt)}}
+										</div>
+									</div>
+								</div>
+								<div echarts [options]="echartsOptions3" class="echartsDemo" *ngIf='result.author'>
+								</div>
 							</nz-tab>
 							<nz-tab nzTitle="粉丝画像">
-								<div echarts [options]="echartsOptions7" class="echartsDemo" *ngIf='result.author' ></div>
+								<div echarts [options]="echartsOptions7" class="echartsDemo" *ngIf='result.author'>
+								</div>
 								<div style="display: flex;">
-										<div echarts [options]="echartsOptions4" class="echartsDemo" *ngIf='result.author' style="flex:1;"></div>
-										<div echarts [options]="echartsOptions5" class="echartsDemo" *ngIf='result.author' style="flex:1;"></div>
-										<div echarts [options]="echartsOptions6" class="echartsDemo" *ngIf='result.author' style="flex:1;"></div>
+									<div echarts [options]="echartsOptions4" class="echartsDemo" *ngIf='result.author'
+										style="flex:1;"></div>
+									<div echarts [options]="echartsOptions5" class="echartsDemo" *ngIf='result.author'
+										style="flex:1;"></div>
+									<div echarts [options]="echartsOptions6" class="echartsDemo" *ngIf='result.author'
+										style="flex:1;"></div>
 								</div>
 							</nz-tab>
 						</nz-tabset>
@@ -289,23 +316,97 @@
 	<nz-empty *ngIf="!result.item_title" style="margin-top: 160px"></nz-empty>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 	<!-- 里程碑 -->
-	<nz-modal [(nzVisible)]="lcbShow" [nzFooter]='null' nzTitle="查看里程碑" (nzOnCancel)="handleCancel()" [nzStyle]="{'width':'1000px'}">
-	      <ng-container *nzModalContent>
-	       <div>
-			   <div style="color: #999;font-weight: bold;">
-				   粉丝数进程
-			   </div>
-			   <div style="margin-top: 12px;">
-				   <nz-steps [nzCurrent]="0" [nzSize]='"small"' nzProgressDot>
-				         <nz-step [nzStatus]='result.author.fans_milestone.first_1w_fans_date?"process":"wait"' [nzPercentage]='10000' nzTitle="1万" [nzDescription]="result.author.fans_milestone.first_1w_fans_date?result.author.fans_milestone.first_1w_fans_date:'--'" [nzSubtitle]="result.author.fans_milestone.first_1w_fans_date?'第'+result.author.fans_milestone.first_1w_fans_date_between+'天':''"></nz-step>
-				         <nz-step [nzStatus]='result.author.fans_milestone.first_10w_fans_date?"process":"wait"' [nzPercentage]='10000' nzTitle="10万" [nzDescription]="result.author.fans_milestone.first_10w_fans_date?result.author.fans_milestone.first_10w_fans_date:'--'" [nzSubtitle]="result.author.fans_milestone.first_10w_fans_date?'第'+result.author.fans_milestone.first_10w_fans_date_between+'天':''"></nz-step>
-				         <nz-step [nzStatus]='result.author.fans_milestone.first_30w_fans_date?"process":"wait"' [nzPercentage]='10000' nzTitle="30万" [nzDescription]="result.author.fans_milestone.first_30w_fans_date?result.author.fans_milestone.first_30w_fans_date:'--'" [nzSubtitle]="result.author.fans_milestone.first_30w_fans_date?'第'+result.author.fans_milestone.first_30w_fans_date_between+'天':''"></nz-step>
-				         <nz-step [nzStatus]='result.author.fans_milestone.first_100w_fans_date?"process":"wait"' [nzPercentage]='20' nzTitle="100万" [nzDescription]="result.author.fans_milestone.first_100w_fans_date?result.author.fans_milestone.first_100w_fans_date:'--'" [nzSubtitle]="result.author.fans_milestone.first_100w_fans_date?'第'+result.author.fans_milestone.first_100w_fans_date_between+'天':''"></nz-step>
-				         <nz-step [nzStatus]='result.author.fans_milestone.first_500w_fans_date?"process":"wait"' nzTitle="500万" [nzDescription]="result.author.fans_milestone.first_500w_fans_date?result.author.fans_milestone.first_500w_fans_date:'--'" [nzSubtitle]="result.author.fans_milestone.first_500w_fans_date?'第'+result.author.fans_milestone.first_500w_fans_date_between+'天':''"></nz-step>
-				         <nz-step [nzStatus]='result.author.fans_milestone.first_1000w_fans_date?"process":"wait"' nzTitle="1000万" [nzDescription]="result.author.fans_milestone.first_1000w_fans_date?result.author.fans_milestone.first_1000w_fans_date:'--'" [nzSubtitle]="result.author.fans_milestone.first_1000w_fans_date?'第'+result.author.fans_milestone.first_1000w_fans_date_between+'天':''"></nz-step>
-				    </nz-steps>
-			   </div>
-		   </div>
-	      </ng-container>
-	    </nz-modal>
+	<nz-modal [(nzVisible)]="lcbShow" [nzFooter]='null' nzTitle="查看里程碑" (nzOnCancel)="handleCancel()"
+		[nzStyle]="{'width':'1000px'}">
+		<ng-container *nzModalContent>
+			<div style="padding:0 20px;padding-bottom: 60px;">
+				<div style="color: #999;font-weight: bold;">
+					粉丝数进程
+				</div>
+				<div style="margin-top: 50px;">
+					<div class="progress2">
+						<div class="progress-bar2" [ngStyle]='{"width":fansprogress}'></div>
+						<div class="progress-now" [ngStyle]='{"left":fansprogress}'>
+							<div>
+								{{common.toWan(result.author.follower_count)}}
+							</div>
+							<div class="zfx"></div>
+						</div>
+						<div class="progress-text1" [ngClass]='{"progress-notext":!result.author.fans_milestone.first_1w_fans_date}'>
+							<div class="circle"></div>
+							<div>
+								1万
+							</div>
+							<div>
+								{{result.author.fans_milestone.first_1w_fans_date?result.author.fans_milestone.first_1w_fans_date:'--'}}
+							</div>
+							<div>
+								{{result.author.fans_milestone.first_1w_fans_date?'第'+result.author.fans_milestone.first_1w_fans_date_between+'天':''}}
+							</div>
+						</div>
+						<div class="progress-text2" [ngClass]='{"progress-notext":!result.author.fans_milestone.first_10w_fans_date}'>
+							<div class="circle"></div>
+							<div>
+								10万
+							</div>
+							<div>
+								{{result.author.fans_milestone.first_10w_fans_date?result.author.fans_milestone.first_10w_fans_date:'--'}}
+							</div>
+							<div>
+								{{result.author.fans_milestone.first_10w_fans_date?'第'+result.author.fans_milestone.first_10w_fans_date_between+'天':''}}
+							</div>
+						</div>
+						<div class="progress-text3" [ngClass]='{"progress-notext":!result.author.fans_milestone.first_30w_fans_date}'>
+							<div class="circle"></div>
+							<div>
+								30万
+							</div>
+							<div>
+								{{result.author.fans_milestone.first_30w_fans_date?result.author.fans_milestone.first_30w_fans_date:'--'}}
+							</div>
+							<div>
+								{{result.author.fans_milestone.first_30w_fans_date?'第'+result.author.fans_milestone.first_30w_fans_date_between+'天':''}}
+							</div>
+						</div>
+						<div class="progress-text4" [ngClass]='{"progress-notext":!result.author.fans_milestone.first_100w_fans_date}'>
+							<div class="circle"></div>
+							<div>
+								100万
+							</div>
+							<div>
+								{{result.author.fans_milestone.first_100w_fans_date?result.author.fans_milestone.first_100w_fans_date:'--'}}
+							</div>
+							<div>
+								{{result.author.fans_milestone.first_100w_fans_date?'第'+result.author.fans_milestone.first_100w_fans_date_between+'天':''}}
+							</div>
+						</div>
+						<div class="progress-text5" [ngClass]='{"progress-notext":!result.author.fans_milestone.first_500w_fans_date}'>
+							<div class="circle"></div>
+							<div>
+								500万
+							</div>
+							<div>
+								{{result.author.fans_milestone.first_500w_fans_date?result.author.fans_milestone.first_500w_fans_date:'--'}}
+							</div>
+							<div>
+								{{result.author.fans_milestone.first_500w_fans_date?'第'+result.author.fans_milestone.first_500w_fans_date_between+'天':''}}
+							</div>
+						</div>
+						<div class="progress-text6" [ngClass]='{"progress-notext":!result.author.fans_milestone.first_1000w_fans_date}'>
+							<div class="circle"></div>
+							<div>
+								1000万
+							</div>
+							<div>
+								{{result.author.fans_milestone.first_1000w_fans_date?result.author.fans_milestone.first_1000w_fans_date:'--'}}
+							</div>
+							<div>
+								{{result.author.fans_milestone.first_1000w_fans_date?'第'+result.author.fans_milestone.first_1000w_fans_date_between+'天':''}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+	</nz-modal>
 </div>

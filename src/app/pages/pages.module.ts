@@ -85,6 +85,7 @@ import { SearchComponent } from '../components/search/search.component';
 import { IconsProviderModule } from './icons-provider.module';
 import { UploadFileComponent } from '../components/upload-file/upload-file.component';
 import { LyricComponent } from '../components/lyric/lyric.component';
+import {BloggerVideosComponent} from '../components/bloggerVideos/bloggerVideos.component'
 import { LyricAllComponent } from '../components/lyric-all/lyric-all.component';
 import { BrandUserComponent } from './search-page/brand-user/brand-user.component';
 import { Sing5Component } from './search-page/sing5/sing5.component';
@@ -221,6 +222,7 @@ registerLocaleData(zh);
 		SearchComponent,
 		UploadFileComponent,
 		LyricComponent,
+		BloggerVideosComponent,
 		LyricAllComponent,
 		NotOpenComponent,
 		BrandUserComponent,

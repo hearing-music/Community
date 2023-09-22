@@ -136,10 +136,22 @@ export class DouyinDarenComponent implements OnInit {
 		  item.expand=!item.expand
 	  }else{
 		  this.loading = true;
-		  this.api.getAwemeMusicVideo({secUid,arr}).subscribe((res: any) => {
+		  this.api.getAwemeMusicVideo({secUid,arr}).subscribe(async (res: any) => {
 		    this.loading = false;
 		    if (res.success) {
 		  			item.video = res.result;
+					let res2:any = await this.getDouMoreVideos(secUid,{BloggerVideo:res.result})
+					item.NewFans = []
+					if(res2){
+						for(let i = 0;i<res.result.length;i++){
+							let o = res2.find((e:any)=>e.item_id == res.result[i].VideoDetails.aweme_id)
+							if(o){
+								item.NewFans.push(o)
+							}else{
+								item.NewFans.push({net_new_fans:0})
+							}
+						}
+					}
 		  			item.isShow = 1
 		  			item.expand=!item.expand
 		    }
@@ -171,6 +183,18 @@ export class DouyinDarenComponent implements OnInit {
     item.seeVideo = true;
     let res: any = await this.getDouYinBloggerVideoOne(item.secUid);
     if (res) {
+		let res2:any = await this.getDouMoreVideos(item.secUid,res)
+		item.NewFans = []
+		if(res2){
+			for(let i = 0;i<res.BloggerVideo.length;i++){
+				let o = res2.find((e:any)=>e.item_id == res.BloggerVideo[i].aweme_id)
+				if(o){
+					item.NewFans.push(o)
+				}else{
+					item.NewFans.push({net_new_fans:0})
+				}
+			}
+		}
 		if(res.nickName){
 			let diggCountAll = 0;
 			res.BloggerVideo.forEach((items: any) => {
@@ -194,6 +218,29 @@ export class DouyinDarenComponent implements OnInit {
       item.BloggerVideoErr = true;
       item.loadingFinished = true;
     }
+  }
+  // 涨粉量
+  getDouMoreVideos(sec_uid:any,result:any) {
+  	return new Promise((resolve: any) => {
+		result.BloggerVideo = result.BloggerVideo
+  		let item_id = []
+  		let max_cursor = new Date().getTime()
+  		// 30天前0点
+  		let min_cursor = new Date(this.common.timeFormat(max_cursor-30*60*60*1000*24)).setHours(0, 0, 0, 0)
+  		for(let i=0;i<result.BloggerVideo.length;i++){
+  			item_id.push(result.BloggerVideo[i].aweme_id||result.BloggerVideo[i].VideoDetails.aweme_id)
+  		}
+  		this.api.getDouMoreVideos({ item_id, sec_uid, min_cursor, max_cursor }).subscribe((res: any) => {
+  			if (res.success) {
+  				resolve(res.result)
+  			}else{
+  				resolve(false)
+  			}
+  		}, (err: any) => {
+  			console.log(err)
+  			resolve(false)
+  		})
+  	})
   }
   openVideoView(item: any) {
     if (item.seeVideo) {

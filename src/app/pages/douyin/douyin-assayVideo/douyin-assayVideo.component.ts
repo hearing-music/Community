@@ -493,6 +493,8 @@ export class DouyinAssayVideoComponent implements OnInit {
 			this.loading = false;
 		})
 	}
+	// 里程碑进度
+	fansprogress:any='0%'
 	// 作者趋势分析
 	getDouAuthorInfo(item: any) {
 		let sec_uid = item.author_id;
@@ -565,7 +567,7 @@ export class DouyinAssayVideoComponent implements OnInit {
 					res.result.fans_milestone.first_100w_fans_date_between = this.common.getDaysBetween(res.result.create_time, res.result.fans_milestone.first_100w_fans_date_t)
 					res.result.fans_milestone.first_500w_fans_date_between = this.common.getDaysBetween(res.result.create_time, res.result.fans_milestone.first_500w_fans_date_t)
 					res.result.fans_milestone.first_1000w_fans_date_between = this.common.getDaysBetween(res.result.create_time, res.result.fans_milestone.first_1000w_fans_date_t)
-
+					this.fansprogressCount(res.result.fans_milestone)
 					this.result.author = res.result;
 					this.setEoptions3('新增点赞量')
 					this.setEoptions4(this.result)
@@ -578,6 +580,39 @@ export class DouyinAssayVideoComponent implements OnInit {
 				this.loading = false;
 			})
 		}
+	}
+	// 计算里程碑进度
+	fansprogressCount(fans_milestone:any){
+		let w1 = fans_milestone.first_1w_fans_date;
+		let w10 = fans_milestone.first_10w_fans_date;
+		let w30 = fans_milestone.first_30w_fans_date;
+		let w100 = fans_milestone.first_100w_fans_date;
+		let w500 = fans_milestone.first_500w_fans_date;
+		let w1000 = fans_milestone.first_1000w_fans_date;
+		// 95 77  59  41  23  5
+		let w1x = '2.5%'
+		let w10x = '14%'
+		let w30x = '32%'
+		let w100x = '50%'
+		let w500x = '68%'
+		let w1000x = '86%'
+		let w1000d = '97.5%'
+		if(w1000){
+			this.fansprogress = w1000d
+		}else if(w500){
+			this.fansprogress = w1000x
+		}else if(w100){
+			this.fansprogress = w500x
+		}else if(w30){
+			this.fansprogress = w100x
+		}else if(w10){
+			this.fansprogress = w30x
+		}else if(w1){
+			this.fansprogress = w10x
+		}else{
+			this.fansprogress = w1x
+		}
+		
 	}
 	// 热点详情
 	getDouSentenceDetail(item: any) {

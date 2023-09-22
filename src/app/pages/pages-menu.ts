@@ -77,7 +77,7 @@ export let MENU_ITEMS: NbMenuItem[] = [
 				link: '/pages/douyin/douyin-listenVideo',
 			},
 			{
-				title: '热点宝贝儿~',
+				title: '视频分析',
 				link: '/pages/douyin/douyin-assayVideo',
 			},
 		],

@@ -1,0 +1,18 @@
+.bloggerVideos{
+	display: flex;overflow-x: scroll;background: linear-gradient(181.2deg,rgb(181, 239, 249) 10.5%,rgb(254, 254, 254) 86.8%);padding: 16px;border-radius: 8px;
+	
+	.icon {
+		width: 16px;
+		height: 16px;
+		margin-right: 4px;
+	}
+	.gongchuang{
+		position: absolute;
+		left:40px;top:40px;
+		padding:2px 6px;
+		border: 2px solid #fff;
+		color:#fff;
+		font-weight: bold;
+		font-size: 13px;
+	}
+}
