@@ -24,15 +24,10 @@ export class DouyinAssayVideoComponent implements OnInit {
 	visible: any = false;
 	visible2: any = false;
 	active: any = '点赞'
-	active2: any = '热度值'
 	active3: any = '新增点赞量'
 	changeTag(e: any) {
 		this.active = e;
 		this.setEoptions(e)
-	}
-	changeTag2(e: any) {
-		this.active2 = e;
-		this.setEoptions2(e)
 	}
 	changeTag3(e: any) {
 		this.active3 = e;
@@ -64,49 +59,6 @@ export class DouyinAssayVideoComponent implements OnInit {
 			return
 		}
 		this.echartsOptions = {
-			title: {
-				text: title
-			},
-			xAxis: {
-				type: 'category',
-				data: date
-			},
-			tooltip: {
-				trigger: 'axis'
-			},
-			yAxis: {
-				type: 'value'
-			},
-			series: [
-				{
-					data: value,
-					type: 'line',
-					// color: '#ff7f0f',
-					smooth: true
-				}
-			]
-		}
-	}
-	setEoptions2(e: any) {
-		let title = e + '趋势'
-		let date = []
-		let value = []
-		if (e == '热度值') {
-			date = this.result.sentenceDetail.Hot.map((e: any) => e.date)
-			value = this.result.sentenceDetail.Hot.map((e: any) => e.value)
-		} else if (e == '点赞量') {
-			date = this.result.sentenceDetail.digg.map((e: any) => e.date)
-			value = this.result.sentenceDetail.digg.map((e: any) => e.value)
-		} else if (e == '评论量') {
-			date = this.result.sentenceDetail.comment.map((e: any) => e.date)
-			value = this.result.sentenceDetail.comment.map((e: any) => e.value)
-		} else if (e == '分享量') {
-			date = this.result.sentenceDetail.share.map((e: any) => e.date)
-			value = this.result.sentenceDetail.share.map((e: any) => e.value)
-		} else {
-			return
-		}
-		this.echartsOptions2 = {
 			title: {
 				text: title
 			},
@@ -625,12 +577,15 @@ export class DouyinAssayVideoComponent implements OnInit {
 				if (res.success) {
 					res.result.Top30Video = res.result.Top30Video || []
 					this.result.sentenceDetail = res.result;
-					this.setEoptions2('热度值')
+					this.result.sentenceDetailFinished = true
+					// this.setEoptions2('热度值')
 				}
 			}, (err: any) => {
 				console.log(err)
 				this.loading = false;
 			})
+		}else{
+			this.result.sentenceDetailFinished = true
 		}
 	}
 	search(value: any) {

@@ -20,6 +20,7 @@ import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.compone
 import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-listenDaren.component';
 import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-listenVideo.component';
 import { DouyinAssayVideoComponent } from './douyin/douyin-assayVideo/douyin-assayVideo.component';
+import { RisingHotComponent } from "./douyin/rising-hot/rising-hot.component";
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
 import { FufuBillboardComponent } from './fufuleida/fufu-billboard/fufu-billboard.component'
@@ -151,6 +152,12 @@ const routes: Routes = [{
 		{
 			path: 'douyin/douyin-video',
 			component: DouyinVideoComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 上升热点搜索
+		{
+			path: 'douyin/douyin-rising-hot',
+			component: RisingHotComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 抖音视频监控

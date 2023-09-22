@@ -43,6 +43,7 @@ import {EnlightenmentComponent} from './venus/enlightenment/enlightenment.compon
 // import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
 import { DyHotComponent } from './douyin/douyin-list/dy-hot/dy-hot.component';
 import { DyYyhComponent } from './douyin/douyin-list/dy-yyh/dy-yyh.component';
+import { RisingHotComponent } from "./douyin/rising-hot/rising-hot.component";
 import { DyMusicComponent } from './douyin/douyin-list/dy-music/dy-music.component';
 import { DyVideoComponent } from './douyin/douyin-list/dy-video/dy-video.component';
 import { DouyinListComponent } from './douyin/douyin-list/douyin-list.component';
@@ -64,6 +65,7 @@ import { JianyingComponent } from './jianying/jianying.component';
 import { ToMvComponent } from './to-mv/to-mv.component';
 
 // componet
+import {DyHotDetailComponent} from '../components/dyHotDetail/dyHotDetail.component'
 import { ArtistVisualizationComponent } from './search-page/artist-visualization/artist-visualization.component';
 import { OriginalAudioComponent } from './original-audio/original-audio.component';
 import { MermaidComponent } from './mermaid/mermaid.component';
@@ -169,6 +171,7 @@ registerLocaleData(zh);
 		NzStepsModule
 	],
 	declarations: [
+		DyHotDetailComponent,
 		ArtistVisualizationComponent,
 		MermaidComponent,
 		EnlightenmentSongsComponent,
@@ -187,6 +190,7 @@ registerLocaleData(zh);
 		DouyinListComponent,
 		DouyinAssayVideoComponent,
 		DyHotComponent,
+		RisingHotComponent,
 		DyYyhComponent,
 		DyMusicComponent,
 		DyVideoComponent,

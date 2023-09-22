@@ -56,6 +56,10 @@ export let MENU_ITEMS: NbMenuItem[] = [
 			// 	title: '抖音热点',
 			// 	link: '/pages/douyin/douyin-hot',
 			// },
+			      {
+			        title: "上升热点",
+			        link: "/pages/douyin/douyin-rising-hot",
+			      },
 			{
 				title: '抖音榜单',
 				link: '/pages/douyin/douyin-list',

@@ -361,6 +361,26 @@ export class ApiService {
 		} = params;
 		return this.http.post(this.baseUrl + "/douyin/DouYinSearchVideoDetailsList", { arr, type })
 	}
+	  //抖音上升热点
+	  DouRiseSearch(params: any) {
+	    let { keyword, page, pageSize } = params;
+	    return this.http.get(
+	      this.baseUrl +
+	        "/douyin/DouRiseSearch?keyword=" +
+	        keyword +
+	        "&page=" +
+	        page +
+	        "&page_size=" +
+	        pageSize
+	    );
+	  }
+	  //抖音上升热点详情
+	  DouSentenceDetail(params: any) {
+	    let { sentence_id } = params;
+	    return this.http.get(
+	      this.baseUrl + "/douyin/DouSentenceDetail?sentence_id=" + sentence_id
+	    );
+	  }
 	// 抖音 视频是否被本人监控 并且必须监控该达人
 	douyin_videoisListen(params: any) {
 		let {
