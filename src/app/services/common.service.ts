@@ -371,6 +371,18 @@ export class CommonService {
 
 		return formatStr
 	}
+	// 去重key相同
+	quchong(tempArr:any,key:any) {
+	    let result = [];
+	    let obj = {};
+	    for (let i = 0; i < tempArr.length; i++) {
+	        if (!obj[tempArr[i][key]]) {
+	            result.push(tempArr[i]);
+	            obj[tempArr[i][key]] = true;
+	        };
+	    };
+	    return result;
+	}
 	download(src: string, name: string, t: any = true) {//下载地址和名
 		
 		var xhr = new XMLHttpRequest(); xhr.open('GET',src, true);

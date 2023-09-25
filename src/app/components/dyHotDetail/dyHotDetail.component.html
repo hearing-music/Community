@@ -4,8 +4,12 @@
 			<div style='font-size: 20px;font-weight: bold;' *ngIf='result.sentence'>
 				{{result.sentence}}
 			</div>
-			<div class='sentence_rank' *ngIf='result.sentence_rank'>
-				{{result.type?result.type:'未知榜'}} 历史最高 TOP {{result.sentence_rank}}
+			<div style="display: flex;">
+				<div *ngFor='let item of result.sentenceDetail.DouSentenceTimeline'>
+					<div class='sentence_rank' style="margin-right: 8px;" *ngIf='item.max_rank!=-1'>
+						{{item.billBoard_type}} 历史最高 TOP {{item.max_rank}}
+					</div>
+				</div>
 			</div>
 		</div>
 		<nz-tabset [(nzSelectedIndex)]='nzSelectedIndex2'>

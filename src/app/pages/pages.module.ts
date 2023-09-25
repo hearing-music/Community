@@ -66,6 +66,7 @@ import { ToMvComponent } from './to-mv/to-mv.component';
 
 // componet
 import {DyHotDetailComponent} from '../components/dyHotDetail/dyHotDetail.component'
+import {DyAuthorComponent} from '../components/dyAuthor/dyAuthor.component'
 import { ArtistVisualizationComponent } from './search-page/artist-visualization/artist-visualization.component';
 import { OriginalAudioComponent } from './original-audio/original-audio.component';
 import { MermaidComponent } from './mermaid/mermaid.component';
@@ -172,6 +173,7 @@ registerLocaleData(zh);
 	],
 	declarations: [
 		DyHotDetailComponent,
+		DyAuthorComponent,
 		ArtistVisualizationComponent,
 		MermaidComponent,
 		EnlightenmentSongsComponent,

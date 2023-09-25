@@ -19,16 +19,12 @@ export class DyHotDetailComponent implements OnInit {
 	}
 	@Input() result: any=[];
 	loading: any = false
-	visible2: any = false;
 	active2: any = '热度值'
 	echartsOptions2: any = {};
 	nzSelectedIndex2:any=0;
 	changeTag2(e: any) {
 		this.active2 = e;
 		this.setEoptions2(e)
-	}
-	visiblechange2(e: any) {
-		// console.log(e)
 	}
 	setEoptions2(e: any) {
 		let title = e + '趋势'

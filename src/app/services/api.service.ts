@@ -381,6 +381,13 @@ export class ApiService {
 	      this.baseUrl + "/douyin/DouSentenceDetail?sentence_id=" + sentence_id
 	    );
 	  }
+	// 抖音 热点宝贝 热门账号 才艺音乐
+	getDouMonitorUser(params:any){
+		let { page,pageSize } = params;
+		    return this.http.get(
+		      this.baseUrl + "/douyin/DouMonitorUser?page_num=" + page+'&page_size='+pageSize
+		    );
+	}
 	// 抖音 视频是否被本人监控 并且必须监控该达人
 	douyin_videoisListen(params: any) {
 		let {
