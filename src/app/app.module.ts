@@ -34,6 +34,7 @@ import { ApiService } from './services/api.service';
 import { CommonService } from './services/common.service';
 import { AuthService } from './services/auth.service';
 
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 // registerLocaleData(zh);
 
@@ -58,6 +59,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 		ThemeModule.forRoot(),
 		FormsModule,
 		NzMessageModule,
+		NzNotificationModule
 	],
 	bootstrap: [AppComponent],
 	// providers: [

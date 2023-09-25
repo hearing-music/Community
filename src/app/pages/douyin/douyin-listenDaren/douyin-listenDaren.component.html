@@ -166,6 +166,19 @@
 							<div *ngIf='item.seeVideo2&&item.BloggerVideoErr2&&item.loadingFinished2' (click)='getVideoDetail2(item)' style="margin-left: 16px;cursor: pointer;color: blue;">
 								重新加载
 							</div>
+							
+							<div *ngIf="(item.seeVideo3 &&item.loadingFinished3 &&item.author &&!item.BloggerVideoErr3) ||!item.seeVideo3" style="cursor: pointer; color: blue; margin-left: 16px" (click)="openVideoView3(item)">
+							  {{ item.isShowRadio3 ? "收起" : "作者数据趋势" }}
+							</div>
+							<div *ngIf="item.seeVideo3 && item.loadingFinished3 && !item.author &&!item.BloggerVideoErr3 " style="margin-left: 16px">
+							  暂无
+							</div>
+							<div *ngIf="item.seeVideo3 && !item.loadingFinished3" style="margin-left: 16px">
+							  <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+							</div>
+							<div *ngIf=" item.seeVideo3 && item.BloggerVideoErr3 && item.loadingFinished3" (click)="douSentenceDetail(item)" style="margin-left: 16px; cursor: pointer; color: blue">
+							  重新加载
+							</div>
 						</div>
 					</div>
 				</div>
@@ -201,6 +214,8 @@
 					</div>
 				</div>
 			</div>
+			<!-- 作者趋势 -->
+			<ngx-dyAuthor *ngIf="item.isShowRadio3" [result]="item"></ngx-dyAuthor>
 			<!-- 视频列表 -->
 			<ngx-bloggerVideos *ngIf="item.isShowRadio"  [BloggerVideo]='item.BloggerVideo' [secUid]='item.SecUid' [NewFans]='item.NewFans'></ngx-bloggerVideos>
 			<ngx-bloggerVideos *ngIf="item.isShowRadio2" (toMore)='videoToMore($event)' [type]='"more"' [loadingFinished]='item.isMoreLoadingFinished' [total]='item.NewFans2PageTotal' [BloggerVideo]='item.BloggerVideo2' [secUid]='item.SecUid' [NewFans]='item.NewFans2'></ngx-bloggerVideos>

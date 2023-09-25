@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
 import { NzMessageService } from "ng-zorro-antd/message";
+import * as echarts from "echarts";
 import * as XLSX from "xlsx";
-import { type } from "os";
 @Component({
   selector: "ngx-douyin-daren",
   templateUrl: "./douyin-daren.component.html",
@@ -16,6 +16,7 @@ export class DouyinDarenComponent implements OnInit {
     private message: NzMessageService
   ) {}
   ngOnInit(): void {
+    echarts.registerMap("china", this.common.geoCoordMap);
     // setTimeout(() => {
     // 	this.isVisible = true;
     // }, 2000)
@@ -34,12 +35,12 @@ export class DouyinDarenComponent implements OnInit {
   // <!-- 艺人类型 Type -->
   Type: any = "";
   // suggestionsType:any=['1','2','3']
-  onSelect(e:any){
-	  console.log(e)
+  onSelect(e: any) {
+    console.log(e);
   }
-  onChange(e:any){
-	  console.log('change')
-	  console.log(e)
+  onChange(e: any) {
+    console.log("change");
+    console.log(e);
   }
   // <!-- 艺人风格 Style -->
   Style: any = "";
@@ -47,7 +48,7 @@ export class DouyinDarenComponent implements OnInit {
   Characteristics: any = "";
   // <!-- 翻唱唱酬 Vocals -->
   Vocals: any = "";
-  VocalsShow:any="";
+  VocalsShow: any = "";
   // <!-- 翻唱分成 Split -->
   Split: any = "";
   // <!-- 原创唱酬 Original -->
@@ -56,7 +57,7 @@ export class DouyinDarenComponent implements OnInit {
   OriginalShare: any = "";
   // <!-- 翻唱视频费用 Fees -->
   Fees: any = "";
-  FeesShow:any="";
+  FeesShow: any = "";
   // <!-- 备注  Note -->
   Note: any = "";
   Sex: any = "";
@@ -79,12 +80,11 @@ export class DouyinDarenComponent implements OnInit {
   }
   listContent = [];
   listKeys = [];
-  awemeArr=[]
+  awemeArr = [];
   linkToDy = 0;
   secUidIndex = 0;
-	seeVideoIndex=0;
+  seeVideoIndex = 0;
   selectExle() {
-	  
     var inputElement = document.createElement("input");
     // 设置input的type为file
     inputElement.setAttribute("type", "file");
@@ -101,62 +101,68 @@ export class DouyinDarenComponent implements OnInit {
       this.api.dyDaRenExle({ files }).subscribe((res: any) => {
         this.loading = false;
         if (res.success) {
-					res.keys.filter((item: any, index: any) => {
-					  if (item == "主页链接") {
-					    this.linkToDy = index;
-					  }
-					  if (item == "secUid") {
-					    this.secUidIndex = index;
-					  }
-						if(item=='查看视频'){
-							this.seeVideoIndex=index;
-						}
-					});
-			let awemeArr = []
-			res.XlsxArr.forEach((item:any)=>{
-				awemeArr.push(item[this.seeVideoIndex])
-				item.splice(this.seeVideoIndex,1)
-			})
-		  this.awemeArr = awemeArr;
+          res.keys.filter((item: any, index: any) => {
+            if (item == "主页链接") {
+              this.linkToDy = index;
+            }
+            if (item == "secUid") {
+              this.secUidIndex = index;
+            }
+            if (item == "查看视频") {
+              this.seeVideoIndex = index;
+            }
+          });
+          let awemeArr = [];
+          res.XlsxArr.forEach((item: any) => {
+            awemeArr.push(item[this.seeVideoIndex]);
+            item.splice(this.seeVideoIndex, 1);
+          });
+          this.awemeArr = awemeArr;
           this.listContent = res.XlsxArr;
           this.listKeys = res.keys;
         }
       });
     });
   }
-  excelPage=1;
-  nzPageIndexChange(e:any){
-	  this.excelPage = e;
+  excelPage = 1;
+  nzPageIndexChange(e: any) {
+    this.excelPage = e;
   }
-  seeVideo(item:any,i:any){
-	  let index = ((this.excelPage-1)*10)+i
-	  let arr = this.awemeArr[index]
-	  let secUid = item[this.secUidIndex]
-	  if(item.isShow){
-		  item.expand=!item.expand
-	  }else{
-		  this.loading = true;
-		  this.api.getAwemeMusicVideo({secUid,arr}).subscribe(async (res: any) => {
-		    this.loading = false;
-		    if (res.success) {
-		  			item.video = res.result;
-					let res2:any = await this.getDouMoreVideos(secUid,{BloggerVideo:res.result})
-					item.NewFans = []
-					if(res2){
-						for(let i = 0;i<res.result.length;i++){
-							let o = res2.find((e:any)=>e.item_id == res.result[i].VideoDetails.aweme_id)
-							if(o){
-								item.NewFans.push(o)
-							}else{
-								item.NewFans.push({net_new_fans:0})
-							}
-						}
-					}
-		  			item.isShow = 1
-		  			item.expand=!item.expand
-		    }
-		  });
-	  }
+  seeVideo(item: any, i: any) {
+    let index = (this.excelPage - 1) * 10 + i;
+    let arr = this.awemeArr[index];
+    let secUid = item[this.secUidIndex];
+    if (item.isShow) {
+      item.expand = !item.expand;
+    } else {
+      this.loading = true;
+      this.api
+        .getAwemeMusicVideo({ secUid, arr })
+        .subscribe(async (res: any) => {
+          this.loading = false;
+          if (res.success) {
+            item.video = res.result;
+            let res2: any = await this.getDouMoreVideos(secUid, {
+              BloggerVideo: res.result,
+            });
+            item.NewFans = [];
+            if (res2) {
+              for (let i = 0; i < res.result.length; i++) {
+                let o = res2.find(
+                  (e: any) => e.item_id == res.result[i].VideoDetails.aweme_id
+                );
+                if (o) {
+                  item.NewFans.push(o);
+                } else {
+                  item.NewFans.push({ net_new_fans: 0 });
+                }
+              }
+            }
+            item.isShow = 1;
+            item.expand = !item.expand;
+          }
+        });
+    }
   }
   copy(text: any) {
     var textareaC = document.createElement("textarea");
@@ -170,11 +176,11 @@ export class DouyinDarenComponent implements OnInit {
   }
   ToSee(item: any) {
     if (typeof item == "object") {
-		this.common.copy(item.hyperlink || item.text)
+      this.common.copy(item.hyperlink || item.text);
       // window.open(item.hyperlink || item.text);
     } else {
       // window.open(item);
-	  this.common.copy(item)
+      this.common.copy(item);
     }
   }
   // 获取视频详情 以及 达人最新信息
@@ -183,181 +189,220 @@ export class DouyinDarenComponent implements OnInit {
     item.seeVideo = true;
     let res: any = await this.getDouYinBloggerVideoOne(item.secUid);
     if (res) {
-		let res2:any = await this.getDouMoreVideos(item.secUid,res)
-		item.NewFans = []
-		if(res2){
-			for(let i = 0;i<res.BloggerVideo.length;i++){
-				let o = res2.find((e:any)=>e.item_id == res.BloggerVideo[i].aweme_id)
-				if(o){
-					item.NewFans.push(o)
-				}else{
-					item.NewFans.push({net_new_fans:0})
-				}
-			}
-		}
-		if(res.nickName){
-			let diggCountAll = 0;
-			res.BloggerVideo.forEach((items: any) => {
-			  diggCountAll += items.VideoDetails.diggCount;
-			});
-			let min = Math.min(...res.BloggerVideo.map((obj:any) => obj.VideoDetails.diggCount));
-			item.diggCountMin=min;
-			item.diggCountAve = parseInt(diggCountAll / res.BloggerVideo.length + "");
-			item.urlList = res.urlList;
-			item.Nickname = res.nickName;
-			item.signature = res.signature;
-			item.followerCount = res.followerCount;
-			item.totalFavorited = res.totalFavorited;
-			item.BloggerVideo = res.BloggerVideo;
-			item.isShowRadio = true;
-		}
-		item.loadingFinished = true;
-		item.BloggerVideoErr = false;
-		
+      let res2: any = await this.getDouMoreVideos(item.secUid, res);
+      item.NewFans = [];
+      if (res2) {
+        for (let i = 0; i < res.BloggerVideo.length; i++) {
+          let o = res2.find(
+            (e: any) => e.item_id == res.BloggerVideo[i].aweme_id
+          );
+          if (o) {
+            item.NewFans.push(o);
+          } else {
+            item.NewFans.push({ net_new_fans: 0 });
+          }
+        }
+      }
+      if (res.nickName) {
+        let diggCountAll = 0;
+        res.BloggerVideo.forEach((items: any) => {
+          diggCountAll += items.VideoDetails.diggCount;
+        });
+        let min = Math.min(
+          ...res.BloggerVideo.map((obj: any) => obj.VideoDetails.diggCount)
+        );
+        item.diggCountMin = min;
+        item.diggCountAve = parseInt(
+          diggCountAll / res.BloggerVideo.length + ""
+        );
+        item.urlList = res.urlList;
+        item.Nickname = res.nickName;
+        item.signature = res.signature;
+        item.followerCount = res.followerCount;
+        item.totalFavorited = res.totalFavorited;
+        item.BloggerVideo = res.BloggerVideo;
+        item.isShowRadio = true;
+        item.isShowRadio2 = false;
+        item.isShowRadio3 = false;
+      }
+      item.loadingFinished = true;
+      item.BloggerVideoErr = false;
     } else {
       item.BloggerVideoErr = true;
       item.loadingFinished = true;
     }
   }
   // 涨粉量
-  getDouMoreVideos(sec_uid:any,result:any) {
-  	return new Promise((resolve: any) => {
-		result.BloggerVideo = result.BloggerVideo
-  		let item_id = []
-  		let max_cursor = new Date().getTime()
-  		// 30天前0点
-  		let min_cursor = new Date(this.common.timeFormat(max_cursor-30*60*60*1000*24)).setHours(0, 0, 0, 0)
-  		for(let i=0;i<result.BloggerVideo.length;i++){
-  			item_id.push(result.BloggerVideo[i].aweme_id||result.BloggerVideo[i].VideoDetails.aweme_id)
-  		}
-  		this.api.getDouMoreVideos({ item_id, sec_uid, min_cursor, max_cursor }).subscribe((res: any) => {
-  			if (res.success) {
-  				resolve(res.result)
-  			}else{
-  				resolve(false)
-  			}
-  		}, (err: any) => {
-  			console.log(err)
-  			resolve(false)
-  		})
-  	})
+  getDouMoreVideos(sec_uid: any, result: any) {
+    return new Promise((resolve: any) => {
+      result.BloggerVideo = result.BloggerVideo;
+      let item_id = [];
+      let max_cursor = new Date().getTime();
+      // 30天前0点
+      let min_cursor = new Date(
+        this.common.timeFormat(max_cursor - 30 * 60 * 60 * 1000 * 24)
+      ).setHours(0, 0, 0, 0);
+      for (let i = 0; i < result.BloggerVideo.length; i++) {
+        item_id.push(
+          result.BloggerVideo[i].aweme_id ||
+            result.BloggerVideo[i].VideoDetails.aweme_id
+        );
+      }
+      this.api
+        .getDouMoreVideos({ item_id, sec_uid, min_cursor, max_cursor })
+        .subscribe(
+          (res: any) => {
+            if (res.success) {
+              resolve(res.result);
+            } else {
+              resolve(false);
+            }
+          },
+          (err: any) => {
+            console.log(err);
+            resolve(false);
+          }
+        );
+    });
   }
   openVideoView(item: any) {
     if (item.seeVideo) {
       item.isShowRadio = item.isShowRadio ? false : true;
+      item.isShowRadio2 = false;
+      item.isShowRadio3 = false;
     } else {
       this.getVideoDetail(item);
     }
   }
-  
+
   // 更多视频
   openVideoView2(item: any) {
-  	if (item.seeVideo2) {
-  		item.isShowRadio2 = item.isShowRadio2 ? false : true;
-  		item.isShowRadio = false
-  	} else {
-  		this.getVideoDetail2(item)
-  
-  	}
+    if (item.seeVideo2) {
+      item.isShowRadio2 = item.isShowRadio2 ? false : true;
+      item.isShowRadio = false;
+      item.isShowRadio3 = false;
+    } else {
+      this.getVideoDetail2(item);
+    }
   }
-  async videoToMore(obj:any){
-  	let {secUid}=obj
-  	let item = this.list.find((e:any)=>e.secUid==secUid)
-  	item.isMoreLoadingFinished=false
-  	await this.getVideoDetailFun(item,item.NewFans2)
-  	item.isMoreLoadingFinished=true
+  async videoToMore(obj: any) {
+    let { secUid } = obj;
+    let item = this.list.find((e: any) => e.secUid == secUid);
+    item.isMoreLoadingFinished = false;
+    await this.getVideoDetailFun(item, item.NewFans2);
+    item.isMoreLoadingFinished = true;
   }
-  async getVideoDetail2(item:any){
-  	item.loadingFinished2 = false;
-  	item.seeVideo2 = true;
-  	let res:any = await this.getDouMoreVideos2(item.secUid)
-  	item.NewFans2PageTotal = res.length;
-  	item.NewFans2Page = 0;
-  	item.NewFans2PageSize = 4;
-  	await this.getVideoDetailFun(item,res)
+  async getVideoDetail2(item: any) {
+    item.loadingFinished2 = false;
+    item.seeVideo2 = true;
+    let res: any = await this.getDouMoreVideos2(item.secUid);
+    item.NewFans2PageTotal = res.length;
+    item.NewFans2Page = 0;
+    item.NewFans2PageSize = 4;
+    await this.getVideoDetailFun(item, res);
   }
-  async getVideoDetailFun(item:any,res:any){
-  	let newArr = []
-  	if (res) {
-		if(res.length!=0){
-			let NewFans2 = res;
-			item.NewFans2Page=item.NewFans2Page+1;
-			let aweme_idArr = NewFans2.map((e:any)=>e.item_id)
-			aweme_idArr = aweme_idArr.splice((item.NewFans2Page-1)*item.NewFans2PageSize,item.NewFans2PageSize)
-			let res2:any = await this.DouYinSearchVideoDetailsList(aweme_idArr)
-			if(res2){
-				let VideoDetails = res2
-				let music_idArr = VideoDetails.map((e:any)=>e.music_id)
-				let res3 = await this.getMusicInfo(music_idArr,item.secUid)
-				if(res3){
-					let VideoFollowUp = res3
-					for(let i = 0;i<res2.length;i++){
-						newArr.push({VideoDetails:VideoDetails[i],VideoFollowUp:VideoFollowUp[i]})
-					}
-					item.NewFans2 = NewFans2
-					item.BloggerVideo2 = [...item.BloggerVideo2,...newArr];
-					item.isShowRadio = false
-					item.isShowRadio2 = true
-				}
-			}
-			console.log(item)
-		}
-  		item.loadingFinished2 = true
-  		item.BloggerVideoErr2 = false
-  	} else {
-  		item.BloggerVideoErr2 = true
-  		item.loadingFinished2 = true
-  	}
+  async getVideoDetailFun(item: any, res: any) {
+    let newArr = [];
+    if (res) {
+      if (res.length != 0) {
+        let NewFans2 = res;
+        item.NewFans2Page = item.NewFans2Page + 1;
+        let aweme_idArr = NewFans2.map((e: any) => e.item_id);
+        aweme_idArr = aweme_idArr.splice(
+          (item.NewFans2Page - 1) * item.NewFans2PageSize,
+          item.NewFans2PageSize
+        );
+        let res2: any = await this.DouYinSearchVideoDetailsList(aweme_idArr);
+        if (res2) {
+          let VideoDetails = res2;
+          let music_idArr = VideoDetails.map((e: any) => e.music_id);
+          let res3 = await this.getMusicInfo(music_idArr, item.secUid);
+          if (res3) {
+            let VideoFollowUp = res3;
+            for (let i = 0; i < res2.length; i++) {
+              newArr.push({
+                VideoDetails: VideoDetails[i],
+                VideoFollowUp: VideoFollowUp[i],
+              });
+            }
+            item.NewFans2 = NewFans2;
+            item.BloggerVideo2 = [...item.BloggerVideo2, ...newArr];
+            item.isShowRadio = false;
+            item.isShowRadio2 = true;
+            item.isShowRadio3 = false;
+          }
+        }
+        console.log(item);
+      }
+      item.loadingFinished2 = true;
+      item.BloggerVideoErr2 = false;
+    } else {
+      item.BloggerVideoErr2 = true;
+      item.loadingFinished2 = true;
+    }
   }
-  getMusicInfo(music_idArr:any,secUid:any){
-  	return new Promise((resolve)=>{
-  		this.api.getMusicInfo({arr:music_idArr,secUid})
-  		.subscribe((res: any) => {
-  				if (res.success) {
-  					resolve(res.result)
-  				}else{
-  					resolve(false)
-  				}
-  			}, (err: any) => {
-  				console.log(err)
-  				resolve(false)
-  			})
-  	})
+  getMusicInfo(music_idArr: any, secUid: any) {
+    return new Promise((resolve) => {
+      this.api.getMusicInfo({ arr: music_idArr, secUid }).subscribe(
+        (res: any) => {
+          if (res.success) {
+            resolve(res.result);
+          } else {
+            resolve(false);
+          }
+        },
+        (err: any) => {
+          console.log(err);
+          resolve(false);
+        }
+      );
+    });
   }
-  DouYinSearchVideoDetailsList(aweme_idArr:any){
-  	return new Promise((resolve)=>{
-  		this.api.DouYinSearchVideoDetailsList({arr:aweme_idArr,type:'ID'})
-  		.subscribe((res: any) => {
-  				if (res.success) {
-  					resolve(res.result)
-  				}else{
-  					resolve(false)
-  				}
-  			}, (err: any) => {
-  				console.log(err)
-  				resolve(false)
-  			})
-  	})
+  DouYinSearchVideoDetailsList(aweme_idArr: any) {
+    return new Promise((resolve) => {
+      this.api
+        .DouYinSearchVideoDetailsList({ arr: aweme_idArr, type: "ID" })
+        .subscribe(
+          (res: any) => {
+            if (res.success) {
+              resolve(res.result);
+            } else {
+              resolve(false);
+            }
+          },
+          (err: any) => {
+            console.log(err);
+            resolve(false);
+          }
+        );
+    });
   }
   // 更多视频
-  getDouMoreVideos2(sec_uid:any) {
-  	return new Promise((resolve: any) => {
-  		let max_cursor = new Date().getTime()
-  		// 30天前0点
-  		let min_cursor = new Date(this.common.timeFormat(max_cursor-30*60*60*1000*24)).setHours(0, 0, 0, 0)
-  		this.api.getDouMoreVideos({ item_id:[], sec_uid, min_cursor, max_cursor }).subscribe((res: any) => {
-  			if (res.success) {
-  				resolve(res.result)
-  			}else{
-  				resolve(false)
-  			}
-  		}, (err: any) => {
-  			console.log(err)
-  			resolve(false)
-  		})
-  	})
+  getDouMoreVideos2(sec_uid: any) {
+    return new Promise((resolve: any) => {
+      let max_cursor = new Date().getTime();
+      // 30天前0点
+      let min_cursor = new Date(
+        this.common.timeFormat(max_cursor - 30 * 60 * 60 * 1000 * 24)
+      ).setHours(0, 0, 0, 0);
+      this.api
+        .getDouMoreVideos({ item_id: [], sec_uid, min_cursor, max_cursor })
+        .subscribe(
+          (res: any) => {
+            if (res.success) {
+              resolve(res.result);
+            } else {
+              resolve(false);
+            }
+          },
+          (err: any) => {
+            console.log(err);
+            resolve(false);
+          }
+        );
+    });
   }
-  
+
   // 获取抖音博主7条视频
   getDouYinBloggerVideoOne(secUid: any) {
     return new Promise((resolve: any) => {
@@ -450,31 +495,31 @@ export class DouyinDarenComponent implements OnInit {
     var nickname = obj.nickName;
     var secUid = obj.secUid;
     var uniqueId = obj.uniqueId;
-	vocalsShow = vocalsShow==''?'':vocalsShow-0
-	feesShow = feesShow==''?'':feesShow-0
-	if(!Number.isInteger(vocalsShow)&&vocals){
-		this.message.info('翻唱唱酬最低价格必须为数字')
-		return
-	}
-	if(!Number.isInteger(feesShow)&&fees){
-		this.message.info('翻唱视频费用最低价格必须为数字')
-		return
-	}
-	vocalsShow = vocalsShow-0
-	feesShow = feesShow-0
-	// if(vocalsShow==0&&vocals){
-	// 	this.message.info('翻唱唱酬最低价格必须为数字0')
-	// 	return
-	// }
-	// if(feesShow==0&&fees){
-	// 	this.message.info('翻唱视频费用最低价格不能为0')
-	// 	return
-	// }
+    vocalsShow = vocalsShow == "" ? "" : vocalsShow - 0;
+    feesShow = feesShow == "" ? "" : feesShow - 0;
+    if (!Number.isInteger(vocalsShow) && vocals) {
+      this.message.info("翻唱唱酬最低价格必须为数字");
+      return;
+    }
+    if (!Number.isInteger(feesShow) && fees) {
+      this.message.info("翻唱视频费用最低价格必须为数字");
+      return;
+    }
+    vocalsShow = vocalsShow - 0;
+    feesShow = feesShow - 0;
+    // if(vocalsShow==0&&vocals){
+    // 	this.message.info('翻唱唱酬最低价格必须为数字0')
+    // 	return
+    // }
+    // if(feesShow==0&&fees){
+    // 	this.message.info('翻唱视频费用最低价格不能为0')
+    // 	return
+    // }
     this.loading = true;
     this.api
       .douyin_listenDaren({
-		  feesShow,
-		  vocalsShow,
+        feesShow,
+        vocalsShow,
         signature,
         urlList,
         nickname,
@@ -528,7 +573,7 @@ export class DouyinDarenComponent implements OnInit {
 
   // 达人搜索
   douyin_darenSearch() {
-	this.loading = true;
+    this.loading = true;
     this.api
       .DouYinSearchBigV({ page: this.page, keyword: this.searchValue })
       .subscribe(
@@ -537,10 +582,10 @@ export class DouyinDarenComponent implements OnInit {
           this.loading = false;
           res.result.forEach((item: any) => {
             item.homeUrl = "https://www.douyin.com/user/" + item.secUid;
-			item.BloggerVideo2 = []
-			item.seeVideo2 = false;
-			item.NewFans2PageTotal = 0;
-			item.isMoreLoadingFinished=true
+            item.BloggerVideo2 = [];
+            item.seeVideo2 = false;
+            item.NewFans2PageTotal = 0;
+            item.isMoreLoadingFinished = true;
             item.BloggerVideo = item.BloggerVideo.filter(
               (e: any) => e.is_top == 0
             );
@@ -566,5 +611,35 @@ export class DouyinDarenComponent implements OnInit {
   }
   goHomeUrl(url: string) {
     window.open(url);
+  }
+  openVideoView3(item: any) {
+    if (item.seeVideo3) {
+      item.isShowRadio3 = item.isShowRadio3 ? false : true;
+      item.isShowRadio = false;
+      item.isShowRadio2 = false;
+    } else {
+      this.getDouAuthorInfo(item);
+    }
+  }
+  getDouAuthorInfo(data: any) {
+    this.loading = true;
+    data.seeVideo3 = true;
+    this.api
+      .getDouAuthorInfo({ sec_uid: data.secUid })
+      .subscribe((res: any) => {
+        this.loading = false;
+        if (res.success) {
+          data.author = res.result;
+          data.isShowRadio3 = true;
+          data.isShowRadio2 = false;
+          data.isShowRadio = false;
+
+          data.loadingFinished3 = true;
+          data.BloggerVideoErr3 = false;
+        } else {
+          data.BloggerVideoErr3 = true;
+          data.loadingFinished3 = true;
+        }
+      });
   }
 }

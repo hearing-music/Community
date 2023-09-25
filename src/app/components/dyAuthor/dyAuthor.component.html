@@ -1,4 +1,5 @@
 <div *ngIf='result.author'>
+	<!-- 作者趋势 -->
 	<div class="author">
 		<div style="margin-right: 12px;">
 			<img nz-image width="80px" height="80px" [nzSrc]="result.author.avatar_url" style="border-radius: 50%;"
@@ -97,9 +98,13 @@
 			</div>
 		</nz-tab>
 	</nz-tabset>
-	<!-- 里程碑 -->
-	<nz-modal [(nzVisible)]="lcbShow" [nzFooter]='null' nzTitle="查看里程碑" (nzOnCancel)="handleCancel()"
-		[nzStyle]="{'width':'1000px'}">
+	
+<div *ngIf='!result.author' style='font-size: 20px;font-weight: bold;text-align: center;'>
+	作者数据异常，请重试☹
+</div>
+</div>
+<!-- 里程碑 -->
+	<nz-modal [(nzVisible)]="lcbShow" [nzWidth]='1000' [nzFooter]='null' nzTitle="查看里程碑" (nzOnCancel)="handleCancel()">
 		<ng-container *nzModalContent>
 			<div style="padding:0 20px;padding-bottom: 60px;">
 				<div style="color: #999;font-weight: bold;">
@@ -191,4 +196,3 @@
 			</div>
 		</ng-container>
 	</nz-modal>
-</div>

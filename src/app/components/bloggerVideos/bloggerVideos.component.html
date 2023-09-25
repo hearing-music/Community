@@ -136,6 +136,48 @@
 					查看视频
 				</button>
 			</div>
+			<div style="display: flex;justify-content: center;margin-top: 15px;align-items: center;">
+				<button nzSize='small' nz-button nzType="primary"
+					(click)="toVideoTrend(items)" *ngIf="(items.seeVideo &&items.loadingFinished &&!items.BloggerVideoErr) ||!items.seeVideo">
+					{{ items.isShowRadio ? "收起" : "视频趋势" }}
+				</button>
+				<div
+				  *ngIf="items.seeVideo && !items.loadingFinished" style="margin-left: 16px">
+				  <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+				</div>
+				<div
+				  *ngIf="
+				    items.seeVideo &&
+				    items.BloggerVideoErr &&
+				    items.loadingFinished"
+				  (click)="getDouHotBear(items)" style="margin-left: 16px; cursor: pointer; color: blue">
+				  重新加载
+				</div>
+				
+				
+				<div style="width: 12px;"></div>
+				
+				
+				<button *ngIf="NewFans[i].sentence_id&&((items.seeVideo2 &&items.loadingFinished2 &&!items.BloggerVideoErr2) ||!items.seeVideo2)" nzSize='small' nz-button nzType="primary" 
+					(click)="toSentence(NewFans[i].sentence_id,i)">
+					{{ items.isShowRadio2 ? "收起" : "热点详情" }}
+				</button>
+				<div
+				  *ngIf="items.seeVideo2 && !items.loadingFinished2" style="margin-left: 16px">
+				  <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+				</div>
+				<div
+				  *ngIf="
+				    items.seeVideo2 &&
+				    items.BloggerVideoErr2 &&
+				    items.loadingFinished2"
+				  (click)="getDouSentenceDetail(items,NewFans[i].sentence_id)" style="margin-left: 16px; cursor: pointer; color: blue">
+				  重新加载
+				</div>
+				<button *ngIf='!NewFans[i].sentence_id' nzSize='small' nz-button nzType="primary"  [disabled]='true'>
+					暂无热点
+				</button>
+			</div>
 		</div>
 	</div>
 	<div *ngIf='type=="more"&&total!=BloggerVideo.length&&loadingFinished' class="more" (click)='clickToMore()'>
@@ -155,4 +197,10 @@
 	<div *ngIf='!loadingFinished' class='noMore'>
 		<nz-spin nzSimple></nz-spin>
 	</div>
+</div>
+<div style='margin-top:20px;' *ngIf='VideoTrend&&isShowRadio'>
+	<ngx-dyVideoTrend [result]='VideoTrend'></ngx-dyVideoTrend>
+</div>
+<div style='margin-top:20px;' *ngIf='sentenceDetail&&isShowRadio2'>
+	<ngx-dyHotDetail [result]='VideoTrend'></ngx-dyHotDetail>
 </div>

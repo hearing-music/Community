@@ -1,0 +1,30 @@
+<div>
+	<!-- 视频趋势 -->
+	<div style='display:flex;align-items:center;'>
+		<div class='main-tag' [ngClass]='{"main-tag_active":active=="点赞"}' (click)='changeTag("点赞")'>
+			<div>点赞量</div>
+			<div class='main-tag_num'>
+				{{common.toWan(result.like_cnt)}}
+			</div>
+		</div>
+		<div class='main-tag' [ngClass]='{"main-tag_active":active=="分享"}' (click)='changeTag("分享")'>
+			<div>分享量</div>
+			<div class='main-tag_num'>
+				{{common.toWan(result.share_cnt)}}
+			</div>
+		</div>
+		<div class='main-tag' [ngClass]='{"main-tag_active":active=="评论"}' (click)='changeTag("评论")'>
+			<div>评论量</div>
+			<div class='main-tag_num'>
+				{{common.toWan(result.comment_cnt)}}
+			</div>
+		</div>
+		<div class='main-tag' [ngClass]='{"main-tag_active":active=="涨粉"}' (click)='changeTag("涨粉")'>
+			<div>涨粉量</div>
+			<div class='main-tag_num'>
+				{{common.toWan(result.new_fans_cnt)}}
+			</div>
+		</div>
+	</div>
+	<div echarts [options]="echartsOptions" class="echartsDemo"></div>
+</div>

@@ -1,20 +1,6 @@
-.douyin{
-	height: 100%;
-	min-height: calc(100vh - 4.75rem - 4rem);
-	background-color: #fff;
-	border-radius: 8px;
-	display: flex;
-	flex-direction: column;
-	padding:20px;
 	.icon{
 		width:16px;height:16px;
 	}
-	.main-top{
-		display: flex;
-		border-radius: 4px;
-		background-color: #e3e3e3;
-		padding:14px;
-		justify-content: space-between;
 		.item_title{
 			max-width: 850px;
 			font-weight: bold;
@@ -38,9 +24,6 @@
 				border-radius: 2px;
 			}
 		}
-	}
-	.main{
-		padding-bottom:30px;
 		.main-tag{
 			min-width: 210px;
 			height:100px;
@@ -63,7 +46,6 @@
 		.echartsDemo{
 			margin-top: 20px;
 		}
-	}
 	.sentence_rank{
 		color:#fff;
 		font-size: 12px;
@@ -94,4 +76,5 @@
 		text-overflow: ellipsis;
 	}
 	
-}
+
+		

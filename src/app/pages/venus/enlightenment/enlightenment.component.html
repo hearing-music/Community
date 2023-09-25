@@ -256,7 +256,7 @@
 			</audio>
 		</div>
 		<!-- 抽屉 -->
-		<nz-drawer
+		<nz-drawer *ngIf='list.length>0'
 		      [nzClosable]="false"
 		      [nzVisible]="visible"
 		      nzPlacement="right"

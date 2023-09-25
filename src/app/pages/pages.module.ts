@@ -31,6 +31,7 @@ import { NzMentionModule } from 'ng-zorro-antd/mention';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 // page
+import { DouyinPopularAccountsComponent } from "./douyin/douyin-popular-accounts/douyin-popular-accounts.component";
 import { OggToMp3Component } from './audio-conversion/ogg-to-mp3/ogg-to-mp3.component';
 import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.component';
 import { FreeSongs_kugouComponent } from './kugou/free-songs/free-songs.component';
@@ -66,6 +67,7 @@ import { ToMvComponent } from './to-mv/to-mv.component';
 
 // componet
 import {DyHotDetailComponent} from '../components/dyHotDetail/dyHotDetail.component'
+import {DyVideoTrendComponent} from '../components/dyVideoTrend/dyVideoTrend.component'
 import {DyAuthorComponent} from '../components/dyAuthor/dyAuthor.component'
 import { ArtistVisualizationComponent } from './search-page/artist-visualization/artist-visualization.component';
 import { OriginalAudioComponent } from './original-audio/original-audio.component';
@@ -173,6 +175,7 @@ registerLocaleData(zh);
 	],
 	declarations: [
 		DyHotDetailComponent,
+		DyVideoTrendComponent,
 		DyAuthorComponent,
 		ArtistVisualizationComponent,
 		MermaidComponent,
@@ -190,6 +193,7 @@ registerLocaleData(zh);
 		AutoSearchComponent,
 		EnlightenmentComponent,
 		DouyinListComponent,
+		DouyinPopularAccountsComponent,
 		DouyinAssayVideoComponent,
 		DyHotComponent,
 		RisingHotComponent,

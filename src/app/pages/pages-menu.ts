@@ -57,6 +57,10 @@ export let MENU_ITEMS: NbMenuItem[] = [
 			// 	link: '/pages/douyin/douyin-hot',
 			// },
 			      {
+			        title: "热门账号",
+			        link: "/pages/douyin/douyin-popular-accounts",
+			      },
+			      {
 			        title: "上升热点",
 			        link: "/pages/douyin/douyin-rising-hot",
 			      },

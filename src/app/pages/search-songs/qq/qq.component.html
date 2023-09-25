@@ -419,7 +419,7 @@
 	</div>
 		
 </div>
-<nz-drawer [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" [nzTitle]="'专辑: ' + albumNameDrawer"
+<nz-drawer *ngIf='qqList.length>0' [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" [nzTitle]="'专辑: ' + albumNameDrawer"
 	(nzOnClose)="drawClose()" [nzWidth]='450'>
 	<ng-container *nzDrawerContent>
 		<div style="display: flex;justify-content: center;">

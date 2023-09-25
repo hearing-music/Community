@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
 import { NzMessageService } from 'ng-zorro-antd/message';
+import * as echarts from "echarts";
 @Component({
 	selector: 'ngx-douyin-listenDaren',
 	templateUrl: './douyin-listenDaren.component.html',
@@ -11,6 +12,7 @@ export class DouyinListenDarenComponent implements OnInit {
 	constructor(public api: ApiService, public common: CommonService, private message: NzMessageService, private changeDetectorRef: ChangeDetectorRef) {
 	}
 	ngOnInit(): void {
+		echarts.registerMap("china", this.common.geoCoordMap);
 		this.userId = localStorage.getItem('userId') || '0'
 		let highUserList = localStorage.getItem('highUserList') == 'undefined' ? false : localStorage.getItem('highUserList')
 		this.highUserList = highUserList || ['1', '2', '3', '4', '5', '8', '11', '13', '17', '26', '34']
@@ -694,5 +696,35 @@ export class DouyinListenDarenComponent implements OnInit {
 	// 点击取消
 	handleCancel(): void {
 		this.isVisible = false;
+	}
+	openVideoView3(item: any) {
+	  if (item.seeVideo3) {
+	    item.isShowRadio3 = item.isShowRadio3 ? false : true;
+	    item.isShowRadio = false;
+	    item.isShowRadio2 = false;
+	  } else {
+	    this.douSentenceDetail(item);
+	  }
+	}
+	douSentenceDetail(data: any) {
+	  this.loading = true;
+	  data.seeVideo3 = true;
+	  this.api
+	    .getDouAuthorInfo({ sec_uid: data.SecUid })
+	    .subscribe((res: any) => {
+	      this.loading = false;
+	      if (res.success) {
+	        data.author = res.result;
+	        data.isShowRadio3 = true;
+	        data.isShowRadio2 = false;
+	        data.isShowRadio = false;
+	
+	        data.loadingFinished3 = true;
+	        data.BloggerVideoErr3 = false;
+	      } else {
+	        data.BloggerVideoErr3 = true;
+	        data.loadingFinished3 = true;
+	      }
+	    });
 	}
 }

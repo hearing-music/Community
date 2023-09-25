@@ -1,0 +1,96 @@
+<div class="douyin">
+  <nz-table
+    #basicTable
+    [nzData]="popularValue"
+    [nzPageSize]="10000000"
+    [nzShowPagination]="false"
+    [nzPageIndex]="1"
+    [nzOuterBordered]="false"
+    [nzScroll]="{ y: 'calc(100vh - 5rem - 9rem)' }"
+  >
+    <thead>
+      <tr>
+        <th nzAlign="center" nzWidth="60px">序号</th>
+        <th nzAlign="center">作者昵称</th>
+        <th nzAlign="center">涨粉趋势</th>
+        <th nzAlign="center" nzWidth="120px">粉丝净增长率</th>
+        <th nzAlign="center">新增粉丝量</th>
+        <th nzAlign="center">新增点赞量</th>
+        <th nzAlign="center">作者数据趋势</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let data of basicTable.data; let i = index">
+        <tr>
+          <td nzAlign="center">
+            {{ i + 1 }}
+          </td>
+          <td nzAlign="center">
+            <div
+              style="display: flex; justify-content: center; align-self: center"
+            >
+              <div style="width: 54px">
+                <img
+                  src="{{ data.avatar_url }}"
+                  alt=""
+                  style="width: 54px; height: 54px; border-radius: 50%"
+                />
+              </div>
+              <div style="margin-left: 10px">
+                <div>
+                  <span style="display: flex; flex-wrap: nowrap">{{
+                    data.nick_name
+                  }}</span>
+                </div>
+                <div>
+                  <span style="display: flex; flex-wrap: nowrap"
+                    >粉丝量：{{ data.fans_cnt }}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </td>
+          <td nzAlign="center">
+            <div
+              echarts
+              [options]="data.options"
+              class="demo"
+              style="width: 165px; height: 60px; margin-top: 15px"
+            ></div>
+          </td>
+          <td nzAlign="center">
+            {{ (data.fans_incr_rate * 100).toFixed(2) + "%" }}
+          </td>
+          <td nzAlign="center">
+            {{ data.new_fans_cnt }}
+          </td>
+          <td nzAlign="center">
+            {{ data.new_like_cnt }}
+          </td>
+          <td nzAlign="center">
+            <button
+              nz-button
+              nzType="primary"
+              (click)="onExpandChange(data)"
+              *ngIf="!data.isexpand"
+            >
+              展示详情
+            </button>
+            <button
+              nz-button
+              nzType="primary"
+              (click)="onExpandChange(data)"
+              *ngIf="data.isexpand"
+            >
+              收起
+            </button>
+          </td>
+        </tr>
+        <tr [nzExpand]="data.isexpand">
+          <ngx-dyAuthor [result]="data" *ngIf="data.author"></ngx-dyAuthor>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+</div>
+<ngx-loading *ngIf="loading"></ngx-loading>
