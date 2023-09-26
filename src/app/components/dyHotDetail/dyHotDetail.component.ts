@@ -13,7 +13,7 @@ export class DyHotDetailComponent implements OnInit {
 	constructor(public api: ApiService, public common: CommonService, private message: NzMessageService) {
 	}
 	ngOnInit(): void {
-		if(this.result.sentence_id){
+		if(this.result.sentence_id||this.result.sentenceDetail){
 			this.setEoptions2('热度值')
 		}
 	}

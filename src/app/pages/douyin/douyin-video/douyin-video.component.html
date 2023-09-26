@@ -393,7 +393,7 @@
 						该条是图文
 					</button>
 					<!-- 作者趋势 -->
-					<div *ngIf="(result.seeVideo3 &&result.loadingFinished3 &&result.author &&!result.BloggerVideoErr3) ||!result.seeVideo3" style="cursor: pointer; color: blue; margin-left: 16px" (click)="openVideoView3(result)">
+					<div *ngIf="(result.seeVideo3 &&result.loadingFinished3 &&result.author &&!result.BloggerVideoErr3) ||!result.seeVideo3" style="cursor: pointer; color: blue; margin-left: 16px" (click)="toAuthorDetail(result)">
 						{{ result.isShowRadio3 ? "收起" : "作者数据趋势" }}
 					</div>
 					<div *ngIf="result.seeVideo3 &&result.loadingFinished3 && !result.author &&!result.BloggerVideoErr3" style="margin-left: 16px">
@@ -402,7 +402,7 @@
 					<div *ngIf="result.seeVideo3 && !result.loadingFinished3" style="margin-left: 16px">
 						<nz-spin nzSimple [nzSize]="'small'"></nz-spin>
 					</div>
-					<div *ngIf="result.seeVideo3 &&result.BloggerVideoErr3 && result.loadingFinished3" (click)="douSentenceDetail(result)" style="margin-left: 16px; cursor: pointer; color: blue">
+					<div *ngIf="result.seeVideo3 &&result.BloggerVideoErr3 && result.loadingFinished3" (click)="douAuthorDetail(result)" style="margin-left: 16px; cursor: pointer; color: blue">
 						重新加载
 					</div>
 					<!-- 视频趋势 -->
@@ -418,12 +418,27 @@
 					<div *ngIf="result.seeVideo2 &&result.BloggerVideoErr2 && result.loadingFinished2" (click)="getDouHotBear(result)" style="margin-left: 16px; cursor: pointer; color: blue">
 						重新加载
 					</div>
+					<!-- 热点详情 -->
+					<div *ngIf="result.sentence_id&&((result.seeVideo &&result.loadingFinished &&result.sentenceDetail &&!result.BloggerVideoErr) ||!result.seeVideo)" style="cursor: pointer; color: blue; margin-left: 16px" (click)="toSentenceDetail(result)">
+						{{ result.isShowRadio ? "收起" : "热点详情" }}
+					</div>
+					<div *ngIf="result.seeVideo && !result.loadingFinished" style="margin-left: 16px">
+						<nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+					</div>
+					<div *ngIf="result.seeVideo &&result.BloggerVideoErr && result.loadingFinished" (click)="getDouSentenceDetail(result)" style="margin-left: 16px; cursor: pointer; color: blue">
+						重新加载
+					</div>
+					<div *ngIf='!result.sentence_id' style='color:#ccc;margin-left: 16px;'>
+						暂无热点
+					</div>
 				</div>
 			</div>
 			<!-- 作者趋势 -->
 			<ngx-dyAuthor *ngIf="result.isShowRadio3" [result]="result"></ngx-dyAuthor>
 			<!-- 视频趋势 -->
 			<ngx-dyVideoTrend [result]='result.VideoTrend' *ngIf='result.isShowRadio2'></ngx-dyVideoTrend>
+			<!-- 热点详情 -->
+			<ngx-dyHotDetail [result]='result' *ngIf='result.isShowRadio'></ngx-dyHotDetail>
 		</div>
 		<div class="list" *ngIf="result.detail_msg">
 			<div class="list-item">

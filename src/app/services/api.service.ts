@@ -235,8 +235,8 @@ export class ApiService {
 	}
 	// 抖音 热点详情 热点宝贝
 	getDouSentenceDetail(params:any){
-		let {sentence_id} = params;
-		return this.http.get(this.baseUrl + "/douyin/DouSentenceDetail?sentence_id="+sentence_id)
+		let {sentence_id,videoId} = params;
+		return this.http.get(this.baseUrl + "/douyin/DouSentenceDetail?sentence_id="+sentence_id+"&videoId="+(videoId?videoId:""))
 	}
 	// 抖音 作者趋势分析 热点宝贝
 	getDouAuthorInfo(params:any){
@@ -376,9 +376,9 @@ export class ApiService {
 	  }
 	  //抖音上升热点详情
 	  DouSentenceDetail(params: any) {
-	    let { sentence_id } = params;
+	    let { sentence_id,videoId } = params;
 	    return this.http.get(
-	      this.baseUrl + "/douyin/DouSentenceDetail?sentence_id=" + sentence_id
+	      this.baseUrl + "/douyin/DouSentenceDetail?sentence_id=" + sentence_id+'&videoId='+(videoId?videoId:'')
 	    );
 	  }
 	// 抖音 热点宝贝 热门账号 才艺音乐
@@ -386,6 +386,13 @@ export class ApiService {
 		let { page,pageSize } = params;
 		    return this.http.get(
 		      this.baseUrl + "/douyin/DouMonitorUser?page_num=" + page+'&page_size='+pageSize
+		    );
+	}
+	//抖音 获取热点id
+	DouIndexOfSentenceId(params:any){
+		let { aweme_id } = params;
+		    return this.http.get(
+		      this.baseUrl + "/douyin/DouIndexOfSentenceId?AwemeId=" + aweme_id
 		    );
 	}
 	// 抖音 视频是否被本人监控 并且必须监控该达人

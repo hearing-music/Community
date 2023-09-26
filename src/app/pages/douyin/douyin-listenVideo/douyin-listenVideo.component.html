@@ -59,160 +59,207 @@
 					<td nzAlign='center'>{{item.username}}</td>
 				</tr>
 				<tr [nzExpand]="item.expand">
-					<div>
-						<div style="display: flex;">
-							<div>
-								<a href="{{item.videoUrl}}" target='_blank'>视频链接</a>
+					<div *ngIf='item.isShowRadio3'>
+						<div>
+							<div style="display: flex;">
+								<div>
+									<a href="{{item.videoUrl}}" target='_blank'>视频链接</a>
+								</div>
+								<div style="margin-left: 18px;">
+									<a href="{{item.homeUrl}}" target='_blank'>博主抖音</a>
+								</div>
+								
+								
+								<!-- 视频趋势 -->
+								<div *ngIf="(item.seeVideo2 &&item.loadingFinished2 &&item.VideoTrend &&!item.BloggerVideoErr2) ||!item.seeVideo2" style="cursor: pointer; color: blue; margin-left: 16px" (click)="toVideoTrend(item)">
+									视频趋势
+								</div>
+								<div *ngIf="item.seeVideo2 &&item.loadingFinished2 && !item.VideoTrend &&!item.BloggerVideoErr2" style="margin-left: 16px">
+									暂无
+								</div>
+								<div *ngIf="item.seeVideo2 && !item.loadingFinished2" style="margin-left: 16px">
+									<nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+								</div>
+								<div *ngIf="item.seeVideo2 &&item.BloggerVideoErr2 && item.loadingFinished2" (click)="getDouHotBear(item)" style="margin-left: 16px; cursor: pointer; color: blue">
+									重新加载
+								</div>
+								<!-- 热点详情 -->
+								<div *ngIf="(item.sentence_id||!item.seeVideo)&&((item.seeVideo &&item.loadingFinished &&item.sentenceDetail &&!item.BloggerVideoErr) ||!item.seeVideo)" style="cursor: pointer; color: blue; margin-left: 16px" (click)="toSentenceDetail(item)">
+									热点详情
+								</div>
+								<div *ngIf="item.seeVideo && !item.loadingFinished" style="margin-left: 16px">
+									<nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+								</div>
+								<div *ngIf="item.seeVideo &&item.BloggerVideoErr && item.loadingFinished" (click)="getDouSentenceDetail(item)" style="margin-left: 16px; cursor: pointer; color: blue">
+									重新加载
+								</div>
+								<div *ngIf='!item.sentence_id&&item.seeVideo&&item.loadingFinished' style='color:#ccc;margin-left: 16px;'>
+									暂无热点
+								</div>
+								
+								
+								
+								<div style="margin-left: 18px;" >
+									<a *ngIf='item.Home' href="{{item.Home}}" target='_blank' style="color:#3366ff!important;">博主Q音</a>
+								</div>
+								<div style="margin-left: 18px;" *ngIf='item.Information'>
+									联系方式：<span class="value">{{item.Information}}</span>
+								</div>
+								<div style="margin-left: 18px;" *ngIf='item.Note'>
+									备注：<span class="value">{{item.Note}}</span>
+								</div>
 							</div>
-							<div style="margin-left: 18px;">
-								<a href="{{item.homeUrl}}" target='_blank'>博主抖音</a>
+							<div style="display: flex;">
+								<div *ngIf='item.Vocals!==""'>
+									翻唱唱筹：<span class="value">{{item.Vocals}}</span>
+								</div>
+								<div style="margin-left: 18px;" *ngIf='item.Split!==""'>
+									翻唱分成：<span class="value">{{item.Split}}</span>
+								</div>
+								<div style="margin-left: 18px;" *ngIf='item.Original!==""'>
+									原创唱筹：<span class="value">{{item.Original}}</span>
+								</div>
+								<div style="margin-left: 18px;" *ngIf='item.OriginalShare!==""'>
+									原创分成：<span class="value">{{item.OriginalShare}}</span>
+								</div>
+								<div style="margin-left: 18px;" *ngIf='item.Fees!==""'>
+									翻唱视频费用：<span class="value">{{item.Fees}}</span>
+								</div>
 							</div>
-							<div style="margin-left: 18px;" >
-								<a *ngIf='item.Home' href="{{item.Home}}" target='_blank' style="color:#3366ff!important;">博主Q音</a>
+							<div style="display: flex;">
+								<div>
+									博主获赞：<span class="value">{{common.toThousands(item.Clicklike)}}</span>
+								</div>
+								<div style="margin-left: 18px;">
+									博主粉丝：<span class="value">{{common.toThousands(item.Fans)}}</span>
+								</div>
+								<div style="margin-left: 18px;" *ngIf='item.Type'>
+									类型：<span class="value">{{item.Type}}</span>
+								</div>
+								<div style="margin-left: 18px;" *ngIf='item.Style'>
+									风格：<span class="value">{{item.Style}}</span>
+								</div>
+								<div style="margin-left: 18px;" *ngIf='item.Characteristics'>
+									嗓音：<span class="value">{{item.Characteristics}}</span>
+								</div>
 							</div>
-							<div style="margin-left: 18px;" *ngIf='item.Information'>
-								联系方式：<span class="value">{{item.Information}}</span>
+							<div style="display: flex;" *ngIf='item.position!=-1&&item.commentList[item.position].createTime'>
+								<div style="display: flex;align-items: center;">
+									评论人：
+									<span class="value" *ngIf='item.commentList[item.position].uid==item.commentSecUid||item.commentList[item.position].secUid==item.commentSecUid'>
+										{{item.commentList[item.position].nickName}}
+									</span>
+									<span class="value" style="color: red;" *ngIf='item.commentList[item.position].uid!=item.commentSecUid&&item.commentList[item.position].secUid!=item.commentSecUid'>
+										{{item.commentList[item.position].nickName}}
+									</span>
+									<img *ngIf='item.commentList[item.position].uid==item.commentSecUid||item.commentList[item.position].secUid==item.commentSecUid' src="../../../assets/img/zhengque.svg" class="icon" />
+									<img *ngIf='item.commentList[item.position].uid!=item.commentSecUid&&item.commentList[item.position].secUid!=item.commentSecUid' src="../../../assets/img/cuowu.svg" class="icon" />
+								</div>
+								<div style="margin-left: 18px;">
+									点赞：<span class="value">{{common.toThousands(item.commentList[item.position].diggCount)}}</span>
+								</div>
+								<div style="margin-left: 18px;">
+									归属地：<span class="value">{{item.commentList[item.position].ipLabel}}</span>
+								</div>
+								<div style="margin-left: 18px;">
+									时间：<span class="value">{{common.getTime(item.commentList[item.position].createTime*1000)}}</span>
+								</div>
 							</div>
-							<div style="margin-left: 18px;" *ngIf='item.Note'>
-								备注：<span class="value">{{item.Note}}</span>
+							<div style="display: flex;" *ngIf='item.position!=-1&&item.commentList[item.position].createTime'>
+								<div>
+									位置：<span class="value">{{item.position+1}}</span>
+								</div>
+								<div style="margin-left: 18px;">
+									关键词：
+									<span class="value" *ngFor="let ct of item.commentTextArr;let cti = index;">
+										{{cti==item.commentTextArr.length-1?ct:ct+' / '}}
+									</span>
+								</div>
+								<div style="margin-left: 18px;display:flex;align-items: center;">
+									评论：
+									<div class="value">
+										<div [innerHTML]="assembleHTML(item.textHtml)"></div>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div style="display: flex;">
-							<div *ngIf='item.Vocals!==""'>
-								翻唱唱筹：<span class="value">{{item.Vocals}}</span>
+						<div *ngFor="let t of item.admireCountKeys;let i = index;" style="padding-top:8px;margin-top: 8px;border-top: 1px solid #ccc;">
+							<div style="margin-bottom: 8px;">
+								{{common.getTime(t)}}
 							</div>
-							<div style="margin-left: 18px;" *ngIf='item.Split!==""'>
-								翻唱分成：<span class="value">{{item.Split}}</span>
-							</div>
-							<div style="margin-left: 18px;" *ngIf='item.Original!==""'>
-								原创唱筹：<span class="value">{{item.Original}}</span>
-							</div>
-							<div style="margin-left: 18px;" *ngIf='item.OriginalShare!==""'>
-								原创分成：<span class="value">{{item.OriginalShare}}</span>
-							</div>
-							<div style="margin-left: 18px;" *ngIf='item.Fees!==""'>
-								翻唱视频费用：<span class="value">{{item.Fees}}</span>
-							</div>
-						</div>
-						<div style="display: flex;">
-							<div>
-								博主获赞：<span class="value">{{common.toThousands(item.Clicklike)}}</span>
-							</div>
-							<div style="margin-left: 18px;">
-								博主粉丝：<span class="value">{{common.toThousands(item.Fans)}}</span>
-							</div>
-							<div style="margin-left: 18px;" *ngIf='item.Type'>
-								类型：<span class="value">{{item.Type}}</span>
-							</div>
-							<div style="margin-left: 18px;" *ngIf='item.Style'>
-								风格：<span class="value">{{item.Style}}</span>
-							</div>
-							<div style="margin-left: 18px;" *ngIf='item.Characteristics'>
-								嗓音：<span class="value">{{item.Characteristics}}</span>
-							</div>
-						</div>
-						<div style="display: flex;" *ngIf='item.position!=-1&&item.commentList[item.position].createTime'>
-							<div style="display: flex;align-items: center;">
-								评论人：
-								<span class="value" *ngIf='item.commentList[item.position].uid==item.commentSecUid||item.commentList[item.position].secUid==item.commentSecUid'>
-									{{item.commentList[item.position].nickName}}
-								</span>
-								<span class="value" style="color: red;" *ngIf='item.commentList[item.position].uid!=item.commentSecUid&&item.commentList[item.position].secUid!=item.commentSecUid'>
-									{{item.commentList[item.position].nickName}}
-								</span>
-								<img *ngIf='item.commentList[item.position].uid==item.commentSecUid||item.commentList[item.position].secUid==item.commentSecUid' src="../../../assets/img/zhengque.svg" class="icon" />
-								<img *ngIf='item.commentList[item.position].uid!=item.commentSecUid&&item.commentList[item.position].secUid!=item.commentSecUid' src="../../../assets/img/cuowu.svg" class="icon" />
-							</div>
-							<div style="margin-left: 18px;">
-								点赞：<span class="value">{{common.toThousands(item.commentList[item.position].diggCount)}}</span>
-							</div>
-							<div style="margin-left: 18px;">
-								归属地：<span class="value">{{item.commentList[item.position].ipLabel}}</span>
-							</div>
-							<div style="margin-left: 18px;">
-								时间：<span class="value">{{common.getTime(item.commentList[item.position].createTime*1000)}}</span>
-							</div>
-						</div>
-						<div style="display: flex;" *ngIf='item.position!=-1&&item.commentList[item.position].createTime'>
-							<div>
-								位置：<span class="value">{{item.position+1}}</span>
-							</div>
-							<div style="margin-left: 18px;">
-								关键词：
-								<span class="value" *ngFor="let ct of item.commentTextArr;let cti = index;">
-									{{cti==item.commentTextArr.length-1?ct:ct+' / '}}
-								</span>
-							</div>
-							<div style="margin-left: 18px;display:flex;align-items: center;">
-								评论：
-								<div class="value">
-									<div [innerHTML]="assembleHTML(item.textHtml)"></div>
+							<div style="display: flex;color:rgba(0,0,0,0.45);font-weight: bold;">
+								<!-- 点赞数 -->
+								<div style="display: flex;align-items: center;">
+									<span nz-tooltip [nzTooltipTitle]="'视频获赞数'">
+										<div style="display: flex;align-items: center;">
+											<img src="../../../assets/img/dianzan.svg" class="icon2" />
+											{{common.toThousands(item.diggCountArr[i])}}
+										</div>
+									</span>
+								</div>
+								<!-- 视频评论数 -->
+								<div style="display: flex;align-items: center;margin-left:12px;">
+									<span nz-tooltip [nzTooltipTitle]="'视频评论数'">
+										<div style="display: flex;align-items: center;">
+											<img src="../../../assets/img/pinglun.svg" class="icon2" />
+											{{common.toThousands(item.commentCountArr[i])}}
+										</div>
+									</span>
+								</div>
+								<!-- 视频收藏数 -->
+								<div style="display: flex;align-items: center;margin-left:12px;">
+									<span nz-tooltip [nzTooltipTitle]="'视频收藏数'">
+										<div style="display: flex;align-items: center;">
+											<img src="../../../assets/img/shoucang.svg" class="icon2" />
+											{{common.toThousands(item.collectCountArr[i])}}
+										</div>
+									</span>
+								</div>
+								<!-- 视频分享数 -->
+								<div style="display: flex;align-items: center;margin-left:12px;">
+									<span nz-tooltip [nzTooltipTitle]="'视频分享数'">
+										<div style="display: flex;align-items: center;">
+											<img src="../../../assets/img/fenxiang.svg" class="icon2" />
+											{{common.toThousands(item.shareCountArr[i])}}
+										</div>
+									</span>
+								</div>
+								<!-- 视频播放数 -->
+								<div style="display: flex;align-items: center;margin-left:12px;">
+									<span nz-tooltip [nzTooltipTitle]="'视频播放数'">
+										<div style="display: flex;align-items: center;">
+											<img src="../../../assets/img/bofang.svg" class="icon2" />
+											{{common.toThousands(item.playCountArr[i])}}
+										</div>
+									</span>
+								</div>
+								<!-- 待定 -->
+								<div style="display: flex;align-items: center;margin-left:12px;">
+									<span nz-tooltip [nzTooltipTitle]="'待定'">
+										<div style="display: flex;align-items: center;">
+											<img src="../../../assets/img/daiding.svg" class="icon2" />
+											{{common.toThousands(item.admireCountArr[i])}}
+										</div>
+									</span>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div *ngFor="let t of item.admireCountKeys;let i = index;" style="padding-top:8px;margin-top: 8px;border-top: 1px solid #ccc;">
-						<div style="margin-bottom: 8px;">
-							{{common.getTime(t)}}
+					
+					<div *ngIf='item.isShowRadio2'>
+						<div style="color:blue;cursor:pointer" (click)='reback(item)'>
+							返回
 						</div>
-						<div style="display: flex;color:rgba(0,0,0,0.45);font-weight: bold;">
-							<!-- 点赞数 -->
-							<div style="display: flex;align-items: center;">
-								<span nz-tooltip [nzTooltipTitle]="'视频获赞数'">
-									<div style="display: flex;align-items: center;">
-										<img src="../../../assets/img/dianzan.svg" class="icon2" />
-										{{common.toThousands(item.diggCountArr[i])}}
-									</div>
-								</span>
-							</div>
-							<!-- 视频评论数 -->
-							<div style="display: flex;align-items: center;margin-left:12px;">
-								<span nz-tooltip [nzTooltipTitle]="'视频评论数'">
-									<div style="display: flex;align-items: center;">
-										<img src="../../../assets/img/pinglun.svg" class="icon2" />
-										{{common.toThousands(item.commentCountArr[i])}}
-									</div>
-								</span>
-							</div>
-							<!-- 视频收藏数 -->
-							<div style="display: flex;align-items: center;margin-left:12px;">
-								<span nz-tooltip [nzTooltipTitle]="'视频收藏数'">
-									<div style="display: flex;align-items: center;">
-										<img src="../../../assets/img/shoucang.svg" class="icon2" />
-										{{common.toThousands(item.collectCountArr[i])}}
-									</div>
-								</span>
-							</div>
-							<!-- 视频分享数 -->
-							<div style="display: flex;align-items: center;margin-left:12px;">
-								<span nz-tooltip [nzTooltipTitle]="'视频分享数'">
-									<div style="display: flex;align-items: center;">
-										<img src="../../../assets/img/fenxiang.svg" class="icon2" />
-										{{common.toThousands(item.shareCountArr[i])}}
-									</div>
-								</span>
-							</div>
-							<!-- 视频播放数 -->
-							<div style="display: flex;align-items: center;margin-left:12px;">
-								<span nz-tooltip [nzTooltipTitle]="'视频播放数'">
-									<div style="display: flex;align-items: center;">
-										<img src="../../../assets/img/bofang.svg" class="icon2" />
-										{{common.toThousands(item.playCountArr[i])}}
-									</div>
-								</span>
-							</div>
-							<!-- 待定 -->
-							<div style="display: flex;align-items: center;margin-left:12px;">
-								<span nz-tooltip [nzTooltipTitle]="'待定'">
-									<div style="display: flex;align-items: center;">
-										<img src="../../../assets/img/daiding.svg" class="icon2" />
-										{{common.toThousands(item.admireCountArr[i])}}
-									</div>
-								</span>
-							</div>
-						</div>
+						<!-- 视频趋势 -->
+						<ngx-dyVideoTrend [result]='item.VideoTrend' ></ngx-dyVideoTrend>
 					</div>
-
+					<div *ngIf='item.isShowRadio'>
+						<div style="color:blue;cursor:pointer" (click)='reback(item)'>
+							返回
+						</div>
+						<!-- 热点详情 -->
+						<ngx-dyHotDetail [result]='item'></ngx-dyHotDetail>
+					</div>
 				</tr>
 			</ng-template>
 		</tbody>

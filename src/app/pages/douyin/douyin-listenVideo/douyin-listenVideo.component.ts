@@ -48,6 +48,7 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 	  	console.log(res)
 		if(res.success){
 			res.result.forEach((item:any)=>{
+				item.isShowRadio3 = true;
 				item.isplay=false;
 				item.homeUrl='https://www.douyin.com/user/'+item.SecUid
 				item.videoUrl = `https://www.douyin.com/user/${item.SecUid}?modal_id=${item.awemeId}`
@@ -175,6 +176,7 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 				return
 			}
 			res.result.forEach((item:any)=>{
+				item.isShowRadio3 = true;
 				item.homeUrl='https://www.douyin.com/user/'+item.SecUid
 				item.videoUrl = `https://www.douyin.com/user/${item.SecUid}?modal_id=${item.awemeId}`
 				item.admireCountArr = Object.values(item.admireCount)
@@ -229,5 +231,110 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 		   downloadLink.href = URL.createObjectURL(blob);
 		   downloadLink.download = "DouYinVideoListen.xlsb";
 			downloadLink.click();
+	}
+	
+	// 视频趋势
+	toVideoTrend(item: any) {
+		item.aweme_id = item.aweme_id || item.awemeId;
+		if (item.seeVideo2) {
+			item.isShowRadio2 = item.isShowRadio2 ? false : true;
+			item.isShowRadio3 = false;
+			item.isShowRadio = false;
+		} else {
+			this.getDouHotBear(item)
+		}
+	}
+	// 热榜 视频分析
+	getDouHotBear(item: any) {
+		item.loadingFinished2 = false;
+		item.seeVideo2 = true;
+		this.api.getDouHotBear({ aweme_id: item.aweme_id }).subscribe((res: any) => {
+			console.log(res)
+			if (res.success) {
+				if (res.result.sentence_type == 5) {
+					res.result.type = '挑战榜'
+				}
+				item.VideoTrend = res.result;
+				item.isShowRadio2 = true;
+				item.isShowRadio3 = false;
+				item.isShowRadio = false;
+				item.loadingFinished2 = true;
+				item.BloggerVideoErr2 = false;
+			} else {
+				item.BloggerVideoErr2 = true;
+				item.loadingFinished2 = true;
+			}
+		}, (err: any) => {
+			console.log(err)
+			item.BloggerVideoErr2 = true;
+			item.loadingFinished2 = true;
+		})
+	}
+	// 热点id
+	getDouIndexOfSentenceId(item: any) {
+		item.loadingFinished = false;
+		item.seeVideo = true;
+		return new Promise((resolve) => {
+			this.api.DouIndexOfSentenceId({ aweme_id: item.aweme_id }).subscribe((res: any) => {
+				console.log(res)
+				if (res.success) {
+					item.sentence_id = res.result
+				} else {
+					item.sentence_id = 0
+				}
+				item.loadingFinished = true;
+				resolve(item.sentence_id)
+			}, (err: any) => {
+				console.log(err)
+				item.sentence_id = 0
+				item.loadingFinished = true;
+				resolve(0)
+				
+			})
+		})
+	}
+	// 热点详情
+	async toSentenceDetail(item: any) {
+		let sentence_id = await this.getDouIndexOfSentenceId(item)
+		if(!sentence_id) return
+		if (item.seeVideo) {
+			item.isShowRadio = item.isShowRadio ? false : true;
+			item.isShowRadio3 = false;
+			item.isShowRadio2 = false;
+		} else {
+			this.getDouSentenceDetail(item)
+		}
+	}
+	// 热点详情
+	getDouSentenceDetail(item: any) {
+		let sentence_id = item.sentence_id
+		item.loadingFinished = false;
+		item.seeVideo = true;
+		this.api.getDouSentenceDetail({ sentence_id,videoId:item.aweme_id }).subscribe((res: any) => {
+			console.log(res)
+			if (res.success) {
+				res.result.Top30Video = res.result.Top30Video || []
+				res.result.DouSentenceTimeline = res.result.DouSentenceTimeline || []
+				res.result.DouSentenceTimeline = this.common.quchong(res.result.DouSentenceTimeline, 'billBoard_type')
+				item.sentenceDetail = res.result;
+				item.isShowRadio = true;
+				item.isShowRadio2 = false;
+				item.isShowRadio3 = false;
+				item.loadingFinished = true;
+				item.BloggerVideoErr = false;
+			} else {
+				item.BloggerVideoErr = true;
+				item.loadingFinished = true;
+			}
+		}, (err: any) => {
+			console.log(err)
+			item.BloggerVideoErr = true;
+			item.loadingFinished = true;
+		})
+	}
+	reback(item:any){
+		item.isShowRadio3 = true;
+		item.isShowRadio2 = false;
+		item.isShowRadio = false;
 	}
 }

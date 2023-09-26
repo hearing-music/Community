@@ -1,9 +1,9 @@
-<div>
+<div style="padding-bottom: 30px;">
 	<!-- 热点详情 -->
-	<div *ngIf='result.sentence_id'>
+	<div *ngIf='result.sentence_id||result.sentenceDetail'>
 		<div style='padding:12px 0px;display:flex;align-items:center;'>
-			<div style='font-size: 20px;font-weight: bold;' *ngIf='result.sentence'>
-				{{result.sentence}}
+			<div style='font-size: 20px;font-weight: bold;' *ngIf='result.sentence||result.sentenceDetail.sentence'>
+				{{result.sentence||result.sentenceDetail.sentence}}
 			</div>
 			<div style="display: flex;">
 				<div *ngFor='let item of result.sentenceDetail.DouSentenceTimeline'>
@@ -112,7 +112,7 @@
 			</nz-tab>
 		</nz-tabset>
 	</div>
-	<div *ngIf='!result.sentence_id' style='font-size: 20px;font-weight: bold;text-align: center;'>
+	<div *ngIf='!result.sentence_id&&!result.sentenceDetail' style='font-size: 20px;font-weight: bold;text-align: center;'>
 		该视频没有热点☹
 	</div>
 </div>

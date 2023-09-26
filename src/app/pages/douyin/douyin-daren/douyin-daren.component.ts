@@ -203,6 +203,7 @@ export class DouyinDarenComponent implements OnInit {
           }
         }
       }
+	  // item.NewFans = [{sentence_id:1409115}]
       if (res.nickName) {
         let diggCountAll = 0;
         res.BloggerVideo.forEach((items: any) => {

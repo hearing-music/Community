@@ -48,15 +48,16 @@ export class BloggerVideosComponent implements OnInit {
 	}
 	// 热点详情
 	getDouSentenceDetail(item: any,sentence_id:any) {
+			let aweme_id = item.aweme_id||item.VideoDetails.aweme_id;
 			item.loadingFinished2 = false;
 			item.seeVideo2 = true;
-			this.api.getDouSentenceDetail({ sentence_id }).subscribe((res: any) => {
+			this.api.getDouSentenceDetail({ sentence_id,videoId:aweme_id }).subscribe((res: any) => {
 				console.log(res)
 				if (res.success) {
 					res.result.Top30Video = res.result.Top30Video || []
 					res.result.DouSentenceTimeline = this.common.quchong(res.result.DouSentenceTimeline,'billBoard_type')
-					this.sentenceDetail = res.result;
-					item.sentenceDetail = res.result;
+					this.sentenceDetail = {sentenceDetail:res.result};
+					item.sentenceDetail = {sentenceDetail:res.result};
 					this.isShowRadio2=true
 					this.isShowRadio=false
 					item.isShowRadio2 = true;
