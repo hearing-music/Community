@@ -86,7 +86,43 @@
 			</div>
 		</nz-tab>
 		<nz-tab nzTitle="粉丝画像">
-			<div echarts [options]="echartsOptions7" class="echartsDemo" *ngIf='result.author'>
+			<div style="position: relative;padding-bottom:120px;">
+				<div echarts [options]="echartsOptions7" class="echartsDemo" *ngIf='result.author'></div>
+				<div class="tableEcharts">
+					<nz-table
+					  #basicTable
+					  [nzData]="result.author.province.portrait"
+					  [nzPageSize]="10000000"
+					  [nzShowPagination]="false"
+					  [nzPageIndex]="1"
+					  [nzOuterBordered]="false"
+					  [nzScroll]="{ y: '180px' }"
+					>
+					  <thead>
+					    <tr>
+					      <th nzAlign="center">地点</th>
+					      <th nzAlign="center">占比</th>
+					      <th nzAlign="center">偏好度</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <ng-container *ngFor="let data of basicTable.data; let i = index">
+					      <tr>
+					        <td nzAlign="center">
+					          {{data.name}}
+					        </td>
+					        <td nzAlign="center">
+					         {{(data.value*100).toFixed(2)}}%
+					        </td>
+					        <td nzAlign="center">
+					         {{portrait_tgiValue(result,data)}}
+					        </td>
+					      </tr>
+					    </ng-container>
+					  </tbody>
+					</nz-table>
+				</div>
+				<div echarts [options]="echartsOptions8" class="echartsDemo tableEcharts2" *ngIf='result.author'></div>
 			</div>
 			<div style="display: flex;">
 				<div echarts [options]="echartsOptions4" class="echartsDemo" *ngIf='result.author' style="flex:1;">

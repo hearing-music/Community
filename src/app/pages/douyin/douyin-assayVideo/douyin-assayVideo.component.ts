@@ -52,12 +52,12 @@ export class DouyinAssayVideoComponent implements OnInit {
 		if (!item.author && sec_uid) {
 			this.loading = true;
 			this.api.getDouAuthorInfo({ sec_uid }).subscribe((res: any) => {
-				console.log(res)
 				this.loading = false;
 				if (res.success) {
 					
 					this.result.author = res.result
 					this.result.authorFinished = true
+					console.log(this.result)
 					// this.fansprogressCount(res.result.fans_milestone)
 					// this.setEoptions3('新增点赞量')
 					// this.setEoptions4(this.result)

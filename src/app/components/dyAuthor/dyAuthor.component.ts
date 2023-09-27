@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import { CommonService } from "../../services/common.service";
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -13,7 +13,7 @@ export class DyAuthorComponent implements OnInit {
 	constructor(public api: ApiService, public common: CommonService, private message: NzMessageService) {
 	}
 	ngOnInit(): void {
-		if(this.result.author){
+		if (this.result.author) {
 			// 处理里程碑数据
 			this.result.author = this.authorData(this.result.author)
 			// 计算里程碑数据
@@ -23,9 +23,10 @@ export class DyAuthorComponent implements OnInit {
 			this.setEoptions5(this.result)
 			this.setEoptions6(this.result)
 			this.setEoptions7(this.result)
+			this.setEoptions8(this.result)
 		}
 	}
-	@Input() result: any=[];
+	@Input() result: any = [];
 	loading: any = false
 	active3: any = '新增点赞量'
 	echartsOptions3: any = {};
@@ -33,9 +34,10 @@ export class DyAuthorComponent implements OnInit {
 	echartsOptions5: any = {};
 	echartsOptions6: any = {};
 	echartsOptions7: any = {};
+	echartsOptions8: any = {};
 	// 里程碑进度
-	fansprogress:any='0%'
-	nzSelectedIndex3:any=0;
+	fansprogress: any = '0%'
+	nzSelectedIndex3: any = 0;
 	changeTag3(e: any) {
 		this.active3 = e;
 		this.setEoptions3(e)
@@ -94,9 +96,9 @@ export class DyAuthorComponent implements OnInit {
 		date = e.author.city.portrait.map((e: any) => e.name)
 		// value = e.author.city.map((e: any) => e.value)
 		value2 = e.author.city.portrait.map((e: any) => Number(e.value.toFixed(6)))
-		for(let i =0;i<date.length;i++){
-			let o = e.author.city.portrait_tgi.find((e:any)=>e.name==date[i])
-			if(o){
+		for (let i = 0; i < date.length; i++) {
+			let o = e.author.city.portrait_tgi.find((e: any) => e.name == date[i])
+			if (o) {
 				value.push(Number(o.value.toFixed(2)))
 			}
 		}
@@ -154,7 +156,7 @@ export class DyAuthorComponent implements OnInit {
 						normal: {
 							color: "#e09216"//设置折线颜色
 						}
-	
+
 					}
 				}
 			]
@@ -167,9 +169,9 @@ export class DyAuthorComponent implements OnInit {
 		date = e.author.gender.portrait.map((e: any) => e.name == 'male' ? '男' : '女')
 		// value = e.author.gender.map((e: any) => e.value)
 		value2 = e.author.gender.portrait.map((e: any) => Number(e.value.toFixed(6)))
-		for(let i =0;i<date.length;i++){
-			let o = e.author.gender.portrait_tgi.find((e:any)=>(e.name=='male'&&date[i]=='男')||(e.name=='female'&&date[i]=='女'))
-			if(o){
+		for (let i = 0; i < date.length; i++) {
+			let o = e.author.gender.portrait_tgi.find((e: any) => (e.name == 'male' && date[i] == '男') || (e.name == 'female' && date[i] == '女'))
+			if (o) {
 				value.push(Number(o.value.toFixed(2)))
 			}
 		}
@@ -211,7 +213,7 @@ export class DyAuthorComponent implements OnInit {
 			series: [
 				{
 					type: 'bar',
-					name:'性别',
+					name: '性别',
 					// label: {
 					// 	show: true,
 					// 	formatter: '{c}%' //格式化数据
@@ -231,7 +233,7 @@ export class DyAuthorComponent implements OnInit {
 						normal: {
 							color: "#e09216"//设置折线颜色
 						}
-				
+
 					}
 				}
 			]
@@ -243,10 +245,10 @@ export class DyAuthorComponent implements OnInit {
 		let value2 = []
 		date = e.author.age.portrait.map((e: any) => e.name)
 		// value = e.author.age.map((e: any) => e.value)
-		value2 = e.author.age.portrait.map((e: any) =>  Number(e.value.toFixed(6)))
-		for(let i =0;i<date.length;i++){
-			let o = e.author.age.portrait_tgi.find((e:any)=>e.name==date[i])
-			if(o){
+		value2 = e.author.age.portrait.map((e: any) => Number(e.value.toFixed(6)))
+		for (let i = 0; i < date.length; i++) {
+			let o = e.author.age.portrait_tgi.find((e: any) => e.name == date[i])
+			if (o) {
 				value.push(Number(o.value.toFixed(2)))
 			}
 		}
@@ -288,7 +290,7 @@ export class DyAuthorComponent implements OnInit {
 			series: [
 				{
 					type: 'bar',
-					name:'年龄',
+					name: '年龄',
 					// label: {
 					// 	show: true,
 					// 	formatter: '{c}%' //格式化数据
@@ -308,68 +310,140 @@ export class DyAuthorComponent implements OnInit {
 						normal: {
 							color: "#e09216"//设置折线颜色
 						}
-				
+
 					}
 				}
 			]
 		}
 	}
-	setEoptions7(e:any){
-	        let date = []
-	        let data = []
-	        let data2 = []
-	        data = e.author.province.portrait
-	        data2 = e.author.province.portrait_tgi
-	        this.echartsOptions7= {
-	      title: {
-	        text: '粉丝地域分布',
-	      },
-	      tooltip: {
-	        trigger: 'item',
-	        formatter:  function (params) {
-	            // console.log(params)
-	            let o = data.find((e:any)=>e.name==params.name)
-	          var value1 = (params.data.value).toFixed(2); // 第一个值
-	          var value2 = (o.value).toFixed(6); // 第二个值
-	          return params.name + '<br/>偏好度' + value1 + '' + '<br/>占比' + value2 + ' ';
-	        }
-	      },
-	      toolbox: {
-	        show: true,
-	        orient: 'vertical',
-	        left: 'right',
-	        top: 'center',
-	        feature: {
-	          dataView: { readOnly: false },
-	          restore: {},
-	          saveAsImage: {}
-	        }
-	      },
-	      visualMap: {
-	        min: 0,
-	        max: 500,
-	        text: ['High', 'Low'],
-	        realtime: false,
-	        calculable: true,
-	        inRange: {
-	          color: ['lightskyblue', 'yellow', 'orangered']
-	        }
-	      },
-	      series: [
-	        {
-	          name: '偏好度',
-	          type: 'map',
-	          mapType:'china',
-	          label: {
-	            show: false
-	          },
-	          data:data2,
-	        }
-	      ],
-	        }
-	    }
+	setEoptions7(e: any) {
+		let date = []
+		let data = []
+		let data2 = []
+		data = e.author.province.portrait
+		data2 = e.author.province.portrait_tgi
+		this.echartsOptions7 = {
+			title: {
+				text: '粉丝地域分布',
+			},
+			tooltip: {
+				trigger: 'item',
+				formatter: function(params) {
+					// console.log(params)
+					params.data.value = params.data.value ||0
+					let o = data.find((e: any) => e.name == params.name)
+					var value1 = (params.data.value).toFixed(2); // 第一个值
+					var value2 = (o.value).toFixed(6); // 第二个值
+					return params.name + '<br/>偏好度' + value1 + '' + '<br/>占比' + value2 + ' ';
+				}
+			},
+
+			visualMap: {
+				min: 0,
+				max: 500,
+				text: ['High', 'Low'],
+				realtime: false,
+				calculable: true,
+				inRange: {
+					color: ['lightskyblue', 'yellow', 'orangered']
+				}
+			},
+			series: [
+				{
+					name: '偏好度',
+					type: 'map',
+					mapType: 'china',
+					label: {
+						show: false
+					},
+					data: data2,
+				}
+
+			],
+		}
+	}
+	setEoptions8(e: any) {
+		let date = []
+		let data = []
+		let data2 = []
+		let name = e.author.province.portrait.map((e: any) => e.name)
+		e.author.province.portrait = e.author.province.portrait.sort((a, b) => b.value - a.value)
+		e.author.province.portrait_tgi = e.author.province.portrait_tgi.sort((a, b) => b.value - a.value)
+		data = [...e.author.province.portrait]
+		data2 = [...e.author.province.portrait_tgi]
+		data.length=5
+		name.length=5
+		this.echartsOptions8 = {
+			width: 300,
+			height: 300,
+			tooltip: {
+				trigger: 'item',
+				formatter: function(params) {
+					let o = data2.find((e: any) => e.name == params.name)
+					var value1 = (params.data.value).toFixed(2); // 第一个值
+					var value2 = (o.value).toFixed(6); // 第二个值
+					return params.name + '<br/>偏好度' + value1 + '' + '<br/>占比' + value2 + ' ';
+				}
+			},
+			grid: {
+				left: 0,
+				right: 0,
+				top: 0,
+				bottom: 0,
+			},
+			series: [
+				{
+					position: 'center',
+					name: '',
+					type: 'pie',
+					radius: [20, 80],
+					center: ['50%', '50%'],
+					roseType: 'radius',
+					itemStyle: {
+						borderRadius: 20,
+						normal: {
+							borderRadius: 20,
+							color: function(colors: any) {
+								var colorList = [
+									'#fc8251',
+									'#5470c6',
+									'#9A60B4',
+									'#ef6567',
+									'#f9c956',
+									'#3BA272',
+									 '#FFCCCC', '#CCFFFF', '#CCFFCC', '#CCCCFF','#d87c7c','#919e8b', '#d7ab82', '#6e7074','#61a0a8','#efa18d', '#787464', '#cc7e63', '#724e58', '#4b565b'
+								];
+								return colorList[colors.dataIndex];
+							}
+						},
+					},
+					label: {
+						show: true
+					},
+					labelLine: {
+					            normal: {
+					                length: 3,
+					                length2: 3,
+					            }
+					        },
+					emphasis: {
+						label: {
+							show: true
+						}
+					},
+					data: data
+				},
+			]
+		}
+	}
+	// 地域分布偏好度取值 单
+	portrait_tgiValue(result: any, data: any) {
+		let value = result.author.province.portrait_tgi.find(e => e.name == data.name).value || 0
+		value = value.toFixed(2)
+		return value
+	}
 	// 计算里程碑进度
-	fansprogressCount(fans_milestone:any){
+	fansprogressCount(fans_milestone: any) {
 		let w1 = fans_milestone.first_1w_fans_date;
 		let w10 = fans_milestone.first_10w_fans_date;
 		let w30 = fans_milestone.first_30w_fans_date;
@@ -384,24 +458,24 @@ export class DyAuthorComponent implements OnInit {
 		let w500x = '68%'
 		let w1000x = '86%'
 		let w1000d = '97.5%'
-		if(w1000){
+		if (w1000) {
 			this.fansprogress = w1000d
-		}else if(w500){
+		} else if (w500) {
 			this.fansprogress = w1000x
-		}else if(w100){
+		} else if (w100) {
 			this.fansprogress = w500x
-		}else if(w30){
+		} else if (w30) {
 			this.fansprogress = w100x
-		}else if(w10){
+		} else if (w10) {
 			this.fansprogress = w30x
-		}else if(w1){
+		} else if (w1) {
 			this.fansprogress = w10x
-		}else{
+		} else {
 			this.fansprogress = w1x
 		}
-		
+
 	}
-	authorData(result:any){
+	authorData(result: any) {
 		result.create_time = result.create_time * 1000;
 		result.fans_milestone.first_1w_fans_date = result.fans_milestone.first_1w_fans_date.split("")
 		for (let i = 0; i < result.fans_milestone.first_1w_fans_date.length; i++) {
@@ -410,7 +484,7 @@ export class DyAuthorComponent implements OnInit {
 			}
 		}
 		result.fans_milestone.first_1w_fans_date = result.fans_milestone.first_1w_fans_date.join("")
-		
+
 		result.fans_milestone.first_10w_fans_date = result.fans_milestone.first_10w_fans_date.split("")
 		for (let i = 0; i < result.fans_milestone.first_10w_fans_date.length; i++) {
 			if (i == 3 || i == 5) {
@@ -418,7 +492,7 @@ export class DyAuthorComponent implements OnInit {
 			}
 		}
 		result.fans_milestone.first_10w_fans_date = result.fans_milestone.first_10w_fans_date.join("")
-		
+
 		result.fans_milestone.first_30w_fans_date = result.fans_milestone.first_30w_fans_date.split("")
 		for (let i = 0; i < result.fans_milestone.first_30w_fans_date.length; i++) {
 			if (i == 3 || i == 5) {
@@ -426,7 +500,7 @@ export class DyAuthorComponent implements OnInit {
 			}
 		}
 		result.fans_milestone.first_30w_fans_date = result.fans_milestone.first_30w_fans_date.join("")
-		
+
 		result.fans_milestone.first_100w_fans_date = result.fans_milestone.first_100w_fans_date.split("")
 		for (let i = 0; i < result.fans_milestone.first_100w_fans_date.length; i++) {
 			if (i == 3 || i == 5) {
@@ -434,7 +508,7 @@ export class DyAuthorComponent implements OnInit {
 			}
 		}
 		result.fans_milestone.first_100w_fans_date = result.fans_milestone.first_100w_fans_date.join("")
-		
+
 		result.fans_milestone.first_500w_fans_date = result.fans_milestone.first_500w_fans_date.split("")
 		for (let i = 0; i < result.fans_milestone.first_500w_fans_date.length; i++) {
 			if (i == 3 || i == 5) {
@@ -442,7 +516,7 @@ export class DyAuthorComponent implements OnInit {
 			}
 		}
 		result.fans_milestone.first_500w_fans_date = result.fans_milestone.first_500w_fans_date.join("")
-		
+
 		result.fans_milestone.first_1000w_fans_date = result.fans_milestone.first_1000w_fans_date.split("")
 		for (let i = 0; i < result.fans_milestone.first_1000w_fans_date.length; i++) {
 			if (i == 3 || i == 5) {
@@ -450,14 +524,14 @@ export class DyAuthorComponent implements OnInit {
 			}
 		}
 		result.fans_milestone.first_1000w_fans_date = result.fans_milestone.first_1000w_fans_date.join("")
-		
+
 		result.fans_milestone.first_1w_fans_date_t = new Date(result.fans_milestone.first_1w_fans_date).getTime()
 		result.fans_milestone.first_10w_fans_date_t = new Date(result.fans_milestone.first_10w_fans_date).getTime()
 		result.fans_milestone.first_30w_fans_date_t = new Date(result.fans_milestone.first_30w_fans_date).getTime()
 		result.fans_milestone.first_100w_fans_date_t = new Date(result.fans_milestone.first_100w_fans_date).getTime()
 		result.fans_milestone.first_500w_fans_date_t = new Date(result.fans_milestone.first_500w_fans_date).getTime()
 		result.fans_milestone.first_1000w_fans_date_t = new Date(result.fans_milestone.first_1000w_fans_date).getTime()
-		
+
 		result.fans_milestone.first_1w_fans_date_between = this.common.getDaysBetween(result.create_time, result.fans_milestone.first_1w_fans_date_t)
 		result.fans_milestone.first_10w_fans_date_between = this.common.getDaysBetween(result.create_time, result.fans_milestone.first_10w_fans_date_t)
 		result.fans_milestone.first_30w_fans_date_between = this.common.getDaysBetween(result.create_time, result.fans_milestone.first_30w_fans_date_t)
@@ -473,7 +547,7 @@ export class DyAuthorComponent implements OnInit {
 	handleCancel() {
 		this.lcbShow = false;
 	}
-	visible2:any=false;
+	visible2: any = false;
 	visiblechange2(e: any) {
 		// console.log(e)
 	}
