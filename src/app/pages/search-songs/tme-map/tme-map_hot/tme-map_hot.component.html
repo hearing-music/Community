@@ -25,8 +25,19 @@
   <div style="flex: 1;display: flex;" class="title" nz-tooltip [nzTooltipTitle]="'近7天均值'" [nzTooltipPlacement]='"topLeft"'>
   	{{item.avgUniIndex}}
   </div>
-  <div style="flex: 1;display: flex;" style="color: blue;cursor: pointer;" (click)='openDetail(item)'>
-  	{{item.isMore?'收起':'详情'}}
+  <div>
+	  <div style="color: blue;cursor: pointer;" (click)='openDetail(item)'>
+	   	{{item.isMore?'收起':'详情'}}
+	   </div>
+	  <div style="color: blue;cursor: pointer;" (click)='openData(item)' *ngIf='(item.seeData&&!item.dataErr&&item.loadingFinished)||!item.seeData'>
+	  	{{item.isExcel?'收起':'数据'}}
+	  </div>
+	  <div *ngIf='item.seeData&&!item.loadingFinished'>
+	  	<nz-spin nzSimple [nzSize]='"small"'></nz-spin>
+	  </div>
+	  <div *ngIf='item.seeData&&item.dataErr&&item.loadingFinished' (click)='getData(item)' style="color: blue;cursor: pointer;">
+	  	重新加载
+	  </div>
   </div>
 </div>
 <!-- 详情 -->
@@ -84,7 +95,53 @@
 			</div>
 	</div>
 </div>
-
+<!-- 表格 -->
+<div *ngIf='item.isExcel'>
+	<nz-table #basicTable [nzData]="item.dataArr" [nzShowPagination]='false'>
+	  <thead>
+	    <tr>
+	      <th>歌曲名称</th>
+	      <th>歌手名称</th>
+	      <th>发行时间</th>
+	      <th>昨日指数</th>
+	      <th>预估指数</th>
+	      <th>预估涨幅指数</th>
+	      <th>今日指数</th>
+	      <th>今日涨幅指数</th>
+	      <!-- <th>更新时间</th> -->
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr *ngFor="let data of basicTable.data">
+	      <td>{{item.songName}}</td>
+	      <td>
+			  <div *ngFor='let n of item.singerName'>
+				  {{n}}
+			  </div>
+		  </td>
+	      <td>{{common.timeFormat(item.publishTime)}}</td>
+		  <td >
+			  <div *ngIf='data.yesterday'>
+				  {{data.yesterday.indexes}}
+			  </div>
+		  </td>
+		  <td>{{data.predictionIndexes}}</td>
+		  <td>
+			  <div *ngIf='data.yesterday'>
+				  {{(data.predictionIndexes-data.yesterday.indexes).toFixed(2)}}
+			  </div>
+		  </td>
+		  <td>{{data.todayIndexes}}</td>
+		  <td>
+			  <div *ngIf='data.yesterday'>
+				  {{(data.todayIndexes-data.yesterday.indexes).toFixed(2)}}
+			  </div>
+		  </td>
+		  <!-- <td>{{item.timeUpdate}}</td> -->
+	    </tr>
+	  </tbody>
+	</nz-table>
+</div>
 </div>
 </div>
 

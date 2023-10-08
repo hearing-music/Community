@@ -845,6 +845,17 @@ export class ApiService {
 		} = params
 		return this.http.get(this.baseUrl + '/tme_map/tmeMap?pageNo=' + (page - 1) + '&pageSize=' + pageSize + '&keyword=' + keyword + '&operate=' + operate)
 	}
+	// 单曲指数观测  云图
+	ExponentialObservation(params:any){
+		let {
+			trackId
+		} = params
+		return this.http.get(this.baseUrl + '/tme_map/ExponentialObservation?trackId='+trackId)
+	}
+	// /获取听见音乐最新的100首歌曲  云图
+	GetMusicLimitHundred(){
+		return this.http.get(this.baseUrl + '/tme_map/GetMusicLimitHundred')
+	}
 	//获取5sing
 	GetfiveSing(params: any) {
 		let {

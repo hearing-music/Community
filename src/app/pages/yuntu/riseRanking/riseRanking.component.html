@@ -1,0 +1,12 @@
+<div class='riseRanking'>
+	<!-- tab栏 -->
+	<div class="tagList">
+		<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
+			[ngClass]="{'tagList-itemActive': item.name==selectItem}">
+				{{item.name}}
+		</div>
+	</div>
+	
+	<ngx-riseRankingTemp [list]='list' [type]='selectItem'></ngx-riseRankingTemp>
+</div>
+<ngx-loading *ngIf='loading'></ngx-loading>

@@ -50,6 +50,7 @@ import { QqLabelComponent } from './qq/qq-label/qq-label.component';
 import { SingerLabelComponent } from './qq/qq-label/singer-label/singer-label.component';
 import { SongListLabelComponent } from './qq/qq-label/song-list-label/song-list-label.component';
 import { MermaidComponent } from './mermaid/mermaid.component';
+import { RiseRankingComponent } from './yuntu/riseRanking/riseRanking.component';
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -177,6 +178,12 @@ const routes: Routes = [{
 		{
 			path: 'douyin/douyin-assayVideo',
 			component: DouyinAssayVideoComponent,
+			canActivate: [PermissionGuard]
+		},
+		//云图 由你涨幅排名
+		{
+			path: 'yuntu/riseRanking',
+			component: RiseRankingComponent,
 			canActivate: [PermissionGuard]
 		},
 		//浮浮雷达

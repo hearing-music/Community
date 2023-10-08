@@ -64,7 +64,8 @@ import { ISRCComponent } from './search-songs/ISRC/ISRC.component'
 import { FufuBillboardComponent } from './fufuleida/fufu-billboard/fufu-billboard.component';
 import { JianyingComponent } from './jianying/jianying.component';
 import { ToMvComponent } from './to-mv/to-mv.component';
-
+import { RiseRankingComponent } from './yuntu/riseRanking/riseRanking.component';
+import { RiseRankingTempComponent } from './yuntu/riseRanking/riseRankingTemp/riseRankingTemp.component';
 // componet
 import {DyHotDetailComponent} from '../components/dyHotDetail/dyHotDetail.component'
 import {DyVideoTrendComponent} from '../components/dyVideoTrend/dyVideoTrend.component'
@@ -201,6 +202,8 @@ registerLocaleData(zh);
 		DyMusicComponent,
 		DyVideoComponent,
 		DouyinVideoComponent,
+		RiseRankingComponent,
+		RiseRankingTempComponent,
 		// DouyinHotComponent,
 		DouyinDarenComponent,
 		DouyinListenDarenComponent,

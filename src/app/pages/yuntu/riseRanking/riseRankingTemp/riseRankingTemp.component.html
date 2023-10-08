@@ -1,0 +1,130 @@
+	<!-- 表格 -->
+		<nz-table #basicTable [nzData]="list" [nzShowPagination]='false' [nzPageSize]='100' [nzScroll]='{y:"calc(100vh - 4.75rem - 4rem - 40px - 54px - 40px)"}'>
+		  <thead>
+		    <tr>
+			  <th nzAlign='center'>排名</th>
+			  <th nzAlign='center'>封面</th>
+		      <th nzAlign='center'>歌曲名称</th>
+		      <th nzAlign='center'>歌手名称</th>
+		      <th nzAlign='center'>发行时间</th>
+		      <th nzAlign='center'>昨日指数</th>
+		      <th nzAlign='center'>预估指数</th>
+		      <th nzAlign='center'>
+				  <div style='cursor: pointer;' (click)='orderbyEstimate()'>
+					  预估涨幅指数
+					  <span *ngIf='estimateOrderby == "asc"' nz-icon nzType="caret-up" nzTheme="outline" style="color: blue;"></span>
+					  <span *ngIf='estimateOrderby == ""' nz-icon nzType="line" nzTheme="outline" style="color: blue;"></span>
+					  <span *ngIf='estimateOrderby == "desc"' nz-icon nzType="caret-down" nzTheme="outline" style="color: blue;"></span>
+				  </div>
+			</th>
+		      <th nzAlign='center'>今日指数</th>
+		      <th nzAlign='center'>
+				  <div style='cursor: pointer;' (click)='orderbyToday()'>
+					  今日涨幅指数
+					  <span *ngIf='todayOrderby == "asc"' nz-icon nzType="caret-up" nzTheme="outline" style="color: blue;"></span>
+					  <span *ngIf='todayOrderby == ""' nz-icon nzType="line" nzTheme="outline" style="color: blue;"></span>
+					  <span *ngIf='todayOrderby == "desc"' nz-icon nzType="caret-down" nzTheme="outline" style="color: blue;"></span>
+				  </div>
+			</th>
+		      <th nzAlign='center'>更新时间</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr *ngFor="let data of basicTable.data;let i = index;">
+		      <td nzAlign='center'>{{i+1}}</td>
+			  <td nzAlign='center'>
+				  <div style='width:70px;height:70px;border-radius:4px;overflow: hidden;'>
+					  <img [src]="data.songCoverUrl" style="width: 100%; height: 100%" onerror='this.src="/assets/img/imgError.png"'/>
+				  </div>
+			  </td>
+		      <td nzAlign='center'>{{data.songName}}</td>
+		      <td nzAlign='center'>
+				  <div *ngFor='let n of data.singerName'>
+					  {{n}}
+				  </div>
+			  </td>
+		      <td nzAlign='center'>{{common.timeFormat(data.publishTime)}}</td>
+			 <td nzAlign='center'>
+				 <div *ngIf='data.yesterday.batchTime'>
+					 <div *ngIf='type=="由你"'>
+						 {{data.yesterday.indexes}}
+					 </div>
+					 <div *ngIf='type=="酷我"'>
+					 	{{data.yesterday.kwIndexes}}
+					 </div>
+					 <div *ngIf='type=="酷狗"'>
+					 	{{data.yesterday.kgIndexes}}
+					 </div>
+					 <div *ngIf='type=="Q音"'>
+					 	{{data.yesterday.qyIndexes}}
+					 </div>
+				 </div>
+			 </td>
+			  <td nzAlign='center'>
+				  <div *ngIf='type=="由你"'>
+					  {{data.predictionIndexes}}
+				  </div>
+				  <div *ngIf='type=="酷我"'>
+				  	  {{data.predictionKwIndexes}}
+				  </div>
+				  <div *ngIf='type=="酷狗"'>
+				  	  {{data.predictionKgIndexes}}
+				  </div>
+				  <div *ngIf='type=="Q音"'>
+				  	  {{data.predictionQyIndexes}}
+				  </div>
+			  </td>
+			  <td nzAlign='center'>
+				  <div *ngIf='data.yesterday.batchTime'>
+					  <div *ngIf='type=="由你"' [ngClass]="{'red':data.predictionIndexes-data.yesterday.indexes>0&&data.yesterday.indexes!=0}">
+					  	{{(data.predictionIndexes-data.yesterday.indexes).toFixed(2)}}
+					  </div>
+					  <div *ngIf='type=="酷我"' [ngClass]="{'red':data.predictionKwIndexes-data.yesterday.kwIndexes>0&&data.yesterday.kwIndexes!=0}">
+					  	  {{(data.predictionKwIndexes-data.yesterday.kwIndexes).toFixed(2)}}
+					  </div>
+					  <div *ngIf='type=="酷狗"' [ngClass]="{'red':data.predictionKgIndexes-data.yesterday.kgIndexes>0&&data.yesterday.kgIndexes!=0}">
+					  	 {{(data.predictionKgIndexes-data.yesterday.kgIndexes).toFixed(2)}}
+					  </div>
+					  <div *ngIf='type=="Q音"' [ngClass]="{'red':data.predictionQyIndexes-data.yesterday.qyIndexes>0&&data.yesterday.qyIndexes!=0}">
+					  	 {{(data.predictionQyIndexes-data.yesterday.qyIndexes).toFixed(2)}}
+					  </div>
+				  </div>
+			  </td>
+			  <td nzAlign='center'>
+				<div *ngIf='type=="由你"'>
+					{{data.todayIndexes}}
+				</div>
+				<div *ngIf='type=="酷我"'>
+					  {{data.todayKwIndexes}}
+				</div>
+				<div *ngIf='type=="酷狗"'>
+					  {{data.todayKgIndexes}}
+				</div>
+				<div *ngIf='type=="Q音"'>
+					  {{data.todayQyIndexes}}
+				</div>
+			  </td>
+			  <td nzAlign='center'>
+				  <div *ngIf='data.yesterday.batchTime'>
+					  <div *ngIf='type=="由你"' [ngClass]="{'red':data.todayIndexes-data.yesterday.indexes>0&&data.yesterday.indexes!=0}">
+					  	{{(data.todayIndexes-data.yesterday.indexes).toFixed(2)}}
+					  </div>
+					  <div *ngIf='type=="酷我"' [ngClass]="{'red':data.todayKwIndexes-data.yesterday.kwIndexes>0&&data.yesterday.kwIndexes!=0}">
+					  	  {{(data.todayKwIndexes-data.yesterday.kwIndexes).toFixed(2)}}
+					  </div>
+					  <div *ngIf='type=="酷狗"' [ngClass]="{'red':data.todayKgIndexes-data.yesterday.kgIndexes>0&&data.yesterday.kgIndexes!=0}">
+					  	{{(data.todayKgIndexes-data.yesterday.kgIndexes).toFixed(2)}}
+					  </div>
+					  <div *ngIf='type=="Q音"' [ngClass]="{'red':data.todayQyIndexes-data.yesterday.qyIndexes>0&&data.yesterday.qyIndexes!=0}">
+					  	 {{(data.todayQyIndexes-data.yesterday.qyIndexes).toFixed(2)}}
+					  </div>
+				  </div>
+			  </td>
+			  <td nzAlign='center'>
+				<div>
+					{{common.getTime(data.updateTime)}}
+				</div>
+			  </td>
+		    </tr>
+		  </tbody>
+		</nz-table>

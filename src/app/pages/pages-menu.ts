@@ -116,6 +116,19 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		],
 	},
 	{
+		title: '云图',
+		icon: {
+			icon:'yt_icon',
+			pack:'my-icons',
+		},
+		children: [
+			{
+				title: '由你涨幅排名',
+				link: '/pages/yuntu/riseRanking',
+			},
+		],
+	},
+	{
 		title: '浮浮雷达',
 		icon: {
 			icon:'ffld_icon',
