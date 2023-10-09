@@ -938,7 +938,7 @@ export class ApiService {
             time: time,
             usageCount: usageCount,
           },
-        ], 
+        ],
       },
       creationTime: creationTime,
     };
