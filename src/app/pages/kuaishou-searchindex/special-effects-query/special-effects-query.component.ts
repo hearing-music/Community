@@ -13,9 +13,9 @@ export class SpecialEffectsQueryComponent implements OnInit {
   isMonitor = false;
   form = {
     author: "",
-    phone: null,
+    phone: "",
     weChat: "",
-    QQ: null,
+    QQ: "",
     BGM: "",
   };
   result: any = {};
