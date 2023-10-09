@@ -52,9 +52,12 @@
         </td>
         <td nzAlign="center">{{ data.BGM }}</td>
         <td nzAlign="center">
-          <div style="display: flex; justify-content: space-around">
+          <div
+            style="display: flex; justify-content: space-around"
+            *ngIf="data.yesterdayindex"
+          >
             <div style="width: 80%">
-              {{ data.yesterdayindex == 0 ? "" : data.yesterdayindex }}
+              {{ data.yesterdayindex ? "" : data.yesterdayindex }}
             </div>
             <div
               style="cursor: pointer; position: relative"
