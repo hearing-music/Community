@@ -1,0 +1,124 @@
+<div class="kuaishou">
+  <div>
+    <!-- 搜索 -->
+    <ngx-search
+      [searchValue]="searchValue"
+      [searchHolder]="searchHolder"
+      (childSearch)="search($event)"
+    >
+    </ngx-search>
+  </div>
+  <div class="kuaishou-left" style="margin-top: 24px">
+    <nz-empty *ngIf="!result.tagName" style="margin-top: 160px"></nz-empty>
+    <div class="list" *ngIf="result.tagName">
+      <div class="list-item">
+        <div class="item-left">
+          <div class="left-avatar">
+            <img
+              [src]="result.coverUrls[0].url"
+              style="width: 100%; height: 100%"
+              onerror='this.src="/assets/img/imgError.png"'
+            />
+          </div>
+          <div class="left-text">
+            <div class="title-area">
+              <span nz-tooltip [nzTooltipTitle]="result.tagName">
+                <div class="title u-line-1">
+                  {{ result.tagName }}
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="item-center">
+          <div
+            class=""
+            style="display: flex; align-items: center; margin-left: 8px"
+          >
+            <img src="/assets/img/bpm.png" class="icon" />
+            <div nz-tooltip [nzTooltipTitle]="'使用量'">
+              {{ result.usageCount }}
+            </div>
+          </div>
+        </div>
+        <div class="item-right">
+          <button nz-button nzType="dashed" nzShape="round" (click)="monitor()">
+            <span>{{ isMonitor ? "收起" : "监测视频" }}</span>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="isMonitor" class="isMonitor">
+        <div class="Monitor">
+          <div class="innerText">
+            <div class="tittle">作者：</div>
+            <div>
+              <input
+                nz-input
+                placeholder="请输入作者名"
+                [(ngModel)]="form.author"
+                style="width: 300px"
+              />
+            </div>
+          </div>
+          <div class="innerText">
+            <div class="tittle">电话：</div>
+            <div>
+              <input
+                nz-input
+                placeholder="请输入电话号（可以为空）"
+                [(ngModel)]="form.phone"
+                style="width: 300px"
+                type="text"
+                maxlength="11"
+              />
+            </div>
+          </div>
+          <div class="innerText">
+            <div class="tittle">微信：</div>
+            <div>
+              <input
+                nz-input
+                placeholder="请输入微信号（可以为空）"
+                [(ngModel)]="form.weChat"
+                style="width: 300px"
+              />
+            </div>
+          </div>
+          <div class="innerText">
+            <div class="tittle">QQ：</div>
+            <div>
+              <input
+                nz-input
+                placeholder="请输入QQ号（可以为空）"
+                [(ngModel)]="form.QQ"
+                style="width: 300px"
+              />
+            </div>
+          </div>
+          <div class="innerText">
+            <div class="tittle">BGM：</div>
+            <div>
+              <input
+                nz-input
+                placeholder="请输入BGM"
+                [(ngModel)]="form.BGM"
+                style="width: 300px"
+              />
+            </div>
+          </div>
+          <div class="innerText">
+            <button
+              nz-button
+              nzType="dashed"
+              nzShape="round"
+              (click)="Tomonitor()"
+            >
+              <span>提交</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-loading *ngIf="loading"></ngx-loading>
+</div>

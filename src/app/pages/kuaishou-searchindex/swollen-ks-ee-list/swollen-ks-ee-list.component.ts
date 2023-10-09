@@ -1,0 +1,66 @@
+import { Component, OnInit } from "@angular/core";
+import { ApiService } from "../../../services/api.service";
+import { CommonService } from "../../../services/common.service";
+
+@Component({
+  selector: "ngx-swollen-ks-ee-list",
+  templateUrl: "./swollen-ks-ee-list.component.html",
+  styleUrls: ["./swollen-ks-ee-list.component.scss"],
+})
+export class SwollenKsEeListComponent implements OnInit {
+  total = 0;
+  type = true;
+  dataSet = [];
+  username = "";
+  index = [];
+  constructor(public api: ApiService, public common: CommonService) {}
+
+  ngOnInit(): void {
+    this.SwollenKsEeList();
+    this.username = localStorage.getItem("name");
+  }
+  ngModelChange() {
+    this.type = !this.type;
+    this.dataSet = [];
+    this.SwollenKsEeList();
+  }
+  SwollenKsEeList() {
+    this.api
+      .SwollenKsEeList({ userId: 13, type: this.type })
+      .subscribe((res: any) => {
+        for (let i = 0; i < res.result.length; i++) {
+          res.result[i].yesterday = 0;
+          res.result[i].show = false;
+          for (let j = 0; j < res.result[i].utilisation.res.length; j++) {
+            var currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0); // 设置时间为0点0分0秒0毫秒
+            if (
+              res.result[i].utilisation.res[j].time >
+                currentDate.getTime() / 1000 &&
+              res.result[i].utilisation.res[j].time <
+                currentDate.getTime() / 1000 + 86400
+            ) {
+              res.result[i].todayindex =
+                res.result[i].utilisation.res[j].usageCount;
+            } else if (
+              res.result[i].utilisation.res[j].time <
+                currentDate.getTime() / 1000 &&
+              res.result[i].utilisation.res[j].time >
+                currentDate.getTime() / 1000 - 86400
+            ) {
+              res.result[i].yesterdayindex =
+                res.result[i].utilisation.res[j].usageCount;
+            }
+          }
+        }
+        this.dataSet = res.result;
+        this.total = res.result.length;
+      });
+  }
+  mouseenter(item: any) {
+    item.show = true;
+  }
+  mouseleave(item: any) {
+    item.show = false;
+  }
+}

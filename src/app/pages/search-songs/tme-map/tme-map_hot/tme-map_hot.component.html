@@ -97,6 +97,7 @@
 </div>
 <!-- 表格 -->
 <div *ngIf='item.isExcel'>
+	<div style="font-weight: bold;padding:10px 0;">由你</div>
 	<nz-table #basicTable [nzData]="item.dataArr" [nzShowPagination]='false'>
 	  <thead>
 	    <tr>
@@ -135,6 +136,141 @@
 		  <td>
 			  <div *ngIf='data.yesterday'>
 				  {{(data.todayIndexes-data.yesterday.indexes).toFixed(2)}}
+			  </div>
+		  </td>
+		  <!-- <td>{{item.timeUpdate}}</td> -->
+	    </tr>
+	  </tbody>
+	</nz-table>
+	<div style="font-weight: bold;padding:10px 0;">Q音</div>
+	<nz-table #basicTable [nzData]="item.dataArr" [nzShowPagination]='false'>
+	  <thead>
+	    <tr>
+	      <th>歌曲名称</th>
+	      <th>歌手名称</th>
+	      <th>发行时间</th>
+	      <th>昨日指数</th>
+	      <th>预估指数</th>
+	      <th>预估涨幅指数</th>
+	      <th>今日指数</th>
+	      <th>今日涨幅指数</th>
+	      <!-- <th>更新时间</th> -->
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr *ngFor="let data of basicTable.data">
+	      <td>{{item.songName}}</td>
+	      <td>
+			  <div *ngFor='let n of item.singerName'>
+				  {{n}}
+			  </div>
+		  </td>
+	      <td>{{common.timeFormat(item.publishTime)}}</td>
+		  <td >
+			  <div *ngIf='data.yesterday'>
+				  {{data.yesterday.qyIndexes}}
+			  </div>
+		  </td>
+		  <td>{{data.predictionQyIndexes}}</td>
+		  <td>
+			  <div *ngIf='data.yesterday'>
+				  {{(data.predictionQyIndexes-data.yesterday.qyIndexes).toFixed(2)}}
+			  </div>
+		  </td>
+		  <td>{{data.todayQyIndexes}}</td>
+		  <td>
+			  <div *ngIf='data.yesterday'>
+				  {{(data.todayQyIndexes-data.yesterday.qyIndexes).toFixed(2)}}
+			  </div>
+		  </td>
+		  <!-- <td>{{item.timeUpdate}}</td> -->
+	    </tr>
+	  </tbody>
+	</nz-table>
+	<div style="font-weight: bold;padding:10px 0;">酷狗</div>
+	<nz-table #basicTable [nzData]="item.dataArr" [nzShowPagination]='false'>
+	  <thead>
+	    <tr>
+	      <th>歌曲名称</th>
+	      <th>歌手名称</th>
+	      <th>发行时间</th>
+	      <th>昨日指数</th>
+	      <th>预估指数</th>
+	      <th>预估涨幅指数</th>
+	      <th>今日指数</th>
+	      <th>今日涨幅指数</th>
+	      <!-- <th>更新时间</th> -->
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr *ngFor="let data of basicTable.data">
+	      <td>{{item.songName}}</td>
+	      <td>
+			  <div *ngFor='let n of item.singerName'>
+				  {{n}}
+			  </div>
+		  </td>
+	      <td>{{common.timeFormat(item.publishTime)}}</td>
+		  <td >
+			  <div *ngIf='data.yesterday'>
+				  {{data.yesterday.kgIndexes}}
+			  </div>
+		  </td>
+		  <td>{{data.predictionKgIndexes}}</td>
+		  <td>
+			  <div *ngIf='data.yesterday'>
+				  {{(data.predictionKgIndexes-data.yesterday.kgIndexes).toFixed(2)}}
+			  </div>
+		  </td>
+		  <td>{{data.todayKgIndexes}}</td>
+		  <td>
+			  <div *ngIf='data.yesterday'>
+				  {{(data.todayKgIndexes-data.yesterday.kgIndexes).toFixed(2)}}
+			  </div>
+		  </td>
+		  <!-- <td>{{item.timeUpdate}}</td> -->
+	    </tr>
+	  </tbody>
+	</nz-table>
+	<div style="font-weight: bold;padding:10px 0;">酷我</div>
+	<nz-table #basicTable [nzData]="item.dataArr" [nzShowPagination]='false'>
+	  <thead>
+	    <tr>
+	      <th>歌曲名称</th>
+	      <th>歌手名称</th>
+	      <th>发行时间</th>
+	      <th>昨日指数</th>
+	      <th>预估指数</th>
+	      <th>预估涨幅指数</th>
+	      <th>今日指数</th>
+	      <th>今日涨幅指数</th>
+	      <!-- <th>更新时间</th> -->
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr *ngFor="let data of basicTable.data">
+	      <td>{{item.songName}}</td>
+	      <td>
+			  <div *ngFor='let n of item.singerName'>
+				  {{n}}
+			  </div>
+		  </td>
+	      <td>{{common.timeFormat(item.publishTime)}}</td>
+		  <td >
+			  <div *ngIf='data.yesterday'>
+				  {{data.yesterday.kwIndexes}}
+			  </div>
+		  </td>
+		  <td>{{data.predictionKwIndexes}}</td>
+		  <td>
+			  <div *ngIf='data.yesterday'>
+				  {{(data.predictionKwIndexes-data.yesterday.kwIndexes).toFixed(2)}}
+			  </div>
+		  </td>
+		  <td>{{data.todayKwIndexes}}</td>
+		  <td>
+			  <div *ngIf='data.yesterday'>
+				  {{(data.todayKwIndexes-data.yesterday.kwIndexes).toFixed(2)}}
 			  </div>
 		  </td>
 		  <!-- <td>{{item.timeUpdate}}</td> -->

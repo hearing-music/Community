@@ -1,0 +1,151 @@
+.kuaishou {
+    background-color: #fff;
+    border-radius: 12px;
+    height: 100%;
+    min-height: calc(100vh - 4.75rem - 4rem);
+    padding: 20px;
+    // display: flex;
+    color: #000;
+
+    .kuaishou-left {
+        flex: 1;
+        flex-shrink: 0;
+    }
+
+    .list {
+        // overflow: scroll;
+        padding: 12px;
+        padding-top: 0;
+
+        .list-item {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.6);
+            margin-bottom: 20px;
+            background: #FFFFFF;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 12px;
+            height: 94px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+
+            .icon {
+                width: 16px;
+                margin-right: 4px;
+                height: 16px;
+            }
+
+            .item-left {
+                width: 560px;
+                display: flex;
+                flex-shrink: 0;
+                align-items: center;
+
+                .left-avatar {
+                    flex-shrink: 0;
+                    width: 56px;
+                    height: 56px;
+                    cursor: pointer;
+                    overflow: hidden;
+                    border-radius: 50%;
+                    background-color: rgba(0, 0, 0, 0.1);
+                    position: relative;
+
+                    .avatar-play {
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        font-size: 22px;
+                        color: #1296db;
+                    }
+                }
+
+                .left-text {
+                    margin-left: 16px;
+                }
+
+                .title-area {
+                    display: flex;
+                    align-items: center;
+
+                    .title {
+                        font-weight: bold;
+                        font-size: 16px;
+                        color: #000;
+                        max-width: 220px;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+                }
+
+                .subTitle {
+                    margin-top: 10px;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+
+            .item-center {
+                flex-shrink: 0;
+                flex: 1;
+
+                .exophanie-item {
+                    margin-top: 6px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    text-decoration-line: underline;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+            }
+
+            .item-right {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+            }
+
+        }
+
+        .play {
+            position: fixed;
+            right: 80px;
+            bottom: 30px;
+        }
+    }
+
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Monitor{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.isMonitor{
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    padding: 10px 16px;
+    .innerText{
+        width: 50%;
+        display: flex; 
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        .tittle{
+            font-size: 14px;
+        }
+    }
+}

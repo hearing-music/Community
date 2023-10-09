@@ -67,6 +67,8 @@ import { ToMvComponent } from './to-mv/to-mv.component';
 import { RiseRankingComponent } from './yuntu/riseRanking/riseRanking.component';
 import { RiseRankingTempComponent } from './yuntu/riseRanking/riseRankingTemp/riseRankingTemp.component';
 // componet
+import { SpecialEffectsQueryComponent } from './kuaishou-searchindex/special-effects-query/special-effects-query.component';
+import { SwollenKsEeListComponent } from './kuaishou-searchindex/swollen-ks-ee-list/swollen-ks-ee-list.component';
 import {DyHotDetailComponent} from '../components/dyHotDetail/dyHotDetail.component'
 import {DyVideoTrendComponent} from '../components/dyVideoTrend/dyVideoTrend.component'
 import {DyAuthorComponent} from '../components/dyAuthor/dyAuthor.component'
@@ -180,6 +182,7 @@ registerLocaleData(zh);
 		DyAuthorComponent,
 		ArtistVisualizationComponent,
 		MermaidComponent,
+		SwollenKsEeListComponent,
 		EnlightenmentSongsComponent,
 		EnlightenmentTop20Component,
 		OggToMp3Component,
@@ -194,6 +197,7 @@ registerLocaleData(zh);
 		AutoSearchComponent,
 		EnlightenmentComponent,
 		DouyinListComponent,
+		SpecialEffectsQueryComponent,
 		DouyinPopularAccountsComponent,
 		DouyinAssayVideoComponent,
 		DyHotComponent,

@@ -898,4 +898,64 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/mcsc/search_ISRC?keyword=" + keyword + "&pageSize=" + pageSize + "&page=" + page)
 	}
+	//快手特效查询
+	  GetSpecialEffectsSearch(params: any) {
+	    let { magicFaceId } = params;
+	    return this.http.get(
+	      this.baseUrl + "/kuaishou/SpecialEffectsSearch?magicFaceId=" + magicFaceId
+	    );
+	  }
+	    //快手特效监控
+  kuaishouMonitor(params: any) {
+    let {
+      magicFaceId,
+      name,
+      userId,
+      author,
+      phone,
+      weChat,
+      QQ,
+      BGM,
+      time,
+      usageCount,
+      creationTime,
+      CDN,
+    } = params;
+
+    const requestBody = {
+      magicFaceId: magicFaceId,
+      name: name,
+      userId: userId,
+      author: author,
+      phone: phone,
+      weChat: weChat,
+      QQ: QQ,
+      BGM: BGM,
+      CDN: CDN,
+      utilisation: {
+        res: [
+          {
+            time: time,
+            usageCount: usageCount,
+          },
+        ],
+      },
+      creationTime: creationTime,
+    };
+    return this.http.post(
+      this.baseUrl +"/kuaishou/SpecialEffectsInsert",
+      requestBody
+    );
+  }
+	  //快手监控查询
+	  SwollenKsEeList(params: any) {
+	    let { userId, type } = params;
+	    if (type) {
+	      return this.http.get(
+	        this.baseUrl + "/kuaishou/SwollenKsEeList?userId=" + userId
+	      );
+	    } else {
+	      return this.http.get(this.baseUrl + "/kuaishou/SwollenKsEeList");
+	    }
+	  }
 }

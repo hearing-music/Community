@@ -113,6 +113,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
 				title: '素材',
 				link: '/pages/sourcePhoto',
 			},
+			      {
+			        title: "快手特效查询",
+			        link: "/pages/kuaishou-specialEffectsQuery",
+			      },
+			      {
+			        title: "快手特效监控",
+			        link: "/pages/kuaishou-SwollenKsEeLis",
+			      },
 		],
 	},
 	{

@@ -51,6 +51,8 @@ import { SingerLabelComponent } from './qq/qq-label/singer-label/singer-label.co
 import { SongListLabelComponent } from './qq/qq-label/song-list-label/song-list-label.component';
 import { MermaidComponent } from './mermaid/mermaid.component';
 import { RiseRankingComponent } from './yuntu/riseRanking/riseRanking.component';
+import { SpecialEffectsQueryComponent } from './kuaishou-searchindex/special-effects-query/special-effects-query.component';
+import { SwollenKsEeListComponent } from './kuaishou-searchindex/swollen-ks-ee-list/swollen-ks-ee-list.component';
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -222,6 +224,18 @@ const routes: Routes = [{
 			component: VolumeOfUseComponent,
 			canActivate: [PermissionGuard]
 		},
+		      //快手特效查询
+		      {
+		        path: "kuaishou-specialEffectsQuery",
+		        component: SpecialEffectsQueryComponent,
+		        canActivate: [PermissionGuard],
+		      },
+		      //快手特效监控
+		      {
+		        path: "kuaishou-SwollenKsEeLis",
+		        component: SwollenKsEeListComponent,
+		        canActivate: [PermissionGuard],
+		      },
 		//音频转换oggToMp3
 		{
 			path: 'oggToMp3',
