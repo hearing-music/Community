@@ -1,25 +1,29 @@
 <div class="douyin">
 
 	<div style='margin-bottom:16px;display: flex;align-items: center;justify-content: space-between;'>
-		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'></ngx-search>
+		<ngx-search [searchValue]='searchValue' [searchWidth]='"156px"' [searchHolder]='searchHolder' (childSearch)='search($event)'></ngx-search>
 		<div style="display: flex;align-items: center;">
-			<div style="font-size: 12px;color: #666;">翻唱：</div>
+			<div style="font-size: 12px;color: #666;">类型</div>
+			<nz-select *ngIf='typeList.length>0' [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="yirenType" (ngModelChange)='ngModelType($event)'>
+				<nz-option *ngFor="let item of typeList;" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+			</nz-select>
+			<div style="font-size: 12px;color: #666;">翻唱</div>
 			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="fees" (ngModelChange)='ngModelFees($event)'>
 				<nz-option *ngFor="let item of feesList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
 			</nz-select>
-			<div style="font-size: 12px;color: #666;">翻唱唱酬：</div>
+			<div style="font-size: 12px;color: #666;">翻唱唱酬</div>
 			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="vocals" (ngModelChange)='ngModelVocals($event)'>
 				<nz-option *ngFor="let item of vocalsList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
 			</nz-select>
-			<div style="font-size: 12px;color: #666;">低赞：</div>
+			<div style="font-size: 12px;color: #666;">低赞</div>
 			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="minimum" (ngModelChange)='ngModelMin($event)'>
 				<nz-option *ngFor="let item of minimumList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
 			</nz-select>
-			<div style="font-size: 12px;color: #666;">均赞：</div>
+			<div style="font-size: 12px;color: #666;">均赞</div>
 			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="diggCountAve" (ngModelChange)='ngModelAve($event)'>
 				<nz-option *ngFor="let item of diggCountAveList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
 			</nz-select>
-			<div style="font-size: 12px;color: #666;">活跃：</div>
+			<div style="font-size: 12px;color: #666;">活跃</div>
 			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="activity" (ngModelChange)='ngModelActivity($event)'>
 				<nz-option *ngFor="let item of activityList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
 			</nz-select>

@@ -24,7 +24,7 @@ export class DouyinListenDarenComponent implements OnInit {
 	userId = '0'
 	loading = false;
 	searchValue: any = ''
-	searchHolder: any = '请搜索抖音达人名字'
+	searchHolder: any = '请搜索抖音达人'
 	list: any = []
 
 	page = 1;
@@ -118,12 +118,20 @@ export class DouyinListenDarenComponent implements OnInit {
 	}, {
 		value: '20000以上'
 	}]
-	typeList = []
+	typeList = [{
+		label: '全部',
+		value:0
+	}]
+	yirenType:any=0
+	ngModelType(e:any){
+		this.page = 1;
+		this.douyin_getListenDaren()
+	}
 	// 获取类别
 	douyin_darenTypeList(){
 		  this.api.douyin_darenTypeList().subscribe((res: any) => {
 	      if (res.success) {
-				let arr = []
+				let arr = [{'label':'全部',value:0}]
 				for(let i = 0;i<res.result.length;i++){
 					arr.push({
 						label:res.result[i].TypeName,
@@ -471,7 +479,7 @@ export class DouyinListenDarenComponent implements OnInit {
 	}
 	douyin_getListenDaren() {
 		this.loading = true;
-		this.api.douyin_getListenDaren({ vocalsMax: this.vocalsMax, vocalsMin: this.vocalsMin, feesMax: this.feesMax, feesMin: this.feesMin, minimumMax: this.minimumMax, minimumMin: this.minimumMin, diggCountAveMax: this.diggCountAveMax, diggCountAveMin: this.diggCountAveMin, activityNum: this.activityNum, pageSize: this.pageSize, page: this.page, keyword: this.searchValue, type: this.type ? '我的' : '全部' })
+		this.api.douyin_getListenDaren({yirenType:this.yirenType, vocalsMax: this.vocalsMax, vocalsMin: this.vocalsMin, feesMax: this.feesMax, feesMin: this.feesMin, minimumMax: this.minimumMax, minimumMin: this.minimumMin, diggCountAveMax: this.diggCountAveMax, diggCountAveMin: this.diggCountAveMin, activityNum: this.activityNum, pageSize: this.pageSize, page: this.page, keyword: this.searchValue, type: this.type ? '我的' : '全部' })
 			.subscribe((res: any) => {
 				console.log(res)
 				if (res.success) {
