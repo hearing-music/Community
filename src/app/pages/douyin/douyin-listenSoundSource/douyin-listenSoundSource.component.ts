@@ -26,9 +26,12 @@ export class DouyinListenSoundSourceComponent implements OnInit {
     this.dataSet = [];
     this.getDouyinListenSourdSource();
   }
+  loading:any=false;
   getDouyinListenSourdSource() {
+	  this.loading=true;
     this.api.getDouyinListenSourdSource({ userId: this.userId, type: this.type })
       .subscribe((res: any) => {
+		  this.loading=false;
 		  let today = this.common.timeFormat(new Date().getTime())
 		  let yesterday = this.common.timeFormat(new Date().getTime()-24*60*60*1000)
         for (let i = 0; i < res.result.length; i++) {
