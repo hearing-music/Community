@@ -17,6 +17,7 @@ export class DouyinDarenComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     echarts.registerMap("china", this.common.geoCoordMap);
+	this.douyin_darenTypeList()
     // setTimeout(() => {
     // 	this.isVisible = true;
     // }, 2000)
@@ -84,6 +85,29 @@ export class DouyinDarenComponent implements OnInit {
   linkToDy = 0;
   secUidIndex = 0;
   seeVideoIndex = 0;
+  typeList:any=[]
+  // 获取类别
+  douyin_darenTypeList(){
+  	  this.api.douyin_darenTypeList().subscribe((res: any) => {
+        if (res.success) {
+  			let arr = []
+  			for(let i = 0;i<res.result.length;i++){
+  				arr.push({
+  					label:res.result[i].TypeName,
+  					value:res.result[i].ID
+  				})
+  			}
+  			this.typeList=arr
+        }else{
+  		  this.douyin_darenTypeList()
+  	  }
+      }, (err: any) => {
+  	   this.douyin_darenTypeList()	
+  	});
+  }
+  typeChange(e:any){
+	  console.log(e)
+  }
   selectExle() {
     var inputElement = document.createElement("input");
     // 设置input的type为file
@@ -475,7 +499,12 @@ export class DouyinDarenComponent implements OnInit {
     let obj = this.list[this.selectIndex];
     var information = this.information;
     var home = this.Home;
-    var type = this.Type;
+    // var type = this.Type;
+	var typeList = this.typeList.filter((e:any)=>e.checked)
+	var typeJson:any ={"res":[]}
+	for(let i = 0;i<typeList.length;i++){
+		typeJson['res'].push({"ID":typeList[i].value,"TypeName":typeList[i].label})
+	}
     var style = this.Style;
     var characteristics = this.Characteristics;
     var vocals = this.Vocals;
@@ -506,6 +535,11 @@ export class DouyinDarenComponent implements OnInit {
       this.message.info("翻唱视频费用最低价格必须为数字");
       return;
     }
+	if(typeJson['res'].length==0){
+		this.message.info("艺人类别至少选一个");
+		return;
+	}
+	typeJson = JSON.stringify(typeJson)
     vocalsShow = vocalsShow - 0;
     feesShow = feesShow - 0;
     // if(vocalsShow==0&&vocals){
@@ -531,7 +565,7 @@ export class DouyinDarenComponent implements OnInit {
         clicklike: obj.totalFavorited,
         fans: obj.followerCount,
         home,
-        type,
+        typeJson,
         style,
         characteristics,
         vocals,
@@ -550,7 +584,7 @@ export class DouyinDarenComponent implements OnInit {
             this.isVisible = false;
             this.information = "";
             this.Home = "";
-            this.Type = "";
+            // this.Type = "";
             this.Style = "";
             this.Characteristics = "";
             this.Vocals = "";
@@ -562,6 +596,9 @@ export class DouyinDarenComponent implements OnInit {
             this.VocalsShow = "";
             this.Note = "";
             this.Sex = "";
+			this.typeList.forEach((item:any)=>{
+				item.checked = false;
+			})
           }
         },
         (err: any) => {

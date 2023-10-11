@@ -434,27 +434,19 @@
               margin-top: 14px;
             "
           >
-            <div>
+            <div style="width: 50%;">
               <!-- 艺人类型 Type -->
               <p>艺人类型</p>
-              <input
+             <!-- <input
                 [disabled]="
                   selectIndex === '' ? true : list[selectIndex].isListen
                 "
                 nz-input
                 placeholder="艺人类型 "
                 [(ngModel)]="Type"
-              />
-              <!-- <nz-mention [nzSuggestions]="suggestionsType" (nzOnSelect)="onSelect($event)">
-						      <input
-						       placeholder="艺人类型"
-						       [disabled]="selectIndex === '' ? true : list[selectIndex].isListen"
-						        nzMentionTrigger
-						        nz-input
-								[(ngModel)]="Type"
-						        (ngModelChange)="onChange($event)"
-						      />
-						 </nz-mention> -->
+              /> -->
+			  <nz-checkbox-group [disabled]="
+                  selectIndex === '' ? true : list[selectIndex].isListen" [(ngModel)]="typeList" (ngModelChange)="typeChange($event)"></nz-checkbox-group>
             </div>
             <div>
               <!-- 艺人风格 Style -->

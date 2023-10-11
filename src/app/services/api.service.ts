@@ -369,6 +369,10 @@ export class ApiService {
 		      requestBody
 		    );
 	}
+	// 	 获取抖音达人类别列表
+	douyin_darenTypeList(){
+		return this.http.get(this.baseUrl + "/douyin/douyin_darenTypeList")
+	}
 	// 获取监控声源
 	getDouyinListenSourdSource(params:any){
 		let { userId, type } = params;

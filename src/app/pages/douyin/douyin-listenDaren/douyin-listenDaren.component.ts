@@ -12,6 +12,7 @@ export class DouyinListenDarenComponent implements OnInit {
 	constructor(public api: ApiService, public common: CommonService, private message: NzMessageService, private changeDetectorRef: ChangeDetectorRef) {
 	}
 	ngOnInit(): void {
+		this.douyin_darenTypeList()
 		echarts.registerMap("china", this.common.geoCoordMap);
 		this.userId = localStorage.getItem('userId') || '0'
 		let highUserList = localStorage.getItem('highUserList') == 'undefined' ? false : localStorage.getItem('highUserList')
@@ -117,6 +118,26 @@ export class DouyinListenDarenComponent implements OnInit {
 	}, {
 		value: '20000以上'
 	}]
+	typeList = []
+	// 获取类别
+	douyin_darenTypeList(){
+		  this.api.douyin_darenTypeList().subscribe((res: any) => {
+	      if (res.success) {
+				let arr = []
+				for(let i = 0;i<res.result.length;i++){
+					arr.push({
+						label:res.result[i].TypeName,
+						value:res.result[i].ID
+					})
+				}
+				this.typeList=arr
+	      }else{
+			  this.douyin_darenTypeList()
+		  }
+	    }, (err: any) => {
+		   this.douyin_darenTypeList()	
+		});
+	}
 	ngModelFees(e: any) {
 		switch (e) {
 			case '全部':
@@ -644,13 +665,30 @@ export class DouyinListenDarenComponent implements OnInit {
 	editItem: any = {}
 	sexList: any = [{ value: '男', label: '男' }, { value: '女', label: '女' }]
 	popUpEdit(item: any) {
+		let arr = []
+		item.typeList = JSON.parse(JSON.stringify(this.typeList))
+		for(let i = 0;i<item.TypeJson['res'].length;i++){
+			let c = item.typeList.findIndex((e:any)=>e.label==item.TypeJson['res'][i].TypeName&&e.value==item.TypeJson['res'][i].ID)
+			if(c!=-1){
+				item.typeList[c].checked=true
+			}
+		}
 		this.editItem = { ...item };
 		this.isVisible = true;
 	}
 	// 点击录入
 	handleOk(): void {
-		let { dy_Monitoring_ID, dy_BloggerInfo_ID, Sex, Information, Home, Type, Style, Characteristics, Vocals, Split, Original, OriginalShare, Fees, Note, SecUid, FeesShow, VocalsShow } = this.editItem;
-
+		let { dy_Monitoring_ID, dy_BloggerInfo_ID, Sex, Information, Home,typeList, Style, Characteristics, Vocals, Split, Original, OriginalShare, Fees, Note, SecUid, FeesShow, VocalsShow } = this.editItem;
+		var typeList2 = typeList.filter((e:any)=>e.checked)
+		var TypeJson:any ={"res":[]}
+		for(let i = 0;i<typeList2.length;i++){
+			TypeJson['res'].push({"ID":typeList2[i].value,"TypeName":typeList2[i].label})
+		}
+		if (TypeJson['res'].length==0) {
+			this.message.info('艺人类型至少选一个')
+			return
+		}
+		TypeJson = JSON.stringify(TypeJson)
 		VocalsShow = VocalsShow == '' ? '' : VocalsShow - 0
 		FeesShow = FeesShow == '' ? '' : FeesShow - 0
 		if (!Number.isInteger(VocalsShow) && Vocals) {
@@ -672,12 +710,13 @@ export class DouyinListenDarenComponent implements OnInit {
 		// 	return
 		// }
 		this.loading = true;
-		this.api.douyin_listenDarenEdit({ dy_Monitoring_ID, dy_BloggerInfo_ID, Sex, Information, Home, Type, Style, Characteristics, Vocals, Split, Original, OriginalShare, Fees, Note, SecUid, FeesShow, VocalsShow }).subscribe((res: any) => {
+		this.api.douyin_listenDarenEdit({ dy_Monitoring_ID, dy_BloggerInfo_ID, Sex, Information, Home,TypeJson, Style, Characteristics, Vocals, Split, Original, OriginalShare, Fees, Note, SecUid, FeesShow, VocalsShow }).subscribe((res: any) => {
 			console.log(res)
 			this.loading = false;
 			if (res.success) {
 				this.message.success('修改成功')
 				let index = this.list.findIndex((e: any) => e.dy_BloggerInfo_ID == this.editItem.dy_BloggerInfo_ID);
+				this.editItem.TypeJson = JSON.parse(TypeJson);
 				this.list[index] = { ...this.editItem }
 				this.tableshow = false;
 				setTimeout(() => {
