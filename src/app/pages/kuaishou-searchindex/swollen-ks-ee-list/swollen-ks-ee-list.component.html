@@ -11,7 +11,7 @@
     #basicTable
     [nzData]="dataSet"
     [nzTotal]="total"
-    [nzPageSize]="8"
+    [nzPageSize]="50"
     [nzShowPagination]="true"
   >
     <thead>
@@ -40,7 +40,7 @@
         </td>
         <td nzAlign="center">{{ data.name }}</td>
         <td nzAlign="center">
-          {{ data.username ? data.username : this.username }}
+          {{ data.username ? data.username : username }}
         </td>
         <td nzAlign="center">{{ data.author }}</td>
         <td nzAlign="center">
@@ -57,7 +57,7 @@
             *ngIf="data.yesterdayindex"
           >
             <div style="width: 80%">
-              {{ data.yesterdayindex ? "" : data.yesterdayindex }}
+              {{ data.yesterdayindex ? data.yesterdayindex : ""}}
             </div>
             <div
               style="cursor: pointer; position: relative"
@@ -85,7 +85,7 @@
             </div>
           </div>
         </td>
-        <td nzAlign="center">{{ data.todayindex }}</td>
+        <td nzAlign="center">{{ data.todayindex?data.todayindex:0 }}</td>
         <td nzAlign="center">
           <div>
             {{

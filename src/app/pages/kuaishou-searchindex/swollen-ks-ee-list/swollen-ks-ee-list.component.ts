@@ -12,12 +12,14 @@ export class SwollenKsEeListComponent implements OnInit {
   type = true;
   dataSet = [];
   username = "";
+	userId:any='0'
   index = [];
   constructor(public api: ApiService, public common: CommonService) {}
 
   ngOnInit(): void {
-    this.SwollenKsEeList();
-    this.username = localStorage.getItem("name");
+    this.username = localStorage.getItem("username");
+		this.userId = localStorage.getItem("userId") || "0";
+		this.SwollenKsEeList();
   }
   ngModelChange() {
     this.type = !this.type;
@@ -26,7 +28,7 @@ export class SwollenKsEeListComponent implements OnInit {
   }
   SwollenKsEeList() {
     this.api
-      .SwollenKsEeList({ userId: 13, type: this.type })
+      .SwollenKsEeList({ userId: this.userId, type: this.type })
       .subscribe((res: any) => {
         for (let i = 0; i < res.result.length; i++) {
           res.result[i].yesterday = 0;

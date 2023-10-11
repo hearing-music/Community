@@ -1,0 +1,85 @@
+<div class="kuaishou">
+  <div style='display: flex; align-items: center'>
+    <!-- 搜索 -->
+   <ngx-search [searchValue]="searchValue" [searchHolder]="
+     type == '链接搜索'
+       ? searchHolder + '链接'
+       : type == '分享链接搜索'
+       ? searchHolder + '分享链接'
+       : searchHolder + 'ID'
+   " (childSearch)="search($event)">
+   	</ngx-search>
+   	<div style="margin-left: 12px">
+   		<nz-select [(ngModel)]="type">
+   			<nz-option *ngFor="let l of typeList" [nzValue]="l.value" [nzLabel]="l.label"></nz-option>
+   		</nz-select>
+   	</div>
+  </div>
+  <div class="kuaishou-left" style="margin-top: 24px">
+    <nz-empty *ngIf="!result.title" style="margin-top: 160px"></nz-empty>
+    <div class="list" *ngIf="result.title">
+      <div class="list-item">
+        <div class="item-left">
+          <div class="left-avatar">
+            <img
+              [src]="result.BloggerInfo.urlList"
+              style="width: 100%; height: 100%"
+              onerror='this.src="/assets/img/imgError.png"'
+            />
+          </div>
+          <div class="left-text">
+            <div class="title-area">
+              <span nz-tooltip [nzTooltipTitle]="result.title">
+                <div class="title u-line-1">
+                  {{ result.title }}
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="item-center">
+          <div
+            class=""
+            style="display: flex; align-items: center; margin-left: 8px"
+          >
+            <img src="/assets/img/bpm.png" class="icon" />
+            <div nz-tooltip [nzTooltipTitle]="'使用量'">
+              {{ result.user_count }}
+            </div>
+          </div>
+        </div>
+        <div class="item-right">
+          <button nz-button nzType="dashed" nzShape="round" (click)="monitor()">
+            <span>{{ isMonitor ? "收起" : "监测声源" }}</span>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="isMonitor" class="isMonitor">
+        <div class="Monitor">
+			<div style='padding:10px;'>
+			  <div class="tittle">监测周期：</div>
+			  <nz-select [(ngModel)]="cycle">
+			  	<nz-option *ngFor="let l of cycleList" [nzValue]="l.value" [nzLabel]="l.label"></nz-option>
+			  </nz-select>
+			</div>
+			<div style='padding:10px;'>
+			  <div class="tittle">监测时间：</div>
+			  <nz-checkbox-group [nzDisabled]='true' [(ngModel)]="timeList" (ngModelChange)="timeChange($event)"></nz-checkbox-group>
+			</div>
+          <div class="innerText">
+            <button
+              nz-button
+              nzType="dashed"
+              nzShape="round"
+			  [disabled]="disabled"
+			  (click)='listenSoundSource()'
+            >
+              <span>提交</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-loading *ngIf="loading"></ngx-loading>
+</div>

@@ -1,0 +1,103 @@
+<div class="swollen">
+  <div class="tab">
+    <nz-switch
+      [ngModel]="type"
+      nzCheckedChildren="我的"
+      nzUnCheckedChildren="全部"
+      (ngModelChange)="ngModelChange()"
+    ></nz-switch>
+  </div>
+  <nz-table
+    #basicTable
+    [nzData]="dataSet"
+    [nzTotal]="total"
+    [nzPageSize]="50"
+    [nzShowPagination]="true"
+  >
+    <thead>
+      <tr>
+        <th nzAlign="center" nzWidth="50px">ID</th>
+        <th nzAlign="center">头像</th>
+        <th nzAlign="center">声源</th>
+        <th nzAlign="center">监控人</th>
+        <th nzAlign="center">作者</th>
+        <th nzAlign="center">声源时长</th>
+        <th nzAlign="center">昨日使用量</th>
+        <th nzAlign="center">今日使用量</th>
+        <th nzAlign="center">增长使用量</th>
+        <th nzAlign="center">播放音源</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data; let i = index">
+        <td nzAlign="center">{{ i + 1 }}</td>
+        <td nzAlign="center">
+          <img
+            style="width: 40px; height: 40px; border-radius: 50%"
+            [src]="this.data.cdn"
+            alt=""
+          />
+        </td>
+        <td nzAlign="center">{{ data.originalVoice }}</td>
+        <td nzAlign="center">
+          {{ data.username ? data.username : username }}
+        </td>
+        <td nzAlign="center">{{ data.nickName }}</td>
+        <td nzAlign="center">
+         {{data.audioSize}}s
+        </td>
+        <td nzAlign="center">
+			<div
+			  style="display: flex; justify-content: space-around"
+			  *ngIf="data.yesterdayCount"
+			>
+			  <div style="width: 80%">
+			    {{ data.yesterdayCount ? data.yesterdayCount : ""}}
+			  </div>
+			  <div
+			    style="cursor: pointer; position: relative"
+			    (mouseenter)="mouseenter(data)"
+			    (mouseleave)="mouseleave(data)"
+			  >
+			    <div
+			      nz-icon
+			      nzType="clock-circle"
+			      nzTheme="outline"
+			      style="
+			        margin-left: 5px;
+			        position: absolute;
+			        right: 5px;
+			        top: 50%;
+			        transform: translateY(-50%);
+			      "
+			      style="font-size: 20px; color: #333; margin-right: 6px"
+			    ></div>
+			    <div *ngIf="data.show" class="history">
+			      <div *ngFor="let item of data.utilisation.data">
+			        {{ common.getTime(item.GetTime*1000) }}：{{ item.UserCount }}
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		</td>
+        <td nzAlign="center">
+          {{data.todayCount}}
+        </td>
+        <td nzAlign="center">
+			<div *ngIf='data.todayCount&&data.yesterdayCount'>
+				{{data.todayCount - data.yesterdayCount}}
+			</div>
+		</td>
+       <td nzAlign='center'>
+       	<span (click)='playMusic(data)' *ngIf='!data.isplay&&data.originalSound' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+       	<span (click)='pauseMusic(data)' *ngIf='data.isplay&&data.originalSound' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+       </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <!-- 播放器 -->
+  <div class="play" [ngClass]="{playhide : !isPlay}">
+  	<audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()'>
+  	</audio>
+  </div>
+</div>

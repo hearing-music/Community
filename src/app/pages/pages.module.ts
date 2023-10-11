@@ -53,6 +53,8 @@ import { DouyinVideoComponent } from './douyin/douyin-video/douyin-video.compone
 import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
 import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-listenDaren.component';
 import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-listenVideo.component';
+import { DouyinSoundSourceComponent } from './douyin/douyin-soundSource/douyin-soundSource.component';
+import { DouyinListenSoundSourceComponent } from './douyin/douyin-listenSoundSource/douyin-listenSoundSource.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
 import { RadarComponent } from './radar/radar.component';
@@ -190,6 +192,8 @@ registerLocaleData(zh);
 		PagesComponent,
 		FreeSongs_kugouComponent,
 		FreeSongs_qqComponent,
+		DouyinSoundSourceComponent,
+		DouyinListenSoundSourceComponent,
 		SearchSongsComponent,
 		SearchPageComponent,
 		QuerySonglistComponent,

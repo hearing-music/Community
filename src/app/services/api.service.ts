@@ -361,6 +361,23 @@ export class ApiService {
 		} = params;
 		return this.http.post(this.baseUrl + "/douyin/DouYinSearchVideoDetailsList", { arr, type })
 	}
+	// 抖音监控声源
+	douyinListenSourdSource(params:any){
+		let requestBody = params;
+		return this.http.post(
+		      this.baseUrl +"/douyin/douyinListenSourdSource",
+		      requestBody
+		    );
+	}
+	// 获取监控声源
+	getDouyinListenSourdSource(params:any){
+		let { userId, type } = params;
+		    if (type) {
+		      return this.http.get(this.baseUrl + "/douyin/getDouyinListenSourdSource?userId=" + userId);
+		    } else {
+		      return this.http.get(this.baseUrl + "/douyin/getDouyinListenSourdSource");
+		    }
+	}
 	  //抖音上升热点
 	  DouRiseSearch(params: any) {
 	    let { keyword, page, pageSize } = params;

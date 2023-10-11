@@ -21,6 +21,8 @@ import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-l
 import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-listenVideo.component';
 import { DouyinAssayVideoComponent } from './douyin/douyin-assayVideo/douyin-assayVideo.component';
 import { DouyinPopularAccountsComponent } from "./douyin/douyin-popular-accounts/douyin-popular-accounts.component";
+import { DouyinSoundSourceComponent } from './douyin/douyin-soundSource/douyin-soundSource.component';
+import { DouyinListenSoundSourceComponent } from './douyin/douyin-listenSoundSource/douyin-listenSoundSource.component';
 import { RisingHotComponent } from "./douyin/rising-hot/rising-hot.component";
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
@@ -180,6 +182,18 @@ const routes: Routes = [{
 		{
 			path: 'douyin/douyin-assayVideo',
 			component: DouyinAssayVideoComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 抖音声源查询
+		{
+			path: 'douyin/douyin-soundSource',
+			component: DouyinSoundSourceComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 抖音获取监控声源
+		{
+			path: 'douyin/douyin-listenSoundSource',
+			component: DouyinListenSoundSourceComponent,
 			canActivate: [PermissionGuard]
 		},
 		//云图 由你涨幅排名
