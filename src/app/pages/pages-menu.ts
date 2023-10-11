@@ -89,11 +89,11 @@ export let MENU_ITEMS: NbMenuItem[] = [
 				link: '/pages/douyin/douyin-assayVideo',
 			},
 			{
-				title: '添加声源',
+				title: '添加监控声源',
 				link: '/pages/douyin/douyin-soundSource',
 			},
 			{
-				title: '声源查询',
+				title: '监控声源查询',
 				link: '/pages/douyin/douyin-listenSoundSource',
 			},
 		],
