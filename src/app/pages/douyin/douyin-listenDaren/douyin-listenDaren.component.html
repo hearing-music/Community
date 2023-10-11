@@ -105,6 +105,9 @@
 								<div *ngIf='item.TypeJson'>
 									类型：<span class="value" *ngFor='let t of item.TypeJson.res;let ti = index;'>{{ti==item.TypeJson.res.length-1?t.TypeName:t.TypeName+'/'}}</span>
 								</div>
+								<div *ngIf='!item.TypeJson'>
+									类型：<span class="value">无</span>
+								</div>
 							</div>
 							<div style="margin-left: 20px;">
 								风格：<span class="value">{{item.Style?item.Style:'无'}}</span>
