@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service'
+import { ApiService } from '../services/api.service'
 import { NzMessageService  } from 'ng-zorro-antd/message';
 import {CommonService} from "../services/common.service";
 @Component({
@@ -10,7 +11,7 @@ import {CommonService} from "../services/common.service";
 })
 export class LoginComponent implements OnInit {
 
-	constructor(private message:NzMessageService,public authService: AuthService, public router: Router,public common: CommonService) { }
+	constructor(private message:NzMessageService,public api: ApiService,public authService: AuthService, public router: Router,public common: CommonService) { }
 
 	ngOnInit(): void {
 		this.phone = localStorage.getItem('phone') || '';
@@ -95,13 +96,25 @@ export class LoginComponent implements OnInit {
 					"menus_item":JSON.stringify(res.result.menus_item),
 					"create_at":res.result.create_at,
 					"url":res.result.url,
-					"highUserList":res.result.highUserList
+					"highUserList":res.result.highUserList,
+					"ks_monitoring_limit":res.result.ks_monitoring_limit
 				})
-				
 				this.authService.isLoggedIn = true;
 				const redirectUrl = this.authService.redirectUrl || '/'; // 防止用户直接在地址栏输入造成的redirectUrl为空的错误
 				// 跳转回重定向路径
 				this.router.navigate([redirectUrl]);
+				this.api.douyin_videoGetInterval().subscribe((res: any) => {
+					if(res.success){
+						localStorage.setItem('ks_monitoring_limitNow',res.count)
+						// 调用组件方法 更新douyincount
+							window['NgAppRef'].zone.run(function () {
+								window['NgAppRef3'].component.updateDYCount();
+							});
+					}
+				}, (err: any) => {
+					console.log(err)
+					// this.message.error(err)
+				});
 			}else{
 				// this.message.error(res.message)
 			}

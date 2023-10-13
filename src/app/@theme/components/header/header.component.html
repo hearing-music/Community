@@ -37,6 +37,7 @@
 	    <nz-dropdown-menu #menu="nzDropdownMenu">
 	      <ul nz-menu>
 	        <li nz-menu-item (click)='logOut()'>{{userMenu[0].title}}</li>
+	        <li nz-menu-item >{{'DY：'+ks_monitoring_limitNow+'/'+ks_monitoring_limit}}</li>
 	      </ul>
 	    </nz-dropdown-menu>
 	</nb-action>

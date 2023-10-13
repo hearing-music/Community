@@ -58,6 +58,8 @@ export class DouyinVideoComponent implements OnInit {
 		{ value: "女", label: "女" },
 	];
 	searchType: any = "切换excel批量搜索";
+	
+	radioValue:any='24小时'
 	searchTypeChange() {
 		if (this.searchType == "切换excel批量搜索") {
 			this.searchType = "切换输入搜索";
@@ -322,6 +324,7 @@ export class DouyinVideoComponent implements OnInit {
 		return new Promise((resolve: any) => {
 			this.api
 				.douyin_listenVideo({
+					interval:this.radioValue,
 					originalSound: result.originalSound,
 					position: this.position,
 					commentText,
@@ -352,6 +355,8 @@ export class DouyinVideoComponent implements OnInit {
 							this.commentSecUid = "";
 							this.watchComment = false;
 							this.commentText = "";
+							// 更新总次数
+							this.douyin_videoGetIntervalAll(res)
 							resolve(true);
 						} else {
 							resolve(false);
@@ -372,6 +377,29 @@ export class DouyinVideoComponent implements OnInit {
 	async handleOk2() {
 		await this.douyin_listenDaren();
 		await this.douyin_listenVideo();
+		this.douyin_videoGetInterval()
+	}
+	// 存入当前十分钟监控视频次数 并更新
+	douyin_videoGetIntervalAll(res:any){
+		localStorage.setItem('ks_monitoring_limit',res.result.ks_monitoring_limit)
+		window['NgAppRef'].zone.run(function () {
+			window['NgAppRef3'].component.updateDYCount();
+		});
+	}
+	// 重新获取当前十分钟监控视频次数
+	douyin_videoGetInterval(){
+		  this.api.douyin_videoGetInterval().subscribe((res: any) => {
+		  	if(res.success){
+		  		localStorage.setItem('ks_monitoring_limitNow',res.count)
+		  		// 调用组件方法 更新douyincount
+		  			window['NgAppRef'].zone.run(function () {
+		  				window['NgAppRef3'].component.updateDYCount();
+		  			});
+		  	}
+		  }, (err: any) => {
+		  	console.log(err)
+		  	// this.message.error(err)
+		  });
 	}
 	handleCancel2() {
 		this.isVisible2 = false;

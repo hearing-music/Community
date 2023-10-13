@@ -93,9 +93,9 @@
 										</div>
 									</span>
 								</div>
-								<!-- 待定 -->
+								<!-- 赞赏 -->
 								<div style="display: flex; align-items: center; margin-left: 12px">
-									<span nz-tooltip [nzTooltipTitle]="'待定'">
+									<span nz-tooltip [nzTooltipTitle]="'赞赏'">
 										<div style="display: flex; align-items: center">
 											<img src="../../../assets/img/daiding.svg" class="icon2" />
 											{{ common.toThousands(item.admireCount) }}
@@ -280,11 +280,11 @@
 										</div>
 									</span>
 								</div>
-								<!-- 待定 -->
+								<!-- 赞赏 -->
 								<div style="display: flex; align-items: center; margin-left: 12px">
-									<span nz-tooltip [nzTooltipTitle]="'待定'">
+									<span nz-tooltip [nzTooltipTitle]="'赞赏'">
 										<div style="display: flex; align-items: center">
-											<img src="../../../assets/img/daiding.svg" class="icon2" />
+											<img src="../../../assets/img/zanshang.svg" class="icon2" />
 											{{ common.toThousands(result.admireCount) }}
 										</div>
 									</span>
@@ -491,12 +491,21 @@
 						nzUnCheckedChildren="否"></nz-switch>
 				</div>
 			</div>
-			<div style="margin-top: 12px">
-				<p>位置</p>
+			<div style="margin-top: 12px;display: flex;">
 				<div>
-					<nz-select [(ngModel)]="position" [nzDisabled]="result.isListenVideo || !watchComment">
-						<nz-option *ngFor="let l of positionList" [nzValue]="l.value" [nzLabel]="l.label"></nz-option>
-					</nz-select>
+					<p>位置</p>
+					<div>
+						<nz-select [(ngModel)]="position" [nzDisabled]="result.isListenVideo || !watchComment">
+							<nz-option *ngFor="let l of positionList" [nzValue]="l.value" [nzLabel]="l.label"></nz-option>
+						</nz-select>
+					</div>
+				</div>
+				<div style="margin-left: 20px;">
+					<p>监控间隔<span style="color: #ccc;font-size: 12px;">注：每人监控十分钟的数量是有限的</span></p>
+					<nz-radio-group [(ngModel)]="radioValue">
+					      <label nz-radio nzValue="24小时">24小时</label>
+					      <label nz-radio nzValue="10分钟">10分钟</label>
+					</nz-radio-group>
 				</div>
 			</div>
 			<div style="margin-top: 12px">

@@ -402,6 +402,15 @@ export class ApiService {
 	      this.baseUrl + "/douyin/DouSentenceDetail?sentence_id=" + sentence_id+'&videoId='+(videoId?videoId:'')
 	    );
 	  }
+	// 获取监控视频 监控十分钟视频的数量
+	douyin_videoGetInterval(){
+		return this.http.post(this.baseUrl +"/douyin/douyin_videoGetInterval",null);
+	}
+	// 取消十分钟监控视频
+	douyin_cancelInterval10M(params:any){
+		let {id}=params;
+		return this.http.post(this.baseUrl +"/douyin/douyin_cancelInterval10M",{id});
+	}
 	// 抖音 热点宝贝 热门账号 才艺音乐
 	getDouMonitorUser(params:any){
 		let { page,pageSize } = params;

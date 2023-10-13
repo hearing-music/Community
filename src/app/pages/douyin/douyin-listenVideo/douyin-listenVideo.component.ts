@@ -35,6 +35,51 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 	  this.douyin_getListenVideo()
   }
   type=true;
+  // 取消十分钟监控 改为24小时
+  confirm(item:any){
+	  this.douyin_cancelInterval10M(item)
+  }
+  cancel(){
+	  
+  }
+  // 取消十分钟监控 改为24小时api
+  douyin_cancelInterval10M(item:any){
+	  this.loading = true;
+	  this.api.douyin_cancelInterval10M({id:item.VID}) .subscribe((res: any) => {
+	  	console.log(res)
+		if(res.success){
+			item.expectationsDoubled=0;
+			this.message.success('取消成功')
+			this.douyin_videoGetInterval()
+			this.douyin_videoGetIntervalAll(res)
+		}
+	  	this.loading = false;
+	  }, (err: any) => {
+	  	console.log(err)
+	  	this.loading = false;
+	  })
+  }
+  // 存入当前十分钟监控视频次数 并更新
+  douyin_videoGetIntervalAll(res:any){
+  	localStorage.setItem('ks_monitoring_limit',res.ks_monitoring_limit)
+  	window['NgAppRef'].zone.run(function () {
+  		window['NgAppRef3'].component.updateDYCount();
+  	});
+  }
+  douyin_videoGetInterval(){
+	  this.api.douyin_videoGetInterval().subscribe((res: any) => {
+	  	if(res.success){
+	  		localStorage.setItem('ks_monitoring_limitNow',res.count)
+	  		// 调用组件方法 更新douyincount
+	  			window['NgAppRef'].zone.run(function () {
+	  				window['NgAppRef3'].component.updateDYCount();
+	  			});
+	  	}
+	  }, (err: any) => {
+	  	console.log(err)
+	  	// this.message.error(err)
+	  });
+  }
   // 开关切换
   ngModelChange(){
   	  this.type = !this.type

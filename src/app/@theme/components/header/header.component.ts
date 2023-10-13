@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit,NgZone } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
   import { Router} from '@angular/router';
 import { UserData } from '../../../@core/data/users';
@@ -6,6 +6,7 @@ import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import {CommonService} from "../../../services/common.service";
+import { AuthService } from '../../../services/auth.service'
 @Component({
   selector: 'ngx-header',
   styleUrls: ['./header.component.scss'],
@@ -46,9 +47,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private themeService: NbThemeService,
               private userService: UserData,
               private layoutService: LayoutService,
+			  public author:AuthService,
 			  private common:CommonService,
 			  public router:Router,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+			  private ngZone: NgZone) {
+				  window["NgAppRef3"] = { component: this, zone: this.ngZone };
   }
 	logOut(){
 		console.log('logout')
@@ -56,7 +60,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.common.removeLocalStorages()
 		this.router.navigate(['/login']);
 	}
+	ks_monitoring_limit:any=0
+	ks_monitoring_limitNow:any=0
+	updateDYCount(){
+		this.ks_monitoring_limit = localStorage.getItem('ks_monitoring_limit')||0
+		this.ks_monitoring_limitNow = localStorage.getItem('ks_monitoring_limitNow')||0
+	}
   ngOnInit() {
+	  this.updateDYCount()
     this.currentTheme = this.themeService.currentTheme;
 	let name = localStorage.getItem('username') || '神秘人';
 	let url = localStorage.getItem('url') || '../../../../assets/img/avatar.jpg';
@@ -80,8 +91,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(themeName => this.currentTheme = themeName);
+			
   }
-
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

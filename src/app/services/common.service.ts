@@ -48,6 +48,7 @@ export class CommonService {
 		localStorage.setItem('create_at', obj.create_at)
 		localStorage.setItem('url', obj.url)
 		localStorage.setItem('highUserList', obj.highUserList)
+		localStorage.setItem('ks_monitoring_limit', obj.ks_monitoring_limit)
 	}
 	
 	

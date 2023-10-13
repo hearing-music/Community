@@ -30,6 +30,8 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzMentionModule } from 'ng-zorro-antd/mention';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 // page
 import { DouyinPopularAccountsComponent } from "./douyin/douyin-popular-accounts/douyin-popular-accounts.component";
 import { OggToMp3Component } from './audio-conversion/ogg-to-mp3/ogg-to-mp3.component';
@@ -157,6 +159,8 @@ registerLocaleData(zh);
 		NzCheckboxModule,
 		NzImageModule,
 		NzSliderModule,
+		NzRadioModule,
+		NzPopconfirmModule,
 		NzSwitchModule,
 		NzSpinModule,
 		NzCollapseModule,
