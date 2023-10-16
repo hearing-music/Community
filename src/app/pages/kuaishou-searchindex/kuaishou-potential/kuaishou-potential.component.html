@@ -1,0 +1,106 @@
+<div class="swollen">
+  <nz-table
+    #nestedTable
+    [nzData]="dataSet"
+    [nzPageSize]="50"
+    [nzShowPagination]="false"
+	[nzScroll]="{ x: '100%' }"
+  >
+    <thead>
+      <tr>
+        <th nzAlign="center" nzWidth="35px"></th>
+        <th nzAlign="center">事件信息</th>
+        <th nzAlign="center">事件ID</th>
+        <th nzAlign="center">创建时间</th>
+        <th nzAlign="center">修改时间</th>
+        <th nzAlign="center">打爆潜力值</th>
+        <th nzAlign="center">曝光量</th>
+        <th nzAlign="center">参与视频数</th>
+        <th nzAlign="center">相关音乐</th>
+      </tr>
+    </thead>
+    <tbody>
+		<ng-template ngFor let-item [ngForOf]="nestedTable.data">
+			<tr>
+				<td nzAlign="center" [(nzExpand)]="item.expand"></td>
+				<td nzAlign="center">
+				 {{item.eventName}}
+				</td>
+				<td nzAlign="center">{{ item.eventId }}</td>
+				<td nzAlign="center">
+				  {{ common.timeFormat(item.createTime)}}
+				</td>
+				<td nzAlign="center">{{ common.timeFormat(item.updateTime) }}</td>
+				<td nzAlign="center">
+					{{ item.levelDesc }}
+				</td>
+				<td nzAlign="center">{{ common.toThousands(item.showCount) }}</td>
+				<td nzAlign="center">
+				  {{ item.uploadCount }}
+				</td>
+				<td nzAlign="center">
+					<div *ngFor="let items of item.musicList">
+						{{items}}
+					</div>
+				</td>
+			</tr>
+			<tr [nzExpand]="item.expand" >
+				<div class='bloggerVideos'>
+					<div *ngFor="let items of item.photoList; let i = index"
+						style="position: relative;display: flex;flex-direction: column;align-items: center;width: 310px;margin:0 10px;">
+						<video [src]="items.playUrl" width="250px" height="408px" id="v" style="background:#000;" controls></video>
+						<div style="font-size: 14px; box-sizing: border-box;width: 100%;margin-top: 15px;">
+							<div style="display: flex;align-items: center;font-size: 12px;">
+								<!-- 点赞 -->
+								<div style="display: flex;align-items: center;">
+									<img src="../../../assets/img/dianzan.svg" class="icon" />
+									<div>
+										{{ common.toThousands(items.likeCnt) }}
+									</div>
+								</div>
+								<!-- 粉丝 -->
+								<div style="display: flex;align-items: center;margin-left: 4px;">
+									<img src="../../../assets/img/FANS.svg" class="icon" />
+									<div>
+										{{common.toThousands(items.fansCnt)}}
+									</div>
+								</div>
+								<!-- 播放 -->
+								<div style="display: flex;align-items: center;margin-left: 4px;">
+									<img src="../../../assets/img/bofang.svg" class="icon" />
+									<div>
+										{{ common.toThousands(items.playCnt) }}
+									</div>
+								</div>
+							</div>
+							<div style="display: flex;align-items: center;margin-top: 4px;font-size: 12px;">
+								<!-- 作者 头像 -->
+								<div style="display: flex;align-items: center;">
+									<img [src]="items.headUrl" class="icon" style="width: 26px;height: 26px;border-radius: 50%;" />
+									<div>
+										{{ items.authorName}}
+									</div>
+								</div>
+							</div>
+							<div style="margin-top: 4px" class="hiddenText1" nz-tooltip [nzTooltipTitle]="items.caption">
+								标签：{{ items.caption ? items.caption :"无" }}
+							</div>
+							<div style="display: flex; justify-content: center; margin-top: 15px">
+								<button *ngIf="items.authorIdStr" nz-button nzType="primary" nzGhost
+									(click)="ToRadio(items.authorIdStr)">
+									查看作者
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</tr>
+		</ng-template>
+    </tbody>
+  </nz-table>
+  <div style="display: flex;justify-content: center;padding-bottom: 10px;">
+  	<nz-pagination [nzPageIndex]="page" [nzPageSize]='50' [nzTotal]="total"
+  		(nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
+  </div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

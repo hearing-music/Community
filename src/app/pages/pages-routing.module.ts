@@ -23,6 +23,7 @@ import { DouyinAssayVideoComponent } from './douyin/douyin-assayVideo/douyin-ass
 import { DouyinPopularAccountsComponent } from "./douyin/douyin-popular-accounts/douyin-popular-accounts.component";
 import { DouyinSoundSourceComponent } from './douyin/douyin-soundSource/douyin-soundSource.component';
 import { DouyinListenSoundSourceComponent } from './douyin/douyin-listenSoundSource/douyin-listenSoundSource.component';
+import {kuaishouPotentialComponent} from './kuaishou-searchindex/kuaishou-potential/kuaishou-potential.component'
 import { RisingHotComponent } from "./douyin/rising-hot/rising-hot.component";
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
@@ -248,6 +249,12 @@ const routes: Routes = [{
 		      {
 		        path: "kuaishou-SwollenKsEeLis",
 		        component: SwollenKsEeListComponent,
+		        canActivate: [PermissionGuard],
+		      },
+		//魔力潜力榜
+		      {
+		        path: "kuaishou-potential",
+		        component: kuaishouPotentialComponent,
 		        canActivate: [PermissionGuard],
 		      },
 		//音频转换oggToMp3

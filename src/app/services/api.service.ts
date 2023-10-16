@@ -545,6 +545,11 @@ export class ApiService {
 	getkuaishouSearch() {
 		return this.http.get(this.baseUrl + "/kuaishou/kuaishou_hot")
 	}
+	// 魔表潜力榜
+	getKuaishouHotEventList(params:any){
+		let {page} = params;
+		return this.http.get(this.baseUrl + "/kuaishou/hotEventList?page="+page)
+	}
 	//获取快手dj
 	getkuaishouDj(params: { page: any; pageSize: any; }) {
 		let url = this.baseUrl + "/kuaishou/kuaishou_1?page=" + params.page + "&pageSize=" + params.pageSize

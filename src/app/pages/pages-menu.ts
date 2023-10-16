@@ -129,6 +129,10 @@ export let MENU_ITEMS: NbMenuItem[] = [
 			        title: "快手特效监控",
 			        link: "/pages/kuaishou-SwollenKsEeLis",
 			      },
+			{
+				title:'魔表潜力榜',
+				link:"/pages/kuaishou-potential"
+			}
 		],
 	},
 	{

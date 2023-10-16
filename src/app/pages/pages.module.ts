@@ -111,6 +111,7 @@ import { NotOpenComponent } from '../components/not-open/not-open.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { TemplateComponent } from './lsdd-page/template/template.component';
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
+import {kuaishouPotentialComponent} from './kuaishou-searchindex/kuaishou-potential/kuaishou-potential.component'
 import { CopyrightLinkComponent } from './copyright-scanning/copyright-link/copyright-link.component';
 import { TrackSeparateComponent } from './track-separate/track-separate.component';
 import { AudioTrickComponent } from '../components/audio-trick/audio-trick.component';
@@ -188,6 +189,7 @@ registerLocaleData(zh);
 		DyAuthorComponent,
 		ArtistVisualizationComponent,
 		MermaidComponent,
+		kuaishouPotentialComponent,
 		SwollenKsEeListComponent,
 		EnlightenmentSongsComponent,
 		EnlightenmentTop20Component,

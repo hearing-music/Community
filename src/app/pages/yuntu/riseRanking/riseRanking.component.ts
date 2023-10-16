@@ -42,13 +42,13 @@ export class RiseRankingComponent implements OnInit {
 	getRanking(){
 		this.loading = true;
 		this.api.GetMusicLimitHundred().subscribe((res: any) => {
+			this.loading = false;
 			if (res.success) {
 				res.result.forEach((item:any)=>{
 					item.yesterday = item.yesterday ||{indexes:1000000}
 				})
 				this.list = res.result;
 			} 
-			this.loading = false;
 		}, (err: any) => {
 			this.loading = false;
 		})

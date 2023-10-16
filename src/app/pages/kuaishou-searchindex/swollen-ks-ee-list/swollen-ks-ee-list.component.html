@@ -54,7 +54,7 @@
         <td nzAlign="center">
           <div
             style="display: flex; justify-content: space-around"
-            *ngIf="data.yesterdayindex"
+            *ngIf="data.yesterdayindex || data.utilisation.res.length > 2"
           >
             <div style="width: 80%">
               {{ data.yesterdayindex ? data.yesterdayindex : ""}}
