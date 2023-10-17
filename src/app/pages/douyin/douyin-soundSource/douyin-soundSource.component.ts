@@ -84,11 +84,8 @@ export class DouyinSoundSourceComponent implements OnInit {
     this.DouYinSearchVideoDetails();
   }
   listenSoundSource(){
-		//let timeArr = this.timeArr.map((e:any)=>e.value);
-	  // if( timeArr.length==0){
-		 //  this.message.info('至少选择一个时间段')
-		 //  return
-	  // }
+		let timeArr = this.timeArr.map((e:any)=>e.value);
+	  let monitor_timeArr = timeArr.join()
 	  let addTime = new Date().getTime();
 	  let endTime = addTime + 24*60*60*1000*this.cycle
 	  let params = {
@@ -106,7 +103,8 @@ export class DouyinSoundSourceComponent implements OnInit {
 		},
 		"addTime":parseInt(addTime/1000+''),
 		"endTime":parseInt(endTime/1000+''),
-		"userId":this.userId
+		"userId":this.userId,
+		"monitor_timeArr":monitor_timeArr
 	  }
 	  this.loading = true;
 	  this.api.douyinListenSourdSource(params).subscribe((res: any) => {

@@ -26,6 +26,7 @@
         <th nzAlign="center">昨日特效使用量</th>
         <th nzAlign="center">今日特效使用量</th>
         <th nzAlign="center">较昨日增长使用量</th>
+		<th nzAlign='center'>加入时间</th>
       </tr>
     </thead>
     <tbody>
@@ -95,6 +96,9 @@
             }}
           </div>
         </td>
+		<td nzAlign="center">
+			{{common.timeFormat(data.creationTime*1000)}}
+		</td>
       </tr>
     </tbody>
   </nz-table>
