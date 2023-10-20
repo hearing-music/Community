@@ -27,6 +27,8 @@
         <th nzAlign="center">昨日特效使用量</th>
         <th nzAlign="center">今日特效使用量</th>
         <th nzAlign="center">较昨日增长使用量</th>
+        <th nzAlign="center">昨日作品使用量</th>
+        <th nzAlign="center">距前一日增长</th>
 		<th nzAlign='center'>加入时间</th>
       </tr>
     </thead>
@@ -97,6 +99,67 @@
             }}
           </div>
         </td>
+		<td nzAlign="center">
+			<div *ngIf='data.BgmUtilizationRateZT' style="display: flex;align-items: center;justify-content:center;">
+				<div>
+					<div [ngStyle]="{'color':data.BgmColor[0]}" nz-tooltip [nzTooltipTitle]="data.BgmTitle[0]">
+						{{data.BgmUtilizationRateZT[1]}}
+					</div>
+					<div [ngStyle]="{'color':data.BgmColor[1]}" nz-tooltip [nzTooltipTitle]="data.BgmTitle[1]">
+						{{data.BgmUtilizationRateZT[2]}}
+					</div>
+					<div [ngStyle]="{'color':data.BgmColor[2]}" nz-tooltip [nzTooltipTitle]="data.BgmTitle[2]">
+						{{data.BgmUtilizationRateZT[3]}}
+					</div>
+					
+				</div>
+				<div
+				  style="cursor: pointer; position: relative"
+				  (mouseenter)="mouseenter2(data)"
+				  (mouseleave)="mouseleave2(data)">
+				  <div
+				    nz-icon
+				    nzType="clock-circle"
+				    nzTheme="outline"
+				    style="font-size: 20px; color: #333;"
+				  ></div>
+				  <div *ngIf="data.show2" class="history">
+				    <div *ngFor="let item of data.BgmUtilizationRate.res">
+						<div *ngFor="let items of item.data">
+							<div>
+								{{common.timeFormat(items[0])}}
+							</div>
+							<div>
+								<div [ngStyle]="{'color':data.BgmColor[0]}">
+									{{data.BgmTitle[0]}}：{{items[1]}}，
+								</div>
+								<div [ngStyle]="{'color':data.BgmColor[1]}">
+									{{data.BgmTitle[1]}}：{{items[2]}}，
+								</div>
+								<div [ngStyle]="{'color':data.BgmColor[2]}">
+									{{data.BgmTitle[2]}}：{{items[3]}}
+								</div>
+							</div>
+						</div>
+				    </div>
+				  </div>
+				</div>
+			
+			</div>
+		</td>
+		<td nzAlign="center">
+			<div *ngIf='data.BgmUtilizationRateZT&&data.BgmUtilizationRateQT'>
+				<div [ngStyle]="{'color':data.BgmColor[0]}" nz-tooltip [nzTooltipTitle]="data.BgmTitle[0]">
+					{{data.BgmUtilizationRateZT[1] - data.BgmUtilizationRateQT[1]}}
+				</div>
+				<div [ngStyle]="{'color':data.BgmColor[1]}" nz-tooltip [nzTooltipTitle]="data.BgmTitle[1]">
+					{{data.BgmUtilizationRateZT[2] - data.BgmUtilizationRateQT[2]}}
+				</div>
+				<div [ngStyle]="{'color':data.BgmColor[2]}" nz-tooltip [nzTooltipTitle]="data.BgmTitle[2]">
+					{{data.BgmUtilizationRateZT[3] - data.BgmUtilizationRateQT[3]}}
+				</div>
+			</div>
+		</td>
 		<td nzAlign="center">
 			{{common.timeFormat(data.creationTime*1000)}}
 		</td>

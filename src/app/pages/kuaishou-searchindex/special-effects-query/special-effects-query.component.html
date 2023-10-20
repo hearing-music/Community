@@ -49,76 +49,113 @@
       </div>
       <div *ngIf="isMonitor" class="isMonitor">
         <div class="Monitor">
-          <div class="innerText">
-            <div class="tittle">作者：</div>
-            <div>
-              <input
-                nz-input
-                placeholder="请输入作者名"
-                [(ngModel)]="form.author"
-                style="width: 300px"
-              />
-            </div>
-          </div>
-          <div class="innerText">
-            <div class="tittle">电话：</div>
-            <div>
-              <input
-                nz-input
-                placeholder="请输入电话号（可以为空）"
-                [(ngModel)]="form.phone"
-                style="width: 300px"
-                type="text"
-                maxlength="11"
-              />
-            </div>
-          </div>
-          <div class="innerText">
-            <div class="tittle">微信：</div>
-            <div>
-              <input
-                nz-input
-                placeholder="请输入微信号（可以为空）"
-                [(ngModel)]="form.weChat"
-                style="width: 300px"
-              />
-            </div>
-          </div>
-          <div class="innerText">
-            <div class="tittle">QQ：</div>
-            <div>
-              <input
-                nz-input
-                placeholder="请输入QQ号（可以为空）"
-                [(ngModel)]="form.QQ"
-                style="width: 300px"
-              />
-            </div>
-          </div>
-          <div class="innerText">
-            <div class="tittle">BGM：</div>
-            <div>
-              <input
-                nz-input
-                placeholder="请输入BGM"
-                [(ngModel)]="form.BGM"
-                style="width: 300px"
-              />
-            </div>
-          </div>
-          <div class="innerText">
-            <button
-              nz-button
-              nzType="dashed"
-              nzShape="round"
-              (click)="Tomonitor()"
-            >
-              <span>提交</span>
-            </button>
-          </div>
+         <div style="display:flex;justify-content: space-between;">
+			  <div class="innerText">
+			    <div class="tittle">作者：</div>
+			    <div>
+			  		<input nz-input placeholder="请输入作者名" [(ngModel)]="form.author" style="width: 300px" /> 
+			  	</div>
+			  </div>
+			  <div class="innerText">
+			    <div class="tittle">电话：</div>
+			    <div>
+			      <input
+			        nz-input
+			        placeholder="请输入电话号（可以为空）"
+			        [(ngModel)]="form.phone"
+			        style="width: 300px"
+			        type="text"
+			        maxlength="11" />
+			    </div>
+			  </div>
+		  </div>
+		  <div style="display:flex;justify-content: space-between;">
+			  <div class="innerText">
+			    <div class="tittle">微信：</div>
+			    <div>
+			      <input
+			        nz-input
+			        placeholder="请输入微信号（可以为空）"
+			        [(ngModel)]="form.weChat"
+			        style="width: 300px"
+			      />
+			    </div>
+			  </div>
+			  <div class="innerText">
+			    <div class="tittle">QQ：</div>
+			    <div>
+			      <input
+			        nz-input
+			        placeholder="请输入QQ号（可以为空）"
+			        [(ngModel)]="form.QQ"
+			        style="width: 300px"
+			      />
+			    </div>
+			  </div>
+		  </div>
+          <div style="display:flex;justify-content: space-between;">
+			 <div class="innerText">
+			   <div class="tittle">BGM：</div>
+			   <div>
+			     <input
+			       nz-input
+			       placeholder="请输入BGM"
+			       [(ngModel)]="form.BGM"
+			       style="width: 300px" (focus)="focus($event)" (blur)="blur()" />
+			   </div>
+			 	<button nz-button nzType="dashed" nzShape="round" (click)="searchBGM()">
+					<span>搜索</span>
+			 	</button>
+			 </div>
+			 <div class="innerText" style="width: 50%;">
+			   <button
+			     nz-button
+			     nzType="dashed"
+			     nzShape="round"
+			     (click)="Tomonitor()"
+			   >
+			     <span>提交</span>
+			   </button>
+			 </div>
+		 </div>
+          
         </div>
       </div>
     </div>
+  </div>
+  <div *ngIf="isMonitor">
+	  <nz-empty *ngIf="BGMList.length==0" style="margin-top: 60px"></nz-empty>
+	 <div *ngFor='let item of BGMList;let i = index;' class="BGMList" [ngClass]='{"activeBGM":i===activeBGMIndex}' (click)='selectBGM(item,i)'>
+		 <div>
+			 <div style='color:#000;font-size:16px;font-weight:bold;'>
+			 	歌曲名：{{item.musicName}}
+			 </div>
+			 <div style="display: flex;">
+				 <div>
+				 	作者：{{item.artistName}}
+				 </div>
+				 <div style="margin-left: 10px;" nz-tooltip [nzTooltipTitle]="'上传时间'">
+				 	{{common.timeFormat(item.createTime)}}
+				 </div>
+			 </div>
+		 </div>
+		 <div>
+			 <div>
+			 	歌曲ID：{{item.musicId}}
+			 </div>
+			 <div>
+			 	类型：{{item.musicType}}
+			 </div>
+		 </div>
+		 <div>
+			 <div>
+			 	累计使用量{{item.copyrightClearanceUsageCount}}
+			 </div>
+			 <div>
+			 累计结算使用量{{item.totalUsageCount}}
+			 </div>
+		 </div>
+	 </div> 
   </div>
   <ngx-loading *ngIf="loading"></ngx-loading>
 </div>

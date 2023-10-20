@@ -1,14 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
 import { NzMessageService } from "ng-zorro-antd/message";
-
+import {CommonService} from "../../../services/common.service";
 @Component({
   selector: "ngx-special-effects-query",
   templateUrl: "./special-effects-query.component.html",
   styleUrls: ["./special-effects-query.component.scss"],
 })
 export class SpecialEffectsQueryComponent implements OnInit {
-  constructor(public api: ApiService, private message: NzMessageService) {}
+  constructor(public api: ApiService, private message: NzMessageService,public common: CommonService) {}
   loading = false;
   isMonitor = false;
   form = {
@@ -18,7 +18,7 @@ export class SpecialEffectsQueryComponent implements OnInit {
     QQ: "",
     BGM: "",
   };
-  result: any = {};
+  result: any = {}
   searchValue = "";
   searchHolder = "请输入视频链接";
   magicFaceId = "";
@@ -41,6 +41,8 @@ export class SpecialEffectsQueryComponent implements OnInit {
         .subscribe((res: any) => {
           this.loading = false;
           if (res.success) {
+			  this.activeBGMIndex = false;
+			  this.BGMList=[]
             this.result = res.result;
           }
         });
@@ -52,7 +54,42 @@ export class SpecialEffectsQueryComponent implements OnInit {
   monitor() {
     this.isMonitor = !this.isMonitor;
   }
+  
+  focus(e:any){
+  	e.preventDefault();
+  	document.onkeydown =  (event_e:any)=>{
+  		if(event_e.keyCode === 13){
+  			this.searchBGM()
+  		}
+  	}
+  }
+  blur(){
+  	document.onkeydown = null
+  }
+  activeBGMIndex:any=false
+  BGMList:any=[]
+selectBGM(item:any,i:any){
+	this.activeBGMIndex=i;
+}
+  searchBGM(){
+	  if(!this.form.BGM) return
+	  this.loading=true;
+	  this.api.getkuaishouCenterMusicList({keyword:this.form.BGM}).subscribe((res: any) => {
+          console.log(res)
+		  this.loading=false;
+		  if(res.success){
+			  this.BGMList = res.result;
+		  }
+        },(err:any)=>{
+			this.loading=false;
+		});
+  }
   Tomonitor() {
+	if(this.activeBGMIndex===false){
+		this.message.error("BGM必选");
+		return; // 停止向下执行
+	}
+	let obj = this.BGMList[this.activeBGMIndex];
     if (this.isMonitor && this.form.author && this.form.BGM) {
       if (this.form.phone!=='') {
         var chinesePhoneNumberRegex =
@@ -72,6 +109,9 @@ export class SpecialEffectsQueryComponent implements OnInit {
       let time = Math.floor(Date.now() / 1000);
       this.api
         .kuaishouMonitor({
+			BgmId:obj.musicId,
+			BgmType:obj.musicType,
+			BgmUtilizationRate:{"res": []},
           magicFaceId: this.magicFaceId,
           name: this.result.tagName,
           userId: this.userId,

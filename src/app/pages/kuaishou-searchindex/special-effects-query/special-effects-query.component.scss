@@ -125,12 +125,12 @@
     align-items: center;
     justify-content: center;
 }
-.Monitor{
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    align-items: center;
-}
+// .Monitor{
+//     display: flex;
+//     justify-content: space-around;
+//     flex-wrap: wrap;
+//     align-items: center;
+// }
 .isMonitor{
     font-size: 12px;
     color: rgba(0, 0, 0, 0.6);
@@ -139,7 +139,7 @@
     border-radius: 12px;
     padding: 10px 16px;
     .innerText{
-        width: 50%;
+        // width: 50%;
         display: flex; 
         align-items: center;
         justify-content: center;
@@ -148,4 +148,21 @@
             font-size: 14px;
         }
     }
+}
+.BGMList{
+	font-size: 12px;
+	color: rgba(0, 0, 0, 0.6);
+	margin-bottom: 20px;
+	background: #FFFFFF;
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	border-radius: 12px;
+	height: 94px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 16px;
+	cursor: pointer;
+}
+.activeBGM{
+	border: 2.5px solid blue;
 }

@@ -37,6 +37,8 @@ search(e:any){
       .SwollenKsEeList({ userId: this.userId, type: this.type,keyword:this.searchValue })
       .subscribe((res: any) => {
 		  this.loading=false;
+		  let yesterday = this.common.timeFormat(new Date().getTime()-24*60*60*1000)
+		  let qtday = this.common.timeFormat(new Date().getTime()-24*60*60*1000*2)
         for (let i = 0; i < res.result.length; i++) {
           res.result[i].yesterday = 0;
           res.result[i].show = false;
@@ -61,6 +63,27 @@ search(e:any){
                 res.result[i].utilisation.res[j].usageCount;
             }
           }
+		  let BgmUtilizationRateZT = ''
+		  let BgmUtilizationRateQT = ''
+		  let BgmColor = ''
+		  let BgmTitle = ''
+		  res.result[i].BgmUtilizationRate = res.result[i].BgmUtilizationRate || {res:[]}
+		  for(let j=0;j<res.result[i].BgmUtilizationRate.res.length;j++){
+			 let data2 = res.result[i].BgmUtilizationRate.res[j]
+			 let now = this.common.timeFormat(data2.time*1000)
+			 if(now==qtday){
+				 BgmUtilizationRateQT = data2.data[data2.data.length-1]
+			 }
+			 if(now == yesterday){
+				 BgmUtilizationRateZT = data2.data[data2.data.length-1]
+			 }
+			 BgmColor = data2.colors
+			 BgmTitle = data2.title
+		  }
+		  res.result[i].BgmUtilizationRateZT=BgmUtilizationRateZT;
+		  res.result[i].BgmUtilizationRateQT=BgmUtilizationRateQT;
+		  res.result[i].BgmColor=BgmColor;
+		  res.result[i].BgmTitle=BgmTitle;
         }
         this.dataSet = res.result;
         this.total = res.result.length;
@@ -73,5 +96,11 @@ search(e:any){
   }
   mouseleave(item: any) {
     item.show = false;
+  }
+  mouseenter2(item: any) {
+    item.show2 = true;
+  }
+  mouseleave2(item: any) {
+    item.show2 = false;
   }
 }

@@ -561,6 +561,18 @@ export class ApiService {
 		let url = this.baseUrl + "/kuaishou/VolumeOfUse?Value=" + keyword
 		return this.http.get(url)
 	}
+	// 快手音频搜索
+	getkuaishouCenterMusicList(params: any) {
+		let { keyword } = params
+		let url = this.baseUrl + "/kuaishou/centerMusicList?keyWorld=" + keyword
+		return this.http.get(url)
+	}
+	// bgm使用量
+	getkuaishouTotalByMusic(params: any) {
+		let { musicType,musicId } = params
+		let url = this.baseUrl + "/kuaishou/totalByMusic?musicId="+musicId+"&musicType="+musicType
+		return this.http.get(url)
+	}
 	//获取素材
 	getSourcePhoto(params: any) {
 		let {
@@ -955,6 +967,9 @@ export class ApiService {
       usageCount,
       creationTime,
       CDN,
+		BgmId,
+		BgmType,
+		BgmUtilizationRate,
     } = params;
 
     const requestBody = {
@@ -967,6 +982,9 @@ export class ApiService {
       QQ: QQ,
       BGM: BGM,
       CDN: CDN,
+		BgmId,
+		BgmType,
+		BgmUtilizationRate,
       utilisation: {
         res: [
           {
