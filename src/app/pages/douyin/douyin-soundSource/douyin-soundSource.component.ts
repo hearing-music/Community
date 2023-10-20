@@ -71,7 +71,6 @@ export class DouyinSoundSourceComponent implements OnInit {
   }
   timeChange(e:any){
 	  let timeArr = e.filter((e:any)=>e.checked==true)
-	  this.timeArr = timeArr
 	  if(timeArr.length == 0){
 		  this.message.info('至少选择一个时间段')
 		  this.disabled = true;
@@ -84,7 +83,8 @@ export class DouyinSoundSourceComponent implements OnInit {
     this.DouYinSearchVideoDetails();
   }
   listenSoundSource(){
-		let timeArr = this.timeArr.map((e:any)=>e.value);
+	  let timeArr = this.timeList.filter((e:any)=>e.checked==true)
+	 timeArr = timeArr.map((e:any)=>e.value);
 	  let monitor_timeArr = timeArr.join()
 	  let addTime = new Date().getTime();
 	  let endTime = addTime + 24*60*60*1000*this.cycle

@@ -984,13 +984,13 @@ export class ApiService {
   }
 	  //快手监控查询
 	  SwollenKsEeList(params: any) {
-	    let { userId, type } = params;
+	    let { userId, type,keyword } = params;
 	    if (type) {
 	      return this.http.get(
-	        this.baseUrl + "/kuaishou/SwollenKsEeList?userId=" + userId
+	        this.baseUrl + "/kuaishou/SwollenKsEeList?keyword="+keyword+"&userId=" + userId
 	      );
 	    } else {
-	      return this.http.get(this.baseUrl + "/kuaishou/SwollenKsEeList");
+	      return this.http.get(this.baseUrl + "/kuaishou/SwollenKsEeList?keyword="+keyword);
 	    }
 	  }
 }

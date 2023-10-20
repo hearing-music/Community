@@ -59,6 +59,7 @@ export class DouyinListenSoundSourceComponent implements OnInit {
 				 res.result[i].yesterdayCount = res.result[i].utilisation.UserCount
 			 }
 		 }
+		 // res.result[i].utilisation.data = res.result[i].utilisation.data.reverse()
         }
 		console.log(res.result)
         this.dataSet = res.result;

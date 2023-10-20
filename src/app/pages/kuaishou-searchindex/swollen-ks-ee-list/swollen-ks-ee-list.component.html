@@ -1,5 +1,6 @@
 <div class="swollen">
   <div class="tab">
+	  <ngx-search [searchValue]='searchValue' [searchHolder]='"搜索BGM"' (childSearch)='search($event)'></ngx-search>
     <nz-switch
       [ngModel]="type"
       nzCheckedChildren="我的"
@@ -102,4 +103,5 @@
       </tr>
     </tbody>
   </nz-table>
+  <ngx-loading *ngIf='loading'></ngx-loading>
 </div>

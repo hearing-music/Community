@@ -14,8 +14,13 @@ export class SwollenKsEeListComponent implements OnInit {
   username = "";
 	userId:any='0'
   index = [];
+  searchValue:any=''
+  loading=false;
   constructor(public api: ApiService, public common: CommonService) {}
-
+search(e:any){
+	this.searchValue=e;
+	this.SwollenKsEeList()
+}
   ngOnInit(): void {
     this.username = localStorage.getItem("username");
 		this.userId = localStorage.getItem("userId") || "0";
@@ -27,9 +32,11 @@ export class SwollenKsEeListComponent implements OnInit {
     this.SwollenKsEeList();
   }
   SwollenKsEeList() {
+	  this.loading=true;
     this.api
-      .SwollenKsEeList({ userId: this.userId, type: this.type })
+      .SwollenKsEeList({ userId: this.userId, type: this.type,keyword:this.searchValue })
       .subscribe((res: any) => {
+		  this.loading=false;
         for (let i = 0; i < res.result.length; i++) {
           res.result[i].yesterday = 0;
           res.result[i].show = false;
@@ -57,7 +64,9 @@ export class SwollenKsEeListComponent implements OnInit {
         }
         this.dataSet = res.result;
         this.total = res.result.length;
-      });
+      },(err:any)=>{
+		  this.loading=false;
+	  });
   }
   mouseenter(item: any) {
     item.show = true;
