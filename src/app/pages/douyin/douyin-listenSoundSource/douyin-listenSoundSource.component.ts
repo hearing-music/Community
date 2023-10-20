@@ -104,4 +104,16 @@ export class DouyinListenSoundSourceComponent implements OnInit {
       item.isplay = false;
     });
   }
+  getMusicInfo(item:any){
+	  this.loading=true;
+	  this.api.getMusicInfo({secUid:item.secUid,arr:[item.music_id]}).subscribe((res: any) => {
+		  this.loading=false;
+		 console.log(res)
+		 if(res.success){
+			 item.todayCount =res.result[0].user_count
+		 }
+      },(err:any)=>{
+		  this.loading=false;
+	  });
+  }
 }

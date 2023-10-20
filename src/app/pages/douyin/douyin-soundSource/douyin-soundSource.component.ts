@@ -110,8 +110,9 @@ export class DouyinSoundSourceComponent implements OnInit {
 	  this.api.douyinListenSourdSource(params).subscribe((res: any) => {
   			if (res.success) {
 				this.message.success('添加成功')
-  			}else{
-				this.message.error('添加失败')
+  			}
+			if(res.update==1){
+				this.message.info('该音源已继承数据完毕')
 			}
   			this.loading = false;
   		},

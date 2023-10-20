@@ -52,40 +52,34 @@
 			  *ngIf="data.yesterdayCount"
 			>
 			  <div style="width: 80%">
-			    {{ data.yesterdayCount ? data.yesterdayCount : ""}}
+			    {{ data.yesterdayCount ? common.toThousands(data.yesterdayCount) : ""}}
 			  </div>
 			  <div
-			    style="cursor: pointer; position: relative"
+			    style="cursor: pointer; "
 			    (mouseenter)="mouseenter(data)"
 			    (mouseleave)="mouseleave(data)"
 			  >
-			    <div
-			      nz-icon
-			      nzType="clock-circle"
-			      nzTheme="outline"
-			      style="
-			        margin-left: 5px;
-			        position: absolute;
-			        right: 5px;
-			        top: 50%;
-			        transform: translateY(-50%);
-			      "
-			      style="font-size: 20px; color: #333; margin-right: 6px"
-			    ></div>
+			   <div nz-icon nzType="clock-circle" nzTheme="outline"
+			     style="font-size: 20px; color: #333; margin-right: 6px"></div>
 			    <div *ngIf="data.show" class="history">
-			      <div *ngFor="let item of data.utilisation.data">
-			        {{ common.getTime(item.GetTime*1000) }}：{{ item.UserCount }}
+			      <div *ngFor="let item of data.utilisation.data" style="margin-bottom: 3px;">
+			        {{ common.getTime(item.GetTime*1000) }}：{{ common.toThousands(item.UserCount) }}
 			      </div>
 			    </div>
 			  </div>
 			</div>
 		</td>
         <td nzAlign="center">
-          {{data.todayCount}}
+		  <div *ngIf='data.todayCount'>
+			  {{common.toThousands(data.todayCount)}}
+		  </div>
+		  <div *ngIf='!data.todayCount' (click)='getMusicInfo(data)'>
+			  <span nz-icon nzType="redo" nzTheme="outline" style="cursor: pointer;font-size: 18px;"></span>
+		  </div>
         </td>
         <td nzAlign="center">
 			<div *ngIf='data.todayCount&&data.yesterdayCount'>
-				{{data.todayCount - data.yesterdayCount}}
+				{{common.toThousands(data.todayCount - data.yesterdayCount)}}
 			</div>
 		</td>
        <td nzAlign='center'>
