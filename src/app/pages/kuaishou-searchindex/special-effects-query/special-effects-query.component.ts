@@ -78,6 +78,9 @@ selectBGM(item:any,i:any){
           console.log(res)
 		  this.loading=false;
 		  if(res.success){
+			  if(res.result.length==0){
+				  this.message.info('该关键字没有搜索到BGM。')
+			  }
 			  this.BGMList = res.result;
 		  }
         },(err:any)=>{
