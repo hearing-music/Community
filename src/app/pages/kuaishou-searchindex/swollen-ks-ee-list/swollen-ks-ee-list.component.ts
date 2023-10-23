@@ -37,8 +37,8 @@ search(e:any){
       .SwollenKsEeList({ userId: this.userId, type: this.type,keyword:this.searchValue })
       .subscribe((res: any) => {
 		  this.loading=false;
-		  let yesterday = this.common.timeFormat(new Date().getTime()-24*60*60*1000)
-		  let qtday = this.common.timeFormat(new Date().getTime()-24*60*60*1000*2)
+		  let yesterday = this.common.timeFormat(new Date().getTime()-24*60*60*1000*0)
+		  let qtday = this.common.timeFormat(new Date().getTime()-24*60*60*1000*1)
         for (let i = 0; i < res.result.length; i++) {
           res.result[i].yesterday = 0;
           res.result[i].show = false;

@@ -91,7 +91,7 @@ import { WangyiyunPhoneComponent } from './search-songs/wangyiyun-phone/wangyiyu
 import { MusicianTxPhoneComponent } from './search-songs/musician-tx-phone/musician-tx-phone.component';
 import { KuwoComponent } from './search-songs/kuwo/kuwo.component';
 import { KuwoPhoneComponent } from './search-songs/kuwo-phone/kuwo-phone.component';
-import { LsddComponent } from './search-songs/lsdd/lsdd.component';
+// import { LsddComponent } from './search-songs/lsdd/lsdd.component';
 import { MusicianTxComponent } from './search-page/musician-tx/musician-tx.component';
 import { SearchComponent } from '../components/search/search.component';
 import { IconsProviderModule } from './icons-provider.module';
@@ -243,7 +243,7 @@ registerLocaleData(zh);
 		WangyiyunPhoneComponent,
 		KuwoComponent,
 		KuwoPhoneComponent,
-		LsddComponent,
+		// LsddComponent,
 		MusicianTxComponent,
 		MusicianTxPhoneComponent,
 		SearchComponent,

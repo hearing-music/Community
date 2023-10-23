@@ -146,6 +146,7 @@
 				</div>
 			
 			</div>
+			<div *ngIf='!data.BgmId'>未添</div>
 		</td>
 		<td nzAlign="center">
 			<div *ngIf='data.BgmUtilizationRateZT&&data.BgmUtilizationRateQT'>
@@ -159,6 +160,7 @@
 					{{data.BgmUtilizationRateZT[3] - data.BgmUtilizationRateQT[3]}}
 				</div>
 			</div>
+			<div *ngIf='!data.BgmId'>未添</div>
 		</td>
 		<td nzAlign="center">
 			{{common.timeFormat(data.creationTime*1000)}}

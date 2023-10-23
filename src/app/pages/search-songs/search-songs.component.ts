@@ -70,10 +70,12 @@ export class SearchSongsComponent implements OnInit {
 	}, {
 		name: '网易云',
 		holder: '网易云搜索'
-	}, {
-		name: '铃声多多',
-		holder: '铃声多多搜索'
-	},{
+	},
+	// {
+	// 	name: '铃声多多',
+	// 	holder: '铃声多多搜索'
+	// },
+	{
 		name: '唱将音乐',
 		holder: '唱将音乐搜索'
 	},{
