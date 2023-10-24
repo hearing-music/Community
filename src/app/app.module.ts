@@ -33,7 +33,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ApiService } from './services/api.service';
 import { CommonService } from './services/common.service';
 import { AuthService } from './services/auth.service';
-
+import { SocketService } from './services/socket.service';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 // registerLocaleData(zh);
@@ -77,6 +77,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 		CommonService,
 		ApiService,
 		AuthService,
+		SocketService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: HttpInterceptorService,

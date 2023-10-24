@@ -1,0 +1,127 @@
+<div class="songRoom">
+  <div class="Room">
+    <div class="top">
+      <div class="topLeftInner">
+        <div class="leftInner">
+          <div class="RoomNumber">ID:8888</div>
+          <div class="RoomName">听见聊天室</div>
+          <div class="share">
+            <span nz-icon nzType="share-alt" nzTheme="outline"></span
+            ><span>分享</span>
+          </div>
+        </div>
+        <div class="scrollMessage">Tips:</div>
+      </div>
+      <div class="topRightInner">
+        <div class="website">
+          <span
+            nz-icon
+            nzType="ie"
+            nzTheme="outline"
+            style="margin-right: 5px"
+          ></span
+          ><span>官网</span>
+        </div>
+        <div class="website">
+          <span
+            nz-icon
+            nzType="wechat"
+            nzTheme="outline"
+            style="margin-right: 5px"
+          ></span
+          ><span>在线</span>
+        </div>
+        <div class="website">
+          <span nz-icon [nzType]="'home'" style="margin-right: 5px"></span
+          ><span>房间</span>
+        </div>
+        <div class="website">
+          <span
+            nz-icon
+            nzType="user"
+            nzTheme="outline"
+            style="margin-right: 5px"
+          ></span
+          ><span>我的</span>
+        </div>
+      </div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="main"></div>
+    <div class="bottom">
+      <div class="topMusic">
+        <nz-progress
+          [nzPercent]="50"
+          nzSize="small"
+          [nzShowInfo]="false"
+        ></nz-progress>
+      </div>
+      <div class="messageTopBox">
+        <div class="toolbar-left">
+          <div class="expression-box firstBox">
+            <span nz-icon nzType="file-image" nzTheme="outline"></span
+            ><span>表情</span>
+          </div>
+          <div class="expression-box">
+            <span nz-icon nzType="aim" nzTheme="outline"></span
+            ><span>点歌</span>
+          </div>
+          <div class="expression-box">
+            <span nz-icon nzType="history" nzTheme="outline"></span
+            ><span>已点</span>
+          </div>
+          <div class="expression-box">
+            <span nz-icon nzType="heart" nzTheme="outline"></span
+            ><span>收藏</span>
+          </div>
+          <div class="expression-box wechat">
+            <span nz-icon nzType="wechat" nzTheme="outline"></span>
+            <span>微信</span>
+          </div>
+        </div>
+        <div class="toolbar-Right">
+          <div class="collect">
+            <span
+              nz-icon
+              nzType="play-circle"
+              nzTheme="outline"
+              style="margin-right: 5px; cursor: pointer"
+            ></span>
+            <span>歌曲名</span>
+            <span
+              nz-icon
+              nzType="play-circle"
+              nzTheme="outline"
+              style="margin-right: 5px; cursor: pointer"
+            ></span>
+            <span
+              nz-icon
+              nzType="plus-circle"
+              nzTheme="outline"
+              style="cursor: pointer"
+            ></span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 1%">
+        <textarea
+          rows="2"
+          nz-input
+          [(ngModel)]="inputValue"
+          nzBorderless="true"
+          placeholder="请输入聊天内容"
+        ></textarea>
+      </div>
+      <div class="bottom">
+        <div class="songs" style="margin-left: 15px; cursor: pointer">
+          <span nz-icon nzType="step-backward" nzTheme="outline"></span
+          ><span>歌曲名</span>
+        </div>
+        <div class="songs" style="margin-right: 15px; cursor: pointer">
+          <span nz-icon [nzType]="'setting'" [nzTheme]="'outline'"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

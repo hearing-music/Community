@@ -8,5 +8,6 @@ export const environment = {
 	// downloadUrl:'http://139.224.133.131:3223',
 	downloadUrl:'https://communities.tingjianmusic.cn:444',
 	baseUrl:'http://communities.tingjianmusic.cn:81',
-	tencentUrl:'https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com'
+	tencentUrl:'https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com',
+	socketUrl:'http://communities.tingjianmusic.cn:81'
 };

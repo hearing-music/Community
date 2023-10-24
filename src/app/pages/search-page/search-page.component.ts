@@ -1,15 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { ApiService } from "../../services/api.service";
+import {SocketService} from "../../services/socket.service"
 @Component({
 	selector: 'ngx-search-page',
 	templateUrl: './search-page.component.html',
 	styleUrls: ['./search-page.component.scss']
 })
-export class SearchPageComponent implements OnInit {
+export class SearchPageComponent implements OnInit,OnDestroy {
 
-	constructor(public api: ApiService) { }
-
+	constructor(public api: ApiService,public socket:SocketService) { }
+	ngOnDestroy(){
+		console.log('注销页面')
+		this.socket.disconnectFun()
+	}
 	ngOnInit(): void {
+		console.log(1)
+		this.socket.login((data)=>{
+			//连接成功
+			// 模拟点击发送消息
+			setTimeout(()=>{
+				this.socket.send('我来了阿')
+			},2000)
+		})
+		// 接受消息 监听
+		this.socket.message((data:any)=>{
+			console.log(data)
+		})
+		// 断开连接 监听
+		this.socket.disconnect((data:any)=>{
+			console.log(data)
+		})
+		this.socket.connect_error((data:any)=>{
+			console.log(data)
+		})
+		this.socket.connect_timeout((data:any)=>{
+			console.log(data)
+		})
+		this.socket.error((data:any)=>{
+			console.log(data)
+		})
 	}
 	tagList: any[] = [{
 		name: '腾讯音乐人',

@@ -33,6 +33,7 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 // page
+import { SongRoomComponent } from './song-room/song-room.component';
 import { DouyinPopularAccountsComponent } from "./douyin/douyin-popular-accounts/douyin-popular-accounts.component";
 import { OggToMp3Component } from './audio-conversion/ogg-to-mp3/ogg-to-mp3.component';
 import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.component';
@@ -184,6 +185,7 @@ registerLocaleData(zh);
 		NzStepsModule
 	],
 	declarations: [
+		SongRoomComponent,
 		DyHotDetailComponent,
 		DyVideoTrendComponent,
 		DyAuthorComponent,

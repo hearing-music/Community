@@ -56,6 +56,7 @@ import { MermaidComponent } from './mermaid/mermaid.component';
 import { RiseRankingComponent } from './yuntu/riseRanking/riseRanking.component';
 import { SpecialEffectsQueryComponent } from './kuaishou-searchindex/special-effects-query/special-effects-query.component';
 import { SwollenKsEeListComponent } from './kuaishou-searchindex/swollen-ks-ee-list/swollen-ks-ee-list.component';
+import { SongRoomComponent } from './song-room/song-room.component';
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -369,6 +370,12 @@ const routes: Routes = [{
 		            component: OriginalAudioComponent,
 		            canActivate: [PermissionGuard]
 		        },
+		  //点歌室
+		      {
+		        path: "song-room",
+		        component: SongRoomComponent,
+		        canActivate: [PermissionGuard],
+		      },
 		// {
 		// 	path: 'ui-features',
 		// 	loadChildren: () => import('./ui-features/ui-features.module')

@@ -270,6 +270,11 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	        icon: 'headphones',
 	        link: '/pages/original-audio',
 	    },
+	  {
+	    title: "点歌室",
+	    icon: "home",
+	    link: "/pages/song-room",
+	  },
 	
 	
 	// {
