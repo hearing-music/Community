@@ -7,9 +7,23 @@
   position: relative;
   font: 14px/1.5 Helvetica Neue, Helvetica, Arial, Microsoft Yahei,
     Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
+	.loading{
+		color:#fff;
+		font-weight: bold;
+		font-size: 22px;
+		width: 100%;display: flex;
+		align-items: center;
+		justify-content: center;
+		padding-top: 350px;
+	}
+}
+.width60{
+	width:60%;
 }
 .Room {
   position: absolute;
+  // width:60%;
+  z-index:666;
   left: 2%;
   right: 2%;
   top: 2%;
@@ -25,6 +39,74 @@
     display: flex;
     padding: 0 15px;
     align-items: center;
+    position: relative;
+    .showBox {
+      position: absolute;
+      right: 15px;
+      top: 110%;
+      width: 250px;
+      height: 300px;
+      transition: all 0.3s;
+      box-shadow: 0 0 10px rgba(89, 36, 36, 0.2);
+      background-color: var(
+        --message-popup-bg-color,
+        hsla(0, 0%, 100%, 0.7019607843137254)
+      );
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      z-index:223;
+      overflow-y: scroll;
+      .onlineTittle {
+        color: var(--message-main-text-color, #333);
+        font-size: 16px;
+        font-weight: 600;
+        padding: 5px;
+        // display: flex;
+        // justify-content: space-between;
+      }
+      .userBox {
+        width: 100%;
+        .user {
+          cursor: pointer;
+          padding: 3px;
+          display: flex;
+          align-items: center;
+          border-top: 1px solid var(--message-border-color, #eee);
+          transition: all 0.3s;
+          border-left: 3px solid transparent;
+          border-right: 3px solid transparent;
+          padding-left: 8px;
+          .userImg {
+            width: 40px;
+            border-radius: 5px;
+          }
+          .userDetail {
+            margin-left: 3px;
+            .userName {
+              font-size: 14px;
+              color: var(--message-main-text-color, #333);
+              font-weight: 500;
+              display: flex;
+              align-items: center;
+            }
+            .userSignature {
+              font-size: 12px;
+              margin-top: 4px;
+              color: #aaa;
+              text-align: left;
+              display: flex;
+              align-items: center;
+            }
+          }
+        }
+        .user:hover {
+          border-left: 2px solid #333;
+        }
+      }
+    }
     .topLeftInner {
       color: var(--message-main-text-color, #333);
       display: flex;
@@ -34,7 +116,6 @@
       .leftInner {
         display: flex;
         align-items: center;
-        width: 40%;
         justify-content: space-between;
         .RoomNumber {
           background-color: var(--message-main-text-color, #333);
@@ -69,17 +150,25 @@
       .website {
         display: flex;
         align-items: center;
+        cursor: pointer;
       }
     }
   }
   .main {
     width: 100%;
-    height: 65%;
+    height: 60%;
     overflow-y: scroll;
+  }
+  .main::-webkit-scrollbar{
+	  width:8px;
+  }
+  .main::-webkit-scrollbar-thumb{
+	  background-color: rgba(50, 50, 50, 0.3);
+	  border-radius: 5px; // 滑块圆角
   }
   .bottom {
     width: 100%;
-    height: 25%;
+    height: 30%;
     .messageTopBox {
       width: 100%;
       display: flex;
@@ -103,9 +192,6 @@
         }
         .firstBox {
           margin-left: 15px;
-        }
-        .wechat {
-          color: rgb(9, 189, 18);
         }
         .expression-box:hover {
           background: var(--message-hover-bg-color, #e0dede);
@@ -131,4 +217,22 @@
       }
     }
   }
+}
+.video-box{
+	position: absolute;
+	top:50%;
+	transform:translateY(-50%);
+	right:2%;
+	left:64%;
+	flex-direction:column;
+	// width:34%;
+	display:flex;
+	align-items:center;
+	justify-content:flex-end;
+	background:#000;
+	border-radius:4px;
+	overflow:hidden;
+	.video{
+		width:100%;
+	}
 }

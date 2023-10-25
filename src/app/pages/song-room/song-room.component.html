@@ -1,127 +1,126 @@
-<div class="songRoom">
-  <div class="Room">
+<div class="songRoom" (click)="showMessage()">
+	<div class="loading" *ngIf='!loadingFinished'>连接中...</div>
+  <div class="Room" *ngIf='loadingFinished' [ngClass]='{"width60":videoShow}'>
     <div class="top">
       <div class="topLeftInner">
         <div class="leftInner">
           <div class="RoomNumber">ID:8888</div>
           <div class="RoomName">听见聊天室</div>
-          <div class="share">
+          <!-- <div class="share">
             <span nz-icon nzType="share-alt" nzTheme="outline"></span
             ><span>分享</span>
-          </div>
+          </div> -->
         </div>
-        <div class="scrollMessage">Tips:</div>
+        <!-- <div class="scrollMessage">Tips:</div> -->
       </div>
       <div class="topRightInner">
-        <div class="website">
-          <span
-            nz-icon
-            nzType="ie"
-            nzTheme="outline"
-            style="margin-right: 5px"
-          ></span
-          ><span>官网</span>
+        <!-- <div class="website">
+          <span nz-icon nzType="ie" nzTheme="outline" style="margin-right: 5px"></span>
+		  <span>官网</span>
+        </div> -->
+        <div class="website" (click)="showOnline($event)">
+          <span nz-icon nzType="wechat" nzTheme="outline" style="margin-right: 5px"></span>
+		  <span>在线</span>
         </div>
-        <div class="website">
-          <span
-            nz-icon
-            nzType="wechat"
-            nzTheme="outline"
-            style="margin-right: 5px"
-          ></span
-          ><span>在线</span>
-        </div>
-        <div class="website">
+        <div class="website" (click)="showHome($event)">
           <span nz-icon [nzType]="'home'" style="margin-right: 5px"></span
           ><span>房间</span>
         </div>
-        <div class="website">
-          <span
-            nz-icon
-            nzType="user"
-            nzTheme="outline"
-            style="margin-right: 5px"
-          ></span
-          ><span>我的</span>
+        <!-- <div class="website">
+          <span nz-icon nzType="user" nzTheme="outline" style="margin-right: 5px"></span>
+		  <span>我的</span>
+        </div> -->
+      </div>
+      <div class="showBox" *ngIf="isOnline" (click)="stop($event)">
+        <div *ngIf="isOnline">
+          <div class="onlineTittle">在线用户</div>
+          <div class="userBox" *ngFor="let data of user">
+            <div class="user">
+              <div>
+                <img [src]="data.avatar?data.avatar:defaultAvatar" alt="" class="userImg" />
+              </div>
+              <div class="userDetail">
+                <div class="userName">{{ data.name }}</div>
+                <div class="userSignature">{{ data.signature?data.signature:'这个人很懒，什么都没留下' }}</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div></div>
-      <div></div>
+      <div class="showBox" *ngIf="isRoom" (click)="stop($event)">
+        <div *ngIf="isRoom">
+          <div class="onlineTittle">
+            <div>房间信息</div>
+            <div>
+				<p>听见大舞台，有歌你就来!</p>
+			</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="main"></div>
+    <div class="main" id='chatScroll'>
+		<ngx-chatTemp *ngFor='let item of chat;' [chatItem]='item' [myInfo]='myInfo'></ngx-chatTemp>
+	</div>
     <div class="bottom">
       <div class="topMusic">
-        <nz-progress
-          [nzPercent]="50"
-          nzSize="small"
-          [nzShowInfo]="false"
-        ></nz-progress>
+        <nz-progress [nzPercent]="50" nzSize="small" [nzShowInfo]="false"></nz-progress>
       </div>
       <div class="messageTopBox">
         <div class="toolbar-left">
-          <div class="expression-box firstBox">
+          <div class="expression-box firstBox" (click)='notOpen()'>
             <span nz-icon nzType="file-image" nzTheme="outline"></span
             ><span>表情</span>
           </div>
-          <div class="expression-box">
+          <div class="expression-box" (click)='notOpen()'>
             <span nz-icon nzType="aim" nzTheme="outline"></span
             ><span>点歌</span>
           </div>
-          <div class="expression-box">
+          <div class="expression-box" (click)='notOpen()'>
             <span nz-icon nzType="history" nzTheme="outline"></span
             ><span>已点</span>
           </div>
-          <div class="expression-box">
+          <div class="expression-box" (click)='notOpen()'>
             <span nz-icon nzType="heart" nzTheme="outline"></span
             ><span>收藏</span>
           </div>
-          <div class="expression-box wechat">
-            <span nz-icon nzType="wechat" nzTheme="outline"></span>
-            <span>微信</span>
-          </div>
+		  <div class="expression-box" (click)='openLive()'>
+		    <span nz-icon nzType="play-circle" nzTheme="outline"></span>
+			<span *ngIf='!videoShow&&!offer'>开启直播</span>
+			<span *ngIf='videoShow'>关闭直播</span>
+			<span *ngIf='offer&&!videoShow'>有人正在直播，去看看</span>
+		  </div>
         </div>
         <div class="toolbar-Right">
-          <div class="collect">
-            <span
-              nz-icon
-              nzType="play-circle"
-              nzTheme="outline"
-              style="margin-right: 5px; cursor: pointer"
-            ></span>
+          <div class="collect" (click)='notOpen()'>
+			<span nz-icon nzType="star" nzTheme="outline" style="margin-right: 5px; cursor: pointer"></span>
             <span>歌曲名</span>
-            <span
-              nz-icon
-              nzType="play-circle"
-              nzTheme="outline"
-              style="margin-right: 5px; cursor: pointer"
-            ></span>
-            <span
-              nz-icon
-              nzType="plus-circle"
-              nzTheme="outline"
-              style="cursor: pointer"
-            ></span>
+            <span nz-icon nzType="play-circle" nzTheme="outline" style="margin-right: 5px; cursor: pointer"></span>
+            <span nz-icon nzType="plus-circle" nzTheme="outline" style="cursor: pointer"></span>
           </div>
         </div>
       </div>
       <div style="margin-top: 1%">
-        <textarea
-          rows="2"
-          nz-input
-          [(ngModel)]="inputValue"
-          nzBorderless="true"
-          placeholder="请输入聊天内容"
-        ></textarea>
+        <textarea rows="3" nz-input [(ngModel)]="inputValue" nzBorderless="true" placeholder="请输入聊天内容"
+		  style='resize:none;' (focus)="focus($event)" (blur)="blur()"></textarea>
       </div>
       <div class="bottom">
-        <div class="songs" style="margin-left: 15px; cursor: pointer">
+        <div class="songs" style="margin-left: 15px; cursor: pointer" (click)='notOpen()'>
           <span nz-icon nzType="step-backward" nzTheme="outline"></span
           ><span>歌曲名</span>
         </div>
-        <div class="songs" style="margin-right: 15px; cursor: pointer">
+        <div class="songs" style="margin-right: 15px; cursor: pointer" (click)='notOpen()'>
           <span nz-icon [nzType]="'setting'" [nzTheme]="'outline'"></span>
         </div>
       </div>
     </div>
+  </div>
+  <div class="video-box" *ngIf='loadingFinished&&videoShow'>
+	  <video id="local-video" autoplay playsinline style="width:100%;display: none;"></video>
+	  <audio id="local-audio" autoplay style="display: none;" muted></audio>
+	  <video id="remote-video" autoplay playsinline style="width:100%;"></video>
+	  <audio id="remote-audio" autoplay></audio>
+	  <div *ngIf='!offer'>
+		  暂无人开播
+	  </div>
   </div>
 </div>

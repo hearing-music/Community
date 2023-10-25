@@ -72,6 +72,7 @@ import { ToMvComponent } from './to-mv/to-mv.component';
 import { RiseRankingComponent } from './yuntu/riseRanking/riseRanking.component';
 import { RiseRankingTempComponent } from './yuntu/riseRanking/riseRankingTemp/riseRankingTemp.component';
 // componet
+import { ChatTempComponent } from './song-room/chatTemp/chatTemp.component';
 import { SpecialEffectsQueryComponent } from './kuaishou-searchindex/special-effects-query/special-effects-query.component';
 import { SwollenKsEeListComponent } from './kuaishou-searchindex/swollen-ks-ee-list/swollen-ks-ee-list.component';
 import {DyHotDetailComponent} from '../components/dyHotDetail/dyHotDetail.component'
@@ -186,6 +187,7 @@ registerLocaleData(zh);
 	],
 	declarations: [
 		SongRoomComponent,
+		ChatTempComponent,
 		DyHotDetailComponent,
 		DyVideoTrendComponent,
 		DyAuthorComponent,

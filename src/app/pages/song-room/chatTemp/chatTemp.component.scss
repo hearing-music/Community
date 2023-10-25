@@ -1,0 +1,109 @@
+.system{
+	background: #55ffff;
+	border-radius: 4px;
+	padding:1px 3px;
+	color:#220b46;
+	font-size: 12px;
+	margin: 10px auto;
+	max-width: 150px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+}
+.user{
+	display:flex;
+	justify-content: flex-start;
+	margin: 20px 0;
+	margin-left: 10px;
+	.user-list{
+		margin-left: 10px;
+		margin-top:-6px;
+		display:flex;
+		flex-direction: column;
+		align-items:flex-start;
+		width:100%;
+		.user-name{
+			font-size:11px;
+			color:#909090;
+		}
+		.user-time{
+			font-size:11px;
+			color:#909090;
+		}
+		.user-text{
+			background-color: #ededed;
+			max-width: 50%;
+			padding:5px 10px;
+			font-size: 14px;
+			color:#000;
+			border-radius: 4px;
+			box-sizing: border-box;
+			display: flex;
+			align-items: center;
+			justify-content:center;
+			position: relative;
+			.text{
+				z-index:222;
+			}
+			.sanjiao{
+				position: absolute;
+				left:-3px;
+				top:10px;
+				width: 12px;height: 12px;
+				transform: rotateZ(45deg);
+				background-color: #ededed;
+			}
+		}
+	}
+}
+.userMy{
+	display:flex;
+	justify-content: flex-end;
+	margin: 20px 0;
+	margin-right: 10px;
+	.user-list{
+		margin-right: 10px;
+		margin-top:-6px;
+		display:flex;
+		flex-direction: column;
+		align-items:flex-end;
+		width:100%;
+		.user-name{
+			font-size:11px;
+			color:#909090;
+		}
+		.user-time{
+			font-size:11px;
+			color:#909090;
+		}
+		.user-text{
+			background-color: #00ed00;
+			max-width: 50%;
+			padding:5px 10px;
+			font-size: 14px;
+			color:#000;
+			border-radius: 4px;
+			box-sizing: border-box;
+			display: flex;
+			align-items: center;
+			justify-content:center;
+			position: relative;
+			.text{
+				z-index:222;
+			}
+			.sanjiao{
+				position: absolute;
+				right:-3px;
+				top:10px;
+				width: 12px;height: 12px;
+				transform: rotateZ(45deg);
+				background-color: #00ed00;
+			}
+		}
+	}
+	
+}
+.user-avatar{
+		width: 40px;height: 40px;border-radius: 6px;
+		overflow: hidden;
+	}

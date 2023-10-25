@@ -1,0 +1,23 @@
+<div *ngIf='chatItem.type=="system"' class='system'>
+	{{chatItem.text}}
+</div>
+<div *ngIf='chatItem.type=="user"' [ngClass]='{"userMy":chatItem.id==myInfo.id,"user":chatItem.id!=myInfo.id}'>
+	<div class="user-avatar" *ngIf='chatItem.id!=myInfo.id'>
+		<img [src]="chatItem.avatar?chatItem.avatar:defaultAvatar" style="width: 100%;height:100%;">
+	</div>
+	<div class='user-list'>
+		<div class='user-name'>
+			{{chatItem.name}}
+		</div>
+		<div class="user-text">
+			<span class='text'>{{chatItem.text}}</span>
+			<div class='sanjiao'></div>
+		</div>
+		<div class='user-time'>
+			{{common.timeFrom(chatItem.time)}}
+		</div>
+	</div>
+	<div class="user-avatar" *ngIf='chatItem.id==myInfo.id'>
+		<img [src]="chatItem.avatar?chatItem.avatar:defaultAvatar" style="width: 100%;height:100%;">
+	</div>
+</div>
