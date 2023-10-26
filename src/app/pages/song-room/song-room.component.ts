@@ -40,30 +40,54 @@ export class SongRoomComponent implements OnInit,OnDestroy {
 		this.socket.error((data:any)=>{
 			console.log(data)
 		})
+		
+		
 		// 发送直播流监听
+		this.socket.onOpenLive((data:any)=>{
+			console.log('openLive',data)
+			if(data.err==1){
+				// 有人开播 不能开启直播
+				this.message.error(data.str)
+			}else if(data.err==0){
+				// 有人开播 快去看看
+				this.message.info(data.str)
+				this.liveAuth = data.liveAuth;
+			}
+		})
+		// 监听开播有人进入我的直播给发送数据
+		this.socket.onOtherjoinedLive()
 		this.socket.answer()
-		this.socket.onicecandidate()
+		// 其他人离开直播
+		this.socket.onOtherleavedLive((id:any)=>{
+			console.log('有人离开直播',id)
+		})
+		// 监听直播是否关闭
+		this.socket.onCloseLive((data:any)=>{
+			console.log('直播已关闭')
+			this.liveAuth={};
+		})
 		// 接收直播流
-		this.socket.offer((offer:any)=>{
-			this.offer=offer;
-		});
+		this.socket.offer();
 		this.socket.candidate();
-		this.socket.onaddstream((stream:any)=>{
+		// 接收直播流
+		this.socket.ontrack((stream:any)=>{
+			console.log('ontrack stream',stream)
 			const video:any = document.getElementById('remote-video');
 			const audio:any = document.getElementById('remote-audio');
 			video.srcObject = stream;
 			audio.srcObject = stream;
 		})
-		// 监听直播是否关闭
-		this.socket.onCloseLive((data:any)=>{
-			this.offer=null;
-			this.offerIsMe=null;
-		})
+		// this.socket.onaddstream((stream:any)=>{
+		// 	console.log('onaddstream stream',stream)
+		// 	const video:any = document.getElementById('remote-video');
+		// 	const audio:any = document.getElementById('remote-audio');
+		// 	video.srcObject = stream;
+		// 	audio.srcObject = stream;
+		// })
 	}
 	messageFun(data:any){
 		if(data.type=='info'){
-			let i = data.houseUserInfo.findIndex((e:any)=>e.offer)
-			if(i!=-1) this.offer=data.houseUserInfo[i].offer
+			this.liveAuth = data.liveAuth||{}
 			this.user = data.houseUserInfo
 			this.myInfo = {
 				name:data.name,
@@ -121,31 +145,33 @@ export class SongRoomComponent implements OnInit,OnDestroy {
   myInfo:any={}
   userTemp:any={}
   videoShow:any=false;
-  offer:any=null;
-  offerIsMe:any=false;
+  liveAuth:any={};
   openLive(){
-	  
 	  this.videoShow=!this.videoShow;
 	  // 去看别人直播
-	  if(this.offer&&!this.offerIsMe){
-		  if(this.videoShow==true){
-		  		this.socket.setRemoteDescription(this.offer)
-		  }else{
-		  	  // 关闭直播 不看了
-		  }
+	  if(this.liveAuth.id&&this.videoShow){
+		  this.socket.otherjoinedLive()
 		  return
 	  }
-	 
-	  // 自己开播
-	  if(this.videoShow==true){
-		  this.mediaDevices()
-	  }else{
-		  // 关闭直播 不播了
-		  this.closeLive()
+	  if(this.liveAuth.id!=this.myInfo.id&&!this.videoShow){
+	  	// 关闭直播 不看了
+	  	this.socket.otherleavedLive()
+	  	return
 	  }
+	  
+	  // 自己开播
+	  if(!this.liveAuth.id&&this.videoShow){
+	  	this.mediaDevices()
+		return
+	  }
+	 if(this.liveAuth.id==this.myInfo.id&&!this.videoShow){
+		 // 关闭直播 不播了
+		 this.closeLive()
+		 return
+	 }
   }
   closeLive(){
-	  this.offer=null;
+	  this.liveAuth={};
 	  this.socket.closeLive()
   }
   // 获取权限
@@ -157,11 +183,8 @@ export class SongRoomComponent implements OnInit,OnDestroy {
 	        const audio:any = document.getElementById('local-audio');
 	        video.srcObject = stream;
 	        audio.srcObject = stream;
-	        stream.getTracks().forEach((track) => {
-				this.socket.addTrack(track,stream)
-	        });
-			this.socket.createOffer()
-			this.offerIsMe=true;
+			this.socket.openLive(stream)
+			this.liveAuth = {...this.myInfo};
 	    })
 	    .catch((error) => {
 	        // DOMException: Permission denied

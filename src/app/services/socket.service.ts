@@ -29,64 +29,50 @@ export class SocketService {
 	});
 	// 流相关
 	peerConnection:any = new RTCPeerConnection();
-	peerConnection2:any = new RTCPeerConnection();
+	peerList:any={}
+	pBoos:any=null;
+	localStream:any=null;
 	// 发送 视频
-	// 获取权限后 addTrack createOffer 发送offer emit 我要发视频连接了
-	addTrack(track:any,localStream:any){
-		this.peerConnection.addTrack(track,localStream);
-	}
-	createOffer(){
-		this.peerConnection.createOffer().then((offer:any) => {
-		    return this.peerConnection.setLocalDescription(offer);
-		}).then(() => {
-			this.socketIO.emit('offer', this.peerConnection.localDescription);
-		}).catch((error:any) => {
-		    console.log(error);
-		});
-	}
-	// 监听 peerConnection 发送emit 流信息 
-	onicecandidate(){
-		this.peerConnection.onicecandidate = (event:any) => {
-		    console.log(event.candidate)
-		    if (event.candidate) {
-		        this.socketIO.emit('candidate', event.candidate); 
-		    }
-		};
-	}
+	
+	
 	//监听 别人准备好接收了
 	answer(){
-		this.socketIO.on('answer', (answer:any) => {
-		    console.log(answer)
-		    this.peerConnection.setRemoteDescription(answer).catch((error:any) => {
+		this.socketIO.on('answer', (data:any) => {
+		    let {answer,id}=data;
+		    console.log('接收answer',data)
+		    this.peerList[id].setRemoteDescription(new RTCSessionDescription(answer)).catch((error:any) => {
 		        console.log(error);
 		    });
 		});
 	}
 	// 接收 视频
 	// 监听offer
-	offer(fun:any){
-		this.socketIO.on('offer', (offer:any) => {
-		    console.log(offer);
-			this.setRemoteDescription(offer)
-			fun(offer)
+	offer(){
+		this.socketIO.on('offer', (body:any) => {
+			let {offer,id}=body;
+			this.setRemoteDescription(offer,id)
 		});
 	}
-	setRemoteDescription(offer:any){
-		this.peerConnection2.setRemoteDescription(offer)
-		.then(() => this.peerConnection2.createAnswer())
-		.then((answer:any) => this.peerConnection2.setLocalDescription(answer))
+	setRemoteDescription(offer:any,id:any){
+		this.peerConnection.setRemoteDescription(offer)
+		.then(() => this.peerConnection.createAnswer())
+		.then((answer:any) => this.peerConnection.setLocalDescription(answer))
 		.then(() => {
-		    this.socketIO.emit('answer', this.peerConnection2.localDescription);
+		    this.socketIO.emit('answer', {answer:this.peerConnection.localDescription,liveId:id});
 		})
 		.catch((error:any) => {
 		    console.log(error);
 		});
 	}
+	otherjoinedLive(){
+		this.socketIO.emit('otherjoinedLive')
+	}
 	// 监听传过来的流
 	candidate(){
-		this.socketIO.on('candidate', (candidate:any) => {
+		this.socketIO.on('candidate', (body:any) => {
+			let {candidate,id}=body
 		    console.log(candidate)
-		    this.peerConnection2.addIceCandidate(candidate).then((res:any)=>{
+		    this.peerConnection.addIceCandidate(candidate).then((res:any)=>{
 		    // console.log(res)
 		    }).catch((error:any) => {
 		        console.log(error);
@@ -94,12 +80,17 @@ export class SocketService {
 		});
 	}
 	// 返回流
-	onaddstream(fun:any){
-		this.peerConnection2.onaddstream = (event:any) => {
-			fun(event.stream)
-			console.log(event)
+	ontrack(fun:any){
+		this.peerConnection.ontrack = (event:any) => {
+			fun(event.streams[0])
 		}
 	}
+	// onaddstream(fun:any){
+	// 	 this.peerConnection.onaddstream = (event) => {
+	// 		fun(event.stream)
+	// 	}
+	// }
+	 
 	// 关闭直播
 	closeLive(){
 		this.socketIO.emit('closeLive')
@@ -107,11 +98,84 @@ export class SocketService {
 	// 监听直播是否关闭
 	onCloseLive(fun:any){
 		this.socketIO.on('closeLive', (data:any) => {
+			// this.peerConnection = new RTCPeerConnection();
+			// @ts-ignore
+			for(var id in this.peerList){
+				if(id){
+					// @ts-ignore
+					this.peerList[id].close();
+					// @ts-ignore
+					this.peerList[id] = null;
+				}
+			}
+			this.peerList={}
+			this.pBoos=null;
+			this.localStream=null;
 		    fun(data)
 		});
 	}
-	
-	
+	// 有人离开直播监听
+	onOtherleavedLive(fun:any){
+		this.socketIO.on("otherleavedLive",(socketId:any)=>{
+			if(this.peerList[socketId]){
+				this.peerList[socketId].close();
+				this.peerList[socketId] = null;
+			}
+			fun(socketId)
+		})
+	}
+	otherleavedLive(){
+		this.socketIO.emit("otherleavedLive")
+		// this.peerConnection = new RTCPeerConnection();
+	}
+	// 有人加入直播监听
+	onOtherjoinedLive(){
+		this.socketIO.on("otherjoinedLive",(socketId:any)=>{
+			this.onicecandidate(socketId)
+			//媒体协商 先添加流
+			this.localStream.getTracks().forEach((track:any) => { 
+				//将本地采集的音视频流添加到pBoos中 调用者中
+				this.addTrack(track)
+			});
+			//媒体协商
+			// let offerOptions = {offerToRecieveAudio: 1,offerToRecieveVideo: 1}
+			this.createOffer(socketId)
+			
+		})
+	}
+	// 获取权限后 addTrack createOffer 发送offer emit 我要发视频连接了
+	addTrack(track:any){
+		this.pBoos.addTrack(track, this.localStream);
+	}
+	createOffer(socketId:any){
+		this.pBoos.createOffer().then((offer:any)=>{
+			return this.pBoos.setLocalDescription(offer);
+		}).then(()=>{
+			this.socketIO.emit('offer', {offer:this.pBoos.localDescription,id:socketId});
+		}).catch();
+		this.peerList[socketId] = this.pBoos;
+	}
+	// 监听 peerConnection 发送emit 流信息
+	onicecandidate(socketId:any){
+		this.pBoos = new RTCPeerConnection();
+		this.pBoos.onicecandidate = (e:any) => {
+			console.log("candidate---------", e);
+			if (e.candidate) { 
+				this.socketIO.emit('candidate', {candidate:e.candidate,id:socketId}); 
+				//当发现candidate后 发送出去（潜在的连接端点称为 ICE 候选者。）
+			}
+		}
+	}
+	// 开启直播发送emit
+	openLive(localStream:any){
+		this.localStream = localStream;
+		this.socketIO.emit('openLive');
+	}
+	onOpenLive(fun:any){
+		this.socketIO.on('openLive',(data:any)=>{
+			fun(data)
+		});
+	}
 	disconnectFun(){
 		this.off()
 		this.socketIO.disconnect()
