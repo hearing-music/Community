@@ -24,10 +24,18 @@ export class DyVideoTrendComponent implements OnInit {
 		this.active = e;
 		this.setEoptions(e)
 	}
+	// 查看24小时开关
+	is24=false;
+	filter24(){
+		this.is24=!this.is24;
+		this.setEoptions(this.active)
+	}
 	setEoptions(e: any) {
 		let title = e + '量趋势'
 		let date = []
 		let value = []
+		let value2 = []
+		var value3 = []
 		try{
 			if (e == '点赞') {
 				date = this.result.digg_data.map((e: any) => e.date)
@@ -35,19 +43,77 @@ export class DyVideoTrendComponent implements OnInit {
 			} else if (e == '分享') {
 				date = this.result.share.map((e: any) => e.date)
 				value = this.result.share.map((e: any) => e.value)
+				value2 = this.result.Exception.map((e:any)=>e.ExceptionShare)
+				if(this.is24&&value2.length>25){
+					value2.length=26;
+				}
+				value2.forEach((e:any,i:any)=>{
+					if(e<0){
+						let v = this.getD(date[i])
+						value3.push({name: '异常数据', value:v, xAxis: i, yAxis: e})
+					}
+				})
 			} else if (e == '涨粉') {
 				date = this.result.fns.map((e: any) => e.date)
 				value = this.result.fns.map((e: any) => e.value)
 			} else if (e == '评论') {
 				date = this.result.comment.map((e: any) => e.date)
 				value = this.result.comment.map((e: any) => e.value)
+				value2 = this.result.Exception.map((e:any)=>e.ExceptionComment)
+				if(this.is24&&value2.length>25){
+					value2.length=26;
+				}
+				value2.forEach((e:any,i:any)=>{
+					if(e<0){
+						let v = this.getD(date[i])
+						value3.push({name: '异常数据', value:v, xAxis: i, yAxis: e})
+					}
+				})
 			} else {
 				return
+			}
+			let series:any = [
+					{
+						name:'趋势',
+						data: value,
+						type: 'line',
+						// color: '#ff7f0f',
+						smooth: true
+					},
+			]
+			if(value2.length>0){
+				series.push({
+						name:'异常数据',
+						data: value2,
+						type: 'line',
+						color: '#6b0fff',
+						label: {
+						        show: true,
+						        position: 'bottom',
+								formatter: function(params:any) {
+									if(params.data<0) return params.data
+									if(params.data>=0) return ''
+								}
+						      },
+						markPoint: {
+							itemStyle: {
+							        color: 'blue'
+							      },
+							symbolSize:[110,85],
+							// symbolOffset:[0,'-50%'],
+						    data: value3
+						},
+						areaStyle: {
+					    }
+				})
 			}
 			this.echartsOptions = {
 				title: {
 					text: title
 				},
+				legend: {
+				    data: ['趋势', '异常数据',]
+				  },
 				xAxis: {
 					type: 'category',
 					data: date
@@ -58,21 +124,33 @@ export class DyVideoTrendComponent implements OnInit {
 				yAxis: {
 					type: 'value'
 				},
-				series: [
-					{
-						data: value,
-						type: 'line',
-						// color: '#ff7f0f',
-						smooth: true
-					}
-				]
+				series
 			}
 		}catch(err){
 			
 		}
 		
 	}
-	
+	getD(date:any){
+		let y = new Date(date).getTime()-24*60*60*1000;
+		let yM:any = new Date(y).getMonth()+1
+		let yD:any = new Date(y).getDate()
+		yD=yD<10?'0'+yD:yD
+		yM=yM<10?'0'+yM:yM
+		let date2 = yM+'-'+yD
+		let date1 = date.substr(5)
+		date1 = date1.substr(0,5)
+		let hour1 = new Date(date).getHours()
+		let hour2 = hour1 - 1
+		if(hour1 == 0){
+			hour2 = 23
+			date1 = date2;
+		}else{
+			hour2 = hour1-1
+		}
+		return `${hour2}:00 - ${hour1}:00`
+		// return `${date1} ${hour2}:00 - ${hour1}:00`
+	}
 	
 	
 }

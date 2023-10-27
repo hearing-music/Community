@@ -26,5 +26,10 @@
 			</div>
 		</div>
 	</div>
-	<div echarts [options]="echartsOptions" class="echartsDemo"></div>
+	<div style='position:relative;'>
+		<div echarts [options]="echartsOptions" class="echartsDemo"></div>
+		<div *ngIf='active=="分享"||active=="评论"' class='btn24' (click)='filter24()'>
+			{{is24?'切换全部':'切换24小时'}}
+		</div>
+	</div>
 </div>
