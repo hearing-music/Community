@@ -12,19 +12,20 @@ import { io } from "./js/socket.io.js";
 export class SocketService {
 	constructor(private http: HttpClient,private message: NzMessageService,) {
 	}
+	// 聊天室socket
 	socketUrl = environment.socketUrl;
 	token=localStorage.getItem('token') || ''
-	clientId=7729;
+	socketSpace='/chatRoom'
 	errorCount=0;
 	isConnected=false;
 	maxError=5;
 	newMessage='newMessage'
-	socketIO:any=io(this.socketUrl, {
+	socketIO:any=io(this.socketUrl+this.socketSpace, {
 		auth: {
 		    token: this.token
 		},
 		  // query: {
-		  //   "my-key2222222222": "my-value2222222222222222222222"
+		  //   "my-key": "my-value"
 		  // }
 	});
 	// 流相关

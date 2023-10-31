@@ -72,41 +72,6 @@ export class DyVideoTrendComponent implements OnInit {
 			} else {
 				return
 			}
-			let series:any = [
-					{
-						name:'趋势',
-						data: value,
-						type: 'line',
-						// color: '#ff7f0f',
-						smooth: true
-					},
-			]
-			if(value2.length>0){
-				series.push({
-						name:'异常数据',
-						data: value2,
-						type: 'line',
-						color: '#6b0fff',
-						label: {
-						        show: true,
-						        position: 'bottom',
-								formatter: function(params:any) {
-									if(params.data<0) return params.data
-									if(params.data>=0) return ''
-								}
-						      },
-						markPoint: {
-							itemStyle: {
-							        color: 'blue'
-							      },
-							symbolSize:[110,85],
-							// symbolOffset:[0,'-50%'],
-						    data: value3
-						},
-						areaStyle: {
-					    }
-				})
-			}
 			this.echartsOptions = {
 				title: {
 					text: title
@@ -119,12 +84,46 @@ export class DyVideoTrendComponent implements OnInit {
 					data: date
 				},
 				tooltip: {
-					trigger: 'axis'
+					trigger: 'axis',
 				},
 				yAxis: {
 					type: 'value'
 				},
-				series
+				series:[
+					{
+						name:'趋势',
+						data: value,
+						type: 'line',
+						// color: '#ff7f0f',
+						smooth: true
+					},
+					value2.length>0?{
+							name:'异常数据',
+							data: value2,
+							type: 'line',
+							color: '#6b0fff',
+							label: {
+							        show: true,
+							        position: 'bottom',
+									formatter: function(params:any) {
+										if(params.data<0) {
+											return params.data
+										}
+										return ''
+									}
+							      },
+							markPoint: {
+								itemStyle: {
+								        color: 'blue'
+								      },
+								symbolSize:[110,85],
+								// symbolOffset:[0,'-50%'],
+							    data: value3
+							},
+							areaStyle: {
+						    }
+					}:null
+				]
 			}
 		}catch(err){
 			
