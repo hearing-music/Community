@@ -1,13 +1,14 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit,OnDestroy } from "@angular/core";
 import "./poker.min";
 import { io } from "../../../services/js/socket.io.js";
+import { environment } from '../../../../environments/environment';
 import { NzMessageService } from "ng-zorro-antd/message";
 @Component({
   selector: "ngx-dou-di-zhu",
   templateUrl: "./dou-di-zhu.component.html",
   styleUrls: ["./dou-di-zhu.component.scss"],
 })
-export class DouDiZhuComponent implements OnInit {
+export class DouDiZhuComponent implements OnInit,OnDestroy {
   constructor(private message: NzMessageService) {}
   canvas: any;
   canvas1: any;
@@ -27,6 +28,11 @@ export class DouDiZhuComponent implements OnInit {
   ngOnInit() {
     this.connect();
   }
+	ngOnDestroy() {
+	  console.log("注销页面");
+		this.socketIO.off()
+			this.socketIO.disconnect()
+	}
   //创建全局消息
   createMessage(type: string, msg: any): void {
     this.message.create(type, `${msg}`);
@@ -283,8 +289,8 @@ export class DouDiZhuComponent implements OnInit {
   };
   socketIO: any = null;
   socketSpace = "/ddz";
-  // socketUrl = environment.socketUrl +this.socketSpace;
-  socketUrl = "https://communities.tingjianmusic.cn:444" + this.socketSpace;
+  socketUrl = environment.socketUrl +this.socketSpace;
+  // socketUrl = "https://communities.tingjianmusic.cn:444" + this.socketSpace;
   connect() {
     this.loading = true;
     this.socketObj.auth.token = this.token;
