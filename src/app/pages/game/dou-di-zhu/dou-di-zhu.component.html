@@ -1,0 +1,445 @@
+<div class="home">
+  <div class="play" *ngIf="showPlay">
+    <div class="topBar">
+      <div class="roomNumber" (click)="copy(roomIdNow)">
+        房间号:{{ roomIdNow }}
+      </div>
+      <!-- <div class="cardRecorder">记牌器</div> -->
+      <div class="gameRecord">
+        <div style="padding: 5px">
+          总局数：
+          <span>{{ playInfo.gamesNow }} / {{ playInfo.gamesTotal }}</span>
+        </div>
+        <div style="padding: 5px">
+          当前倍数：<span>{{ playInfo.multiple }}</span>
+        </div>
+        <div style="padding: 5px">
+          封顶倍数：<span>{{ playInfo.multipleMax }}</span>
+        </div>
+      </div>
+      <div class="gameControls">
+        <canvas id="bottom-card" height="80" style="z-index: 100000"></canvas>
+      </div>
+      <div class="matchScore">当前比赛分数:{{ players.player.score }}</div>
+    </div>
+    <div class="someOne">
+      <div class="upOne">
+        <div *ngIf="players.lastPlayer.token" style="width: 100%; height: 100%">
+          <div class="upState">
+            <div style="height: 100%; display: flex; flex-direction: row">
+              <div *ngIf="players.lastPlayer.timeout" class="setTime">
+                {{ players.lastPlayer.time }} S
+              </div>
+              <div *ngIf="!playInfo.start">
+                {{ players.lastPlayer.ready ? "已准备" : "未准备" }}
+              </div>
+              <div
+                class="setTime"
+                *ngIf="players.lastPlayer.sendPokerStr == '不出'"
+              >
+                {{ players.lastPlayer.sendPokerStr }}
+              </div>
+              <div
+                class="setTime"
+                *ngIf="
+                  players.lastPlayer.actionStr == '抢地主' ||
+                  players.lastPlayer.actionStr == '叫地主' ||
+                  players.lastPlayer.actionStr == '不抢' ||
+                  players.lastPlayer.actionStr == '加倍' ||
+                  players.lastPlayer.actionStr == '不加倍'
+                "
+              >
+                {{ players.lastPlayer.actionStr }}
+              </div>
+            </div>
+          </div>
+          <div class="lastPlayer">
+            <div class="lastPlayerImg">
+              <img
+                *ngIf="players.lastPlayer.avatar"
+                [src]="players.lastPlayer.avatar"
+                style="width: 50px; height: 50px; border-radius: 50%"
+              />
+            </div>
+            <div class="lastPlayerName">{{ players.lastPlayer.name }}</div>
+            <div class="lastPlayerIdentity">
+              身份 {{ players.lastPlayer.identity }}
+            </div>
+            <div
+              class="lastPlayerisHomeowner"
+              *ngIf="players.lastPlayer.isHomeowner"
+            >
+              房主
+            </div>
+            <div class="lastPlayerScore">
+              分数 {{ players.lastPlayer.score }}
+            </div>
+            <div class="lastPlayerResidue">
+              牌 <span>{{ players.lastPlayer.cards.length }}张</span>
+            </div>
+          </div>
+          <!-- <div class="lastPlayerCard">
+            <canvas id="lastEndCard" style="transform: rotate(90deg)"></canvas>
+          </div> -->
+        </div>
+      </div>
+      <div class="table">
+        <!-- <div class="someOneSpecialEffects">其他玩家的游戏特效</div> -->
+        <div class="othersCard">
+          <div class="upCard">
+            <canvas id="upCard" style="float: left"></canvas>
+          </div>
+          <div class="nestCard">
+            <canvas id="nestCard" style="float: right"></canvas>
+          </div>
+        </div>
+        <div class="myCard">
+          <canvas id="myCard"></canvas>
+        </div>
+      </div>
+      <div class="nextOne">
+        <div *ngIf="players.nextPlayer.token" style="width: 100%; height: 100%">
+          <div class="nestState">
+            <div style="height: 100%; display: flex; flex-direction: row">
+              <div *ngIf="players.nextPlayer.timeout" class="setTime">
+                {{ players.nextPlayer.time }} S
+              </div>
+              <div *ngIf="!playInfo.start">
+                {{ players.nextPlayer.ready ? "已准备" : "未准备" }}
+              </div>
+              <div
+                class="setTime"
+                *ngIf="players.nextPlayer.sendPokerStr == '不出'"
+              >
+                {{ players.nextPlayer.sendPokerStr }}
+              </div>
+              <div
+                class="setTime"
+                *ngIf="
+                  players.nextPlayer.actionStr == '抢地主' ||
+                  players.nextPlayer.actionStr == '叫地主' ||
+                  players.nextPlayer.actionStr == '不抢' ||
+                  players.lastPlayer.actionStr == '加倍' ||
+                  players.lastPlayer.actionStr == '不加倍'
+                "
+              >
+                {{ players.nextPlayer.actionStr }}
+              </div>
+            </div>
+          </div>
+          <div class="nextPlayer">
+            <div class="nextPlayerImg">
+              <img
+                *ngIf="players.nextPlayer.avatar"
+                [src]="players.nextPlayer.avatar"
+                style="width: 50px; height: 50px; border-radius: 50%"
+              />
+            </div>
+            <div class="nextPlayerIdentity">
+              身份 {{ players.nextPlayer.identity }}
+            </div>
+            <div
+              class="nextPlayerisHomeowner"
+              *ngIf="players.nextPlayer.isHomeowner"
+            >
+              房主
+            </div>
+            <div class="nextPlayerName">{{ players.nextPlayer.name }}</div>
+            <div class="nextPlayerScore">
+              分数 {{ players.nextPlayer.score }}
+            </div>
+            <div class="nextPlayerResidue">
+              牌 <span>{{ players.nextPlayer.cards.length }}张</span>
+            </div>
+          </div>
+          <!-- <div class="nestPlayerCard">
+            <canvas
+              id="nestPlayerCard"
+              style="transform: rotate(-90deg)"
+            ></canvas>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="mine">
+      <!-- <div class="mine-special-effects">自己特效</div> -->
+      <div class="mineSpecialEffects">
+        <div style="display: flex; width: 100%; justify-content: center">
+          <button
+            nz-button
+            (click)="ready()"
+            *ngIf="!players.player.ready && !playInfo.start"
+            nzType="default"
+            nzShape="round"
+            class="playerBtn"
+          >
+            准备
+          </button>
+          <button
+            nz-button
+            (click)="notReady()"
+            *ngIf="players.player.ready && !playInfo.start"
+            nzType="default"
+            nzShape="round"
+            class="playerBtn"
+          >
+            取消准备
+          </button>
+          <button
+            nz-button
+            nzType="default"
+            nzShape="round"
+            class="playerBtn"
+            (click)="roomLeave()"
+            *ngIf="!playInfo.start"
+          >
+            离开
+          </button>
+        </div>
+        <div style="display: flex; width: 100%; justify-content: center">
+          <button
+            (click)="callLandlord(true)"
+            *ngIf="players.player.callLandlord"
+            nz-button
+            nzType="default"
+            nzShape="round"
+            class="playerBtn"
+          >
+            叫地主
+          </button>
+          <button
+            (click)="callLandlord(false)"
+            *ngIf="players.player.callLandlord"
+            nz-button
+            nzType="default"
+            nzShape="round"
+            class="playerBtn"
+          >
+            不叫
+          </button>
+          <div
+            *ngIf="
+              players.player.timeout &&
+              players.player.callLandlord &&
+              !players.player.robLandlord &&
+              !players.player.double &&
+              !players.player.playPoker
+            "
+            class="setTime"
+          >
+            {{ players.player.time }}S
+          </div>
+        </div>
+
+        <div style="display: flex; width: 100%; justify-content: center">
+          <button
+            (click)="robLandlord(true)"
+            *ngIf="players.player.robLandlord"
+            nz-button
+            nzType="default"
+            nzShape="round"
+            class="playerBtn"
+          >
+            抢地主
+          </button>
+          <button
+            (click)="robLandlord(false)"
+            *ngIf="players.player.robLandlord"
+            nz-button
+            nzType="default"
+            nzShape="round"
+            class="playerBtn"
+          >
+            不抢
+          </button>
+          <div
+            *ngIf="
+              players.player.timeout &&
+              !players.player.callLandlord &&
+              players.player.robLandlord &&
+              !players.player.double &&
+              !players.player.playPoker
+            "
+            class="setTime"
+          >
+            {{ players.player.time }}S
+          </div>
+        </div>
+
+        <div style="display: flex; width: 100%; justify-content: center">
+          <button
+            (click)="doubling(true)"
+            *ngIf="players.player.double"
+            nz-button
+            nzType="default"
+            nzShape="round"
+            class="playerBtn"
+          >
+            加倍
+          </button>
+          <button
+            (click)="doubling(false)"
+            *ngIf="players.player.double"
+            nz-button
+            nzType="default"
+            nzShape="round"
+            class="playerBtn"
+          >
+            不加倍
+          </button>
+          <div
+            *ngIf="
+              players.player.timeout &&
+              !players.player.callLandlord &&
+              !players.player.robLandlord &&
+              players.player.double &&
+              !players.player.playPoker
+            "
+            class="setTime"
+          >
+            {{ players.player.time }}S
+          </div>
+        </div>
+
+        <div style="display: flex; width: 100%; justify-content: center">
+          <!-- 20张牌 不能不出 -->
+          <button
+            (click)="playPoker(false)"
+            nz-button
+            nzType="default"
+            nzShape="round"
+            class="playerBtn"
+            *ngIf="
+              players.player.playPoker &&
+              players.player.cards.length != 20 &&
+              (players.lastPlayer.sendCards || players.nextPlayer.sendCards)
+            "
+          >
+            不出
+          </button>
+          <button
+            (click)="playPoker(true)"
+            nz-button
+            nzType="default"
+            nzShape="round"
+            class="playerBtn"
+            *ngIf="players.player.playPoker"
+          >
+            出牌
+          </button>
+          <div
+            *ngIf="
+              players.player.timeout &&
+              !players.player.callLandlord &&
+              !players.player.robLandlord &&
+              !players.player.double &&
+              players.player.playPoker
+            "
+            class="setTime"
+          >
+            {{ players.player.time }}S
+          </div>
+        </div>
+      </div>
+      <div class="player">
+        <div class="playerImg">
+          <img
+            *ngIf="players.player.avatar"
+            [src]="players.player.avatar"
+            style="width: 50px; height: 50px; border-radius: 50%"
+          />
+        </div>
+        <div class="isHomeowner" *ngIf="players.player.isHomeowner">房主</div>
+        <div class="userName">{{ players.player.name }}</div>
+      </div>
+      <div class="puKe">
+        <canvas
+          id="myowncanvas"
+          style="z-index: 100000"
+          (click)="move($event)"
+        ></canvas>
+      </div>
+      <!-- (click)="move($event)" -->
+      <!-- <div
+        class="puKe"
+        *ngFor="let data of player1Cards"
+        (click)="showHand(data)"
+      ></div> -->
+    </div>
+  </div>
+  <div class="selectRoom" *ngIf="!showPlay">
+    <div class="creatRoom">
+      <button nz-button nzType="primary" nzShape="round" (click)="roomCreate()">
+        创建房间
+      </button>
+    </div>
+    <div class="intoRoom">
+      <button nz-button nzType="primary" nzShape="round" (click)="joinRoom()">
+        加入房间
+      </button>
+    </div>
+    <div class="searchRoom">
+      <button
+        nz-button
+        nzType="primary"
+        nzShape="round"
+        (click)="openSearchRoom()"
+      >
+        搜索房间
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="visible">
+  <nz-drawer
+    nzClosable="false"
+    [nzVisible]="visible"
+    nzPlacement="right"
+    nzTitle="选择房间"
+    (nzOnClose)="closeSearchRoom()"
+    [nzWidth]="320"
+  >
+    <ng-container *nzDrawerContent>
+      <div class="showRoom">
+        <div class="roomDetail">
+          <div class="head-sculpture">
+            <img
+              src="https://7463-tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd-1313286159.tcb.qcloud.la/whsAvatar.jpg"
+              alt=""
+              style="width: 30px; height: 30px; border-radius: 50%"
+            />
+          </div>
+          <div class="room-number">1231451</div>
+          <div class="creator">王思齐</div>
+        </div>
+      </div>
+    </ng-container>
+  </nz-drawer>
+</div>
+<div *ngIf="isVisible">
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="加入房间"
+    (nzOnCancel)="joinRoomCancel()"
+    (nzOnOk)="roomAdd()"
+    nzCentered="true"
+  >
+    <ng-container *nzModalContent>
+      <div>
+        <div style="font-size: 20px; font-weight: bolder; margin-bottom: 6px">
+          请输入房间号:
+        </div>
+        <div>
+          <input
+            nz-input
+            placeholder="请输入房间号"
+            [(ngModel)]="roomid"
+            type="number"
+          />
+        </div>
+      </div>
+    </ng-container>
+  </nz-modal>
+</div>
+<ngx-loading *ngIf="loading"></ngx-loading>

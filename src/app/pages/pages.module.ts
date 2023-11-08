@@ -33,7 +33,9 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 // page
-import { SongRoomComponent } from './song-room/song-room.component';
+import { DouDiZhuComponent } from "./game/dou-di-zhu/dou-di-zhu.component";
+import { CardGameComponent } from "./game/card-game/card-game.component";
+import { SongRoomComponent } from "./game/song-room/song-room.component";
 import { DouyinPopularAccountsComponent } from "./douyin/douyin-popular-accounts/douyin-popular-accounts.component";
 import { OggToMp3Component } from './audio-conversion/ogg-to-mp3/ogg-to-mp3.component';
 import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.component';
@@ -72,7 +74,7 @@ import { ToMvComponent } from './to-mv/to-mv.component';
 import { RiseRankingComponent } from './yuntu/riseRanking/riseRanking.component';
 import { RiseRankingTempComponent } from './yuntu/riseRanking/riseRankingTemp/riseRankingTemp.component';
 // componet
-import { ChatTempComponent } from './song-room/chatTemp/chatTemp.component';
+import { ChatTempComponent } from './game/song-room/chatTemp/chatTemp.component';
 import { SpecialEffectsQueryComponent } from './kuaishou-searchindex/special-effects-query/special-effects-query.component';
 import { SwollenKsEeListComponent } from './kuaishou-searchindex/swollen-ks-ee-list/swollen-ks-ee-list.component';
 import {DyHotDetailComponent} from '../components/dyHotDetail/dyHotDetail.component'
@@ -186,7 +188,9 @@ registerLocaleData(zh);
 		NzStepsModule
 	],
 	declarations: [
-		SongRoomComponent,
+		    DouDiZhuComponent,
+		    CardGameComponent,
+		    SongRoomComponent,
 		ChatTempComponent,
 		DyHotDetailComponent,
 		DyVideoTrendComponent,

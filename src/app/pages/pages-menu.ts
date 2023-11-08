@@ -271,10 +271,35 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	        link: '/pages/original-audio',
 	    },
 	  {
-	    title: "点歌室",
-	    icon: "home",
-	    link: "/pages/song-room",
-	  },
+    title: "游戏",
+    icon: {
+      icon: "card_game",
+      pack: "my-icons",
+    },
+    children: [
+      {
+        title: "点歌室",
+        icon: "home",
+        link: "/pages/song-room",
+      },
+      {
+        title: "斗地主",
+        icon: {
+          icon: "doudizhu",
+          pack: "my-icons",
+        },
+        link: "/pages/dou-di-zhu",
+      },
+      {
+        title: "卡牌游戏",
+        icon: {
+          icon: "sanchaji",
+          pack: "my-icons",
+        },
+        link: "/pages/card-game",
+      },
+    ],
+  },
 	
 	
 	// {

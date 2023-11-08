@@ -1,0 +1,253 @@
+<div class="home">
+  <div class="play">
+    <div class="player">
+      <div class="top">
+        <div class="circle">
+          <div class="round">
+            <img src="assets/wzp/颜色轮白.png" alt="" class="roundImg" />
+            <img src="assets/wzp/颜色轮黑.png" alt="" class="roundImg" />
+            <img src="assets/wzp/颜色轮红.png" alt="" class="roundImg" />
+            <img src="assets/wzp/颜色轮蓝.png" alt="" class="roundImg" />
+            <img src="assets/wzp/颜色轮绿.png" alt="" class="roundImg" />
+          </div>
+        </div>
+        <div class="organism">
+          <img
+            src="assets/wzp/生物.png"
+            alt=""
+            style="height: 100%"
+            (mouseover)="showDetail($event, 'player')"
+            (mouseleave)="resetImage($event, 'player')"
+          />
+        </div>
+        <div class="enchantment">
+          <div class="enchantmentBox">
+            <img
+              src="assets/wzp/结界.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'player')"
+              (mouseleave)="resetImage($event, 'player')"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <div class="main-left">
+          <div class="main-left-box">
+            <div class="source">
+              <img
+                src="assets/wzp/地.png"
+                alt=""
+                style="height: 100%"
+                (mouseover)="showDetail($event, 'player')"
+                (mouseleave)="resetImage($event, 'player')"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="main-right">
+          <div class="artifact">
+            <img
+              src="assets/wzp/神器.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'player')"
+              (mouseleave)="resetImage($event, 'player')"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="bottom-left">
+          <div class="exile-zone">
+            <img
+              src="assets/wzp/生物.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'player')"
+              (mouseleave)="resetImage($event, 'player')"
+            />
+          </div>
+          <div class="cemetery">
+            <img
+              src="assets/wzp/生物.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'player')"
+              (mouseleave)="resetImage($event, 'player')"
+            />
+          </div>
+          <div class="brand">
+            <img
+              src="assets/wzp/墓地.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'player')"
+              (mouseleave)="resetImage($event, 'player')"
+            />
+          </div>
+        </div>
+        <div class="bottom-main">
+          <div class="blood">
+            <div class="line"></div>
+          </div>
+          <div class="myCard">
+            <img
+              src="assets/wzp/手牌.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'player')"
+              (mouseleave)="resetImage($event, 'player')"
+            />
+            <img
+              src="assets/wzp/手牌1.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'player')"
+              (mouseleave)="resetImage($event, 'player')"
+            />
+          </div>
+        </div>
+        <div class="bottom-right">
+          <div class="pengluoke">
+            <img
+              src="assets/wzp/鹏洛客.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'player')"
+              (mouseleave)="resetImage($event, 'player')"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <nz-progress [nzPercent]="50" [nzShowInfo]="false"></nz-progress>
+    </div>
+
+    <div class="mine">
+      <div class="top">
+        <div class="circle">
+          <div class="round">
+            <img src="assets/wzp/颜色轮白.png" alt="" class="roundImg" />
+            <img src="assets/wzp/颜色轮黑.png" alt="" class="roundImg" />
+            <img src="assets/wzp/颜色轮红.png" alt="" class="roundImg" />
+            <img src="assets/wzp/颜色轮蓝.png" alt="" class="roundImg" />
+            <img src="assets/wzp/颜色轮绿.png" alt="" class="roundImg" />
+          </div>
+        </div>
+        <div class="organism">
+          <img
+            src="assets/wzp/生物.png"
+            alt=""
+            style="height: 100%"
+            (mouseover)="showDetail($event, 'user')"
+            (mouseleave)="resetImage($event, 'user')"
+          />
+        </div>
+        <div class="enchantment">
+          <div class="enchantmentBox">
+            <img
+              src="assets/wzp/结界.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'user')"
+              (mouseleave)="resetImage($event, 'user')"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <div class="main-left">
+          <div class="main-left-box">
+            <div class="source">
+              <img
+                src="assets/wzp/地.png"
+                alt=""
+                style="height: 100%"
+                (mouseover)="showDetail($event, 'user')"
+                (mouseleave)="resetImage($event, 'user')"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="main-right">
+          <div class="artifact">
+            <img
+              src="assets/wzp/神器.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'user')"
+              (mouseleave)="resetImage($event, 'user')"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="bottom-left">
+          <div class="exile-zone">
+            <img
+              src="assets/wzp/生物.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'user')"
+              (mouseleave)="resetImage($event, 'user')"
+            />
+          </div>
+          <div class="cemetery">
+            <img
+              src="assets/wzp/生物.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'user')"
+              (mouseleave)="resetImage($event, 'user')"
+            />
+          </div>
+          <div class="brand">
+            <img
+              src="assets/wzp/墓地.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'user')"
+              (mouseleave)="resetImage($event, 'user')"
+            />
+          </div>
+        </div>
+        <div class="bottom-main">
+          <div class="blood">
+            <div class="line"></div>
+          </div>
+          <div class="myCard">
+            <img
+              src="assets/wzp/手牌.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'user')"
+              (mouseleave)="resetImage($event, 'user')"
+            />
+            <img
+              src="assets/wzp/手牌1.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'user')"
+              (mouseleave)="resetImage($event, 'user')"
+            />
+          </div>
+        </div>
+        <div class="bottom-right">
+          <div class="pengluoke">
+            <img
+              src="assets/wzp/鹏洛客.png"
+              alt=""
+              style="height: 100%"
+              (mouseover)="showDetail($event, 'user')"
+              (mouseleave)="resetImage($event, 'user')"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

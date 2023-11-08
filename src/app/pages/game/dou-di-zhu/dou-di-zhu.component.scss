@@ -1,0 +1,417 @@
+.home {
+  height: 100%;
+  min-height: calc(100vh - 4.75rem - 4rem);
+  background-color: #fff;
+  border-radius: 8px;
+  position: relative;
+  .selectRoom {
+    width: 30%;
+    height: 30%;
+    position: absolute;
+    border-radius: 8px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+      rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    .creatRoom {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .intoRoom {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .searchRoom {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .play {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    .topBar {
+      width: 100%;
+      height: 15%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: rgba(165, 165, 165, 0.45) 0px 25px 20px -20px;
+      .roomNumber {
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px;
+        cursor: pointer;
+      }
+      .cardRecorder {
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px;
+      }
+      .gameRecord {
+        height: 80%;
+        display: flex;
+        align-items: center;
+        padding: 0 5px;
+      }
+      .matchScore {
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px;
+      }
+      .gameControls {
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px;
+      }
+    }
+    .someOne {
+      width: 100%;
+      height: 60%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .upOne {
+        width: 20%;
+        height: 100%;
+        position: relative;
+        .lastPlayerCard {
+          width: 100%;
+          height: 70%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .lastPlayer {
+          width: 100%;
+          height: 50%;
+          border: 1px dashed #ccc;
+          border-radius: 8px;
+          .lastPlayerImg {
+            width: 100%;
+            height: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+          }
+          .lastPlayerScore {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 10%;
+            margin-bottom: 5px;
+          }
+          .lastPlayerIdentity {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 10%;
+            margin-bottom: 5px;
+          }
+          .lastPlayerisHomeowner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 10%;
+            margin-bottom: 5px;
+          }
+          .lastPlayerResidue {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 10%;
+            margin-bottom: 5px;
+          }
+          .lastPlayerName {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 10%;
+            margin-bottom: 5px;
+          }
+        }
+        .upState {
+          position: absolute;
+          top: 15%;
+          right: -20%;
+          height: 15%;
+          z-index: 10000;
+          .setTime {
+            margin: 10px;
+            font-size: 14px;
+            border-radius: 1000px;
+            border: 1px solid #d9d9d9;
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+            cursor: pointer;
+            height: 32px;
+            padding: 4px 15px;
+            background: #fff;
+            text-align: center;
+          }
+        }
+      }
+      .table {
+        width: 60%;
+        height: 96%;
+        background-image: url("../../../../assets/img/table.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        // position: relative;
+        .othersCard {
+          width: 100%;
+          height: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .upCard {
+            width: 50%;
+            height: 100%;
+          }
+          .nestCard {
+            width: 50%;
+            height: 100%;
+          }
+        }
+        .myCard {
+          width: 100%;
+          height: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        // .someOneSpecialEffects {
+        //   position: absolute;
+        //   left: 30%;
+        //   width: 40%;
+        //   height: 30%;
+        //   background-color: #513970;
+        //   display: flex;
+        //   justify-content: center;
+        //   align-items: center;
+        // }
+      }
+      .nextOne {
+        width: 20%;
+        height: 100%;
+        position: relative;
+        .nestState {
+          position: absolute;
+          top: 15%;
+          left: -20%;
+          height: 15%;
+          .setTime {
+            margin: 10px;
+            font-size: 14px;
+            border-radius: 1000px;
+            border: 1px solid #d9d9d9;
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+            cursor: pointer;
+            height: 32px;
+            padding: 4px 15px;
+            background: #fff;
+            text-align: center;
+          }
+        }
+        .nestPlayerCard {
+          width: 100%;
+          height: 70%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .nextPlayer {
+          width: 100%;
+          height: 50%;
+          border: 1px dashed #ccc;
+          border-radius: 8px;
+          .nextPlayerIdentity {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 10%;
+            margin-bottom: 5px;
+          }
+          .nextPlayerImg {
+            width: 100%;
+            height: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+          }
+          .nextPlayerisHomeowner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 10%;
+            margin-bottom: 5px;
+          }
+          .nextPlayerResidue {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 10%;
+          }
+          .nextPlayerScore {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 10%;
+          }
+          .nextPlayerName {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 10%;
+          }
+        }
+      }
+    }
+    .mine {
+      width: 100%;
+      height: 25%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      .mine-special-effects {
+        position: absolute;
+        width: 13%;
+        height: 50%;
+        right: 20%;
+        top: -50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .mineSpecialEffects {
+        position: absolute;
+        width: 25%;
+        height: 30%;
+        left: 50%;
+        top: -30%;
+        transform: translateX(-50%);
+        .setTime {
+          margin: 10px;
+          font-size: 14px;
+          border-radius: 1000px;
+          border: 1px solid #d9d9d9;
+          box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+          cursor: pointer;
+          height: 32px;
+          padding: 4px 15px;
+          background: #fff;
+          text-align: center;
+        }
+      }
+      .player {
+        width: 20%;
+        height: 100%;
+        border: 1px dashed #ccc;
+        border-radius: 8px;
+        .playerImg {
+          width: 100%;
+          height: 40%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 5px;
+        }
+        .isHomeowner {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 30%;
+          margin-bottom: 5px;
+        }
+        .userName {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 30%;
+        }
+      }
+      .puKe {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+.roomDetail {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+  .head-sculpture {
+    width: 20%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .room-number {
+    width: 50%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .creator {
+    width: 30%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.roomDetail:hover {
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.playerBtn {
+  margin: 10px;
+}
