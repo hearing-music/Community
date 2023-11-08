@@ -1,8 +1,8 @@
 import { Component, OnInit,OnDestroy } from "@angular/core";
 import "./poker.min";
 import { io } from "../../../services/js/socket.io.js";
-import { environment } from '../../../../environments/environment';
 import { NzMessageService } from "ng-zorro-antd/message";
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: "ngx-dou-di-zhu",
   templateUrl: "./dou-di-zhu.component.html",
@@ -15,41 +15,34 @@ export class DouDiZhuComponent implements OnInit,OnDestroy {
   myCanvas: any;
   upCanvas: any;
   nextCanvas: any;
-  nextEndCanvas: any;
-  upEndCanvas: any;
   myCtx: any;
   upCtx: any;
   nextCtx: any;
-  nextEndCtx: any;
-  upEndCtx: any;
   ctx: any;
   ctx1: any;
   loading = false;
   ngOnInit() {
     this.connect();
   }
-	ngOnDestroy() {
-	  console.log("注销页面");
-		this.socketIO.off()
-			this.socketIO.disconnect()
-	}
+  ngOnDestroy() {	  console.log("注销页面");		this.socketIO.off()			this.socketIO.disconnect()	}
   //创建全局消息
   createMessage(type: string, msg: any): void {
     this.message.create(type, `${msg}`);
   }
 
+  // 展示最后剩余
   drawEndNest() {
     let canvasWidth = (
       (this.players.nextPlayer.cards.length - 1) * 15 +
       45
     ).toString();
     let canvasHeight = (150).toString();
-    this.nextEndCanvas = document.getElementById("nestPlayerCard");
-    this.nextEndCanvas.width = canvasWidth;
-    this.nextEndCanvas.height = canvasHeight;
-    this.nextEndCtx = this.nextEndCanvas.getContext("2d");
+    this.nextCanvas = document.getElementById("nestCard");
+    this.nextCanvas.width = canvasWidth;
+    this.nextCanvas.height = canvasHeight;
+    this.nextCtx = this.nextCanvas.getContext("2d");
     for (let i = 0; i < this.players.nextPlayer.cards.length; i++) {
-      this.nextEndCtx.drawPokerCard(
+      this.nextCtx.drawPokerCard(
         i * 15,
         30,
         60,
@@ -64,12 +57,12 @@ export class DouDiZhuComponent implements OnInit,OnDestroy {
       45
     ).toString();
     let canvasHeight = (150).toString();
-    this.upEndCanvas = document.getElementById("lastEndCard");
-    this.upEndCanvas.width = canvasWidth;
-    this.upEndCanvas.height = canvasHeight;
-    this.upEndCtx = this.upEndCanvas.getContext("2d");
+    this.upCanvas = document.getElementById("upCard");
+    this.upCanvas.width = canvasWidth;
+    this.upCanvas.height = canvasHeight;
+    this.upCtx = this.upCanvas.getContext("2d");
     for (let i = 0; i < this.players.lastPlayer.cards.length; i++) {
-      this.upEndCtx.drawPokerCard(
+      this.upCtx.drawPokerCard(
         i * 15,
         30,
         60,
@@ -289,8 +282,8 @@ export class DouDiZhuComponent implements OnInit,OnDestroy {
   };
   socketIO: any = null;
   socketSpace = "/ddz";
-  socketUrl = environment.socketUrl +this.socketSpace;
-  // socketUrl = "https://communities.tingjianmusic.cn:444" + this.socketSpace;
+  // socketUrl = environment.socketUrl +this.socketSpace;
+  socketUrl = "https://communities.tingjianmusic.cn:444" + this.socketSpace;
   connect() {
     this.loading = true;
     this.socketObj.auth.token = this.token;
