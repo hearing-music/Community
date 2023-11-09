@@ -5,6 +5,7 @@
  */
 export const environment = {
   production: true,
+	hmr: false,
 	// downloadUrl:'http://139.224.133.131:3223',
 	downloadUrl:'https://communities.tingjianmusic.cn:444',
 	baseUrl:'https://communities.tingjianmusic.cn:444',
