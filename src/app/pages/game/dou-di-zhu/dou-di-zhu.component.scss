@@ -401,21 +401,25 @@
   margin-top: 5px;
   cursor: pointer;
   .head-sculpture {
-    width: 20%;
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .room-number {
-    width: 50%;
+    width: 30%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .roomCount {
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .creator {
-    width: 30%;
     height: 50px;
     display: flex;
     align-items: center;

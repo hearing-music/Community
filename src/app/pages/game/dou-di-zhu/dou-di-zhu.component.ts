@@ -10,6 +10,7 @@ import { environment } from "../../../../environments/environment";
 })
 export class DouDiZhuComponent implements OnInit, OnDestroy {
   constructor(private message: NzMessageService) {}
+  roomDetail: any = [];
   canvas: any;
   canvas1: any;
   myCanvas: any;
@@ -87,7 +88,11 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
       );
     }
   }
-
+  choseRoom(roomId: any) {
+    this.roomid = roomId;
+    this.visible = false;
+    this.roomAdd();
+  }
   //打出的下家扑克牌
   drawNextCard() {
     let canvasWidth = (
@@ -322,6 +327,12 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
   roomHouseShow = false;
   houseShow = true;
   listen() {
+    //搜索所有房间
+    this.socketIO.on("roomInfo", (data: any) => {
+		console.log(data)
+      this.roomDetail = data;
+    });
+
     // 结算阶段
     this.socketIO.on("ending", (data: any) => {
       console.log(data.msg, data);
