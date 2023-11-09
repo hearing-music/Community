@@ -20,7 +20,7 @@
       <div class="gameControls">
         <canvas id="bottom-card" height="80" style="z-index: 100000"></canvas>
       </div>
-      <div class="matchScore">当前比赛分数:{{ players.player.score }}</div>
+      <!-- <div class="matchScore">当前比赛分数:{{ players.player.score }}</div> -->
     </div>
     <div class="someOne">
       <div class="upOne">
@@ -30,7 +30,7 @@
               <div *ngIf="players.lastPlayer.timeout" class="setTime">
                 {{ players.lastPlayer.time }} S
               </div>
-              <div *ngIf="!playInfo.start">
+              <div *ngIf="!playInfo.start" class="setTime">
                 {{ players.lastPlayer.ready ? "已准备" : "未准备" }}
               </div>
               <div
@@ -87,14 +87,20 @@
         <!-- <div class="someOneSpecialEffects">其他玩家的游戏特效</div> -->
         <div class="othersCard">
           <div class="upCard">
-            <canvas id="upCard" style="float: left"></canvas>
+            <canvas
+              id="upCard"
+              style="float: left; margin-left: 10px; margin-top: 10px"
+            ></canvas>
           </div>
           <div class="nestCard">
-            <canvas id="nestCard" style="float: right"></canvas>
+            <canvas
+              id="nestCard"
+              style="float: right; margin-right: 10px; margin-top: 10px"
+            ></canvas>
           </div>
         </div>
         <div class="myCard">
-          <canvas id="myCard"></canvas>
+          <canvas id="myCard" style="margin-left: 10px"></canvas>
         </div>
       </div>
       <div class="nextOne">
@@ -104,7 +110,7 @@
               <div *ngIf="players.nextPlayer.timeout" class="setTime">
                 {{ players.nextPlayer.time }} S
               </div>
-              <div *ngIf="!playInfo.start">
+              <div *ngIf="!playInfo.start" class="setTime">
                 {{ players.nextPlayer.ready ? "已准备" : "未准备" }}
               </div>
               <div
@@ -229,9 +235,6 @@
           >
             {{ players.player.time }}S
           </div>
-        </div>
-
-        <div style="display: flex; width: 100%; justify-content: center">
           <button
             (click)="robLandlord(true)"
             *ngIf="players.player.robLandlord"
@@ -264,9 +267,6 @@
           >
             {{ players.player.time }}S
           </div>
-        </div>
-
-        <div style="display: flex; width: 100%; justify-content: center">
           <button
             (click)="doubling(true)"
             *ngIf="players.player.double"
@@ -299,9 +299,6 @@
           >
             {{ players.player.time }}S
           </div>
-        </div>
-
-        <div style="display: flex; width: 100%; justify-content: center">
           <!-- 20张牌 不能不出 -->
           <button
             (click)="playPoker(false)"
@@ -339,6 +336,23 @@
           >
             {{ players.player.time }}S
           </div>
+          <div
+            class="setTime"
+            *ngIf="
+              players.player.actionStr == '不出' ||
+              players.player.actionStr == '叫地主' ||
+              players.player.actionStr == '不叫' ||
+              players.player.actionStr == '抢地主' ||
+              players.player.actionStr == '不抢' ||
+              players.player.actionStr == '加倍' ||
+              players.player.actionStr == '不加倍'
+            "
+          >
+            {{ players.player.actionStr }}
+          </div>
+          <div class="setTime" *ngIf="players.player.sendPokerStr == '不出'">
+            {{ players.player.sendPokerStr }}
+          </div>
         </div>
       </div>
       <div class="player">
@@ -349,7 +363,13 @@
             style="width: 50px; height: 50px; border-radius: 50%"
           />
         </div>
+        <div class="playerIdentity" *ngIf="players.player.identity">
+          身份:{{ players.player.identity }}
+        </div>
         <div class="isHomeowner" *ngIf="players.player.isHomeowner">房主</div>
+        <div *ngIf="players.player.isHomeowner" class="playerScore">
+          当前比赛分数:{{ players.player.score }}
+        </div>
         <div class="userName">{{ players.player.name }}</div>
       </div>
       <div class="puKe">
@@ -378,7 +398,7 @@
         加入房间
       </button>
     </div>
-    <div class="searchRoom">
+   <!-- <div class="searchRoom">
       <button
         nz-button
         nzType="primary"
@@ -387,7 +407,7 @@
       >
         搜索房间
       </button>
-    </div>
+    </div> -->
   </div>
 </div>
 

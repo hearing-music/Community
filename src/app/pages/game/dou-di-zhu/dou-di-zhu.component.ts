@@ -1,14 +1,14 @@
-import { Component, OnInit,OnDestroy } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import "./poker.min";
 import { io } from "../../../services/js/socket.io.js";
 import { NzMessageService } from "ng-zorro-antd/message";
-import { environment } from '../../../../environments/environment';
+import { environment } from "../../../../environments/environment";
 @Component({
   selector: "ngx-dou-di-zhu",
   templateUrl: "./dou-di-zhu.component.html",
   styleUrls: ["./dou-di-zhu.component.scss"],
 })
-export class DouDiZhuComponent implements OnInit,OnDestroy {
+export class DouDiZhuComponent implements OnInit, OnDestroy {
   constructor(private message: NzMessageService) {}
   canvas: any;
   canvas1: any;
@@ -24,12 +24,28 @@ export class DouDiZhuComponent implements OnInit,OnDestroy {
   ngOnInit() {
     this.connect();
   }
-  ngOnDestroy() {	  console.log("注销页面");		this.socketIO.off()			this.socketIO.disconnect()	}
+  ngOnDestroy() {
+    console.log("注销页面");
+    this.socketIO.off();
+    this.socketIO.disconnect();
+  }
   //创建全局消息
   createMessage(type: string, msg: any): void {
     this.message.create(type, `${msg}`);
   }
 
+  clearDraw() {
+    if (this.nextCtx && this.upCtx && this.myCtx) {
+      this.nextCtx.clearRect(
+        0,
+        0,
+        this.nextCanvas.width,
+        this.nextCanvas.height
+      );
+      this.upCtx.clearRect(0, 0, this.upCanvas.width, this.upCanvas.height);
+      this.myCtx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
+    }
+  }
   // 展示最后剩余
   drawEndNest() {
     let canvasWidth = (
@@ -336,6 +352,7 @@ export class DouDiZhuComponent implements OnInit,OnDestroy {
     this.socketIO.on("playPoker", (data: any) => {
       this.players.lastPlayer.actionStr = "";
       this.players.nextPlayer.actionStr = "";
+      this.players.player.actionStr = "";
       console.log(data.msg, data);
       this.houseUsers = data.houseUsers;
       this.playInfo.multiple = data.playInfo.multiple;
@@ -397,6 +414,8 @@ export class DouDiZhuComponent implements OnInit,OnDestroy {
         if (this.players.lastPlayer.token == token) {
           if (data.state == false) {
             this.players.lastPlayer.sendPokerStr = "不出";
+            this.players.nextPlayer.sendPokerStr = "";
+            this.players.player.sendPokerStr = "";
           }
           this.players.lastPlayer.timeout = false;
         }
@@ -404,6 +423,8 @@ export class DouDiZhuComponent implements OnInit,OnDestroy {
         if (this.players.nextPlayer.token == token) {
           if (data.state == false) {
             this.players.nextPlayer.sendPokerStr = "不出";
+            this.players.lastPlayer.sendPokerStr = "";
+            this.players.player.sendPokerStr = "";
           }
           this.players.nextPlayer.timeout = false;
         }
@@ -412,6 +433,8 @@ export class DouDiZhuComponent implements OnInit,OnDestroy {
           this.players.player.playPoker = false;
           if (data.state == false) {
             this.players.player.sendPokerStr = "不出";
+            this.players.nextPlayer.sendPokerStr = "";
+            this.players.lastPlayer.sendPokerStr = "";
           }
           this.players.player.timeout = false;
           this.timing("player", "stop");
@@ -498,6 +521,9 @@ export class DouDiZhuComponent implements OnInit,OnDestroy {
       }
       // 确定地主
       if (data.type == "robLandlordEnd") {
+        this.players.nextPlayer.actionStr = "";
+        this.players.lastPlayer.actionStr = "";
+        this.players.player.actionStr = "";
         // 设置底牌 显示底牌
         this.playInfo.bottomCard = data.playInfo.bottomCard;
         this.playInfo.bottomCardShow = data.playInfo.bottomCardShow;
@@ -581,6 +607,7 @@ export class DouDiZhuComponent implements OnInit,OnDestroy {
         this.players.nextPlayer.identity =
           data.houseUsers[this.nextIndex].identity;
         this.drawCanvas();
+        this.clearDraw();
         this.drawBottomCard();
       }
     });
