@@ -15,7 +15,7 @@
     "start": "ng serve --host 0.0.0.0",
     "build": "ng build",
     "build:prod": "ng build --prod --aot&& node version.js",
-	"build:new": "ng build --configuration production --aot --build-optimizer --vendor-chunk=true && node version.js",
+    "build:new": "ng build --configuration production --aot --build-optimizer --vendor-chunk=true && node version.js",
     "test": "ng test",
     "test:coverage": "rimraf coverage && npm run test -- --code-coverage",
     "lint": "ng lint",
@@ -49,7 +49,7 @@
     "@swimlane/ngx-charts": "^14.0.0",
     "angular2-chartjs": "0.4.1",
     "bootstrap": "4.3.1",
-    "chart.js": "2.7.1",
+    "chart.js": "^2.9.4",
     "ckeditor": "4.7.3",
     "classlist.js": "1.1.20150312",
     "core-js": "2.5.1",
@@ -116,10 +116,10 @@
     "tslint-language-service": "^0.9.9",
     "typescript": "~4.2.3||~4.3.0"
   },
-	"browserslist": [
-	    "> 0.5%",
-	    "last 2 versions",
-	    "Firefox ESR",
-	    "not dead"
-	  ]
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead"
+  ]
 }
