@@ -274,9 +274,10 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
   }
 
   isVisible: boolean = false;
-  joinRoom() {
-    this.isVisible = true;
-  }
+    joinRoom() {
+      this.roomid = "";
+      this.isVisible = true;
+    }
   joinRoomCancel() {
     this.isVisible = false;
   }

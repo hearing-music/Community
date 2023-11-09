@@ -430,19 +430,8 @@
                 justify-content: space-around;
               "
             >
-              <img
-                [src]="item.avatar"
-                alt=""
-                style="width: 30px; height: 30px; border-radius: 50%"
-                *ngIf="item.isHomeowner == true"
-              />
-              <div
-                nzTooltipTitle="创建者名称"
-                nz-tooltip
-                style="margin-left: 8px"
-              >
-                {{ item.name }}
-              </div>
+              <img [src]="item.avatar" alt="" style="width: 30px; height: 30px; border-radius: 50%" *ngIf="item.isHomeowner"/>
+              <div nzTooltipTitle="创建者名称" nz-tooltip style="margin-left: 8px" *ngIf="item.isHomeowner">{{ item.name }}</div>
             </div>
           </div>
           <div class="room-number" nzTooltipTitle="房间号" nz-tooltip>
