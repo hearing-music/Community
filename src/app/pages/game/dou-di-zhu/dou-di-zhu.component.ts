@@ -304,8 +304,8 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
   };
   socketIO: any = null;
   socketSpace = "/ddz";
-  // socketUrl = environment.socketUrl +this.socketSpace;
-  socketUrl = "https://communities.tingjianmusic.cn:444" + this.socketSpace;
+  socketUrl = environment.socketUrl +this.socketSpace;
+  // socketUrl = "https://communities.tingjianmusic.cn:444" + this.socketSpace;
   connect() {
     this.loading = true;
     this.socketObj.auth.token = this.token;
