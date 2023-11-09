@@ -96,6 +96,7 @@ export class LoginComponent implements OnInit {
 					"menus_item":JSON.stringify(res.result.menus_item),
 					"create_at":res.result.create_at,
 					"url":res.result.url,
+					"developIDs":res.result.developIDs,
 					"highUserList":res.result.highUserList,
 					"ks_monitoring_limit":res.result.ks_monitoring_limit
 				})

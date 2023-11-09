@@ -50,6 +50,9 @@ export class PagesComponent implements OnInit {
 		}
 	}
 	menuChange() {
+		let developIDs:any = localStorage.getItem('developIDs') || '';
+		developIDs = developIDs.split(',')
+		const userId:any = localStorage.getItem('userId') || 0;
 		if (!this.common.checkAdmin()) {
 			let menus_item: any = localStorage.getItem('menus_item')
 			menus_item = JSON.parse(menus_item)
@@ -62,7 +65,16 @@ export class PagesComponent implements OnInit {
 			}
 			this.menu = arr;
 		} else {
-			this.menu = MENU_ITEMS;
+			
+			// 开发者可看
+			if(developIDs.includes(userId)){
+				this.menu = MENU_ITEMS;
+			}else{
+				let newMENU_ITEMS = MENU_ITEMS
+				let i = newMENU_ITEMS.findIndex((e:any)=>e.title=='游戏')
+				 newMENU_ITEMS.splice(i,1)
+				this.menu = newMENU_ITEMS;
+			}
 		}
 	}
 	menu = [];

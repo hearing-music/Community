@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree,Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import {CommonService} from "../services/common.service";
+import { NzMessageService } from "ng-zorro-antd/message";
 @Injectable({
 	providedIn: 'root'
 })
 export class PermissionGuard implements CanActivate {
-	constructor( private router: Router,private common:CommonService) {
+	constructor( private router: Router,private common:CommonService,public message: NzMessageService) {
 		
 	}
 	// 角色权限验证
@@ -14,7 +15,14 @@ export class PermissionGuard implements CanActivate {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 		const url: string = state.url; // 将要跳转的路径
-		console.log('permission')
+		// let developIDs:any = localStorage.getItem('developIDs') || '';
+		// developIDs = developIDs.split(',')
+		// const userId:any = localStorage.getItem('userId') || 0;
+		// console.log('permission')
+		// if((url=='/pages/dou-di-zhu'||url == '/pages/song-room'||url=='/pages/card-game') && !developIDs.includes(userId)){
+		// 	this.message.info('无权限访问')
+		// 	return this.router.parseUrl('**');
+		// }
 		if(this.common.checkAdmin()){
 			return true
 		}else{

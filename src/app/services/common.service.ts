@@ -37,6 +37,7 @@ export class CommonService {
 	}
 	storageSet(obj:any){
 		localStorage.setItem('guideShow', obj.guideShow)
+		localStorage.setItem('developIDs', obj.developIDs)
 		localStorage.setItem('phone', obj.phone)
 		localStorage.setItem('userId', obj.userId)
 		localStorage.setItem('token', obj.token)
