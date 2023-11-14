@@ -44,6 +44,7 @@ search(e:any){
           res.result[i].show = false;
           for (let j = 0; j < res.result[i].utilisation.res.length; j++) {
             var currentDate = new Date();
+						res.result[i].utilisation.res[j].usageCount = res.result[i].utilisation.res[j].usageCount || 0
             currentDate.setHours(0, 0, 0, 0); // 设置时间为0点0分0秒0毫秒
             if (
               res.result[i].utilisation.res[j].time >
@@ -86,6 +87,7 @@ search(e:any){
 		  res.result[i].BgmTitle=BgmTitle;
         }
         this.dataSet = res.result;
+		console.log(this.dataSet)
         this.total = res.result.length;
       },(err:any)=>{
 		  this.loading=false;

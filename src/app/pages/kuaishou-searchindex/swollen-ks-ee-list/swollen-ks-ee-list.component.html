@@ -58,10 +58,10 @@
         <td nzAlign="center">
           <div
             style="display: flex; justify-content: space-around"
-            *ngIf="data.yesterdayindex || data.utilisation.res.length > 2"
+            *ngIf="data.yesterdayindex>=0"
           >
             <div style="width: 80%">
-              {{ data.yesterdayindex ? data.yesterdayindex : ""}}
+              {{ data.yesterdayindex}}
             </div>
             <div
               style="cursor: pointer; position: relative"
@@ -95,7 +95,7 @@
             {{
               data.yesterdayindex && data.todayindex
                 ? data.todayindex - data.yesterdayindex
-                : ""
+                : 0
             }}
           </div>
         </td>
