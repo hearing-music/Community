@@ -63,6 +63,8 @@ export class DouyinSoundSourceComponent implements OnInit {
 	  label: '6天', value: 6
   },{
 	  label: '7天', value: 7
+  },{
+	  label: '20天', value: 20
   },]
   disabled:any=false;
   userId:any='0'

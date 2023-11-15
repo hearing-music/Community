@@ -705,7 +705,7 @@ export class ApiService {
 		} = params;
 		const formData: FormData = new FormData();
 		formData.append('file', file);
-		let url = 'http://whaleTail.tingjianmusic.top:81/v8/SetOggToMp3?typeOf=' + typeOf;
+		let url = 'https://whaleTail.tingjianmusic.top:444/v8/SetOggToMp3?typeOf=' + typeOf;
 		return this.http.post(url, formData);
 	}
 	getRadarList(params: any) {
