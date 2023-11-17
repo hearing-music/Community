@@ -26,11 +26,12 @@
 							{{item.publicTime?item.publicTime:''}}
 						</div>
 						<span *ngIf='item.publicTime' nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
-						<span nz-tooltip nzTooltipTitle="语种: 普:普通话 未:未知 其他:其他">
+						<span nz-tooltip nzTooltipTitle="语种: 普:普通话 未:未知 其他:其他 英:英语">
 						<div>
 							<img *ngIf='item.languageName=="未知"' src="../../../assets/img/wei.svg" class="icon">
 							<img *ngIf='item.languageName=="普通话"' src="../../../assets/img/pu.svg" class="icon">
 							<img *ngIf='item.languageName=="其他"' src="../../../assets/img/qita.svg" class="icon">
+							<img *ngIf='item.languageName=="英语"' src="../../../assets/img/yingyu.svg" class="icon">
 						</div>
 						</span>
 						<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
