@@ -12,9 +12,12 @@ export class RadarComponent implements OnInit {
 	listOfData: any = [];
 	loading = false
 	constructor(public api: ApiService, public common: CommonService, public message: NzMessageService) { }
-	ngOnInit(): void {
+	async ngOnInit() {
 		this.time = new Date().getTime()
 		this.date = new Date()
+		let timeList = await this.getRadarTime()
+		this.timeList = timeList;
+		
 		this.tabsActive = 3
 		this.getRadarList("热搜飙升榜", this.time, this.pageCurrent)
 	}
@@ -45,6 +48,7 @@ export class RadarComponent implements OnInit {
 		this.isGetDate()
 	}
 	//榜单
+	
 	listActive: any = '';
 	nowList: any = [];
 	douyinList: any = [{ desc: '飙升榜', value: 1 }, { desc: '热歌榜', value: 2 }]
@@ -53,9 +57,17 @@ export class RadarComponent implements OnInit {
 		this.listActive = e;
 		this.isGetDate()
 	}
+	timeId:any='';
+	timeList:any=[]
+	// 时间段
+	ngModelChange3(e:any){
+		this.timeId = e;
+		this.isGetDate()
+		
+	}
 	getRadarList(platform: string, time: number, page: number) {
 		this.loading = true
-		this.api.getRadarList({ platform: platform, time: time, page: page }).subscribe((res: any) => {
+		this.api.getRadarList({ platform: platform, time: time, page: page,timeId:this.timeId }).subscribe((res: any) => {
 			this.listOfData = res.result
 			this.loading = false
 			this.pageTotal = res.pageTotal
@@ -82,5 +94,26 @@ export class RadarComponent implements OnInit {
 	nzPageIndexChange(e: any) {
 		this.pageCurrent = e;
 		this.isGetDate()
+	}
+	
+	getRadarTime(){
+		return new Promise((resolve)=>{
+			this.api.getRadarTime().subscribe((res: any) => {
+				// 设置初始默认时间
+				this.setTimes(res.result)
+				resolve(res.result)
+			})
+		})
+	}
+	setTimes(timeArr:any){
+		let hour:any = new Date(this.time).getHours()
+		if(hour<10) hour = '0'+hour;
+		hour =  hour+':00';
+		for(let i =timeArr.length-1;i>=0;i--){
+			if(parseInt(timeArr[i].record) <= parseInt(hour)){
+				this.timeId = timeArr[i].ID
+				break;
+			}
+		}
 	}
 }

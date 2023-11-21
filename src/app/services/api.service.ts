@@ -708,13 +708,17 @@ export class ApiService {
 		let url = 'https://whaleTail.tingjianmusic.top:444/v8/SetOggToMp3?typeOf=' + typeOf;
 		return this.http.post(url, formData);
 	}
+	getRadarTime(){
+		return this.http.get(this.baseUrl + "/radar/GetRadarMusicTime")
+	}
 	getRadarList(params: any) {
 		let {
 			platform,
 			time,
 			page,
+			timeId
 		} = params;
-		return this.http.get(this.baseUrl + "/radar/getRadarList?platform=" + platform + "&time=" + time + "&page=" + page)
+		return this.http.get(this.baseUrl + "/radar/getRadarList?platform=" + platform + "&time=" + time + "&page=" + page+'&timeId='+timeId)
 	}
 	getKuGouHash(params: any) {
 		let {

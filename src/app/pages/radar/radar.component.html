@@ -13,6 +13,11 @@
 		<!-- 日期 -->
 		<nz-date-picker [nzDisabledDate]='disabledDate' [(ngModel)]="date"
 			(ngModelChange)="onChange($event)"></nz-date-picker>
+		<!-- 时间 -->
+		<nz-select *ngIf='timeList.length>0&&tabsActive==3' style="width: 150px;margin-right: 16px;" [(ngModel)]="timeId"
+			nzPlaceHolder='请选择时间' (ngModelChange)='ngModelChange3($event)'>
+			<nz-option *ngFor="let c of timeList" [nzValue]="c.ID" [nzLabel]="c.record"></nz-option>
+		</nz-select>
 		<div class="messageTip">
 			更新时间与小程序同步
 		</div>
