@@ -28,7 +28,12 @@
 		<ngx-wy [listOfData]="listOfData" *ngIf=' tabsActive==2&&time'></ngx-wy>
 	</div>
 	<div class="pagination"
-		*ngIf='(tabsActive == 1 && time && listActive||tabsActive == 2 && time)||(tabsActive==3&&time)||(tabsActive==2&&time)'>
+		    *ngIf="
+		      (tabsActive == 1 && time && listActive && listOfData.length > 0) ||
+		      (tabsActive == 2 && time && listOfData.length > 0) ||
+		      (tabsActive == 3 && time && listOfData.length > 0) ||
+		      (tabsActive == 2 && time && listOfData.length > 0)
+		    ">
 		<nz-pagination [nzPageIndex]="pageCurrent" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
 			(nzPageIndexChange)='nzPageIndexChange($event)'></nz-pagination>
 	</div>

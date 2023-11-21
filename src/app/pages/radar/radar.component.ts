@@ -97,6 +97,7 @@ export class RadarComponent implements OnInit {
 	}
 	
 	getRadarTime(){
+		this.loading = true
 		return new Promise((resolve)=>{
 			this.api.getRadarTime().subscribe((res: any) => {
 				// 设置初始默认时间
