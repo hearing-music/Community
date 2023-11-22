@@ -39,9 +39,12 @@ search(e:any){
 		  this.loading=false;
 		  let yesterday = this.common.timeFormat(new Date().getTime()-24*60*60*1000*0)
 		  let qtday = this.common.timeFormat(new Date().getTime()-24*60*60*1000*1)
+		  let yesterday2 = this.common.timeFormat(new Date().getTime()-24*60*60*1000*1)
+		  let qtday2 = this.common.timeFormat(new Date().getTime()-24*60*60*1000*2)
         for (let i = 0; i < res.result.length; i++) {
-          res.result[i].yesterday = 0;
           res.result[i].show = false;
+		  res.result[i].todayindex = ''
+		  res.result[i].yesterdayindex = ''
           for (let j = 0; j < res.result[i].utilisation.res.length; j++) {
             var currentDate = new Date();
 						res.result[i].utilisation.res[j].usageCount = res.result[i].utilisation.res[j].usageCount || 0
@@ -68,23 +71,41 @@ search(e:any){
 		  let BgmUtilizationRateQT = ''
 		  let BgmColor = ''
 		  let BgmTitle = ''
-		  res.result[i].BgmUtilizationRate = res.result[i].BgmUtilizationRate || {res:[]}
-		  for(let j=0;j<res.result[i].BgmUtilizationRate.res.length;j++){
-			 let data2 = res.result[i].BgmUtilizationRate.res[j]
-			 let now = this.common.timeFormat(data2.time*1000)
-			 if(now==qtday){
-				 BgmUtilizationRateQT = data2.data[data2.data.length-1]
+		  let BgmUtilizationRateArr = []
+		  res.result[i].BgmUtilizationRate = res.result[i].BgmUtilizationRate || {res:[{data:[]}]}
+		  res.result[i].BgmUtilizationRate.res = res.result[i].BgmUtilizationRate.res || [{data:[]}]
+		  if(res.result[i].BgmUtilizationRate.res.length==0){
+			  res.result[i].BgmUtilizationRate.res = [{data:[]}]
+		  }
+		  let BgmUtilizationRateData = res.result[i].BgmUtilizationRate.res[res.result[i].BgmUtilizationRate.res.length-1].data
+		  BgmColor = res.result[i].BgmUtilizationRate.res[res.result[i].BgmUtilizationRate.res.length-1].colors
+		  BgmTitle = res.result[i].BgmUtilizationRate.res[res.result[i].BgmUtilizationRate.res.length-1].title
+		  for(let j=0;j<BgmUtilizationRateData.length;j++){
+			 let data2 = BgmUtilizationRateData[j]
+			 let now = this.common.timeFormat(data2[0])
+			 if(now==qtday2){
+				 BgmUtilizationRateQT = data2
 			 }
-			 if(now == yesterday){
-				 BgmUtilizationRateZT = data2.data[data2.data.length-1]
+			 if(now == yesterday2){
+				 BgmUtilizationRateZT = data2
 			 }
-			 BgmColor = data2.colors
-			 BgmTitle = data2.title
+			 if(BgmUtilizationRateArr.length>0){
+				 let countSum = BgmUtilizationRateArr[BgmUtilizationRateArr.length-1].count;
+				 BgmUtilizationRateArr.push({time:data2[0],count:data2[1] + countSum})
+			 }else{
+				 BgmUtilizationRateArr.push({time:data2[0],count:data2[1]})
+			 }
 		  }
 		  res.result[i].BgmUtilizationRateZT=BgmUtilizationRateZT;
 		  res.result[i].BgmUtilizationRateQT=BgmUtilizationRateQT;
 		  res.result[i].BgmColor=BgmColor;
 		  res.result[i].BgmTitle=BgmTitle;
+		  res.result[i].BgmUtilizationRateArr=BgmUtilizationRateArr;
+		  res.result[i].BgmUtilizationRateZTAll='';
+		 let BgmUtilizationRateAllIndex = BgmUtilizationRateArr.findIndex((e:any)=> this.common.timeFormat(e.time) == yesterday2)
+		  if(BgmUtilizationRateAllIndex!=-1){
+			  res.result[i].BgmUtilizationRateZTAll = BgmUtilizationRateArr[BgmUtilizationRateAllIndex].count;
+		  }
         }
         this.dataSet = res.result;
 		console.log(this.dataSet)
@@ -92,6 +113,43 @@ search(e:any){
       },(err:any)=>{
 		  this.loading=false;
 	  });
+  }
+  orderby=''
+  isShow=true;
+  orderByIndex(){
+	  this.loading=true;
+	  this.isShow = false;
+	  let dataSet = []
+	  this.orderby = this.orderby=='desc'?'asc':'desc'
+	  if(this.orderby=='desc'){
+		  dataSet = this.dataSet.sort((a,b)=> (b.todayindex - b.yesterdayindex) - (a.todayindex - a.yesterdayindex))
+	  }else{
+		  dataSet = this.dataSet.sort((a,b)=> (a.todayindex - a.yesterdayindex) - (b.todayindex - b.yesterdayindex))
+	  }
+	  this.dataSet = dataSet
+	  setTimeout(()=>{
+		  this.orderby2=''
+		  this.loading=false;
+		  this.isShow = true;
+	  },100)
+  }
+  orderby2=''
+  orderByBgm(){
+	  this.loading=true;
+	  this.isShow = false;
+	  let dataSet = []
+	  this.orderby2 = this.orderby2=='desc'?'asc':'desc'
+	  if(this.orderby2=='desc'){
+	  		  dataSet = this.dataSet.sort((a,b)=> b.BgmUtilizationRateZTAll  - a.BgmUtilizationRateZTAll)
+	  }else{
+	  		  dataSet = this.dataSet.sort((a,b)=> a.BgmUtilizationRateZTAll - b.BgmUtilizationRateZTAll)
+	  }
+	  this.dataSet = dataSet
+	  setTimeout(()=>{
+		  this.orderby=''
+	  		  this.loading=false;
+	  		  this.isShow = true;
+	  },100)
   }
   mouseenter(item: any) {
     item.show = true;
@@ -104,5 +162,11 @@ search(e:any){
   }
   mouseleave2(item: any) {
     item.show2 = false;
+  }
+  mouseenter3(item: any) {
+    item.show3 = true;
+  }
+  mouseleave3(item: any) {
+    item.show3 = false;
   }
 }

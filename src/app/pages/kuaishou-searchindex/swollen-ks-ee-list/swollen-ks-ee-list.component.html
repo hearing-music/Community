@@ -8,7 +8,7 @@
       (ngModelChange)="ngModelChange()"
     ></nz-switch>
   </div>
-  <nz-table
+  <nz-table *ngIf='isShow'
     #basicTable
     [nzData]="dataSet"
     [nzTotal]="total"
@@ -22,11 +22,22 @@
         <th nzAlign="center">名称</th>
         <th nzAlign="center">监控人</th>
         <th nzAlign="center">创造者</th>
-        <th nzAlign="center" nzWidth="180px">联系方式</th>
+        <th nzAlign="center" >联系方式</th>
         <th nzAlign="center">特效BGM</th>
+        <th nzAlign="center" (click)='orderByBgm()' style="cursor: pointer;">
+			<span>昨日BGM使用量</span>
+			<span *ngIf='orderby2 == "asc"' nz-icon nzType="caret-up" nzTheme="outline" style="color: blue;"></span>
+			<span *ngIf='orderby2 == ""' nz-icon nzType="line" nzTheme="outline" style="color: blue;"></span>
+			<span *ngIf='orderby2 == "desc"' nz-icon nzType="caret-down" nzTheme="outline" style="color: blue;"></span>
+		</th>
         <th nzAlign="center">昨日特效使用量</th>
         <th nzAlign="center">今日特效使用量</th>
-        <th nzAlign="center">较昨日增长使用量</th>
+        <th nzAlign="center" (click)='orderByIndex()' style="cursor: pointer;">
+			<span>较昨日增长使用量</span>
+			<span *ngIf='orderby == "asc"' nz-icon nzType="caret-up" nzTheme="outline" style="color: blue;"></span>
+			<span *ngIf='orderby == ""' nz-icon nzType="line" nzTheme="outline" style="color: blue;"></span>
+			<span *ngIf='orderby == "desc"' nz-icon nzType="caret-down" nzTheme="outline" style="color: blue;"></span>
+		</th>
         <th nzAlign="center">昨日作品使用量</th>
         <th nzAlign="center">距前一日增长</th>
 		<th nzAlign='center'>加入时间</th>
@@ -56,12 +67,43 @@
         </td>
         <td nzAlign="center">{{ data.BGM }}</td>
         <td nzAlign="center">
+			<div
+            style="display: flex; justify-content: space-around" *ngIf='data.BgmUtilizationRateArr.length>0'>
+            <div style="width: 80%">
+				<!-- 加一起总使用数 -->
+              {{ common.toThousands(data.BgmUtilizationRateZTAll)}}
+            </div>
+            <div
+              style="cursor: pointer; position: relative"
+              (mouseenter)="mouseenter3(data)"
+              (mouseleave)="mouseleave3(data)">
+              <div
+                nz-icon
+                nzType="clock-circle"
+                nzTheme="outline"
+                style="
+                  margin-left: 5px;
+                  position: absolute;
+                  right: 5px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                "
+                style="font-size: 20px; color: #333; margin-right: 6px"
+              ></div>
+              <div *ngIf="data.show3" class="history">
+                <div *ngFor="let item of data.BgmUtilizationRateArr">
+                  {{ common.timeFormat(item.time) }}：{{ item.count }}
+                </div>
+              </div>
+            </div>
+          </div></td>
+        <td nzAlign="center">
           <div
             style="display: flex; justify-content: space-around"
-            *ngIf="data.yesterdayindex>=0"
+            *ngIf="data.yesterdayindex !== ''"
           >
             <div style="width: 80%">
-              {{ data.yesterdayindex}}
+              {{ common.toThousands(data.yesterdayindex)}}
             </div>
             <div
               style="cursor: pointer; position: relative"
@@ -89,13 +131,13 @@
             </div>
           </div>
         </td>
-        <td nzAlign="center">{{ data.todayindex?data.todayindex:0 }}</td>
+        <td nzAlign="center">{{common.toThousands(data.todayindex) }}</td>
         <td nzAlign="center">
           <div>
             {{
-              data.yesterdayindex && data.todayindex
-                ? data.todayindex - data.yesterdayindex
-                : 0
+              data.yesterdayindex!=='' && data.todayindex!==''
+                ? common.toThousands(data.todayindex - data.yesterdayindex)
+                : ''
             }}
           </div>
         </td>
@@ -123,9 +165,8 @@
 				    nzTheme="outline"
 				    style="font-size: 20px; color: #333;"
 				  ></div>
-				  <div *ngIf="data.show2" class="history">
-				    <div *ngFor="let item of data.BgmUtilizationRate.res">
-						<div *ngFor="let items of item.data">
+				  <div *ngIf="data.show2&&data.BgmUtilizationRate.res.length>0" class="history">
+						<div *ngFor="let items of data.BgmUtilizationRate.res[data.BgmUtilizationRate.res.length-1].data">
 							<div>
 								{{common.timeFormat(items[0])}}
 							</div>
@@ -141,7 +182,6 @@
 								</div>
 							</div>
 						</div>
-				    </div>
 				  </div>
 				</div>
 			
