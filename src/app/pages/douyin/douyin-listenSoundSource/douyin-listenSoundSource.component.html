@@ -1,6 +1,7 @@
 <div class="swollen">
   <div class="tab">
     <nz-switch
+	  *ngIf='highUserList.indexOf(userId) != -1'
       [ngModel]="type"
       nzCheckedChildren="我的"
       nzUnCheckedChildren="全部"

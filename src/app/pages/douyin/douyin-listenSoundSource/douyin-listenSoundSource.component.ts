@@ -14,11 +14,14 @@ export class DouyinListenSoundSourceComponent implements OnInit {
   username = "";
   userId:any='0'
   index = [];
+	highUserList:any=[];
   constructor(public api: ApiService, public common: CommonService) {}
 
   ngOnInit(): void {
 	this.userId = localStorage.getItem("userId") || "0";
     this.username = localStorage.getItem("username");
+		let highUserList = localStorage.getItem('highUserList') == 'undefined' ? false : localStorage.getItem('highUserList')
+		this.highUserList = highUserList || ['1', '2', '3', '4', '5', '8', '11', '13', '17', '26', '34']
 	this.getDouyinListenSourdSource();
   }
   ngModelChange() {
