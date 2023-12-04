@@ -1015,4 +1015,12 @@ export class ApiService {
 	      return this.http.get(this.baseUrl + "/kuaishou/SwollenKsEeList?keyword="+keyword);
 	    }
 	  }
+	  //快手监控特效上传海报
+	  GetKuaiShouStatus(params: any) {
+	    let { file } = params;
+	    const formData: FormData = new FormData();
+	    formData.append("img", file);
+	    let url = this.baseUrl + "/kuaishou/GetStatus";
+	    return this.http.post(url, formData);
+	  }
 }

@@ -382,7 +382,7 @@ export class DyAuthorComponent implements OnInit {
 					let o = data2.find((e: any) => e.name == params.name)
 					var value1 = (params.data.value).toFixed(2); // 第一个值
 					var value2 = (o.value).toFixed(6); // 第二个值
-					return params.name + '<br/>偏好度' + value1 + '' + '<br/>占比' + value2 + ' ';
+					return params.name + '<br/>偏好度' + value2 + '' + '<br/>占比' + value1 + ' ';
 				}
 			},
 			grid: {
