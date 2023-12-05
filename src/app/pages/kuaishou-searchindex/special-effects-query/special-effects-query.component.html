@@ -64,13 +64,13 @@
       <div *ngIf="isMonitor" class="isMonitor">
         <div class="Monitor">
           <div style="display: flex; justify-content: space-between">
-            <div class="innerText">
+            <div class="innerText" *ngIf="searchType == '海报搜索'">
               <div class="tittle">magicFaceId：</div>
               <div>
                 <input
                   nz-input
                   placeholder="请输入视频Id"
-                  [(ngModel)]="magicFaceId"
+                  [(ngModel)]="magicFaceId1"
                   style="width: 300px"
                 />
               </div>

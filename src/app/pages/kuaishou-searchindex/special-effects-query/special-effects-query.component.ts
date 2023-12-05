@@ -30,6 +30,7 @@ export class SpecialEffectsQueryComponent implements OnInit {
   searchValue = "";
   searchHolder = "请输入视频链接";
   magicFaceId = "";
+  magicFaceId1 = "";
   userId = "";
   file = "";
 
@@ -49,9 +50,9 @@ export class SpecialEffectsQueryComponent implements OnInit {
     }
   }
   onFile(file: any): void {
-    this.loading = true;
+    this.magicFaceId = "";
+    this.loading = false;
     this.file = file;
-	this.magicFaceId = "";
     this.api.GetKuaiShouStatus({ file: this.file }).subscribe((res: any) => {
       this.loading = false;
       if (res.success) {
@@ -77,6 +78,7 @@ export class SpecialEffectsQueryComponent implements OnInit {
     this.userId = localStorage.getItem("userId") || "0";
   }
   search(event: any) {
+    this.magicFaceId1 = "";
     this.searchValue = event;
     this.GetSpecialEffectsSearch();
   }
@@ -163,20 +165,22 @@ export class SpecialEffectsQueryComponent implements OnInit {
         }
       }
       let time = Math.floor(Date.now() / 1000);
-      var regex = /magicFaceId=([^&]+)/;
-      var match = this.magicFaceId.match(regex);
-      if (match) {
-        this.magicFaceId = match[1];
-      } else {
-        this.message.error("magicFaceId中不包含Id");
-        return;
+      if (this.searchType == "海报搜索") {
+        var regex = /magicFaceId=([^&]+)/;
+        var match = this.magicFaceId1.match(regex);
+        if (match) {
+          this.magicFaceId1 = match[1];
+        } else {
+          this.message.error("magicFaceId中不包含Id");
+          return;
+        }
       }
       this.api
         .kuaishouMonitor({
           BgmId: obj.musicId,
           BgmType: obj.musicType,
           BgmUtilizationRate: { res: [] },
-          magicFaceId: this.magicFaceId,
+          magicFaceId: this.magicFaceId || this.magicFaceId1,
           name: this.result.tagName,
           userId: this.userId,
           author: this.form.author,
