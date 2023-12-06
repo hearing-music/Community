@@ -51,7 +51,7 @@ export class SpecialEffectsQueryComponent implements OnInit {
   }
   onFile(file: any): void {
     this.magicFaceId = "";
-    this.loading = false;
+    this.loading = true;
     this.file = file;
     this.api.GetKuaiShouStatus({ file: this.file }).subscribe((res: any) => {
       this.loading = false;
@@ -73,6 +73,23 @@ export class SpecialEffectsQueryComponent implements OnInit {
         this.result.usageCount = this.convertWorksCount(targetText.text);
       }
     });
+  }
+  // 批量上传
+  result2:any={}
+  FileDataNullBgm=[]
+  FileDataComplexBgm=[]
+  onFile2(file:any){
+	  this.magicFaceId = "";
+	  this.loading = true;
+	  this.file = file;
+	  this.api.BulkAccessSecUidXlsx({ xls: this.file }).subscribe((res: any) => {
+	    this.loading = false;
+	    if (res.success) {
+		  this.result2 = res.result;
+		  this.FileDataNullBgm = Object.keys(res.result.FileDataNull)
+		  this.FileDataComplexBgm = Object.keys(res.result.FileDataComplex)
+	    }
+	  });
   }
   ngOnInit(): void {
     this.userId = localStorage.getItem("userId") || "0";

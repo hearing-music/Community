@@ -1023,4 +1023,12 @@ export class ApiService {
 	    let url = this.baseUrl + "/kuaishou/GetStatus";
 	    return this.http.post(url, formData);
 	  }
+	// 快手 批量添加特效
+	BulkAccessSecUidXlsx(params:any){
+		let { xls } = params;
+		    const formData: FormData = new FormData();
+		    formData.append("xls", xls);
+		    let url = this.baseUrl + "/kuaishou/BulkAccessSecUidXlsx";
+		    return this.http.post(url, formData);
+	}
 }

@@ -8,9 +8,6 @@
       *ngIf="searchType == '链接搜索'"
     >
     </ngx-search>
-    <div style="width: 150px" *ngIf="searchType == '海报搜索'">
-      <ngx-upload-file (onFileChild)="onFile($event)"></ngx-upload-file>
-    </div>
     <div>
       <nz-select
         ngModel="链接搜索"
@@ -19,10 +16,53 @@
       >
         <nz-option nzValue="链接搜索" nzLabel="链接搜索"></nz-option>
         <nz-option nzValue="海报搜索" nzLabel="海报搜索"></nz-option>
+        <nz-option nzValue="批量上传" nzLabel="批量上传"></nz-option>
       </nz-select>
     </div>
   </div>
-  <div class="kuaishou-left" style="margin-top: 24px">
+	<div *ngIf="searchType == '海报搜索'">
+	  <ngx-upload-file (onFileChild)="onFile($event)"></ngx-upload-file>
+	</div>
+	<div *ngIf="searchType == '批量上传'">
+	  <ngx-upload-file (onFileChild)="onFile2($event)"></ngx-upload-file>
+	</div>
+	<div *ngIf="searchType == '批量上传'">
+		<nz-empty *ngIf="!result2.FileDataNull" style="margin-top: 160px"></nz-empty>
+		<div *ngIf="result2.FileDataNull">
+			<div style="margin-bottom:30px;">
+				<div>
+					找不到BGM
+				</div>
+				<div style="display:flex;flex-wrap:wrap;">
+					<div *ngFor='let bgm of FileDataNullBgm;' style='margin-right:16px;display:flex;margin-bottom:10px;'>
+						<div style="font-weight: bold;cursor: pointer;flex-shrink: 0;" (click)='common.copy(bgm)'>
+								{{bgm}}
+						</div>
+						<div nz-tooltip [nzTooltipTitle]="result2.FileDataNull[bgm]" style='cursor:pointer;color:blue;font-size:12px;margin-right:6px;'>
+							特效
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div>
+					多个BGM
+				</div>
+				<div style="display:flex;flex-wrap:wrap;">
+					<div *ngFor='let bgm of FileDataComplexBgm;' style='margin-right:16px;display:flex;margin-bottom:10px;'>
+						<div style="font-weight: bold;cursor: pointer;flex-shrink: 0;" (click)='common.copy(bgm)'>
+								{{bgm}}
+						</div>
+						<div nz-tooltip [nzTooltipTitle]="result2.FileDataComplex[bgm]" style='cursor:pointer;color:blue;font-size:12px;'>
+							特效
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+  <div class="kuaishou-left" style="margin-top: 24px" *ngIf='searchType!="批量上传"'>
     <nz-empty *ngIf="!result.tagName" style="margin-top: 160px"></nz-empty>
     <div class="list" *ngIf="result.tagName">
       <div class="list-item">
@@ -161,7 +201,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="isMonitor">
+  <div *ngIf="isMonitor&&searchType!='批量上传'">
     <nz-empty *ngIf="BGMList.length == 0" style="margin-top: 60px"></nz-empty>
     <div
       *ngFor="let item of BGMList; let i = index"
