@@ -219,23 +219,23 @@ const routes: Routes = [{
 			canActivate: [PermissionGuard]
 		},
 		// 快手
-		{
-			path: 'kuaishou-searchindex',
-			component: KuaishouSearchindexComponent,
-			canActivate: [PermissionGuard]
-		},
+		// {
+		// 	path: 'kuaishou-searchindex',
+		// 	component: KuaishouSearchindexComponent,
+		// 	canActivate: [PermissionGuard]
+		// },
 		//快手dj
-		{
-			path: 'kuaishouDj',
-			component: DjComponent,
-			canActivate: [PermissionGuard]
-		},
+		// {
+		// 	path: 'kuaishouDj',
+		// 	component: DjComponent,
+		// 	canActivate: [PermissionGuard]
+		// },
 		//快手素材
-		{
-			path: 'sourcePhoto',
-			component: SourcePhotoComponent,
-			canActivate: [PermissionGuard]
-		},
+		// {
+		// 	path: 'sourcePhoto',
+		// 	component: SourcePhotoComponent,
+		// 	canActivate: [PermissionGuard]
+		// },
 		//快手音频使用量
 		{
 			path:'kuaishouVolumeOfUse',
@@ -249,17 +249,17 @@ const routes: Routes = [{
 		        canActivate: [PermissionGuard],
 		      },
 		      //快手特效监控
-		      {
-		        path: "kuaishou-SwollenKsEeLis",
-		        component: SwollenKsEeListComponent,
-		        canActivate: [PermissionGuard],
-		      },
+		//       {
+		//         path: "kuaishou-SwollenKsEeLis",
+		//         component: SwollenKsEeListComponent,
+		//         canActivate: [PermissionGuard],
+		//       },
 		//魔力潜力榜
-		      {
-		        path: "kuaishou-potential",
-		        component: kuaishouPotentialComponent,
-		        canActivate: [PermissionGuard],
-		      },
+		//       {
+		//         path: "kuaishou-potential",
+		//         component: kuaishouPotentialComponent,
+		//         canActivate: [PermissionGuard],
+		//       },
 		//音频转换oggToMp3
 		{
 			path: 'oggToMp3',

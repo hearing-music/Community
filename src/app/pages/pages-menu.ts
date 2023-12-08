@@ -105,34 +105,31 @@ export let MENU_ITEMS: NbMenuItem[] = [
 			pack:'my-icons',
 		},
 		children: [
-			{
-				title: '快手',
-				link: '/pages/kuaishou-searchindex',
-			},
+			// {
+			// 	title: '快手',
+			// 	link: '/pages/kuaishou-searchindex',
+			// },
 			{
 				title: '音频使用量',
 				link: '/pages/kuaishouVolumeOfUse',
 			},
-			{
-				title: 'dj',
-				link: '/pages/kuaishouDj',
-			},
-			{
-				title: '素材',
-				link: '/pages/sourcePhoto',
-			},
+			// {
+			// 	title: 'dj',
+			// 	link: '/pages/kuaishouDj',
+			// },
+			
 			      {
 			        title: "快手特效查询",
 			        link: "/pages/kuaishou-specialEffectsQuery",
 			      },
-			      {
-			        title: "快手特效监控",
-			        link: "/pages/kuaishou-SwollenKsEeLis",
-			      },
-			{
-				title:'魔表潜力榜',
-				link:"/pages/kuaishou-potential"
-			}
+			//       {
+			//         title: "快手特效监控",
+			//    link: "/pages/kuaishou-SwollenKsEeLis",
+			// },
+			// {
+			// 	title:'魔表潜力榜',
+			// 	link:"/pages/kuaishou-potential"
+			// }
 		],
 	},
 	{
@@ -270,6 +267,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	        icon: 'headphones',
 	        link: '/pages/original-audio',
 	    },
+	// {
+	// 	title: '素材',
+	// 	icon:{
+	// 		icon:"sucai_icon",
+	// 		pack:"my-icons"
+	// 	},
+	// 	link: '/pages/sourcePhoto',
+	// },
 	  {
     title: "游戏",
     icon: {

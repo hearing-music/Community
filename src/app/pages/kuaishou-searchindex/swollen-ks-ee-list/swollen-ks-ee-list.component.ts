@@ -41,31 +41,33 @@ search(e:any){
 		  let qtday = this.common.timeFormat(new Date().getTime()-24*60*60*1000*1)
 		  let yesterday2 = this.common.timeFormat(new Date().getTime()-24*60*60*1000*1)
 		  let qtday2 = this.common.timeFormat(new Date().getTime()-24*60*60*1000*2)
+		  var currentDate = new Date();
+		  currentDate.setHours(0, 0, 0, 0);
         for (let i = 0; i < res.result.length; i++) {
           res.result[i].show = false;
-		  res.result[i].todayindex = ''
-		  res.result[i].yesterdayindex = ''
+		  res.result[i].toadyindex = '';
+		  let last = 0;
+		  if(res.result[i].utilisation.res.length>1){
+			  last = res.result[i].utilisation.res.length - 2;
+		  }
+		  if(res.result[i].utilisation.res.length==1){
+			  last = -1
+		  }
+		  res.result[i].lastindex = last==-1?0:res.result[i].utilisation.res[last].usageCount;
           for (let j = 0; j < res.result[i].utilisation.res.length; j++) {
-            var currentDate = new Date();
-						res.result[i].utilisation.res[j].usageCount = res.result[i].utilisation.res[j].usageCount || 0
-            currentDate.setHours(0, 0, 0, 0); // 设置时间为0点0分0秒0毫秒
-            if (
-              res.result[i].utilisation.res[j].time >
-                currentDate.getTime() / 1000 &&
-              res.result[i].utilisation.res[j].time <
-                currentDate.getTime() / 1000 + 86400
-            ) {
-              res.result[i].todayindex =
-                res.result[i].utilisation.res[j].usageCount;
-            } else if (
-              res.result[i].utilisation.res[j].time <
-                currentDate.getTime() / 1000 &&
-              res.result[i].utilisation.res[j].time >
-                currentDate.getTime() / 1000 - 86400
-            ) {
-              res.result[i].yesterdayindex =
-                res.result[i].utilisation.res[j].usageCount;
-            }
+			res.result[i].utilisation.res[j].usageCount = res.result[i].utilisation.res[j].usageCount || 0
+            if (res.result[i].utilisation.res[j].time > currentDate.getTime() / 1000 && res.result[i].utilisation.res[j].time < currentDate.getTime() / 1000 + 86400) {
+                res.result[i].todayindex = res.result[i].utilisation.res[j].usageCount;
+            } 
+						// else if (
+      //         res.result[i].utilisation.res[j].time <
+      //           currentDate.getTime() / 1000 &&
+      //         res.result[i].utilisation.res[j].time >
+      //           currentDate.getTime() / 1000 - 86400
+      //       ) {
+      //         res.result[i].lastindex =
+      //           res.result[i].utilisation.res[j].usageCount;
+      //       }
           }
 		  let BgmUtilizationRateZT = ''
 		  let BgmUtilizationRateQT = ''
@@ -122,9 +124,9 @@ search(e:any){
 	  let dataSet = []
 	  this.orderby = this.orderby=='desc'?'asc':'desc'
 	  if(this.orderby=='desc'){
-		  dataSet = this.dataSet.sort((a,b)=> (b.todayindex - b.yesterdayindex) - (a.todayindex - a.yesterdayindex))
+		  dataSet = this.dataSet.sort((a,b)=> (b.todayindex - b.lastindex) - (a.todayindex - a.lastindex))
 	  }else{
-		  dataSet = this.dataSet.sort((a,b)=> (a.todayindex - a.yesterdayindex) - (b.todayindex - b.yesterdayindex))
+		  dataSet = this.dataSet.sort((a,b)=> (a.todayindex - a.lastindex) - (b.todayindex - b.lastindex))
 	  }
 	  this.dataSet = dataSet
 	  setTimeout(()=>{
@@ -140,7 +142,7 @@ search(e:any){
 	  let dataSet = []
 	  this.orderby2 = this.orderby2=='desc'?'asc':'desc'
 	  if(this.orderby2=='desc'){
-	  		  dataSet = this.dataSet.sort((a,b)=> b.BgmUtilizationRateZTAll  - a.BgmUtilizationRateZTAll)
+	  		  dataSet = this.dataSet.sort((a,b)=> b.BgmUtilizationRateZTAll - a.BgmUtilizationRateZTAll)
 	  }else{
 	  		  dataSet = this.dataSet.sort((a,b)=> a.BgmUtilizationRateZTAll - b.BgmUtilizationRateZTAll)
 	  }

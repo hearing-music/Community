@@ -98,11 +98,9 @@ export class DouyinDarenComponent implements OnInit {
   				})
   			}
   			this.typeList=arr
-        }else{
-  		  this.douyin_darenTypeList()
-  	  }
+        }
       }, (err: any) => {
-  	   this.douyin_darenTypeList()	
+  	   // this.douyin_darenTypeList()	
   	});
   }
   typeChange(e:any){
@@ -500,6 +498,11 @@ export class DouyinDarenComponent implements OnInit {
     var information = this.information;
     var home = this.Home;
     // var type = this.Type;
+	if(this.typeList.length==0){
+		this.message.info("请重试");
+		this.douyin_darenTypeList()
+		return
+	}
 	var typeList = this.typeList.filter((e:any)=>e.checked)
 	var typeJson:any ={"res":[]}
 	for(let i = 0;i<typeList.length;i++){

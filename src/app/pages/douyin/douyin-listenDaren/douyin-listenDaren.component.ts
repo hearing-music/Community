@@ -140,10 +140,8 @@ export class DouyinListenDarenComponent implements OnInit {
 				}
 				this.typeList=arr
 	      }else{
-			  this.douyin_darenTypeList()
 		  }
 	    }, (err: any) => {
-		   this.douyin_darenTypeList()	
 		});
 	}
 	ngModelFees(e: any) {
@@ -674,6 +672,11 @@ export class DouyinListenDarenComponent implements OnInit {
 	sexList: any = [{ value: '男', label: '男' }, { value: '女', label: '女' }]
 	popUpEdit(item: any) {
 		let arr = []
+		if(this.typeList.length==0){
+			this.message.info("请重试");
+			this.douyin_darenTypeList()
+			return
+		}
 		item.typeList = JSON.parse(JSON.stringify(this.typeList))
 		for(let i = 0;i<item.TypeJson['res'].length;i++){
 			let c = item.typeList.findIndex((e:any)=>e.label==item.TypeJson['res'][i].TypeName&&e.value==item.TypeJson['res'][i].ID)

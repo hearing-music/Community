@@ -160,11 +160,11 @@ export class SpecialEffectsQueryComponent implements OnInit {
     );
   }
   Tomonitor() {
-    if (this.activeBGMIndex === false) {
-      this.message.error("BGM必选");
-      return; // 停止向下执行
-    }
-    let obj = this.BGMList[this.activeBGMIndex];
+    // if (this.activeBGMIndex === false) {
+    //   this.message.error("BGM必选");
+    //   return; // 停止向下执行
+    // }
+    // let obj = this.BGMList[this.activeBGMIndex];
     if (this.isMonitor && this.form.author && this.form.BGM) {
       if (this.form.phone !== "") {
         var chinesePhoneNumberRegex =
@@ -194,8 +194,8 @@ export class SpecialEffectsQueryComponent implements OnInit {
       }
       this.api
         .kuaishouMonitor({
-          BgmId: obj.musicId,
-          BgmType: obj.musicType,
+          // BgmId: obj.musicId,
+          // BgmType: obj.musicType,
           BgmUtilizationRate: { res: [] },
           magicFaceId: this.magicFaceId || this.magicFaceId1,
           name: this.result.tagName,
