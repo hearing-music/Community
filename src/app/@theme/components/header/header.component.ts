@@ -70,7 +70,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	  this.updateDYCount()
     this.currentTheme = this.themeService.currentTheme;
 	let name = localStorage.getItem('username') || '神秘人';
-	let url = localStorage.getItem('url') || '../../../../assets/img/avatar.jpg';
+	let url = localStorage.getItem('url')
+	if(url == 'null' || !url){
+		url = '../../../../assets/img/avatar.jpg'
+	}
 	this.user = {name:name,picture:url}
     // this.userService.getUsers()
     //   .pipe(takeUntil(this.destroy$))
