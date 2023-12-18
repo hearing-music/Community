@@ -452,6 +452,13 @@ export class ApiService {
 	getDouyinAudio(params: any) {
 		return this.http.get(this.baseUrl + "/douyin/getDouyinAudio?awemeId=" + params.awemeId)
 	}
+	// 抖音 官网 热点 set cookie
+	dygw_setCookie(params:any){
+		return this.http.post(this.baseUrl + "/douyin/dygw_setCookie", { value:params.value })
+	}
+	dyrd_setCookie(params:any){
+		return this.http.post(this.baseUrl + "/douyin/dyrd_setCookie", { value:params.value })
+	}
 	// 听歌识曲
 	getIdentification(params: any) {
 		let {
@@ -885,6 +892,13 @@ export class ApiService {
 			page
 		} = params;
 		return this.http.get(this.baseUrl + '/cavca/ProductionsSearch?key=' + keyword + '&page=' + page)
+	}
+	// 切换繁体字
+	change_text(params:any){
+		let {
+			keyword,
+		} = params;
+		return this.http.get(this.baseUrl + '/mcsc/change_text?keyword=' + keyword)
 	}
 	// 云图搜索
 	searchTmeMap(params: any) {

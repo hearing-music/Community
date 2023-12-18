@@ -37,6 +37,10 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
   type=true;
   // 取消十分钟监控 改为24小时
   confirm(item:any){
+	  if(item.UserId != this.userId){
+		  this.message.info('不是我的监控')
+		  return
+	  }
 	  this.douyin_cancelInterval10M(item)
   }
   cancel(){

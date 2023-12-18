@@ -8,13 +8,14 @@
 			</div>
 		</div>
 		<!-- 搜索 -->
-		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)' [searchWidth]='"290px"' *ngIf="selectItem2!='大陆音著协'">
+		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)' (childInput)='childInput($event)' [searchWidth]='"290px"' *ngIf="selectItem2!='大陆音著协'">
 		</ngx-search>
 		<div *ngIf="selectItem2=='大陆音著协'" class="search" style="width: 290px;">
 				<input nz-input placeholder="歌曲名称" class="search-ipt" style="width: 290px;" [(ngModel)]='searchkeyword.keyword' (focus)="focus($event)"/>
 				<input nz-input placeholder="词作者" class="search-ipt " style="width: 290px;margin-top: 8px;" [(ngModel)]='searchkeyword.acsa' (focus)="focus($event)"/>
 				<span nz-icon nzType="search" nzTheme="outline" style="font-size: 20px; color: #08c;" class="search-icon" (click)="searchMcscSearchCN()"></span>
 		</div>
+		
 	</div>
 	<div class="home-top">
 	<!-- 二级tab -->
@@ -23,6 +24,18 @@
 			[ngClass]="{'tagList-itemActive2': citem.name==selectItem2}">
 			{{citem.name}}
 		</div>
+	</div>
+	<div *ngIf='selectItem2 == "港台音著协"' style='position: absolute;right:0;display: flex;'>
+		<div *ngIf='traditionalArr.length>0'>
+			<div style='color:#ccc;font-size:12px;'>点击需要替换的文字</div>
+			<div style='display:flex;'>
+				<div *ngFor="let z of traditionalArr;let i = index;" class='zi' (click)='changeZi(z,i)' style='margin-right:10px;border:1px solid #ccc;padding:4px;cursor: pointer;'>
+					{{z}}
+				</div>
+			</div>
+		</div>
+		<button nz-button nzType="primary" (click)='changeCC()'>切换繁体字</button>
+		
 	</div>
 	</div>
 	<!-- 数据 -->

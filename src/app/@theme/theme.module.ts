@@ -1,5 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
   NbActionsModule,
   NbLayoutModule,
@@ -15,7 +16,6 @@ import {
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbSecurityModule } from '@nebular/security';
-
 import {
   FooterComponent,
   HeaderComponent,
@@ -40,9 +40,18 @@ import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
 import { HeaderMenuComponent } from './header-menu/header-menu.component';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 const NB_MODULES = [
   NbLayoutModule,
 	NzDropDownModule,
+	NzModalModule,
+	NzSelectModule,
+	NzInputModule,
+	FormsModule,
+	NzButtonModule,
   NbMenuModule,
   NbUserModule,
   NbActionsModule,

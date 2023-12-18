@@ -38,8 +38,29 @@
 	      <ul nz-menu>
 	        <li nz-menu-item (click)='logOut()'>{{userMenu[0].title}}</li>
 	        <li nz-menu-item >{{'DY：'+ks_monitoring_limitNow+'/'+ks_monitoring_limit}}</li>
+	        <li nz-menu-item (click)='showCookie()'>cookie</li>
 	      </ul>
 	    </nz-dropdown-menu>
 	</nb-action>
   </nb-actions>
+  <nz-modal [(nzVisible)]="cookieShow" nzTitle="更换cookie" [nzFooter]='null' (nzOnCancel)="handleCancel()">
+       <ng-container *nzModalContent>
+		   <div>
+			   <div>
+			      <input nz-input placeholder="输入cookie" [(ngModel)]="cookie" />
+			   </div>
+			   <div style="height:20px;"></div>
+			   <div style="display: flex;justify-content: space-around;">
+			      <nz-select [(ngModel)]="select" (ngModelChange)='ngModelChange($event)'>
+			           <nz-option nzValue="dygf" nzLabel="抖音官方"></nz-option>
+			           <nz-option nzValue="dyrd" nzLabel="抖音热点"></nz-option>
+			       </nz-select>
+				   
+				   <button nz-button nzType="primary" [nzLoading]='cookieLoading' (click)='confirm()'>
+				       确定
+				   </button>
+			   </div>
+		   </div>
+	   </ng-container>
+  </nz-modal>
 </div>

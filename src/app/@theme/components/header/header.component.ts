@@ -7,6 +7,8 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import {CommonService} from "../../../services/common.service";
 import { AuthService } from '../../../services/auth.service'
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ApiService } from "../../../services/api.service";
 @Component({
   selector: 'ngx-header',
   styleUrls: ['./header.component.scss'],
@@ -47,6 +49,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private themeService: NbThemeService,
               private userService: UserData,
               private layoutService: LayoutService,
+			  public message:NzMessageService,
+			  public api: ApiService,
 			  public author:AuthService,
 			  private common:CommonService,
 			  public router:Router,
@@ -62,9 +66,45 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 	ks_monitoring_limit:any=0
 	ks_monitoring_limitNow:any=0
+	cookieShow:any = false;
+	cookie:any='';
+	select='dygf';
+	cookieLoading=false;
 	updateDYCount(){
 		this.ks_monitoring_limit = localStorage.getItem('ks_monitoring_limit')||0
 		this.ks_monitoring_limitNow = localStorage.getItem('ks_monitoring_limitNow')||0
+	}
+	showCookie(){
+		this.cookieShow = true;
+	}
+	handleCancel(){
+		this.cookieShow = false;
+	}
+	ngModelChange(e:any){
+		console.log(e)
+		this.select = e;
+	}
+	confirm(){
+		if(!this.cookie){
+			this.message.info('请输入')
+			return
+		}
+		this.cookieLoading = true;
+		if(this.select=='dygf'){
+			this.api.dygw_setCookie({value:this.cookie}).subscribe((res: any) => {
+				this.cookieLoading = false;
+				this.message.success('更换成功')
+			}, (err: any) => {
+				this.cookieLoading = false;
+			})
+		}else if(this.select == 'dyrd'){
+			this.api.dyrd_setCookie({value:this.cookie}).subscribe((res: any) => {
+				this.cookieLoading = false;
+				this.message.success('更换成功')
+			}, (err: any) => {
+				this.cookieLoading = false;
+			})
+		}
 	}
   ngOnInit() {
 	  this.updateDYCount()
@@ -115,4 +155,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.navigateHome();
     return false;
   }
+
 }

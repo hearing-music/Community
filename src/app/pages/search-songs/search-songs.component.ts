@@ -3,7 +3,6 @@ import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute } from '@angular/router'
-
 @Component({
 	selector: 'ngx-search-songs',
 	templateUrl: './search-songs.component.html',
@@ -127,7 +126,7 @@ export class SearchSongsComponent implements OnInit {
 		holder: 'ISRC搜索'
 	}]
 	selectItem = 'QQ音乐';
-	searchValue = '';
+	searchValue:any = '';
 	loading = false;
 	searchHolder = "qq搜索";
 	wangyiyunList: any[] = []
@@ -619,6 +618,30 @@ export class SearchSongsComponent implements OnInit {
 	onSelect2(citem:any){
 		this.selectItem2 = citem.name;
 		this.searchHolder = citem.holder;
+	}
+	traditionalArr:any=[]
+	// 输入监听
+	childInput(e:any){
+		this.searchValue = e;
+	}
+	// 切换繁体字
+	changeCC(){
+		this.api.change_text({keyword:this.searchValue}).subscribe((res: any) => {
+			this.loading = false;
+			if(res.success){
+				this.traditionalArr = res.result.split('');
+			}
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	// 替换文字
+	changeZi(z:any,i:any){
+		let searchValue:any = this.searchValue.split('');
+		searchValue[i] = z;
+		this.searchValue = searchValue.join('');
+		
 	}
 	search(value: string) {
 		if(this.loading) return

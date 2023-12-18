@@ -267,14 +267,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	        icon: 'headphones',
 	        link: '/pages/original-audio',
 	    },
-	{
-		title: '素材',
-		icon:{
-			icon:"sucai_icon",
-			pack:"my-icons"
-		},
-		link: '/pages/sourcePhoto',
-	},
+	// {
+	// 	title: '素材',
+	// 	icon:{
+	// 		icon:"sucai_icon",
+	// 		pack:"my-icons"
+	// 	},
+	// 	link: '/pages/sourcePhoto',
+	// },
 	  {
     title: "游戏",
     icon: {

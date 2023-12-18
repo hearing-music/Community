@@ -12,7 +12,7 @@
   "scripts": {
     "ng": "ng",
     "conventional-changelog": "conventional-changelog",
-	"this":"npm install chart.js@2.9.4 --force 如果npm i 报错 请先试试这个",
+    "this": "npm install chart.js@2.9.4 --force 如果npm i 报错 请先试试这个",
     "start": "ng serve --host 0.0.0.0",
     "build": "ng build",
     "build:prod": "ng build --prod --aot&& node version.js",
