@@ -21,7 +21,11 @@ export class ToolComponent implements OnInit {
     {
       name: '监测',
       holder: '监测'
-    }
+    },
+		{
+		  name: 'PDF转WORD',
+		  holder: ''
+		}
   ]
   selectItem = '银行';
   constructor() { }

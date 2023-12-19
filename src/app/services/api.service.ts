@@ -1045,4 +1045,12 @@ export class ApiService {
 		    let url = this.baseUrl + "/kuaishou/BulkAccessSecUidXlsx";
 		    return this.http.post(url, formData);
 	}
+	// pdf转word
+	pdfToWord(params:any){
+		let { pdf } = params;
+		    const formData: FormData = new FormData();
+		    formData.append("pdf", pdf);
+		    let url = this.baseUrl + "/childprocess/PDFToWord";
+		    return this.http.post(url, formData);
+	}
 }

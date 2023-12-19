@@ -126,6 +126,7 @@ import { WhisperComponent } from './whisper/whisper.component';
 import { PhotoIdentifyingTextComponent } from './photo-identifying-text/photo-identifying-text.component';
 import { JsonFormatComponent } from './tool/json-format/json-format.component';
 import { MonitorComponent } from './tool/monitor/monitor.component';
+import { PdfToWordComponent } from './tool/pdfToWord/pdfToWord.component';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { SetRankingComponent } from './qq_kugou-ranking/set-ranking/set-ranking.component';
 import { GetRankingComponent } from './qq_kugou-ranking/get-ranking/get-ranking.component';
@@ -202,6 +203,7 @@ registerLocaleData(zh);
 		EnlightenmentSongsComponent,
 		EnlightenmentTop20Component,
 		OggToMp3Component,
+		PdfToWordComponent,
 		MggToWavComponent,
 		PagesComponent,
 		FreeSongs_kugouComponent,
