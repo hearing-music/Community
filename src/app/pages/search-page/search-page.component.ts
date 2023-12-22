@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../services/api.service";
+import {CommonService} from "../../services/common.service";
 @Component({
 	selector: 'ngx-search-page',
 	templateUrl: './search-page.component.html',
@@ -7,22 +8,35 @@ import { ApiService } from "../../services/api.service";
 })
 export class SearchPageComponent implements OnInit {
 
-	constructor(public api: ApiService) { }
-	ngOnInit(): void {}
+	constructor(public api: ApiService,public common: CommonService) { }
+	ngOnInit(): void {
+		if(!this.common.checkAdmin()){
+			let menu:any = localStorage.getItem('menu')
+			menu = JSON.parse(menu);
+			let menu_list:any = menu || {top:[],left:[]};
+			let tagList = []
+			for(let i = 0;i<menu_list.top.length;i++){
+				if(menu_list.top[i].parent_id == 17){
+					tagList.push(menu_list.top[i].menu)
+				}
+			}
+			this.tagList = tagList
+		}
+	}
 	tagList: any[] = [{
-		name: '腾讯音乐人',
+		title: '腾讯音乐人',
 		holder: '腾讯音乐人搜索'
 	}, {
-		name: '网易私信',
+		title: '网易私信',
 		holder: '网易私信搜索'
 	},{
-		name: '厂牌用户',
+		title: '厂牌用户',
 		holder: '用户搜索'
 	}, {
-		name: '5SING用户',
+		title: '5SING用户',
 		holder: '5SING搜索'
 	},{
-		name: '相似歌手',
+		title: '相似歌手',
 		holder: '搜索歌手mid'
 	}
 	]
@@ -96,7 +110,7 @@ export class SearchPageComponent implements OnInit {
 	        })
 	    }
 	onSelect(item: any): void {
-		this.selectItem = item.name;
+		this.selectItem = item.title;
 		this.searchHolder = item.holder;
 		this.searchValue = '';
 	}

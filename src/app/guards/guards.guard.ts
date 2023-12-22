@@ -16,13 +16,12 @@ export class GuardsGuard implements CanActivate {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 		const url: string = state.url; // 将要跳转的路径
-		console.log('guards')
 		return this.checkLogin(url);
 		// return true;
 	}
 	// @ts-ignore 
 	private async checkLogin(url: string) {
-		console.log('checkLogin')
+		console.log('checkLogin guard','刷新')
 		let date = new Date(new Date().getTime() + 1000 * 60 * 60 * 8).toISOString()
 		// let phone = localStorage.getItem('phone');
 		let token = localStorage.getItem('token');
@@ -50,24 +49,24 @@ export class GuardsGuard implements CanActivate {
 		}
 		this.authService.isLoggedIn = true;
 		// 刷新时 重新获取menu
-		this.authService.getPermission().subscribe((res: any) => {
-			// console.log(res)
-			if(res.success){
-				let menus_item = localStorage.getItem('menus_item')
-				if(menus_item != JSON.stringify(res.result.menus_item)){
-					localStorage.setItem('menus_item', JSON.stringify(res.result.menus_item))
-					// 调用组件方法 更新menu
-						window['NgAppRef'].zone.run(function () {
-							window['NgAppRef'].component.headerMenuUpdate();
-							window['NgAppRef2'].component.leftMenuUpdate();
-						});
-				}
-			}
+		// this.authService.getPermission().subscribe((res: any) => {
+		// 	// console.log(res)
+		// 	if(res.success){
+		// 		let menu = localStorage.getItem('menu')
+		// 		if(menu != JSON.stringify(res.result.menu)){
+		// 			localStorage.setItem('menu', JSON.stringify(res.result.menu))
+		// 			// 调用组件方法 更新menu
+		// 				window['NgAppRef'].zone.run(function () {
+		// 					window['NgAppRef'].component.headerMenuUpdate();
+		// 					window['NgAppRef2'].component.leftMenuUpdate();
+		// 				});
+		// 		}
+		// 	}
 			
-		}, (err: any) => {
-			console.log(err)
+		// }, (err: any) => {
+		// 	console.log(err)
 			
-		});
+		// });
 		// 已经登录，直接返回true
 		if (this.authService.isLoggedIn) { return true; }
 	}

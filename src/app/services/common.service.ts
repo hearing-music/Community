@@ -42,10 +42,10 @@ export class CommonService {
 		localStorage.setItem('userId', obj.userId)
 		localStorage.setItem('token', obj.token)
 		localStorage.setItem('token_expiration_time', obj.token_expiration_time)
-		localStorage.setItem('permission_name_id', obj.permission_name_id)
-		localStorage.setItem('permission_name', obj.permission_name)
+		localStorage.setItem('role_id', obj.role_id)
+		localStorage.setItem('role', obj.role)
 		localStorage.setItem('username', obj.username)
-		localStorage.setItem('menus_item', obj.menus_item)
+		localStorage.setItem('menu', obj.menu)
 		localStorage.setItem('create_at', obj.create_at)
 		localStorage.setItem('url', obj.url)
 		localStorage.setItem('highUserList', obj.highUserList)
@@ -104,9 +104,9 @@ export class CommonService {
 	}
 	// 验证是否为管理员
 	checkAdmin() {
-		let permission_name = localStorage.getItem('permission_name')
-		let permission_name_id = localStorage.getItem('permission_name_id')
-		if (permission_name == '超级管理员' && permission_name_id == '7B444814D1E9720BE875044F66BCFAD2') {
+		let role_id = localStorage.getItem('role_id')
+		let role = localStorage.getItem('role')
+		if (role_id == '1' && role=='tjtj') {
 			return true
 		}
 		return false
@@ -116,11 +116,10 @@ export class CommonService {
 		localStorage.removeItem('token')
 		localStorage.removeItem('userId')
 		localStorage.removeItem('token_expiration_time')
-		localStorage.removeItem('permission_name_id')
+		localStorage.removeItem('role_id')
 		localStorage.removeItem('username')
 		localStorage.removeItem('url')
-		localStorage.removeItem('permission_name')
-		localStorage.removeItem('menus_item')
+		localStorage.removeItem('menu')
 	}
 	// 验证验证码合法
 	checkSms(sms: string) {

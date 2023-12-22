@@ -24,15 +24,15 @@ export class AuthService {
 			phone,
 			sms
 		} = params;
-		let url = this.baseUrl + "/login/login?phone="+phone+'&sms='+sms
-		return this.http.get(url)
+		let url = this.baseUrl + "/login/login_web"
+		return this.http.post(url,{phone,sms})
 	}
 	getSms(params:any){
 		let {
 			phone
 		} = params;
-		let url = this.baseUrl + "/login/getSms?phone="+phone
-		return this.http.get(url)
+		let url = this.baseUrl + "/login/getSms_web"
+		return this.http.post(url,{phone})
 	}
 	getPermission(){
 		let url = this.baseUrl + "/login/getPermission"

@@ -977,6 +977,17 @@ export class SearchSongsComponent implements OnInit {
 	}
 	ngOnInit(): void {
 		this.ismobile = this.common.isMobile()
-			
+		if(!this.common.checkAdmin()){
+			let menu:any = localStorage.getItem('menu')
+			menu = JSON.parse(menu);
+			let menu_list:any = menu || {top:[],left:[]};
+			let tagList = []
+			for(let i = 0;i<menu_list.top.length;i++){
+				if(menu_list.top[i].parent_id == 1){
+					tagList.push(menu_list.top[i].menu)
+				}
+			}
+			this.tagList = tagList
+		}
 	}
 }

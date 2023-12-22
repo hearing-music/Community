@@ -58,13 +58,13 @@ export class HeaderMenuComponent implements OnInit {
 	menuChange(){
 		// 验证是否为超级管理员
 		if(!this.common.checkAdmin()){
-			let menus_item:any = localStorage.getItem('menus_item')
-			menus_item = JSON.parse(menus_item)
-			let list = menus_item.menuList || [];
+			let menu:any = localStorage.getItem('menu')
+			menu = JSON.parse(menu)
+			let list = menu.top || [];
 			let arr = []
 			for(let i = 0;i<list.length;i++){
-				if(list[i].display == 1&&list[i].type=='headerMenu'){
-					arr.push(list[i].value)
+				if(list[i].ID){
+					arr.push(list[i].menu)
 				}
 			}
 			this.headerMenu = arr;

@@ -15,14 +15,6 @@ export class PermissionGuard implements CanActivate {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 		const url: string = state.url; // 将要跳转的路径
-		// let developIDs:any = localStorage.getItem('developIDs') || '';
-		// developIDs = developIDs.split(',')
-		// const userId:any = localStorage.getItem('userId') || 0;
-		// console.log('permission')
-		// if((url=='/pages/dou-di-zhu'||url == '/pages/song-room'||url=='/pages/card-game') && !developIDs.includes(userId)){
-		// 	this.message.info('无权限访问')
-		// 	return this.router.parseUrl('**');
-		// }
 		if(this.common.checkAdmin()){
 			return true
 		}else{
@@ -30,24 +22,29 @@ export class PermissionGuard implements CanActivate {
 		}
 	}
 	private checkUrl(url: string): any {
-		console.log('checkUrl')
-		let menus_item:any = localStorage.getItem('menus_item')
-		menus_item = JSON.parse(menus_item);
-		let menu_list = menus_item.menuList || [];
+		console.log('checkUrl permission','跳转')
+		let menu:any = localStorage.getItem('menu')
+		menu = JSON.parse(menu);
+		let menu_list:any = menu || {top:[],left:[]};
 		let arr = []
-		for(let i = 0;i<menu_list.length;i++){
-			if(menu_list[i].display == 1){
-				arr.push(menu_list[i].value.link)
+		for(let i = 0;i<menu_list.left.length;i++){
+			if(menu_list.left[i].menu.children){
+				for(let j = 0;j<menu_list.left[i].menu.children.length;j++){
+					arr.push(menu_list.left[i].menu.children[j].link)
+				}
+			}else{
+				arr.push(menu_list.left[i].menu.link)
+			}
+		}
+		for(let i = 0;i<menu_list.top.length;i++){
+			if(menu_list.top[i].ID){
+				arr.push(menu_list.top[i].menu.link)
 			}
 		}
 		if(arr.includes(url)){
 			return true
 		}else{
-			if(menu_list.length != 0){
-				return this.router.parseUrl(menu_list[0].value.link);
-			}else{
-				return this.router.parseUrl('**');
-			}
+			return this.router.parseUrl('**');
 		}
 		
 	}

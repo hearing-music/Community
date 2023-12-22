@@ -54,27 +54,25 @@ export class PagesComponent implements OnInit {
 		developIDs = developIDs.split(',')
 		const userId:any = localStorage.getItem('userId') || 0;
 		if (!this.common.checkAdmin()) {
-			let menus_item: any = localStorage.getItem('menus_item')
-			menus_item = JSON.parse(menus_item)
-			let list = menus_item.menuList || [];
+			let menu: any = localStorage.getItem('menu')
+			menu = JSON.parse(menu)
+			let list = menu.left || [];
 			let arr = []
 			for (let i = 0; i < list.length; i++) {
-				if (list[i].display == 1 && list[i].type == 'leftMenu') {
-					arr.push(list[i].value)
-				}
+				arr.push(list[i].menu)
 			}
 			this.menu = arr;
 		} else {
-			
-			// 开发者可看
-			if(developIDs.includes(userId)){
-				this.menu = MENU_ITEMS;
-			}else{
-				let newMENU_ITEMS = MENU_ITEMS
-				let i = newMENU_ITEMS.findIndex((e:any)=>e.title=='游戏')
-				 newMENU_ITEMS.splice(i,1)
-				this.menu = newMENU_ITEMS;
-			}
+			this.menu = MENU_ITEMS;
+			// // 开发者可看
+			// if(developIDs.includes(userId)){
+			// 	this.menu = MENU_ITEMS;
+			// }else{
+			// 	let newMENU_ITEMS = MENU_ITEMS
+			// 	let i = newMENU_ITEMS.findIndex((e:any)=>e.title=='游戏')
+			// 	 newMENU_ITEMS.splice(i,1)
+			// 	this.menu = newMENU_ITEMS;
+			// }
 		}
 	}
 	menu = [];

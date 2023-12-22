@@ -3,8 +3,8 @@
 		<!-- tab栏 -->
 		<div class="tagList">
 			<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
-				[ngClass]="{'tagList-itemActive': item.name==selectItem}">
-				{{item.name}}
+				[ngClass]="{'tagList-itemActive': item.title==selectItem}">
+				{{item.title}}
 			</div>
 		</div>
 		<!-- 搜索 -->
