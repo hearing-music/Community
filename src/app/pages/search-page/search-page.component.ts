@@ -32,6 +32,9 @@ export class SearchPageComponent implements OnInit {
 	},{
 		title: '厂牌用户',
 		holder: '用户搜索'
+	},{
+		title: '厂牌歌曲',
+		holder: '厂牌搜索'
 	}, {
 		title: '5SING用户',
 		holder: '5SING搜索'
@@ -54,6 +57,11 @@ export class SearchPageComponent implements OnInit {
 	brandUserList: any[]=[];
 	brandUserPageSize=30;
 	brandUserPageTotal=30;
+	
+	brandSongPage=1;
+	brandSongList: any[]=[];
+	brandSongPageSize=30;
+	brandSongPageTotal=30;
 	
 	wangyisixinPage=1;
 	wangyisixinList: any[]=[];
@@ -80,6 +88,9 @@ export class SearchPageComponent implements OnInit {
 		if(this.selectItem=='厂牌用户'){
 			this.searchbrandUser()
 		}
+		if(this.selectItem == '厂牌歌曲'){
+			this.searchbrandSong()
+		}
 		if(this.selectItem == '相似歌手'){
 			this.GetArtists()
 		}
@@ -95,7 +106,14 @@ export class SearchPageComponent implements OnInit {
 	searchbrandUser(){
 		this.api.GetbrandUser({page:this.brandUserPage,pagesize:this.brandUserPageSize,keyword:this.searchValue}).subscribe((res:any)=>{
 			this.brandUserList=res.company,
-			this.brandUserPageTotal=res.count,
+			this.brandUserPageTotal= res.count;
+			this.loading=false
+		})
+	}
+	searchbrandSong(){
+		this.api.GetbrandSong({page:this.brandSongPage,pagesize:this.brandSongPageSize,brand:this.searchValue}).subscribe((res:any)=>{
+			this.brandSongList=res.data,
+			this.brandSongPageTotal=res.total[0].total
 			this.loading=false
 		})
 	}
@@ -134,6 +152,11 @@ export class SearchPageComponent implements OnInit {
 	nzPageIndexChangeBrandUser(e:any): void{
 		this.brandUserPage=e
 		this.searchbrandUser()
+		this.loading=true
+	}
+	nzPageIndexChangeBrandSong(e:any){
+		this.brandSongPage=e
+		this.searchbrandSong()
 		this.loading=true
 	}
 	nzPageIndexChangeSing5(e:any): void{

@@ -26,6 +26,12 @@ export class SearchSongsComponent implements OnInit {
 			this.searchValue = value;
 			this.search(this.searchValue)
 		}
+		if(path=='qq'){
+			this.selectItem="QQ音乐"
+			value = decodeURIComponent(value)
+			this.searchValue = value;
+			this.search(this.searchValue)
+		}
 	}
 	@ViewChild('lyric')
 	lyric:any;

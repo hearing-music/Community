@@ -939,6 +939,15 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/searchPage/brandUser?keyword=" + keyword + "&page=" + page + "&pagesize=" + pagesize)
 	}
+	//获取qq厂牌
+	GetbrandSong(params: any) {
+		let {
+			page,
+			pagesize,
+			brand,
+		} = params;
+		return this.http.get(this.baseUrl + "/qq/QBrandSongs?brand=" + brand + "&page=" + page + "&pageSize=" + pagesize)
+	}
 	//获取歌手关系图
 	getArtiest(params: any) {
 		let {
