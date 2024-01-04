@@ -282,6 +282,5 @@ export class SearchPageComponent implements OnInit {
   }
   choseTip(item: any) {
     this.search(item);
-    this.tipDataNow = [];
   }
 }
