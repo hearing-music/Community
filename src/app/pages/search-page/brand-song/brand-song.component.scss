@@ -1,5 +1,19 @@
-.brand-user{
-	height: 100%;
-	background-color: #fff;
-	border-radius: 12px;
+.brand-user {
+  height: 100%;
+  background-color: #fff;
+  border-radius: 12px;
+  .play {
+    position: fixed;
+    right: 35px;
+    bottom: 30px;
+  }
+  .item-left {
+    position: relative;
+    .left-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 }
