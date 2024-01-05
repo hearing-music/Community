@@ -16,6 +16,7 @@ export class WangyiyunComponent implements OnInit {
 		let suxIndex = downloadUrl.lastIndexOf('.')
 		let sux = downloadUrl.substr(suxIndex)
 		this.common.download(downloadUrl,songname+sux)
+		// window.open(downloadUrl)
 	}
   ngOnInit(): void {
   }
