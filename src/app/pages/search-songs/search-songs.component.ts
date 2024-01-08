@@ -32,6 +32,13 @@ export class SearchSongsComponent implements OnInit {
 			this.searchValue = value;
 			this.search(this.searchValue)
 		}
+		if(path=='v3'){
+			this.selectItem="酷狗V3"
+			value = decodeURIComponent(value)
+			this.searchValue = value;
+			this.search(this.searchValue)
+		}
+		
 	}
 	@ViewChild('lyric')
 	lyric:any;
@@ -383,10 +390,12 @@ export class SearchSongsComponent implements OnInit {
 	getfufuleidaQuerySingers(){
 		this.loading = true;
 		this.api.getfufuleidaQuerySingers({keyword:this.searchValue,page:this.fufuSingerPage}).subscribe((res: any) => {
-		  this.fufuSingerList = res.data
+			this.loading = false;
+			if(res.success){
+				this.fufuSingerList = res.data
 				this.fufuSingerTotal = res.total
+			}
 		  console.log(res)
-				  this.loading = false;
 		}, (err: any) => {
 				console.log(err)
 				this.loading = false;
@@ -401,10 +410,12 @@ export class SearchSongsComponent implements OnInit {
 	getfufuleidaQueryHotSongs(){
 		this.loading = true;
 		this.api.getfufuleidaQueryHotSongs({keyword:this.searchValue,page:this.fufuHotPage}).subscribe((res: any) => {
-		  this.fufuHotList = res.data
+			this.loading = false;
+			if(res.success){
+				this.fufuHotList = res.data
 				this.fufuHotTotal = res.total
+			}
 		  console.log(res)
-				  this.loading = false;
 		}, (err: any) => {
 				console.log(err)
 				this.loading = false;
@@ -418,10 +429,12 @@ export class SearchSongsComponent implements OnInit {
 	getfufuleidaQuerySongs() {
 		  this.loading = true;
 	  this.api.getfufuleidaQuerySongs({keyword:this.searchValue,page:this.fufuPage}).subscribe((res: any) => {
-	    this.fufuList = res.data
-		this.fufuTotal = res.total
-	    console.log(res)
 		  this.loading = false;
+		  if(res.success){
+			  this.fufuList = res.data
+			  this.fufuTotal = res.total
+		  }
+	    console.log(res)
 	  }, (err: any) => {
 		console.log(err)
 		this.loading = false;

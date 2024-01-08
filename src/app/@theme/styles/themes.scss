@@ -10,6 +10,9 @@ button:focus{
 			display: flex!important;
 			align-items: center!important;
 		}
+.ant-message{
+			z-index: 100010!important;
+		}
 $nb-themes: nb-register-theme((
   layout-padding-top: 2.25rem,
 

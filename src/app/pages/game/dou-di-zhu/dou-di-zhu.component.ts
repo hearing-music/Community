@@ -260,6 +260,7 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
     console.log("离开");
     this.socketIO.emit("match", { type: "leaveRoom", roomId: this.roomIdNow });
     this.showPlay = false;
+	this.isAi = false;
   }
   notReady() {
     console.log("我取消准备了");
@@ -281,11 +282,18 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
   joinRoomCancel() {
     this.isVisible = false;
   }
+  isAi = false;
+  aiPlay(){
+	  this.socketIO.emit("match", { type: "createRoomAi" });
+	  this.showPlay = true;
+	  this.isAi = true;
+  }
   roomid = "";
   showPlay = false;
   roomCreate() {
     this.socketIO.emit("match", { type: "createRoom" });
     this.showPlay = true;
+	this.isAi = false;
   }
   roomAdd() {
     let roomId = this.roomid;
@@ -294,6 +302,7 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
       return;
     }
     this.socketIO.emit("match", { type: "joinRoom", roomId });
+	this.isAi = false;
   }
 
   token = window.localStorage.getItem("token");
@@ -561,6 +570,9 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
       // 开始叫地主 通知
       if (data.type == "callLandlordNotice") {
         let token = this.houseUsers[data.callLandlordIndex].token;
+		if(this.isAi){
+			token = this.token;
+		}
         // 自己
         if (this.players.player.token == token) {
           this.players.player.callLandlord = true;
@@ -754,7 +766,7 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
         item.top = 30;
       });
       if (state) {
-        this.players.player.cards[0].e.top = 0;
+        this.players.player.cards[0].top = 0;
       }
     }
     if (this.players.player.cards.every((e: any) => e.top == 30) && state) {
@@ -763,24 +775,53 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
       return;
     }
     let cards = this.players.player.cards.filter((e: any) => e.top == 0);
-    this.socketIO.emit("playPoker", {
-      type: "playPoker",
-      roomId: this.roomIdNow,
-      cards,
-      state,
-    });
+	if(!this.isAi){
+		this.socketIO.emit("playPoker", {
+		  type: "playPoker",
+		  roomId: this.roomIdNow,
+		  cards,
+		  state,
+		});
+	}else{
+		this.socketIO.emit("playPoker", {
+		  type: "playPokerAi",
+		  roomId: this.roomIdNow,
+		  cards,
+		  state,
+		});
+	}
   }
   doubling(isDouble: any) {
     console.log("我加倍或者不加倍");
-    this.socketIO.emit("doubling", {
-      type: "doubling",
-      roomId: this.roomIdNow,
-      isDouble,
-    });
-    this.players.player.actionStr = isDouble ? "加倍" : "不加倍";
-    this.players.player.double = false;
-    this.players.player.timeout = false;
-    this.timing("player", "stop");
+	if(!this.isAi){
+		this.socketIO.emit("doubling", {
+		  type: "doubling",
+		  roomId: this.roomIdNow,
+		  isDouble,
+		});
+		this.players.player.actionStr = isDouble ? "加倍" : "不加倍";
+		this.players.player.double = false;
+		this.players.player.timeout = false;
+		this.timing("player", "stop");
+	}else{
+		this.socketIO.emit("doubling", {
+		  type: "doublingAi",
+		  roomId: this.roomIdNow,
+		  isDouble,
+		});
+		this.players.player.actionStr = isDouble ? "加倍" : "不加倍";
+		this.players.player.double = false;
+		this.players.player.timeout = false;
+		this.timing("player", "stop");
+		this.players.nextPlayer.double = false;
+		this.players.nextPlayer.timeout = false;
+		this.players.nextPlayer.actionStr = '不加倍';
+		this.timing("nextPlayer", "stop");
+		this.players.lastPlayer.double = false;
+		this.players.lastPlayer.timeout = false;
+		this.players.lastPlayer.actionStr = '不加倍';
+		this.timing("lastPlayer", "stop");
+	}
   }
   robLandlord(isRobLandlord: any) {
     console.log("我抢地主或者不抢");
@@ -796,14 +837,35 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
   }
   callLandlord(isCallLandlord: any) {
     console.log("我叫地主或者不叫");
-    this.socketIO.emit("callLandlord", {
-      type: "callLandlord",
-      roomId: this.roomIdNow,
-      isCallLandlord,
-    });
-    this.players.player.actionStr = isCallLandlord ? "叫地主" : "不叫";
-    this.players.player.callLandlord = false;
-    this.players.player.timeout = false;
-    this.timing("player", "stop");
+	if(!this.isAi){
+		this.socketIO.emit("callLandlord", {
+		  type: "callLandlord",
+		  roomId: this.roomIdNow,
+		  isCallLandlord,
+		});
+		this.players.player.actionStr = isCallLandlord ? "叫地主" : "不叫";
+		this.players.player.callLandlord = false;
+		this.players.player.timeout = false;
+		this.timing("player", "stop");
+	}else{
+		this.socketIO.emit("callLandlord", {
+		  type: "callLandlordAi",
+		  roomId: this.roomIdNow,
+		  isCallLandlord,
+		});
+		this.players.player.timeout = false;
+		this.players.player.callLandlord = false;
+		this.timing("player", "stop");
+		if(!isCallLandlord){
+			this.players.nextPlayer.callLandlord = false;
+			this.players.nextPlayer.timeout = false;
+			this.players.nextPlayer.actionStr = '不叫';
+			this.timing("nextPlayer", "stop");
+			this.players.lastPlayer.callLandlord = false;
+			this.players.lastPlayer.timeout = false;
+			this.players.lastPlayer.actionStr = '不叫';
+			this.timing("lastPlayer", "stop");
+		}
+	}
   }
 }

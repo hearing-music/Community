@@ -44,6 +44,7 @@
                 *ngIf="
                   players.lastPlayer.actionStr == '抢地主' ||
                   players.lastPlayer.actionStr == '叫地主' ||
+				  players.lastPlayer.actionStr == '不叫' ||
                   players.lastPlayer.actionStr == '不抢' ||
                   players.lastPlayer.actionStr == '加倍' ||
                   players.lastPlayer.actionStr == '不加倍'
@@ -56,8 +57,7 @@
           <div class="lastPlayer">
             <div class="lastPlayerImg">
               <img
-                *ngIf="players.lastPlayer.avatar"
-                [src]="players.lastPlayer.avatar"
+				[src]="players.lastPlayer.avatar||'../../../../assets/img/avatar.jpg'"
                 style="width: 50px; height: 50px; border-radius: 50%"
               />
             </div>
@@ -124,9 +124,10 @@
                 *ngIf="
                   players.nextPlayer.actionStr == '抢地主' ||
                   players.nextPlayer.actionStr == '叫地主' ||
+                  players.nextPlayer.actionStr == '不叫' ||
                   players.nextPlayer.actionStr == '不抢' ||
-                  players.lastPlayer.actionStr == '加倍' ||
-                  players.lastPlayer.actionStr == '不加倍'
+                  players.nextPlayer.actionStr == '加倍' ||
+                  players.nextPlayer.actionStr == '不加倍'
                 "
               >
                 {{ players.nextPlayer.actionStr }}
@@ -136,11 +137,11 @@
           <div class="nextPlayer">
             <div class="nextPlayerImg">
               <img
-                *ngIf="players.nextPlayer.avatar"
-                [src]="players.nextPlayer.avatar"
+                [src]="players.nextPlayer.avatar||'../../../../assets/img/avatar.jpg'"
                 style="width: 50px; height: 50px; border-radius: 50%"
               />
             </div>
+			<div class="nextPlayerName">{{ players.nextPlayer.name }}</div>
             <div class="nextPlayerIdentity">
               身份 {{ players.nextPlayer.identity }}
             </div>
@@ -150,7 +151,6 @@
             >
               房主
             </div>
-            <div class="nextPlayerName">{{ players.nextPlayer.name }}</div>
             <div class="nextPlayerScore">
               分数 {{ players.nextPlayer.score }}
             </div>
@@ -385,6 +385,9 @@
       ></div> -->
     </div>
   </div>
+  
+  
+  
   <div class="selectRoom" *ngIf="!showPlay">
     <div class="creatRoom">
       <button nz-button nzType="primary" nzShape="round" (click)="roomCreate()">
@@ -406,6 +409,16 @@
         搜索房间
       </button>
     </div>
+		<div class="searchRoom">
+		  <button
+		    nz-button
+		    nzType="primary"
+		    nzShape="round"
+			(click)='aiPlay()'
+		  >
+		    人机对战
+		  </button>
+		</div>
   </div>
 </div>
 

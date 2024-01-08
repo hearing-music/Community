@@ -37,6 +37,10 @@ import { SocketService } from './services/socket.service';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 // registerLocaleData(zh);
+// import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
+// const ngZorroConfig: NzConfig = {
+//   message: { nzDuration: 0 },
+// };
 
 @NgModule({
 	declarations: [AppComponent],
@@ -86,7 +90,8 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 		{
 			provide: LocationStrategy,
 			useClass: HashLocationStrategy
-		}
+		},
+		 // { provide: NZ_CONFIG, useValue:  ngZorroConfig  }
 	]
 })
 export class AppModule { }
