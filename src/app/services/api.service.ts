@@ -930,31 +930,50 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/searchPage/fiveSing?keyword=" + keyword + "&page=" + page + "&pagesize=" + pagesize)
 	}
-	//获取厂牌
-	GetbrandUser(params: any) {
-		let {
-			page,
-			pagesize,
-			keyword,
-		} = params;
-		return this.http.get(this.baseUrl + "/searchPage/brandUser?keyword=" + keyword + "&page=" + page + "&pagesize=" + pagesize)
-	}
-	//获取qq厂牌名字 
-	getQBrandSongs(params: any) {
-		let {
-			brand,
-		} = params;
-		return this.http.get(this.baseUrl + "/qq/QBrandSongsPrompt?brand=" + brand)
-	}
-	//获取qq厂牌
-	GetbrandSong(params: any) {
-		let {
-			page,
-			pagesize,
-			brand,
-		} = params;
-		return this.http.get(this.baseUrl + "/qq/QBrandSongs?brand=" + brand + "&page=" + page + "&pageSize=" + pagesize)
-	}
+	  //获取厂牌
+	  GetbrandUser(params: any) {
+	    let { page, pagesize, keyword } = params;
+	    return this.http.get(
+	      this.baseUrl +
+	        "/searchPage/brandUser?keyword=" +
+	        keyword +
+	        "&page=" +
+	        page +
+	        "&pagesize=" +
+	        pagesize
+	    );
+	  }
+	  //获取qq厂牌名字
+	  getQBrandSongs(params: any) {
+	    let { brand } = params;
+	    return this.http.get(this.baseUrl + "/qq/QBrandSongsPrompt?brand=" + brand);
+	  }
+	  //获取qq厂牌
+	  GetbrandSong(params: any) {
+	    let { page, pagesize, brand } = params;
+	    return this.http.get(
+	      this.baseUrl +
+	        "/qq/QBrandSongs?brand=" +
+	        brand +
+	        "&page=" +
+	        page +
+	        "&pageSize=" +
+	        pagesize
+	    );
+	  }
+	  // 获取酷狗厂牌歌曲
+	  GetbrandSongKg(params: any) {
+	    let { page, pagesize, brand } = params;
+	    return this.http.get(
+	      this.baseUrl +
+	        "/kugou/KgBrandSongs?brand=" +
+	        brand +
+	        "&page=" +
+	        page +
+	        "&pageSize=" +
+	        pagesize
+	    );
+	  }
 	//获取歌手关系图
 	getArtiest(params: any) {
 		let {

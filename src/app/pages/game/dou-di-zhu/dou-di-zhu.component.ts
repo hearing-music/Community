@@ -386,6 +386,10 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
         if (this.players.player.token == token) {
           this.players.player.playPoker = true;
           this.players.player.timeout = true;
+		  // 轮到自己出牌 清空自己之前出的牌
+		  this.players.player.sendCards = [];
+		  this.drawCanvas();
+		  this.drawMyCard();
           this.timing("player", "start");
         }
         //上家
@@ -410,20 +414,18 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
         this.players.lastPlayer.cards = data.houseUsers[this.lastIndex].cards;
         this.players.nextPlayer.cards = data.houseUsers[this.nextIndex].cards;
         this.players.player.cards = data.houseUsers[this.meIndex].cards;
-        this.players.lastPlayer.sendCards =
-          data.houseUsers[this.lastIndex].sendCards;
-        this.players.nextPlayer.sendCards =
-          data.houseUsers[this.nextIndex].sendCards;
+        this.players.lastPlayer.sendCards = data.houseUsers[this.lastIndex].sendCards;
+        this.players.nextPlayer.sendCards = data.houseUsers[this.nextIndex].sendCards;
         this.players.player.sendCards = data.houseUsers[this.meIndex].sendCards;
-        this.players.lastPlayer.sendPokerStr = this.pokerToStr(
-          this.players.lastPlayer.sendCards
-        );
-        this.players.nextPlayer.sendPokerStr = this.pokerToStr(
-          this.players.nextPlayer.sendCards
-        );
-        this.players.player.sendPokerStr = this.pokerToStr(
-          this.players.player.sendCards
-        );
+        // this.players.lastPlayer.sendPokerStr = this.pokerToStr(
+        //   this.players.lastPlayer.sendCards
+        // );
+        // this.players.nextPlayer.sendPokerStr = this.pokerToStr(
+        //   this.players.nextPlayer.sendCards
+        // );
+        // this.players.player.sendPokerStr = this.pokerToStr(
+        //   this.players.player.sendCards
+        // );
         for (let i = 0; i < this.players.player.cards.length; i++) {
           this.players.player.cards[i].top = 30;
         }
@@ -433,30 +435,47 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
         this.drawUpCard();
         //上家
         if (this.players.lastPlayer.token == token) {
+			if(this.players.nextPlayer.sendPokerStr=='不出'&&this.players.player.sendPokerStr=='不出'){
+				this.players.nextPlayer.sendPokerStr = "";
+			}
+			this.players.player.sendPokerStr = "";
           if (data.state == false) {
             this.players.lastPlayer.sendPokerStr = "不出";
-            this.players.nextPlayer.sendPokerStr = "";
-            this.players.player.sendPokerStr = "";
-          }
+          }else{
+			  this.players.lastPlayer.sendPokerStr = this.pokerToStr(
+			    this.players.lastPlayer.sendCards
+			  );
+		  }
           this.players.lastPlayer.timeout = false;
         }
         // 下家
         if (this.players.nextPlayer.token == token) {
+			this.players.lastPlayer.sendPokerStr = "";
           if (data.state == false) {
             this.players.nextPlayer.sendPokerStr = "不出";
-            this.players.lastPlayer.sendPokerStr = "";
-            this.players.player.sendPokerStr = "";
-          }
+            // this.players.lastPlayer.sendPokerStr = "";
+            // this.players.player.sendPokerStr = "";
+          }else{
+			  this.players.nextPlayer.sendPokerStr = this.pokerToStr(
+			    this.players.nextPlayer.sendCards
+			  );
+		  }
           this.players.nextPlayer.timeout = false;
         }
         // 自己
         if (this.players.player.token == token) {
+			this.players.lastPlayer.nextPlayer = "";
           this.players.player.playPoker = false;
+		  
           if (data.state == false) {
             this.players.player.sendPokerStr = "不出";
-            this.players.nextPlayer.sendPokerStr = "";
-            this.players.lastPlayer.sendPokerStr = "";
-          }
+            // this.players.nextPlayer.sendPokerStr = "";
+            // this.players.lastPlayer.sendPokerStr = "";
+          }else{
+			  this.players.player.sendPokerStr = this.pokerToStr(
+			    this.players.player.sendCards
+			  );
+		  }
           this.players.player.timeout = false;
           this.timing("player", "stop");
         }
@@ -570,9 +589,6 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
       // 开始叫地主 通知
       if (data.type == "callLandlordNotice") {
         let token = this.houseUsers[data.callLandlordIndex].token;
-		if(this.isAi){
-			token = this.token;
-		}
         // 自己
         if (this.players.player.token == token) {
           this.players.player.callLandlord = true;

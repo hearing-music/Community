@@ -48,10 +48,22 @@
       *ngIf="selectItem == '厂牌用户'"
       [brandUserList]="brandUserList"
     ></ngx-brand-user>
-    <ngx-brand-song
-      *ngIf="selectItem == '厂牌歌曲'"
-      [brandSongList]="brandSongList"
-    ></ngx-brand-song>
+    <div style="display: flex; justify-content: space-between">
+      <div style="width: 49%">
+        <ngx-brand-song-qq
+          *ngIf="selectItem == '厂牌歌曲'"
+          [brandSongList]="brandSongList"
+          (change)="qqSrcChange($event)"
+        ></ngx-brand-song-qq>
+      </div>
+      <div style="width: 49%">
+        <ngx-brand-song-kg
+          *ngIf="selectItem == '厂牌歌曲'"
+          [brandSongList]="brandSongListKg"
+          (change)="kgSrcChange($event)"
+        ></ngx-brand-song-kg>
+      </div>
+    </div>
     <ngx-sing5
       *ngIf="selectItem == '5SING用户'"
       [sing5List]="sing5List"
@@ -86,13 +98,26 @@
       [nzTotal]="brandUserPageTotal"
       (nzPageIndexChange)="nzPageIndexChangeBrandUser($event)"
     ></nz-pagination>
-    <nz-pagination
-      *ngIf="selectItem == '厂牌歌曲' && brandSongList.length > 0"
-      [nzPageIndex]="brandSongPage"
-      [nzPageSize]="brandSongPageSize"
-      [nzTotal]="brandSongPageTotal"
-      (nzPageIndexChange)="nzPageIndexChangeBrandSong($event)"
-    ></nz-pagination>
+    <div style="width: 100%; display: flex; justify-content: space-between">
+      <div style="width: 49%">
+        <nz-pagination
+          *ngIf="selectItem == '厂牌歌曲' && brandSongList.length > 0"
+          [nzPageIndex]="brandSongPage"
+          [nzPageSize]="brandSongPageSize"
+          [nzTotal]="brandSongPageTotal"
+          (nzPageIndexChange)="nzPageIndexChangeBrandSong($event)"
+        ></nz-pagination>
+      </div>
+      <div style="width: 49%">
+        <nz-pagination
+          *ngIf="selectItem == '厂牌歌曲' && brandSongListKg.length > 0"
+          [nzPageIndex]="brandSongPageKg"
+          [nzPageSize]="brandSongPageSizeKg"
+          [nzTotal]="brandSongPageTotalKg"
+          (nzPageIndexChange)="nzPageIndexChangeBrandSongKg($event)"
+        ></nz-pagination>
+      </div>
+    </div>
     <nz-pagination
       *ngIf="selectItem == '5SING用户' && sing5List.length > 0"
       [nzPageIndex]="sing5Page"
@@ -102,4 +127,7 @@
     ></nz-pagination>
   </div>
   <ngx-loading *ngIf="loading"></ngx-loading>
+  <div class="play" *ngIf="selectItem == '厂牌歌曲'">
+    <audio id="audio" controls [src]="audioSrc"></audio>
+  </div>
 </div>

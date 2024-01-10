@@ -104,7 +104,8 @@ import { LyricComponent } from '../components/lyric/lyric.component';
 import {BloggerVideosComponent} from '../components/bloggerVideos/bloggerVideos.component'
 import { LyricAllComponent } from '../components/lyric-all/lyric-all.component';
 import { BrandUserComponent } from './search-page/brand-user/brand-user.component';
-import { BrandSongComponent } from './search-page/brand-song/brand-song.component';
+import { BrandSongQqComponent } from "./search-page/brand-song/brand-song-qq/brand-song-qq.component";
+import { BrandSongKgComponent } from "./search-page/brand-song/brand-song-kg/brand-song-kg.component";
 import { Sing5Component } from './search-page/sing5/sing5.component';
 import { WangyisixinComponent } from './search-page/wangyisixin/wangyisixin.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
@@ -264,7 +265,8 @@ registerLocaleData(zh);
 		LyricAllComponent,
 		NotOpenComponent,
 		BrandUserComponent,
-		BrandSongComponent,
+		BrandSongQqComponent,
+		BrandSongKgComponent,
 		Sing5Component,
 		WangyisixinComponent,
 		CopyrightSearchComponent,

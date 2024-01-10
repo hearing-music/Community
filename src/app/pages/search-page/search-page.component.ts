@@ -22,8 +22,9 @@ export class SearchPageComponent implements OnInit {
       this.tagList = tagList;
     }
   }
+  audioSrc: any = "";
   tipData: any = [];
-  tipDataNow:any = [];
+  tipDataNow: any = [];
   tagList: any[] = [
     {
       title: "腾讯音乐人",
@@ -70,6 +71,11 @@ export class SearchPageComponent implements OnInit {
   brandSongPageSize = 30;
   brandSongPageTotal = 30;
 
+  brandSongPageKg = 1;
+  brandSongListKg: any[] = [];
+  brandSongPageSizeKg = 30;
+  brandSongPageTotalKg = 30;
+
   wangyisixinPage = 1;
   wangyisixinList: any[] = [];
 
@@ -97,7 +103,7 @@ export class SearchPageComponent implements OnInit {
       this.searchbrandUser();
     }
     if (this.selectItem == "厂牌歌曲") {
-      this.searchbrandSong();
+      this.searchKgAndQq();
     }
     if (this.selectItem == "相似歌手") {
       this.GetArtists();
@@ -142,7 +148,73 @@ export class SearchPageComponent implements OnInit {
           (this.brandSongPageTotal = res.total[0].total);
         this.loading = false;
       });
-    
+  }
+  async searchKgAndQq() {
+    this.loading = true;
+    try {
+      let result: any = await Promise.all([
+        this.searchbrandSongP(),
+        this.searchbrandSongKgP(),
+      ]);
+      this.loading = false;
+      this.brandSongListKg = result[1].data;
+      this.brandSongPageTotalKg = result[1].total;
+      this.brandSongList = result[0].data;
+      this.brandSongPageTotal = result[0].total;
+    } catch (e: any) {
+      this.loading = false;
+    }
+  }
+  searchbrandSongP() {
+    return new Promise((resolve, reject) => {
+      this.api
+        .GetbrandSong({
+          page: this.brandSongPage,
+          pagesize: this.brandSongPageSize,
+          brand: this.searchValue,
+        })
+        .subscribe((res: any) => {
+          res.data.forEach((ele: any) => {
+            ele.audio_url = "https://dl.stream.qqmusic.qq.com/" + ele.audio_url;
+            ele.isPlay = false;
+          });
+          resolve({ data: res.data, total: res.total[0].total });
+        });
+    });
+  }
+  searchbrandSongKgP() {
+    return new Promise((resolve, reject) => {
+      this.api
+        .GetbrandSongKg({
+          page: this.brandSongPageKg,
+          pagesize: this.brandSongPageSizeKg,
+          brand: this.searchValue,
+        })
+        .subscribe((res: any) => {
+          res.data.forEach((ele: any) => {
+            ele.audio_url = "https://dl.stream.qqmusic.qq.com/" + ele.audio_url;
+            ele.isPlay = false;
+          });
+          resolve({ data: res.data, total: res.total[0].total });
+        });
+    });
+  }
+  searchbrandSongKg() {
+    this.api
+      .GetbrandSongKg({
+        page: this.brandSongPageKg,
+        pagesize: this.brandSongPageSizeKg,
+        brand: this.searchValue,
+      })
+      .subscribe((res: any) => {
+        res.data.forEach((ele: any) => {
+          ele.audio_url = "https://dl.stream.qqmusic.qq.com/" + ele.audio_url;
+          ele.isPlay = false;
+        });
+        (this.brandSongListKg = res.data),
+          (this.brandSongPageTotalKg = res.total[0].total);
+        this.loading = false;
+      });
   }
   searchFiveSing() {
     this.api
@@ -164,9 +236,9 @@ export class SearchPageComponent implements OnInit {
     this.selectItem = item.title;
     this.searchHolder = item.holder;
     this.searchValue = "";
-	if(this.selectItem == "厂牌歌曲"&&this.tipData.length==0){
-		this.getQBrandSongs()
-	}
+    if (this.selectItem == "厂牌歌曲" && this.tipData.length == 0) {
+      this.getQBrandSongs();
+    }
   }
 
   musicianTxPageNext(): void {
@@ -193,6 +265,12 @@ export class SearchPageComponent implements OnInit {
   nzPageIndexChangeBrandSong(e: any) {
     this.brandSongPage = e;
     this.searchbrandSong();
+    this.loading = true;
+  }
+
+  nzPageIndexChangeBrandSongKg(e: any) {
+    this.brandSongPageKg = e;
+    this.searchbrandSongKg();
     this.loading = true;
   }
   nzPageIndexChangeSing5(e: any): void {
@@ -257,30 +335,77 @@ export class SearchPageComponent implements OnInit {
   input(query: any) {
     if (this.selectItem == "厂牌歌曲") {
       // this.getQBrandSongs();
-	  this.setTipDataNow(query.target.value)
+      this.setTipDataNow(query.target.value);
     }
   }
-  timeout:any=null
-  setTipDataNow(value:any){
-	  clearTimeout(this.timeout)
-	  this.timeout = null
-	  this.timeout = setTimeout(()=>{
-		  if(value==''){
-			  this.tipDataNow = []
-		  }else{
-			  this.tipDataNow = this.tipData.filter((e:any)=>e.company.indexOf(value)!=-1)
-		  }
-	  },500)
+  timeout: any = null;
+  setTipDataNow(value: any) {
+    clearTimeout(this.timeout);
+    this.timeout = null;
+    this.timeout = setTimeout(() => {
+      if (value == "") {
+        this.tipDataNow = [];
+      } else {
+        this.tipDataNow = this.tipData.filter(
+          (e: any) => e.company.indexOf(value) != -1
+        );
+      }
+    }, 500);
   }
   // 输入文字 获得名字提示
   getQBrandSongs() {
-      this.loading = true;
-      this.api.getQBrandSongs({ brand: '' }).subscribe((res: any) => {
-        this.tipData = res.data;
-        this.loading = false;
-      });
+    this.loading = true;
+    this.api.getQBrandSongs({ brand: "" }).subscribe((res: any) => {
+      this.tipData = res.data;
+      this.loading = false;
+    });
   }
   choseTip(item: any) {
     this.search(item);
+  }
+
+  qqSrcChange(params: any) {
+    let { src, i } = params;
+    this.audioSrc = src;
+    let audio: any = document.getElementById("audio");
+    setTimeout(() => {
+      this.brandSongList.forEach((item: any, index: number) => {
+        if (index == i) {
+          item.isPlay = !item.isPlay;
+          if (item.isPlay) {
+            audio.play();
+          } else {
+            audio.pause();
+          }
+        } else {
+          item.isPlay = false;
+        }
+      });
+      this.brandSongListKg.forEach((item: any, index: number) => {
+        item.isPlay = false;
+      });
+    }, 50);
+  }
+  kgSrcChange(params: any) {
+    let { src, i } = params;
+    this.audioSrc = src;
+    let audio: any = document.getElementById("audio");
+    setTimeout(() => {
+      this.brandSongListKg.forEach((item: any, index: number) => {
+        if (index == i) {
+          item.isPlay = !item.isPlay;
+          if (item.isPlay) {
+            audio.play();
+          } else {
+            audio.pause();
+          }
+        } else {
+          item.isPlay = false;
+        }
+      });
+      this.brandSongList.forEach((item: any, index: number) => {
+        item.isPlay = false;
+      });
+    }, 50);
   }
 }

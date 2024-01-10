@@ -4,14 +4,14 @@
     [nzData]="brandSongList"
     nzTitle=""
     [nzFrontPagination]="false"
+    [nzScroll]="{ x: '600px' }"
   >
     <thead>
       <tr>
-        <th nzWidth="80px" nzAlign="center">QQ</th>
-        <th nzWidth="80px" nzAlign="center">Mid</th>
+        <th nzAlign="center">酷狗</th>
+        <th nzAlign="center">Mid</th>
         <th nzAlign="center">歌名</th>
         <th nzAlign="center">指数</th>
-        <th nzAlign="center">指数排名</th>
       </tr>
     </thead>
     <tbody>
@@ -23,7 +23,7 @@
               alt=""
               style="width: 80px; height: 80px; border-radius: 6px"
             />
-            <div class="left-icon" (click)="listenMusic(item, i)">
+            <div class="left-icon" (click)="listenMusic(item.audio_url, i)">
               <img
                 *ngIf="!item.isPlay"
                 src="../../../assets/img/play-purple.png"
@@ -38,27 +38,21 @@
           </div>
         </td>
         <td nzAlign="center">
-          {{ item.mid }}
+          {{ item.album_id }}
         </td>
         <td
           nzAlign="center"
           nz-tooltip
-          [nzTooltipTitle]="'去qq搜索'"
+          [nzTooltipTitle]="'去酷狗搜索'"
           style="color: blue; cursor: pointer"
-          (click)="toSearchQQ(item)"
+          (click)="toSearchKg(item)"
         >
-          {{ item.name }}
+          {{ item.songName }}
         </td>
         <td nzAlign="center">
-          {{ common.toThousands(item.yesterday_index) }}
-        </td>
-        <td nzAlign="center">
-          {{ common.toThousands(item.yesterday_rank) }}
+          {{ common.toThousands(item.exponent) }}
         </td>
       </tr>
     </tbody>
   </nz-table>
-  <div class="play">
-    <audio id="audio" controls [src]="audioSrc"></audio>
-  </div>
 </div>

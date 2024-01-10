@@ -34,6 +34,7 @@ export class SearchSongsComponent implements OnInit {
 		}
 		if(path=='v3'){
 			this.selectItem="酷狗V3"
+			this.selectItem2 = '酷狗V3'
 			value = decodeURIComponent(value)
 			this.searchValue = value;
 			this.search(this.searchValue)
