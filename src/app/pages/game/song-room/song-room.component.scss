@@ -7,23 +7,24 @@
   position: relative;
   font: 14px/1.5 Helvetica Neue, Helvetica, Arial, Microsoft Yahei,
     Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
-	.loading{
-		color:#fff;
-		font-weight: bold;
-		font-size: 22px;
-		width: 100%;display: flex;
-		align-items: center;
-		justify-content: center;
-		padding-top: 350px;
-	}
+  .loading {
+    color: #fff;
+    font-weight: bold;
+    font-size: 22px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 350px;
+  }
 }
-.width60{
-	width:60%;
+.width60 {
+  width: 60%;
 }
 .Room {
   position: absolute;
   // width:60%;
-  z-index:666;
+  z-index: 666;
   left: 2%;
   right: 2%;
   top: 2%;
@@ -57,7 +58,7 @@
       border-radius: 10px;
       display: flex;
       flex-direction: column;
-      z-index:223;
+      z-index: 223;
       overflow-y: scroll;
       .onlineTittle {
         color: var(--message-main-text-color, #333);
@@ -159,12 +160,12 @@
     height: 60%;
     overflow-y: scroll;
   }
-  .main::-webkit-scrollbar{
-	  width:8px;
+  .main::-webkit-scrollbar {
+    width: 8px;
   }
-  .main::-webkit-scrollbar-thumb{
-	  background-color: rgba(50, 50, 50, 0.3);
-	  border-radius: 5px; // 滑块圆角
+  .main::-webkit-scrollbar-thumb {
+    background-color: rgba(50, 50, 50, 0.3);
+    border-radius: 5px; // 滑块圆角
   }
   .bottom {
     width: 100%;
@@ -189,6 +190,121 @@
           transition: all 0.3s;
           cursor: pointer;
           position: relative;
+          .ExpressionShow {
+            cursor: auto;
+            width: 370px;
+            overflow: hidden;
+            height: 300px;
+            position: absolute;
+            left: 0px;
+            top: -320px;
+            border-radius: 12px;
+            box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+          }
+          .collected {
+            cursor: auto;
+            width: 370px;
+            overflow: hidden;
+            height: 300px;
+            position: absolute;
+            left: -210px;
+            top: -320px;
+            border-radius: 12px;
+            box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+            .song-box {
+              max-height: 300px;
+              overflow-y: scroll;
+              .Songbox {
+                margin-bottom: 8px;
+                border-radius: 12px;
+                border: 1px solid #8db9cc;
+                padding: 6px;
+                box-shadow: rgb(0 0 0 / 15%) -1.4px 1.4px 3.2px;
+                font-size: 12px;
+                display: flex;
+                align-items: center;
+              }
+            }
+          }
+          .Played {
+            cursor: auto;
+            width: 370px;
+            overflow: hidden;
+            height: 300px;
+            position: absolute;
+            left: -140px;
+            top: -320px;
+            border-radius: 12px;
+            box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+            .song-box {
+              max-height: 300px;
+              overflow-y: scroll;
+              .Songbox {
+                margin-bottom: 8px;
+                border-radius: 12px;
+                border: 1px solid #8db9cc;
+                padding: 6px;
+                box-shadow: rgb(0 0 0 / 15%) -1.4px 1.4px 3.2px;
+                font-size: 12px;
+                display: flex;
+                align-items: center;
+              }
+            }
+          }
+          .searchSongs-box {
+            cursor: auto;
+            width: 370px;
+            overflow: hidden;
+            height: 300px;
+            position: absolute;
+            left: -70px;
+            top: -320px;
+            border-radius: 12px;
+            box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+            .search {
+              position: relative;
+              margin: 4px;
+              .search-ipt {
+                box-sizing: border-box;
+                height: 100%;
+                width: 100%;
+                border: none;
+                border-radius: 12px;
+                padding: 8px;
+                font-size: 12px;
+                color: #292a2b;
+                background-color: #c9c9c9;
+                opacity: 0.6;
+                margin: 6px 0;
+              }
+              .search-ipt:focus {
+                outline: none;
+              }
+              .search-icon {
+                position: absolute;
+                right: 16px;
+                top: 20px;
+                transform: translateY(-50%);
+                width: 16px;
+                height: 16px;
+                cursor: pointer;
+              }
+            }
+            .song-box {
+              max-height: 250px;
+              overflow-y: scroll;
+              .Songbox {
+                margin-bottom: 8px;
+                border-radius: 12px;
+                border: 1px solid #8db9cc;
+                padding: 6px;
+                box-shadow: rgb(0 0 0 / 15%) -1.4px 1.4px 3.2px;
+                font-size: 12px;
+                display: flex;
+                align-items: center;
+              }
+            }
+          }
         }
         .firstBox {
           margin-left: 15px;
@@ -214,28 +330,35 @@
       .songs {
         display: flex;
         align-items: center;
+        .music-lrc {
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #000;
+        }
       }
     }
   }
 }
-.video-box{
-	position: absolute;
-	top:50%;
-	transform:translateY(-50%);
-	right:2%;
-	left:64%;
-	flex-direction:column;
-	// width:34%;
-	display:flex;
-	align-items:center;
-	justify-content:flex-end;
-	background:#000;
-	border-radius:4px;
-	overflow:hidden;
-	.video{
-		width:100%;
-	}
-	.displayNone{
-		display: none;
-	}
+.video-box {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 2%;
+  left: 64%;
+  flex-direction: column;
+  // width:34%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: #000;
+  border-radius: 4px;
+  overflow: hidden;
+  .video {
+    width: 100%;
+  }
+  .displayNone {
+    display: none;
+  }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { SocketService } from "../../../services/socket.service";
 import { ApiService } from "../../../services/api.service";
 import { NzMessageService } from "ng-zorro-antd/message";
+import { CommonService } from "../../../services/common.service";
+
 @Component({
   selector: "ngx-song-room",
   templateUrl: "./song-room.component.html",
@@ -11,7 +13,8 @@ export class SongRoomComponent implements OnInit, OnDestroy {
   constructor(
     public api: ApiService,
     public socket: SocketService,
-    public message: NzMessageService
+    public message: NzMessageService,
+    public common: CommonService
   ) {}
   ngOnDestroy() {
     console.log("注销页面");
@@ -88,6 +91,39 @@ export class SongRoomComponent implements OnInit, OnDestroy {
     // 	audio.srcObject = stream;
     // })
   }
+  // 酷我歌词处理
+  kuwoLyricProcessing(lyric: any) {
+    lyric.replaceAll("\n", "");
+    let lrcArr = [];
+    try {
+      // 处理歌词，转化成key为时间，value为歌词的对象
+      let lyricArr = lyric.split("[").slice(1); // 先以[进行分割
+      if (lyricArr.length == 0) {
+        return false;
+      }
+      lyricArr.forEach((item: any) => {
+        let arr = item.split("]"); // 再分割右括号
+        let lrcObj = {};
+        // 时间换算成毫秒
+        let s = arr[0];
+
+        arr[0] = s * 1000;
+        if (arr[1] != "\r\n" && arr[1] != null && !isNaN(arr[0])) {
+          // 去除歌词中的换行符
+          // lrcObj[arr[0]] = arr[1];
+          lrcObj["key"] = arr[0];
+          lrcObj["value"] = arr[1];
+          lrcArr.push(lrcObj);
+        }
+      });
+      // 存储数据
+      return lrcArr;
+    } catch (e) {
+      console.log("歌词出错");
+      console.log(e);
+      return false;
+    }
+  }
   messageFun(data: any) {
     if (data.type == "info") {
       this.liveAuth = data.liveAuth || {};
@@ -130,6 +166,106 @@ export class SongRoomComponent implements OnInit, OnDestroy {
   notOpen() {
     this.message.info("该功能暂未开放哦~");
   }
+
+  // 点歌展开
+  searchSongs(event: any) {
+    event.stopPropagation();
+    this.IsSearchSongs = !this.IsSearchSongs;
+    this.IsShowPlayed = false;
+    this.isOnline = false;
+    this.isRoom = false;
+    this.isExpression = false;
+    this.isShowCollect = false;
+  }
+  // 展示表情
+  showExpression(event: any) {
+    event.stopPropagation();
+    this.isExpression = !this.isExpression;
+    this.IsSearchSongs = false;
+    this.IsShowPlayed = false;
+    this.isOnline = false;
+    this.isRoom = false;
+    this.isShowCollect = false;
+    if (this.isExpression && this.EmojiList.length == 0) {
+      this.loading = true;
+      this.api.GetEmojiList().subscribe((res: any) => {
+        this.loading = false;
+        if (res.success) {
+          this.EmojiList = res.data;
+        }
+      });
+    }
+  }
+  // 添加收藏;
+  addCollect(item: any) {
+    console.log(item.musicId);
+    this.loading = true;
+    try {
+      this.api
+        .AddCollectList({ musicId: item.musicId, state: true })
+        .subscribe((res: any) => {
+          this.loading = false;
+        });
+    } catch (e) {
+      this.loading = false;
+    }
+  }
+  rmCollect(item: any) {
+    console.log(item.musicId);
+    this.loading = true;
+    try {
+      this.api
+        .AddCollectList({ musicId: item.musicId, state: false })
+        .subscribe((res: any) => {
+          this.loading = false;
+        });
+    } catch (e) {
+      this.loading = false;
+    }
+  }
+  sendExpression(Emoji: any) {
+    this.inputValue += Emoji;
+  }
+  onClickChild(e: any) {
+    e.cancelBubble = true;
+  }
+  // 已点歌曲展示
+  showPlayed(event: any) {
+    event.stopPropagation();
+    this.IsShowPlayed = !this.IsShowPlayed;
+    this.isExpression = false;
+    this.IsSearchSongs = false;
+    this.isOnline = false;
+    this.isRoom = false;
+    this.isShowCollect = false;
+    if (this.IsShowPlayed) {
+      this.loading = true;
+      this.api.GetMusicChatRoomList().subscribe((res: any) => {
+        this.loading = false;
+        if (res.success) {
+          this.SongPlayedList = res.data;
+        }
+      });
+    }
+  }
+  showCollect(event: any) {
+    event.stopPropagation();
+    this.IsShowPlayed = false;
+    this.isExpression = false;
+    this.IsSearchSongs = false;
+    this.isOnline = false;
+    this.isRoom = false;
+    this.isShowCollect = !this.isShowCollect;
+    if (this.isShowCollect) {
+      this.loading = true;
+      this.api.GetCollectList().subscribe((res: any) => {
+        this.loading = false;
+        if (res.success) {
+          this.collectList = res.data;
+        }
+      });
+    }
+  }
   // 移动到最底部
   scrollToButtom() {
     setTimeout(() => {
@@ -148,6 +284,26 @@ export class SongRoomComponent implements OnInit, OnDestroy {
   userTemp: any = {};
   videoShow: any = false;
   liveAuth: any = {};
+  audioSrc: any = "";
+  songPage: number = 1;
+  userId: any = localStorage.getItem("userId") || 0;
+  SongList: any = [];
+  loading = false;
+  musicName: string = "";
+  autoplay = "";
+  // 当前歌词
+  lyricKey: any = 0;
+  lyricIndex: any = 0;
+  lyricData: any = [];
+  SongPlayedList: any = [];
+  IsSearchSongs: boolean = false;
+  searchValue: string = "";
+  searchHolder: string = "请输入搜索歌曲";
+  IsShowPlayed: boolean = false;
+  isExpression: boolean = false;
+  isShowCollect: boolean = false;
+  EmojiList: any = [];
+  collectList: any = [];
   openLive() {
     this.videoShow = !this.videoShow;
     // 去看别人直播
@@ -160,7 +316,6 @@ export class SongRoomComponent implements OnInit, OnDestroy {
       this.socket.otherleavedLive();
       return;
     }
-
     // 自己开播
     if (!this.liveAuth.id && this.videoShow) {
       this.mediaDevices();
@@ -201,15 +356,152 @@ export class SongRoomComponent implements OnInit, OnDestroy {
     event.stopPropagation();
     this.isOnline = !this.isOnline;
     this.isRoom = false;
+    this.IsSearchSongs = false;
+    this.isExpression = false;
   }
   showHome(event: any) {
     event.stopPropagation();
     this.isRoom = !this.isRoom;
     this.isOnline = false;
+    this.IsSearchSongs = false;
+    this.isExpression = false;
   }
   showMessage() {
     this.isOnline = false;
     this.isRoom = false;
+    this.IsSearchSongs = false;
+    this.IsShowPlayed = false;
+    this.isExpression = false;
+    this.isShowCollect = false;
+  }
+  // 点歌搜索歌曲
+  focusSearchSongs(e: any) {
+    document.onkeydown = (event_e: any) => {
+      if (event_e.keyCode === 13) {
+        this.SearchSong();
+      }
+    };
+  }
+  // 点歌搜索歌曲
+  SearchSong() {
+    this.loading = true;
+    try {
+      this.api
+        .ChooseSongSearchComprehensiveServices({
+          SongName: this.searchValue,
+          Page: this.songPage,
+        })
+        .subscribe((res: any) => {
+          this.loading = false;
+          if (res.success) {
+            for (let i = 0; i < res.data.length; i++) {
+              res.data[i].isPlay = false;
+              if (typeof res.data[i].singer == "object") {
+                res.data[i].singer = res.data[i].singer.join(",");
+              }
+              if (res.data[i].type == "酷我") {
+                res.data[i].Lyric = this.kuwoLyricProcessing(res.data[i].Lyric);
+              }
+              if (res.data[i].type == "QQ") {
+                res.data[i].Lyric = this.common.parseLRC(res.data[i].Lyric);
+                res.data[i].audioUrl =
+                  "https://dl.stream.qqmusic.qq.com/" + res.data[i].audioUrl;
+              }
+              if (res.data[i].type == "酷狗" || res.data[i].type == "网易云") {
+                res.data[i].Lyric = this.common.parseLRC(res.data[i].Lyric);
+              }
+            }
+            this.SongList = res.data;
+            console.log(res.data);
+          }
+        });
+    } catch (e) {
+      this.loading = false;
+    }
+  }
+  // 滚动方法
+  songScroll(e: any) {
+    console.log(e);
+  }
+  // 歌曲进度
+  timeupdate(e: any) {
+    this.lyricUp(e.srcElement.currentTime);
+  }
+  // 点歌播放
+  listenMusic(item: any, indexs: any) {
+    this.loading = true;
+    let typeNum = 0;
+    if (item.type == "QQ") {
+      typeNum = 1;
+    } else if (item.type == "酷狗") {
+      typeNum = 2;
+    } else if (item.type == "网易云") {
+      typeNum = 3;
+    } else if (item.type == "酷我") {
+      typeNum = 4;
+    }
+    try {
+      this.api
+        .SetMusicChatRoom({
+          musicId: item.id,
+          name: item.name,
+          singerName: item.singer,
+          albumName: item.albumName,
+          albumSubtitle: item.albumSubtitle,
+          ImageUrl: item.ImageUrl,
+          lyric: JSON.stringify(item.Lyric),
+          platformType: typeNum,
+          time: Date.now(),
+          userId: this.userId,
+        })
+        .subscribe((res: any) => {
+          if (res.success) {
+            this.loading = false;
+            this.message.success(res.message);
+          } else {
+            this.message.error("添加失败");
+          }
+        });
+    } catch (e) {
+      this.loading = false;
+    }
+
+    // this.musicName = item.name;
+    // this.lyricData = this.SongList[indexs].Lyric;
+    // this.audioSrc = item.audioUrl;
+    // let audio: any = document.getElementById("audio");
+    // setTimeout(() => {
+    //   this.SongList.forEach((item: any, index: number) => {
+    //     if (index == indexs) {
+    //       item.isPlay = !item.isPlay;
+    //       if (item.isPlay) {
+    //         audio.play();
+    //       } else {
+    //         audio.pause();
+    //       }
+    //     } else {
+    //       item.isPlay = false;
+    //     }
+    //   });
+    // }, 50);
+  }
+
+  // 歌词上滚
+  lyricUp(currentTime: any) {
+    for (let i = 0; i < this.lyricData.length; i++) {
+      if (currentTime * 1000 > this.lyricData[i].key) {
+        this.lyricKey = this.lyricData[i].key;
+        this.lyricIndex = i;
+      }
+    }
+  }
+  // 歌词回看
+  PreviousLyric() {
+    if (this.lyricIndex > 0) {
+      let audio: any = document.getElementById("audio");
+      audio.currentTime = this.lyricData[this.lyricIndex - 1].key / 1000;
+      audio.play();
+    }
   }
   focus(e: any) {
     e.preventDefault();

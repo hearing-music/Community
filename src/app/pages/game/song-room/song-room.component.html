@@ -1,6 +1,6 @@
 <div class="songRoom" (click)="showMessage()">
-	<div class="loading" *ngIf='!loadingFinished'>连接中...</div>
-  <div class="Room" *ngIf='loadingFinished' [ngClass]='{"width60":videoShow}'>
+  <div class="loading" *ngIf="!loadingFinished">连接中...</div>
+  <div class="Room" *ngIf="loadingFinished" [ngClass]="{ width60: videoShow }">
     <div class="top">
       <div class="topLeftInner">
         <div class="leftInner">
@@ -19,8 +19,13 @@
 		  <span>官网</span>
         </div> -->
         <div class="website" (click)="showOnline($event)">
-          <span nz-icon nzType="wechat" nzTheme="outline" style="margin-right: 5px"></span>
-		  <span>在线</span>
+          <span
+            nz-icon
+            nzType="wechat"
+            nzTheme="outline"
+            style="margin-right: 5px"
+          ></span>
+          <span>在线</span>
         </div>
         <div class="website" (click)="showHome($event)">
           <span nz-icon [nzType]="'home'" style="margin-right: 5px"></span
@@ -37,11 +42,19 @@
           <div class="userBox" *ngFor="let data of user">
             <div class="user">
               <div>
-                <img [src]="data.avatar?data.avatar:defaultAvatar" alt="" class="userImg" />
+                <img
+                  [src]="data.avatar ? data.avatar : defaultAvatar"
+                  alt=""
+                  class="userImg"
+                />
               </div>
               <div class="userDetail">
                 <div class="userName">{{ data.name }}</div>
-                <div class="userSignature">{{ data.signature?data.signature:'这个人很懒，什么都没留下' }}</div>
+                <div class="userSignature">
+                  {{
+                    data.signature ? data.signature : "这个人很懒，什么都没留下"
+                  }}
+                </div>
               </div>
             </div>
           </div>
@@ -52,75 +65,606 @@
           <div class="onlineTittle">
             <div>房间信息</div>
             <div>
-				<p>听见大舞台，有歌你就来!</p>
-			</div>
+              <p>听见大舞台，有歌你就来!</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="main" id='chatScroll'>
-		<ngx-chatTemp *ngFor='let item of chat;' [chatItem]='item' [myInfo]='myInfo'></ngx-chatTemp>
-	</div>
+    <div class="main" id="chatScroll">
+      <ngx-chatTemp
+        *ngFor="let item of chat"
+        [chatItem]="item"
+        [myInfo]="myInfo"
+      ></ngx-chatTemp>
+    </div>
     <div class="bottom">
       <div class="topMusic">
-        <nz-progress [nzPercent]="50" nzSize="small" [nzShowInfo]="false"></nz-progress>
+        <nz-progress
+          [nzPercent]="50"
+          nzSize="small"
+          [nzShowInfo]="false"
+        ></nz-progress>
       </div>
       <div class="messageTopBox">
         <div class="toolbar-left">
-          <div class="expression-box firstBox" (click)='notOpen()'>
+          <!-- 表情 -->
+          <div class="expression-box firstBox" (click)="showExpression($event)">
             <span nz-icon nzType="file-image" nzTheme="outline"></span
             ><span>表情</span>
+            <div
+              class="ExpressionShow"
+              *ngIf="isExpression"
+              (click)="onClickChild($event)"
+            >
+              <div style="display: flex; align-items: center">
+                <div
+                  *ngFor="let item of EmojiList"
+                  style="
+                    font-size: 24px;
+                    cursor: pointer;
+                    margin: 12px 0px 0px 12px;
+                  "
+                  (click)="sendExpression(item)"
+                >
+                  {{ item }}
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="expression-box" (click)='notOpen()'>
-            <span nz-icon nzType="aim" nzTheme="outline"></span
-            ><span>点歌</span>
+          <!-- 点歌 -->
+          <div class="expression-box" (click)="searchSongs($event)">
+            <span nz-icon nzType="aim" nzTheme="outline"></span>
+            <span>点歌</span>
+            <div
+              class="searchSongs-box"
+              *ngIf="IsSearchSongs"
+              (click)="onClickChild($event)"
+            >
+              <div class="search">
+                <!-- 搜索 -->
+                <input
+                  [(ngModel)]="searchValue"
+                  [placeholder]="searchHolder"
+                  class="search-ipt"
+                  type="text"
+                  (focus)="focusSearchSongs($event)"
+                />
+                <span
+                  nz-icon
+                  nzType="search"
+                  nzTheme="outline"
+                  style="font-size: 16px; color: #08c"
+                  (click)="SearchSong()"
+                  class="search-icon"
+                ></span>
+              </div>
+              <div class="song-box" (wheel)="songScroll($event)">
+                <div
+                  *ngFor="let item of SongList; let i = index"
+                  class="Songbox"
+                >
+                  <div>
+                    <img [src]="item.ImageUrl" alt="" style="width: 30px" />
+                  </div>
+                  <div style="margin-left: 8px">
+                    <div
+                      style="width: 310px; display: flex; align-items: center"
+                    >
+                      <div style="display: flex; align-items: center">
+                        <span>
+                          <img
+                            src="assets/img/qqmusic.png"
+                            alt=""
+                            *ngIf="item.type == 'QQ'"
+                            style="width: 16px"
+                          />
+                          <img
+                            src="assets/img/wyymusic.png"
+                            alt=""
+                            *ngIf="item.type == '网易云'"
+                            style="width: 16px"
+                          />
+                          <img
+                            src="assets/img/kwmusic.png"
+                            alt=""
+                            *ngIf="item.type == '酷我'"
+                            style="width: 16px"
+                          />
+                          <img
+                            src="assets/img/kgmusic.png"
+                            alt=""
+                            *ngIf="item.type == '酷狗'"
+                            style="width: 16px"
+                          />
+                        </span>
+                        <span
+                          nz-tooltip
+                          [nzTooltipTitle]="item.name"
+                          style="
+                            max-width: 130px;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            word-break: break-all;
+                            white-space: nowrap;
+                          "
+                        >
+                          {{ item.name }}
+                        </span>
+                      </div>
+                      <div style="margin-left: 10px">
+                        <div style="display: flex; align-items: center">
+                          <img
+                            src="assets/img/albumName.png"
+                            alt=""
+                            style="width: 16px; height: 16px"
+                          />
+                          <span
+                            nz-tooltip
+                            [nzTooltipTitle]="item.albumSubtitle"
+                            style="
+                              max-width: 130px;
+                              text-overflow: ellipsis;
+                              overflow: hidden;
+                              word-break: break-all;
+                              white-space: nowrap;
+                            "
+                          >
+                            {{ item.albumName }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="width: 310px">
+                      <div
+                        style="
+                          max-width: 80px;
+                          text-overflow: ellipsis;
+                          overflow: hidden;
+                          word-break: break-all;
+                          white-space: nowrap;
+                          float: left;
+                          align-items: center;
+                        "
+                      >
+                        <span nz-tooltip [nzTooltipTitle]="item.singer">
+                          {{ item.singer }}
+                        </span>
+                      </div>
+                      <div
+                        style="
+                          max-width: 70px;
+                          text-overflow: ellipsis;
+                          overflow: hidden;
+                          word-break: break-all;
+                          white-space: nowrap;
+                          margin-left: 10px;
+                          float: left;
+                          align-items: center;
+                        "
+                      >
+                        <span style="display: flex; align-items: center">
+                          <img
+                            src="assets/img/homeComment.png"
+                            alt=""
+                            style="width: 20px; height: 20px"
+                          />
+                          {{ item.Comment }}
+                        </span>
+                      </div>
+                      <div
+                        style="
+                          margin-right: 18px;
+                          float: right;
+                          align-items: center;
+                        "
+                      >
+                        <img
+                          src="assets/img/addPlayed.png"
+                          alt=""
+                          style="width: 19px; height: 19px; cursor: pointer"
+                          (click)="listenMusic(item, i)"
+                        />
+                      </div>
+                      <!-- <div
+                        style="
+                          margin-right: 18px;
+                          float: right;
+                          align-items: center;
+                        "
+                      >
+                        <img
+                          src="assets/img/collect.png"
+                          alt=""
+                          style="width: 16px; height: 16px; cursor: pointer"
+                        />
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="expression-box" (click)='notOpen()'>
-            <span nz-icon nzType="history" nzTheme="outline"></span
-            ><span>已点</span>
+          <!-- 已点 -->
+          <div class="expression-box" (click)="showPlayed($event)">
+            <span nz-icon nzType="history" nzTheme="outline"></span>
+            <span>已点</span>
+            <div
+              class="Played"
+              (click)="onClickChild($event)"
+              *ngIf="IsShowPlayed"
+            >
+              <div class="song-box" (wheel)="songScroll($event)">
+                <div
+                  *ngFor="let item of SongPlayedList; let i = index"
+                  class="Songbox"
+                >
+                  <div>
+                    <img [src]="item.ImageUrl" alt="" style="width: 30px" />
+                  </div>
+                  <div style="margin-left: 8px">
+                    <div
+                      style="width: 310px; display: flex; align-items: center"
+                    >
+                      <div style="display: flex; align-items: center">
+                        <span>
+                          <img
+                            src="assets/img/qqmusic.png"
+                            alt=""
+                            *ngIf="item.platformType == 'QQ'"
+                            style="width: 16px"
+                          />
+                          <img
+                            src="assets/img/wyymusic.png"
+                            alt=""
+                            *ngIf="item.platformType == '网易云'"
+                            style="width: 16px"
+                          />
+                          <img
+                            src="assets/img/kwmusic.png"
+                            alt=""
+                            *ngIf="item.platformType == '酷我'"
+                            style="width: 16px"
+                          />
+                          <img
+                            src="assets/img/kgmusic.png"
+                            alt=""
+                            *ngIf="item.platformType == '酷狗'"
+                            style="width: 16px"
+                          />
+                        </span>
+                        <span
+                          nz-tooltip
+                          [nzTooltipTitle]="item.name"
+                          style="
+                            max-width: 150px;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            word-break: break-all;
+                            white-space: nowrap;
+                          "
+                        >
+                          {{ item.name }}
+                        </span>
+                      </div>
+                      <div style="margin-left: 10px">
+                        <div style="display: flex; align-items: center">
+                          <img
+                            src="assets/img/albumName.png"
+                            alt=""
+                            style="width: 16px; height: 16px"
+                          />
+                          <span
+                            nz-tooltip
+                            [nzTooltipTitle]="item.albumSubtitle"
+                            style="
+                              max-width: 150px;
+                              text-overflow: ellipsis;
+                              overflow: hidden;
+                              word-break: break-all;
+                              white-space: nowrap;
+                            "
+                          >
+                            {{ item.albumName }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="width: 310px">
+                      <div
+                        style="
+                          max-width: 70px;
+                          text-overflow: ellipsis;
+                          overflow: hidden;
+                          word-break: break-all;
+                          white-space: nowrap;
+                          float: left;
+                          align-items: center;
+                        "
+                      >
+                        <span nz-tooltip [nzTooltipTitle]="item.singerName">
+                          {{ item.singerName }}
+                        </span>
+                      </div>
+                      <div
+                        style="
+                          max-width: 150px;
+                          text-overflow: ellipsis;
+                          overflow: hidden;
+                          word-break: break-all;
+                          white-space: nowrap;
+                          margin-left: 10px;
+                          float: left;
+                          align-items: center;
+                        "
+                      >
+                        <span> 加入时间:{{ common.getTime(item.time) }} </span>
+                      </div>
+                      <div
+                        style="
+                          margin-right: 18px;
+                          float: right;
+                          align-items: center;
+                        "
+                      >
+                        <img
+                          src="assets/img/collect.png"
+                          alt=""
+                          style="width: 16px; height: 16px; cursor: pointer"
+                          (click)="addCollect(item)"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="expression-box" (click)='notOpen()'>
-            <span nz-icon nzType="heart" nzTheme="outline"></span
-            ><span>收藏</span>
+          <!-- 收藏 -->
+          <div class="expression-box" (click)="showCollect($event)">
+            <span nz-icon nzType="heart" nzTheme="outline"></span>
+            <span>收藏</span>
+            <div
+              class="collected"
+              (click)="onClickChild($event)"
+              *ngIf="isShowCollect"
+            >
+              <div class="song-box" (wheel)="songScroll($event)">
+                <div
+                  *ngFor="let item of collectList; let i = index"
+                  class="Songbox"
+                >
+                  <div>
+                    <img [src]="item.ImageUrl" alt="" style="width: 30px" />
+                  </div>
+                  <div style="margin-left: 8px">
+                    <div
+                      style="width: 310px; display: flex; align-items: center"
+                    >
+                      <div style="display: flex; align-items: center">
+                        <span>
+                          <img
+                            src="assets/img/qqmusic.png"
+                            alt=""
+                            *ngIf="item.platformType == 'QQ'"
+                            style="width: 16px"
+                          />
+                          <img
+                            src="assets/img/wyymusic.png"
+                            alt=""
+                            *ngIf="item.platformType == '网易云'"
+                            style="width: 16px"
+                          />
+                          <img
+                            src="assets/img/kwmusic.png"
+                            alt=""
+                            *ngIf="item.platformType == '酷我'"
+                            style="width: 16px"
+                          />
+                          <img
+                            src="assets/img/kgmusic.png"
+                            alt=""
+                            *ngIf="item.platformType == '酷狗'"
+                            style="width: 16px"
+                          />
+                        </span>
+                        <span
+                          nz-tooltip
+                          [nzTooltipTitle]="item.name"
+                          style="
+                            max-width: 150px;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            word-break: break-all;
+                            white-space: nowrap;
+                          "
+                        >
+                          {{ item.name }}
+                        </span>
+                      </div>
+                      <div style="margin-left: 10px">
+                        <div style="display: flex; align-items: center">
+                          <img
+                            src="assets/img/albumName.png"
+                            alt=""
+                            style="width: 16px; height: 16px"
+                          />
+                          <span
+                            nz-tooltip
+                            [nzTooltipTitle]="item.albumSubtitle"
+                            style="
+                              max-width: 150px;
+                              text-overflow: ellipsis;
+                              overflow: hidden;
+                              word-break: break-all;
+                              white-space: nowrap;
+                            "
+                          >
+                            {{ item.albumName }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="width: 310px">
+                      <div
+                        style="
+                          max-width: 70px;
+                          text-overflow: ellipsis;
+                          overflow: hidden;
+                          word-break: break-all;
+                          white-space: nowrap;
+                          float: left;
+                          align-items: center;
+                        "
+                      >
+                        <span nz-tooltip [nzTooltipTitle]="item.singerName">
+                          {{ item.singerName }}
+                        </span>
+                      </div>
+                      <div
+                        style="
+                          margin-right: 18px;
+                          float: right;
+                          align-items: center;
+                        "
+                      >
+                        <img
+                          src="assets/img/collected.png"
+                          alt=""
+                          style="width: 16px; height: 16px; cursor: pointer"
+                          (click)="rmCollect(item)"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-		  <div class="expression-box" (click)='openLive()'>
-		    <span nz-icon nzType="play-circle" nzTheme="outline"></span>
-			<span *ngIf='!videoShow&&myInfo.id!=liveAuth.id&&!liveAuth.id'>开启直播</span>
-			<span *ngIf='videoShow'>关闭直播</span>
-			<span *ngIf='myInfo.id!=liveAuth.id&&!videoShow&&liveAuth.id'>有人正在直播，去看看</span>
-		  </div>
+          <div class="expression-box" (click)="openLive()">
+            <span nz-icon nzType="play-circle" nzTheme="outline"></span>
+            <span
+              *ngIf="!videoShow && myInfo.id != liveAuth.id && !liveAuth.id"
+            >
+              开启直播
+            </span>
+            <span *ngIf="videoShow">关闭直播</span>
+            <span *ngIf="myInfo.id != liveAuth.id && !videoShow && liveAuth.id"
+              >有人正在直播，去看看
+            </span>
+          </div>
         </div>
         <div class="toolbar-Right">
-          <div class="collect" (click)='notOpen()'>
-			<span nz-icon nzType="star" nzTheme="outline" style="margin-right: 5px; cursor: pointer"></span>
-            <span>歌曲名</span>
-            <span nz-icon nzType="play-circle" nzTheme="outline" style="margin-right: 5px; cursor: pointer"></span>
-            <span nz-icon nzType="plus-circle" nzTheme="outline" style="cursor: pointer"></span>
+          <div class="collect" (click)="notOpen()">
+            <span
+              nz-icon
+              nzType="star"
+              nzTheme="outline"
+              style="margin-right: 5px; cursor: pointer"
+            ></span>
+            <span
+              style="
+                text-overflow: ellipsis;
+                overflow: hidden;
+                word-break: break-all;
+                white-space: nowrap;
+                max-width: 80px;
+              "
+              >{{ musicName ? musicName : "歌曲名" }}</span
+            >
+            <span
+              nz-icon
+              nzType="play-circle"
+              nzTheme="outline"
+              style="margin-right: 5px; cursor: pointer"
+            ></span>
+            <span
+              nz-icon
+              nzType="plus-circle"
+              nzTheme="outline"
+              style="cursor: pointer"
+            ></span>
           </div>
         </div>
       </div>
       <div style="margin-top: 1%">
-        <textarea rows="3" nz-input [(ngModel)]="inputValue" nzBorderless="true" placeholder="请输入聊天内容"
-		  style='resize:none;' (focus)="focus($event)" (blur)="blur()"></textarea>
+        <textarea
+          rows="3"
+          nz-input
+          [(ngModel)]="inputValue"
+          nzBorderless="true"
+          placeholder="请输入聊天内容"
+          style="resize: none"
+          (focus)="focus($event)"
+          (blur)="blur()"
+        ></textarea>
       </div>
       <div class="bottom">
-        <div class="songs" style="margin-left: 15px; cursor: pointer" (click)='notOpen()'>
-          <span nz-icon nzType="step-backward" nzTheme="outline"></span
-          ><span>歌曲名</span>
+        <div class="songs" style="margin-left: 15px">
+          <span
+            nz-icon
+            nzType="step-backward"
+            nzTheme="outline"
+            style="cursor: pointer"
+            (click)="PreviousLyric()"
+          ></span>
+          <span style="float: left">
+            <!-- 歌词显示 -->
+            <div class="music-lrc" *ngIf="lyricData.length > 0">
+              <div class="" *ngFor="let lyricItem of lyricData">
+                <div *ngIf="lyricItem.key == lyricKey">
+                  {{ lyricItem.value }}
+                </div>
+              </div>
+            </div>
+            <div class="music-lrc" *ngIf="lyricData.length == 0">歌词</div>
+          </span>
         </div>
-        <div class="songs" style="margin-right: 15px; cursor: pointer" (click)='notOpen()'>
+        <div
+          class="songs"
+          style="margin-right: 15px; cursor: pointer"
+          (click)="notOpen()"
+        >
           <span nz-icon [nzType]="'setting'" [nzTheme]="'outline'"></span>
         </div>
       </div>
     </div>
   </div>
-  <div class="video-box" *ngIf='loadingFinished'>
-	  <video id="local-video" autoplay playsinline style="width:100%;" [ngClass]='{"displayNone":myInfo.id!=liveAuth.id}'></video>
-	  <audio id="local-audio" autoplay [muted]='myInfo.id!=liveAuth.id' [ngClass]='{"displayNone":myInfo.id!=liveAuth.id}'></audio>
-	  <video id="remote-video" autoplay playsinline style="width:100%;" [ngClass]='{"displayNone":myInfo.id==liveAuth.id}'></video>
-	  <audio id="remote-audio" autoplay [muted]='myInfo.id==liveAuth.id' [ngClass]='{"displayNone":myInfo.id==liveAuth.id}'></audio>
-	  <div *ngIf='!liveAuth.id'>
-		  暂无人开播
-	  </div>
+  <div class="video-box" *ngIf="loadingFinished">
+    <video
+      id="local-video"
+      autoplay
+      playsinline
+      style="width: 100%"
+      [ngClass]="{ displayNone: myInfo.id != liveAuth.id }"
+    ></video>
+    <audio
+      id="local-audio"
+      autoplay
+      [muted]="myInfo.id != liveAuth.id"
+      [ngClass]="{ displayNone: myInfo.id != liveAuth.id }"
+    ></audio>
+    <video
+      id="remote-video"
+      autoplay
+      playsinline
+      style="width: 100%"
+      [ngClass]="{ displayNone: myInfo.id == liveAuth.id }"
+    ></video>
+    <audio
+      id="remote-audio"
+      autoplay
+      [muted]="myInfo.id == liveAuth.id"
+      [ngClass]="{ displayNone: myInfo.id == liveAuth.id }"
+    ></audio>
+    <div *ngIf="!liveAuth.id">暂无人开播</div>
   </div>
+  <audio
+    id="audio"
+    controls
+    [src]="audioSrc"
+    hidden="true"
+    (timeupdate)="timeupdate($event)"
+  ></audio>
+  <ngx-loading *ngIf="loading"></ngx-loading>
 </div>

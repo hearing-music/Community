@@ -930,6 +930,66 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/searchPage/fiveSing?keyword=" + keyword + "&page=" + page + "&pagesize=" + pagesize)
 	}
+	 // 点歌搜索
+	  ChooseSongSearchComprehensiveServices(params: any) {
+	    let { SongName, Page } = params;
+	    return this.http.get(
+	      this.baseUrl +
+	        "/kugou/ChooseSongSearchComprehensiveServices?SongName=" +
+	        SongName +
+	        "&Page=" +
+	        Page
+	    );
+	  }
+	  // 获取已点歌曲列表
+	  GetMusicChatRoomList() {
+	    return this.http.get(this.baseUrl + "/kugou/GetMusicChatRoomList");
+	  }
+	  // 获取表情列表
+	  GetEmojiList() {
+	    return this.http.get(this.baseUrl + "/qq/GetEmojiList");
+	  }
+	
+	  // 点歌
+	  SetMusicChatRoom(params: any) {
+	    let {
+	      musicId,
+	      name,
+	      singerName,
+	      albumName,
+	      albumSubtitle,
+	      ImageUrl,
+	      lyric,
+	      platformType,
+	      time,
+	      userId,
+	    } = params;
+	    return this.http.post(this.baseUrl + "/kugou/SetMusicChatRoom", {
+	      musicId,
+	      name,
+	      singerName,
+	      albumName,
+	      albumSubtitle,
+	      ImageUrl,
+	      lyric,
+	      platformType,
+	      time,
+	      userId,
+	      collect: { data: [{ time: Date.now(), user: 2 }] },
+	    });
+	  }
+	  // 展示用户收藏
+	  GetCollectList() {
+	    return this.http.post(this.baseUrl + "/kugou/GetCollectList", {});
+	  }
+	  // 添加收藏
+	  AddCollectList(params: any) {
+	    let { musicId, state } = params;
+	    return this.http.post(this.baseUrl + "/kugou/SetMusicCollect", {
+	      state,
+	      musicId,
+	    });
+	  }
 	  //获取厂牌
 	  GetbrandUser(params: any) {
 	    let { page, pagesize, keyword } = params;
