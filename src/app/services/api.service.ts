@@ -208,6 +208,10 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/qq/search_qq_musician?page=" + page + "&keyword=" + keyword)
 	}
+	// 腾讯音乐人搜索 电话
+	getMusician_phone(params:any){
+		return this.http.get(this.baseUrl + "/qq/search_qq_musician_phone?uinList=" + params.uinList)
+	}
 	// 抖音热点
 	getDouyinHot() {
 		return this.http.get(this.baseUrl + "/douyin/douyin_hot")
