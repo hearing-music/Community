@@ -3,6 +3,7 @@ import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute } from '@angular/router'
+import { timeout, catchError } from 'rxjs/operators';
 @Component({
 	selector: 'ngx-search-songs',
 	templateUrl: './search-songs.component.html',
@@ -319,7 +320,7 @@ export class SearchSongsComponent implements OnInit {
 		this.api.getV3_2({
 			keyword: this.searchValue,
 			page: this.kugouNewV3Page
-		}).subscribe((res: any) => {
+		}).pipe(timeout(8000)).subscribe((res: any) => {
 			this.loading = false;
 			console.log(res)
 			if (res.success) {
@@ -339,6 +340,7 @@ export class SearchSongsComponent implements OnInit {
 			}
 		}, (err: any) => {
 			console.log(err)
+			this.message.info('网络不稳定，请重试')
 			this.loading = false;
 		})
 	}
@@ -792,7 +794,7 @@ export class SearchSongsComponent implements OnInit {
 		this.api.getQQ({
 			keyword: this.searchValue,
 			page: this.qqPage
-		}).subscribe((res: any) => {
+		}).pipe(timeout(8000)).subscribe((res: any) => {
 			this.loading = false;
 			console.log(res)
 			if(res.success){
@@ -861,7 +863,8 @@ export class SearchSongsComponent implements OnInit {
 				this.qqList = [...this.qqList, ...res.result];
 			}
 		}, (err: any) => {
-			console.log(err)
+			console.log(err,'超时')
+			this.message.info('网络不稳定，请重试')
 			this.loading = false;
 		})
 	}
@@ -870,7 +873,7 @@ export class SearchSongsComponent implements OnInit {
 		this.api.getV3({
 			keyword: this.searchValue,
 			page: this.kugouV3Page
-		}).subscribe((res: any) => {
+		}).pipe(timeout(8000)).subscribe((res: any) => {
 			this.loading = false;
 			console.log(res)
 			if (res.success) {
@@ -890,6 +893,7 @@ export class SearchSongsComponent implements OnInit {
 			}
 		}, (err: any) => {
 			console.log(err)
+			this.message.info('网络不稳定，请重试')
 			this.loading = false;
 		})
 	}
