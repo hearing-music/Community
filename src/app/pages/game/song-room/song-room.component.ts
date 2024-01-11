@@ -71,6 +71,14 @@ export class SongRoomComponent implements OnInit, OnDestroy {
     this.socket.onCloseLive((data: any) => {
       console.log("直播已关闭");
       this.liveAuth = {};
+	  const video: any = document.getElementById("local-video");
+	  const video2: any = document.getElementById("remote-video");
+	  const audio: any = document.getElementById("local-audio");
+	  const audio2: any = document.getElementById("remote-audio");
+	  video.srcObject = null;
+	  video2.srcObject = null;
+	  audio.srcObject = null;
+	  audio2.srcObject = null;
     });
     // 接收直播流
     this.socket.offer();

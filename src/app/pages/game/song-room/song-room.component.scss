@@ -211,12 +211,13 @@
             top: -320px;
             border-radius: 12px;
             box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+			overflow-y: scroll;
             .song-box {
-              max-height: 300px;
-              overflow-y: scroll;
+              // max-height: 300px;
+			  padding:16px;
               .Songbox {
                 margin-bottom: 8px;
-                border-radius: 12px;
+                border-radius: 6px;
                 border: 1px solid #8db9cc;
                 padding: 6px;
                 box-shadow: rgb(0 0 0 / 15%) -1.4px 1.4px 3.2px;
@@ -236,12 +237,13 @@
             top: -320px;
             border-radius: 12px;
             box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+			overflow-y: scroll;
             .song-box {
-              max-height: 300px;
-              overflow-y: scroll;
+				padding:16px;
+              // max-height: 300px;
               .Songbox {
                 margin-bottom: 8px;
-                border-radius: 12px;
+                border-radius: 6px;
                 border: 1px solid #8db9cc;
                 padding: 6px;
                 box-shadow: rgb(0 0 0 / 15%) -1.4px 1.4px 3.2px;
