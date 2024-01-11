@@ -320,7 +320,7 @@ export class SearchSongsComponent implements OnInit {
 		this.api.getV3_2({
 			keyword: this.searchValue,
 			page: this.kugouNewV3Page
-		}).pipe(timeout(8000)).subscribe((res: any) => {
+		}).subscribe((res: any) => {
 			this.loading = false;
 			console.log(res)
 			if (res.success) {
@@ -797,7 +797,7 @@ export class SearchSongsComponent implements OnInit {
 		this.api.getQQ({
 			keyword: this.searchValue,
 			page: this.qqPage
-		}).pipe(timeout(8000)).subscribe((res: any) => {
+		}).subscribe((res: any) => {
 			this.loading = false;
 			console.log(res)
 			if(res.success){
@@ -877,7 +877,7 @@ export class SearchSongsComponent implements OnInit {
 		this.api.getV3({
 			keyword: this.searchValue,
 			page: this.kugouV3Page
-		}).pipe(timeout(8000)).subscribe((res: any) => {
+		}).subscribe((res: any) => {
 			this.loading = false;
 			console.log(res)
 			if (res.success) {
