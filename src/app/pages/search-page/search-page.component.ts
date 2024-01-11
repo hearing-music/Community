@@ -68,13 +68,13 @@ export class SearchPageComponent implements OnInit {
 
   brandSongPage = 1;
   brandSongList: any[] = [];
-  brandSongPageSize = 30;
-  brandSongPageTotal = 30;
+  brandSongPageSize = 5;
+  brandSongPageTotal = 0;
 
   brandSongPageKg = 1;
   brandSongListKg: any[] = [];
-  brandSongPageSizeKg = 30;
-  brandSongPageTotalKg = 30;
+  brandSongPageSizeKg = 5;
+  brandSongPageTotalKg = 0;
 
   wangyisixinPage = 1;
   wangyisixinList: any[] = [];
@@ -136,7 +136,7 @@ export class SearchPageComponent implements OnInit {
     this.api
       .GetbrandSong({
         page: this.brandSongPage,
-        pagesize: this.brandSongPageSize,
+        pageSize: this.brandSongPageSize,
         brand: this.searchValue,
       })
       .subscribe((res: any) => {
@@ -170,7 +170,7 @@ export class SearchPageComponent implements OnInit {
       this.api
         .GetbrandSong({
           page: this.brandSongPage,
-          pagesize: this.brandSongPageSize,
+          pageSize: this.brandSongPageSize,
           brand: this.searchValue,
         })
         .subscribe((res: any) => {
@@ -187,7 +187,7 @@ export class SearchPageComponent implements OnInit {
       this.api
         .GetbrandSongKg({
           page: this.brandSongPageKg,
-          pagesize: this.brandSongPageSizeKg,
+          pageSize: this.brandSongPageSizeKg,
           brand: this.searchValue,
         })
         .subscribe((res: any) => {
@@ -203,7 +203,7 @@ export class SearchPageComponent implements OnInit {
     this.api
       .GetbrandSongKg({
         page: this.brandSongPageKg,
-        pagesize: this.brandSongPageSizeKg,
+        pageSize: this.brandSongPageSizeKg,
         brand: this.searchValue,
       })
       .subscribe((res: any) => {

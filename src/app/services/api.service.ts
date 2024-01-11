@@ -935,7 +935,7 @@ export class ApiService {
 	    let { SongName, Page } = params;
 	    return this.http.get(
 	      this.baseUrl +
-	        "/kugou/ChooseSongSearchComprehensiveServices?SongName=" +
+	        "/room/ChooseSongSearchComprehensiveServices?SongName=" +
 	        SongName +
 	        "&Page=" +
 	        Page
@@ -943,11 +943,11 @@ export class ApiService {
 	  }
 	  // 获取已点歌曲列表
 	  GetMusicChatRoomList() {
-	    return this.http.get(this.baseUrl + "/kugou/GetMusicChatRoomList");
+	    return this.http.get(this.baseUrl + "/room/GetMusicChatRoomList");
 	  }
 	  // 获取表情列表
 	  GetEmojiList() {
-	    return this.http.get(this.baseUrl + "/qq/GetEmojiList");
+	    return this.http.get(this.baseUrl + "/room/GetEmojiList");
 	  }
 	
 	  // 点歌
@@ -964,7 +964,7 @@ export class ApiService {
 	      time,
 	      userId,
 	    } = params;
-	    return this.http.post(this.baseUrl + "/kugou/SetMusicChatRoom", {
+	    return this.http.post(this.baseUrl + "/room/SetMusicChatRoom", {
 	      musicId,
 	      name,
 	      singerName,
@@ -980,12 +980,12 @@ export class ApiService {
 	  }
 	  // 展示用户收藏
 	  GetCollectList() {
-	    return this.http.post(this.baseUrl + "/kugou/GetCollectList", {});
+	    return this.http.post(this.baseUrl + "/room/GetCollectList", {});
 	  }
 	  // 添加收藏
 	  AddCollectList(params: any) {
 	    let { musicId, state } = params;
-	    return this.http.post(this.baseUrl + "/kugou/SetMusicCollect", {
+	    return this.http.post(this.baseUrl + "/room/SetMusicCollect", {
 	      state,
 	      musicId,
 	    });
