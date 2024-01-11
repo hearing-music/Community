@@ -339,6 +339,7 @@ export class SearchSongsComponent implements OnInit {
 				}
 			}
 		}, (err: any) => {
+			this.kugouNewV3Page = this.kugouNewV3Page==1?1:this.kugouNewV3Page - 1;
 			console.log(err)
 			this.message.info('网络不稳定，请重试')
 			this.loading = false;
@@ -769,6 +770,7 @@ export class SearchSongsComponent implements OnInit {
 				this.kuwoList = [...this.kuwoList, ...res.result];
 			}
 		}, (err: any) => {
+			this.kuwoPage = this.kuwoPage==1?1:this.kuwoPage - 1;
 			console.log(err)
 			this.loading = false;
 		})
@@ -786,6 +788,7 @@ export class SearchSongsComponent implements OnInit {
 				this.wangyiyunList = [...this.wangyiyunList, ...res.result];
 			}
 		}, (err: any) => {
+			this.wangyiyunPage = this.wangyiyunPage==1?1:this.wangyiyunPage - 1;
 			console.log(err)
 			this.loading = false;
 		})
@@ -863,6 +866,7 @@ export class SearchSongsComponent implements OnInit {
 				this.qqList = [...this.qqList, ...res.result];
 			}
 		}, (err: any) => {
+			this.qqPage = this.qqPage==1?1:this.qqPage - 1;
 			console.log(err,'超时')
 			this.message.info('网络不稳定，请重试')
 			this.loading = false;
@@ -893,6 +897,7 @@ export class SearchSongsComponent implements OnInit {
 			}
 		}, (err: any) => {
 			console.log(err)
+			this.kugouV3Page = this.kugouV3Page==1?1:this.kugouV3Page - 1;
 			this.message.info('网络不稳定，请重试')
 			this.loading = false;
 		})
