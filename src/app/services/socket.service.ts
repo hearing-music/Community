@@ -244,6 +244,30 @@ export class SocketService {
 			fun('连接成功')
 		});
 	}
-	
-	
+	// 添加到点歌列表
+	addSongs(body:any){
+		this.socketIO.emit('SetMusicChatRoom',body)
+	}
+	// 点歌反馈
+	chooseSongs(fun:any){
+		this.socketIO.on('chooseSongs',  (res:any)=> {
+			fun(res)
+		});
+	}
+	// 播放歌曲on
+	playSongs(fun:any){
+		this.socketIO.on('playSongs',  (res:any)=> {
+			fun(res)
+		});
+	}
+	// 切换歌曲emit
+	doChangeSongs(src:string){
+		this.socketIO.emit('changeSongs',src)
+	}
+	// 切换歌曲on
+	changeSongs(fun:any){
+		this.socketIO.on('changeSongs',  (res:any)=> {
+			fun(res)
+		});
+	}
 }

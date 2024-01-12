@@ -48,17 +48,15 @@
       *ngIf="selectItem == '厂牌用户'"
       [brandUserList]="brandUserList"
     ></ngx-brand-user>
-    <div style="display: flex; justify-content: space-between">
-      <div style="width: 49%">
+    <div style="display: flex; justify-content: space-between" *ngIf="selectItem == '厂牌歌曲'">
+      <div style="width: 49%;">
         <ngx-brand-song-qq
-          *ngIf="selectItem == '厂牌歌曲'"
           [brandSongList]="brandSongList"
           (change)="qqSrcChange($event)"
         ></ngx-brand-song-qq>
       </div>
-      <div style="width: 49%">
+      <div style="width: 49%;">
         <ngx-brand-song-kg
-          *ngIf="selectItem == '厂牌歌曲'"
           [brandSongList]="brandSongListKg"
           (change)="kgSrcChange($event)"
         ></ngx-brand-song-kg>

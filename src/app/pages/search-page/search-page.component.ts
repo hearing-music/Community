@@ -192,7 +192,7 @@ export class SearchPageComponent implements OnInit {
         })
         .subscribe((res: any) => {
           res.data.forEach((ele: any) => {
-            ele.audio_url = "https://dl.stream.qqmusic.qq.com/" + ele.audio_url;
+            ele.audio_url = ele.audio_url;
             ele.isPlay = false;
           });
           resolve({ data: res.data, total: res.total[0].total });

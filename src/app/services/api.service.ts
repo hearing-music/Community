@@ -979,7 +979,7 @@ export class ApiService {
 	      platformType,
 	      time,
 	      userId,
-	      collect: { data: [{ time: Date.now(), user: 2 }] },
+	      collect: { data: [] },
 	    });
 	  }
 	  // 展示用户收藏
@@ -1014,7 +1014,7 @@ export class ApiService {
 	  }
 	  //获取qq厂牌
 	  GetbrandSong(params: any) {
-	    let { page, pagesize, brand } = params;
+	    let { page, pageSize, brand } = params;
 	    return this.http.get(
 	      this.baseUrl +
 	        "/qq/QBrandSongs?brand=" +
@@ -1022,12 +1022,12 @@ export class ApiService {
 	        "&page=" +
 	        page +
 	        "&pageSize=" +
-	        pagesize
+	        pageSize
 	    );
 	  }
 	  // 获取酷狗厂牌歌曲
 	  GetbrandSongKg(params: any) {
-	    let { page, pagesize, brand } = params;
+	    let { page, pageSize, brand } = params;
 	    return this.http.get(
 	      this.baseUrl +
 	        "/kugou/KgBrandSongs?brand=" +
@@ -1035,7 +1035,7 @@ export class ApiService {
 	        "&page=" +
 	        page +
 	        "&pageSize=" +
-	        pagesize
+	        pageSize
 	    );
 	  }
 	//获取歌手关系图

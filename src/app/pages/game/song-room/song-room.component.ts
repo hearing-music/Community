@@ -21,6 +21,12 @@ export class SongRoomComponent implements OnInit, OnDestroy {
     this.socket.disconnectFun();
   }
   ngOnInit(): void {
+	  let audio: any = document.getElementById("audio");
+	  audio.addEventListener('ended', ()=> {
+	      // 这里写入音频播放结束后的操作代码
+		  console.log('播放结束')
+		  this.doChangeSongs(audio.src)
+	  })
     this.socket.login((data: any) => {
       this.loadingFinished = true;
       //连接成功
@@ -98,6 +104,55 @@ export class SongRoomComponent implements OnInit, OnDestroy {
     // 	video.srcObject = stream;
     // 	audio.srcObject = stream;
     // })
+	// 有人点歌 更新点歌列表
+	this.socket.chooseSongs((res:any)=>{
+		console.log(res,'有人点歌')
+		if(res.success){
+			res.message&&this.message.success(res.message)
+			if(res.data){
+				this.SongPlayedList = res.data
+			}
+		}else{
+			this.message.info(res.message)
+		}
+	})
+	
+	// 播放歌曲on
+	this.socket.playSongs((res:any)=>{
+		console.log(res,'该播放歌曲拉')
+		if(res.success){
+			this.playMusic(res.song,res.duration)
+		}else{
+			this.message.info(res.message)
+		}
+	})
+	this.socket.changeSongs((res:any)=>{
+		console.log(res,'该切换歌曲拉')
+		if(res.success){
+			this.SongPlayedList = res.list;
+			this.playMusic(res.song)
+		}else{
+			this.message.info(res.message)
+		}
+	})
+  }
+  playMusic(item:any,duration:number=0){
+	  if(!item.url){
+		  this.message.error('歌曲地址获取失败,切歌失败')
+		  return
+	  }
+	  this.musicName = item.name;
+	  try{
+	  	this.lyricData = JSON.parse(item.lyric);
+	  }catch(e){
+	  	//TODO handle the exception
+	  }
+	  this.audioSrc = item.url;
+	  let audio: any = document.getElementById("audio");
+	  setTimeout(() => {
+		  audio.currentTime = duration/1000
+		  audio.play();
+	  }, 50);
   }
   // 酷我歌词处理
   kuwoLyricProcessing(lyric: any) {
@@ -142,6 +197,9 @@ export class SongRoomComponent implements OnInit, OnDestroy {
         id: data.id,
       };
       this.userTemp = data.userTemp;
+	  if(data.chooseSongsList){
+		  this.SongPlayedList = data.chooseSongsList.data
+	  }
     }
     if (data.type == "system") {
       this.chat.push(data);
@@ -213,12 +271,19 @@ export class SongRoomComponent implements OnInit, OnDestroy {
         .AddCollectList({ musicId: item.musicId, state: true })
         .subscribe((res: any) => {
           this.loading = false;
+		  this.message.success(res.message)
+		  if(res.success){
+			  item.collectArr.push(this.userId)
+		  }
         });
     } catch (e) {
       this.loading = false;
     }
   }
-  rmCollect(item: any) {
+  collected(){
+	  this.message.info('已经添加收藏拉')
+  }
+  rmCollect(item: any,i:any) {
     console.log(item.musicId);
     this.loading = true;
     try {
@@ -226,6 +291,17 @@ export class SongRoomComponent implements OnInit, OnDestroy {
         .AddCollectList({ musicId: item.musicId, state: false })
         .subscribe((res: any) => {
           this.loading = false;
+		  this.message.success(res.message)
+		  if(res.success){
+			  this.collectList.splice(i,1)
+			  let index = this.SongPlayedList.findIndex((e:any)=>e.musicId==item.musicId)
+			  if(index!=-1){
+				  let index2 = this.SongPlayedList[index].collectArr.findIndex((e:any)=>e == this.userId)
+				  if(index2!=-1){
+					  this.SongPlayedList[index].collectArr.splice(index2,1)
+				  }
+			  }
+		  }
         });
     } catch (e) {
       this.loading = false;
@@ -246,15 +322,15 @@ export class SongRoomComponent implements OnInit, OnDestroy {
     this.isOnline = false;
     this.isRoom = false;
     this.isShowCollect = false;
-    if (this.IsShowPlayed) {
-      this.loading = true;
-      this.api.GetMusicChatRoomList().subscribe((res: any) => {
-        this.loading = false;
-        if (res.success) {
-          this.SongPlayedList = res.data;
-        }
-      });
-    }
+    // if (this.IsShowPlayed) {
+    //   this.loading = true;
+    //   this.api.GetMusicChatRoomList().subscribe((res: any) => {
+    //     this.loading = false;
+    //     if (res.success) {
+    //       this.SongPlayedList = res.data;
+    //     }
+    //   });
+    // }
   }
   showCollect(event: any) {
     event.stopPropagation();
@@ -429,7 +505,7 @@ export class SongRoomComponent implements OnInit, OnDestroy {
   }
   // 滚动方法
   songScroll(e: any) {
-    console.log(e);
+    // console.log(e);
   }
   // 歌曲进度
   timeupdate(e: any) {
@@ -437,7 +513,7 @@ export class SongRoomComponent implements OnInit, OnDestroy {
   }
   // 点歌播放
   listenMusic(item: any, indexs: any) {
-    this.loading = true;
+    // this.loading = true;
     let typeNum = 0;
     if (item.type == "QQ") {
       typeNum = 1;
@@ -449,10 +525,8 @@ export class SongRoomComponent implements OnInit, OnDestroy {
       typeNum = 4;
     }
     try {
-      this.api
-        .SetMusicChatRoom({
-          musicId: item.id,
-          name: item.name,
+		this.socket.addSongs({ musicId: typeNum==1?item.mid:item.id,
+          name: this.common.deleteEM(item.name),
           singerName: item.singer,
           albumName: item.albumName,
           albumSubtitle: item.albumSubtitle,
@@ -461,15 +535,28 @@ export class SongRoomComponent implements OnInit, OnDestroy {
           platformType: typeNum,
           time: Date.now(),
           userId: this.userId,
-        })
-        .subscribe((res: any) => {
-          if (res.success) {
-            this.loading = false;
-            this.message.success(res.message);
-          } else {
-            this.message.error("添加失败");
-          }
-        });
+		  collect: { data: [] }})
+      // this.api
+      //   .SetMusicChatRoom({
+      //     musicId: item.id,
+      //     name: item.name,
+      //     singerName: item.singer,
+      //     albumName: item.albumName,
+      //     albumSubtitle: item.albumSubtitle,
+      //     ImageUrl: item.ImageUrl,
+      //     lyric: JSON.stringify(item.Lyric),
+      //     platformType: typeNum,
+      //     time: Date.now(),
+      //     userId: this.userId,
+      //   })
+      //   .subscribe((res: any) => {
+      //     if (res.success) {
+      //       this.loading = false;
+      //       this.message.success(res.message);
+      //     } else {
+      //       this.message.error("添加失败");
+      //     }
+      //   });
     } catch (e) {
       this.loading = false;
     }
@@ -493,7 +580,10 @@ export class SongRoomComponent implements OnInit, OnDestroy {
     //   });
     // }, 50);
   }
-
+  // 切歌
+  doChangeSongs(src:string=''){
+	  this.socket.doChangeSongs(src)
+  }
   // 歌词上滚
   lyricUp(currentTime: any) {
     for (let i = 0; i < this.lyricData.length; i++) {
