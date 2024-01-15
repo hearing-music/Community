@@ -146,6 +146,7 @@ export class SongRoomComponent implements OnInit, OnDestroy {
 	  	this.lyricData = JSON.parse(item.lyric);
 	  }catch(e){
 	  	//TODO handle the exception
+		this.lyricData = item.lyric
 	  }
 	  this.audioSrc = item.url;
 	  let audio: any = document.getElementById("audio");
