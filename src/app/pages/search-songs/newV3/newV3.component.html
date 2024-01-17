@@ -23,14 +23,14 @@
 							<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
 						</button>
 						<!-- 收听 -->
-						<span *ngIf='item.detailData.listener_num' nz-tooltip [nzTooltipTitle]="item.detailData.date">
+						<span *ngIf='item.detailData.listener_num' nz-tooltip [nzTooltipTitle]="'总播放'">
 							<div class="" style="display: flex;align-items: center;margin-left: 2px;">
 								<img src="../../../assets/img/erji.png" class="icon" />
 								<div>{{common.toThousands(item.detailData.listener_num)}}</div>
 							</div>
 						</span>
 						<!-- 指数 -->
-						<div *ngIf='item.detailData.listener_num'
+						<div *ngIf='item.detailData.listener_num' nz-tooltip [nzTooltipTitle]="item.detailData.date"
 							style="display: flex;align-items: center;margin-left: 8px;">
 							<img src="../../../assets/img/shuangzhexian.png" class="icon" />
 							<div>{{common.toThousands(item.detailData.exponent)}}</div>
@@ -125,12 +125,12 @@
 							</span> -->
 							<!-- 在听人数 -->
 							<span style="margin-left: 10px;">
-								<span style="color:rgb(78, 194, 223)">{{item.listenPeopleCount}}</span>人在听
+								<span style="color:rgb(78, 194, 223)">{{common.toThousands(item.listenPeopleCount)}}</span>人在听
 							</span>
 							<span>
 								<!-- 在听照片 -->
 								<span *ngFor="let ele of item.listenPeopleArr">
-									<img [src]="ele.uri" alt=""
+									<img [src]="ele.pic" alt=""
 										style="width: 10px;height: 10px;border-radius: 50%;margin-left: 4px;">
 								</span>
 								<!-- 在听刷新 -->
