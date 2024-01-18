@@ -36,6 +36,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { DouDiZhuComponent } from "./game/dou-di-zhu/dou-di-zhu.component";
 import { CardGameComponent } from "./game/card-game/card-game.component";
 import { SongRoomComponent } from "./game/song-room/song-room.component";
+import { MaJiangComponent } from "./game/ma-jiang/ma-jiang.component";
 import { DouyinPopularAccountsComponent } from "./douyin/douyin-popular-accounts/douyin-popular-accounts.component";
 import { OggToMp3Component } from './audio-conversion/ogg-to-mp3/ogg-to-mp3.component';
 import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.component';
@@ -194,6 +195,7 @@ registerLocaleData(zh);
 		    DouDiZhuComponent,
 		    CardGameComponent,
 		    SongRoomComponent,
+		MaJiangComponent,
 		ChatTempComponent,
 		DyHotDetailComponent,
 		DyVideoTrendComponent,

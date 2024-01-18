@@ -1,0 +1,381 @@
+<div class="home">
+  <div class="gameBox" *ngIf="showPlay">
+    <!-- 游戏顶部游戏信息提示 -->
+    <div class="gameTop">
+      <div class="roomNumber" (click)="copy(roomIdNow)">
+        房间号:{{ roomIdNow }}
+      </div>
+      <div class="gameRecord">
+        <div style="padding: 5px">
+          总局数：
+          <span>{{ playInfo.gamesNow }} / {{ playInfo.gamesTotal }}</span>
+        </div>
+        <div style="padding: 5px">
+          当前倍数：<span>{{ playInfo.multiple }}</span>
+        </div>
+        <div style="padding: 5px">
+          封顶倍数：<span>{{ playInfo.multipleMax }}</span>
+        </div>
+      </div>
+      <div class="rulePrompt">
+        <button
+          [nzTooltipTitle]="messageTip"
+          nzTooltipPlacement="bottom"
+          nz-button
+          nz-tooltip
+          nzSize="small"
+          nzType="text"
+        >
+          规则提示
+        </button>
+      </div>
+    </div>
+    <!-- 游戏区域 -->
+    <div class="gameMain" *ngIf="houseUsers.length > 0">
+      <div class="player">
+        <!-- 玩家界面  左侧-->
+        <div class="northOne">
+          <div class="northOneBack">
+            <div class="userDetailBox" *ngIf="players.lastPlayer.name">
+              {{ players.lastPlayer.name }}
+            </div>
+            <div
+              id="northOne"
+              style="display: flex; flex-direction: column; align-items: center"
+            ></div>
+            <div class="northOneOperate" *ngIf="houseUsers.length > 3">
+              <!-- <div class="Operate">杠</div>
+              <div class="Operate">吃</div>
+              <div class="Operate">碰</div>
+              <div class="Operate">胡</div>
+              <div class="Operate">自摸</div>
+              <div class="Operate">过</div> -->
+              <div
+                class="Operate"
+                *ngIf="players.lastPlayer.ready && !gameStart"
+              >
+                已准备
+              </div>
+            </div>
+          </div>
+          <div class="northOneDisplayBox">
+            <div
+              id="northOneDisplayCard"
+              style="
+                display: flex;
+                transform: rotate(90deg);
+                align-items: center;
+              "
+            ></div>
+          </div>
+        </div>
+        <!-- 玩家 上方 -->
+        <div class="westOneAndTable">
+          <div class="westOne">
+            <div class="westOneCard">
+              <div class="userDetailBox" *ngIf="players.next2Player.name">
+                {{ players.next2Player.name }}
+              </div>
+              <div id="westOne"></div>
+              <div class="westOneOperate" *ngIf="houseUsers.length > 2">
+                <!-- <div class="Operate">杠</div>
+                <div class="Operate">吃</div>
+                <div class="Operate">碰</div>
+                <div class="Operate">胡</div>
+                <div class="Operate">自摸</div>
+                <div class="Operate">过</div> -->
+                <div
+                  class="Operate"
+                  *ngIf="players.next2Player.ready && !gameStart"
+                >
+                  已准备
+                </div>
+              </div>
+            </div>
+            <div class="westOneDisplayBox">
+              <div id="westOneDisplayCard"></div>
+            </div>
+          </div>
+          <div class="Table">
+            <div class="NorthPlayed"></div>
+            <div class="SouthPlayed"></div>
+            <div class="WestPlayed"></div>
+            <div class="EastPlayed"></div>
+            <div class="indicate">
+              <!-- 上方 -->
+              <div class="West">
+                <div style="position: relative">
+                  <span style="position: absolute; top: -23px; left: 27px">
+                    {{
+                      meIndex == 0
+                        ? "西"
+                        : meIndex == 1
+                        ? "北"
+                        : meIndex == 2
+                        ? "东"
+                        : "南"
+                    }}
+                  </span>
+                </div>
+              </div>
+              <!-- 左侧 -->
+              <div class="North">
+                <div style="position: relative">
+                  <span style="position: absolute; top: 23px; left: -20px">
+                    {{
+                      meIndex == 0
+                        ? "北"
+                        : meIndex == 1
+                        ? "东"
+                        : meIndex == 2
+                        ? "南"
+                        : "西"
+                    }}
+                  </span>
+                </div>
+              </div>
+              <div class="Westfarmhouse" *ngIf="players.next2Player.banker">
+                庄
+              </div>
+              <div class="Northfarmhouse" *ngIf="players.lastPlayer.banker">
+                庄
+              </div>
+              <div class="timing">{{ timeOut }}</div>
+              <div class="Southfarmhouse" *ngIf="players.nextPlayer.banker">
+                庄
+              </div>
+              <div class="Eastfarmhouse" *ngIf="players.player.banker">庄</div>
+              <!-- 右侧 -->
+              <div class="South">
+                <div style="position: relative">
+                  <span style="position: absolute; top: 23px; left: 5px">
+                    {{
+                      meIndex == 0
+                        ? "南"
+                        : meIndex == 1
+                        ? "西"
+                        : meIndex == 2
+                        ? "北"
+                        : "东"
+                    }}
+                  </span>
+                </div>
+              </div>
+              <!-- 下方 -->
+              <div class="East">
+                <div style="position: relative">
+                  <span style="position: absolute; top: 2px; left: 27px">
+                    {{ houseUsers[meIndex].position }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 右侧 -->
+        <div class="southOne">
+          <div class="southOneDisplayBox">
+            <div
+              id="southOneDisplayCard"
+              style="
+                display: flex;
+                transform: rotate(-90deg);
+                align-items: center;
+              "
+            ></div>
+          </div>
+          <div class="southOneBack">
+            <div class="userDetailBox" *ngIf="players.nextPlayer.name">
+              {{ players.nextPlayer.name }}
+            </div>
+            <div
+              id="southOne"
+              style="display: flex; flex-direction: column; align-items: center"
+            ></div>
+            <div class="southOperate" *ngIf="houseUsers.length > 1">
+              <!-- <div class="Operate">杠</div>
+              <div class="Operate">吃</div>
+              <div class="Operate">碰</div>
+              <div class="Operate">胡</div>
+              <div class="Operate">自摸</div>
+              <div class="Operate">过</div> -->
+              <div
+                class="Operate"
+                *ngIf="players.nextPlayer.ready && !gameStart"
+              >
+                已准备
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 东玩家（房主，自己） -->
+      <div class="mine">
+        <div class="canvaMine">
+          <div id="myDisplayCard" style="margin-left: 250px"></div>
+        </div>
+        <div class="mineCard">
+          <div class="userDetailBox" *ngIf="players.player.name">
+            {{ players.player.name }}
+          </div>
+          <div id="canvas" (click)="choseMaJiang($event)"></div>
+          <div
+            id="myDisplayCard1"
+            style="margin-left: 20px"
+            (click)="choseMaJiang($event)"
+          ></div>
+          <div class="myOperate" *ngIf="houseUsers.length > 0">
+            <div
+              style="display: flex; width: 100%; justify-content: center"
+              *ngIf="!gameStart"
+            >
+              <button
+                nz-button
+                (click)="ready()"
+                *ngIf="!players.player.ready && !playInfo.start"
+                nzType="default"
+                nzShape="round"
+              >
+                准备
+              </button>
+              <button
+                nz-button
+                (click)="notReady()"
+                *ngIf="players.player.ready && !playInfo.start"
+                nzType="default"
+                nzShape="round"
+              >
+                取消准备
+              </button>
+              <button
+                nz-button
+                nzType="default"
+                nzShape="round"
+                (click)="roomLeave()"
+                *ngIf="!playInfo.start"
+                style="margin-left: 15px"
+              >
+                离开
+              </button>
+            </div>
+			<div style='display: flex;'>
+				<div class="Operate" *ngIf='players.player.btnXFGang' (click)='clickBtn("xfgang")'>旋风杠</div>
+				<div class="Operate" *ngIf='players.player.btnGang' (click)='clickBtn("gang")'>杠</div>
+				<div class="Operate" *ngIf='players.player.btnChi' (click)='clickBtn("chi")'>吃</div>
+				<div class="Operate" *ngIf='players.player.btnPeng' (click)='clickBtn("peng")'>碰</div>
+				<div class="Operate" *ngIf='players.player.btnHu&&players.player.drawCards.length==0' (click)='clickBtn("hu")'>胡</div>
+				<div class="Operate" *ngIf='players.player.btnHu&&players.player.drawCards.length>0' (click)='clickBtn("hu")'>自摸</div>
+				<div class="Operate" *ngIf='players.player.btnGuo' (click)='clickBtn("guo")'>过</div>
+				<div class="Operate" *ngIf='players.player.btnChu' (click)='playCard()'>出牌</div>
+			</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 创建加入房间区域 -->
+  <div *ngIf="!showPlay">
+    <div *ngIf="!choseMultiples" class="selectRoom">
+      <div class="creatRoom">
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="round"
+          (click)="roomCreate()"
+        >
+          创建房间
+        </button>
+      </div>
+      <div class="intoRoom">
+        <button nz-button nzType="primary" nzShape="round" (click)="joinRoom()">
+          加入房间
+        </button>
+      </div>
+      <div class="searchRoom">
+        <button nz-button nzType="primary" nzShape="round">搜索房间</button>
+      </div>
+    </div>
+    <div *ngIf="choseMultiples" class="selectRoom">
+      <div
+        style="
+          width: 100%;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        请选择需要创建的倍数
+      </div>
+      <div
+        style="
+          width: 100%;
+          height: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <nz-radio-group [(ngModel)]="choseMultiplesValue">
+          <label nz-radio [nzValue]="o.value" *ngFor="let o of options">{{
+            o.label
+          }}</label>
+        </nz-radio-group>
+      </div>
+      <div
+        style="
+          width: 100%;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="round"
+          (click)="choseMultiple()"
+        >
+          创建房间
+        </button>
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="round"
+          (click)="cancelMultiple()"
+          style="margin-left: 15px"
+        >
+          取消
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- 加入房间 -->
+  <div *ngIf="isVisible">
+    <nz-modal
+      [(nzVisible)]="isVisible"
+      nzTitle="加入房间"
+      (nzOnCancel)="joinRoomCancel()"
+      (nzOnOk)="roomAdd()"
+      nzCentered="true"
+    >
+      <ng-container *nzModalContent>
+        <div>
+          <div style="font-size: 20px; font-weight: bolder; margin-bottom: 6px">
+            请输入房间号:
+          </div>
+          <div>
+            <input
+              nz-input
+              placeholder="请输入房间号"
+              [(ngModel)]="roomid"
+              type="number"
+            />
+          </div>
+        </div>
+      </ng-container>
+    </nz-modal>
+  </div>
+</div>
+<ngx-loading *ngIf="loading"></ngx-loading>

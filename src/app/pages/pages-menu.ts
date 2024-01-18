@@ -303,6 +303,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
         },
         link: "/pages/card-game",
       },
+		{
+	        title: "麻将",
+	        icon: {
+	          icon: "majiang",
+	          pack: "my-icons",
+	        },
+	        link: "/pages/ma-jiang",
+	      },
     ],
   },
 	

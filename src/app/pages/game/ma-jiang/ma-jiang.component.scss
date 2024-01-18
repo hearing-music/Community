@@ -1,0 +1,498 @@
+.home {
+  width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 4.75rem - 4rem);
+  background-color: #1b9c66;
+  border-radius: 8px;
+  position: relative;
+  .gameBox {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    .gameTop {
+      width: 100%;
+      height: 4%;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+        rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+      .roomNumber {
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px;
+        cursor: pointer;
+      }
+      .cardRecorder {
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px;
+      }
+      .gameRecord {
+        height: 80%;
+        display: flex;
+        align-items: center;
+        padding: 0 5px;
+      }
+      .matchScore {
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px;
+      }
+      .gameControls {
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px;
+      }
+    }
+    .gameMain {
+      width: 100%;
+      height: 95%;
+      border-radius: 0 0 8px 8px;
+      .player {
+        width: 100%;
+        height: 75%;
+        display: flex;
+        .northOne {
+          width: 15%;
+          height: 100%;
+          display: flex;
+          .northOneBack {
+            width: 40%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            .userDetailBox {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              transform: translate(0, 50%);
+              padding: 10px;
+              background-color: #fff;
+              border-radius: 30px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            .northOneOperate {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              left: 100%;
+              top: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-direction: column;
+              z-index: 100;
+              .Operate {
+                margin: 10px;
+                font-size: 14px;
+                border-radius: 1000px;
+                border: 1px solid #d9d9d9;
+                box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+                cursor: pointer;
+                padding: 4px 15px;
+                background: #fff;
+                text-align: center;
+              }
+            }
+          }
+          .northOneDisplayBox {
+            width: 60%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+          }
+        }
+        .westOneAndTable {
+          width: 70%;
+          height: 100%;
+          .westOne {
+            width: 100%;
+            height: 25%;
+            .westOneCard {
+              width: 100%;
+              height: 60%;
+              position: relative;
+              .userDetailBox {
+                position: absolute;
+                top: 0;
+                right: 10px;
+                transform: translate(0, 50%);
+                padding: 10px;
+                background-color: #fff;
+                border-radius: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+              .westOneOperate {
+                position: absolute;
+                width: 100%;
+                height: 50%;
+                right: 0;
+                top: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .Operate {
+                  margin: 10px;
+                  font-size: 14px;
+                  border-radius: 1000px;
+                  border: 1px solid #d9d9d9;
+                  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+                  cursor: pointer;
+                  padding: 4px 15px;
+                  background: #fff;
+                  text-align: center;
+                }
+              }
+            }
+            .westOneDisplayBox {
+              width: 100%;
+              height: 40%;
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+            }
+          }
+          .Table {
+            width: 100%;
+            height: 75%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            .NorthPlayed {
+              width: 22%;
+              height: 100%;
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+            .SouthPlayed {
+              width: 22%;
+              height: 100%;
+              position: absolute;
+              top: 0;
+              right: 0;
+            }
+            .WestPlayed {
+              width: 56%;
+              height: 32%;
+              position: absolute;
+              top: 0;
+              right: 22%;
+            }
+            .EastPlayed {
+              width: 56%;
+              height: 32%;
+              position: absolute;
+              bottom: 0;
+              right: 22%;
+            }
+            .indicate {
+              width: 120px;
+              height: 120px;
+              position: relative;
+              .West {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 120px;
+                height: 25px; /* 设置为border-top的大小 */
+                border-top: 25px solid rgb(103, 94, 94);
+                border-right: 25px solid transparent;
+                border-left: 25px solid transparent;
+              }
+              // .West::after {
+              //   content: "西";
+              //   display: block;
+              //   position: relative;
+              //   top: -23px;
+              //   left: 27px;
+              //   z-index: 10;
+              // }
+
+              .North {
+                position: absolute;
+                top: 25px;
+                left: 0;
+                width: 25px;
+                height: 120px;
+                border-left: 25px solid #a58686;
+                border-top: 25px solid transparent;
+                border-bottom: 25px solid transparent;
+                margin-top: -25px;
+              }
+              // .North::after {
+              //   content: "北";
+              //   display: block;
+              //   position: relative;
+              //   top: 23px;
+              //   left: -20px;
+              //   z-index: 10;
+              // }
+
+              .South {
+                position: absolute;
+                top: 25px;
+                right: 0;
+                width: 0;
+                height: 120px;
+                border-right: 25px solid rgb(208, 170, 170);
+                border-top: 25px solid transparent;
+                border-bottom: 25px solid transparent;
+                margin-top: -25px;
+              }
+
+              // .South::after {
+              //   content: "南";
+              //   display: block;
+              //   position: relative;
+              //   top: 23px;
+              //   left: 5px;
+              //   z-index: 10;
+              // }
+              .East {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 120px;
+                height: 0;
+                border-bottom: 25px solid rgb(101, 149, 136);
+                border-right: 25px solid transparent;
+                border-left: 25px solid transparent;
+              }
+              // .East::after {
+              //   content: "东";
+              //   display: block;
+              //   position: relative;
+              //   top: 2px;
+              //   left: 27px;
+              //   z-index: 10;
+              // }
+              .Westfarmhouse {
+                position: absolute;
+                top: 25px;
+                right: 51px;
+                width: 20px;
+                height: 20px;
+                font-size: 16px;
+              }
+              .Northfarmhouse {
+                position: absolute;
+                top: 48px;
+                left: 26px;
+                width: 20px;
+                height: 20px;
+                font-size: 16px;
+              }
+              .Southfarmhouse {
+                position: absolute;
+                top: 48px;
+                right: 26px;
+                width: 20px;
+                height: 20px;
+                font-size: 16px;
+              }
+              .Eastfarmhouse {
+                position: absolute;
+                bottom: 26px;
+                right: 51px;
+                width: 20px;
+                height: 20px;
+                font-size: 16px;
+              }
+              .timing {
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                position: absolute;
+                top: 43px;
+                left: 43px;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #9966ff; /*设置文字颜色*/
+                font-size: 24px; /*设置字体大小*/
+                font-weight: bolder; /*设置字体粗细*/
+                -webkit-animation: flicker 2s infinite;
+              }
+              @-webkit-keyframes flicker {
+                /*创建动画*/
+                0% {
+                  opacity: 1;
+                }
+                50% {
+                  opacity: 0.5;
+                }
+                100% {
+                  opacity: 1;
+                }
+              }
+            }
+          }
+        }
+        .southOne {
+          width: 15%;
+          height: 100%;
+          display: flex;
+          .southOneBack {
+            width: 40%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            .userDetailBox {
+              position: absolute;
+              bottom: 0;
+              right: 50%;
+              transform: translate(50%, 0);
+              padding: 10px;
+              background-color: #fff;
+              border-radius: 30px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            .southOperate {
+              position: absolute;
+              width: 50%;
+              height: 100%;
+              right: 100%;
+              top: 0;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              justify-content: center;
+              .Operate {
+                margin: 10px;
+                font-size: 14px;
+                border-radius: 1000px;
+                border: 1px solid #d9d9d9;
+                box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+                cursor: pointer;
+                padding: 4px 15px;
+                background: #fff;
+                text-align: center;
+              }
+            }
+          }
+          .southOneDisplayBox {
+            width: 60%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+          }
+        }
+      }
+      .mine {
+        width: 100%;
+        height: 25%;
+        border-radius: 0 0 8px 8px;
+        .canvaMine {
+          width: 100%;
+          height: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+        }
+        .mineCard {
+          width: 100%;
+          height: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 0 0 8px 8px;
+          position: relative;
+          .userDetailBox {
+            position: absolute;
+            left: 10px;
+            bottom: 50%;
+            transform: translate(0, 50%);
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .myOperate {
+            position: absolute;
+            width: 100%;
+            height: 60%;
+            right: 0;
+            top: -60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .Operate {
+              margin: 10px;
+              font-size: 14px;
+              border-radius: 1000px;
+              border: 1px solid #d9d9d9;
+              box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+              cursor: pointer;
+              height: 32px;
+              padding: 4px 15px;
+              background: #fff;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+  .selectRoom {
+    width: 30%;
+    height: 30%;
+    background-color: #fff;
+    position: absolute;
+    border-radius: 8px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+      rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    .creatRoom {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .intoRoom {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .searchRoom {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

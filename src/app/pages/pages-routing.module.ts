@@ -59,6 +59,7 @@ import { SwollenKsEeListComponent } from './kuaishou-searchindex/swollen-ks-ee-l
 import { SongRoomComponent } from "./game/song-room/song-room.component";
 import { DouDiZhuComponent } from "./game/dou-di-zhu/dou-di-zhu.component";
 import { CardGameComponent } from "./game/card-game/card-game.component";
+import { MaJiangComponent } from "./game/ma-jiang/ma-jiang.component";
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -386,6 +387,11 @@ const routes: Routes = [{
 		      {
 		        path: "card-game",
 		        component: CardGameComponent,
+		        canActivate: [PermissionGuard],
+		      },
+				{
+		        path: "ma-jiang",
+		        component: MaJiangComponent,
 		        canActivate: [PermissionGuard],
 		      },
 		 
