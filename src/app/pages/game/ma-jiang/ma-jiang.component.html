@@ -43,7 +43,7 @@
               id="northOne"
               style="display: flex; flex-direction: column; align-items: center"
             ></div>
-            <div class="northOneOperate" *ngIf="houseUsers.length > 3">
+            <div class="northOneOperate" *ngIf="players.lastPlayer.name">
               <!-- <div class="Operate">杠</div>
               <div class="Operate">吃</div>
               <div class="Operate">碰</div>
@@ -77,7 +77,7 @@
                 {{ players.next2Player.name }}
               </div>
               <div id="westOne"></div>
-              <div class="westOneOperate" *ngIf="houseUsers.length > 2">
+              <div class="westOneOperate" *ngIf="players.next2Player.name">
                 <!-- <div class="Operate">杠</div>
                 <div class="Operate">吃</div>
                 <div class="Operate">碰</div>
@@ -192,7 +192,7 @@
               id="southOne"
               style="display: flex; flex-direction: column; align-items: center"
             ></div>
-            <div class="southOperate" *ngIf="houseUsers.length > 1">
+            <div class="southOperate" *ngIf="players.nextPlayer.name">
               <!-- <div class="Operate">杠</div>
               <div class="Operate">吃</div>
               <div class="Operate">碰</div>
@@ -224,11 +224,9 @@
             style="margin-left: 20px"
             (click)="choseMaJiang($event)"
           ></div>
-          <div class="myOperate" *ngIf="houseUsers.length > 0">
-            <div
-              style="display: flex; width: 100%; justify-content: center"
-              *ngIf="!gameStart"
-            >
+          <div class="myOperate" *ngIf="players.player.name">
+            <div style="display: flex; width: 100%; justify-content: center" *ngIf="!gameStart">
+              <!-- *ngIf="!gameStart" -->
               <button
                 nz-button
                 (click)="ready()"
@@ -258,16 +256,68 @@
                 离开
               </button>
             </div>
-			<div style='display: flex;'>
-				<div class="Operate" *ngIf='players.player.btnXFGang' (click)='clickBtn("xfgang")'>旋风杠</div>
-				<div class="Operate" *ngIf='players.player.btnGang' (click)='clickBtn("gang")'>杠</div>
-				<div class="Operate" *ngIf='players.player.btnChi' (click)='clickBtn("chi")'>吃</div>
-				<div class="Operate" *ngIf='players.player.btnPeng' (click)='clickBtn("peng")'>碰</div>
-				<div class="Operate" *ngIf='players.player.btnHu&&players.player.drawCards.length==0' (click)='clickBtn("hu")'>胡</div>
-				<div class="Operate" *ngIf='players.player.btnHu&&players.player.drawCards.length>0' (click)='clickBtn("hu")'>自摸</div>
-				<div class="Operate" *ngIf='players.player.btnGuo' (click)='clickBtn("guo")'>过</div>
-				<div class="Operate" *ngIf='players.player.btnChu' (click)='playCard()'>出牌</div>
-			</div>
+            <div style="display: flex">
+              <div
+                class="Operate"
+                *ngIf="players.player.btnXFGang"
+                (click)="clickBtn('xfgang')"
+              >
+                旋风杠
+              </div>
+              <div
+                class="Operate"
+                *ngIf="players.player.btnGang"
+                (click)="clickBtn('gang')"
+              >
+                杠
+              </div>
+              <div
+                class="Operate"
+                *ngIf="players.player.btnChi"
+                (click)="clickBtn('chi')"
+              >
+                吃
+              </div>
+              <div
+                class="Operate"
+                *ngIf="players.player.btnPeng"
+                (click)="clickBtn('peng')"
+              >
+                碰
+              </div>
+              <div
+                class="Operate"
+                *ngIf="
+                  players.player.btnHu && players.player.drawCards.length == 0
+                "
+                (click)="clickBtn('hu')"
+              >
+                胡
+              </div>
+              <div
+                class="Operate"
+                *ngIf="
+                  players.player.btnHu && players.player.drawCards.length > 0
+                "
+                (click)="clickBtn('hu')"
+              >
+                自摸
+              </div>
+              <div
+                class="Operate"
+                *ngIf="players.player.btnGuo"
+                (click)="clickBtn('guo')"
+              >
+                过
+              </div>
+              <div
+                class="Operate"
+                *ngIf="players.player.btnChu"
+                (click)="playCard()"
+              >
+                出牌
+              </div>
+            </div>
           </div>
         </div>
       </div>

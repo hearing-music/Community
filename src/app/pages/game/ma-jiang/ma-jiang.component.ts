@@ -90,7 +90,7 @@ export class MaJiangComponent implements OnInit {
   houseUsers: any = [];
   roomIdNow: any = null;
   playInfo: any = {};
-  housePlayerArr:any=[]
+  housePlayerArr: any = [];
   ngOnInit(): void {
     this.connect();
   }
@@ -170,46 +170,45 @@ export class MaJiangComponent implements OnInit {
       this.drawerSouthOne(this.players.lastPlayer.cards.length);
       this.gameStart = true;
     });
-	this.socketIO.on("playCard", (data: any) => {
-		console.log(data);
-		this.playInfo = data.playInfo;
-		this.svg1 = this.players.player.cards;
-		this.players.player = data.houseUsers[this.meIndex];
-		this.players.nextPlayer = data.houseUsers[this.nextIndex];
-		this.players.next2Player = data.houseUsers[this.next2Index];
-		this.players.lastPlayer = data.houseUsers[this.lastIndex];
-		this.drawerMaJiang(this.svg1, this.canvas, "mine");
-		this.drawerNorthOne(this.players.nextPlayer.cards.length);
-		this.drawerWestOne(this.players.next2Player.cards.length);
-		this.drawerSouthOne(this.players.lastPlayer.cards.length);
-		this.housePlayer(data.housePlayer)
-		this.housePlayerArr = data.housePlayer
-		// 通知开局旋风杠 旋风杠和过按钮亮
-		if(data.type=='askCardFirst'){
-			if(data.playCardIndex == this.meIndex){
-				this.players.player.btnGuo = true;
-			}
-		}
-		// 有人旋风杠 接收
-		if(data.type=='doAskCardFirst'){
-			
-		}
-		// 通知出牌 index 是自己 功能 和出牌 按钮亮
-		if(data.type=='playCardBegin'){
-			if(data.playCardIndex == this.meIndex){
-				this.players.player.btnChu = true;
-				this.players.player.drawCards[0].isMoved=false
-				this.vewCard = this.players.player.drawCards
-				this.drawerMaJiang(this.vewCard, this.myDisplayCard1, "mineNew");
-			}
-		}
-		// 通知要牌 index 是自己 功能 和过 按钮亮
-		if(data.type=='askCard'){
-			if(data.playCardIndex == this.meIndex){
-				this.players.player.btnGuo = true;
-			}
-		}
-	});
+    this.socketIO.on("playCard", (data: any) => {
+      console.log(data);
+      this.playInfo = data.playInfo;
+      this.svg1 = this.players.player.cards;
+      this.players.player = data.houseUsers[this.meIndex];
+      this.players.nextPlayer = data.houseUsers[this.nextIndex];
+      this.players.next2Player = data.houseUsers[this.next2Index];
+      this.players.lastPlayer = data.houseUsers[this.lastIndex];
+      this.drawerMaJiang(this.svg1, this.canvas, "mine");
+      this.drawerNorthOne(this.players.nextPlayer.cards.length);
+      this.drawerWestOne(this.players.next2Player.cards.length);
+      this.drawerSouthOne(this.players.lastPlayer.cards.length);
+      this.housePlayer(data.houseUsers);
+      this.housePlayerArr = data.houseUsers;
+      // 通知开局旋风杠 旋风杠和过按钮亮
+      if (data.type == "askCardFirst") {
+        if (data.playCardIndex == this.meIndex) {
+          this.players.player.btnGuo = true;
+        }
+      }
+      // 有人旋风杠 接收
+      if (data.type == "doAskCardFirst") {
+      }
+      // 通知出牌 index 是自己 功能 和出牌 按钮亮
+      if (data.type == "playCardBegin") {
+        if (data.playCardIndex == this.meIndex) {
+          this.players.player.btnChu = true;
+          this.players.player.drawCards[0].isMoved = false;
+          this.vewCard = this.players.player.drawCards;
+          this.drawerMaJiang(this.vewCard, this.myDisplayCard1, "mineNew");
+        }
+      }
+      // 通知要牌 index 是自己 功能 和过 按钮亮
+      if (data.type == "askCard") {
+        if (data.playCardIndex == this.meIndex) {
+          this.players.player.btnGuo = true;
+        }
+      }
+    });
   }
   players: any = {
     player: {},
@@ -223,6 +222,7 @@ export class MaJiangComponent implements OnInit {
   next2Index: any;
   gameStart: boolean = false;
   housePlayer(houseUsers: any) {
+    console.log(houseUsers);
     let meIndex = houseUsers.findIndex((e: any) => e.token == this.token);
     let nextIndex = -1;
     let next2Index = -1;
@@ -271,121 +271,198 @@ export class MaJiangComponent implements OnInit {
     this.next2Index = next2Index;
   }
   // 点击出牌
-  playCard(){
-	  let index=this.svg1.findIndex((ele:any)=>ele.isMoved)
-	  let cards =[]
-	  if(index!=-1){
-		cards = [this.svg1[index]]
-	  }else{
-		  if(this.vewCard.length>0){
-			  cards = this.vewCard[0].isMoved?this.vewCard[0]:[]
-		  }
-	  }
-	  if(cards.length==0){
-		  // 请选择牌 再点击出牌
-		  return
-	  }
-	  this.socketIO.emit('playCard',{type:'playCard',roomId:this.roomIdNow,cards})
+  playCard() {
+    let index = this.svg1.findIndex((ele: any) => ele.isMoved);
+    let cards = [];
+    if (index != -1) {
+      cards = [this.svg1[index]];
+    } else {
+      if (this.vewCard.length > 0) {
+        cards = this.vewCard[0].isMoved ? this.vewCard[0] : [];
+      }
+    }
+    if (cards.length == 0) {
+      // 请选择牌 再点击出牌
+      return;
+    }
+    this.socketIO.emit("playCard", {
+      type: "playCard",
+      roomId: this.roomIdNow,
+      cards,
+    });
   }
   // 点击除了出牌 其他功能按钮
-  clickBtn(str:string){
-	  let cards = []
-	  let click = str
-	  let own = false;
-	  if(this.players.player.drawCards.length>0){
-		  own = true;
-	  }
-	  let sendcard = this.housePlayerArr[this.playInfo.sendIndex].sendCards[this.housePlayerArr[this.playInfo.sendIndex].sendCards.length-1]
-	  if(str=='peng'){
-		  // 传 手牌两张（能与打的牌 凑三个的）
-		  let newcards = this.players.player.cards
-		  for(let i = 0;i<newcards.length;i++){
-			  if(newcards[i].suit==sendcard.suit&&newcards[i].value == sendcard.value&&cards.length<2){
-				  cards.push(newcards[i])
-			  }
-		  }
-	  }
-	  if(str=='chi'){
-		  // 传 手牌两张（能与上家打的牌 凑顺子的）
-		  //  "首位": false,		  //  "中间": false,		  //  "末尾": false
-		  let newcards = this.players.player.cards
-		  if(this.players.player.chiArr['首位']){
-			  for(let i = 0;i<newcards.length;i++){
-			  	if(newcards[i].suit==sendcard.suit&&newcards[i].value == (sendcard.value+1)&&cards.length<2){
-			  		cards.push(newcards[i])
-			  	}
-				if(newcards[i].suit==sendcard.suit&&newcards[i].value == (sendcard.value+2)&&cards.length<2){
-					cards.push(newcards[i])
-				}
-			  }
-		  }else if(this.players.player.chiArr['中间']){
-			  for(let i = 0;i<newcards.length;i++){
-			  	if(newcards[i].suit==sendcard.suit&&newcards[i].value == (sendcard.value-1)&&cards.length<2){
-			  		cards.push(newcards[i])
-			  	}
-			  	if(newcards[i].suit==sendcard.suit&&newcards[i].value == (sendcard.value+1)&&cards.length<2){
-			  		cards.push(newcards[i])
-			  	}
-			  }
-		  }else if(this.players.player.chiArr['末尾']){
-			  for(let i = 0;i<newcards.length;i++){
-			  	if(newcards[i].suit==sendcard.suit&&newcards[i].value == (sendcard.value-2)&&cards.length<2){
-			  		cards.push(newcards[i])
-			  	}
-			  	if(newcards[i].suit==sendcard.suit&&newcards[i].value == (sendcard.value-1)&&cards.length<2){
-			  		cards.push(newcards[i])
-			  	}
-			  }
-		  }
-	  }
-	  if(str=='gang'){
-		  // 摸到的杠 可以不传牌
-		  // 别人打的  传手牌三张（能与打的牌 凑四个的）
-		  if(!own){
-			  let newcards = this.players.player.cards
-			  for(let i = 0;i<newcards.length;i++){
-			  	if(newcards[i].suit==sendcard.suit&&newcards[i].value == sendcard.value&&cards.length<3){
-			  		cards.push(newcards[i])
-			  	}
-			  }
-		  }
-	  }
-	  if(str=='xfgang'){
-		  // 传组成旋风杠的牌 中发白 或 东南西北风
-		  let newcards = [...this.players.player.cards,...this.players.player.drawCards]
-		  let wordarr = []
-		  let threearr = []
-		  for(let i = 0;i<newcards.length;i++){
-			  // 东南西北风
-		  	if(newcards[i].suit=='Word'&&newcards[i].value == 1&&wordarr.findIndex((e:any)=>e.value==1)==-1){
-		  		wordarr.push(newcards[i])
-		  	}
-			if(newcards[i].suit=='Word'&&newcards[i].value == 2&&wordarr.findIndex((e:any)=>e.value==2)==-1){
-				wordarr.push(newcards[i])
-			}
-			if(newcards[i].suit=='Word'&&newcards[i].value == 3&&wordarr.findIndex((e:any)=>e.value==3)==-1){
-				wordarr.push(newcards[i])
-			}
-			if(newcards[i].suit=='Word'&&newcards[i].value == 4&&wordarr.findIndex((e:any)=>e.value==4)==-1){
-				wordarr.push(newcards[i])
-			}
-			// 中发白
-			if(newcards[i].suit=='ThreeDollar'&&newcards[i].value == 1&&wordarr.findIndex((e:any)=>e.value==1)==-1){
-				threearr.push(newcards[i])
-			}
-			if(newcards[i].suit=='ThreeDollar'&&newcards[i].value == 2&&wordarr.findIndex((e:any)=>e.value==2)==-1){
-				threearr.push(newcards[i])
-			}
-			if(newcards[i].suit=='ThreeDollar'&&newcards[i].value == 3&&wordarr.findIndex((e:any)=>e.value==3)==-1){
-				threearr.push(newcards[i])
-			}
-		  }
-		  cards = wordarr.length==4?wordarr:threearr
-	  }
-	  if(str=='hu'){
-		  
-	  }
-	  this.socketIO.emit('playCard',{type:'clickBtn',roomId:this.roomIdNow,own,click,cards})
+  clickBtn(str: string) {
+    let cards = [];
+    let click = str;
+    let own = false;
+    if (this.players.player.drawCards.length > 0) {
+      own = true;
+    }
+    let sendcard =
+      this.housePlayerArr[this.playInfo.sendIndex].sendCards[
+        this.housePlayerArr[this.playInfo.sendIndex].sendCards.length - 1
+      ];
+    if (str == "peng") {
+      // 传 手牌两张（能与打的牌 凑三个的）
+      let newcards = this.players.player.cards;
+      for (let i = 0; i < newcards.length; i++) {
+        if (
+          newcards[i].suit == sendcard.suit &&
+          newcards[i].value == sendcard.value &&
+          cards.length < 2
+        ) {
+          cards.push(newcards[i]);
+        }
+      }
+    }
+    if (str == "chi") {
+      // 传 手牌两张（能与上家打的牌 凑顺子的）
+      //  "首位": false,
+      //  "中间": false,
+      //  "末尾": false
+      let newcards = this.players.player.cards;
+      if (this.players.player.chiArr["首位"]) {
+        for (let i = 0; i < newcards.length; i++) {
+          if (
+            newcards[i].suit == sendcard.suit &&
+            newcards[i].value == sendcard.value + 1 &&
+            cards.length < 2
+          ) {
+            cards.push(newcards[i]);
+          }
+          if (
+            newcards[i].suit == sendcard.suit &&
+            newcards[i].value == sendcard.value + 2 &&
+            cards.length < 2
+          ) {
+            cards.push(newcards[i]);
+          }
+        }
+      } else if (this.players.player.chiArr["中间"]) {
+        for (let i = 0; i < newcards.length; i++) {
+          if (
+            newcards[i].suit == sendcard.suit &&
+            newcards[i].value == sendcard.value - 1 &&
+            cards.length < 2
+          ) {
+            cards.push(newcards[i]);
+          }
+          if (
+            newcards[i].suit == sendcard.suit &&
+            newcards[i].value == sendcard.value + 1 &&
+            cards.length < 2
+          ) {
+            cards.push(newcards[i]);
+          }
+        }
+      } else if (this.players.player.chiArr["末尾"]) {
+        for (let i = 0; i < newcards.length; i++) {
+          if (
+            newcards[i].suit == sendcard.suit &&
+            newcards[i].value == sendcard.value - 2 &&
+            cards.length < 2
+          ) {
+            cards.push(newcards[i]);
+          }
+          if (
+            newcards[i].suit == sendcard.suit &&
+            newcards[i].value == sendcard.value - 1 &&
+            cards.length < 2
+          ) {
+            cards.push(newcards[i]);
+          }
+        }
+      }
+    }
+    if (str == "gang") {
+      // 摸到的杠 可以不传牌
+      // 别人打的  传手牌三张（能与打的牌 凑四个的）
+      if (!own) {
+        let newcards = this.players.player.cards;
+        for (let i = 0; i < newcards.length; i++) {
+          if (
+            newcards[i].suit == sendcard.suit &&
+            newcards[i].value == sendcard.value &&
+            cards.length < 3
+          ) {
+            cards.push(newcards[i]);
+          }
+        }
+      }
+    }
+    if (str == "xfgang") {
+      // 传组成旋风杠的牌 中发白 或 东南西北风
+      let newcards = [
+        ...this.players.player.cards,
+        ...this.players.player.drawCards,
+      ];
+      let wordarr = [];
+      let threearr = [];
+      for (let i = 0; i < newcards.length; i++) {
+        // 东南西北风
+        if (
+          newcards[i].suit == "Word" &&
+          newcards[i].value == 1 &&
+          wordarr.findIndex((e: any) => e.value == 1) == -1
+        ) {
+          wordarr.push(newcards[i]);
+        }
+        if (
+          newcards[i].suit == "Word" &&
+          newcards[i].value == 2 &&
+          wordarr.findIndex((e: any) => e.value == 2) == -1
+        ) {
+          wordarr.push(newcards[i]);
+        }
+        if (
+          newcards[i].suit == "Word" &&
+          newcards[i].value == 3 &&
+          wordarr.findIndex((e: any) => e.value == 3) == -1
+        ) {
+          wordarr.push(newcards[i]);
+        }
+        if (
+          newcards[i].suit == "Word" &&
+          newcards[i].value == 4 &&
+          wordarr.findIndex((e: any) => e.value == 4) == -1
+        ) {
+          wordarr.push(newcards[i]);
+        }
+        // 中发白
+        if (
+          newcards[i].suit == "ThreeDollar" &&
+          newcards[i].value == 1 &&
+          wordarr.findIndex((e: any) => e.value == 1) == -1
+        ) {
+          threearr.push(newcards[i]);
+        }
+        if (
+          newcards[i].suit == "ThreeDollar" &&
+          newcards[i].value == 2 &&
+          wordarr.findIndex((e: any) => e.value == 2) == -1
+        ) {
+          threearr.push(newcards[i]);
+        }
+        if (
+          newcards[i].suit == "ThreeDollar" &&
+          newcards[i].value == 3 &&
+          wordarr.findIndex((e: any) => e.value == 3) == -1
+        ) {
+          threearr.push(newcards[i]);
+        }
+      }
+      cards = wordarr.length == 4 ? wordarr : threearr;
+    }
+    if (str == "hu") {
+    }
+    this.socketIO.emit("playCard", {
+      type: "clickBtn",
+      roomId: this.roomIdNow,
+      own,
+      click,
+      cards,
+    });
   }
   ready() {
     console.log("我准备好了");
@@ -488,6 +565,13 @@ export class MaJiangComponent implements OnInit {
 
   drawerWestOne(num: any) {
     let name = "assets/maJiang/background.svg";
+    if (this.westOne.hasChildNodes()) {
+      var pObjs = this.westOne.childNodes;
+      for (var i = pObjs.length - 1; i >= 0; i--) {
+        // 一定要倒序，正序是删不干净的，可自行尝试
+        this.westOne.removeChild(pObjs[i]);
+      }
+    }
     for (let i = 1; i <= num; i++) {
       this.drawSingleWestOne(name);
     }
@@ -495,6 +579,13 @@ export class MaJiangComponent implements OnInit {
 
   drawerNorthOne(num: any) {
     let name = "assets/maJiang/verticalView.svg";
+    if (this.northOne.hasChildNodes()) {
+      var pObjs = this.northOne.childNodes;
+      for (var i = pObjs.length - 1; i >= 0; i--) {
+        // 一定要倒序，正序是删不干净的，可自行尝试
+        this.northOne.removeChild(pObjs[i]);
+      }
+    }
     for (let i = 1; i <= num; i++) {
       this.drawSingleNorthOne(name);
     }
@@ -502,6 +593,13 @@ export class MaJiangComponent implements OnInit {
 
   drawerSouthOne(num: any) {
     let name = "assets/maJiang/verticalView.svg";
+    if (this.southOne.hasChildNodes()) {
+      var pObjs = this.southOne.childNodes;
+      for (var i = pObjs.length - 1; i >= 0; i--) {
+        // 一定要倒序，正序是删不干净的，可自行尝试
+        this.southOne.removeChild(pObjs[i]);
+      }
+    }
     for (let i = 1; i <= num; i++) {
       this.drawSingleSouthOne(name);
     }
@@ -564,7 +662,14 @@ export class MaJiangComponent implements OnInit {
 
   // 绘画麻将
   drawerMaJiang(svg1: any, canvasName: any, canMove: any) {
-	console.log(canvasName.childern)
+    if (canvasName.hasChildNodes()) {
+      var pObjs = canvasName.childNodes;
+      for (var i = pObjs.length - 1; i >= 0; i--) {
+        // 一定要倒序，正序是删不干净的，可自行尝试
+        canvasName.removeChild(pObjs[i]);
+      }
+    }
+
     if (canMove == "mine") {
       svg1.forEach((ele: any, index: number) => {
         var tempCanvas: any = document.createElement("canvas");
