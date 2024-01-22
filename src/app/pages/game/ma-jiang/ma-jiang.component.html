@@ -34,16 +34,16 @@
     <div class="gameMain" *ngIf="houseUsers.length > 0">
       <div class="player">
         <!-- 玩家界面  左侧-->
-        <div class="northOne">
-          <div class="northOneBack">
+        <div class="leftOne">
+          <div class="leftOneBack">
             <div class="userDetailBox" *ngIf="players.lastPlayer.name">
               {{ players.lastPlayer.name }}
             </div>
             <div
-              id="northOne"
+              id="leftOne"
               style="display: flex; flex-direction: column; align-items: center"
             ></div>
-            <div class="northOneOperate" *ngIf="players.lastPlayer.name">
+            <div class="leftOneOperate" *ngIf="players.lastPlayer.name">
               <!-- <div class="Operate">杠</div>
               <div class="Operate">吃</div>
               <div class="Operate">碰</div>
@@ -58,9 +58,9 @@
               </div>
             </div>
           </div>
-          <div class="northOneDisplayBox">
+          <div class="leftOneDisplayBox">
             <div
-              id="northOneDisplayCard"
+              id="leftOneDisplayCard"
               style="
                 display: flex;
                 transform: rotate(90deg);
@@ -70,14 +70,14 @@
           </div>
         </div>
         <!-- 玩家 上方 -->
-        <div class="westOneAndTable">
-          <div class="westOne">
-            <div class="westOneCard">
+        <div class="topOneAndTable">
+          <div class="topOne">
+            <div class="topOneCard">
               <div class="userDetailBox" *ngIf="players.next2Player.name">
                 {{ players.next2Player.name }}
               </div>
-              <div id="westOne"></div>
-              <div class="westOneOperate" *ngIf="players.next2Player.name">
+              <div id="topOne"></div>
+              <div class="topOneOperate" *ngIf="players.next2Player.name">
                 <!-- <div class="Operate">杠</div>
                 <div class="Operate">吃</div>
                 <div class="Operate">碰</div>
@@ -92,18 +92,18 @@
                 </div>
               </div>
             </div>
-            <div class="westOneDisplayBox">
-              <div id="westOneDisplayCard"></div>
+            <div class="topOneDisplayBox">
+              <div id="topOneDisplayCard"></div>
             </div>
           </div>
           <div class="Table">
-            <div class="NorthPlayed"></div>
-            <div class="SouthPlayed"></div>
-            <div class="WestPlayed"></div>
-            <div class="EastPlayed"></div>
+            <div class="LeftPlayed" id="LeftPlayed"></div>
+            <div class="RightPlayed" id="RightPlayed"></div>
+            <div class="TopPlayed" id="TopPlayed"></div>
+            <div class="MinePlayed" id="MinePlayed"></div>
             <div class="indicate">
               <!-- 上方 -->
-              <div class="West">
+              <div class="Top">
                 <div style="position: relative">
                   <span style="position: absolute; top: -23px; left: 27px">
                     {{
@@ -119,7 +119,7 @@
                 </div>
               </div>
               <!-- 左侧 -->
-              <div class="North">
+              <div class="Left">
                 <div style="position: relative">
                   <span style="position: absolute; top: 23px; left: -20px">
                     {{
@@ -134,19 +134,19 @@
                   </span>
                 </div>
               </div>
-              <div class="Westfarmhouse" *ngIf="players.next2Player.banker">
+              <div class="Topfarmhouse" *ngIf="players.next2Player.banker">
                 庄
               </div>
-              <div class="Northfarmhouse" *ngIf="players.lastPlayer.banker">
+              <div class="Leftfarmhouse" *ngIf="players.lastPlayer.banker">
                 庄
               </div>
               <div class="timing">{{ timeOut }}</div>
-              <div class="Southfarmhouse" *ngIf="players.nextPlayer.banker">
+              <div class="Rightfarmhouse" *ngIf="players.nextPlayer.banker">
                 庄
               </div>
-              <div class="Eastfarmhouse" *ngIf="players.player.banker">庄</div>
+              <div class="Minefarmhouse" *ngIf="players.player.banker">庄</div>
               <!-- 右侧 -->
-              <div class="South">
+              <div class="Right">
                 <div style="position: relative">
                   <span style="position: absolute; top: 23px; left: 5px">
                     {{
@@ -162,7 +162,7 @@
                 </div>
               </div>
               <!-- 下方 -->
-              <div class="East">
+              <div class="Mine">
                 <div style="position: relative">
                   <span style="position: absolute; top: 2px; left: 27px">
                     {{ houseUsers[meIndex].position }}
@@ -173,10 +173,10 @@
           </div>
         </div>
         <!-- 右侧 -->
-        <div class="southOne">
-          <div class="southOneDisplayBox">
+        <div class="rightOne">
+          <div class="rightOneDisplayBox">
             <div
-              id="southOneDisplayCard"
+              id="rightOneDisplayCard"
               style="
                 display: flex;
                 transform: rotate(-90deg);
@@ -184,15 +184,15 @@
               "
             ></div>
           </div>
-          <div class="southOneBack">
+          <div class="rightOneBack">
             <div class="userDetailBox" *ngIf="players.nextPlayer.name">
               {{ players.nextPlayer.name }}
             </div>
             <div
-              id="southOne"
+              id="rightOne"
               style="display: flex; flex-direction: column; align-items: center"
             ></div>
-            <div class="southOperate" *ngIf="players.nextPlayer.name">
+            <div class="rightOperate" *ngIf="players.nextPlayer.name">
               <!-- <div class="Operate">杠</div>
               <div class="Operate">吃</div>
               <div class="Operate">碰</div>
@@ -225,7 +225,10 @@
             (click)="choseMaJiang($event)"
           ></div>
           <div class="myOperate" *ngIf="players.player.name">
-            <div style="display: flex; width: 100%; justify-content: center" *ngIf="!gameStart">
+            <div
+              style="display: flex; width: 100%; justify-content: center"
+              *ngIf="!gameStart"
+            >
               <!-- *ngIf="!gameStart" -->
               <button
                 nz-button

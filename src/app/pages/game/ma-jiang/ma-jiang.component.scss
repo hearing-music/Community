@@ -64,11 +64,11 @@
         width: 100%;
         height: 75%;
         display: flex;
-        .northOne {
+        .leftOne {
           width: 15%;
           height: 100%;
           display: flex;
-          .northOneBack {
+          .leftOneBack {
             width: 40%;
             height: 100%;
             display: flex;
@@ -87,7 +87,7 @@
               align-items: center;
               justify-content: center;
             }
-            .northOneOperate {
+            .leftOneOperate {
               position: absolute;
               width: 100%;
               height: 100%;
@@ -111,7 +111,7 @@
               }
             }
           }
-          .northOneDisplayBox {
+          .leftOneDisplayBox {
             width: 60%;
             height: 100%;
             display: flex;
@@ -119,13 +119,13 @@
             justify-content: flex-end;
           }
         }
-        .westOneAndTable {
+        .topOneAndTable {
           width: 70%;
           height: 100%;
-          .westOne {
+          .topOne {
             width: 100%;
             height: 25%;
-            .westOneCard {
+            .topOneCard {
               width: 100%;
               height: 60%;
               position: relative;
@@ -141,7 +141,7 @@
                 align-items: center;
                 justify-content: center;
               }
-              .westOneOperate {
+              .topOneOperate {
                 position: absolute;
                 width: 100%;
                 height: 50%;
@@ -163,7 +163,7 @@
                 }
               }
             }
-            .westOneDisplayBox {
+            .topOneDisplayBox {
               width: 100%;
               height: 40%;
               display: flex;
@@ -178,28 +178,28 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            .NorthPlayed {
+            .LeftPlayed {
               width: 22%;
               height: 100%;
               position: absolute;
               top: 0;
               left: 0;
             }
-            .SouthPlayed {
+            .RightPlayed {
               width: 22%;
               height: 100%;
               position: absolute;
               top: 0;
               right: 0;
             }
-            .WestPlayed {
+            .TopPlayed {
               width: 56%;
               height: 32%;
               position: absolute;
               top: 0;
               right: 22%;
             }
-            .EastPlayed {
+            .MinePlayed {
               width: 56%;
               height: 32%;
               position: absolute;
@@ -210,7 +210,7 @@
               width: 120px;
               height: 120px;
               position: relative;
-              .West {
+              .Top {
                 position: absolute;
                 top: 0;
                 right: 0;
@@ -220,16 +220,7 @@
                 border-right: 25px solid transparent;
                 border-left: 25px solid transparent;
               }
-              // .West::after {
-              //   content: "西";
-              //   display: block;
-              //   position: relative;
-              //   top: -23px;
-              //   left: 27px;
-              //   z-index: 10;
-              // }
-
-              .North {
+              .Left {
                 position: absolute;
                 top: 25px;
                 left: 0;
@@ -240,16 +231,7 @@
                 border-bottom: 25px solid transparent;
                 margin-top: -25px;
               }
-              // .North::after {
-              //   content: "北";
-              //   display: block;
-              //   position: relative;
-              //   top: 23px;
-              //   left: -20px;
-              //   z-index: 10;
-              // }
-
-              .South {
+              .Right {
                 position: absolute;
                 top: 25px;
                 right: 0;
@@ -260,16 +242,7 @@
                 border-bottom: 25px solid transparent;
                 margin-top: -25px;
               }
-
-              // .South::after {
-              //   content: "南";
-              //   display: block;
-              //   position: relative;
-              //   top: 23px;
-              //   left: 5px;
-              //   z-index: 10;
-              // }
-              .East {
+              .Mine {
                 position: absolute;
                 bottom: 0;
                 right: 0;
@@ -287,7 +260,7 @@
               //   left: 27px;
               //   z-index: 10;
               // }
-              .Westfarmhouse {
+              .Topfarmhouse {
                 position: absolute;
                 top: 25px;
                 right: 51px;
@@ -295,7 +268,7 @@
                 height: 20px;
                 font-size: 16px;
               }
-              .Northfarmhouse {
+              .Leftfarmhouse {
                 position: absolute;
                 top: 48px;
                 left: 26px;
@@ -303,7 +276,7 @@
                 height: 20px;
                 font-size: 16px;
               }
-              .Southfarmhouse {
+              .Rightfarmhouse {
                 position: absolute;
                 top: 48px;
                 right: 26px;
@@ -311,7 +284,7 @@
                 height: 20px;
                 font-size: 16px;
               }
-              .Eastfarmhouse {
+              .Minefarmhouse {
                 position: absolute;
                 bottom: 26px;
                 right: 51px;
@@ -350,11 +323,11 @@
             }
           }
         }
-        .southOne {
+        .rightOne {
           width: 15%;
           height: 100%;
           display: flex;
-          .southOneBack {
+          .rightOneBack {
             width: 40%;
             height: 100%;
             display: flex;
@@ -373,7 +346,7 @@
               align-items: center;
               justify-content: center;
             }
-            .southOperate {
+            .rightOperate {
               position: absolute;
               width: 50%;
               height: 100%;
@@ -396,7 +369,7 @@
               }
             }
           }
-          .southOneDisplayBox {
+          .rightOneDisplayBox {
             width: 60%;
             height: 100%;
             display: flex;

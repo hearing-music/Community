@@ -3,7 +3,7 @@ import { Canvg } from "canvg";
 import { environment } from "../../../../environments/environment";
 import { io } from "../../../services/js/socket.io.js";
 import { NzMessageService } from "ng-zorro-antd/message";
-
+import { majiangpai } from "./majiangpai";
 @Component({
   selector: "ngx-ma-jiang",
   templateUrl: "./ma-jiang.component.html",
@@ -15,19 +15,23 @@ export class MaJiangComponent implements OnInit {
   // 东玩家吃碰对canvas
   myDisplayCard: any;
   // 北玩家手牌背景canvas
-  northOne: any;
+  leftOne: any;
   // 北玩家吃碰对canvas
-  northOneDisplayCard: any;
+  leftOneDisplayCard: any;
   // 南玩家手牌背景canvas
-  southOne: any;
+  rightOne: any;
   // 南玩家吃碰对canvas
-  southOneDisplayCard: any;
+  rightOneDisplayCard: any;
   // 西玩家手牌背景canvas
-  westOne: any;
+  topOne: any;
   // 西玩家吃碰对canvas
-  westOneDisplayCard: any;
+  topOneDisplayCard: any;
   //东玩家新抓牌canvas
   myDisplayCard1: any;
+  LeftPlayed: any;
+  RightPlayed: any;
+  TopPlayed: any;
+  MinePlayed: any;
   // 牌桌计时器
   timeOut: any = 30;
   // 房间号
@@ -152,14 +156,22 @@ export class MaJiangComponent implements OnInit {
       });
       this.svg1 = data.cards;
       this.canvas = document.getElementById("canvas");
-      this.northOne = document.getElementById("northOne");
-      this.southOne = document.getElementById("southOne");
-      this.westOne = document.getElementById("westOne");
+      this.leftOne = document.getElementById("leftOne");
+      this.rightOne = document.getElementById("rightOne");
+      this.topOne = document.getElementById("topOne");
+      // 底牌区
       this.myDisplayCard = document.getElementById("myDisplayCard");
-      this.northOneDisplayCard = document.getElementById("northOneDisplayCard");
-      this.westOneDisplayCard = document.getElementById("westOneDisplayCard");
-      this.southOneDisplayCard = document.getElementById("southOneDisplayCard");
+      this.leftOneDisplayCard = document.getElementById("leftOneDisplayCard");
+      this.topOneDisplayCard = document.getElementById("topOneDisplayCard");
+      this.rightOneDisplayCard = document.getElementById("rightOneDisplayCard");
+      // 自己抓牌区
       this.myDisplayCard1 = document.getElementById("myDisplayCard1");
+      // 出牌区
+      this.LeftPlayed = document.getElementById("LeftPlayed");
+      this.RightPlayed = document.getElementById("RightPlayed");
+      this.TopPlayed = document.getElementById("TopPlayed");
+      this.MinePlayed = document.getElementById("MinePlayed");
+
       this.players.player = data.houseUsers[this.meIndex];
       this.players.nextPlayer = data.houseUsers[this.nextIndex];
       this.players.next2Player = data.houseUsers[this.next2Index];
@@ -172,16 +184,68 @@ export class MaJiangComponent implements OnInit {
     });
     this.socketIO.on("playCard", (data: any) => {
       console.log(data);
+	  data.houseUsers[this.meIndex].cards.forEach((ele: any) => {
+	    ele.isMoved = false;
+	  });
+	  if(data.houseUsers[this.meIndex].drawCards.length>0){
+		  data.houseUsers[this.meIndex].drawCards[0].isMoved = false;
+	  }
+	  
       this.playInfo = data.playInfo;
-      this.svg1 = this.players.player.cards;
       this.players.player = data.houseUsers[this.meIndex];
       this.players.nextPlayer = data.houseUsers[this.nextIndex];
       this.players.next2Player = data.houseUsers[this.next2Index];
       this.players.lastPlayer = data.houseUsers[this.lastIndex];
+	  this.svg1 = this.players.player.cards;
+      this.vewCard = this.players.player.drawCards;
       this.drawerMaJiang(this.svg1, this.canvas, "mine");
       this.drawerNorthOne(this.players.nextPlayer.cards.length);
       this.drawerWestOne(this.players.next2Player.cards.length);
       this.drawerSouthOne(this.players.lastPlayer.cards.length);
+      // 自己抓牌区
+      this.drawerMaJiang(this.vewCard, this.myDisplayCard1, "mineNew");
+      // 吃碰杠 底下的牌
+      this.drawerMaJiangBottom(
+        this.players.player.bottomCards,
+        this.myDisplayCard,
+        "myDisplayCard"
+      );
+      this.drawerMaJiangBottom(
+        this.players.lastPlayer.bottomCards,
+        this.leftOneDisplayCard,
+        "leftDisplayCard"
+      );
+      this.drawerMaJiangBottom(
+        this.players.next2Player.bottomCards,
+        this.topOneDisplayCard,
+        "topOneDisplayCard"
+      );
+      this.drawerMaJiangBottom(
+        this.players.nextPlayer.bottomCards,
+        this.rightOneDisplayCard,
+        "rightOneDisplayCard"
+      );
+      // 出牌
+      this.drawerMaJiang(
+		  this.players.player.sendCards,
+		  this.MinePlayed,
+		  "myDisplayCard"
+	  );
+      this.drawerMaJiang(
+        this.players.lastPlayer.sendCards,
+        this.LeftPlayed,
+        "leftDisplayCard"
+      );
+      this.drawerMaJiang(
+        this.players.next2Player.sendCards,
+        this.TopPlayed,
+        "topOneDisplayCard"
+      );
+      this.drawerMaJiang(
+        this.players.nextPlayer.sendCards,
+        this.RightPlayed,
+        "rightOneDisplayCard"
+      );
       this.housePlayer(data.houseUsers);
       this.housePlayerArr = data.houseUsers;
       // 通知开局旋风杠 旋风杠和过按钮亮
@@ -197,9 +261,6 @@ export class MaJiangComponent implements OnInit {
       if (data.type == "playCardBegin") {
         if (data.playCardIndex == this.meIndex) {
           this.players.player.btnChu = true;
-          this.players.player.drawCards[0].isMoved = false;
-          this.vewCard = this.players.player.drawCards;
-          this.drawerMaJiang(this.vewCard, this.myDisplayCard1, "mineNew");
         }
       }
       // 通知要牌 index 是自己 功能 和过 按钮亮
@@ -278,7 +339,7 @@ export class MaJiangComponent implements OnInit {
       cards = [this.svg1[index]];
     } else {
       if (this.vewCard.length > 0) {
-        cards = this.vewCard[0].isMoved ? this.vewCard[0] : [];
+        cards = this.vewCard[0].isMoved ? [this.vewCard[0]] : [];
       }
     }
     if (cards.length == 0) {
@@ -299,11 +360,11 @@ export class MaJiangComponent implements OnInit {
     if (this.players.player.drawCards.length > 0) {
       own = true;
     }
-    let sendcard =
-      this.housePlayerArr[this.playInfo.sendIndex].sendCards[
-        this.housePlayerArr[this.playInfo.sendIndex].sendCards.length - 1
-      ];
     if (str == "peng") {
+      let sendcard =
+        this.housePlayerArr[this.playInfo.sendIndex].sendCards[
+          this.housePlayerArr[this.playInfo.sendIndex].sendCards.length - 1
+        ];
       // 传 手牌两张（能与打的牌 凑三个的）
       let newcards = this.players.player.cards;
       for (let i = 0; i < newcards.length; i++) {
@@ -321,6 +382,10 @@ export class MaJiangComponent implements OnInit {
       //  "首位": false,
       //  "中间": false,
       //  "末尾": false
+      let sendcard =
+        this.housePlayerArr[this.playInfo.sendIndex].sendCards[
+          this.housePlayerArr[this.playInfo.sendIndex].sendCards.length - 1
+        ];
       let newcards = this.players.player.cards;
       if (this.players.player.chiArr["首位"]) {
         for (let i = 0; i < newcards.length; i++) {
@@ -378,7 +443,12 @@ export class MaJiangComponent implements OnInit {
     if (str == "gang") {
       // 摸到的杠 可以不传牌
       // 别人打的  传手牌三张（能与打的牌 凑四个的）
+
       if (!own) {
+        let sendcard =
+          this.housePlayerArr[this.playInfo.sendIndex].sendCards[
+            this.housePlayerArr[this.playInfo.sendIndex].sendCards.length - 1
+          ];
         let newcards = this.players.player.cards;
         for (let i = 0; i < newcards.length; i++) {
           if (
@@ -433,21 +503,21 @@ export class MaJiangComponent implements OnInit {
         if (
           newcards[i].suit == "ThreeDollar" &&
           newcards[i].value == 1 &&
-          wordarr.findIndex((e: any) => e.value == 1) == -1
+          threearr.findIndex((e: any) => e.value == 1) == -1
         ) {
           threearr.push(newcards[i]);
         }
         if (
           newcards[i].suit == "ThreeDollar" &&
           newcards[i].value == 2 &&
-          wordarr.findIndex((e: any) => e.value == 2) == -1
+          threearr.findIndex((e: any) => e.value == 2) == -1
         ) {
           threearr.push(newcards[i]);
         }
         if (
           newcards[i].suit == "ThreeDollar" &&
           newcards[i].value == 3 &&
-          wordarr.findIndex((e: any) => e.value == 3) == -1
+          threearr.findIndex((e: any) => e.value == 3) == -1
         ) {
           threearr.push(newcards[i]);
         }
@@ -525,51 +595,51 @@ export class MaJiangComponent implements OnInit {
     // }, 1000);
   }
   // 启动游戏绘画视图
-  async startGame() {
-    this.canvas = document.getElementById("canvas");
-    this.northOne = document.getElementById("northOne");
-    this.southOne = document.getElementById("southOne");
-    this.westOne = document.getElementById("westOne");
-    this.myDisplayCard = document.getElementById("myDisplayCard");
-    this.myDisplayCard = document.getElementById("myDisplayCard");
-    this.northOneDisplayCard = document.getElementById("northOneDisplayCard");
-    this.westOneDisplayCard = document.getElementById("westOneDisplayCard");
-    this.southOneDisplayCard = document.getElementById("southOneDisplayCard");
-    this.myDisplayCard1 = document.getElementById("myDisplayCard1");
-    this.drawerMaJiang(this.svg1, this.canvas, "mine");
-    this.drawerMaJiang(this.vewCard, this.myDisplayCard1, "mineNew");
-    this.drawerNorthOne(13);
-    this.drawerSouthOne(13);
-    this.drawerWestOne(13);
-    this.drawerMaJiang(
-      this.svgMyDisplayCard,
-      this.myDisplayCard,
-      "myDisplayCard"
-    );
-    this.drawerMaJiang(
-      this.svgNorthOneDisplayCard,
-      this.northOneDisplayCard,
-      "northDisplayCard"
-    );
-    this.drawerMaJiang(
-      this.svgNorthOneDisplayCard,
-      this.westOneDisplayCard,
-      "westOneDisplayCard"
-    );
-    this.drawerMaJiang(
-      this.svgNorthOneDisplayCard,
-      this.southOneDisplayCard,
-      "southOneDisplayCard"
-    );
-  }
+  // async startGame() {
+  //   this.canvas = document.getElementById("canvas");
+  //   this.leftOne = document.getElementById("northOne");
+  //   this.southOne = document.getElementById("southOne");
+  //   this.westOne = document.getElementById("westOne");
+  //   this.myDisplayCard = document.getElementById("myDisplayCard");
+  //   this.myDisplayCard = document.getElementById("myDisplayCard");
+  //   this.leftOneDisplayCard = document.getElementById("leftOneDisplayCard");
+  //   this.westOneDisplayCard = document.getElementById("westOneDisplayCard");
+  //   this.southOneDisplayCard = document.getElementById("southOneDisplayCard");
+  //   this.myDisplayCard1 = document.getElementById("myDisplayCard1");
+  //   this.drawerMaJiang(this.svg1, this.canvas, "mine");
+  //   this.drawerMaJiang(this.vewCard, this.myDisplayCard1, "mineNew");
+  //   this.drawerNorthOne(13);
+  //   this.drawerSouthOne(13);
+  //   this.drawerWestOne(13);
+  //   this.drawerMaJiang(
+  //     this.svgMyDisplayCard,
+  //     this.myDisplayCard,
+  //     "myDisplayCard"
+  //   );
+  //   this.drawerMaJiang(
+  //     this.svgNorthOneDisplayCard,
+  //     this.leftOneDisplayCard,
+  //     "northDisplayCard"
+  //   );
+  //   this.drawerMaJiang(
+  //     this.svgNorthOneDisplayCard,
+  //     this.westOneDisplayCard,
+  //     "westOneDisplayCard"
+  //   );
+  //   this.drawerMaJiang(
+  //     this.svgNorthOneDisplayCard,
+  //     this.southOneDisplayCard,
+  //     "southOneDisplayCard"
+  //   );
+  // }
 
   drawerWestOne(num: any) {
     let name = "assets/maJiang/background.svg";
-    if (this.westOne.hasChildNodes()) {
-      var pObjs = this.westOne.childNodes;
+    if (this.topOne.hasChildNodes()) {
+      var pObjs = this.topOne.childNodes;
       for (var i = pObjs.length - 1; i >= 0; i--) {
         // 一定要倒序，正序是删不干净的，可自行尝试
-        this.westOne.removeChild(pObjs[i]);
+        this.topOne.removeChild(pObjs[i]);
       }
     }
     for (let i = 1; i <= num; i++) {
@@ -579,11 +649,11 @@ export class MaJiangComponent implements OnInit {
 
   drawerNorthOne(num: any) {
     let name = "assets/maJiang/verticalView.svg";
-    if (this.northOne.hasChildNodes()) {
-      var pObjs = this.northOne.childNodes;
+    if (this.leftOne.hasChildNodes()) {
+      var pObjs = this.leftOne.childNodes;
       for (var i = pObjs.length - 1; i >= 0; i--) {
         // 一定要倒序，正序是删不干净的，可自行尝试
-        this.northOne.removeChild(pObjs[i]);
+        this.leftOne.removeChild(pObjs[i]);
       }
     }
     for (let i = 1; i <= num; i++) {
@@ -593,11 +663,11 @@ export class MaJiangComponent implements OnInit {
 
   drawerSouthOne(num: any) {
     let name = "assets/maJiang/verticalView.svg";
-    if (this.southOne.hasChildNodes()) {
-      var pObjs = this.southOne.childNodes;
+    if (this.rightOne.hasChildNodes()) {
+      var pObjs = this.rightOne.childNodes;
       for (var i = pObjs.length - 1; i >= 0; i--) {
         // 一定要倒序，正序是删不干净的，可自行尝试
-        this.southOne.removeChild(pObjs[i]);
+        this.rightOne.removeChild(pObjs[i]);
       }
     }
     for (let i = 1; i <= num; i++) {
@@ -606,60 +676,124 @@ export class MaJiangComponent implements OnInit {
   }
 
   async drawSingleWestOne(name: string) {
-    return new Promise<void>((resolve) => {
-      var tempCanvas: any = document.createElement("canvas");
-      tempCanvas.width = 60;
-      tempCanvas.height = 80;
-      this.westOne.appendChild(tempCanvas);
-      this.loadSVG(name).then((svgContent: any) => {
-        const ctx = tempCanvas.getContext("2d");
-        Canvg.fromString(ctx, svgContent, {
-          scaleWidth: 188,
-          scaleHeight: 248,
-          offsetX: 20,
-          offsetY: 24,
-        }).render();
-        resolve();
-      });
-    });
+    // return new Promise<void>((resolve) => {
+    var tempCanvas: any = document.createElement("canvas");
+    tempCanvas.width = 60;
+    tempCanvas.height = 80;
+    this.topOne.appendChild(tempCanvas);
+    // this.loadSVG(name).then((svgContent: any) => {
+    let svgContent = majiangpai.background;
+    const ctx = tempCanvas.getContext("2d");
+    Canvg.fromString(ctx, svgContent, {
+      scaleWidth: 188,
+      scaleHeight: 248,
+      offsetX: 20,
+      offsetY: 24,
+    }).render();
+    // resolve();
+    // });
+    // });
   }
 
   drawSingleNorthOne(name: string) {
-    return new Promise<void>((resolve) => {
-      var tempCanvas: any = document.createElement("canvas");
-      // tempCanvas.style.transform = "rotate(90deg)";
-      tempCanvas.width = 20;
-      tempCanvas.height = 30;
-      this.northOne.appendChild(tempCanvas);
-      this.loadSVG(name).then((svgContent: any) => {
-        const ctx = tempCanvas.getContext("2d");
-        Canvg.fromString(ctx, svgContent, {
-          scaleWidth: 260,
-          scaleHeight: 700,
-        }).render();
-        resolve();
-      });
-    });
+    // return new Promise<void>((resolve) => {
+    var tempCanvas: any = document.createElement("canvas");
+    // tempCanvas.style.transform = "rotate(90deg)";
+    tempCanvas.width = 20;
+    tempCanvas.height = 30;
+    this.leftOne.appendChild(tempCanvas);
+    // this.loadSVG(name).then((svgContent: any) => {
+    let svgContent = majiangpai.verticalView;
+    const ctx = tempCanvas.getContext("2d");
+    Canvg.fromString(ctx, svgContent, {
+      scaleWidth: 260,
+      scaleHeight: 700,
+    }).render();
+    // resolve();
+    // });
+    // });
   }
 
   drawSingleSouthOne(name: string) {
-    return new Promise<void>((resolve) => {
-      var tempCanvas: any = document.createElement("canvas");
-      // tempCanvas.style.transform = "rotate(90deg)";
-      tempCanvas.width = 20;
-      tempCanvas.height = 30;
-      this.southOne.appendChild(tempCanvas);
-      this.loadSVG(name).then((svgContent: any) => {
-        const ctx = tempCanvas.getContext("2d");
-        Canvg.fromString(ctx, svgContent, {
-          scaleWidth: 260,
-          scaleHeight: 700,
-        }).render();
-        resolve();
-      });
-    });
+    // return new Promise<void>((resolve) => {
+    var tempCanvas: any = document.createElement("canvas");
+    // tempCanvas.style.transform = "rotate(90deg)";
+    tempCanvas.width = 20;
+    tempCanvas.height = 30;
+    this.rightOne.appendChild(tempCanvas);
+    // this.loadSVG(name).then((svgContent: any) => {
+    let svgContent = majiangpai.verticalView;
+    const ctx = tempCanvas.getContext("2d");
+    Canvg.fromString(ctx, svgContent, {
+      scaleWidth: 260,
+      scaleHeight: 700,
+    }).render();
+    // resolve();
+    // });
+    // });
   }
-
+	// 绘画吃碰杠 底部麻将
+	drawerMaJiangBottom(svg1: any, canvasName: any, canMove: any){
+		let width = 0;
+		let height = 0;
+		let params = {}
+		if (canvasName.hasChildNodes()) {
+		  var pObjs = canvasName.childNodes;
+		  for (var i = pObjs.length - 1; i >= 0; i--) {
+		    // 一定要倒序，正序是删不干净的，可自行尝试
+		    canvasName.removeChild(pObjs[i]);
+		  }
+		}
+		// 自己的底牌
+		 if (canMove == "myDisplayCard") {
+			 params = {
+				scaleWidth: 190,
+			 	scaleHeight: 240,
+			 	offsetX: 20,
+				offsetY: 24,
+			 }
+			width = 60
+			height = 80;
+		} else if (
+		  canMove == "leftDisplayCard" ||
+		  canMove == "topOneDisplayCard" ||
+		  canMove == "rightOneDisplayCard"
+		) {
+			// 别人的底牌
+			params = {
+				scaleWidth: 190,
+				scaleHeight: 240,
+				offsetX: 12.5,
+				offsetY: 15,
+			}
+			width = 38
+			height = 50;
+		  
+		} 
+		svg1.forEach((ele: any, index: number) => {
+			if(ele.type=='ming'){
+				ele.cards.forEach((item:any)=>{
+					var tempCanvas: any = document.createElement("canvas");
+					tempCanvas.width = width;
+					tempCanvas.height = height;
+					canvasName.appendChild(tempCanvas);
+					let svgContent = majiangpai[item.suit + item.value]
+					let ctx = tempCanvas.getContext("2d");
+					Canvg.fromString(ctx, svgContent, params).render();
+				})
+			}else if(ele.type=='an'){
+				ele.cards.forEach((item:any)=>{
+					var tempCanvas: any = document.createElement("canvas");
+					tempCanvas.width = width;
+					tempCanvas.height = height;
+					canvasName.appendChild(tempCanvas);
+					let svgContent = majiangpai['background']
+					let ctx = tempCanvas.getContext("2d");
+					Canvg.fromString(ctx, svgContent, params).render();
+				})
+			}
+		});
+	}
   // 绘画麻将
   drawerMaJiang(svg1: any, canvasName: any, canMove: any) {
     if (canvasName.hasChildNodes()) {
@@ -679,17 +813,18 @@ export class MaJiangComponent implements OnInit {
         tempCanvas.setAttribute("type", ele.suit); // 记录索引
         tempCanvas.setAttribute("isNew", "old"); // 记录索引
         canvasName.appendChild(tempCanvas);
-        this.loadSVG("assets/maJiang/" + ele.value + ele.suit + ".svg").then(
-          (svgContent: any) => {
-            const ctx = tempCanvas.getContext("2d");
-            Canvg.fromString(ctx, svgContent, {
-              scaleWidth: 190,
-              scaleHeight: 240,
-              offsetX: 20,
-              offsetY: 24,
-            }).render();
-          }
-        );
+        // this.loadSVG("assets/maJiang/" + ele.value + ele.suit + ".svg").then(
+        // (svgContent: any) => {
+        let svgContent = majiangpai[ele.suit + ele.value];
+        const ctx = tempCanvas.getContext("2d");
+        Canvg.fromString(ctx, svgContent, {
+          scaleWidth: 190,
+          scaleHeight: 240,
+          offsetX: 20,
+          offsetY: 24,
+        }).render();
+        // }
+        // );
       });
     } else if (canMove == "myDisplayCard") {
       svg1.forEach((ele: any, index: number) => {
@@ -697,39 +832,42 @@ export class MaJiangComponent implements OnInit {
         tempCanvas.width = 60;
         tempCanvas.height = 80;
         canvasName.appendChild(tempCanvas);
-        this.loadSVG("assets/maJiang/" + ele.value + ele.suit + ".svg").then(
-          (svgContent: any) => {
-            const ctx = tempCanvas.getContext("2d");
-            Canvg.fromString(ctx, svgContent, {
-              scaleWidth: 190,
-              scaleHeight: 240,
-              offsetX: 20,
-              offsetY: 24,
-            }).render();
-          }
-        );
+        // this.loadSVG("assets/maJiang/" + ele.value + ele.suit + ".svg").then(
+        //   (svgContent: any) => {
+        let svgContent = majiangpai[ele.suit + ele.value];
+        const ctx = tempCanvas.getContext("2d");
+        Canvg.fromString(ctx, svgContent, {
+          scaleWidth: 190,
+          scaleHeight: 240,
+          offsetX: 20,
+          offsetY: 24,
+        }).render();
+        // }
+        // );
       });
     } else if (
-      canMove == "northDisplayCard" ||
-      canMove == "westOneDisplayCard" ||
-      canMove == "southOneDisplayCard"
+      canMove == "leftDisplayCard" ||
+      canMove == "topOneDisplayCard" ||
+      canMove == "rightOneDisplayCard"
     ) {
       svg1.forEach((ele: any, index: number) => {
         var tempCanvas: any = document.createElement("canvas");
         tempCanvas.width = 38;
         tempCanvas.height = 50;
+				let params = {
+							  scaleWidth: 190,
+							  scaleHeight: 240,
+							  offsetX: 12.5,
+							  offsetY: 15,
+							}
         canvasName.appendChild(tempCanvas);
-        this.loadSVG("assets/maJiang/" + ele.value + ele.suit + ".svg").then(
-          (svgContent: any) => {
-            const ctx = tempCanvas.getContext("2d");
-            Canvg.fromString(ctx, svgContent, {
-              scaleWidth: 190,
-              scaleHeight: 240,
-              offsetX: 12.5,
-              offsetY: 15,
-            }).render();
-          }
-        );
+        // this.loadSVG("assets/maJiang/" + ele.value + ele.suit + ".svg").then(
+        //   (svgContent: any) => {
+					let svgContent = majiangpai[ele.suit + ele.value];
+					let ctx = tempCanvas.getContext("2d");
+					Canvg.fromString(ctx, svgContent, params).render();
+        // }
+        // );
       });
     } else if (canMove == "mineNew") {
       svg1.forEach((ele: any, index: number) => {
@@ -740,17 +878,18 @@ export class MaJiangComponent implements OnInit {
         tempCanvas.setAttribute("type", ele.suit); // 记录索引
         tempCanvas.setAttribute("isNew", "new"); // 记录索引
         canvasName.appendChild(tempCanvas);
-        this.loadSVG("assets/maJiang/" + ele.value + ele.suit + ".svg").then(
-          (svgContent: any) => {
-            const ctx = tempCanvas.getContext("2d");
-            Canvg.fromString(ctx, svgContent, {
-              scaleWidth: 190,
-              scaleHeight: 240,
-              offsetX: 20,
-              offsetY: 24,
-            }).render();
-          }
-        );
+        // this.loadSVG("assets/maJiang/" + ele.value + ele.suit + ".svg").then(
+        //   (svgContent: any) => {
+        let svgContent = majiangpai[ele.suit + ele.value];
+        const ctx = tempCanvas.getContext("2d");
+        Canvg.fromString(ctx, svgContent, {
+          scaleWidth: 190,
+          scaleHeight: 240,
+          offsetX: 20,
+          offsetY: 24,
+        }).render();
+        // }
+        // );
       });
     }
   }
@@ -767,14 +906,16 @@ export class MaJiangComponent implements OnInit {
       const index = clickedElement.getAttribute("data-index");
       const isNew = clickedElement.getAttribute("isNew");
       if (isNew == "old") {
-        this.vewCard.forEach((element: any, i: number) => {
-          // 将所有元素设置为初始状态
-          const canvasElement: any = document.querySelector(`[isNew="new"]`);
-          if (canvasElement) {
-            canvasElement.style.transform = "translateY(0)";
-            element.isMoved = false;
-          }
-        });
+		  if(this.vewCard.length>0){
+			  this.vewCard.forEach((element: any, i: number) => {
+			    // 将所有元素设置为初始状态
+			    const canvasElement: any = document.querySelector(`[isNew="new"]`);
+			    if (canvasElement) {
+			      canvasElement.style.transform = "translateY(0)";
+			      element.isMoved = false;
+			    }
+			  });
+		  }
         if (this.svg1[index].isMoved) {
           clickedElement.style.transform = "translateY(0)";
           this.svg1[index].isMoved = !this.svg1[index].isMoved;
