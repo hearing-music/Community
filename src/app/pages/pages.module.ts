@@ -151,6 +151,7 @@ import { McscSearchHKComponent } from './search-songs/mcsc-search-hk/mcsc-search
 import { McscSearchZGComponent } from './search-songs/mcsc-search-zg/mcsc-search-zg.component';
 import { TmeMap_hotComponent } from './search-songs/tme-map/tme-map_hot/tme-map_hot.component';
 import { VolumeOfUseComponent } from './kuaishou-searchindex/volumeOfUse/volumeOfUse.component';
+import { FindInspirationComponent } from './find-inspiration/find-inspiration.component'
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -192,6 +193,7 @@ registerLocaleData(zh);
 		NzStepsModule
 	],
 	declarations: [
+		FindInspirationComponent,
 		    DouDiZhuComponent,
 		    CardGameComponent,
 		    SongRoomComponent,

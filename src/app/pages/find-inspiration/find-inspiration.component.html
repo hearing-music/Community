@@ -1,0 +1,15 @@
+<div class="inspiration">
+	<div style="display:flex;">
+		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
+		</ngx-search>
+		<nz-select style="width: 180px;margin-left:25px;" [(ngModel)]="audioNow" (ngModelChange)='ngModelAudio($event)' nzPlaceHolder='选择你的音频'>
+			<nz-option *ngFor="let item of myAudioList;" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+		</nz-select>
+	</div>
+	<div class="uploadFile-box">
+		<div style='font-size: 12px;'>上传你的音频</div>
+	    <ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+	</div>
+	<nz-empty *ngIf="videoList.length==0" style="margin-top: 160px;"></nz-empty>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

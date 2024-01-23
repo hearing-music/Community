@@ -99,6 +99,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		],
 	},
 	{
+		title:'找灵感',
+		icon:{
+			icon:'linggan',
+			pack:'my-icons'
+		},
+		link:'/pages/find-inspiration'
+	},
+	{
 		title: '快手',
 		icon: {
 			icon:'ks_icon',

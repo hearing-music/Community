@@ -28,6 +28,7 @@ import { RisingHotComponent } from "./douyin/rising-hot/rising-hot.component";
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
 import { FufuBillboardComponent } from './fufuleida/fufu-billboard/fufu-billboard.component'
+import { FindInspirationComponent } from './find-inspiration/find-inspiration.component'
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
@@ -199,6 +200,12 @@ const routes: Routes = [{
 		{
 			path: 'douyin/douyin-listenSoundSource',
 			component: DouyinListenSoundSourceComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 找灵感
+		{
+			path:'find-inspiration',
+			component:FindInspirationComponent,
 			canActivate: [PermissionGuard]
 		},
 		//云图 由你涨幅排名

@@ -1152,4 +1152,31 @@ export class ApiService {
 		    let url = this.baseUrl + "/childprocess/PDFToWord";
 		    return this.http.post(url, formData);
 	}
+	// 存储音频
+	synthesis_setAudioStorage(params:any){
+		let { audio,type,duration } = params;
+		    const formData: FormData = new FormData();
+		    formData.append("data", audio);
+		    formData.append("type", type);
+			formData.append('duration',duration)
+		    let url = this.baseUrl + "/articles/synthesis_setAudioStorage";
+		    return this.http.post(url, formData);
+	}
+	// 获取自己上传的音频
+	getAudioStorage(){
+		let url = this.baseUrl + "/articles/getAudioStorage";
+		    return this.http.post(url, {});
+	}
+	// 查询灵感视频
+	getVideoStorage(params:any){
+		let url = this.baseUrl + "/articles/getVideoStorage?keyword="+params.keyword;
+		return this.http.get(url);
+	}
+	// 合成灵感视频音频
+	composeVideoAudio(params:any){
+		let url = this.baseUrl + "/articles/composeVideoAudio";
+		return this.http.post(url, {audioId:params.audioId,videoId:params.videoId});
+	}
+	
+	
 }

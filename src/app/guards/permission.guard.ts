@@ -21,7 +21,7 @@ export class PermissionGuard implements CanActivate {
 			return this.checkUrl(url);
 		}
 	}
-	private checkUrl(url: string): any {
+	private checkUrl(url: any): any {
 		console.log('checkUrl permission','跳转')
 		let menu:any = localStorage.getItem('menu')
 		menu = JSON.parse(menu);
@@ -44,6 +44,14 @@ export class PermissionGuard implements CanActivate {
 		if(arr.includes(url)){
 			return true
 		}else{
+			let istrue = false;
+			for(let i = 0;i<arr.length;i++){
+				if(url.indexOf(arr[i])!=-1){
+					istrue = true;
+					break
+				}
+			}
+			if(istrue) return true
 			return this.router.parseUrl('**');
 		}
 		
