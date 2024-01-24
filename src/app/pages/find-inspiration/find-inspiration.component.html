@@ -2,8 +2,8 @@
 	<div style="display:flex;">
 		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
 		</ngx-search>
-		<nz-select style="width: 180px;margin-left:25px;" [(ngModel)]="audioNow" (ngModelChange)='ngModelAudio($event)' nzPlaceHolder='选择你的音频'>
-			<nz-option *ngFor="let item of myAudioList;" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+		<nz-select style="width: 180px;margin-left:25px;" [nzDropdownMatchSelectWidth]='false' [(ngModel)]="audioNow" (ngModelChange)='ngModelAudio($event)' nzPlaceHolder='选择你的音频'>
+			<nz-option *ngFor="let item of myAudioList;" [nzValue]="item.ID" [nzLabel]="item.name"></nz-option>
 		</nz-select>
 	</div>
 	<div class="uploadFile-box">
@@ -11,5 +11,22 @@
 	    <ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
 	</div>
 	<nz-empty *ngIf="videoList.length==0" style="margin-top: 160px;"></nz-empty>
+	<div class='inspiration-videolist'>
+		<div *ngFor='let item of videoList;' style='margin:25px;display: flex;'>
+			<div>
+				<video [src]="item.url" style='height:420px;' controls></video>
+				<div>
+					{{item.name}}
+				</div>
+				<div style="color: blue;cursor: pointer;" (click)='composeVideo(item)'>
+					合成视频
+				</div>
+			</div>
+			<div *ngIf='item.composeSrc' style="margin-left: 15px;">
+				<video [src]="item.composeSrc" style='height:420px;' controls></video>
+				<div>合成成功</div>
+			</div>
+		</div>
+	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>

@@ -17,13 +17,14 @@ export class FindInspirationComponent implements OnInit {
   searchHolder='请搜索视频关键字';
   myAudioList:any=[]
   videoList:any=[]
-  audioNow = ''
+  audioNow = -1
   search(e:any){
 	  this.searchValue = e;
 	  this.getVideoStorage()
   }
   ngModelAudio(e:any){
-	  console.log(e)
+	  // console.log(e)
+	  // console.log(this.audioNow)
   }
   // 上传音频
   onFile(file:any){
@@ -76,9 +77,32 @@ export class FindInspirationComponent implements OnInit {
 	  this.api.getVideoStorage({keyword:this.searchValue}).subscribe((res: any) => {
 	  			console.log(res)
 	  			this.loading = false;
+				res.result.forEach((item:any)=>{
+					item.url.replace('http://','https://')
+				})
+				this.videoList = res.result;
 	  		}, (err: any) => {
 	  			console.log(err)
 	  			this.loading = false;
 	  		})
+  }
+  // 合成视频
+  composeVideo(item:any){
+	  if(this.audioNow == -1){
+		  this.message.info('请选择音频')
+		  return
+	  }
+	  this.loading=true;
+	  this.api.composeVideoAudio({audioId:this.audioNow,videoId:item.ID}).subscribe((res: any) => {
+			console.log(res)
+			this.loading = false;
+			if(res.success){
+				res.result.replace('http://','https://')
+				item.composeSrc = res.result;
+			}
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
   }
 }
