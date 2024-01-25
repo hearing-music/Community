@@ -584,6 +584,12 @@ export class ApiService {
 		let url = this.baseUrl + "/kuaishou/totalByMusic?musicId="+musicId+"&musicType="+musicType
 		return this.http.get(url)
 	}
+	// 快手视频详情
+	getKsVideoDetails(params:any){
+		let { src } = params
+		let url = this.baseUrl + "/kuaishou/KsVideoDetails?url="+src
+		return this.http.get(url)
+	}
 	//获取素材
 	getSourcePhoto(params: any) {
 		let {

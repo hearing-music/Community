@@ -78,6 +78,7 @@ import { RiseRankingTempComponent } from './yuntu/riseRanking/riseRankingTemp/ri
 import { ChatTempComponent } from './game/song-room/chatTemp/chatTemp.component';
 import { SpecialEffectsQueryComponent } from './kuaishou-searchindex/special-effects-query/special-effects-query.component';
 import { SwollenKsEeListComponent } from './kuaishou-searchindex/swollen-ks-ee-list/swollen-ks-ee-list.component';
+import { KuaishouVideoDetailsComponent } from './kuaishou-searchindex/kuaishou-videoDetails/kuaishou-videoDetails.component';
 import {DyHotDetailComponent} from '../components/dyHotDetail/dyHotDetail.component'
 import {DyVideoTrendComponent} from '../components/dyVideoTrend/dyVideoTrend.component'
 import {DyAuthorComponent} from '../components/dyAuthor/dyAuthor.component'
@@ -206,6 +207,7 @@ registerLocaleData(zh);
 		MermaidComponent,
 		kuaishouPotentialComponent,
 		SwollenKsEeListComponent,
+		KuaishouVideoDetailsComponent,
 		EnlightenmentSongsComponent,
 		EnlightenmentTop20Component,
 		OggToMp3Component,

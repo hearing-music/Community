@@ -1,0 +1,54 @@
+<div class="kuaishou">
+	<div>
+		<!-- 搜索 -->
+		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)' >
+		</ngx-search>
+	</div>
+    <nz-empty *ngIf="!result.id" style="margin-top: 160px;"></nz-empty>
+	<div *ngIf='result.id' style="display: flex;margin-top: 30px;">
+		<div style="flex:1;flex-shrink: 0;">
+			<div style="display: flex;align-items: center;">
+				<div>
+					<img [src]="result.headerUrl" style="height:50px;border-radius: 50%;">
+				</div>
+				<div style="font-weight: bold;margin-left: 12px;">
+					{{result.name}}
+				</div>
+				<div (click)='common.copy(result.id)' style="margin-left: 12px;font-size: 12px;color:#666;cursor: pointer;" nzTooltipTitle="点击复制" nz-tooltip>
+					作者ID:{{result.id}}
+				</div>
+			</div>
+			<div style="font-weight: bold;margin: 12px 0;">
+				{{result.caption}}
+			</div>
+			<div style="font-size: 12px;color:#666;display: flex;">
+				<div nzTooltipTitle="作品发布时间" nz-tooltip>
+					{{common.timeFormat(result.timestamp,'yyyy-mm-dd hh:MM')}}
+				</div>
+				<div style="margin: 0 12px;display: flex;align-items: center;" nzTooltipTitle="作品点赞量" nz-tooltip>
+					<img src="../../../../assets/img/dianzan.svg" style="width: 18px;height:18px;margin-right: 2px;">
+					<div>
+						{{common.toThousands(result.realLikeCount)}}
+					</div>
+				</div>
+				<div style="display: flex;align-items: center;" nzTooltipTitle="作品播放量" nz-tooltip>
+					<img src="../../../../assets/img/bofang.svg" style="width: 18px;height:18px;margin-right: 2px;">
+					<div>
+						{{result.viewCount}}
+					</div>
+				</div>
+				<div (click)='common.copy(result.VideoId)' style="margin-left: 12px;font-size: 12px;color:#666;cursor: pointer;" nzTooltipTitle="点击复制" nz-tooltip>
+					视频ID:{{result.VideoId}}
+				</div>
+			</div>
+			<div style="margin: 12px 0;">
+				作品封面：
+			</div>
+			<img [src]="result.coverUrl" style="width:260px;box-shadow: 5px 5px 10px #666666, -5px -5px 10px #999999;">
+		</div>
+		<div style="flex:1;flex-shrink: 0;display: flex; justify-content: center;">
+			<video [src]="result.photoUrl" style='width:260px;box-shadow: 5px 5px 10px #666666, -5px -5px 10px #999999;' controls></video>
+		</div>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

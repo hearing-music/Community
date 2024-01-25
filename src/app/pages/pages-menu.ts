@@ -130,6 +130,10 @@ export let MENU_ITEMS: NbMenuItem[] = [
 			        title: "快手特效查询",
 			        link: "/pages/kuaishou-specialEffectsQuery",
 			      },
+				{
+				        title: "快手视频详情",
+				        link: "/pages/kuaishou-videoDetails",
+				 },
 			//       {
 			//         title: "快手特效监控",
 			//    link: "/pages/kuaishou-SwollenKsEeLis",

@@ -24,6 +24,7 @@ import { DouyinPopularAccountsComponent } from "./douyin/douyin-popular-accounts
 import { DouyinSoundSourceComponent } from './douyin/douyin-soundSource/douyin-soundSource.component';
 import { DouyinListenSoundSourceComponent } from './douyin/douyin-listenSoundSource/douyin-listenSoundSource.component';
 import {kuaishouPotentialComponent} from './kuaishou-searchindex/kuaishou-potential/kuaishou-potential.component'
+import { KuaishouVideoDetailsComponent } from './kuaishou-searchindex/kuaishou-videoDetails/kuaishou-videoDetails.component';
 import { RisingHotComponent } from "./douyin/rising-hot/rising-hot.component";
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
@@ -256,6 +257,12 @@ const routes: Routes = [{
 		        component: SpecialEffectsQueryComponent,
 		        canActivate: [PermissionGuard],
 		      },
+			//快手视频详情
+			{
+				path:'kuaishou-videoDetails',
+				component:KuaishouVideoDetailsComponent,
+				canActivate: [PermissionGuard],
+			},
 		      //快手特效监控
 		//       {
 		//         path: "kuaishou-SwollenKsEeLis",
