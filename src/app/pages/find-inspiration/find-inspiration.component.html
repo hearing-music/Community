@@ -12,18 +12,18 @@
 	</div>
 	<nz-empty *ngIf="videoList.length==0" style="margin-top: 160px;"></nz-empty>
 	<div class='inspiration-videolist'>
-		<div *ngFor='let item of videoList;' style='margin:25px;display: flex;'>
+		<div *ngFor='let item of videoList;' style='padding:10px;margin-bottom:10px;display: flex;border: 1px dashed #ccc; border-radius: 6px;'>
 			<div>
-				<video [src]="item.url" style='height:420px;' controls></video>
-				<div>
+				<video [src]="item.url" style='height:320px;width:180px;background-color: #000;' controls></video>
+				<div [nzTooltipTitle]="item.name" nz-tooltip style='width:180px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;'>
 					{{item.name}}
 				</div>
-				<div style="color: blue;cursor: pointer;" (click)='composeVideo(item)'>
-					合成视频
-				</div>
 			</div>
-			<div *ngIf='item.composeSrc' style="margin-left: 15px;">
-				<video [src]="item.composeSrc" style='height:420px;' controls></video>
+			<div (click)='composeVideo(item)' *ngIf='!item.composeSrc' style="margin-left: 10px;background-color: #000;height:320px;width:180px;color:#fff;display: flex;align-items: center;justify-content: center;cursor: pointer;">
+				合成视频
+			</div>
+			<div *ngIf='item.composeSrc' style="margin-left: 10px;">
+				<video [src]="item.composeSrc" style='height:320px;width:180px;background-color: #000;' controls></video>
 				<div>合成成功</div>
 			</div>
 		</div>
