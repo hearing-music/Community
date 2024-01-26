@@ -590,6 +590,15 @@ export class ApiService {
 		let url = this.baseUrl + "/kuaishou/KsVideoDetails?url="+src
 		return this.http.get(url)
 	}
+	// 快手视频详情 xlsx 批量
+	getKsVideoDetailsXlsx(params:any){
+		let { srcArr } = params
+		const FormData = require('form-data');
+		let data = new FormData();
+		data.append('urls', JSON.stringify(srcArr));
+		let url = this.baseUrl + "/kuaishou/KsVideoDetailsXlsx"
+		return this.http.post(url,data)
+	}
 	//获取素材
 	getSourcePhoto(params: any) {
 		let {
