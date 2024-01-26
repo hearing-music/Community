@@ -45,6 +45,6 @@ export class ToolComponent implements OnInit {
 	  }
   }
   onSelect(item: any): void {
-    this.selectItem = item.name;
+    this.selectItem = item.title;
   }
 }
