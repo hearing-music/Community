@@ -1,0 +1,221 @@
+<div class="tankGame" id='tankGame'>
+  <div *ngIf="gameStart" style="width: 100%;height:100%;">
+    <div
+      style="width: 100%; height: 100%; display: flex; flex-wrap: wrap"
+      id="tankBox"
+    ></div>
+    <div class="tank" id="tank" [style]='{width:boxWidth,height:boxHeight}'></div>
+	<div id='bullets'></div>
+  </div>
+  <div class="preparation" *ngIf="!gameStart&&!loading">
+    <div class="selectRoom" *ngIf="!iscreatRoom">
+      <div class="creatRoom">
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="round"
+          (click)="creatRoom()"
+        >
+          创建房间
+        </button>
+      </div>
+      <div class="intoRoom">
+        <button nz-button nzType="primary" nzShape="round">加入房间</button>
+      </div>
+    </div>
+    <div class="selectCharacter" *ngIf="iscreatRoom">
+      <div
+        style="
+          width: 100%;
+          height: 400px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <div
+          style="
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+          "
+        >
+          <nz-carousel
+            nzEffect="transform-no-loop"
+            [nzDots]="false"
+            #carousel
+            (nzBeforeChange)="changeTank($event)"
+          >
+            <div
+              nz-carousel-content
+              *ngFor="let item of tankArray"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <img
+                [src]="'assets/tank/' + item.name + '.png'"
+                alt=""
+                style="width: 150px; height: 150px"
+              />
+            </div>
+          </nz-carousel>
+          <div style="position: absolute; left: 0; top: 35%">
+            <img
+              src="assets/tank/choseLeft.png"
+              alt=""
+              style="width: 40px; cursor: pointer"
+              (click)="carousel.pre()"
+            />
+          </div>
+          <div style="position: absolute; right: 0; top: 35%">
+            <img
+              src="assets/tank/choseRight.png"
+              alt=""
+              style="width: 40px; cursor: pointer"
+              (click)="carousel.next()"
+            />
+          </div>
+        </div>
+        <div style="width: 50%">
+          <div>
+            <!-- 速度 -->
+            <nz-row>
+              <nz-col
+                nzSpan="4"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <span>速度:</span>
+              </nz-col>
+              <nz-col nzSpan="10">
+                <nz-slider
+                  [nzMin]="1"
+                  [nzMax]="100"
+                  [(ngModel)]="nowTank.attribute.speed"
+                ></nz-slider>
+              </nz-col>
+              <div
+                nz-col
+                nzSpan="4"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <nz-input-number
+                  [(ngModel)]="nowTank.attribute.speed"
+                  [nzMin]="1"
+                  [nzMax]="100"
+                  nzSize="small"
+                  [ngStyle]="{ marginLeft: '16px' }"
+                ></nz-input-number>
+              </div>
+            </nz-row>
+            <!-- 火力 -->
+            <nz-row>
+              <nz-col
+                nzSpan="4"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <span>火力:</span>
+              </nz-col>
+              <nz-col nzSpan="10">
+                <nz-slider
+                  [nzMin]="1"
+                  [nzMax]="100"
+                  [(ngModel)]="nowTank.attribute.fire"
+                ></nz-slider>
+              </nz-col>
+              <div
+                nz-col
+                nzSpan="4"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <nz-input-number
+                  [(ngModel)]="nowTank.attribute.fire"
+                  [nzMin]="1"
+                  [nzMax]="100"
+                  nzSize="small"
+                  [ngStyle]="{ marginLeft: '16px' }"
+                ></nz-input-number>
+              </div>
+            </nz-row>
+            <!-- 子弹速度 -->
+            <nz-row>
+              <nz-col
+                nzSpan="4"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <span>子弹速度:</span>
+              </nz-col>
+              <nz-col nzSpan="10">
+                <nz-slider
+                  [nzMin]="1"
+                  [nzMax]="100"
+                  [(ngModel)]="nowTank.attribute.RateOfFire"
+                ></nz-slider>
+              </nz-col>
+              <div
+                nz-col
+                nzSpan="4"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <nz-input-number
+                  [(ngModel)]="nowTank.attribute.RateOfFire"
+                  [nzMin]="1"
+                  [nzMax]="100"
+                  nzSize="small"
+                  [ngStyle]="{ marginLeft: '16px' }"
+                ></nz-input-number>
+              </div>
+            </nz-row>
+          </div>
+        </div>
+      </div>
+      <div
+        style="
+          width: 100%;
+          height: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="round"
+          (click)="choseTank()"
+        >
+          进入游戏
+        </button>
+      </div>
+    </div>
+  </div>
+  <ngx-loading *ngIf="loading"></ngx-loading>
+</div>

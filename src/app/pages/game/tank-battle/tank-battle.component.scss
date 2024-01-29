@@ -1,0 +1,81 @@
+.tankGame {
+  font-size: 15px;
+  width: 100%;
+  height: calc(100vh - 4.75rem - 3.5rem);
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  .tank {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.1s;
+    transition-timing-function: linear;
+    background-image: url("../../../../assets/tank/greenTank.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+  .preparation {
+   width: 100%;
+   height: calc(100vh - 4.75rem - 3.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .selectCharacter {
+      width: 70%;
+      position: absolute;
+      border-radius: 8px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      nz-radio-group {
+        margin-bottom: 8px;
+      }
+      [nz-carousel-content] {
+        text-align: center;
+        height: 160px;
+        line-height: 160px;
+        color: #fff;
+        overflow: hidden;
+      }
+
+      h3 {
+        color: #fff;
+        margin-bottom: 0;
+        user-select: none;
+      }
+    }
+    .selectRoom {
+      width: 20%;
+      height: 20%;
+      background-color: #fff;
+      position: absolute;
+      border-radius: 8px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+        rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      .creatRoom {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .intoRoom {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}

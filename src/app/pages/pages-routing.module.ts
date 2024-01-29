@@ -62,6 +62,7 @@ import { SongRoomComponent } from "./game/song-room/song-room.component";
 import { DouDiZhuComponent } from "./game/dou-di-zhu/dou-di-zhu.component";
 import { CardGameComponent } from "./game/card-game/card-game.component";
 import { MaJiangComponent } from "./game/ma-jiang/ma-jiang.component";
+import { TankBattleComponent } from "./game/tank-battle/tank-battle.component";
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -406,6 +407,11 @@ const routes: Routes = [{
 				{
 		        path: "ma-jiang",
 		        component: MaJiangComponent,
+		        canActivate: [PermissionGuard],
+		      },
+		      {
+		        path: "tank-battle",
+		        component: TankBattleComponent,
 		        canActivate: [PermissionGuard],
 		      },
 		 

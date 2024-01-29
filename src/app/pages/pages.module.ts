@@ -153,9 +153,16 @@ import { McscSearchZGComponent } from './search-songs/mcsc-search-zg/mcsc-search
 import { TmeMap_hotComponent } from './search-songs/tme-map/tme-map_hot/tme-map_hot.component';
 import { VolumeOfUseComponent } from './kuaishou-searchindex/volumeOfUse/volumeOfUse.component';
 import { FindInspirationComponent } from './find-inspiration/find-inspiration.component'
+import { TankBattleComponent } from "./game/tank-battle/tank-battle.component";
+import { NzCarouselModule } from "ng-zorro-antd/carousel";
+import { NzGridModule } from "ng-zorro-antd/grid";
+import { NzInputNumberModule } from "ng-zorro-antd/input-number";
 registerLocaleData(zh);
 @NgModule({
 	imports: [
+		NzCarouselModule,
+		NzInputNumberModule,
+		NzGridModule,
 		LoadingModule,
 		NzTabsModule,
 		NzDatePickerModule,
@@ -194,6 +201,7 @@ registerLocaleData(zh);
 		NzStepsModule
 	],
 	declarations: [
+		TankBattleComponent,
 		FindInspirationComponent,
 		    DouDiZhuComponent,
 		    CardGameComponent,

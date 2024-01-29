@@ -323,6 +323,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	        },
 	        link: "/pages/ma-jiang",
 	      },
+	 {
+	        title: "坦克大战",
+	        icon: {
+	          icon: "tankBattle",
+	          pack: "my-icons",
+	        },
+	        link: "/pages/tank-battle",
+	      },
     ],
   },
 	
