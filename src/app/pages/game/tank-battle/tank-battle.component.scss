@@ -11,11 +11,23 @@
     position: absolute;
     top: 0;
     left: 0;
-    transition: 0.1s;
+    transition-duration: 0.1s;
     transition-timing-function: linear;
     background-image: url("../../../../assets/tank/greenTank.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
+	.isBulletChange{
+		position:absolute;
+		left:0;
+		top:50%;
+		transform: translateY(-50%);
+		width:0;
+		height:4px;
+		border-radius: 2px;
+		background-color: #fff;
+		transition-timing-function: linear;
+		transform-origin: left;
+	}
   }
   .preparation {
    width: 100%;
