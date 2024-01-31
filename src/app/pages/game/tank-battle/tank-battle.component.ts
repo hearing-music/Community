@@ -1,7 +1,5 @@
 import { Component, HostListener, OnInit } from "@angular/core";
-import { Translate } from "canvg";
 import { NzMessageService } from "ng-zorro-antd/message";
-import { chdir } from "process";
 
 @Component({
   selector: "ngx-tank-battle",
@@ -35,7 +33,7 @@ export class TankBattleComponent implements OnInit {
       this.boxHeight = this.tankBoxHeight / this.topGrid + "px";
       tankGame.style.width = this.tankBoxWidth + "px";
       tankGame.style.height = this.tankBoxHeight + "px";
-      tankGame.style.background = "#9eb375";
+      tankGame.style.backgroundColor="#ccc"
       this.loading = false;
     }, 1000);
   }
@@ -2381,8 +2379,7 @@ export class TankBattleComponent implements OnInit {
   // 获取子弹发射位置
   getBulletPosition(direction: any) {
     var tank: any = document.getElementById("tank");
-    var myTankL = this.getStyle(tank, "left"),
-      myTankT = this.getStyle(tank, "top");
+    var myTankL = this.getStyle(tank, "left"), myTankT = this.getStyle(tank, "top");
     var mybulletL = 0;
     var mybulletT = 0;
     if (direction == "up") {
@@ -2429,75 +2426,90 @@ export class TankBattleComponent implements OnInit {
       // 子弹移动的top或left值
       var moveVal = this.getStyle(ele, attr);
       // 超出范围 边界
-      if (
-        ((direction == "up" || direction == "left") && moveVal <= 0) ||
-        (direction == "right" && moveVal >= this.tankBoxWidth - this.bullet2W) ||
-        (direction == "down" && moveVal >= this.tankBoxHeight - this.bullet1H)
-      ) {
+      if (((direction == "up" || direction == "left") && moveVal <= 0) ||(direction == "right" &&moveVal >= this.tankBoxWidth - this.bullet2W) ||(direction == "down" && moveVal >= this.tankBoxHeight - this.bullet1H)) {
         this.clearBullet(ele);
       } else {
         // 碰撞墙壁 超出射程消失
-		ele.style[attr] = moveVal + speed + "px";
-		this.bulletDie(direction,moveVal,ele,top,left)
+        ele.style[attr] = moveVal + speed + "px";
+        this.bulletDie(direction, moveVal, ele, top, left);
       }
     }, 10);
   }
   // 子弹碰撞墙壁消失 超出射程消失
-  bulletDie(direction:any,moveVal:any,ele:any,top:any,left:any){
-	  if (direction == "right") {
-	    let index = this.tankCantMovePosition.findIndex(
-	      (item: any) =>
-	        item.y == top &&
-	        moveVal + this.bullet2W >= item.x &&
-	        moveVal <= item.x
-	    );
-	    if (index != -1) {
-	  	// 碰撞墙壁
-	      this.clearBullet(ele);
-	    }else if(moveVal + this.bullet2W >= left + (parseInt(this.boxWidth)/2) + (this.shotRange * parseInt(this.boxWidth))){
-	  	// 超出射程 三格 = 2.5格消失
-	  	this.clearBullet(ele);
-	    }
-	  }
-	  if (direction == "left") {
-	    let index = this.tankCantMovePosition.findIndex(
-	      (item: any) =>
-	        item.y == top &&
-	        moveVal <= item.x + parseInt(this.boxWidth) &&
-	        moveVal >= item.x
-	    );
-	    if (index != -1) {
-	      this.clearBullet(ele);
-	    }else if(moveVal <= left + (parseInt(this.boxWidth)/2) - (this.shotRange * parseInt(this.boxWidth))){
-	  	this.clearBullet(ele);
-	    }
-	  }
-	  if (direction == "down") {
-	    let index = this.tankCantMovePosition.findIndex(
-	      (item: any) =>
-	        item.x == left &&
-	        moveVal <= item.y &&
-	        moveVal + this.bullet1H >= item.y
-	    );
-	    if (index != -1) {
-	      this.clearBullet(ele);
-	    }else if(moveVal + this.bullet1H >= top + (parseInt(this.boxHeight)/2) + (this.shotRange * parseInt(this.boxHeight))){
-	  	this.clearBullet(ele);
-	    }
-	  }
-	  if (direction == "up") {
-	    let index = this.tankCantMovePosition.findIndex(
-	      (item: any) =>
-	        item.x == left &&
-	        moveVal <= item.y + parseInt(this.boxHeight) &&
-	        moveVal >= item.y
-	    );
-	    if (index != -1) {
-	      this.clearBullet(ele);
-	    }else if(moveVal <= top + (parseInt(this.boxHeight)/2) - (this.shotRange * parseInt(this.boxHeight))){
-	  	 this.clearBullet(ele);
-	    }
-	  }
+  bulletDie(direction: any, moveVal: any, ele: any, top: any, left: any) {
+    var tankBox: any = document.getElementById("tankBox");
+    let deleteBox=[]
+    if (direction == "right") {
+      let index = this.tankCantMovePosition.findIndex((item: any) =>item.y == top &&moveVal + this.bullet2W >= item.x &&moveVal <= item.x);
+      if (index != -1) {
+        // 碰撞墙壁
+        if (this.tankCantMovePosition[index].name == "OrdinaryBox") {
+          deleteBox.push({
+            X: this.tankCantMovePosition[index].x / parseInt(this.boxWidth),
+            Y:this.tankCantMovePosition[index].y / parseInt(this.boxHeight)
+          })
+          this.tankCantMovePosition.splice(index, 1);
+          let index1=this.tankMap.OrdinaryBox.findIndex((ele: any) => ele.X==this.tankCantMovePosition[index].x / parseInt(this.boxWidth)&&ele.Y==this.tankCantMovePosition[index].y / parseInt(this.boxHeight))
+          this.tankMap.OrdinaryBox.splice(index1, 1);
+        }
+        this.clearBullet(ele);
+      } else if (moveVal + this.bullet2W >=left +parseInt(this.boxWidth) / 2 +this.shotRange * parseInt(this.boxWidth)) {
+        // 超出射程 三格 = 2.5格消失
+        this.clearBullet(ele);
+      }
+    }
+    if (direction == "left") {
+      let index = this.tankCantMovePosition.findIndex((item: any) =>item.y == top &&moveVal <= item.x + parseInt(this.boxWidth) &&moveVal >= item.x);
+      if (index != -1) {
+        if (this.tankCantMovePosition[index].name == "OrdinaryBox") {
+          deleteBox.push({
+            X: this.tankCantMovePosition[index].x / parseInt(this.boxWidth),
+            Y:this.tankCantMovePosition[index].y / parseInt(this.boxHeight)
+          })
+          this.tankCantMovePosition.splice(index, 1);
+          let index1=this.tankMap.OrdinaryBox.findIndex((ele: any) => ele.X==this.tankCantMovePosition[index].x / parseInt(this.boxWidth)&&ele.Y==this.tankCantMovePosition[index].y / parseInt(this.boxHeight))
+          this.tankMap.OrdinaryBox.splice(index1, 1);
+        }
+        this.clearBullet(ele);
+      } else if (moveVal <=left +parseInt(this.boxWidth) / 2 -this.shotRange * parseInt(this.boxWidth)) {
+        this.clearBullet(ele);
+      }
+    }
+    if (direction == "down") {
+      let index = this.tankCantMovePosition.findIndex((item: any) => item.x == left && moveVal <= item.y && moveVal + this.bullet1H >= item.y);
+      if (index != -1) {
+        this.clearBullet(ele);
+        if (this.tankCantMovePosition[index].name == "OrdinaryBox") {
+          deleteBox.push({
+            X: this.tankCantMovePosition[index].x / parseInt(this.boxWidth),
+            Y:this.tankCantMovePosition[index].y / parseInt(this.boxHeight)
+          })
+          this.tankCantMovePosition.splice(index, 1);
+          let index1=this.tankMap.OrdinaryBox.findIndex((ele: any) => ele.X==this.tankCantMovePosition[index].x / parseInt(this.boxWidth)&&ele.Y==this.tankCantMovePosition[index].y / parseInt(this.boxHeight))
+          this.tankMap.OrdinaryBox.splice(index1, 1);
+        }
+      } else if ( moveVal + this.bullet1H >= top +parseInt(this.boxHeight) / 2 +this.shotRange * parseInt(this.boxHeight)) {
+        this.clearBullet(ele);
+      }
+    }
+    if (direction == "up") {
+      let index = this.tankCantMovePosition.findIndex((item: any) =>item.x == left &&moveVal <= item.y + parseInt(this.boxHeight) &&moveVal >= item.y);
+      if (index != -1) {
+        this.clearBullet(ele);
+        if (this.tankCantMovePosition[index].name == "OrdinaryBox") {
+          deleteBox.push({
+            X: this.tankCantMovePosition[index].x / parseInt(this.boxWidth),
+            Y:this.tankCantMovePosition[index].y / parseInt(this.boxHeight)
+          })
+          this.tankCantMovePosition.splice(index, 1);
+          let index1=this.tankMap.OrdinaryBox.findIndex((ele: any) => ele.X==this.tankCantMovePosition[index].x / parseInt(this.boxWidth)&&ele.Y==this.tankCantMovePosition[index].y / parseInt(this.boxHeight))
+          this.tankMap.OrdinaryBox.splice(index1, 1);
+        }
+      } else if (moveVal <=top +parseInt(this.boxHeight) / 2 -this.shotRange * parseInt(this.boxHeight)) {
+        this.clearBullet(ele);
+      }
+    }
+    this.drawerMetalBox(deleteBox, tankBox, "#ccc", "deleteBox");
   }
   // 获取坦克方向
   getTankDirection() {
@@ -2528,11 +2540,10 @@ export class TankBattleComponent implements OnInit {
     }
     return data;
   }
+  // 开始游戏
   startGame() {
     var tankBox: any = document.getElementById("tankBox");
-    let total =
-      (this.tankBoxWidth / parseInt(this.boxWidth)) *
-      (this.tankBoxHeight / parseInt(this.boxHeight));
+    let total =(this.tankBoxWidth / parseInt(this.boxWidth)) *(this.tankBoxHeight / parseInt(this.boxHeight));
     var tankBoxRect = tankBox.getBoundingClientRect();
     this.offSetX = tankBoxRect.x;
     this.offSetY = tankBoxRect.y;
@@ -2542,178 +2553,80 @@ export class TankBattleComponent implements OnInit {
       tempCanvas.style.height = this.boxHeight;
       tankBox.appendChild(tempCanvas);
     }
-    this.drawerMetalBox(this.tankMap.MetalBox, tankBox, "#9d9d9d", 1);
-    this.drawerMetalBox(this.tankMap.NestleBox, tankBox, "#69c254", 0);
-    this.drawerMetalBox(this.tankMap.OrdinaryBox, tankBox, "#c29e54", 1);
-    this.drawerMetalBox(this.tankMap.VoidBox, tankBox, "#000", 2);
+    this.drawerMetalBox(this.tankMap.MetalBox, tankBox, "stone-wall", "MetalBox");
+    this.drawerMetalBox(this.tankMap.NestleBox,tankBox,"reed","NestleBox");
+    this.drawerMetalBox(this.tankMap.OrdinaryBox,tankBox,"stakes-fence","OrdinaryBox");
+    this.drawerMetalBox(this.tankMap.VoidBox, tankBox, "#000", "VoidBox");
 
     this.tank = document.getElementById("tank");
     this.tank.style.zIndex = 101;
     this.tank.style.top = "0px";
     this.tank.style.left = "0px";
     this.tank.style.backgroundImage = `url(../../../../assets/tank/${this.nowTank.name}.png)`;
-    this.tank.style.transition = `all ${
-      (100 - this.nowTank.attribute.speed) / 100
-    }s`;
+    this.tank.style.backgroundRepeat = "no-repeat";
+    this.tank.style.transition = `all ${(100 - this.nowTank.maneuverability.tankSpeed) / 100}s`;
     this.TankLeft = this.tank.getBoundingClientRect().x - this.offSetX;
     this.TankTop = this.tank.getBoundingClientRect().y - this.offSetY;
     this.drawVisible();
   }
-  drawerMetalBox(tankMap: any, tankBox: any, color: any, isNestleBox: any) {
+  // 绘画所有障碍物
+  drawerMetalBox(tankMap: any, tankBox: any, color: any, name: any) {
     for (let i = 0; i < tankMap.length; i++) {
-      if (tankMap[i].X != 0 && tankMap[i].Y != 0) {
-        tankBox.children[
-          tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-            tankMap[i].X
-        ].style.backgroundColor = color;
-        if (isNestleBox == 0) {
-          tankBox.children[
-            tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-              tankMap[i].X
-          ].style.opacity = 0.7;
-          tankBox.children[
-            tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-              tankMap[i].X
-          ].style.zIndex = 102;
-        } else {
-          if (isNestleBox == 1) {
-            this.tankCantMovePosition.push({
-              x: tankMap[i].X * parseInt(this.boxWidth),
-              y: tankMap[i].Y * parseInt(this.boxHeight),
-            });
-          } else if (isNestleBox == 2) {
-            this.tankCanMovePosition.push({
-              x: tankMap[i].X * parseInt(this.boxWidth),
-              y: tankMap[i].Y * parseInt(this.boxHeight),
-            });
-            tankBox.children[
-              tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-                tankMap[i].X
-            ].style.zIndex = 102;
-          } else if (isNestleBox == 3) {
-            tankBox.children[
-              tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-                tankMap[i].X
-            ].style.zIndex = 101;
-            tankBox.children[
-              tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-                tankMap[i].X
-            ].style.backgroundColor = color;
-          }
-        }
-      }
-      if (tankMap[i].X == 0) {
-        tankBox.children[
-          (this.tankBoxWidth / parseInt(this.boxWidth)) * tankMap[i].Y
-        ].style.backgroundColor = color;
-        if (isNestleBox == 0) {
-          tankBox.children[
-            (this.tankBoxWidth / parseInt(this.boxWidth)) * tankMap[i].Y
-          ].style.opacity = 0.7;
-          tankBox.children[
-            tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-              tankMap[i].X
-          ].style.zIndex = 102;
-        } else {
-          if (isNestleBox == 1) {
-            this.tankCantMovePosition.push({
-              x: tankMap[i].X * parseInt(this.boxWidth),
-              y: tankMap[i].Y * parseInt(this.boxHeight),
-            });
-          } else if (isNestleBox == 2) {
-            this.tankCanMovePosition.push({
-              x: tankMap[i].X * parseInt(this.boxWidth),
-              y: tankMap[i].Y * parseInt(this.boxHeight),
-            });
-            tankBox.children[
-              tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-                tankMap[i].X
-            ].style.zIndex = 102;
-          } else if (isNestleBox == 3) {
-            tankBox.children[
-              tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-                tankMap[i].X
-            ].style.zIndex = 100;
-            tankBox.children[
-              tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-                tankMap[i].X
-            ].style.backgroundColor = color;
-          }
-        }
-      }
-      if (tankMap[i].Y == 0) {
-        tankBox.children[tankMap[i].X].style.backgroundColor = color;
-        if (isNestleBox == 0) {
-          tankBox.children[
-            tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-              tankMap[i].X
-          ].style.opacity = 0.7;
-          tankBox.children[
-            tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-              tankMap[i].X
-          ].style.zIndex = 102;
-        } else {
-          if (isNestleBox == 1) {
-            this.tankCantMovePosition.push({
-              x: tankMap[i].X * parseInt(this.boxWidth),
-              y: tankMap[i].Y * parseInt(this.boxHeight),
-            });
-          } else if (isNestleBox == 2) {
-            this.tankCanMovePosition.push({
-              x: tankMap[i].X * parseInt(this.boxWidth),
-              y: tankMap[i].Y * parseInt(this.boxHeight),
-            });
-            tankBox.children[
-              tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-                tankMap[i].X
-            ].style.zIndex = 102;
-          } else if (isNestleBox == 3) {
-            tankBox.children[
-              tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-                tankMap[i].X
-            ].style.zIndex = 100;
-            tankBox.children[
-              tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +
-                tankMap[i].X
-            ].style.backgroundColor = color;
-          }
-        }
+      if (name == "NestleBox") {
+        tankBox.children[tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) + tankMap[i].X].style.opacity = 0.7;
+        tankBox.children[tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) + tankMap[i].X].style.zIndex = 102;
+        tankBox.children[tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) + tankMap[i].X].style.backgroundImage = `url(../../../../assets/tank/${color}.svg)`;
+        tankBox.children[tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) + tankMap[i].X].style.backgroundSize = "cover";
+      } else if (name == "MetalBox"|| name =="OrdinaryBox") {
+        this.tankCantMovePosition.push({
+          x: tankMap[i].X * parseInt(this.boxWidth),
+          y: tankMap[i].Y * parseInt(this.boxHeight),
+          name: name,
+        });
+        tankBox.children[tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) + tankMap[i].X].style.backgroundImage = `url(../../../../assets/tank/${color}.svg)`;
+        tankBox.children[tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) + tankMap[i].X].style.backgroundSize = "cover";
+      } else if (name == "VoidBox") {
+        this.tankCanMovePosition.push({
+          x: tankMap[i].X * parseInt(this.boxWidth),
+          y: tankMap[i].Y * parseInt(this.boxHeight),
+          name: name,
+        });
+        tankBox.children[tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) + tankMap[i].X].style.zIndex = 102;
+        tankBox.children[tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +tankMap[i].X].style.backgroundColor = color;
+      } else if (name == "isbankgrd") {
+        tankBox.children[tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +tankMap[i].X].style.zIndex = 101;
+        tankBox.children[tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +tankMap[i].X].style.backgroundColor = color;
+      } else if (name == "deleteBox") {
+        tankBox.children[tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) +tankMap[i].X].style.zIndex = 100;
+        tankBox.children[tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) + tankMap[i].X].style.backgroundColor = color;
+        tankBox.children[tankMap[i].Y * (this.tankBoxWidth / parseInt(this.boxWidth)) + tankMap[i].X].style.backgroundImage = null;
       }
     }
   }
+  // 键盘点击事件
   @HostListener("document:keydown", ["$event"])
   handleKeyboardEvent(event: KeyboardEvent) {
+    console.log(event.key)
     if (this.gameStart) {
       if (event.key == " ") {
         // console.log('按空格射击')
         this.shot();
       }
-			// 手动换弹
-			if(event.key=='r'||event.key=='R'){
-				// 满子弹和正在换弹不能换弹
-				if (this.bulletCountNow < this.bulletCount&&this.bulletCountNow!=0){
-					this.bulletCountNow = this.bulletCount
-					// 可以换弹
-					this.bulletChanges()
-				}
-			}
-      if (
-        event.key == "D" ||
-        event.key == "d" ||
-        event.key == "W" ||
-        event.key == "w" ||
-        event.key == "s" ||
-        event.key == "S" ||
-        event.key == "A" ||
-        event.key == "a"
-      ) {
-        if (this.ismove) {
-          return;
+      // 手动换弹
+      if (event.key == "r" || event.key == "R") {
+        // 满子弹和正在换弹不能换弹
+        if (this.bulletCountNow < this.bulletCount &&this.bulletCountNow != 0) {
+          this.bulletCountNow = this.bulletCount;
+          // 可以换弹
+          this.bulletChanges();
         }
+      }
+      if (event.key == "D" || event.key == "d" || event.key == "W" || event.key == "w" || event.key == "s" || event.key == "S" ||event.key == "A" || event.key == "a") {
+        if (this.ismove) { return;}
         this.ismove = true;
         setTimeout(() => {
           this.ismove = false;
-        }, this.nowTank.attribute.speed);
+        }, this.nowTank.maneuverability.tankSpeed);
       }
       if (event.key == "D" || event.key == "d") {
         if (this.tank.style.transform == "rotate(90deg)") {
@@ -2722,16 +2635,11 @@ export class TankBattleComponent implements OnInit {
             this.tankBoxWidth - parseInt(this.boxWidth)
           ) {
             this.TankLeft = this.tankBoxWidth - parseInt(this.boxWidth);
-            this.tank.style.left =
-              this.tankBoxWidth - parseInt(this.boxWidth) + "px";
+            this.tank.style.left =this.tankBoxWidth - parseInt(this.boxWidth) + "px";
             this.tank.style.transform = "rotate(90deg)";
           } else {
             this.tank.style.transform = "rotate(90deg)";
-            let isMove = this.tankCantMovePosition.findIndex(
-              (ele: any) =>
-                ele.y + "px" == this.tank.style.top &&
-                this.TankLeft == ele.x - parseInt(this.boxWidth)
-            );
+            let isMove = this.tankCantMovePosition.findIndex((ele: any) => ele.y + "px" == this.tank.style.top && this.TankLeft == ele.x - parseInt(this.boxWidth));
             if (isMove == -1) {
               this.TankLeft = this.TankLeft + parseInt(this.boxWidth);
               this.tank.style.left = this.TankLeft + "px";
@@ -2751,11 +2659,7 @@ export class TankBattleComponent implements OnInit {
             this.tank.style.transform = "rotate(0deg)";
           } else {
             this.tank.style.transform = "rotate(0deg)";
-            let isMove = this.tankCantMovePosition.findIndex(
-              (ele: any) =>
-                ele.x + "px" == this.tank.style.left &&
-                this.TankTop == ele.y + parseInt(this.boxHeight)
-            );
+            let isMove = this.tankCantMovePosition.findIndex((ele: any) => ele.x + "px" == this.tank.style.left && this.TankTop == ele.y + parseInt(this.boxHeight));
             if (isMove != -1) {
               this.TankTop = this.TankTop;
               this.tank.style.top = this.TankTop + "px";
@@ -2769,21 +2673,13 @@ export class TankBattleComponent implements OnInit {
         }
       } else if (event.key == "s" || event.key == "S") {
         if (this.tank.style.transform == "rotate(180deg)") {
-          if (
-            this.TankTop + parseInt(this.boxHeight) >
-            this.tankBoxHeight - parseInt(this.boxHeight)
-          ) {
+          if (this.TankTop + parseInt(this.boxHeight) > this.tankBoxHeight - parseInt(this.boxHeight)) {
             this.TankTop = this.tankBoxHeight - parseInt(this.boxHeight);
-            this.tank.style.top =
-              this.tankBoxHeight - parseInt(this.boxHeight) + "px";
+            this.tank.style.top = this.tankBoxHeight - parseInt(this.boxHeight) + "px";
             this.tank.style.transform = "rotate(180deg)";
           } else {
             this.tank.style.transform = "rotate(180deg)";
-            let isMove = this.tankCantMovePosition.findIndex(
-              (ele: any) =>
-                ele.x + "px" == this.tank.style.left &&
-                this.TankTop == ele.y - parseInt(this.boxHeight)
-            );
+            let isMove = this.tankCantMovePosition.findIndex((ele: any) => ele.x + "px" == this.tank.style.left && this.TankTop == ele.y - parseInt(this.boxHeight));
             if (isMove != -1) {
               this.TankTop = this.TankTop;
               this.tank.style.top = this.TankTop + "px";
@@ -2803,11 +2699,7 @@ export class TankBattleComponent implements OnInit {
             this.tank.style.transform = "rotate(270deg)";
           } else {
             this.tank.style.transform = "rotate(270deg)";
-            let isMove = this.tankCantMovePosition.findIndex(
-              (ele: any) =>
-                ele.y + "px" == this.tank.style.top &&
-                this.TankLeft == ele.x + parseInt(this.boxWidth)
-            );
+            let isMove = this.tankCantMovePosition.findIndex((ele: any) => ele.y + "px" == this.tank.style.top && this.TankLeft == ele.x + parseInt(this.boxWidth));
             if (isMove == -1) {
               this.TankLeft = this.TankLeft - parseInt(this.boxWidth);
               this.tank.style.left = this.TankLeft + "px";
@@ -2823,34 +2715,19 @@ export class TankBattleComponent implements OnInit {
     }
     this.drawVisible();
   }
+  // 绘画坦克周围可见区域
   drawVisible() {
     var tankBox: any = document.getElementById("tankBox");
     let isbankgrd: any = [];
     for (let i = -3; i <= 3; i++) {
-      let indexY = this.tankCanMovePosition.findIndex(
-        (ele: any) =>
-          ele.x == parseInt(this.tank.style.left) &&
-          ele.y == parseInt(this.tank.style.top) - i * parseInt(this.boxHeight)
-      );
-      let indexX = this.tankCanMovePosition.findIndex(
-        (ele: any) =>
-          ele.y == parseInt(this.tank.style.top) &&
-          ele.x == parseInt(this.tank.style.left) - i * parseInt(this.boxWidth)
-      );
+      let indexY = this.tankCanMovePosition.findIndex((ele: any) =>ele.x == parseInt(this.tank.style.left) && ele.y == parseInt(this.tank.style.top) - i * parseInt(this.boxHeight));
+      let indexX = this.tankCanMovePosition.findIndex((ele: any) =>ele.y == parseInt(this.tank.style.top) &&ele.x == parseInt(this.tank.style.left) - i * parseInt(this.boxWidth));
       isbankgrd = [...isbankgrd, indexY];
       isbankgrd = [...isbankgrd, indexX];
     }
     for (let i = -2; i <= 2; i++) {
-      let indexX1 = this.tankCanMovePosition.findIndex(
-        (ele: any) =>
-          ele.y + parseInt(this.boxHeight) == parseInt(this.tank.style.top) &&
-          ele.x == parseInt(this.tank.style.left) - i * parseInt(this.boxWidth)
-      );
-      let indexX2 = this.tankCanMovePosition.findIndex(
-        (ele: any) =>
-          ele.y - parseInt(this.boxHeight) == parseInt(this.tank.style.top) &&
-          ele.x == parseInt(this.tank.style.left) - i * parseInt(this.boxWidth)
-      );
+      let indexX1 = this.tankCanMovePosition.findIndex((ele: any) =>ele.y + parseInt(this.boxHeight) == parseInt(this.tank.style.top) &&ele.x == parseInt(this.tank.style.left) - i * parseInt(this.boxWidth));
+      let indexX2 = this.tankCanMovePosition.findIndex((ele: any) =>ele.y - parseInt(this.boxHeight) == parseInt(this.tank.style.top) &&ele.x == parseInt(this.tank.style.left) - i * parseInt(this.boxWidth));
       isbankgrd = [...isbankgrd, indexX1];
       isbankgrd = [...isbankgrd, indexX2];
     }
@@ -2860,90 +2737,193 @@ export class TankBattleComponent implements OnInit {
       if (isbankgrd[i] != -1) {
         arr.push({
           X: this.tankCanMovePosition[isbankgrd[i]].x / parseInt(this.boxWidth),
-          Y:
-            this.tankCanMovePosition[isbankgrd[i]].y / parseInt(this.boxHeight),
+          Y: this.tankCanMovePosition[isbankgrd[i]].y / parseInt(this.boxHeight),
         });
       }
     }
-    this.drawerMetalBox(arr, tankBox, "#ccc", 3);
+    this.drawerMetalBox(arr, tankBox, "#ccc",  "isbankgrd");
   }
   changeTank(number: any) {
     this.nowTank = this.tankArray[number.to];
   }
   choseTank() {
-    if (
-      this.nowTank.attribute.speed +
-        this.nowTank.attribute.fire +
-        this.nowTank.attribute.RateOfFire ==
-      100
-    ) {
       setTimeout(() => {
         this.startGame();
       }, 100);
       this.gameStart = true;
-      this.bulletSpeed = this.nowTank.attribute.RateOfFire / 100; //子弹速度
-	  this.bulletCount = this.nowTank.attribute.bulletCount;//子弹容量
-	  this.bulletChangeTime = 6 - this.nowTank.attribute.bulletChangeTime;//换弹时间
-	  this.shotRange = this.nowTank.attribute.shotRange;//射程
-    } else {
-      this.message.error("速度，火力，子弹速度三个值需相加为100");
-    }
+      this.bulletSpeed = this.nowTank.fire.fireRate / 100; //子弹速度
+      this.bulletCount = this.nowTank.fire.ammoCapacity; //子弹容量
+      this.bulletChangeTime = 6 - this.nowTank.fire.bulletChangeTime; //换弹时间
+      this.shotRange = this.nowTank.fire.shotRange; //射程
   }
   nowTank: any = {
     name: "blueTank",
-    attribute: {
-      speed: 50,//坦克速度
-      fire: 30,//火力
-      RateOfFire: 20,//子弹速度
-	  bulletCount:3,//子弹容量
-	  bulletChangeTime:2,//换弹速度 s 越高越快
-	  shotRange:3,//射程 格
+    chineseName: "小坦克",
+    fire: {
+      lethality: 50, //杀伤力
+      fireRate: 30, //射速
+      ammoCapacity: 20, //弹药容量
+      shotRange: 3, //射程 格
+      bulletChangeTime: 2, //换弹速度 s 越高越快
     },
+    maneuverability: {
+      tankSpeed: 10,//坦克移速
+    },
+    protection: {
+      health: 100,//生命值
+      armorThickness:100 //装甲厚度
+    },
+    investigate:{
+      visibleRange:100
+    }
   };
   tankArray: any = [
     {
       name: "blueTank",
-      attribute: {
-        speed: 50,
-        fire: 30,
-        RateOfFire: 20,
-		bulletCount:3,//子弹容量
-		bulletChangeTime:2,//换弹速度 s
-		shotRange:3,//射程 格
+      chineseName:"小坦克",
+      fire: {
+        lethality: 50, //杀伤力
+        fireRate: 30, //射速
+        ammoCapacity: 20, //弹药容量
+        shotRange: 3, //射程 格
+        bulletChangeTime: 2, //换弹速度 s 越高越快
       },
+      maneuverability: {
+        tankSpeed: 10,//坦克移速
+      },
+      protection: {
+        health: 100,//生命值
+        armorThickness:100 //装甲厚度
+      },
+      investigate:{
+        visibleRange:100
+      }
     },
     {
       name: "greenTank",
-      attribute: {
-        speed: 60,
-        fire: 10,
-        RateOfFire: 30,
-		bulletCount:3,//子弹容量
-		bulletChangeTime:2,//换弹速度 s
-		shotRange:3,//射程 格
+      chineseName:"轻型坦克",
+      fire: {
+        lethality: 50, //杀伤力
+        fireRate: 30, //射速
+        ammoCapacity: 20, //弹药容量
+        shotRange: 3, //射程 格
+        bulletChangeTime: 2, //换弹速度 s 越高越快
       },
+      maneuverability: {
+        tankSpeed: 10,//坦克移速
+      },
+      protection: {
+        health: 100,//生命值
+        armorThickness:100 //装甲厚度
+      },
+      investigate:{
+        visibleRange:100
+      }
     },
     {
       name: "orangeTank",
-      attribute: {
-        speed: 40,
-        fire: 10,
-        RateOfFire: 50,
-		bulletCount:3,//子弹容量
-		bulletChangeTime:2,//换弹速度 s
-		shotRange:3,//射程 格
+      chineseName:"巡洋坦克",
+      fire: {
+        lethality: 50, //杀伤力
+        fireRate: 30, //射速
+        ammoCapacity: 20, //弹药容量
+        shotRange: 3, //射程 格
+        bulletChangeTime: 2, //换弹速度 s 越高越快
       },
+      maneuverability: {
+        tankSpeed: 10,//坦克移速
+      },
+      protection: {
+        health: 100,//生命值
+        armorThickness:100 //装甲厚度
+      },
+      investigate:{
+        visibleRange:100
+      }
     },
     {
       name: "yellowTank",
-      attribute: {
-        speed: 40,
-        fire: 30,
-        RateOfFire: 30,
-		bulletCount:3,//子弹容量
-		bulletChangeTime:2,//换弹速度 s
-		shotRange:3,//射程 格
+      chineseName:"中型坦克",
+      fire: {
+        lethality: 50, //杀伤力
+        fireRate: 30, //射速
+        ammoCapacity: 20, //弹药容量
+        shotRange: 3, //射程 格
+        bulletChangeTime: 2, //换弹速度 s 越高越快
       },
+      maneuverability: {
+        tankSpeed: 10,//坦克移速
+      },
+      protection: {
+        health: 100,//生命值
+        armorThickness:100 //装甲厚度
+      },
+      investigate:{
+        visibleRange:100
+      }
+    },
+    {
+      name: "yellowTank",
+      chineseName:"步兵坦克",
+      fire: {
+        lethality: 50, //杀伤力
+        fireRate: 30, //射速
+        ammoCapacity: 20, //弹药容量
+        shotRange: 3, //射程 格
+        bulletChangeTime: 2, //换弹速度 s 越高越快
+      },
+      maneuverability: {
+        tankSpeed: 10,//坦克移速
+      },
+      protection: {
+        health: 100,//生命值
+        armorThickness:100 //装甲厚度
+      },
+      investigate:{
+        visibleRange:100
+      }
+    },
+    {
+      name: "yellowTank",
+      chineseName:"重型坦克",
+      fire: {
+        lethality: 50, //杀伤力
+        fireRate: 30, //射速
+        ammoCapacity: 20, //弹药容量
+        shotRange: 3, //射程 格
+        bulletChangeTime: 2, //换弹速度 s 越高越快
+      },
+      maneuverability: {
+        tankSpeed: 10,//坦克移速
+      },
+      protection: {
+        health: 100,//生命值
+        armorThickness:100 //装甲厚度
+      },
+      investigate:{
+        visibleRange:100
+      }
+    },
+    {
+      name: "yellowTank",
+      chineseName:"超重型坦克",
+      fire: {
+        lethality: 50, //杀伤力
+        fireRate: 30, //射速
+        ammoCapacity: 20, //弹药容量
+        shotRange: 3, //射程 格
+        bulletChangeTime: 2, //换弹速度 s 越高越快
+      },
+      maneuverability: {
+        tankSpeed: 10,//坦克移速
+      },
+      protection: {
+        health: 100,//生命值
+        armorThickness:100 //装甲厚度
+      },
+      investigate:{
+        visibleRange:100
+      }
     },
   ];
 }
