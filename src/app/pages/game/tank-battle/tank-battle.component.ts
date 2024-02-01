@@ -496,7 +496,7 @@ export class TankBattleComponent implements OnInit {
   drawVisible() {
     var tankBox: any = document.getElementById("tankBox");
     let isbankgrd: any = [];
-	let visibleRange = parseInt(this.visibleRange+'')
+	let visibleRange = this.visibleRange
 	let Y = parseInt(this.tank.style.top)/parseInt(this.boxHeight)
 	let X = parseInt(this.tank.style.left)/parseInt(this.boxWidth)
 	//        Y-3        Y-2       Y-1       Y+0         Y+1       Y+2       Y+3
@@ -548,7 +548,7 @@ export class TankBattleComponent implements OnInit {
       this.bulletChangeTime = 6 - this.nowTank.fire.bulletChangeTime; //换弹时间
       this.shotRange = this.nowTank.fire.shotRange; //射程
 	  this.tankSpeed = 300 - this.nowTank.maneuverability.tankSpeed*2;//坦克速度
-	  this.visibleRange = this.nowTank.investigate.visibleRange*2+1; //视野
+	  this.visibleRange = this.nowTank.investigate.visibleRange; //视野
   }
   nowTank: any = {
     name: "blueTank",
