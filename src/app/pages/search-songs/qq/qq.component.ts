@@ -24,6 +24,9 @@ export class QqComponent implements OnInit {
 	visible = false;
 	drawerLoading=false;
 	albumAllSongs:any = []
+	openQQ(uin:any){
+		window.open('tencent://message/?uin='+uin)
+	}
 	// 更多版本
 	moreVersion(item:any){
 		item.isMore = item.isMore?false:true;

@@ -803,11 +803,15 @@ export class SearchSongsComponent implements OnInit {
 			if(res.success){
 				res.result.forEach((item: any) => {
 					let names:any = ''
+					let names2:any = ''
 					item.singers.forEach((sitem:any)=>{
-						names+=sitem.name+'、'
+							names2+=sitem.name+'：'+sitem.uin+'、'
+							names+=sitem.name+'、'
 					})
 					names=names.substr(0,names.length-1)
+					names2=names2.substr(0,names2.length-1)
 					item.singerNames = names
+					item.singerNames2 = names2
 					item.topinfo = item.topinfo || {}
 					item.playinfo = item.playinfo || {}
 					item.isPlay = false;

@@ -119,14 +119,22 @@
 					<div class="subTitle">
 						<!-- 歌手 发行时间 -->
 						<div style="display: flex;align-items: center;">
-							<span nz-tooltip [nzTooltipTitle]="item.singerNames">
-								<div style="display: flex;align-items: center;max-width: 145px;
+							<div nz-tooltip [nzTooltipTitle]="item.singerNames2" style="display: flex;align-items: center;max-width: 145px; 
 							overflow: hidden;
 							white-space: nowrap;
 							text-overflow: ellipsis;">
-									{{item.singerNames}}
+								<div *ngFor='let singer of item.singers;let ii = index;' style="display: flex;align-items: center;">
+									<div>
+										{{singer.name}}
+									</div>
+									<div (click)='openQQ(singer.uin)' *ngIf='singer.uin'>
+										<img src="../../../../assets/img/QQ.svg" style="width:16px;height:16px;margin-left: 4px;cursor: pointer;display: block;">
+									</div>
+									<div *ngIf='ii!=item.singers.length-1'>
+										、
+									</div>
 								</div>
-							</span>
+							</div>
 							<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
 							<div>
 								{{item.time_public}}
