@@ -22,6 +22,36 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
   ctx: any;
   ctx1: any;
   loading = false;
+  ispreparation = false;
+  visible: boolean = false;
+  isReady = false;
+  isVisible: boolean = false;
+  isAi = false;
+  token = window.localStorage.getItem("token");
+  socketObj = {
+    auth: {
+      token: this.token,
+    },
+  };
+  socketIO: any = null;
+  socketSpace = "/ddz";
+  socketUrl = environment.socketUrl + this.socketSpace;
+  roomid = "";
+  showPlay = false;
+  houseUsers: any = [];
+  playInfo: any = {};
+  players: any = {
+    nextPlayer: {},
+    lastPlayer: {},
+    player: {},
+  };
+  meIndex = 0;
+  nextIndex = 0;
+  lastIndex = 0;
+  roomIdNow: any = null;
+  roomHouseShow = false;
+  houseShow = true;
+
   ngOnInit() {
     this.connect();
   }
@@ -34,58 +64,34 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
   createMessage(type: string, msg: any): void {
     this.message.create(type, `${msg}`);
   }
-
   clearDraw() {
     if (this.nextCtx && this.upCtx && this.myCtx) {
-      this.nextCtx.clearRect(
-        0,
-        0,
-        this.nextCanvas.width,
-        this.nextCanvas.height
-      );
+      this.nextCtx.clearRect(0, 0, this.nextCanvas.width, this.nextCanvas.height);
       this.upCtx.clearRect(0, 0, this.upCanvas.width, this.upCanvas.height);
       this.myCtx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
     }
   }
   // 展示最后剩余
   drawEndNest() {
-    let canvasWidth = (
-      (this.players.nextPlayer.cards.length - 1) * 15 +
-      45
-    ).toString();
+    let canvasWidth = ((this.players.nextPlayer.cards.length - 1) * 15 + 45).toString();
     let canvasHeight = (150).toString();
     this.nextCanvas = document.getElementById("nestCard");
     this.nextCanvas.width = canvasWidth;
     this.nextCanvas.height = canvasHeight;
     this.nextCtx = this.nextCanvas.getContext("2d");
     for (let i = 0; i < this.players.nextPlayer.cards.length; i++) {
-      this.nextCtx.drawPokerCard(
-        i * 15,
-        30,
-        60,
-        this.players.nextPlayer.cards[i].suits,
-        this.players.nextPlayer.cards[i].card
-      );
+      this.nextCtx.drawPokerCard(i * 15, 30, 60, this.players.nextPlayer.cards[i].suits, this.players.nextPlayer.cards[i].card);
     }
   }
   drawEndUp() {
-    let canvasWidth = (
-      (this.players.lastPlayer.cards.length - 1) * 15 +
-      45
-    ).toString();
+    let canvasWidth = ((this.players.lastPlayer.cards.length - 1) * 15 + 45).toString();
     let canvasHeight = (150).toString();
     this.upCanvas = document.getElementById("upCard");
     this.upCanvas.width = canvasWidth;
     this.upCanvas.height = canvasHeight;
     this.upCtx = this.upCanvas.getContext("2d");
     for (let i = 0; i < this.players.lastPlayer.cards.length; i++) {
-      this.upCtx.drawPokerCard(
-        i * 15,
-        30,
-        60,
-        this.players.lastPlayer.cards[i].suits,
-        this.players.lastPlayer.cards[i].card
-      );
+      this.upCtx.drawPokerCard(i * 15, 30, 60, this.players.lastPlayer.cards[i].suits, this.players.lastPlayer.cards[i].card);
     }
   }
   choseRoom(roomId: any) {
@@ -95,57 +101,29 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
   }
   //打出的下家扑克牌
   drawNextCard() {
-    let canvasWidth = (
-      (this.players.nextPlayer.sendCards.length - 1) * 25 +
-      75
-    ).toString();
+    let canvasWidth = ((this.players.nextPlayer.sendCards.length - 1) * 25 + 75).toString();
     this.nextCanvas = document.getElementById("nestCard");
     this.nextCanvas.width = canvasWidth;
     this.nextCtx = this.nextCanvas.getContext("2d");
     if (this.players.nextPlayer.sendCards.length > 0) {
-      this.nextCtx.clearRect(
-        0,
-        0,
-        this.nextCanvas.width,
-        this.nextCanvas.height
-      );
+      this.nextCtx.clearRect(0, 0, this.nextCanvas.width, this.nextCanvas.height);
       for (let i = 0; i < this.players.nextPlayer.sendCards.length; i++) {
-        this.nextCtx.drawPokerCard(
-          i * 25,
-          0,
-          100,
-          this.players.nextPlayer.sendCards[i].suits,
-          this.players.nextPlayer.sendCards[i].card
-        );
+        this.nextCtx.drawPokerCard(i * 25, 0, 100, this.players.nextPlayer.sendCards[i].suits, this.players.nextPlayer.sendCards[i].card);
       }
     } else {
-      this.nextCtx.clearRect(
-        0,
-        0,
-        this.nextCanvas.width,
-        this.nextCanvas.height
-      );
+      this.nextCtx.clearRect(0, 0, this.nextCanvas.width, this.nextCanvas.height);
     }
   }
   //打出的上家扑克牌
   drawUpCard() {
-    let canvasWidth = (
-      (this.players.lastPlayer.sendCards.length - 1) * 25 +
-      75
-    ).toString();
+    let canvasWidth = ((this.players.lastPlayer.sendCards.length - 1) * 25 + 75).toString();
     this.upCanvas = document.getElementById("upCard");
     this.upCanvas.width = canvasWidth;
     this.upCtx = this.upCanvas.getContext("2d");
     if (this.players.lastPlayer.sendCards.length > 0) {
       this.upCtx.clearRect(0, 0, this.upCanvas.width, this.upCanvas.height);
       for (let i = 0; i < this.players.lastPlayer.sendCards.length; i++) {
-        this.upCtx.drawPokerCard(
-          i * 25,
-          0,
-          100,
-          this.players.lastPlayer.sendCards[i].suits,
-          this.players.lastPlayer.sendCards[i].card
-        );
+        this.upCtx.drawPokerCard(i * 25, 0, 100, this.players.lastPlayer.sendCards[i].suits, this.players.lastPlayer.sendCards[i].card);
       }
     } else {
       this.upCtx.clearRect(0, 0, this.upCanvas.width, this.upCanvas.height);
@@ -153,23 +131,14 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
   }
   //打出的我的扑克牌
   drawMyCard() {
-    let canvasWidth = (
-      (this.players.player.sendCards.length - 1) * 35 +
-      115
-    ).toString();
+    let canvasWidth = ((this.players.player.sendCards.length - 1) * 35 + 115).toString();
     this.myCanvas = document.getElementById("myCard");
     this.myCanvas.width = canvasWidth;
     this.myCtx = this.myCanvas.getContext("2d");
     if (this.players.player.sendCards.length > 0) {
       this.myCtx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
       for (let i = 0; i < this.players.player.sendCards.length; i++) {
-        this.myCtx.drawPokerCard(
-          i * 35,
-          0,
-          150,
-          this.players.player.sendCards[i].suits,
-          this.players.player.sendCards[i].card
-        );
+        this.myCtx.drawPokerCard(i * 35, 0, 150, this.players.player.sendCards[i].suits, this.players.player.sendCards[i].card);
       }
     } else {
       this.myCtx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
@@ -184,13 +153,7 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
     this.ctx1.clearRect(0, 0, this.canvas1.width, this.canvas1.height);
     if (this.playInfo.bottomCardShow) {
       for (let i = 0; i < this.playInfo.bottomCard.length; i++) {
-        this.ctx1.drawPokerCard(
-          i * 70,
-          0,
-          80,
-          this.playInfo.bottomCard[i].suits,
-          this.playInfo.bottomCard[i].card
-        );
+        this.ctx1.drawPokerCard(i * 70, 0, 80, this.playInfo.bottomCard[i].suits, this.playInfo.bottomCard[i].card);
       }
     } else {
       for (let i = 0; i < 3; i++) {
@@ -200,10 +163,7 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
   }
   //都准备之后的自己的扑克牌的canvas
   drawCanvas() {
-    let canvasWidth = (
-      (this.players.player.cards.length - 1) * 35 +
-      115
-    ).toString();
+    let canvasWidth = ((this.players.player.cards.length - 1) * 35 + 115).toString();
     this.canvas = document.getElementById("myowncanvas");
     var par: any = this.canvas.parentNode;
     this.canvas.width = canvasWidth;
@@ -211,13 +171,7 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
     this.ctx = this.canvas.getContext("2d");
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     for (let i = 0; i < this.players.player.cards.length; i++) {
-      this.ctx.drawPokerCard(
-        i * 35,
-        this.players.player.cards[i].top,
-        150,
-        this.players.player.cards[i].suits,
-        this.players.player.cards[i].card
-      );
+      this.ctx.drawPokerCard(i * 35, this.players.player.cards[i].top, 150, this.players.player.cards[i].suits, this.players.player.cards[i].card);
     }
   }
   //向上移动扑克牌
@@ -239,7 +193,6 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
     }
     this.drawCanvas();
   }
-
   copy(text: any) {
     const el = document.createElement("input");
     el.setAttribute("value", text);
@@ -249,9 +202,6 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
     document.body.removeChild(el);
     this.createMessage("success", "复制成功");
   }
-  ispreparation = false;
-  visible: boolean = false;
-  isReady = false;
   ready() {
     console.log("我准备好了");
     this.socketIO.emit("match", { type: "ready", roomId: this.roomIdNow });
@@ -260,40 +210,34 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
     console.log("离开");
     this.socketIO.emit("match", { type: "leaveRoom", roomId: this.roomIdNow });
     this.showPlay = false;
-	this.isAi = false;
+    this.isAi = false;
   }
   notReady() {
     console.log("我取消准备了");
     this.socketIO.emit("match", { type: "notReady", roomId: this.roomIdNow });
   }
-
   openSearchRoom() {
     this.visible = true;
   }
   closeSearchRoom() {
     this.visible = false;
   }
-
-  isVisible: boolean = false;
-    joinRoom() {
-      this.roomid = "";
-      this.isVisible = true;
-    }
+  joinRoom() {
+    this.roomid = "";
+    this.isVisible = true;
+  }
   joinRoomCancel() {
     this.isVisible = false;
   }
-  isAi = false;
-  aiPlay(){
-	  this.socketIO.emit("match", { type: "createRoomAi" });
-	  this.showPlay = true;
-	  this.isAi = true;
+  aiPlay() {
+    this.socketIO.emit("match", { type: "createRoomAi" });
+    this.showPlay = true;
+    this.isAi = true;
   }
-  roomid = "";
-  showPlay = false;
   roomCreate() {
     this.socketIO.emit("match", { type: "createRoom" });
     this.showPlay = true;
-	this.isAi = false;
+    this.isAi = false;
   }
   roomAdd() {
     let roomId = this.roomid;
@@ -302,19 +246,8 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
       return;
     }
     this.socketIO.emit("match", { type: "joinRoom", roomId });
-	this.isAi = false;
+    this.isAi = false;
   }
-
-  token = window.localStorage.getItem("token");
-  socketObj = {
-    auth: {
-      token: this.token,
-    },
-  };
-  socketIO: any = null;
-  socketSpace = "/ddz";
-  socketUrl = environment.socketUrl +this.socketSpace;
-  // socketUrl = "https://communities.tingjianmusic.cn:444" + this.socketSpace;
   connect() {
     this.loading = true;
     this.socketObj.auth.token = this.token;
@@ -322,24 +255,10 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
     this.socketIO = this.socketIO.connect();
     this.listen();
   }
-
-  houseUsers: any = [];
-  playInfo: any = {};
-  players: any = {
-    nextPlayer: {},
-    lastPlayer: {},
-    player: {},
-  };
-  meIndex = 0;
-  nextIndex = 0;
-  lastIndex = 0;
-  roomIdNow: any = null;
-  roomHouseShow = false;
-  houseShow = true;
   listen() {
     //搜索所有房间
     this.socketIO.on("roomInfo", (data: any) => {
-		console.log(data)
+      console.log(data);
       this.roomDetail = data;
     });
 
@@ -386,10 +305,10 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
         if (this.players.player.token == token) {
           this.players.player.playPoker = true;
           this.players.player.timeout = true;
-		  // 轮到自己出牌 清空自己之前出的牌
-		  this.players.player.sendCards = [];
-		  this.drawCanvas();
-		  this.drawMyCard();
+          // 轮到自己出牌 清空自己之前出的牌
+          this.players.player.sendCards = [];
+          this.drawCanvas();
+          this.drawMyCard();
           this.timing("player", "start");
         }
         //上家
@@ -435,47 +354,40 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
         this.drawUpCard();
         //上家
         if (this.players.lastPlayer.token == token) {
-			if(this.players.nextPlayer.sendPokerStr=='不出'&&this.players.player.sendPokerStr=='不出'){
-				this.players.nextPlayer.sendPokerStr = "";
-			}
-			this.players.player.sendPokerStr = "";
+          if (this.players.nextPlayer.sendPokerStr == "不出" && this.players.player.sendPokerStr == "不出") {
+            this.players.nextPlayer.sendPokerStr = "";
+          }
+          this.players.player.sendPokerStr = "";
           if (data.state == false) {
             this.players.lastPlayer.sendPokerStr = "不出";
-          }else{
-			  this.players.lastPlayer.sendPokerStr = this.pokerToStr(
-			    this.players.lastPlayer.sendCards
-			  );
-		  }
+          } else {
+            this.players.lastPlayer.sendPokerStr = this.pokerToStr(this.players.lastPlayer.sendCards);
+          }
           this.players.lastPlayer.timeout = false;
         }
         // 下家
         if (this.players.nextPlayer.token == token) {
-			this.players.lastPlayer.sendPokerStr = "";
+          this.players.lastPlayer.sendPokerStr = "";
           if (data.state == false) {
             this.players.nextPlayer.sendPokerStr = "不出";
             // this.players.lastPlayer.sendPokerStr = "";
             // this.players.player.sendPokerStr = "";
-          }else{
-			  this.players.nextPlayer.sendPokerStr = this.pokerToStr(
-			    this.players.nextPlayer.sendCards
-			  );
-		  }
+          } else {
+            this.players.nextPlayer.sendPokerStr = this.pokerToStr(this.players.nextPlayer.sendCards);
+          }
           this.players.nextPlayer.timeout = false;
         }
         // 自己
         if (this.players.player.token == token) {
-			this.players.lastPlayer.nextPlayer = "";
+          this.players.lastPlayer.nextPlayer = "";
           this.players.player.playPoker = false;
-		  
           if (data.state == false) {
             this.players.player.sendPokerStr = "不出";
             // this.players.nextPlayer.sendPokerStr = "";
             // this.players.lastPlayer.sendPokerStr = "";
-          }else{
-			  this.players.player.sendPokerStr = this.pokerToStr(
-			    this.players.player.sendCards
-			  );
-		  }
+          } else {
+            this.players.player.sendPokerStr = this.pokerToStr(this.players.player.sendCards);
+          }
           this.players.player.timeout = false;
           this.timing("player", "stop");
         }
@@ -489,10 +401,8 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
       if (data.type == "doubleBegin") {
         this.players.player.double = true;
         this.players.player.action = "doubling";
-
         this.players.player.timeout = true;
         this.timing("player", "start");
-
         this.players.lastPlayer.timeout = true;
         this.timing("lastPlayer", "start");
         this.players.nextPlayer.timeout = true;
@@ -519,7 +429,6 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
     this.socketIO.on("robLandlord", (data: any) => {
       console.log(data.msg, data);
       this.houseUsers = data.houseUsers;
-
       // 通知抢地主
       if (data.type == "robLandlordNotice") {
         let token = this.houseUsers[data.robLandlordIndex].token;
@@ -546,16 +455,12 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
         let token = this.houseUsers[data.robLandlordIndex].token;
         // 上家
         if (this.players.lastPlayer.token == token) {
-          this.players.lastPlayer.actionStr = data.isRobLandlord
-            ? "抢地主"
-            : "不抢";
+          this.players.lastPlayer.actionStr = data.isRobLandlord ? "抢地主" : "不抢";
           this.players.lastPlayer.timeout = false;
         }
         // 下家
         if (this.players.nextPlayer.token == token) {
-          this.players.nextPlayer.actionStr = data.isRobLandlord
-            ? "抢地主"
-            : "不抢";
+          this.players.nextPlayer.actionStr = data.isRobLandlord ? "抢地主" : "不抢";
           this.players.nextPlayer.timeout = false;
         }
       }
@@ -573,10 +478,8 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
         this.players.nextPlayer.cards = data.houseUsers[this.nextIndex].cards;
         this.players.lastPlayer.cards = data.houseUsers[this.lastIndex].cards;
         this.players.player.identity = data.houseUsers[this.meIndex].identity;
-        this.players.nextPlayer.identity =
-          data.houseUsers[this.nextIndex].identity;
-        this.players.lastPlayer.identity =
-          data.houseUsers[this.lastIndex].identity;
+        this.players.nextPlayer.identity = data.houseUsers[this.nextIndex].identity;
+        this.players.lastPlayer.identity = data.houseUsers[this.lastIndex].identity;
         for (let i = 0; i < this.players.player.cards.length; i++) {
           this.players.player.cards[i].top = 30;
         }
@@ -612,16 +515,12 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
         let token = this.houseUsers[data.callLandlordIndex].token;
         // 上家
         if (this.players.lastPlayer.token == token) {
-          this.players.lastPlayer.actionStr = data.isCallLandlord
-            ? "叫地主"
-            : "不叫";
+          this.players.lastPlayer.actionStr = data.isCallLandlord ? "叫地主" : "不叫";
           this.players.lastPlayer.timeout = false;
         }
         // 下家
         if (this.players.nextPlayer.token == token) {
-          this.players.nextPlayer.actionStr = data.isCallLandlord
-            ? "叫地主"
-            : "不叫";
+          this.players.nextPlayer.actionStr = data.isCallLandlord ? "叫地主" : "不叫";
           this.players.nextPlayer.timeout = false;
         }
       }
@@ -642,10 +541,8 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
         }
         // 重置身份
         this.players.player.identity = data.houseUsers[this.meIndex].identity;
-        this.players.lastPlayer.identity =
-          data.houseUsers[this.lastIndex].identity;
-        this.players.nextPlayer.identity =
-          data.houseUsers[this.nextIndex].identity;
+        this.players.lastPlayer.identity = data.houseUsers[this.lastIndex].identity;
+        this.players.nextPlayer.identity = data.houseUsers[this.nextIndex].identity;
         this.drawCanvas();
         this.clearDraw();
         this.drawBottomCard();
@@ -665,10 +562,8 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
       this.roomIdNow = data.roomId;
       this.playInfo = data.playInfo;
       // 房间id
-
       // 人员信息 显示 上下家
       this.housePlayer(data.houseUsers);
-
       if (data.type == "Ileave" || data.type == "connect") {
         // 我离开房间
         this.showPlay = false;
@@ -751,11 +646,7 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
     // 出牌自动
     if (this.players[key].action == "playPoker") {
       // 如果我必出 出张最左面的一张
-      if (
-        this.players.player.cards.length == 20 ||
-        (!this.players.lastPlayer.sendCards &&
-          !this.players.nextPlayer.sendCards)
-      ) {
+      if (this.players.player.cards.length == 20 || (!this.players.lastPlayer.sendCards && !this.players.nextPlayer.sendCards)) {
         this.playPoker(true, true);
       } else {
         this.playPoker(false, true);
@@ -791,61 +682,39 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
       return;
     }
     let cards = this.players.player.cards.filter((e: any) => e.top == 0);
-	if(!this.isAi){
-		this.socketIO.emit("playPoker", {
-		  type: "playPoker",
-		  roomId: this.roomIdNow,
-		  cards,
-		  state,
-		});
-	}else{
-		this.socketIO.emit("playPoker", {
-		  type: "playPokerAi",
-		  roomId: this.roomIdNow,
-		  cards,
-		  state,
-		});
-	}
+    if (!this.isAi) {
+      this.socketIO.emit("playPoker", { type: "playPoker", roomId: this.roomIdNow, cards, state,});
+    } else {
+      this.socketIO.emit("playPoker", { type: "playPokerAi", roomId: this.roomIdNow, cards, state,});
+    }
   }
   doubling(isDouble: any) {
     console.log("我加倍或者不加倍");
-	if(!this.isAi){
-		this.socketIO.emit("doubling", {
-		  type: "doubling",
-		  roomId: this.roomIdNow,
-		  isDouble,
-		});
-		this.players.player.actionStr = isDouble ? "加倍" : "不加倍";
-		this.players.player.double = false;
-		this.players.player.timeout = false;
-		this.timing("player", "stop");
-	}else{
-		this.socketIO.emit("doubling", {
-		  type: "doublingAi",
-		  roomId: this.roomIdNow,
-		  isDouble,
-		});
-		this.players.player.actionStr = isDouble ? "加倍" : "不加倍";
-		this.players.player.double = false;
-		this.players.player.timeout = false;
-		this.timing("player", "stop");
-		this.players.nextPlayer.double = false;
-		this.players.nextPlayer.timeout = false;
-		this.players.nextPlayer.actionStr = '不加倍';
-		this.timing("nextPlayer", "stop");
-		this.players.lastPlayer.double = false;
-		this.players.lastPlayer.timeout = false;
-		this.players.lastPlayer.actionStr = '不加倍';
-		this.timing("lastPlayer", "stop");
-	}
+    if (!this.isAi) {
+      this.socketIO.emit("doubling", { type: "doubling", roomId: this.roomIdNow, isDouble,});
+      this.players.player.actionStr = isDouble ? "加倍" : "不加倍";
+      this.players.player.double = false;
+      this.players.player.timeout = false;
+      this.timing("player", "stop");
+    } else {
+      this.socketIO.emit("doubling", { type: "doublingAi", roomId: this.roomIdNow, isDouble,});
+      this.players.player.actionStr = isDouble ? "加倍" : "不加倍";
+      this.players.player.double = false;
+      this.players.player.timeout = false;
+      this.timing("player", "stop");
+      this.players.nextPlayer.double = false;
+      this.players.nextPlayer.timeout = false;
+      this.players.nextPlayer.actionStr = "不加倍";
+      this.timing("nextPlayer", "stop");
+      this.players.lastPlayer.double = false;
+      this.players.lastPlayer.timeout = false;
+      this.players.lastPlayer.actionStr = "不加倍";
+      this.timing("lastPlayer", "stop");
+    }
   }
   robLandlord(isRobLandlord: any) {
     console.log("我抢地主或者不抢");
-    this.socketIO.emit("robLandlord", {
-      type: "robLandlord",
-      roomId: this.roomIdNow,
-      isRobLandlord,
-    });
+    this.socketIO.emit("robLandlord", { type: "robLandlord", roomId: this.roomIdNow, isRobLandlord,});
     this.players.player.actionStr = isRobLandlord ? "抢地主" : "不抢";
     this.players.player.robLandlord = false;
     this.players.player.timeout = false;
@@ -853,35 +722,27 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
   }
   callLandlord(isCallLandlord: any) {
     console.log("我叫地主或者不叫");
-	if(!this.isAi){
-		this.socketIO.emit("callLandlord", {
-		  type: "callLandlord",
-		  roomId: this.roomIdNow,
-		  isCallLandlord,
-		});
-		this.players.player.actionStr = isCallLandlord ? "叫地主" : "不叫";
-		this.players.player.callLandlord = false;
-		this.players.player.timeout = false;
-		this.timing("player", "stop");
-	}else{
-		this.socketIO.emit("callLandlord", {
-		  type: "callLandlordAi",
-		  roomId: this.roomIdNow,
-		  isCallLandlord,
-		});
-		this.players.player.timeout = false;
-		this.players.player.callLandlord = false;
-		this.timing("player", "stop");
-		if(!isCallLandlord){
-			this.players.nextPlayer.callLandlord = false;
-			this.players.nextPlayer.timeout = false;
-			this.players.nextPlayer.actionStr = '不叫';
-			this.timing("nextPlayer", "stop");
-			this.players.lastPlayer.callLandlord = false;
-			this.players.lastPlayer.timeout = false;
-			this.players.lastPlayer.actionStr = '不叫';
-			this.timing("lastPlayer", "stop");
-		}
-	}
+    if (!this.isAi) {
+      this.socketIO.emit("callLandlord", { type: "callLandlord", roomId: this.roomIdNow, isCallLandlord,});
+      this.players.player.actionStr = isCallLandlord ? "叫地主" : "不叫";
+      this.players.player.callLandlord = false;
+      this.players.player.timeout = false;
+      this.timing("player", "stop");
+    } else {
+      this.socketIO.emit("callLandlord", { type: "callLandlordAi", roomId: this.roomIdNow, isCallLandlord,});
+      this.players.player.timeout = false;
+      this.players.player.callLandlord = false;
+      this.timing("player", "stop");
+      if (!isCallLandlord) {
+        this.players.nextPlayer.callLandlord = false;
+        this.players.nextPlayer.timeout = false;
+        this.players.nextPlayer.actionStr = "不叫";
+        this.timing("nextPlayer", "stop");
+        this.players.lastPlayer.callLandlord = false;
+        this.players.lastPlayer.timeout = false;
+        this.players.lastPlayer.actionStr = "不叫";
+        this.timing("lastPlayer", "stop");
+      }
+    }
   }
 }
