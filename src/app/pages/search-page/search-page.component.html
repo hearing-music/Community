@@ -96,7 +96,7 @@
       [nzTotal]="brandUserPageTotal"
       (nzPageIndexChange)="nzPageIndexChangeBrandUser($event)"
     ></nz-pagination>
-    <div style="width: 100%; display: flex; justify-content: space-between">
+    <div *ngIf="selectItem == '厂牌歌曲'" style="width: 100%; display: flex; justify-content: space-between">
       <div style="width: 49%">
         <nz-pagination
           *ngIf="selectItem == '厂牌歌曲' && brandSongList.length > 0"
