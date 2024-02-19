@@ -1,7 +1,7 @@
 <div class="track">
     <div class="track-top">
         <div class="track-title">
-            mgg类型转换为WAR
+            mgg类型转换为WAV
         </div>
 		<!-- <p>默认不选为mp3格式</p> -->
         <!-- <div style="float: left;padding: 15px;">
@@ -10,9 +10,14 @@
             </nz-select>
         </div> -->
     </div>
-    <div class="uploadFile-box">
+	<!-- 搜索 -->
+	<div style="padding-left: 24px;">
+		<ngx-search [searchValue]='searchValue' [searchHolder]='"请输入qq音乐主页 https://y.qq.com/n/ryqq/songDetail/xxxxx"' [searchWidth]='"490px"' (childSearch)='search($event)'>
+		</ngx-search>
+	</div>
+   <!-- <div class="uploadFile-box">
         <ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
-    </div>
+    </div> -->
     <div *ngIf="mp3File" style="display: flex;justify-content: center;">
         <div style="margin-top:20px;height: 50px;border: 1px dashed #ccc;border-radius: 5px; width: 500px;">
             <div *ngIf="isResData" style="line-height: 50px;display: flex;justify-content: space-around;">
@@ -28,5 +33,6 @@
         </div>
 
     </div>
+	
     <ngx-loading *ngIf='loading'></ngx-loading>
 </div>

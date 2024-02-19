@@ -824,6 +824,14 @@ export class ApiService {
 		let url = this.baseUrl + '/zhuanhuanyun/QqAudioDecryptio'
 		return this.http.post(url, formData);
 	}
+	// mgg转wav新
+	QqAudioDecryptioNew(params: any) {
+		let {
+			musicUrl
+		} = params;
+		let url = this.baseUrl + '/zhuanhuanyun/QqAudioDecryptioNew?MusicUrl='+musicUrl
+		return this.http.get(url);
+	}
 	// 图片识别文字
 	TextExtractionImage(params: any) {
 		let {
