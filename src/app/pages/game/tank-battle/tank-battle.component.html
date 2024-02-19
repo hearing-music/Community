@@ -15,7 +15,7 @@
         </button>
       </div>
       <div class="intoRoom">
-        <button nz-button nzType="primary" nzShape="round">加入房间</button>
+        <button nz-button nzType="primary" nzShape="round" (click)="joinRoom()">加入房间</button>
       </div>
     </div>
     <div class="selectCharacter" *ngIf="iscreatRoom">
@@ -218,6 +218,11 @@
         </button>
       </div>
     </div>
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="加入的房间号" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      <ng-container *nzModalContent>
+        <input nz-input placeholder="请输入房间号" [(ngModel)]="roomid" type="number" />
+      </ng-container>
+    </nz-modal>
   </div>
   <ngx-loading *ngIf="loading"></ngx-loading>
 </div>
