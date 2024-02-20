@@ -1,5 +1,5 @@
 <div class="tankGame" id='tankGame'>
-  <div *ngIf="gameStart" style="width: 100%;height:100%;">
+  <div *ngIf="gameStart" style="width: 100%;height:100%;" id="gameInnerBox">
     <div style="width: 100%; height: 100%; display: flex; flex-wrap: wrap" id="tankBox"></div>
     <div class="tank" id="tank" [style]='{width:boxWidth,height:boxHeight}'>
 		<!-- 换弹动画 -->

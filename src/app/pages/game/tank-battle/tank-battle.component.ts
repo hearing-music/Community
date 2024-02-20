@@ -41,7 +41,9 @@ export class TankBattleComponent implements OnInit {
   roomDetail: any = [];
   mine: any = {};
   isVisible: any = false;
-
+  gameInnerBox:any
+  teammate: any;
+  enemyTeam: any;
   ngOnDestroy() {
     console.log("注销页面");
     this.socketIO.off();
@@ -138,9 +140,33 @@ export class TankBattleComponent implements OnInit {
         this.tankMap = data.playInfo.map;
         let meIndex = data.houseUsers.findIndex((ele: any) => ele.token == this.token);
         this.mine = data.houseUsers[meIndex];
+        this.enemyTeam = data.houseUsers.filter((ele: any) => ele.team != this.mine.team);
+        this.teammate = data.houseUsers.filter((ele: any) => ele.team == this.mine.team && ele.name!=this.mine.name);
         this.choseTank();
       }
     });
+    //游戏阶段
+    this.socketIO.on("play", (data: any) => {
+      console.log(data.msg, data);
+      // data.direction  data.isMove data.playerIndex //移动人index data.houseUsers中也有position
+      if (data.type=='playerMove'&&data.houseUsers[data.playerIndex].token!= this.token) {
+        let moveBox =document.getElementById(data.houseUsers[data.playerIndex].clientId)
+        moveBox.style.top=data.houseUsers[data.playerIndex].position[1] * parseInt(this.boxHeight) + "px";
+        moveBox.style.left = data.houseUsers[data.playerIndex].position[0] * parseInt(this.boxWidth) + "px"; 
+        if(data.houseUsers[data.playerIndex].direction=="top"){
+          moveBox.style.transform = "rotate(0deg)";
+        }
+        if(data.houseUsers[data.playerIndex].direction=="down"){
+          moveBox.style.transform = "rotate(180deg)";
+        }
+        if(data.houseUsers[data.playerIndex].direction=="left"){
+          moveBox.style.transform = "rotate(270deg)";
+        }
+        if(data.houseUsers[data.playerIndex].direction=="right"){
+          moveBox.style.transform = "rotate(90deg)";
+        }
+      }
+    }); 
   }
   // 更换队伍
   changeTeam(team: any) {
@@ -434,9 +460,8 @@ export class TankBattleComponent implements OnInit {
     for (var i = 0; i < keys.length; i++) {
       this.drawObstacle(this.tankMap.x[keys[i]], tankBox);
     }
-    this.tank = document.getElementById("tank");
+    this.tank = document.getElementById("tank");  
     this.tank.style.zIndex = 101;
-    console.log(this.mine.position)
     this.tank.style.top =this.mine.position[1] * parseInt(this.boxHeight) + "px";
     this.tank.style.left = this.mine.position[0] * parseInt(this.boxWidth) + "px";
     this.tank.style.backgroundImage = `url(../../../../assets/tank/${this.nowTank.name}.png)`;
@@ -444,6 +469,37 @@ export class TankBattleComponent implements OnInit {
     this.TankLeft = this.mine.position[0] * parseInt(this.boxWidth);
     this.TankTop = this.mine.position[1] * parseInt(this.boxHeight);
     this.tank.style.transition = `all ${(this.tankSpeed * 1.5) / 1000}s linear`;
+    this.gameInnerBox = document.getElementById("gameInnerBox");
+    for (let i = 0; i < this.enemyTeam.length; i++){
+      var tempCanvas: any = document.createElement("div");
+      tempCanvas.style.width = this.tank.style.width;
+      tempCanvas.style.height =  this.tank.style.height;
+      tempCanvas.style.position = "absolute"
+      tempCanvas.style.top=this.enemyTeam[i].position[1] * parseInt(this.boxHeight) + "px";
+      tempCanvas.style.left = this.enemyTeam[i].position[0] * parseInt(this.boxWidth) + "px";
+      tempCanvas.style.transition = `all ${(this.tankSpeed * 1.5) / 1000}s linear`;
+      tempCanvas.style.backgroundSize = "100% 100%";
+      tempCanvas.style.backgroundRepeat = "no-repeat";
+      tempCanvas.style.zIndex = '101'
+      tempCanvas.style.backgroundImage = 'url("../../../../assets/tank/greenTank.png")'
+      tempCanvas.setAttribute('id',this.enemyTeam[i].clientId);
+      this.gameInnerBox.appendChild(tempCanvas);
+    }
+    for (let i = 0; i < this.teammate.length; i++){
+      var tempCanvas: any = document.createElement("div");
+      tempCanvas.style.width = "60px";
+      tempCanvas.style.height = "60px";
+      tempCanvas.style.position = "absolute"
+      tempCanvas.style.top=this.teammate[i].position[1] * parseInt(this.boxHeight) + "px";
+      tempCanvas.style.left = this.teammate[i].position[0] * parseInt(this.boxWidth) + "px";
+      tempCanvas.style.transition = `all ${(this.tankSpeed * 1.5) / 1000}s linear`;
+      tempCanvas.style.backgroundSize = "100% 100%";
+      tempCanvas.style.backgroundRepeat = "no-repeat";
+      tempCanvas.style.zIndex = '102'
+      tempCanvas.style.backgroundImage = 'url("../../../../assets/tank/greenTank.png")'
+      tempCanvas.setAttribute('id', this.enemyTeam[i].clientId);
+      this.gameInnerBox.appendChild(tempCanvas);
+    }
     this.drawVisible();
   }
 
@@ -510,6 +566,7 @@ export class TankBattleComponent implements OnInit {
           if (this.tankMap.y[isMoveY][isMoveX].name != "OrdinaryBox" && this.tankMap.y[isMoveY][isMoveX].name != "MetalBox") {
             this.TankLeft = this.TankLeft + parseInt(this.boxWidth);
             this.tank.style.left = this.TankLeft + "px";
+            this.socketIO.emit("play", { type: "playerMove",direction:'right',isMove:1,roomId: this.roomIdNow });
           } else {
             this.TankLeft = this.TankLeft;
             this.tank.style.left = this.TankLeft + "px";
@@ -517,6 +574,7 @@ export class TankBattleComponent implements OnInit {
         }
       } else {
         this.tank.style.transform = "rotate(90deg)";
+        this.socketIO.emit("play", { type: "playerMove",direction:'right',isMove:0,roomId: this.roomIdNow });
       }
     } else if (event.key == "W" || event.key == "w") {
       if (this.tank.style.transform == "rotate(0deg)") {
@@ -530,6 +588,7 @@ export class TankBattleComponent implements OnInit {
           if (this.tankMap.x[isMoveX][isMoveY].name != "OrdinaryBox" && this.tankMap.x[isMoveX][isMoveY].name != "MetalBox") {
             this.TankTop = this.TankTop - parseInt(this.boxHeight);
             this.tank.style.top = this.TankTop + "px";
+            this.socketIO.emit("play", { type: "playerMove",direction:'top',isMove:1,roomId: this.roomIdNow });
           } else {
             this.TankTop = this.TankTop;
             this.tank.style.top = this.TankTop + "px";
@@ -537,6 +596,7 @@ export class TankBattleComponent implements OnInit {
         }
       } else {
         this.tank.style.transform = "rotate(0deg)";
+        this.socketIO.emit("play", { type: "playerMove",direction:'top',isMove:0,roomId: this.roomIdNow });
       }
     } else if (event.key == "s" || event.key == "S") {
       if (this.tank.style.transform == "rotate(180deg)") {
@@ -550,6 +610,7 @@ export class TankBattleComponent implements OnInit {
           if (this.tankMap.x[isMoveX][isMoveY].name != "OrdinaryBox" && this.tankMap.x[isMoveX][isMoveY].name != "MetalBox") {
             this.TankTop = this.TankTop + parseInt(this.boxHeight);
             this.tank.style.top = this.TankTop + "px";
+            this.socketIO.emit("play", { type: "playerMove",direction:'down',isMove:1,roomId: this.roomIdNow });
           } else {
             this.TankTop = this.TankTop;
             this.tank.style.top = this.TankTop + "px";
@@ -557,6 +618,7 @@ export class TankBattleComponent implements OnInit {
         }
       } else {
         this.tank.style.transform = "rotate(180deg)";
+        this.socketIO.emit("play", { type: "playerMove",direction:'down',isMove:0,roomId: this.roomIdNow });
       }
     } else if (event.key == "A" || event.key == "a") {
       if (this.tank.style.transform == "rotate(270deg)") {
@@ -570,6 +632,7 @@ export class TankBattleComponent implements OnInit {
           if (this.tankMap.y[isMoveY][isMoveX].name != "OrdinaryBox" && this.tankMap.y[isMoveY][isMoveX].name != "MetalBox") {
             this.TankLeft = this.TankLeft - parseInt(this.boxWidth);
             this.tank.style.left = this.TankLeft + "px";
+            this.socketIO.emit("play", { type: "playerMove",direction:'left',isMove:1,roomId: this.roomIdNow });
           } else {
             this.TankLeft = this.TankLeft;
             this.tank.style.left = this.TankLeft + "px";
@@ -577,6 +640,7 @@ export class TankBattleComponent implements OnInit {
         }
       } else {
         this.tank.style.transform = "rotate(270deg)";
+        this.socketIO.emit("play", { type: "playerMove",direction:'left',isMove:0,roomId: this.roomIdNow });
       }
     }
     // 迷雾

@@ -37,8 +37,14 @@
 		</div>
 		<div class="item-right">
 			<!-- uin -->
-			<div class="right-uin">
+			<div class="right-uin" (click)='common.copy(item.uin)' nz-tooltip [nzTooltipTitle]="'qq'" *ngIf='item.uin'>
+				<img src="../../../../assets/img/QQ2.svg" style='width: 18px;height: 18px;margin-right: 8px;'>
 				<div>{{item.uin}}</div>
+			</div>
+			<!-- 电话 -->
+			<div class="right-uin" (click)='common.copy(item.uiny)' nz-tooltip [nzTooltipTitle]="'电话'" style="margin-top: 6px;" *ngIf='item.uiny'>
+				<img src="../../../../assets/img/dianhua.svg" style='width: 18px;height: 18px;margin-right: 8px;'>
+				<div>{{item.uiny}}</div>
 			</div>
 		</div>
 	</div>

@@ -1,6 +1,9 @@
 import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
 import {CommonService} from "../../../services/common.service";
 import { ApiService } from "../../../services/api.service";
+import { environment } from '../../../../environments/environment';
+import { NzMessageService } from 'ng-zorro-antd/message';
+let baseUrl = environment.baseUrl;
 @Component({
 	selector: 'ngx-qq',
 	templateUrl: './qq.component.html',
@@ -8,7 +11,7 @@ import { ApiService } from "../../../services/api.service";
 })
 export class QqComponent implements OnInit {
 	@Input() qqList: any;
-	constructor(public common: CommonService,public api: ApiService) { }
+	constructor(public common: CommonService,public api: ApiService,public message:NzMessageService,) { }
 	@Output() change: EventEmitter<any> = new EventEmitter<any>();
 	playAudio(url: string, i: number) {
 		if(url){
@@ -24,6 +27,26 @@ export class QqComponent implements OnInit {
 	visible = false;
 	drawerLoading=false;
 	albumAllSongs:any = []
+	downloadWav(item:any){
+		item.loadingDownload = true;
+		let url = 'https://y.qq.com/n/ryqq/songDetail/'+item.mid
+		this.api.QqAudioDecryptioNew({
+			musicUrl: url
+		}).subscribe((res: any) => {
+			item.loadingDownload = false;
+			if (res.success) {
+				this.common.downloadServer(baseUrl + res.data)
+			}else{
+				this.message.error('失败')
+			}
+		}, (err: any) => {
+			console.log(err)
+			item.loadingDownload = false;
+			this.message.error('出错了')
+		})
+	}
+	
+	
 	openQQ(uin:any){
 		window.open('tencent://message/?uin='+uin)
 	}
