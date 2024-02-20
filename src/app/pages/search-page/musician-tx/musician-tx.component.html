@@ -13,7 +13,7 @@
 						{{item.title}}
 					</div>
 					<!-- 图标 -->
-					<div class="" style="flex:1;">
+					<div class="" style="flex:1;" *ngIf='item.iconurl'>
 						<span nz-tooltip [nzTooltipTitle]="item.identify_title">
 							<img [src]="item.iconurl" style='width: 18px;height: 18px;margin-left: 8px;'>
 						</span>
