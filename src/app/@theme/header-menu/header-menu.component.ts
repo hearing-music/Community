@@ -31,8 +31,8 @@ export class HeaderMenuComponent implements OnInit {
 			link:'/pages/query-songlist'
 		},
 		{
-			title:'音轨分离',
-			link:'/pages/track-separate'
+			title:'音频处理',
+			link:'/pages/audioProcessing'
 		},
 		{
 			title:'搜索',

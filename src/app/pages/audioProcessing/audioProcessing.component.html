@@ -1,0 +1,27 @@
+<div class="home">
+  <div class="home-top">
+    <!-- tab栏 -->
+    <div class="tagList">
+      <div
+        *ngFor="let item of tagList"
+        (click)="onSelect(item)"
+        class="tagList-item"
+        [ngClass]="{ 'tagList-itemActive': item.title == selectItem }"
+      >
+        {{ item.title }}
+      </div>
+    </div>
+  </div>
+  <!-- 数据 -->
+  <div class="home-main">
+	  <!-- 音轨分离 -->
+	<ngx-track-separate *ngIf='selectItem=="音轨分离"'></ngx-track-separate>
+	<!-- 音频降噪 -->
+	<ngx-noiseReduction *ngIf='selectItem=="音频降噪"'></ngx-noiseReduction>
+	<!-- 音量归一 -->
+	<ngx-volumeNormalisation *ngIf='selectItem=="音量归一"'></ngx-volumeNormalisation>
+	<!-- 音频分段 -->
+	<ngx-segmentation *ngIf='selectItem=="音频分段"'></ngx-segmentation>
+  </div>
+  <ngx-loading *ngIf="loading"></ngx-loading>
+</div>

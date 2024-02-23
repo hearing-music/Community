@@ -1,0 +1,36 @@
+<!-- 音频降噪 -->
+<div class="track">
+	<div class="track-top">
+		<div class="track-title">
+			音频降噪
+		</div>
+		<div class="track-sub">
+			<div>
+				去除音频信号中的噪声，提高音频的质量和清晰度。
+			</div>
+		</div>
+	</div>
+	<div class="uploadFile-box">
+		<ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+	</div>
+	<div style="display: flex;align-items: center;justify-content: center;">
+		<button nz-button class="downloadBtn" *ngIf='waveform'
+			(click)="download()">
+			<span style="font-size: 12px;color:green;font-weight: bold;">
+				{{downloadUrl==''?'无需降噪':'下载文件'}}
+			</span>
+			<span nz-icon nzType="download" nzTheme="outline" style="color:green;font-size: 13px;"></span>
+		</button>
+	</div>
+	<div *ngIf='waveform'>
+		<div>
+			波形图
+			<img [src]="waveform" style="width: 100%;">
+		</div>
+		<div>
+			频谱图
+			<img [src]="spectrogram" style="width: 100%;">
+		</div>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

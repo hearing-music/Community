@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 export class ApiService {
 	baseUrl = environment.baseUrl;
 	tencentUrl = environment.tencentUrl;
+	downloadUrl2 = environment.downloadUrl2;
 	constructor(private http: HttpClient) {
 
 	}
@@ -1201,5 +1202,36 @@ export class ApiService {
 		return this.http.post(url, {audioId:params.audioId,videoId:params.videoId});
 	}
 	
-	
+	// 音频降噪
+	musicNoiseReduction(params:any){
+		let { file } = params;
+		    const formData: FormData = new FormData();
+		    formData.append("file", file);
+		    let url = this.downloadUrl2+"api/audio?type=NoiseReduction";
+		    return this.http.post(url, formData);
+	}
+	// 音量归一
+	musicVolumeNormalisation(params:any){
+		let { file } = params;
+		    const formData: FormData = new FormData();
+		    formData.append("file", file);
+		    let url = this.downloadUrl2+"api/audio?type=VolumeNormalisation";
+		    return this.http.post(url, formData);
+	}
+	// 音频分段1
+	musicSegmentation(params:any){
+		let { file } = params;
+		    const formData: FormData = new FormData();
+		    formData.append("file", file);
+		    let url = this.downloadUrl2+"api/audio?type=Segmentation";
+		    return this.http.post(url, formData);
+	}
+	//音频分段2
+	musicSegmentationNew(params:any){
+		let { file } = params;
+		    const formData: FormData = new FormData();
+		    formData.append("file", file);
+		    let url = this.downloadUrl2+"api/audio?type=SegmentationNew";
+		    return this.http.post(url, formData);
+	}
 }

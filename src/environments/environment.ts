@@ -12,6 +12,7 @@ export const environment = {
   production: false,
   hmr: true,
 	downloadUrl:'http://localhost:3222',
+	downloadUrl2:'http://60.21.232.166:85/',
 	// downloadUrl:'http://192.168.43.44:3222',
 	// baseUrl:'http://localhost:3222',
 	baseUrl:'http://192.168.0.53:3222',

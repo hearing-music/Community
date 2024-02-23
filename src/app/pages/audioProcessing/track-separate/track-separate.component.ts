@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { ApiService } from "../../services/api.service";
-import {CommonService} from "../../services/common.service";
-import { environment } from '../../../environments/environment';
+import { ApiService } from "../../../services/api.service";
+import {CommonService} from "../../../services/common.service";
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'ngx-track-separate',
   templateUrl: './track-separate.component.html',

@@ -33,7 +33,6 @@ import { FindInspirationComponent } from './find-inspiration/find-inspiration.co
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
-import { TrackSeparateComponent } from './track-separate/track-separate.component';
 import { GetRankingComponent } from './qq_kugou-ranking/get-ranking/get-ranking.component';
 import { SetRankingComponent } from './qq_kugou-ranking/set-ranking/set-ranking.component';
 import { OriginalAudioComponent } from './original-audio/original-audio.component';
@@ -63,6 +62,9 @@ import { DouDiZhuComponent } from "./game/dou-di-zhu/dou-di-zhu.component";
 import { CardGameComponent } from "./game/card-game/card-game.component";
 import { MaJiangComponent } from "./game/ma-jiang/ma-jiang.component";
 import { TankBattleComponent } from "./game/tank-battle/tank-battle.component";
+import { NewTankBattleComponent } from './game/new-tank-battle/new-tank-battle.component';
+
+import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
 const routes: Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -84,10 +86,10 @@ const routes: Routes = [{
 			component: QuerySonglistComponent,
 			canActivate: [PermissionGuard]
 		},
-		// 音轨分离
+		// 音频处理
 		{
-			path: 'track-separate',
-			component: TrackSeparateComponent,
+			path: 'audioProcessing',
+			component: AudioProcessingComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 搜索
@@ -409,9 +411,14 @@ const routes: Routes = [{
 		        component: MaJiangComponent,
 		        canActivate: [PermissionGuard],
 		      },
-		      {
+		//       {
+		//         path: "tank-battle",
+		//         component: TankBattleComponent,
+		//         canActivate: [PermissionGuard],
+		//       },
+		   {
 		        path: "tank-battle",
-		        component: TankBattleComponent,
+		        component: NewTankBattleComponent,
 		        canActivate: [PermissionGuard],
 		      },
 		 

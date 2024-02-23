@@ -121,7 +121,6 @@ import { TemplateComponent } from './lsdd-page/template/template.component';
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
 import {kuaishouPotentialComponent} from './kuaishou-searchindex/kuaishou-potential/kuaishou-potential.component'
 import { CopyrightLinkComponent } from './copyright-scanning/copyright-link/copyright-link.component';
-import { TrackSeparateComponent } from './track-separate/track-separate.component';
 import { AudioTrickComponent } from '../components/audio-trick/audio-trick.component';
 import { ToolComponent } from './tool/tool.component';
 import { BankComponent } from './tool/bank/bank.component';
@@ -157,6 +156,13 @@ import { TankBattleComponent } from "./game/tank-battle/tank-battle.component";
 import { NzCarouselModule } from "ng-zorro-antd/carousel";
 import { NzGridModule } from "ng-zorro-antd/grid";
 import { NzInputNumberModule } from "ng-zorro-antd/input-number";
+import { NewTankBattleComponent } from './game/new-tank-battle/new-tank-battle.component';
+
+import {AudioProcessingComponent} from './audioProcessing/audioProcessing.component';
+import { TrackSeparateComponent } from './audioProcessing/track-separate/track-separate.component';
+import { NoiseReductionComponent } from './audioProcessing/noiseReduction/noiseReduction.component';
+import {VolumeNormalisationComponent} from './audioProcessing/volumeNormalisation/volumeNormalisation.component';
+import {SegmentationComponent} from './audioProcessing/segmentation/segmentation.component'
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -201,6 +207,11 @@ registerLocaleData(zh);
 		NzStepsModule
 	],
 	declarations: [
+		AudioProcessingComponent,
+		NoiseReductionComponent,
+		VolumeNormalisationComponent,
+		SegmentationComponent,
+		NewTankBattleComponent,
 		TankBattleComponent,
 		FindInspirationComponent,
 		    DouDiZhuComponent,

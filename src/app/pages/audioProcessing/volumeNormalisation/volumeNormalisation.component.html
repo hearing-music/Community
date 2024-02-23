@@ -1,0 +1,36 @@
+<!-- 音量归一 -->
+<div class="track">
+	<div class="track-top">
+		<div class="track-title">
+			音量归一
+		</div>
+		<div class="track-sub">
+			<div>
+				在音乐制作中，不同的乐器和声音元素可能具有不同的音量级别，通过音量归一化，可以将它们的音量调整到相同的水平，从而更容易地比较它们的音质和特性。
+			</div>
+		</div>
+	</div>
+	<div class="uploadFile-box">
+		<ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+	</div>
+	<div style="display: flex;align-items: center;justify-content: center;">
+		<button nz-button class="downloadBtn" *ngIf='waveform'
+			(click)="download()">
+			<span style="font-size: 12px;color:green;font-weight: bold;">
+				下载文件
+			</span>
+			<span nz-icon nzType="download" nzTheme="outline" style="color:green;font-size: 13px;"></span>
+		</button>
+	</div>
+	<div *ngIf='waveform'>
+		<div>
+			波形图
+			<img [src]="waveform" style="width: 100%;">
+		</div>
+		<div>
+			频谱图
+			<img [src]="spectrogram" style="width: 100%;">
+		</div>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

@@ -1,0 +1,49 @@
+<!-- 音量归一 -->
+<div class="track">
+	<div class="track-top">
+		<div class="track-title">
+			音频分段1
+		</div>
+		<div class="track-sub">
+			<div>
+				音频中有较长连续静音段的情况
+			</div>
+		</div>
+	</div>
+	<div class="uploadFile-box">
+		<ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+	</div>
+	<div style="display: flex;align-items: center;justify-content: center;">
+		<button nz-button class="downloadBtn" *ngIf='downloadUrl'
+			(click)="download()">
+			<span style="font-size: 12px;color:green;font-weight: bold;">
+				下载文件
+			</span>
+			<span nz-icon nzType="download" nzTheme="outline" style="color:green;font-size: 13px;"></span>
+		</button>
+	</div>
+	
+	<div class="track-top">
+		<div class="track-title">
+			音频分段2
+		</div>
+		<div class="track-sub">
+			<div>
+				噪声较小，音频动态范围较大的情况
+			</div>
+		</div>
+	</div>
+	<div class="uploadFile-box">
+		<ngx-upload-file (onFileChild)='onFile2($event)'></ngx-upload-file>
+	</div>
+	<div style="display: flex;align-items: center;justify-content: center;">
+		<button nz-button class="downloadBtn" *ngIf='downloadUrl2'
+			(click)="download2()">
+			<span style="font-size: 12px;color:green;font-weight: bold;">
+				下载文件
+			</span>
+			<span nz-icon nzType="download" nzTheme="outline" style="color:green;font-size: 13px;"></span>
+		</button>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>
