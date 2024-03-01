@@ -1,17 +1,25 @@
 <div class="home">
-    <div class="home-top">
-        <div class="tagList">
-            <div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
-                [ngClass]="{'tagList-itemActive': item.title==selectItem}">
-                {{item.title}}
-            </div>
-        </div>
+  <div class="home-top">
+    <div class="tagList">
+      <div
+        *ngFor="let item of tagList"
+        (click)="onSelect(item)"
+        class="tagList-item"
+        [ngClass]="{ 'tagList-itemActive': item.title == selectItem }"
+      >
+        {{ item.title }}
+      </div>
     </div>
-    <div class="home-main">
-        <ngx-bank *ngIf='selectItem=="银行"'></ngx-bank>
-        <ngx-process *ngIf='selectItem=="转换文件"'></ngx-process>
-        <ngx-json-format *ngIf='selectItem=="json格式化"'></ngx-json-format>
-        <ngx-monitor *ngIf='selectItem=="监测"'></ngx-monitor>
-        <ngx-pdfToWord *ngIf='selectItem=="PDF转WORD"'></ngx-pdfToWord>
-    </div>
+  </div>
+  <div class="home-main">
+    <ngx-bank *ngIf="selectItem == '银行'"></ngx-bank>
+    <ngx-process *ngIf="selectItem == '转换文件'"></ngx-process>
+    <ngx-json-format *ngIf="selectItem == 'json格式化'"></ngx-json-format>
+    <ngx-monitor *ngIf="selectItem == '监测'"></ngx-monitor>
+    <ngx-pdfToWord *ngIf="selectItem == 'PDF转WORD'"></ngx-pdfToWord>
+    <ngx-tme-map *ngIf="selectItem == '云图'"></ngx-tme-map>
+    <ngx-entered-by-you-ni
+      *ngIf="selectItem == '由你录入'"
+    ></ngx-entered-by-you-ni>
+  </div>
 </div>

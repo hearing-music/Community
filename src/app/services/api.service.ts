@@ -1234,4 +1234,32 @@ export class ApiService {
 		    let url = this.downloadUrl2+"api/audio?type=SegmentationNew";
 		    return this.http.post(url, formData);
 	}
+	// 云图月报
+	  GetMonthlyReport(params: any) {
+	    let { reportMonth, pages, type } = params;
+	    let url =
+	      this.baseUrl +
+	      "/tme_map/GetMonthlyReport?reportMonth=" +
+	      reportMonth +
+	      "&pages=" +
+	      pages +
+	      "&type=" +
+	      type;
+	    return this.http.get(url);
+	  }
+	// 云图歌曲
+	  GetRankSong(params: any) {
+	    let { pages, type } = params;
+	    let url =
+	      this.baseUrl + "/tme_map/GetRankSong?pages=" + pages + "&operate=" + type;
+	    return this.http.get(url);
+	  }
+	// 由你上传数据库
+	  EnteredByYou(params: any) {
+	    let { file } = params;
+	    const formData: FormData = new FormData();
+	    formData.append("excel", file);
+	    let url = this.baseUrl + "/tme_map/EnteredByYou";
+	    return this.http.post(url, formData);
+	  }
 }

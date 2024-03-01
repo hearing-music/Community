@@ -1,0 +1,17 @@
+.tmeMap {
+  position: relative;
+  height: calc(100vh - 4.75rem - 15rem);
+  .tmeMapBox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .Box {
+      width: 50%;
+      height: 50%;
+      padding: 10px;
+      border-radius: 8px;
+    }
+  }
+}

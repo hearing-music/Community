@@ -163,6 +163,9 @@ import { TrackSeparateComponent } from './audioProcessing/track-separate/track-s
 import { NoiseReductionComponent } from './audioProcessing/noiseReduction/noiseReduction.component';
 import {VolumeNormalisationComponent} from './audioProcessing/volumeNormalisation/volumeNormalisation.component';
 import {SegmentationComponent} from './audioProcessing/segmentation/segmentation.component'
+
+import { TmeMapComponent } from './tool/tme-map/tme-map.component';
+import { EnteredByYouNiComponent } from './tool/entered-by-you-ni/entered-by-you-ni.component'
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -207,6 +210,8 @@ registerLocaleData(zh);
 		NzStepsModule
 	],
 	declarations: [
+		TmeMapComponent,
+		EnteredByYouNiComponent,
 		AudioProcessingComponent,
 		NoiseReductionComponent,
 		VolumeNormalisationComponent,

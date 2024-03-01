@@ -1,0 +1,26 @@
+.tagList {
+  display: flex;
+  align-items: center;
+  .tagList-item {
+    flex-shrink: 0;
+    padding: 6px 16px;
+    color: #494f66;
+    font-size: 14px;
+    background: #f6f7fb;
+    border-radius: 100px;
+    margin-right: 12px;
+    cursor: pointer;
+  }
+  .tagList-itemActive {
+    background: #4060f6;
+    color: #fff;
+  }
+}
+.type {
+  margin-top: 30px;
+  display: flex;
+}
+.tmeMap {
+  position: relative;
+  height: calc(100vh - 4.75rem - 15rem);
+}
