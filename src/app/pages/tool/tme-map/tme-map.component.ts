@@ -110,7 +110,7 @@ export class TmeMapComponent implements OnInit {
         this.loading = true;
         this.api
           .GetRankSong({
-            pages: this.pageValue2,
+            pages: this.pageValue2-1,
             type: this.optionList[this.selectItem][this.typeOf2 - 1].api,
           })
           .subscribe((res: any) => {
