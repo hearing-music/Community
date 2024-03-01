@@ -12,11 +12,25 @@
         </div>
       </div>
       <div class="type">
-        <div>
+        <div *ngIf="selectItem == '月报'">
           <span>歌曲类型：</span>
           <nz-select
             [(ngModel)]="selectedValue"
             (ngModelChange)="changeTypeOf($event)"
+            nzPlaceHolder="歌曲类型"
+          >
+            <nz-option
+              *ngFor="let option of optionList[selectItem]"
+              [nzValue]="option.value"
+              [nzLabel]="option.label"
+            ></nz-option>
+          </nz-select>
+        </div>
+        <div *ngIf="selectItem == '歌曲'">
+          <span>歌曲类型：</span>
+          <nz-select
+            [(ngModel)]="selectedValue2"
+            (ngModelChange)="changeTypeOf2($event)"
             nzPlaceHolder="歌曲类型"
           >
             <nz-option
@@ -34,10 +48,18 @@
             [nzDisabledDate]="disabledDate"
           ></nz-date-picker>
         </div>
-        <div style="margin-left: 20px">
+        <div style="margin-left: 20px" *ngIf="selectItem == '月报'">
           <span>筛选的页码：</span>
           <nz-input-number
             [(ngModel)]="pageValue"
+            [nzMin]="1"
+            [nzStep]="1"
+          ></nz-input-number>
+        </div>
+        <div style="margin-left: 20px" *ngIf="selectItem == '歌曲'">
+          <span>筛选的页码：</span>
+          <nz-input-number
+            [(ngModel)]="pageValue2"
             [nzMin]="1"
             [nzStep]="1"
           ></nz-input-number>
@@ -53,7 +75,7 @@
             查询
           </button>
         </div>
-        <div style="margin-left: 20px" *ngIf="isCandown">
+        <div style="margin-left: 20px" *ngIf="isCandown&&selectItem=='月报'">
           <button
             nz-button
             nzType="primary"
@@ -61,7 +83,18 @@
             nzShape="round"
             (click)="downLoadSource()"
           >
-            下载
+            下载月报
+          </button>
+        </div>
+        <div style="margin-left: 20px" *ngIf="isCandown2&&selectItem=='歌曲'">
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="default"
+            nzShape="round"
+            (click)="downLoadSource2()"
+          >
+            下载歌曲
           </button>
         </div>
       </div>
