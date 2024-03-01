@@ -59,13 +59,26 @@ export class HttpInterceptorService implements HttpInterceptor {
 			  if(response.type==0){
 				  return
 			  }
+			  // 由你录入 弹窗
+			  if(req.url.includes('/tme_map/EnteredByYou')){
+				   this.notification.blank('',`<div class="ant-notification-notice-content">
+				   	<div>
+				   		<div class="ant-notification-notice-message">提示</div>
+				   			<div class="ant-notification-notice-description">
+				   				${response.body.data}
+				   			</div>
+				   		</div>
+				   	</div>`,{nzDuration:0});
+			  }
 			  if(!response.body.success){
 					if(response.body.message){
 						if(typeof response.body.message=='object'){
 							response.body.message = JSON.stringify(response.body.message)
 						}
 						// 这些接口不弹窗
-						if(!req.url.includes(`kugou/kuGouAutoSearch`)){
+						if(req.url.includes(`kugou/kuGouAutoSearch`)||req.url.includes('/tme_map/EnteredByYou')){
+						
+						}else{
 							this.message.error(response.body.message)
 						}
 					}
