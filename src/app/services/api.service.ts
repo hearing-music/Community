@@ -150,7 +150,8 @@ export class ApiService {
 			keyword,
 			page
 		} = params;
-		return this.http.get(this.baseUrl + "/kugou/search_kugou?keyword=" + keyword + "&page=" + page)
+		keyword = encodeURIComponent(keyword);
+		return this.http.get( `${this.baseUrl}/kugou/search_kugou?keyword=${keyword}&page=${page}`)
 	}
 	getV3_2(params: any) {
 		let {
