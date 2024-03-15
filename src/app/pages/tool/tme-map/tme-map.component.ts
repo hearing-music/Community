@@ -50,7 +50,7 @@ export class TmeMapComponent implements OnInit {
   constructor(public api: ApiService, private message: NzMessageService,public common: CommonService) {}
   ngOnInit(): void {
 	  let today = new Date();  
-    this.today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+    this.today = new Date(today.getFullYear(), today.getMonth() - 1);
   }
   onSelect(item: any): void {
     this.selectItem = item.title;
