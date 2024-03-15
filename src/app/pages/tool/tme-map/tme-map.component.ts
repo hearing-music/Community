@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { differenceInCalendarDays } from "date-fns";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { ApiService } from "../../../../../src/app/services/api.service";
+import { CommonService } from "../../../services/common.service";
 const xlsx = require("xlsx");
 @Component({
   selector: "ngx-tme-map",
@@ -46,9 +47,10 @@ export class TmeMapComponent implements OnInit {
   loading = false;
   isCandown = false;
   isCandown2: boolean = false;
-  constructor(public api: ApiService, private message: NzMessageService) {}
+  constructor(public api: ApiService, private message: NzMessageService,public common: CommonService) {}
   ngOnInit(): void {
-    this.today = new Date();
+	  let today = new Date();  
+    this.today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
   }
   onSelect(item: any): void {
     this.selectItem = item.title;
@@ -68,7 +70,7 @@ export class TmeMapComponent implements OnInit {
     this.typeOf2 = value;
   }
   disabledDate = (current: Date): boolean =>
-    differenceInCalendarDays(current, this.today) > 0;
+    differenceInCalendarDays(current, this.today) >0;
   downLoad() {
     if (this.selectItem == "月报") {
       this.isCandown = false;
@@ -105,7 +107,7 @@ export class TmeMapComponent implements OnInit {
       }
     }
     if (this.selectItem == "歌曲") {
-      if (this.selectedValue != 0 && this.pageValue) {
+      if (this.selectedValue2 != 0 && this.pageValue2) {
         this.isCandown2 = false;
         this.loading = true;
         this.api

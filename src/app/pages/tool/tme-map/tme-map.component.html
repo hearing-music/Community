@@ -105,7 +105,6 @@
           [nzTotal]="listOfData.length"
           [nzPageSize]="10"
           [nzShowPagination]="true"
-          [nzScroll]="{ y: '273px' }"
           nzPaginationType="small"
         >
           <thead>
@@ -132,7 +131,7 @@
                 {{ data.singerName }}
               </td>
               <td nzAlign="center" style="cursor: pointer">
-                {{ data.publishTime }}
+                {{ common.timeFormat(data.publishTime,"yyyy-mm-dd hh:MM:ss") }}
               </td>
             </tr>
           </tbody>
