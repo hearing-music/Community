@@ -212,7 +212,7 @@ export class ApiService {
 	}
 	// 腾讯音乐人搜索 电话
 	getMusician_phone(params:any){
-		return this.http.get(this.baseUrl + "/qq/search_qq_musician_phone?uinList=" + params.uinList)
+		return this.http.get(this.baseUrl + "/qq/search_qq_musician_phone?uinList=" + JSON.stringify(params.uinList))
 	}
 	// 抖音热点
 	getDouyinHot() {

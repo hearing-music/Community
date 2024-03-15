@@ -23,4 +23,18 @@ export class MusicianTxComponent implements OnInit {
 	// 		this.loading = false;
 	// 	});
 	// }
+	getPhone(item:any){
+			this.loading = true;
+		this.api.getMusician_phone({uinList:[item.uin]})
+		.subscribe((res: any) => {
+		      console.log(res)
+		       this.loading = false;
+					 if(res.success){
+						 item.uiny=res.result[0]
+					 }
+		     }, (err: any) => {
+					console.log(err)
+					this.loading = false;
+				});
+	}
 }
