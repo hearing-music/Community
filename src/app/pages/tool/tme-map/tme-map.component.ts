@@ -49,8 +49,8 @@ export class TmeMapComponent implements OnInit {
   isCandown2: boolean = false;
   constructor(public api: ApiService, private message: NzMessageService,public common: CommonService) {}
   ngOnInit(): void {
-	  let today = new Date();  
-    this.today = new Date(today.getFullYear(), today.getMonth() - 1);
+	     let today = new Date();
+	     this.today.setMonth(today.getMonth() - 1);
   }
   onSelect(item: any): void {
     this.selectItem = item.title;

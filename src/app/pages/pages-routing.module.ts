@@ -14,6 +14,7 @@ import { JianyingComponent } from './jianying/jianying.component'
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinListComponent } from './douyin/douyin-list/douyin-list.component';
+import { YunjiaobenComponent } from './yunjiaoben/yunjiaoben.component';
 // import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
 import { DouyinVideoComponent } from './douyin/douyin-video/douyin-video.component';
 import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
@@ -210,6 +211,12 @@ const routes: Routes = [{
 		{
 			path:'find-inspiration',
 			component:FindInspirationComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 韵脚本
+		{
+			path:"yunjiaoben",
+			component:YunjiaobenComponent,
 			canActivate: [PermissionGuard]
 		},
 		//云图 由你涨幅排名

@@ -74,6 +74,7 @@ import { JianyingComponent } from './jianying/jianying.component';
 import { ToMvComponent } from './to-mv/to-mv.component';
 import { RiseRankingComponent } from './yuntu/riseRanking/riseRanking.component';
 import { RiseRankingTempComponent } from './yuntu/riseRanking/riseRankingTemp/riseRankingTemp.component';
+import { YunjiaobenComponent } from './yunjiaoben/yunjiaoben.component';
 // componet
 import { ChatTempComponent } from './game/song-room/chatTemp/chatTemp.component';
 import { SpecialEffectsQueryComponent } from './kuaishou-searchindex/special-effects-query/special-effects-query.component';
@@ -210,6 +211,7 @@ registerLocaleData(zh);
 		NzStepsModule
 	],
 	declarations: [
+		YunjiaobenComponent,
 		TmeMapComponent,
 		EnteredByYouNiComponent,
 		AudioProcessingComponent,

@@ -1263,4 +1263,20 @@ export class ApiService {
 	    let url = this.baseUrl + "/tme_map/EnteredByYou";
 	    return this.http.post(url, formData);
 	  }
+	
+	// 获取全部韵脚
+	tripartite_vowel(params:any){
+		let url = `${this.baseUrl}/tripartite/tripartite_vowel`
+		return this.http.get(url);
+	}
+	// 获取指定韵脚 声调 句子
+	tripartite_info(params:any){
+		let url = `${this.baseUrl}/tripartite/tripartite_info?vowel=${params.vowel}&sound=${params.sound}`
+		return this.http.get(url);
+	}
+	// 获取文字搜索符合的韵脚
+	tripartite_keyword(params:any){
+		let url = `https://script.tingjianmusic.cn:444?sentence=${params.keyword}`
+		return this.http.get(url);
+	}
 }

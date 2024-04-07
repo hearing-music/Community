@@ -107,6 +107,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		link:'/pages/find-inspiration'
 	},
 	{
+		title:'韵脚本',
+		icon:{
+			icon:'yunjiao',
+			pack:'my-icons'
+		},
+		link:'/pages/yunjiaoben'
+	},
+	{
 		title: '快手',
 		icon: {
 			icon:'ks_icon',
