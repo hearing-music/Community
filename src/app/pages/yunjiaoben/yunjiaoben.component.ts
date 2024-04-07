@@ -19,9 +19,11 @@ export class YunjiaobenComponent implements OnInit {
 		this.api.tripartite_vowel({}).subscribe((res: any) => {
 			console.log(res)
 			if(res.success){
+				let arr = []
 				res.result.forEach((item:any)=>{
-					this.yunjiaolist.push({value:item.vowel,label:item.vowel})
+					arr.push({value:item.vowel,label:item.vowel})
 				})
+				this.yunjiaolist = arr;
 			}
 			this.loading = false;
 		}, (err: any) => {
@@ -40,9 +42,11 @@ export class YunjiaobenComponent implements OnInit {
 		this.api.tripartite_keyword({keyword:e}).subscribe((res: any) => {
 			console.log(res)
 			if(res.Success){
+				let arr = [];
 				res.Result[0].forEach((item:any)=>{
-					this.yunjiaoAccordlist.push({value:item,label:item})
+					arr.push({value:item,label:item})
 				})
+				this.yunjiaoAccordlist = arr;
 			}
 			this.loading = false;
 		}, (err: any) => {
