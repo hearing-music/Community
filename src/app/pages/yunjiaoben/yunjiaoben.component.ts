@@ -81,6 +81,7 @@ export class YunjiaobenComponent implements OnInit {
 		},]
 	ngModelShengdiao(e: any) {
 		console.log(e)
+		this.Search(this.yunjiaoAccord,this.shengdiao,"sousuo")
 	}
 	yunjiaoAccord = null;
 	yunjiaoAccordlist=[];
