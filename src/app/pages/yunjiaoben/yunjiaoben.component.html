@@ -20,11 +20,11 @@
 		</div>
 		
 		<div style="padding-top:20px;width: 100%;">
-			<div *ngFor="let item of sousuoResult" class='text-hover' style="margin: 16px 8px;cursor: pointer;" (click)='common.copy(item)'>
+			<div *ngFor="let item of sousuoResult[sousuoPage-1]" class='text-hover' style="margin: 16px 8px;cursor: pointer;" (click)='common.copy(item)'>
 				{{item}}
 			</div>
 		</div>
-		
+		<nz-pagination *ngIf='sousuoResult.length>0' [nzPageIndex]="sousuoPage" [nzPageSize]="size" [nzTotal]="sousuoTotal" nzSimple (nzPageIndexChange)='nzPageIndexChangeSousuo($event)'></nz-pagination>
 	</div>
 	
 	<!-- 韵脚搜索 -->
@@ -41,12 +41,12 @@
 			<button nz-button nzType="primary" style="margin-left: 18px;" (click)='yunjiaoSearch()'>搜索</button>
 		</div>
 		<div style="padding-top:20px;width: 100%;">
-			<div *ngFor="let item of yunjiaoResult" class='text-hover' style="margin: 16px 8px;cursor: pointer;" (click)='common.copy(item)'>
+			<div *ngFor="let item of yunjiaoResult[yunjiaoPage-1]" class='text-hover' style="margin: 16px 8px;cursor: pointer;" (click)='common.copy(item)'>
 				{{item}}
 			</div>
 		</div>
 		
-		
+		<nz-pagination *ngIf='yunjiaoResult.length>0' [nzPageIndex]="yunjiaoPage" [nzPageSize]="size" [nzTotal]="yunjiaoTotal" nzSimple (nzPageIndexChange)='nzPageIndexChangeYunjiao($event)'></nz-pagination>
 		
 	</div>
 	

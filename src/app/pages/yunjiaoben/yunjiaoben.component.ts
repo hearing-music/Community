@@ -131,14 +131,19 @@ export class YunjiaobenComponent implements OnInit {
 	Search(yunjiao:string,shengdiao:number,type:string){
 		if(yunjiao == null) return;
 		this.loading = true;
+	
 		this.api.tripartite_info({vowel:yunjiao,sound:shengdiao}).subscribe((res: any) => {
 			console.log(res)
 			if(res.success){
+				this.yunjiaoPage = 1;
+				this.sousuoPage=1;
 				if(type=="yunjiao"){
-					this.yunjiaoResult = res.result;
+					this.yunjiaoResult = this.common.spArr(res.result,this.size)
+					this.yunjiaoTotal = res.result.length;
 				}
 				if(type=="sousuo"){
-					this.sousuoResult = res.result;
+					this.sousuoResult = this.common.spArr(res.result,this.size)
+					this.sousuoTotal = res.result.length;
 				}
 			}
 			this.loading = false;
@@ -147,6 +152,17 @@ export class YunjiaobenComponent implements OnInit {
 			this.loading = false;
 		})
 	}
+	yunjiaoPage=1;
+	yunjiaoTotal=1;
+	size=15;
+	sousuoPage=1;
+	sousuoTotal=1;
 	yunjiaoResult:any=[];
 	sousuoResult:any=[];
+	nzPageIndexChangeSousuo(page:any){
+		this.sousuoPage=page;
+	}
+	nzPageIndexChangeYunjiao(page:any){
+		this.yunjiaoPage = page;
+	}
 }
