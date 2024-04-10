@@ -10,10 +10,21 @@ export class ApiService {
 	baseUrl = environment.baseUrl;
 	tencentUrl = environment.tencentUrl;
 	downloadUrl2 = environment.downloadUrl2;
+	downloadUrl = environment.downloadUrl;
 	constructor(private http: HttpClient) {
 
 	}
-
+	async fetchFile(fileUrl:string){
+		// 使用fetch获取文件  
+		    const response = await fetch(this.downloadUrl+fileUrl);  
+		    // 确保响应成功  
+		    if (!response.ok) {  
+		      throw new Error('Network response was not ok');  
+		    }  
+		    // 将响应体读取为Blob  
+		    const blob = await response.blob();  
+			return blob;
+	}
 	// qq搜索歌曲
 	getQQ(params: any) {
 		let {

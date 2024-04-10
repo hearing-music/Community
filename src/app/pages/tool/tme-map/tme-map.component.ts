@@ -3,6 +3,7 @@ import { differenceInCalendarDays } from "date-fns";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { ApiService } from "../../../../../src/app/services/api.service";
 import { CommonService } from "../../../services/common.service";
+import { environment } from '../../../../environments/environment';
 const xlsx = require("xlsx");
 @Component({
   selector: "ngx-tme-map",
@@ -44,6 +45,10 @@ export class TmeMapComponent implements OnInit {
   rankData: any = [];
   base64Data: any = "";
   base64Data2: any = "";
+  yuebaoName:any=""
+  yuebaoName2:any=""
+  xlsxUrl:any=""
+  xlsxUrl2:any=""
   loading = false;
   isCandown = false;
   isCandown2: boolean = false;
@@ -86,10 +91,12 @@ export class TmeMapComponent implements OnInit {
             pages: this.pageValue,
             type: this.optionList[this.selectItem][this.typeOf - 1].api,
           })
-          .subscribe((res: any) => {
+          .subscribe(async (res: any) => {
             this.loading = false;
             if (res.success) {
-              const binaryData = window.atob(res.data.split(",")[1]);
+				this.yuebaoName = this.optionList["月报"][this.typeOf-1].label;
+				this.xlsxUrl = environment.downloadUrl + res.data[0];
+              const binaryData = window.atob(res.data[1].split(",")[1]);
               const workbook = xlsx.read(binaryData, { type: "binary" });
               const sheetName = workbook.SheetNames[0];
               const worksheet = workbook.Sheets[sheetName];
@@ -118,7 +125,9 @@ export class TmeMapComponent implements OnInit {
           .subscribe((res: any) => {
             this.loading = false;
             if (res.success) {
-              const binaryData = window.atob(res.data.split(",")[1]);
+				this.yuebaoName2 = this.optionList["歌曲"][this.typeOf2-1].label;
+				this.xlsxUrl2 = environment.downloadUrl + res.data[0];
+              const binaryData = window.atob(res.data[1].split(",")[1]);
               const workbook = xlsx.read(binaryData, { type: "binary" });
               const sheetName = workbook.SheetNames[0];
               const worksheet = workbook.Sheets[sheetName];
@@ -146,26 +155,54 @@ export class TmeMapComponent implements OnInit {
       let yearNow = now.getFullYear();
       let monthNow = (now.getMonth() + 1).toString().padStart(2, "0");
       let formattedDateNew = `${yearNow}${monthNow}`;
-      let filename = `${formattedDate}-${formattedDateNew}.xlsx`;
-      let a = document.createElement("a");
-      a.href = this.base64Data;
-      a.download = filename; // 如果为空，默认文件名为：下载.xxx（后缀名与base64MIME部分指定）
-      a.click();
-      a = null; // a标签下载作用用完了，解除对它的引用即释放内存
+      let filename = `${formattedDate}-${this.yuebaoName}-${this.monthData.length}.xlsx`;
+	  console.log(filename)
+	  this.common.download(this.xlsxUrl,filename)
+      // let a = document.createElement("a");
+      // a.href = this.base64Data;
+      // a.download = filename; // 如果为空，默认文件名为：下载.xxx（后缀名与base64MIME部分指定）
+      // a.click();
+      // a = null; // a标签下载作用用完了，解除对它的引用即释放内存
     }
   }
   downLoadSource2() {
     if (this.isCandown2) {
-      const now = new Date();
-      let yearNow = now.getFullYear();
-      let monthNow = (now.getMonth() + 1).toString().padStart(2, "0");
-      let formattedDateNew = `${yearNow}${monthNow}`;
-      let filename = `${formattedDateNew}.xlsx`;
-      let a = document.createElement("a");
-      a.href = this.base64Data2;
-      a.download = filename; // 如果为空，默认文件名为：下载.xxx（后缀名与base64MIME部分指定）
-      a.click();
-      a = null; // a标签下载作用用完了，解除对它的引用即释放内存
+
+	  let filename = `${this.yuebaoName2}-${this.rankData.length}.xlsx`;
+	  console.log(filename)
+	  this.common.download(this.xlsxUrl2,filename)
+      // let a = document.createElement("a");
+      // a.href = this.base64Data2;
+      // a.download = filename; // 如果为空，默认文件名为：下载.xxx（后缀名与base64MIME部分指定）
+      // a.click();
+      // a = null; // a标签下载作用用完了，解除对它的引用即释放内存
     }
   }
+  
+  
+ //  async loadFile(url:string){
+	//   let blob = await this.api.fetchFile(url);
+	//   // 创建一个FileReader对象来读取Blob为ArrayBuffer  
+	//       const reader:any = new FileReader();  
+	//       return new Promise((resolve, reject) => {  
+	//         reader.onload = () => {  
+	//           const data = new Uint8Array(reader.result);  
+	//           // 使用xlsx库解析ArrayBuffer  
+	//           const workbook = xlsx.read(data, { type: 'array' });  
+	            
+	//           // 获取第一个工作表  
+	//           const worksheetName = workbook.SheetNames[0];  
+	//           const worksheet = workbook.Sheets[worksheetName];  
+	            
+	//           // 将工作表转换为JSON对象数组  
+	//           const jsonData = xlsx.utils.sheet_to_json(worksheet, { header: 1 });  
+	            
+				
+	//           // 解析成功，返回数据  
+	//           resolve(jsonData);  
+	//         };  
+	//         reader.onerror = reject;  
+	//         reader.readAsArrayBuffer(blob);  
+	// 	})
+	// }
 }
