@@ -156,8 +156,9 @@ export class TmeMapComponent implements OnInit {
       let monthNow = (now.getMonth() + 1).toString().padStart(2, "0");
       let formattedDateNew = `${yearNow}${monthNow}`;
       let filename = `${formattedDate}-${this.yuebaoName}-${this.monthData.length}.xlsx`;
-	  console.log(filename)
+	  // 下载方式1
 	  this.common.download(this.xlsxUrl,filename)
+	  // 下载方式2
       // let a = document.createElement("a");
       // a.href = this.base64Data;
       // a.download = filename; // 如果为空，默认文件名为：下载.xxx（后缀名与base64MIME部分指定）
@@ -169,8 +170,9 @@ export class TmeMapComponent implements OnInit {
     if (this.isCandown2) {
 
 	  let filename = `${this.yuebaoName2}-${this.rankData.length}.xlsx`;
-	  console.log(filename)
+	  
 	  this.common.download(this.xlsxUrl2,filename)
+	  
       // let a = document.createElement("a");
       // a.href = this.base64Data2;
       // a.download = filename; // 如果为空，默认文件名为：下载.xxx（后缀名与base64MIME部分指定）
