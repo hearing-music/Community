@@ -1287,7 +1287,8 @@ export class ApiService {
 	}
 	// 获取文字搜索符合的韵脚
 	tripartite_keyword(params:any){
-		let url = `https://script.tingjianmusic.cn:444?sentence=${params.keyword}`
+		let url = `${this.baseUrl}/tripartite/tripartite_juzi?keyword=${params.keyword}`
+		// let url = `https://script.tingjianmusic.cn:444?sentence=${params.keyword}`
 		return this.http.get(url);
 	}
 }

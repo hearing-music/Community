@@ -41,9 +41,9 @@ export class YunjiaobenComponent implements OnInit {
 		this.loading = true;
 		this.api.tripartite_keyword({keyword:e}).subscribe((res: any) => {
 			console.log(res)
-			if(res.Success){
+			if(res.success){
 				let arr = [];
-				res.Result[0].forEach((item:any)=>{
+				res.result.forEach((item:any)=>{
 					arr.push({value:item,label:item})
 				})
 				this.yunjiaoAccordlist = arr;
