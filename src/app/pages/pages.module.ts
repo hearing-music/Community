@@ -167,6 +167,7 @@ import {SegmentationComponent} from './audioProcessing/segmentation/segmentation
 
 import { TmeMapComponent } from './tool/tme-map/tme-map.component';
 import { EnteredByYouNiComponent } from './tool/entered-by-you-ni/entered-by-you-ni.component'
+import { ScriptPromptsComponent } from "./script-prompts/script-prompts.component";
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -216,6 +217,7 @@ registerLocaleData(zh);
 		EnteredByYouNiComponent,
 		AudioProcessingComponent,
 		NoiseReductionComponent,
+		ScriptPromptsComponent,
 		VolumeNormalisationComponent,
 		SegmentationComponent,
 		NewTankBattleComponent,

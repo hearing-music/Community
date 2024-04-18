@@ -56,19 +56,27 @@
                     /><span>{{ i + 1 + ", " + item.Issues }}</span>
                   </span>
                 </ng-template>
-                <div style="margin: 0 10px" (click)="copy(item.Answer)">
-                  <span style="display: flex; align-items: center">
-                    <img
-                      src="assets/img/request.jpg"
-                      alt="Tent Icon"
-                      style="
-                        width: 30px;
-                        height: 30px;
-                        margin-right: 10px;
-                        border-radius: 3px;
-                      "
-                    /><span class="copyText">{{ item.Answer }}</span>
-                  </span>
+                <div style="margin: 0 10px; display: flex">
+                  <img
+                    src="assets/img/request.jpg"
+                    alt="Tent Icon"
+                    style="
+                      width: 30px;
+                      height: 30px;
+                      margin-right: 10px;
+                      border-radius: 3px;
+                      margin-top: 10px;
+                    "
+                  />
+                  <div>
+                    <div
+                      class="copyText"
+                      *ngFor="let items of item.Answer"
+                      (click)="copy(items)"
+                    >
+                      <div [innerHTML]="items" style="margin: 5px"></div>
+                    </div>
+                  </div>
                 </div>
                 <div
                   style="
@@ -78,7 +86,7 @@
                   "
                   *ngIf="item.Scenario.Take"
                 >
-                  适合的情况：{{ item.Scenario.Take }}
+                  适合的情况：<span [innerHTML]="item.Scenario.Take"></span>
                 </div>
                 <div
                   style="margin: 5px 20px; color: red; font-weight: normal"

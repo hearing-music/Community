@@ -28,13 +28,36 @@ export class ScriptPromptsComponent implements OnInit {
     this.api.GetAllInformation().subscribe((res: any) => {
       let arr = [];
       if (res.success) {
-        this.problemAllList = res.data;
+        let data = this.mergeItems(res.data);
+        this.problemAllList = data;
+        console.log(this.problemAllList);
         arr = this.filterData(this.problemAllList);
       }
       this.problemList = arr;
       this.loading = false;
     });
   }
+  mergeItems(data: any) {
+    const mergedData = [];
+    const mergedMap = new Map();
+    data.forEach((item) => {
+      const key = item.Module + item.TypeId + item.Issues;
+      if (mergedMap.has(key)) {
+        mergedMap.get(key).Answer.push(item.Answer.replace(/\r?\n/g, "<br>"));
+      } else {
+        mergedMap.set(key, {
+          ...item,
+          Answer: [item.Answer.replace(/\r?\n/g, "<br>")],
+        });
+      }
+    });
+    mergedMap.forEach((value) => {
+      value.Scenario.Take = value.Scenario.Take.replace(/\r?\n/g, "<br>");
+      mergedData.push(value);
+    });
+    return mergedData;
+  }
+
   filterData(arr: any) {
     let data = arr.filter(
       (item: any) =>
@@ -80,7 +103,7 @@ export class ScriptPromptsComponent implements OnInit {
   }
   copy(item: any) {
     var aux = document.createElement("input");
-    aux.setAttribute("value", item);
+    aux.setAttribute("value", item.replace(/<br>/g, "\n"));
     document.body.appendChild(aux);
     aux.select();
     document.execCommand("copy");

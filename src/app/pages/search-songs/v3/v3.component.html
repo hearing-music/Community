@@ -1,5 +1,5 @@
 <nz-empty *ngIf="kugouV3List.length==0" style="margin-top: 160px;"></nz-empty>
-<div class="list" v-if='kugouV3List.length!=0'>
+<div class="list" *ngIf='kugouV3List.length!=0'>
 	<div *ngFor="let item of kugouV3List;let idx=index">
 		<div class="list-item"  >
 			<div class="item-left">
