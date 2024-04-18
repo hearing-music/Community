@@ -1,0 +1,97 @@
+<div class="script-prompts">
+  <div class="mainBox">
+    <div class="leftBox"></div>
+    <div class="rightBox">
+      <div class="home-top">
+        <!-- tab栏 -->
+        <div class="tagList">
+          <div
+            *ngFor="let item of tagList"
+            (click)="onSelect(item)"
+            class="tagList-item"
+            [ngClass]="{ 'tagList-itemActive': item.Module == selectItem }"
+          >
+            {{ item.Module }}
+          </div>
+        </div>
+      </div>
+      <div class="home-top">
+        <!-- 二级标题 -->
+        <div class="tagList tagList2" *ngIf="tagNow">
+          <div
+            *ngFor="let citem of tagNow.TypeId"
+            (click)="onSelect2(citem)"
+            class="tagList-item"
+            style="font-size: 12px"
+            [ngClass]="{ 'tagList-itemActive2': citem == selectItem2 }"
+          >
+            {{ citem }}
+          </div>
+        </div>
+      </div>
+      <div class="home-main">
+        <div class="problemBox">
+          <div class="problem">
+            <nz-collapse
+              [nzExpandIconPosition]="expandIconPosition"
+              [nzGhost]="true"
+            >
+              <nz-collapse-panel
+                *ngFor="let item of problemList; let i = index"
+                [nzHeader]="tentIcon"
+                [nzActive]="item.active"
+                class="TextBox"
+              >
+                <ng-template #tentIcon>
+                  <span style="display: flex; align-items: center">
+                    <img
+                      src="assets/img/ask.jpg"
+                      alt="Tent Icon"
+                      style="
+                        width: 30px;
+                        height: 30px;
+                        margin-right: 10px;
+                        border-radius: 3px;
+                      "
+                    /><span>{{ i + 1 + ", " + item.Issues }}</span>
+                  </span>
+                </ng-template>
+                <div style="margin: 0 10px" (click)="copy(item.Answer)">
+                  <span style="display: flex; align-items: center">
+                    <img
+                      src="assets/img/request.jpg"
+                      alt="Tent Icon"
+                      style="
+                        width: 30px;
+                        height: 30px;
+                        margin-right: 10px;
+                        border-radius: 3px;
+                      "
+                    /><span class="copyText">{{ item.Answer }}</span>
+                  </span>
+                </div>
+                <div
+                  style="
+                    margin: 5px 20px;
+                    color: rgb(106, 106, 3);
+                    font-weight: normal;
+                  "
+                  *ngIf="item.Scenario.Take"
+                >
+                  适合的情况：{{ item.Scenario.Take }}
+                </div>
+                <div
+                  style="margin: 5px 20px; color: red; font-weight: normal"
+                  *ngIf="item.Scenario.Cautions"
+                >
+                  重点：{{ item.Scenario.Cautions }}
+                </div>
+              </nz-collapse-panel>
+            </nz-collapse>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-loading *ngIf="loading"></ngx-loading>

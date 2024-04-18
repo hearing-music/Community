@@ -106,6 +106,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		},
 		link:'/pages/find-inspiration'
 	},
+	  {
+	    title: "话术",
+	    icon: {
+	      icon: "huashu",
+	      pack: "my-icons",
+	    },
+	    link: "/pages/script-prompts",
+	  },
 	{
 		title:'韵脚本',
 		icon:{

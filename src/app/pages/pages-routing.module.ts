@@ -64,6 +64,7 @@ import { CardGameComponent } from "./game/card-game/card-game.component";
 import { MaJiangComponent } from "./game/ma-jiang/ma-jiang.component";
 import { TankBattleComponent } from "./game/tank-battle/tank-battle.component";
 import { NewTankBattleComponent } from './game/new-tank-battle/new-tank-battle.component';
+import { ScriptPromptsComponent } from "./script-prompts/script-prompts.component";
 
 import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
 const routes: Routes = [{
@@ -385,6 +386,12 @@ const routes: Routes = [{
 			component: JianyingComponent,
 			canActivate: [PermissionGuard]
 		},
+		      // 话术
+		      {
+		        path: "script-prompts",
+		        component: ScriptPromptsComponent,
+		        canActivate: [PermissionGuard],
+		      },
 		//生成mv
 		{
 			path: 'to-mv',

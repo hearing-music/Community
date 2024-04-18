@@ -1291,4 +1291,13 @@ export class ApiService {
 		// let url = `https://script.tingjianmusic.cn:444?sentence=${params.keyword}`
 		return this.http.get(url);
 	}
+	  // 获取话术全部分类
+	  GetModelInfo() {
+	    let url = `${this.baseUrl}/wisdom_knowledge_base/GetModelInfo`;
+	    return this.http.get(url);
+	  }
+	  GetAllInformation() {
+	    let url = `${this.baseUrl}/wisdom_knowledge_base/GetAllInformation`;
+	    return this.http.get(url);
+	  }
 }
