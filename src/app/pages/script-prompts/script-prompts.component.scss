@@ -12,18 +12,12 @@
     top: 0;
     display: flex;
     .leftBox {
+		padding:12px;
       width: 50%;
       height: 100%;
       //   background-color: aqua;
       border-radius: 12px 0 0 12px;
       border-right: 1px solid #ccc;
-      background-color: #fff;
-    }
-    .rightBox {
-      width: 50%;
-      height: 100%;
-      //   background-color: aquamarine;
-      border-radius: 0 12px 12px 0;
       background-color: #fff;
       .home-top {
         width: 100%;
@@ -81,9 +75,21 @@
           }
         }
       }
-      .home-main {
+      
+    }
+    .rightBox {
+      width: 50%;
+      height: 100%;
+      //   background-color: aquamarine;
+      border-radius: 0 12px 12px 0;
+      background-color: #fff;
+	  padding:12px;
+    }
+  }
+}
+.home-main {
         width: 100%;
-        height: calc(100vh - 4.75rem - 4rem - 5rem);
+        height: calc(100vh - 4.75rem - 4rem - 5rem - 24px);
         overflow-y: scroll;
         .problemBox {
           width: 100%;
@@ -99,19 +105,20 @@
             min-height: 36px;
             padding: 0 16px;
             cursor: pointer;
-            .TextBox {
-              font-weight: bolder;
-              .copyText:hover {
-                color: #4099f0;
-              }
-              .copyText {
-                font-weight: normal;
-              }
-            }
-            .TextBox:not(:last-child) {
-              border-bottom: 1px solid #ccc;
-            }
+            
           }
+		  .TextBox {
+		    font-weight: bolder;
+		    .copyText:hover {
+		      color: #4099f0;
+		    }
+		    .copyText {
+		      font-weight: normal;
+		    }
+		  }
+		  .TextBox:not(:last-child) {
+		    border-bottom: 1px solid #ccc;
+		  }
           .problem:hover .problemText {
             color: rgba(0, 136, 255, 0.629);
           }
@@ -130,6 +137,3 @@
         background: #40a0ff49;
         border-radius: 10px;
       }
-    }
-  }
-}

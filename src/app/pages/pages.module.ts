@@ -32,6 +32,7 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 // page
 import { DouDiZhuComponent } from "./game/dou-di-zhu/dou-di-zhu.component";
 import { CardGameComponent } from "./game/card-game/card-game.component";
@@ -183,6 +184,7 @@ registerLocaleData(zh);
 		NzTableModule,
 		NzPaginationModule,
 		NzEmptyModule,
+		NzBreadCrumbModule,
 		NzButtonModule,
 		NzSelectModule,
 		NzCheckboxModule,

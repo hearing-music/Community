@@ -1,105 +1,93 @@
 <div class="script-prompts">
-  <div class="mainBox">
-    <div class="leftBox"></div>
-    <div class="rightBox">
-      <div class="home-top">
-        <!-- tab栏 -->
-        <div class="tagList">
-          <div
-            *ngFor="let item of tagList"
-            (click)="onSelect(item)"
-            class="tagList-item"
-            [ngClass]="{ 'tagList-itemActive': item.Module == selectItem }"
-          >
-            {{ item.Module }}
-          </div>
-        </div>
-      </div>
-      <div class="home-top">
-        <!-- 二级标题 -->
-        <div class="tagList tagList2" *ngIf="tagNow">
-          <div
-            *ngFor="let citem of tagNow.TypeId"
-            (click)="onSelect2(citem)"
-            class="tagList-item"
-            style="font-size: 12px"
-            [ngClass]="{ 'tagList-itemActive2': citem == selectItem2 }"
-          >
-            {{ citem }}
-          </div>
-        </div>
-      </div>
-      <div class="home-main">
-        <div class="problemBox">
-          <div class="problem">
-            <nz-collapse
-              [nzExpandIconPosition]="expandIconPosition"
-              [nzGhost]="true"
-            >
-              <nz-collapse-panel
-                *ngFor="let item of problemList; let i = index"
-                [nzHeader]="tentIcon"
-                [nzActive]="item.active"
-                class="TextBox"
-              >
-                <ng-template #tentIcon>
-                  <span style="display: flex; align-items: center">
-                    <img
-                      src="assets/img/ask.jpg"
-                      alt="Tent Icon"
-                      style="
-                        width: 30px;
-                        height: 30px;
-                        margin-right: 10px;
-                        border-radius: 3px;
-                      "
-                    /><span>{{ i + 1 + ", " + item.Issues }}</span>
-                  </span>
-                </ng-template>
-                <div style="margin: 0 10px; display: flex">
-                  <img
-                    src="assets/img/request.jpg"
-                    alt="Tent Icon"
-                    style="
-                      width: 30px;
-                      height: 30px;
-                      margin-right: 10px;
-                      border-radius: 3px;
-                      margin-top: 10px;
-                    "
-                  />
-                  <div>
-                    <div
-                      class="copyText"
-                      *ngFor="let items of item.Answer"
-                      (click)="copy(items)"
-                    >
-                      <div [innerHTML]="items" style="margin: 5px"></div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style="
-                    margin: 5px 20px;
-                    color: rgb(106, 106, 3);
-                    font-weight: normal;
-                  "
-                  *ngIf="item.Scenario.Take"
-                >
-                  适合的情况：<span [innerHTML]="item.Scenario.Take"></span>
-                </div>
-                <div
-                  style="margin: 5px 20px; color: red; font-weight: normal"
-                  *ngIf="item.Scenario.Cautions"
-                >
-                  重点：{{ item.Scenario.Cautions }}
-                </div>
-              </nz-collapse-panel>
-            </nz-collapse>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="mainBox">
+		<div class="leftBox">
+			<div class="home-top">
+				<!-- tab栏 -->
+				<div class="tagList">
+					<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
+						[ngClass]="{ 'tagList-itemActive': item.Module == selectItem }">
+						{{ item.Module }}
+					</div>
+				</div>
+			</div>
+			<div class="home-top">
+				<!-- 二级标题 -->
+				<div class="tagList tagList2" *ngIf="tagNow">
+					<div *ngFor="let citem of tagNow.TypeId" (click)="onSelect2(citem)" class="tagList-item"
+						style="font-size: 12px" [ngClass]="{ 'tagList-itemActive2': citem == selectItem2 }">
+						{{ citem }}
+					</div>
+				</div>
+			</div>
+			<div class="home-main">
+				<div class="problemBox">
+					<div class="problem">
+						<nz-collapse [nzExpandIconPosition]="expandIconPosition" [nzGhost]="true">
+							<nz-collapse-panel *ngFor="let item of problemList; let i = index" [nzHeader]="tentIcon"
+								[nzActive]="item.active" class="TextBox">
+								<ng-template #tentIcon>
+									<span style="display: flex; align-items: center">
+										<img src="assets/img/ask.jpg" alt="Tent Icon" style="width: 30px;height: 30px;margin-right: 10px;border-radius: 3px;" />
+										<span>{{ i + 1 + ", " + item.Issues }}
+										</span>
+									</span>
+								</ng-template>
+								<div style="margin: 0 10px; display: flex">
+									<img src="assets/img/request.jpg" alt="Tent Icon" style="width: 30px;height: 30px;margin-right: 10px;border-radius: 3px;margin-top: 10px;" />
+									<div>
+										<div class="copyText" *ngFor="let items of item.Answer" (click)="copy(items)">
+											<div [innerHTML]="items" style="margin: 5px"></div>
+										</div>
+									</div>
+								</div>
+								<div style="margin: 5px 20px;color: rgb(106, 106, 3);font-weight: normal;" *ngIf="item.Scenario.Take">
+									适合的情况：<span [innerHTML]="item.Scenario.Take"></span>
+								</div>
+								<div style="margin: 5px 20px; color: red; font-weight: normal"
+									*ngIf="item.Scenario.Cautions">
+									重点：{{ item.Scenario.Cautions }}
+								</div>
+							</nz-collapse-panel>
+						</nz-collapse>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="rightBox">
+			<nz-select nzShowSearch  nzPlaceHolder="搜索想知道的" [(ngModel)]="searchValue" (ngModelChange)="searchChange($event)" style="width: 100%;border-radius: 4px;">
+			      <nz-option *ngFor="let option of searchList" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+			</nz-select>
+			<nz-empty *ngIf='searchValue===null' style="margin-top: 100px;"></nz-empty> 
+			<div *ngIf='searchValue!==null' class="home-main" style="overflow-y:auto;">
+				<div class="problemBox">
+					<div class="problem TextBox" style="padding:12px;">
+						<div style="margin-bottom: 8px;color:green;">
+							{{nowAnswer.Module}}——{{nowAnswer.TypeId}}
+						</div>
+						<div style="display: flex; align-items: center;margin-bottom: 8px;">
+							<img src="assets/img/ask.jpg" alt="Tent Icon" style="width: 30px;height: 30px;margin-right: 10px;border-radius: 3px;" />
+									<span style="color:#000;">{{ nowAnswer.Issues }}
+							</span>
+						</div>
+						<div style="margin: 0 10px; display: flex">
+							<img src="assets/img/request.jpg" alt="Tent Icon" style="width: 30px;height: 30px;margin-right: 10px;border-radius: 3px;margin-top: 10px;" />
+							<div>
+								<div class="copyText" *ngFor="let items of nowAnswer.Answer" (click)="copy(items)">
+									<div [innerHTML]="items" style="margin: 5px"></div>
+								</div>
+							</div>
+						</div>
+						<div style="margin: 5px 20px;color: rgb(106, 106, 3);font-weight: normal;" *ngIf="nowAnswer.Scenario.Take">
+							适合的情况：<span [innerHTML]="nowAnswer.Scenario.Take"></span>
+						</div>
+						<div style="margin: 5px 20px; color: red; font-weight: normal"
+							*ngIf="nowAnswer.Scenario.Cautions">
+							重点：{{ nowAnswer.Scenario.Cautions }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <ngx-loading *ngIf="loading"></ngx-loading>

@@ -30,6 +30,15 @@ export class ScriptPromptsComponent implements OnInit {
       if (res.success) {
         let data = this.mergeItems(res.data);
         this.problemAllList = data;
+		let searchList = []
+		for(let i = 0;i<data.length;i++){
+			searchList.push({
+				...data[i],
+				label:data[i].Issues,
+				value:i
+			})
+		}
+		this.searchList = searchList;
         console.log(this.problemAllList);
         arr = this.filterData(this.problemAllList);
       }
@@ -109,5 +118,13 @@ export class ScriptPromptsComponent implements OnInit {
     document.execCommand("copy");
     document.body.removeChild(aux);
     this.message.create("success", `复制成功`);
+  }
+  
+  // right
+  searchValue:any=null;
+  searchList:any=[];
+  nowAnswer:any={};
+  searchChange(e:any){
+	  this.nowAnswer = this.searchList[e]
   }
 }
