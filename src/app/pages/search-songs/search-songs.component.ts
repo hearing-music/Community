@@ -763,6 +763,11 @@ export class SearchSongsComponent implements OnInit {
 			console.log(res)
 			res.result.forEach((item: any) => {
 				item.payInfo.feeType = item.payInfo.feeType || {}
+				try{
+					item.payInfo.feeType.song = item.payInfo.feeType.song - 0;
+				}catch(e){
+					//TODO handle the exception
+				}
 			})
 			if (this.kuwoPage == 1) {
 				this.kuwoList = res.result;
