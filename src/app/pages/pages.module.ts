@@ -169,6 +169,8 @@ import {SegmentationComponent} from './audioProcessing/segmentation/segmentation
 import { TmeMapComponent } from './tool/tme-map/tme-map.component';
 import { EnteredByYouNiComponent } from './tool/entered-by-you-ni/entered-by-you-ni.component'
 import { ScriptPromptsComponent } from "./script-prompts/script-prompts.component";
+import { ScreenRecordingComponent } from "./screenRecording/screenRecording.component";
+import { VideoPlayerComponent } from "../components/videoPlayer/videoPlayer.component";
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -214,10 +216,12 @@ registerLocaleData(zh);
 		NzStepsModule
 	],
 	declarations: [
+		VideoPlayerComponent,
 		YunjiaobenComponent,
 		TmeMapComponent,
 		EnteredByYouNiComponent,
 		AudioProcessingComponent,
+		ScreenRecordingComponent,
 		NoiseReductionComponent,
 		ScriptPromptsComponent,
 		VolumeNormalisationComponent,

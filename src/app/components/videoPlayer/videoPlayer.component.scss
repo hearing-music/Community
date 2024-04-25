@@ -1,0 +1,19 @@
+.container2 {
+    margin: 0 auto;
+    padding-bottom: 56.25%;
+    .video-player-box {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        ::v-deep > div {
+            width: 100%;
+            height: 100%;
+            .vjs-big-play-button {
+                display: none;
+            }
+        }
+    }
+    @media only screen and (max-width: 500px) {
+        padding-bottom: 133.33%;
+    }
+}

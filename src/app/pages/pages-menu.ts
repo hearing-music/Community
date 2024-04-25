@@ -1,5 +1,5 @@
 import { NbMenuItem } from '@nebular/theme';
-export let MENU_ITEMS: NbMenuItem[] = [
+export let MENU_ITEMS : NbMenuItem[] = [
 	// {
 	// 	title: '音乐搜索',
 	// 	icon: 'search',
@@ -10,8 +10,8 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	{
 		title: 'QQ',
 		icon: {
-			icon:'qq_icon',
-			pack:'my-icons',
+			icon: 'qq_icon',
+			pack: 'my-icons',
 		},
 		children: [
 			{
@@ -27,8 +27,8 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	{
 		title: '酷狗',
 		icon: {
-			icon:'kg_icon',
-			pack:'my-icons',
+			icon: 'kg_icon',
+			pack: 'my-icons',
 		},
 		children: [
 			{
@@ -48,22 +48,22 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	{
 		title: '抖音',
 		icon: {
-			icon:'dy_icon',
-			pack:'my-icons',
+			icon: 'dy_icon',
+			pack: 'my-icons',
 		},
 		children: [
 			// {
 			// 	title: '抖音热点',
 			// 	link: '/pages/douyin/douyin-hot',
 			// },
-			      {
-			        title: "热门账号",
-			        link: "/pages/douyin/douyin-popular-accounts",
-			      },
-			      {
-			        title: "上升热点",
-			        link: "/pages/douyin/douyin-rising-hot",
-			      },
+			{
+				title: "热门账号",
+				link: "/pages/douyin/douyin-popular-accounts",
+			},
+			{
+				title: "上升热点",
+				link: "/pages/douyin/douyin-rising-hot",
+			},
 			{
 				title: '抖音榜单',
 				link: '/pages/douyin/douyin-list',
@@ -99,34 +99,34 @@ export let MENU_ITEMS: NbMenuItem[] = [
 		],
 	},
 	{
-		title:'找灵感',
-		icon:{
-			icon:'linggan',
-			pack:'my-icons'
+		title: '找灵感',
+		icon: {
+			icon: 'linggan',
+			pack: 'my-icons'
 		},
-		link:'/pages/find-inspiration'
+		link: '/pages/find-inspiration'
 	},
-	  {
-	    title: "话术",
-	    icon: {
-	      icon: "huashu",
-	      pack: "my-icons",
-	    },
-	    link: "/pages/script-prompts",
-	  },
 	{
-		title:'韵脚本',
-		icon:{
-			icon:'yunjiao',
-			pack:'my-icons'
+		title: "话术",
+		icon: {
+			icon: "huashu",
+			pack: "my-icons",
 		},
-		link:'/pages/yunjiaoben'
+		link: "/pages/script-prompts",
+	},
+	{
+		title: '韵脚本',
+		icon: {
+			icon: 'yunjiao',
+			pack: 'my-icons'
+		},
+		link: '/pages/yunjiaoben'
 	},
 	{
 		title: '快手',
 		icon: {
-			icon:'ks_icon',
-			pack:'my-icons',
+			icon: 'ks_icon',
+			pack: 'my-icons',
 		},
 		children: [
 			// {
@@ -141,15 +141,15 @@ export let MENU_ITEMS: NbMenuItem[] = [
 			// 	title: 'dj',
 			// 	link: '/pages/kuaishouDj',
 			// },
-			
-			      {
-			        title: "快手特效查询",
-			        link: "/pages/kuaishou-specialEffectsQuery",
-			      },
-				{
-				        title: "快手视频详情",
-				        link: "/pages/kuaishou-videoDetails",
-				 },
+
+			{
+				title: "快手特效查询",
+				link: "/pages/kuaishou-specialEffectsQuery",
+			},
+			{
+				title: "快手视频详情",
+				link: "/pages/kuaishou-videoDetails",
+			},
 			//       {
 			//         title: "快手特效监控",
 			//    link: "/pages/kuaishou-SwollenKsEeLis",
@@ -163,8 +163,8 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	{
 		title: '云图',
 		icon: {
-			icon:'yt_icon',
-			pack:'my-icons',
+			icon: 'yt_icon',
+			pack: 'my-icons',
 		},
 		children: [
 			{
@@ -176,8 +176,8 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	{
 		title: '浮浮雷达',
 		icon: {
-			icon:'ffld_icon',
-			pack:'my-icons',
+			icon: 'ffld_icon',
+			pack: 'my-icons',
 		},
 		link: '/pages/fufu-billboard',
 	},
@@ -204,16 +204,16 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	{
 		title: '剪映',
 		icon: {
-			icon:'jy_icon',
-			pack:'my-icons',
+			icon: 'jy_icon',
+			pack: 'my-icons',
 		},
 		link: '/pages/jianying',
 	},
 	{
 		title: '铃声多多',
 		icon: {
-			icon:'lsdd_icon',
-			pack:'my-icons',
+			icon: 'lsdd_icon',
+			pack: 'my-icons',
 		},
 		link: '/pages/lsdd-page',
 	},
@@ -245,14 +245,14 @@ export let MENU_ITEMS: NbMenuItem[] = [
 			},
 		],
 	},
-	    {
-	        title: '生成mv',
-	        icon: {
-	            icon:'mv_icon',
-	            pack:'my-icons',
-	        },
-	        link: '/pages/to-mv',
-	    },
+	{
+		title: '生成mv',
+		icon: {
+			icon: 'mv_icon',
+			pack: 'my-icons',
+		},
+		link: '/pages/to-mv',
+	},
 	{
 		title: '文字识别',
 		icon: 'text',
@@ -285,16 +285,24 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	{
 		title: 'mermaid',
 		icon: {
-			icon:'mermaid_icon',
-			pack:'my-icons',
+			icon: 'mermaid_icon',
+			pack: 'my-icons',
 		},
 		link: '/pages/mermaid',
 	},
-	    {
-	        title: '原创音频',
-	        icon: 'headphones',
-	        link: '/pages/original-audio',
-	    },
+	{
+		title: '原创音频',
+		icon: 'headphones',
+		link: '/pages/original-audio',
+	},
+	{
+		title: '录制屏幕',
+		icon: {
+			icon: 'screenRecording',
+			pack: 'my-icons',
+		},
+		link: '/pages/screenRecording',
+	},
 	// {
 	// 	title: '素材',
 	// 	icon:{
@@ -303,54 +311,54 @@ export let MENU_ITEMS: NbMenuItem[] = [
 	// 	},
 	// 	link: '/pages/sourcePhoto',
 	// },
-	  {
-    title: "游戏",
-    icon: {
-      icon: "card_game",
-      pack: "my-icons",
-    },
-    children: [
-      {
-        title: "点歌室",
-        icon: "home",
-        link: "/pages/song-room",
-      },
-      {
-        title: "斗地主",
-        icon: {
-          icon: "doudizhu",
-          pack: "my-icons",
-        },
-        link: "/pages/dou-di-zhu",
-      },
-      {
-        title: "卡牌游戏",
-        icon: {
-          icon: "sanchaji",
-          pack: "my-icons",
-        },
-        link: "/pages/card-game",
-      },
-		{
-	        title: "麻将",
-	        icon: {
-	          icon: "majiang",
-	          pack: "my-icons",
-	        },
-	        link: "/pages/ma-jiang",
-	      },
-	 {
-	        title: "坦克大战",
-	        icon: {
-	          icon: "tankBattle",
-	          pack: "my-icons",
-	        },
-	        link: "/pages/tank-battle",
-	      },
-    ],
-  },
-	
-	
+	{
+		title: "游戏",
+		icon: {
+			icon: "card_game",
+			pack: "my-icons",
+		},
+		children: [
+			{
+				title: "点歌室",
+				icon: "home",
+				link: "/pages/song-room",
+			},
+			{
+				title: "斗地主",
+				icon: {
+					icon: "doudizhu",
+					pack: "my-icons",
+				},
+				link: "/pages/dou-di-zhu",
+			},
+			{
+				title: "卡牌游戏",
+				icon: {
+					icon: "sanchaji",
+					pack: "my-icons",
+				},
+				link: "/pages/card-game",
+			},
+			{
+				title: "麻将",
+				icon: {
+					icon: "majiang",
+					pack: "my-icons",
+				},
+				link: "/pages/ma-jiang",
+			},
+			{
+				title: "坦克大战",
+				icon: {
+					icon: "tankBattle",
+					pack: "my-icons",
+				},
+				link: "/pages/tank-battle",
+			},
+		],
+	},
+
+
 	// {
 	// 	title: '西哩xili',
 	// 	icon: 'message-circle',

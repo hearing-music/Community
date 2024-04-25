@@ -1,0 +1,32 @@
+<div class="screen">
+	<div id="home-page">
+		<div class="content">
+			<div class="control-btn">
+				<button nz-button key="screen-record" *ngIf="!recording" nzType="primary"
+					(click)="startRecord(true)" style="margin-right: 8px;">录制屏幕</button>
+				<button nz-button key="camera-record" *ngIf="!recording" nzType="primary"
+					(click)="startRecord(false)">录制摄像头</button>
+				<button nz-button key="stop-record" *ngIf='recording' (click)="stopRecord()" nzType="dashed">停止录制</button>
+			</div>
+			<div class="video-box">
+				<ngx-videoPlayer class="video-palyer" #videoPlayer ></ngx-videoPlayer>
+			</div>
+			<div class="download-box">
+				<div class="download-item" *ngFor='let item of downloadEl;let i = index;'>
+					<div class="url-video-box">
+						<video [src]="sanitizer.bypassSecurityTrustUrl(item.url)" preload="none" playsinline="playsinline" webkit-playsinline="true"
+							x5-playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="false"
+							controls></video>
+					</div>
+					<div class="meta-box">
+						<span class="title">{{ item.name }}</span>
+						<!-- <span class="download-link" (click)="item.element.click()">下载</span> -->
+						<span class="download-link" (click)="zhuanhuan(item)">转换</span>
+						<span *ngIf='item.downloadUrl' class="download-link" (click)="download(item)">下载</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

@@ -1300,4 +1300,12 @@ export class ApiService {
 	    let url = `${this.baseUrl}/wisdom_knowledge_base/GetAllInformation`;
 	    return this.http.get(url);
 	  }
+	// 转换视频
+	AllAudioConversion(params:any){
+		let { files } = params;
+		    const formData: FormData = new FormData();
+		    formData.append("files", files);
+		    let url = this.baseUrl + "/complaint_audio/AllAudioConversion";
+		    return this.http.post(url, formData);
+	}
 }

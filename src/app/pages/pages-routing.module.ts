@@ -65,6 +65,7 @@ import { MaJiangComponent } from "./game/ma-jiang/ma-jiang.component";
 import { TankBattleComponent } from "./game/tank-battle/tank-battle.component";
 import { NewTankBattleComponent } from './game/new-tank-battle/new-tank-battle.component';
 import { ScriptPromptsComponent } from "./script-prompts/script-prompts.component";
+import { ScreenRecordingComponent } from "./screenRecording/screenRecording.component";
 
 import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
 const routes: Routes = [{
@@ -314,6 +315,12 @@ const routes: Routes = [{
 		{
 			path: 'identification',
 			component: IdentificationComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 录制屏幕
+		{
+			path: 'screenRecording',
+			component: ScreenRecordingComponent,
 			canActivate: [PermissionGuard]
 		},
 		//版权扫描
