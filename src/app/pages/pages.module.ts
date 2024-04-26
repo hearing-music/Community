@@ -171,6 +171,7 @@ import { EnteredByYouNiComponent } from './tool/entered-by-you-ni/entered-by-you
 import { ScriptPromptsComponent } from "./script-prompts/script-prompts.component";
 import { ScreenRecordingComponent } from "./screenRecording/screenRecording.component";
 import { VideoPlayerComponent } from "../components/videoPlayer/videoPlayer.component";
+import { HighlightBracketsPipe } from "./script-prompts/script-prompts.component.pipe";
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -216,6 +217,7 @@ registerLocaleData(zh);
 		NzStepsModule
 	],
 	declarations: [
+		HighlightBracketsPipe,
 		VideoPlayerComponent,
 		YunjiaobenComponent,
 		TmeMapComponent,

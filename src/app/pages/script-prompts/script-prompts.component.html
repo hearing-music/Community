@@ -36,16 +36,20 @@
 									<img src="assets/img/request.jpg" alt="Tent Icon" style="width: 30px;height: 30px;margin-right: 10px;border-radius: 3px;margin-top: 10px;" />
 									<div>
 										<div class="copyText" *ngFor="let items of item.Answer" (click)="copy(items)">
-											<div [innerHTML]="items" style="margin: 5px"></div>
+											<!-- <div [innerHTML]="items" style="margin: 5px"></div> -->
+											<!-- <div [innerHTML]="" style="margin: 5px"></div> -->
+											<div [innerHTML]="items | highlightBrackets" style="margin: 5px"></div>
+											<!-- <div class="copyText" *ngFor="let items of item.Answer" (click)="copy(items)">
+											</div> -->
+											
 										</div>
 									</div>
 								</div>
 								<div style="margin: 5px 20px;color: rgb(106, 106, 3);font-weight: normal;" *ngIf="item.Scenario.Take">
-									适合的情况：<span [innerHTML]="item.Scenario.Take"></span>
+									<span [innerHTML]="item.Scenario.Take"></span>
 								</div>
-								<div style="margin: 5px 20px; color: red; font-weight: normal"
-									*ngIf="item.Scenario.Cautions">
-									重点：{{ item.Scenario.Cautions }}
+								<div style="margin: 5px 20px; color: red; font-weight: normal" *ngIf="item.Scenario.Cautions">
+									<span [innerHTML]="item.Scenario.Cautions"></span>
 								</div>
 							</nz-collapse-panel>
 						</nz-collapse>
@@ -73,16 +77,16 @@
 							<img src="assets/img/request.jpg" alt="Tent Icon" style="width: 30px;height: 30px;margin-right: 10px;border-radius: 3px;margin-top: 10px;" />
 							<div>
 								<div class="copyText" *ngFor="let items of nowAnswer.Answer" (click)="copy(items)">
-									<div [innerHTML]="items" style="margin: 5px"></div>
+									<div [innerHTML]="items | highlightBrackets" style="margin: 5px"></div>
 								</div>
 							</div>
 						</div>
 						<div style="margin: 5px 20px;color: rgb(106, 106, 3);font-weight: normal;" *ngIf="nowAnswer.Scenario.Take">
-							适合的情况：<span [innerHTML]="nowAnswer.Scenario.Take"></span>
+							<span [innerHTML]="nowAnswer.Scenario.Take"></span>
 						</div>
 						<div style="margin: 5px 20px; color: red; font-weight: normal"
 							*ngIf="nowAnswer.Scenario.Cautions">
-							重点：{{ nowAnswer.Scenario.Cautions }}
+							{{ nowAnswer.Scenario.Cautions }}
 						</div>
 					</div>
 				</div>

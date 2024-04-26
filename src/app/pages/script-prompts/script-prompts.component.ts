@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../services/api.service";
 import { NzMessageService } from "ng-zorro-antd/message";
-
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser'; 
 @Component({
   selector: "ngx-script-prompts",
   templateUrl: "./script-prompts.component.html",
@@ -17,28 +17,29 @@ export class ScriptPromptsComponent implements OnInit {
   right: "left" | "right";
   problemList = [];
   problemAllList = [];
-  constructor(private api: ApiService, private message: NzMessageService) {}
+  constructor(private api: ApiService, private message: NzMessageService,private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.GetModelInfo();
     this.GetAllInformation();
   }
-
+	safeStyle:SafeStyle
   GetAllInformation() {
     this.api.GetAllInformation().subscribe((res: any) => {
       let arr = [];
       if (res.success) {
         let data = this.mergeItems(res.data);
         this.problemAllList = data;
-		let searchList = []
-		for(let i = 0;i<data.length;i++){
-			searchList.push({
-				...data[i],
-				label:data[i].Issues,
-				value:i
-			})
-		}
-		this.searchList = searchList;
+        let searchList = [];
+        for (let i = 0; i < data.length; i++) {
+          searchList.push({
+            ...data[i],
+            label: data[i].Issues,
+            value: i,
+          });
+        }
+		console.log(data)
+        this.searchList = searchList;
         console.log(this.problemAllList);
         arr = this.filterData(this.problemAllList);
       }
@@ -62,6 +63,7 @@ export class ScriptPromptsComponent implements OnInit {
     });
     mergedMap.forEach((value) => {
       value.Scenario.Take = value.Scenario.Take.replace(/\r?\n/g, "<br>");
+      value.Scenario.Cautions = value.Scenario.Cautions.replace(/\r?\n/g, "<br>");
       mergedData.push(value);
     });
     return mergedData;
@@ -112,19 +114,23 @@ export class ScriptPromptsComponent implements OnInit {
   }
   copy(item: any) {
     var aux = document.createElement("input");
-    aux.setAttribute("value", item.replace(/<br>/g, "\n"));
+    let text = item.replace(/<br>/g, "\n");
+    text = text.replace(/\[.*?\]/g, "");
+    text = text.replace(/^\d+\.\s*/gm, "");
+    text = text.replace(/\（.*?\）/g, "");
+    aux.setAttribute("value", text);
     document.body.appendChild(aux);
     aux.select();
     document.execCommand("copy");
     document.body.removeChild(aux);
     this.message.create("success", `复制成功`);
   }
-  
+
   // right
-  searchValue:any=null;
-  searchList:any=[];
-  nowAnswer:any={};
-  searchChange(e:any){
-	  this.nowAnswer = this.searchList[e]
+  searchValue: any = null;
+  searchList: any = [];
+  nowAnswer: any = {};
+  searchChange(e: any) {
+    this.nowAnswer = this.searchList[e];
   }
 }
