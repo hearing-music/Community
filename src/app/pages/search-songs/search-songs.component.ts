@@ -670,28 +670,14 @@ export class SearchSongsComponent implements OnInit {
 		if(this.loading) return
 		console.log(value)
 		this.searchValue = value;
-		this.qqPage = 1;
-		this.kugouV3Page = 1;
-		this.kuwoPage = 1;
-		this.wangyiyunPage = 1;
-		this.lsddPage = 1;
-		this.enlightenmentPage =1;
-		this.fufuPage =1;
-		this.fufuHotPage=1;
-		this.fufuSingerPage=1;
-		this.copyrightPage=1;
-		this.kugouNewV3Page=1;
-		this.tmeMapHotPage=1;
-		this.tmeMapNewPage=1;
-		this.tmeMapRisePage=1;
-		this.ISRCPage=1;
-		this.McscSearchZGPage=1;
 		this.loading = true;
 		if(this.tagNow){
 			if (this.selectItem2 == '酷狗V3') {
+				this.kugouV3Page = 1;
 				this.searchV3()
 			}
 			if (this.selectItem2 == '多版本') {
+				this.kugouNewV3Page=1;
 				this.searchNewV3()
 			}
 			if(this.selectItem2 == '大陆音著协'){
@@ -701,56 +687,72 @@ export class SearchSongsComponent implements OnInit {
 				this.searchMcscSearchHK()
 			}
 			if(this.selectItem2 == '中国音集协'){
+				this.McscSearchZGPage=1;
 				this.searchMcscSearchZG()
 			}
 			if(this.selectItem2=='最热'&&this.selectItem=='云图'){
+				this.tmeMapHotPage=1;
 				this.searchTmeMapHot()
 			}
 			if(this.selectItem2=='最新'&&this.selectItem=='云图'){
+				this.tmeMapNewPage=1;
 				this.searchTmeMapNew()
 			}
 			if(this.selectItem2=='飙升'&&this.selectItem=='云图'){
+				this.tmeMapRisePage=1;
 				this.searchTmeMapRise()
 			}
 			return
 		}
 		if (this.selectItem == 'QQ音乐') {
+			this.qqPage = 1;
 			this.searchQQ()
 		}
 		if (this.selectItem == '酷狗V3') {
+			this.kugouV3Page = 1;
 			this.searchV3()
 		}
 		if (this.selectItem == '多版本') {
+			this.kugouNewV3Page=1;
 			this.searchNewV3()
 		}
 		if (this.selectItem == '酷我音乐') {
+			this.kuwoPage = 1;
 			this.searchKuwo()
 		}
 		if (this.selectItem == '网易云') {
+			this.wangyiyunPage = 1;
 			this.searchWangyiyun()
 		}
 		if (this.selectItem == '铃声多多') {
+			this.lsddPage = 1;
 			this.searchLsdd()
 		}
 		if(this.selectItem == '腾讯音乐人'){
 			this.searchMusicianTx()
 		}
 		if(this.selectItem == '唱将音乐'){
+			this.enlightenmentPage =1;
 			this.searchEnlightenmentSongs()
 		}
 		if(this.selectItem == '雷达音乐'){
+			this.fufuPage =1;
 			this.getfufuleidaQuerySongs()
 		}
 		if(this.selectItem == '雷达热搜'){
+			this.fufuHotPage=1;
 			this.getfufuleidaQueryHotSongs()
 		}
 		if(this.selectItem == '雷达艺人'){
+			this.fufuSingerPage=1;
 			this.getfufuleidaQuerySingers()
 		}
 		if(this.selectItem == '词曲版权'){
+			this.copyrightPage=1;
 			this.getCopyright()
 		}
 		if(this.selectItem == 'ISRC'){
+			this.ISRCPage=1;
 			this.getISRC()
 		}
 	}
