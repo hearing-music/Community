@@ -158,6 +158,7 @@ import { TankBattleComponent } from "./game/tank-battle/tank-battle.component";
 import { NzCarouselModule } from "ng-zorro-antd/carousel";
 import { NzGridModule } from "ng-zorro-antd/grid";
 import { NzInputNumberModule } from "ng-zorro-antd/input-number";
+import { NzCascaderModule } from "ng-zorro-antd/cascader";
 import { NewTankBattleComponent } from './game/new-tank-battle/new-tank-battle.component';
 
 import {AudioProcessingComponent} from './audioProcessing/audioProcessing.component';
@@ -171,6 +172,7 @@ import { EnteredByYouNiComponent } from './tool/entered-by-you-ni/entered-by-you
 import { ScriptPromptsComponent } from "./script-prompts/script-prompts.component";
 import { ScreenRecordingComponent } from "./screenRecording/screenRecording.component";
 import { VideoPlayerComponent } from "../components/videoPlayer/videoPlayer.component";
+import { ScriptPromptsInsertComponent } from "./script-prompts/script-prompts-insert/script-prompts-insert.component";
 import { HighlightBracketsPipe } from "./script-prompts/script-prompts.component.pipe";
 registerLocaleData(zh);
 @NgModule({
@@ -182,6 +184,7 @@ registerLocaleData(zh);
 		NzTabsModule,
 		NzDatePickerModule,
 		NzMessageModule,
+		NzCascaderModule,
 		NzModalModule,
 		NzToolTipModule,
 		NzTableModule,
@@ -226,6 +229,7 @@ registerLocaleData(zh);
 		ScreenRecordingComponent,
 		NoiseReductionComponent,
 		ScriptPromptsComponent,
+		ScriptPromptsInsertComponent,
 		VolumeNormalisationComponent,
 		SegmentationComponent,
 		NewTankBattleComponent,

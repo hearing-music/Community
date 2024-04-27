@@ -11,22 +11,22 @@ export class ApiService {
 	tencentUrl = environment.tencentUrl;
 	downloadUrl2 = environment.downloadUrl2;
 	downloadUrl = environment.downloadUrl;
-	constructor(private http: HttpClient) {
+	constructor(private http : HttpClient) {
 
 	}
-	async fetchFile(fileUrl:string){
+	async fetchFile(fileUrl : string) {
 		// 使用fetch获取文件  
-		    const response = await fetch(this.downloadUrl+fileUrl);  
-		    // 确保响应成功  
-		    if (!response.ok) {  
-		      throw new Error('Network response was not ok');  
-		    }  
-		    // 将响应体读取为Blob  
-		    const blob = await response.blob();  
-			return blob;
+		const response = await fetch(this.downloadUrl + fileUrl);
+		// 确保响应成功  
+		if (!response.ok) {
+			throw new Error('Network response was not ok');
+		}
+		// 将响应体读取为Blob  
+		const blob = await response.blob();
+		return blob;
 	}
 	// qq搜索歌曲
-	getQQ(params: any) {
+	getQQ(params : any) {
 		let {
 			keyword,
 			page
@@ -35,18 +35,18 @@ export class ApiService {
 		return this.http.get(this.baseUrl + '/qq/search_qq?page=' + page + '&keyword=' + keyword)
 	}
 	// 获取专辑所有歌曲指数
-	qq_getAlbumExponent(params: any) {
+	qq_getAlbumExponent(params : any) {
 		let {
 			albummid
 		} = params;
 		return this.http.get(this.baseUrl + '/qq/qq_getAlbumExponent?albummid=' + albummid)
 	}
 	// qq获取公司名字
-	getCompanyName(params: any) {
+	getCompanyName(params : any) {
 		return this.http.get(this.baseUrl + '/qq/getCompanyName?idlist=' + JSON.stringify(params.idlist))
 	}
 	// qq免费歌曲
-	getQq_freeSongs(params: any) {
+	getQq_freeSongs(params : any) {
 		let { page, pageSize, keyword, type, newly, sort, publish_timeOrderby, exponentOrderby } = params;
 		let url =
 			this.baseUrl +
@@ -71,7 +71,7 @@ export class ApiService {
 		return this.http.get(url);
 	}
 	// qq 免费歌手 歌曲列表 标签 
-	getQq_freeSongsLabel(params: any) {
+	getQq_freeSongsLabel(params : any) {
 		let {
 			label
 		} = params;
@@ -79,7 +79,7 @@ export class ApiService {
 		return this.http.get(url)
 	}
 	// 根据mid获取 收听 指数 排名
-	getQq_exponent(params: any) {
+	getQq_exponent(params : any) {
 		let {
 			songmid,
 			keyword
@@ -88,35 +88,35 @@ export class ApiService {
 		return this.http.get(url)
 	}
 	// qq歌词
-	getQQLyric(params: any) {
+	getQQLyric(params : any) {
 		let {
 			songmid
 		} = params;
 		return this.http.get(this.baseUrl + "/qq/qq_lyric?songmid=" + songmid)
 	}
 	// 酷狗歌词
-	getKugouLyric(params: any) {
+	getKugouLyric(params : any) {
 		let {
 			hash
 		} = params;
 		return this.http.get(this.baseUrl + "/kugou/kugou_lyric?hash=" + hash)
 	}
 	// 酷我歌词
-	getKuwoLyric(params: any) {
+	getKuwoLyric(params : any) {
 		let {
 			rid
 		} = params;
 		return this.http.get(this.baseUrl + "/kuwo/kuwo_lyric?rid=" + rid)
 	}
 	// 网易云歌词
-	getWangyiyunLyric(params: any) {
+	getWangyiyunLyric(params : any) {
 		let {
 			songid
 		} = params;
 		return this.http.get(this.baseUrl + "/wangyiyun/wangyiyun_lyric?songid=" + songid)
 	}
 	// 搜索qq歌单
-	get_qq_songlist(params: any) {
+	get_qq_songlist(params : any) {
 		let {
 			pageSize,
 			keyword,
@@ -125,7 +125,7 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/qq/search_qq_songlist?page=" + page + "&pageSize=" + pageSize + "&keyword=" + keyword)
 	}
 	// 酷我搜索歌曲
-	getKuwo(params: any) {
+	getKuwo(params : any) {
 		let {
 			keyword,
 			page
@@ -133,14 +133,14 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/kuwo/search_kuwo?keyword=" + keyword + "&page=" + page)
 	}
 	// 获取酷我单条评论数
-	getKuwoComment(params: any) {
+	getKuwoComment(params : any) {
 		let {
 			rid,
 		} = params;
 		return this.http.get(this.baseUrl + "/kuwo/search_kuwo_comment?rid=" + rid)
 	}
 	// 网易云搜索歌曲
-	getWangyiyun(params: any) {
+	getWangyiyun(params : any) {
 		let {
 			keyword,
 			page
@@ -148,7 +148,7 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/wangyiyun/search_wangyiyun?keyword=" + keyword + "&page=" + page)
 	}
 	// 网易云搜索用户
-	getWangyiyun_user(params: any) {
+	getWangyiyun_user(params : any) {
 		let {
 			keyword,
 			page
@@ -156,15 +156,15 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/wangyiyun/search_wangyiyun_user?keyword=" + keyword + "&page=" + page)
 	}
 	// 酷狗v3搜索歌曲
-	getV3(params: any) {
+	getV3(params : any) {
 		let {
 			keyword,
 			page
 		} = params;
 		keyword = encodeURIComponent(keyword);
-		return this.http.get( `${this.baseUrl}/kugou/search_kugou?keyword=${keyword}&page=${page}`)
+		return this.http.get(`${this.baseUrl}/kugou/search_kugou?keyword=${keyword}&page=${page}`)
 	}
-	getV3_2(params: any) {
+	getV3_2(params : any) {
 		let {
 			keyword,
 			page
@@ -172,7 +172,7 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/kugou/search_kugou2?keyword=" + keyword + "&page=" + page)
 	}
 	// 酷狗飙升榜
-	getKugou_soaring(params: any) {
+	getKugou_soaring(params : any) {
 		let {
 			page
 		} = params;
@@ -183,11 +183,11 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/kugou/kugou_yinghuo_tag")
 	}
 	// 酷狗 萤火计划
-	getKugou_yinghuo(params: any) {
+	getKugou_yinghuo(params : any) {
 		return this.http.get(this.baseUrl + "/kugou/kugou_yinghuo?params=" + JSON.stringify(params))
 	}
 	// 酷狗 id获取指数
-	getKugou_exponent(params: any) {
+	getKugou_exponent(params : any) {
 		let {
 			scid
 		} = params
@@ -195,8 +195,8 @@ export class ApiService {
 		return this.http.get(url)
 	}
 	// 酷狗免费歌曲
-	getKugou_freeSongs(params: any) {
-		let { page, pageSize, keyword, type, newly, sort, publish_timeOrderby, exponentOrderby,isOriginal } = params;
+	getKugou_freeSongs(params : any) {
+		let { page, pageSize, keyword, type, newly, sort, publish_timeOrderby, exponentOrderby, isOriginal } = params;
 		let url =
 			this.baseUrl +
 			"/kugou/freeSongs?page=" +
@@ -210,11 +210,11 @@ export class ApiService {
 			"&newly=" +
 			newly +
 			"&sort=" +
-			sort + "&publish_timeOrderby=" + publish_timeOrderby + "&exponentOrderby=" + exponentOrderby+'&isOriginal='+isOriginal;
+			sort + "&publish_timeOrderby=" + publish_timeOrderby + "&exponentOrderby=" + exponentOrderby + '&isOriginal=' + isOriginal;
 		return this.http.get(url);
 	}
 	// 腾讯音乐人搜索
-	getMusicianTx(params: any) {
+	getMusicianTx(params : any) {
 		let {
 			page,
 			keyword,
@@ -222,7 +222,7 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/qq/search_qq_musician?page=" + page + "&keyword=" + keyword)
 	}
 	// 腾讯音乐人搜索 电话
-	getMusician_phone(params:any){
+	getMusician_phone(params : any) {
 		return this.http.get(this.baseUrl + "/qq/search_qq_musician_phone?uinList=" + JSON.stringify(params.uinList))
 	}
 	// 抖音热点
@@ -246,22 +246,22 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/douyin/SetsListOf?sign=DpQvNABoNE")
 	}
 	// 抖音 视频分析 热点宝贝
-	getDouHotBear(params:any){
-		let {aweme_id} = params;
-		return this.http.get(this.baseUrl + "/douyin/DouHotBear?videoId="+aweme_id)
+	getDouHotBear(params : any) {
+		let { aweme_id } = params;
+		return this.http.get(this.baseUrl + "/douyin/DouHotBear?videoId=" + aweme_id)
 	}
 	// 抖音 热点详情 热点宝贝
-	getDouSentenceDetail(params:any){
-		let {sentence_id,videoId} = params;
-		return this.http.get(this.baseUrl + "/douyin/DouSentenceDetail?sentence_id="+sentence_id+"&videoId="+(videoId?videoId:""))
+	getDouSentenceDetail(params : any) {
+		let { sentence_id, videoId } = params;
+		return this.http.get(this.baseUrl + "/douyin/DouSentenceDetail?sentence_id=" + sentence_id + "&videoId=" + (videoId ? videoId : ""))
 	}
 	// 抖音 作者趋势分析 热点宝贝
-	getDouAuthorInfo(params:any){
-		let {sec_uid} = params;
-		return this.http.get(this.baseUrl + "/douyin/DouAuthorInfo?sec_uid="+sec_uid)
+	getDouAuthorInfo(params : any) {
+		let { sec_uid } = params;
+		return this.http.get(this.baseUrl + "/douyin/DouAuthorInfo?sec_uid=" + sec_uid)
 	}
 	//抖音短视频
-	getDouyinVideo(params: any) {
+	getDouyinVideo(params : any) {
 		let {
 			keyword
 		} = params;
@@ -269,7 +269,7 @@ export class ApiService {
 
 	}
 	// 抖音达人搜索
-	DouYinSearchBigV(params: any) {
+	DouYinSearchBigV(params : any) {
 		let {
 			keyword,
 			page
@@ -277,7 +277,7 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/douyin/DouYinSearchBigV?keyword=" + keyword + "&offset=" + (page - 1) + "&count=10")
 	}
 	// 获取指定视频id信息 跟拍
-	getAwemeMusicVideo(params: any) {
+	getAwemeMusicVideo(params : any) {
 		let {
 			secUid,
 			arr
@@ -292,36 +292,36 @@ export class ApiService {
 	// 	return this.http.get(this.baseUrl + "/douyin/DouYinSearch?keyword=" + keyword+'&offset='+page)
 	// }
 	// 抖音达人是否被监控 true为被监控
-	douyin_isListen(params: any) {
+	douyin_isListen(params : any) {
 		let {
 			SecUid
 		} = params;
 		return this.http.get(this.baseUrl + "/douyin/douyin_isListen?SecUid=" + SecUid)
 	}
 	//抖音 添加监控达人
-	douyin_listenDaren(params: any) {
+	douyin_listenDaren(params : any) {
 		return this.http.post(this.baseUrl + "/douyin/douyin_listenDaren", { ...params })
 	}
 	// 抖音 修改监控达人基本信息
-	douyin_listenDarenEdit(params: any) {
+	douyin_listenDarenEdit(params : any) {
 		return this.http.post(this.baseUrl + "/douyin/douyin_listenDarenEdit", { ...params })
 	}
 	// 抖音获取权限id
-	douyin_authority(){
-		return this.http.post(this.baseUrl + "/douyin/douyin_authority",{})
+	douyin_authority() {
+		return this.http.post(this.baseUrl + "/douyin/douyin_authority", {})
 	}
 	// 抖音 更多视频 涨粉量
-	getDouMoreVideos(params:any){
+	getDouMoreVideos(params : any) {
 		let {
 			item_id,
 			sec_uid,
 			min_cursor,
 			max_cursor
 		} = params
-		return this.http.post(this.baseUrl + "/douyin/DouMoreVideos?sec_uid="+sec_uid+"&min_cursor="+min_cursor+"&max_cursor="+max_cursor,{item_id})
+		return this.http.post(this.baseUrl + "/douyin/DouMoreVideos?sec_uid=" + sec_uid + "&min_cursor=" + min_cursor + "&max_cursor=" + max_cursor, { item_id })
 	}
 	//抖音 获取监控列表
-	douyin_getListenDaren(params: any) {
+	douyin_getListenDaren(params : any) {
 		// let {
 		// 	page,
 		// 	keyword,
@@ -330,32 +330,32 @@ export class ApiService {
 		// 	minimumMax,minimumMin
 		// } = params;
 		// let pageSize: any = params.pageSize
-		return this.http.get(this.baseUrl + "/douyin/douyin_getListenDaren",{params})
+		return this.http.get(this.baseUrl + "/douyin/douyin_getListenDaren", { params })
 	}
 	// 获取抖音博主7条视频 10
-	getDouYinBloggerVideo(params: any) {
+	getDouYinBloggerVideo(params : any) {
 		let {
 			secUidArr
 		} = params;
 		return this.http.get(this.baseUrl + "/douyin/GetDouYinBloggerVideo?secUidArr=" + JSON.stringify(secUidArr))
 	}
 	// 获取抖音博主7条视频 1 并更新相应数据
-	getDouYinBloggerVideoOne(params: any) {
+	getDouYinBloggerVideoOne(params : any) {
 		let {
 			secUid
 		} = params;
 		return this.http.get(this.baseUrl + "/douyin/getDouYinBloggerVideoOne?secUid=" + secUid)
 	}
 	// 抖音达人搜索上传Exle
-	dyDaRenExle(params: any) {
+	dyDaRenExle(params : any) {
 		let { files } = params;
-		const formData: FormData = new FormData();
+		const formData : FormData = new FormData();
 		formData.append("excel", files[0]);
 		let url = this.baseUrl + "/douyin/BulkAccessSecUidXlsx";
 		return this.http.post(url, formData);
 	}
 	// 抖音 视频id搜索
-	DouYinSearchVideoDetails(params: any) {
+	DouYinSearchVideoDetails(params : any) {
 		let {
 			keyword,
 			type
@@ -363,7 +363,7 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/douyin/DouYinSearchVideoDetails?keyword=" + keyword + '&type=' + type)
 	}
 	// 抖音 获取音乐跟拍 arr
-	getMusicInfo(params:any){
+	getMusicInfo(params : any) {
 		let {
 			secUid,
 			arr
@@ -371,7 +371,7 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/douyin/getMusicInfo?secUid=" + secUid + '&arr=' + JSON.stringify(arr))
 	}
 	// 抖音批量搜索 视频id url
-	DouYinSearchVideoDetailsList(params: any) {
+	DouYinSearchVideoDetailsList(params : any) {
 		let {
 			arr,
 			type
@@ -379,71 +379,71 @@ export class ApiService {
 		return this.http.post(this.baseUrl + "/douyin/DouYinSearchVideoDetailsList", { arr, type })
 	}
 	// 抖音监控声源
-	douyinListenSourdSource(params:any){
+	douyinListenSourdSource(params : any) {
 		let requestBody = params;
 		return this.http.post(
-		      this.baseUrl +"/douyin/douyinListenSourdSource",
-		      requestBody
-		    );
+			this.baseUrl + "/douyin/douyinListenSourdSource",
+			requestBody
+		);
 	}
 	// 	 获取抖音达人类别列表
-	douyin_darenTypeList(){
+	douyin_darenTypeList() {
 		return this.http.get(this.baseUrl + "/douyin/douyin_darenTypeList")
 	}
 	// 获取监控声源
-	getDouyinListenSourdSource(params:any){
+	getDouyinListenSourdSource(params : any) {
 		let { userId, type } = params;
-		    if (type) {
-		      return this.http.get(this.baseUrl + "/douyin/getDouyinListenSourdSource?userId=" + userId);
-		    } else {
-		      return this.http.get(this.baseUrl + "/douyin/getDouyinListenSourdSource");
-		    }
+		if (type) {
+			return this.http.get(this.baseUrl + "/douyin/getDouyinListenSourdSource?userId=" + userId);
+		} else {
+			return this.http.get(this.baseUrl + "/douyin/getDouyinListenSourdSource");
+		}
 	}
-	  //抖音上升热点
-	  DouRiseSearch(params: any) {
-	    let { keyword, page, pageSize } = params;
-	    return this.http.get(
-	      this.baseUrl +
-	        "/douyin/DouRiseSearch?keyword=" +
-	        keyword +
-	        "&page=" +
-	        page +
-	        "&page_size=" +
-	        pageSize
-	    );
-	  }
-	  //抖音上升热点详情
-	  DouSentenceDetail(params: any) {
-	    let { sentence_id,videoId } = params;
-	    return this.http.get(
-	      this.baseUrl + "/douyin/DouSentenceDetail?sentence_id=" + sentence_id+'&videoId='+(videoId?videoId:'')
-	    );
-	  }
+	//抖音上升热点
+	DouRiseSearch(params : any) {
+		let { keyword, page, pageSize } = params;
+		return this.http.get(
+			this.baseUrl +
+			"/douyin/DouRiseSearch?keyword=" +
+			keyword +
+			"&page=" +
+			page +
+			"&page_size=" +
+			pageSize
+		);
+	}
+	//抖音上升热点详情
+	DouSentenceDetail(params : any) {
+		let { sentence_id, videoId } = params;
+		return this.http.get(
+			this.baseUrl + "/douyin/DouSentenceDetail?sentence_id=" + sentence_id + '&videoId=' + (videoId ? videoId : '')
+		);
+	}
 	// 获取监控视频 监控十分钟视频的数量
-	douyin_videoGetInterval(){
-		return this.http.post(this.baseUrl +"/douyin/douyin_videoGetInterval",null);
+	douyin_videoGetInterval() {
+		return this.http.post(this.baseUrl + "/douyin/douyin_videoGetInterval", null);
 	}
 	// 取消十分钟监控视频
-	douyin_cancelInterval10M(params:any){
-		let {id}=params;
-		return this.http.post(this.baseUrl +"/douyin/douyin_cancelInterval10M",{id});
+	douyin_cancelInterval10M(params : any) {
+		let { id } = params;
+		return this.http.post(this.baseUrl + "/douyin/douyin_cancelInterval10M", { id });
 	}
 	// 抖音 热点宝贝 热门账号 才艺音乐
-	getDouMonitorUser(params:any){
-		let { page,pageSize } = params;
-		    return this.http.get(
-		      this.baseUrl + "/douyin/DouMonitorUser?page_num=" + page+'&page_size='+pageSize
-		    );
+	getDouMonitorUser(params : any) {
+		let { page, pageSize } = params;
+		return this.http.get(
+			this.baseUrl + "/douyin/DouMonitorUser?page_num=" + page + '&page_size=' + pageSize
+		);
 	}
 	//抖音 获取热点id
-	DouIndexOfSentenceId(params:any){
+	DouIndexOfSentenceId(params : any) {
 		let { aweme_id } = params;
-		    return this.http.get(
-		      this.baseUrl + "/douyin/DouIndexOfSentenceId?AwemeId=" + aweme_id
-		    );
+		return this.http.get(
+			this.baseUrl + "/douyin/DouIndexOfSentenceId?AwemeId=" + aweme_id
+		);
 	}
 	// 抖音 视频是否被本人监控 并且必须监控该达人
-	douyin_videoisListen(params: any) {
+	douyin_videoisListen(params : any) {
 		let {
 			awemeId,
 			secUid
@@ -451,11 +451,11 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/douyin/douyin_videoisListen?awemeId=" + awemeId + '&secUid=' + secUid)
 	}
 	//抖音 添加监控视频
-	douyin_listenVideo(params: any) {
+	douyin_listenVideo(params : any) {
 		return this.http.post(this.baseUrl + "/douyin/douyin_listenVideo", { ...params })
 	}
 	// 抖音 获取视频监控列表
-	douyin_getListenVideo(params: any) {
+	douyin_getListenVideo(params : any) {
 		let {
 			page,
 			keyword,
@@ -466,22 +466,22 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/douyin/douyin_getListenVideo?pageSize=" + pageSize + "&page=" + page + '&keyword=' + keyword + '&type=' + type + '&isdownload=' + isdownload)
 	}
 	// 重新获取抖音audio地址 并存入库中
-	getDouyinAudio(params: any) {
+	getDouyinAudio(params : any) {
 		return this.http.get(this.baseUrl + "/douyin/getDouyinAudio?awemeId=" + params.awemeId)
 	}
 	// 抖音 官网 热点 set cookie
-	dygw_setCookie(params:any){
-		return this.http.post(this.baseUrl + "/douyin/dygw_setCookie", { value:params.value })
+	dygw_setCookie(params : any) {
+		return this.http.post(this.baseUrl + "/douyin/dygw_setCookie", { value: params.value })
 	}
-	dyrd_setCookie(params:any){
-		return this.http.post(this.baseUrl + "/douyin/dyrd_setCookie", { value:params.value })
+	dyrd_setCookie(params : any) {
+		return this.http.post(this.baseUrl + "/douyin/dyrd_setCookie", { value: params.value })
 	}
 	// 听歌识曲
-	getIdentification(params: any) {
+	getIdentification(params : any) {
 		let {
 			files
 		} = params;
-		const formData: FormData = new FormData();
+		const formData : FormData = new FormData();
 		for (let i = 0; i < files.length; i++) {
 			formData.append('files', files[i]);
 		}
@@ -490,12 +490,12 @@ export class ApiService {
 		return this.http.post(url, formData)
 	}
 	// 音轨分离
-	trackSeparate(params: any) {
+	trackSeparate(params : any) {
 		let {
 			file,
 			compress
 		} = params;
-		const formData: FormData = new FormData();
+		const formData : FormData = new FormData();
 		formData.append('file', file);
 		formData.append('compress', compress)
 		let url = this.baseUrl + '/articles/trackSeparate'
@@ -503,7 +503,7 @@ export class ApiService {
 		return this.http.post(url, formData)
 	}
 	// 删除音轨分离文件
-	removeFile(params: any) {
+	removeFile(params : any) {
 		let {
 			filename
 		} = params;
@@ -511,33 +511,33 @@ export class ApiService {
 		return this.http.get(url)
 	}
 	//版权搜索 名字
-	copyrightSearch(params: any) {
+	copyrightSearch(params : any) {
 		let {
 			keyword
 		} = params;
 		return this.http.get(this.baseUrl + "/articles/copyright_search?keyword=" + keyword)
 	}
 	// 版权搜索链接
-	copyrightSearchLink(params: any) {
+	copyrightSearchLink(params : any) {
 		let {
 			keyword
 		} = params;
 		return this.http.get(this.baseUrl + "/articles/copyright_searchLink?url=" + keyword)
 	}
 	// 版权扫描 上传文件
-	copyrightCheck(params: any) {
+	copyrightCheck(params : any) {
 		let {
 			file,
 			name,
 			type
 		} = params;
-		const formData: FormData = new FormData();
+		const formData : FormData = new FormData();
 		formData.append('file', file);
 		let url = this.baseUrl + '/articles/copyrightCheck?name=' + name + '&type=' + type
 		return this.http.post(url, formData)
 	}
 	// 版权扫描 上传文件 刷新
-	copyrightCheck_reload(params: any) {
+	copyrightCheck_reload(params : any) {
 		let {
 			id
 		} = params;
@@ -557,7 +557,7 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/lsdd/lsdd_archaic")
 	}
 	// 铃声多多搜索
-	getLsdd(params: any) {
+	getLsdd(params : any) {
 		let {
 			page,
 			pageSize,
@@ -570,78 +570,78 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/kuaishou/kuaishou_hot")
 	}
 	// 魔表潜力榜
-	getKuaishouHotEventList(params:any){
-		let {page} = params;
-		return this.http.get(this.baseUrl + "/kuaishou/hotEventList?page="+page)
+	getKuaishouHotEventList(params : any) {
+		let { page } = params;
+		return this.http.get(this.baseUrl + "/kuaishou/hotEventList?page=" + page)
 	}
 	//获取快手dj
-	getkuaishouDj(params: { page: any; pageSize: any; }) {
+	getkuaishouDj(params : { page : any; pageSize : any; }) {
 		let url = this.baseUrl + "/kuaishou/kuaishou_1?page=" + params.page + "&pageSize=" + params.pageSize
 		return this.http.get(url)
 	}
 	// 快手音频使用量
-	getkuaishouVolumeOfUse(params: any) {
+	getkuaishouVolumeOfUse(params : any) {
 		let { keyword } = params
 		let url = this.baseUrl + "/kuaishou/VolumeOfUse?Value=" + keyword
 		return this.http.get(url)
 	}
 	// 快手音频搜索
-	getkuaishouCenterMusicList(params: any) {
+	getkuaishouCenterMusicList(params : any) {
 		let { keyword } = params
 		let url = this.baseUrl + "/kuaishou/centerMusicList?keyWorld=" + keyword
 		return this.http.get(url)
 	}
 	// bgm使用量
-	getkuaishouTotalByMusic(params: any) {
-		let { musicType,musicId } = params
-		let url = this.baseUrl + "/kuaishou/totalByMusic?musicId="+musicId+"&musicType="+musicType
+	getkuaishouTotalByMusic(params : any) {
+		let { musicType, musicId } = params
+		let url = this.baseUrl + "/kuaishou/totalByMusic?musicId=" + musicId + "&musicType=" + musicType
 		return this.http.get(url)
 	}
 	// 快手视频详情
-	getKsVideoDetails(params:any){
+	getKsVideoDetails(params : any) {
 		let { src } = params
-		let url = this.baseUrl + "/kuaishou/KsVideoDetails?url="+src
+		let url = this.baseUrl + "/kuaishou/KsVideoDetails?url=" + src
 		return this.http.get(url)
 	}
 	// 快手视频详情 xlsx 批量
-	getKsVideoDetailsXlsx(params:any){
+	getKsVideoDetailsXlsx(params : any) {
 		let { srcArr } = params
 		const FormData = require('form-data');
 		let data = new FormData();
 		data.append('urls', JSON.stringify(srcArr));
 		let url = this.baseUrl + "/kuaishou/KsVideoDetailsXlsx"
-		return this.http.post(url,data)
+		return this.http.post(url, data)
 	}
 	//获取素材
-	getSourcePhoto(params: any) {
+	getSourcePhoto(params : any) {
 		let {
 			page,
 		} = params;
 		return this.http.get(this.baseUrl + "/kuaishou/discover?page=" + page)
 	}
 	//工具银行卡
-	getbank(params: { name: any; idcard_number: any; bankcard_number: any; }) {
+	getbank(params : { name : any; idcard_number : any; bankcard_number : any; }) {
 		let url = "http://betaapi.tingjianmusic.cn/egress/aliyun/bank/validate"
 		return this.http.post(url, params)
 	}
 	//exel转json
-	exceljsonChange(params: any) {
+	exceljsonChange(params : any) {
 		let { file } = params;
-		const formData: FormData = new FormData();
+		const formData : FormData = new FormData();
 		formData.append('content', file);
 		let url = 'http://api.jinzhoushaokao.top/webtools/excel2json/create'
 		return this.http.post(url, formData)
 	}
 	//查询歌曲搜索排行相关信息 酷狗 qq
-	getqq_kugouKeywordInfo(params: any) {
+	getqq_kugouKeywordInfo(params : any) {
 		let { mid, scid } = params;
 		let url = this.baseUrl + '/qq_kugou/getqq_kugouKeywordInfo?mid=' + mid + '&scid=' + scid
 		return this.http.get(url)
 	}
 	//酷狗刷搜索
-	kuGouAutoSearch(params: any) {
+	kuGouAutoSearch(params : any) {
 		let { songName, singerName, playLink, playTime } = params;
-		const formData: FormData = new FormData();
+		const formData : FormData = new FormData();
 		formData.append("songName", songName);
 		formData.append("singerName", singerName);
 		formData.append("playLink", playLink);
@@ -650,30 +650,30 @@ export class ApiService {
 		return this.http.post(url, formData);
 	}
 	//加入ranking数据
-	setqq_kugouKeywordInfo(params: any) {
+	setqq_kugouKeywordInfo(params : any) {
 		let url = this.baseUrl + '/qq_kugou/setqq_kugouKeywordInfo'
 		return this.http.post(url, { ...params })
 	}
 	// 查询ranking数据
-	getqq_kugouInfo(params: any) {
+	getqq_kugouInfo(params : any) {
 		let { page, pageSize, type, keyword, orderby, plain } = params;
 		let url = this.baseUrl + '/qq_kugou/getqq_kugouInfo?page=' + page + '&pageSize=' + pageSize + '&type=' + type + '&keyword=' + keyword + '&orderby=' + orderby + '&plain=' + plain
 		return this.http.get(url)
 	}
 	// 刷新ranking数据
-	getqq_kugouKeywordRanking(params: any) {
+	getqq_kugouKeywordRanking(params : any) {
 		let { mid, scid, keyword } = params;
 		let url = this.baseUrl + '/qq_kugou/getqq_kugouKeywordRanking?scid=' + scid + '&mid=' + mid + '&keyword=' + keyword
 		return this.http.get(url)
 	}
 	// chatgpt
-	getChatgpt(params: any) {
+	getChatgpt(params : any) {
 		let { question, lastQuestionArr } = params;
 		let url = this.baseUrl + '/v1/chat/completions?question=' + question + '&lastQuestionArr=' + JSON.stringify(lastQuestionArr)
 		return this.http.get(url)
 	}
 	// chatgpt绘图
-	getChatgptPlot(params: any) {
+	getChatgptPlot(params : any) {
 		let { question } = params;
 		let url = this.baseUrl + '/v1/chat/chatgptPlot?question=' + question
 		return this.http.get(url)
@@ -688,26 +688,26 @@ export class ApiService {
 		return this.http.delete(url)
 	}
 
-	addUsersApi(params: any) {
+	addUsersApi(params : any) {
 		let url = 'https://golang.tingjianmusic.top/UserApiAdd'
 		return this.http.post(url, params)
 	}
 	//获取酷狗多少人再搜
-	getV3SearchNum(params: any) {
+	getV3SearchNum(params : any) {
 		let {
 			keyword,
 		} = params;
 		return this.http.get(this.baseUrl + "/kugou/searchPeople?songname=" + keyword)
 	}
 	//获取酷狗多少人再听
-	getV3ListenPeopleNum(params: any) {
+	getV3ListenPeopleNum(params : any) {
 		let {
 			mixsongid,
 		} = params;
 		return this.http.get(this.baseUrl + "/kugou/listenPeople?mixsongid=" + mixsongid)
 	}
 	//获取酷狗在唱人
-	getV3SingingPeople(params: any) {
+	getV3SingingPeople(params : any) {
 		let {
 			songname,
 		} = params;
@@ -726,47 +726,47 @@ export class ApiService {
 	}
 
 	// xilixili 获取用户信息 指定
-	getOpenidInfo(params: any) {
+	getOpenidInfo(params : any) {
 		let { idArr } = params
 		let url = this.baseUrl + '/xilixili/getOpenidInfo?idArr=' + JSON.stringify(idArr)
 		return this.http.get(url)
 	}
 	// xilixili 发送订阅消息
-	sendSubscribeMessage(params: any) {
+	sendSubscribeMessage(params : any) {
 		let url = this.baseUrl + '/xilixili/sendSubscribeMessage'
 		return this.http.post(url, { ...params })
 	}
 	//ogg文件转换
-	oggConversion(params: any) {
+	oggConversion(params : any) {
 		let {
 			file,
 			typeOf
 		} = params;
-		const formData: FormData = new FormData();
+		const formData : FormData = new FormData();
 		formData.append('file', file);
 		let url = 'https://whaleTail.tingjianmusic.top:444/v8/SetOggToMp3?typeOf=' + typeOf;
 		return this.http.post(url, formData);
 	}
-	getRadarTime(){
+	getRadarTime() {
 		return this.http.get(this.baseUrl + "/radar/GetRadarMusicTime")
 	}
-	getRadarList(params: any) {
+	getRadarList(params : any) {
 		let {
 			platform,
 			time,
 			page,
 			timeId
 		} = params;
-		return this.http.get(this.baseUrl + "/radar/getRadarList?platform=" + platform + "&time=" + time + "&page=" + page+'&timeId='+timeId)
+		return this.http.get(this.baseUrl + "/radar/getRadarList?platform=" + platform + "&time=" + time + "&page=" + page + '&timeId=' + timeId)
 	}
-	getKuGouHash(params: any) {
+	getKuGouHash(params : any) {
 		let {
 			keyword,
 			mixSongId,
 		} = params;
 		return this.http.get(this.baseUrl + "/kugou/getHash?keyword=" + keyword + "&mixSongId=" + mixSongId)
 	}
-	getQqIdExponent(params: any) {
+	getQqIdExponent(params : any) {
 		let {
 			keyword,
 			songid,
@@ -774,11 +774,11 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/qq/qq_idSearchMid?keyword=" + keyword + "&songid=" + songid)
 	}
 	//获取启明星标签
-	getVenusTags(params: any) {
+	getVenusTags(params : any) {
 		return this.http.get(this.baseUrl + "/venus/getVenusTags")
 	}
 	//获取启明星列表
-	getVenusList(params: any) {
+	getVenusList(params : any) {
 		let {
 			keyword,
 			page,
@@ -790,21 +790,21 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/venus/getVenusList?keyword=" + keyword + "&page=" + page + "&level=" + level + "&granularity=" + granularity + "&tag=" + tag + "&identity=" + identity)
 	}
 	// 获取 付费 免费 播放指数总和
-	getVenusSongsAllIndex(params: any) {
+	getVenusSongsAllIndex(params : any) {
 		let {
 			changJiangId
 		} = params;
 		return this.http.get(this.baseUrl + "/venus/getVenusSongsAllIndex?changJiangId=" + changJiangId)
 	}
 	// qq 获取指定作者10首个mid 歌曲地址 歌词
-	getqq_singerSongs(params: any) {
+	getqq_singerSongs(params : any) {
 		let {
 			singerId
 		} = params;
 		return this.http.get(this.baseUrl + "/qq/qq_singerSongs?singerId=" + singerId)
 	}
 	// 获取歌手 歌曲信息
-	getVenusSongs(params: any) {
+	getVenusSongs(params : any) {
 		let {
 			id,
 			page,
@@ -813,14 +813,14 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/venus/getVenusSongs?page=" + page + "&id=" + id + '&type=' + type)
 	}
 	// 获取歌手用户画像
-	getVenusSingerData(params: any) {
+	getVenusSingerData(params : any) {
 		let {
 			id
 		} = params;
 		return this.http.get(this.baseUrl + "/venus/getVenusSingerData?id=" + id)
 	}
 	//唱将音乐搜索
-	searchEnlightenmentSongs2(params: any) {
+	searchEnlightenmentSongs2(params : any) {
 		let {
 			keyword,
 			page
@@ -828,30 +828,30 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/venus/searchEnlightenmentSongs2?page=" + page + '&keyword=' + keyword)
 	}
 	// mgg转ogg
-	QqAudioDecryptio(params: any) {
+	QqAudioDecryptio(params : any) {
 		let {
 			file
 		} = params;
-		const formData: FormData = new FormData();
+		const formData : FormData = new FormData();
 		formData.append('file', file);
 		let url = this.baseUrl + '/zhuanhuanyun/QqAudioDecryptio'
 		return this.http.post(url, formData);
 	}
 	// mgg转wav新
-	QqAudioDecryptioNew(params: any) {
+	QqAudioDecryptioNew(params : any) {
 		let {
 			musicUrl
 		} = params;
-		let url = this.baseUrl + '/zhuanhuanyun/QqAudioDecryptioNew?MusicUrl='+musicUrl
+		let url = this.baseUrl + '/zhuanhuanyun/QqAudioDecryptioNew?MusicUrl=' + musicUrl
 		return this.http.get(url);
 	}
 	// 图片识别文字
-	TextExtractionImage(params: any) {
+	TextExtractionImage(params : any) {
 		let {
 			file,
 			language
 		} = params;
-		const formData: FormData = new FormData();
+		const formData : FormData = new FormData();
 		formData.append('file', file);
 		formData.append('language', language);
 		let url = this.baseUrl + '/text_extraction/TextExtractionImage'
@@ -862,26 +862,26 @@ export class ApiService {
 		return this.http.get(this.baseUrl + '/fufuleida/GetDailyList')
 	}
 	// 雷达音乐 搜索
-	getfufuleidaQuerySongs(params: any) {
+	getfufuleidaQuerySongs(params : any) {
 		return this.http.get(this.baseUrl + '/fufuleida/QuerySongsResult?query_word=' + params.keyword + '&page=' + params.page)
 	}
 	// 雷达音乐热 搜索
-	getfufuleidaQueryHotSongs(params: any) {
+	getfufuleidaQueryHotSongs(params : any) {
 		return this.http.get(this.baseUrl + '/fufuleida/QueryHotSearchTermsResult?query_word=' + params.keyword + '&page=' + params.page)
 	}
 	// 雷达音乐艺人 搜索
-	getfufuleidaQuerySingers(params: any) {
+	getfufuleidaQuerySingers(params : any) {
 		return this.http.get(this.baseUrl + '/fufuleida/QueryArtisteResult?query_word=' + params.keyword + '&page=' + params.page)
 	}
 	// 剪映
-	getJianying(params: any) {
+	getJianying(params : any) {
 		let {
 			webId
 		} = params
 		return this.http.get(this.baseUrl + '/jianying/GetTemplates?webId=' + webId)
 	}
 	// 下载文件
-	downloadFile(params: any) {
+	downloadFile(params : any) {
 		let {
 			path,
 			type
@@ -889,12 +889,12 @@ export class ApiService {
 		return this.http.get(this.baseUrl + '/articles/downloadFile/' + path + '?flag=download&type=' + type)
 	}
 	// 合成mv
-	createMV(params: any) {
+	createMV(params : any) {
 		let {
 			zip,
 			type
 		} = params;
-		const formData: FormData = new FormData();
+		const formData : FormData = new FormData();
 		for (let i = 0; i < zip.length; i++) {
 			formData.append('zip', zip[i]);
 		}
@@ -903,7 +903,7 @@ export class ApiService {
 		return this.http.post(url, formData);
 	}
 	// 词曲版权搜索
-	getCopyright(params: any) {
+	getCopyright(params : any) {
 		let {
 			keyword,
 			page
@@ -911,14 +911,14 @@ export class ApiService {
 		return this.http.get(this.baseUrl + '/venus/demoTrade?keyword=' + keyword + '&page=' + page)
 	}
 	//港台音著协
-	searchMcscSearchHK(params: any) {
+	searchMcscSearchHK(params : any) {
 		let {
 			keyword
 		} = params;
 		return this.http.get(this.baseUrl + '/mcsc/McscSearchHK?keyword=' + keyword)
 	}
 	//内陆音著协
-	searchMcscSearchCN(params: any) {
+	searchMcscSearchCN(params : any) {
 		let {
 			keyword,
 			acsa
@@ -926,7 +926,7 @@ export class ApiService {
 		return this.http.get(this.baseUrl + '/mcsc/McscSearchCN?keyword=' + keyword + '&acsa=' + acsa)
 	}
 	// 中国音著协
-	searchMcscSearchZG(params: any) {
+	searchMcscSearchZG(params : any) {
 		let {
 			keyword,
 			page
@@ -934,14 +934,14 @@ export class ApiService {
 		return this.http.get(this.baseUrl + '/cavca/ProductionsSearch?key=' + keyword + '&page=' + page)
 	}
 	// 切换繁体字
-	change_text(params:any){
+	change_text(params : any) {
 		let {
 			keyword,
 		} = params;
 		return this.http.get(this.baseUrl + '/mcsc/change_text?keyword=' + keyword)
 	}
 	// 云图搜索
-	searchTmeMap(params: any) {
+	searchTmeMap(params : any) {
 		let {
 			keyword,
 			page,
@@ -951,18 +951,18 @@ export class ApiService {
 		return this.http.get(this.baseUrl + '/tme_map/tmeMap?pageNo=' + (page - 1) + '&pageSize=' + pageSize + '&keyword=' + keyword + '&operate=' + operate)
 	}
 	// 单曲指数观测  云图
-	ExponentialObservation(params:any){
+	ExponentialObservation(params : any) {
 		let {
 			trackId
 		} = params
-		return this.http.get(this.baseUrl + '/tme_map/ExponentialObservation?trackId='+trackId)
+		return this.http.get(this.baseUrl + '/tme_map/ExponentialObservation?trackId=' + trackId)
 	}
 	// /获取听见音乐最新的100首歌曲  云图
-	GetMusicLimitHundred(){
+	GetMusicLimitHundred() {
 		return this.http.get(this.baseUrl + '/tme_map/GetMusicLimitHundred')
 	}
 	//获取5sing
-	GetfiveSing(params: any) {
+	GetfiveSing(params : any) {
 		let {
 			page,
 			pagesize,
@@ -970,119 +970,119 @@ export class ApiService {
 		} = params;
 		return this.http.get(this.baseUrl + "/searchPage/fiveSing?keyword=" + keyword + "&page=" + page + "&pagesize=" + pagesize)
 	}
-	 // 点歌搜索
-	  ChooseSongSearchComprehensiveServices(params: any) {
-	    let { SongName, Page } = params;
-	    return this.http.get(
-	      this.baseUrl +
-	        "/room/ChooseSongSearchComprehensiveServices?SongName=" +
-	        SongName +
-	        "&Page=" +
-	        Page
-	    );
-	  }
-	  // 获取已点歌曲列表
-	  GetMusicChatRoomList() {
-	    return this.http.get(this.baseUrl + "/room/GetMusicChatRoomList");
-	  }
-	  // 获取表情列表
-	  GetEmojiList() {
-	    return this.http.get(this.baseUrl + "/room/GetEmojiList");
-	  }
-	
-	  // 点歌
-	  SetMusicChatRoom(params: any) {
-	    let {
-	      musicId,
-	      name,
-	      singerName,
-	      albumName,
-	      albumSubtitle,
-	      ImageUrl,
-	      lyric,
-	      platformType,
-	      time,
-	      userId,
-	    } = params;
-	    return this.http.post(this.baseUrl + "/room/SetMusicChatRoom", {
-	      musicId,
-	      name,
-	      singerName,
-	      albumName,
-	      albumSubtitle,
-	      ImageUrl,
-	      lyric,
-	      platformType,
-	      time,
-	      userId,
-	      collect: { data: [] },
-	    });
-	  }
-	  // 展示用户收藏
-	  GetCollectList() {
-	    return this.http.post(this.baseUrl + "/room/GetCollectList", {});
-	  }
-	  // 添加收藏
-	  AddCollectList(params: any) {
-	    let { musicId, state } = params;
-	    return this.http.post(this.baseUrl + "/room/SetMusicCollect", {
-	      state,
-	      musicId,
-	    });
-	  }
-	  //获取厂牌
-	  GetbrandUser(params: any) {
-	    let { page, pagesize, keyword } = params;
-	    return this.http.get(
-	      this.baseUrl +
-	        "/searchPage/brandUser?keyword=" +
-	        keyword +
-	        "&page=" +
-	        page +
-	        "&pagesize=" +
-	        pagesize
-	    );
-	  }
-	  //获取qq厂牌名字
-	  getQBrandSongs(params: any) {
-	    let { brand } = params;
-	    return this.http.get(this.baseUrl + "/qq/QBrandSongsPrompt?brand=" + brand);
-	  }
-	  //获取qq厂牌
-	  GetbrandSong(params: any) {
-	    let { page, pageSize, brand } = params;
-	    return this.http.get(
-	      this.baseUrl +
-	        "/qq/QBrandSongs?brand=" +
-	        brand +
-	        "&page=" +
-	        page +
-	        "&pageSize=" +
-	        pageSize
-	    );
-	  }
-	  // 获取酷狗厂牌歌曲
-	  GetbrandSongKg(params: any) {
-	    let { page, pageSize, brand } = params;
-	    return this.http.get(
-	      this.baseUrl +
-	        "/kugou/KgBrandSongs?brand=" +
-	        brand +
-	        "&page=" +
-	        page +
-	        "&pageSize=" +
-	        pageSize
-	    );
-	  }
+	// 点歌搜索
+	ChooseSongSearchComprehensiveServices(params : any) {
+		let { SongName, Page } = params;
+		return this.http.get(
+			this.baseUrl +
+			"/room/ChooseSongSearchComprehensiveServices?SongName=" +
+			SongName +
+			"&Page=" +
+			Page
+		);
+	}
+	// 获取已点歌曲列表
+	GetMusicChatRoomList() {
+		return this.http.get(this.baseUrl + "/room/GetMusicChatRoomList");
+	}
+	// 获取表情列表
+	GetEmojiList() {
+		return this.http.get(this.baseUrl + "/room/GetEmojiList");
+	}
+
+	// 点歌
+	SetMusicChatRoom(params : any) {
+		let {
+			musicId,
+			name,
+			singerName,
+			albumName,
+			albumSubtitle,
+			ImageUrl,
+			lyric,
+			platformType,
+			time,
+			userId,
+		} = params;
+		return this.http.post(this.baseUrl + "/room/SetMusicChatRoom", {
+			musicId,
+			name,
+			singerName,
+			albumName,
+			albumSubtitle,
+			ImageUrl,
+			lyric,
+			platformType,
+			time,
+			userId,
+			collect: { data: [] },
+		});
+	}
+	// 展示用户收藏
+	GetCollectList() {
+		return this.http.post(this.baseUrl + "/room/GetCollectList", {});
+	}
+	// 添加收藏
+	AddCollectList(params : any) {
+		let { musicId, state } = params;
+		return this.http.post(this.baseUrl + "/room/SetMusicCollect", {
+			state,
+			musicId,
+		});
+	}
+	//获取厂牌
+	GetbrandUser(params : any) {
+		let { page, pagesize, keyword } = params;
+		return this.http.get(
+			this.baseUrl +
+			"/searchPage/brandUser?keyword=" +
+			keyword +
+			"&page=" +
+			page +
+			"&pagesize=" +
+			pagesize
+		);
+	}
+	//获取qq厂牌名字
+	getQBrandSongs(params : any) {
+		let { brand } = params;
+		return this.http.get(this.baseUrl + "/qq/QBrandSongsPrompt?brand=" + brand);
+	}
+	//获取qq厂牌
+	GetbrandSong(params : any) {
+		let { page, pageSize, brand } = params;
+		return this.http.get(
+			this.baseUrl +
+			"/qq/QBrandSongs?brand=" +
+			brand +
+			"&page=" +
+			page +
+			"&pageSize=" +
+			pageSize
+		);
+	}
+	// 获取酷狗厂牌歌曲
+	GetbrandSongKg(params : any) {
+		let { page, pageSize, brand } = params;
+		return this.http.get(
+			this.baseUrl +
+			"/kugou/KgBrandSongs?brand=" +
+			brand +
+			"&page=" +
+			page +
+			"&pageSize=" +
+			pageSize
+		);
+	}
 	//获取歌手关系图
-	getArtiest(params: any) {
+	getArtiest(params : any) {
 		let {
 			singerMid,
 		} = params;
 		return this.http.get(this.baseUrl + "/qq/SingerContacts?singerMid=" + singerMid + "&num=5")
 	}
 	//获取原创音频
-	GetOriginalAudio(params: any) {
+	GetOriginalAudio(params : any) {
 		let {
 			page,
 			pagesize
@@ -1090,7 +1090,7 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/original-audio/OriginalSong?limit=" + pagesize + "&offset=" + page)
 	}
 	// ISRC搜索
-	search_ISRC(params: any) {
+	search_ISRC(params : any) {
 		let {
 			keyword,
 			page,
@@ -1099,213 +1099,218 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/mcsc/search_ISRC?keyword=" + keyword + "&pageSize=" + pageSize + "&page=" + page)
 	}
 	//快手特效查询
-	  GetSpecialEffectsSearch(params: any) {
-	    let { magicFaceId } = params;
-	    return this.http.get(
-	      this.baseUrl + "/kuaishou/SpecialEffectsSearch?magicFaceId=" + magicFaceId
-	    );
-	  }
-	    //快手特效监控
-  kuaishouMonitor(params: any) {
-    let {
-      magicFaceId,
-      name,
-      userId,
-      author,
-      phone,
-      weChat,
-      QQ,
-      BGM,
-      time,
-      usageCount,
-      creationTime,
-      CDN,
-		BgmId,
-		BgmType,
-		BgmUtilizationRate,
-    } = params;
+	GetSpecialEffectsSearch(params : any) {
+		let { magicFaceId } = params;
+		return this.http.get(
+			this.baseUrl + "/kuaishou/SpecialEffectsSearch?magicFaceId=" + magicFaceId
+		);
+	}
+	//快手特效监控
+	kuaishouMonitor(params : any) {
+		let {
+			magicFaceId,
+			name,
+			userId,
+			author,
+			phone,
+			weChat,
+			QQ,
+			BGM,
+			time,
+			usageCount,
+			creationTime,
+			CDN,
+			BgmId,
+			BgmType,
+			BgmUtilizationRate,
+		} = params;
 
-    const requestBody = {
-      magicFaceId: magicFaceId,
-      name: name,
-      userId: userId,
-      author: author,
-      phone: phone,
-      weChat: weChat,
-      QQ: QQ,
-      BGM: BGM,
-      CDN: CDN,
-		BgmId,
-		BgmType,
-		BgmUtilizationRate,
-      utilisation: {
-        res: [
-          {
-            time: time,
-            usageCount: usageCount,
-          },
-        ],
-      },
-      creationTime: creationTime,
-    };
-    return this.http.post(
-      this.baseUrl +"/kuaishou/SpecialEffectsInsert",
-      requestBody
-    );
-  }
-	  //快手监控查询
-	  SwollenKsEeList(params: any) {
-	    let { userId, type,keyword } = params;
-	    if (type) {
-	      return this.http.get(
-	        this.baseUrl + "/kuaishou/SwollenKsEeList?keyword="+keyword+"&userId=" + userId
-	      );
-	    } else {
-	      return this.http.get(this.baseUrl + "/kuaishou/SwollenKsEeList?keyword="+keyword);
-	    }
-	  }
-	  //快手监控特效上传海报
-	  GetKuaiShouStatus(params: any) {
-	    let { file } = params;
-	    const formData: FormData = new FormData();
-	    formData.append("img", file);
-	    let url = this.baseUrl + "/kuaishou/GetStatus";
-	    return this.http.post(url, formData);
-	  }
+		const requestBody = {
+			magicFaceId: magicFaceId,
+			name: name,
+			userId: userId,
+			author: author,
+			phone: phone,
+			weChat: weChat,
+			QQ: QQ,
+			BGM: BGM,
+			CDN: CDN,
+			BgmId,
+			BgmType,
+			BgmUtilizationRate,
+			utilisation: {
+				res: [
+					{
+						time: time,
+						usageCount: usageCount,
+					},
+				],
+			},
+			creationTime: creationTime,
+		};
+		return this.http.post(
+			this.baseUrl + "/kuaishou/SpecialEffectsInsert",
+			requestBody
+		);
+	}
+	//快手监控查询
+	SwollenKsEeList(params : any) {
+		let { userId, type, keyword } = params;
+		if (type) {
+			return this.http.get(
+				this.baseUrl + "/kuaishou/SwollenKsEeList?keyword=" + keyword + "&userId=" + userId
+			);
+		} else {
+			return this.http.get(this.baseUrl + "/kuaishou/SwollenKsEeList?keyword=" + keyword);
+		}
+	}
+	//快手监控特效上传海报
+	GetKuaiShouStatus(params : any) {
+		let { file } = params;
+		const formData : FormData = new FormData();
+		formData.append("img", file);
+		let url = this.baseUrl + "/kuaishou/GetStatus";
+		return this.http.post(url, formData);
+	}
 	// 快手 批量添加特效
-	BulkAccessSecUidXlsx(params:any){
+	BulkAccessSecUidXlsx(params : any) {
 		let { xls } = params;
-		    const formData: FormData = new FormData();
-		    formData.append("xls", xls);
-		    let url = this.baseUrl + "/kuaishou/BulkAccessSecUidXlsx";
-		    return this.http.post(url, formData);
+		const formData : FormData = new FormData();
+		formData.append("xls", xls);
+		let url = this.baseUrl + "/kuaishou/BulkAccessSecUidXlsx";
+		return this.http.post(url, formData);
 	}
 	// pdf转word
-	pdfToWord(params:any){
+	pdfToWord(params : any) {
 		let { pdf } = params;
-		    const formData: FormData = new FormData();
-		    formData.append("pdf", pdf);
-		    let url = this.baseUrl + "/childprocess/PDFToWord";
-		    return this.http.post(url, formData);
+		const formData : FormData = new FormData();
+		formData.append("pdf", pdf);
+		let url = this.baseUrl + "/childprocess/PDFToWord";
+		return this.http.post(url, formData);
 	}
 	// 存储音频
-	synthesis_setAudioStorage(params:any){
-		let { audio,type,duration } = params;
-		    const formData: FormData = new FormData();
-		    formData.append("data", audio);
-		    formData.append("type", type);
-			formData.append('duration',duration)
-		    let url = this.baseUrl + "/articles/synthesis_setAudioStorage";
-		    return this.http.post(url, formData);
+	synthesis_setAudioStorage(params : any) {
+		let { audio, type, duration } = params;
+		const formData : FormData = new FormData();
+		formData.append("data", audio);
+		formData.append("type", type);
+		formData.append('duration', duration)
+		let url = this.baseUrl + "/articles/synthesis_setAudioStorage";
+		return this.http.post(url, formData);
 	}
 	// 获取自己上传的音频
-	getAudioStorage(){
+	getAudioStorage() {
 		let url = this.baseUrl + "/articles/getAudioStorage";
-		    return this.http.post(url, {});
+		return this.http.post(url, {});
 	}
 	// 查询灵感视频
-	getVideoStorage(params:any){
-		let url = this.baseUrl + "/articles/getVideoStorage?keyword="+params.keyword;
+	getVideoStorage(params : any) {
+		let url = this.baseUrl + "/articles/getVideoStorage?keyword=" + params.keyword;
 		return this.http.get(url);
 	}
 	// 合成灵感视频音频
-	composeVideoAudio(params:any){
+	composeVideoAudio(params : any) {
 		let url = this.baseUrl + "/articles/composeVideoAudio";
-		return this.http.post(url, {audioId:params.audioId,videoId:params.videoId});
+		return this.http.post(url, { audioId: params.audioId, videoId: params.videoId });
 	}
-	
+
 	// 音频降噪
-	musicNoiseReduction(params:any){
+	musicNoiseReduction(params : any) {
 		let { file } = params;
-		    const formData: FormData = new FormData();
-		    formData.append("file", file);
-		    let url = this.downloadUrl2+"api/audio?type=NoiseReduction";
-		    return this.http.post(url, formData);
+		const formData : FormData = new FormData();
+		formData.append("file", file);
+		let url = this.downloadUrl2 + "api/audio?type=NoiseReduction";
+		return this.http.post(url, formData);
 	}
 	// 音量归一
-	musicVolumeNormalisation(params:any){
+	musicVolumeNormalisation(params : any) {
 		let { file } = params;
-		    const formData: FormData = new FormData();
-		    formData.append("file", file);
-		    let url = this.downloadUrl2+"api/audio?type=VolumeNormalisation";
-		    return this.http.post(url, formData);
+		const formData : FormData = new FormData();
+		formData.append("file", file);
+		let url = this.downloadUrl2 + "api/audio?type=VolumeNormalisation";
+		return this.http.post(url, formData);
 	}
 	// 音频分段1
-	musicSegmentation(params:any){
+	musicSegmentation(params : any) {
 		let { file } = params;
-		    const formData: FormData = new FormData();
-		    formData.append("file", file);
-		    let url = this.downloadUrl2+"api/audio?type=Segmentation";
-		    return this.http.post(url, formData);
+		const formData : FormData = new FormData();
+		formData.append("file", file);
+		let url = this.downloadUrl2 + "api/audio?type=Segmentation";
+		return this.http.post(url, formData);
 	}
 	//音频分段2
-	musicSegmentationNew(params:any){
+	musicSegmentationNew(params : any) {
 		let { file } = params;
-		    const formData: FormData = new FormData();
-		    formData.append("file", file);
-		    let url = this.downloadUrl2+"api/audio?type=SegmentationNew";
-		    return this.http.post(url, formData);
+		const formData : FormData = new FormData();
+		formData.append("file", file);
+		let url = this.downloadUrl2 + "api/audio?type=SegmentationNew";
+		return this.http.post(url, formData);
 	}
 	// 云图月报
-	  GetMonthlyReport(params: any) {
-	    let { reportMonth, pages, type } = params;
-	    let url =
-	      this.baseUrl +
-	      "/tme_map/GetMonthlyReport?reportMonth=" +
-	      reportMonth +
-	      "&pages=" +
-	      pages +
-	      "&type=" +
-	      type;
-	    return this.http.get(url);
-	  }
+	GetMonthlyReport(params : any) {
+		let { reportMonth, pages, type } = params;
+		let url =
+			this.baseUrl +
+			"/tme_map/GetMonthlyReport?reportMonth=" +
+			reportMonth +
+			"&pages=" +
+			pages +
+			"&type=" +
+			type;
+		return this.http.get(url);
+	}
 	// 云图歌曲
-	  GetRankSong(params: any) {
-	    let { pages, type } = params;
-	    let url =
-	      this.baseUrl + "/tme_map/GetRankSong?pages=" + pages + "&operate=" + type;
-	    return this.http.get(url);
-	  }
+	GetRankSong(params : any) {
+		let { pages, type } = params;
+		let url =
+			this.baseUrl + "/tme_map/GetRankSong?pages=" + pages + "&operate=" + type;
+		return this.http.get(url);
+	}
 	// 由你上传数据库
-	  EnteredByYou(params: any) {
-	    let { file } = params;
-	    const formData: FormData = new FormData();
-	    formData.append("excel", file);
-	    let url = this.baseUrl + "/tme_map/EnteredByYou";
-	    return this.http.post(url, formData);
-	  }
-	
+	EnteredByYou(params : any) {
+		let { file } = params;
+		const formData : FormData = new FormData();
+		formData.append("excel", file);
+		let url = this.baseUrl + "/tme_map/EnteredByYou";
+		return this.http.post(url, formData);
+	}
+
 	// 获取全部韵脚
-	tripartite_vowel(params:any){
+	tripartite_vowel(params : any) {
 		let url = `${this.baseUrl}/tripartite/tripartite_vowel`
 		return this.http.get(url);
 	}
 	// 获取指定韵脚 声调 句子
-	tripartite_info(params:any){
+	tripartite_info(params : any) {
 		let url = `${this.baseUrl}/tripartite/tripartite_info?vowel=${params.vowel}&sound=${params.sound}`
 		return this.http.get(url);
 	}
 	// 获取文字搜索符合的韵脚
-	tripartite_keyword(params:any){
+	tripartite_keyword(params : any) {
 		let url = `${this.baseUrl}/tripartite/tripartite_juzi?keyword=${params.keyword}`
 		// let url = `https://script.tingjianmusic.cn:444?sentence=${params.keyword}`
 		return this.http.get(url);
 	}
-	  // 获取话术全部分类
-	  GetModelInfo() {
-	    let url = `${this.baseUrl}/wisdom_knowledge_base/GetModelInfo`;
-	    return this.http.get(url);
-	  }
-	  GetAllInformation() {
-	    let url = `${this.baseUrl}/wisdom_knowledge_base/GetAllInformation`;
-	    return this.http.get(url);
-	  }
+	// 获取话术全部分类
+	GetModelInfo() {
+		let url = `${this.baseUrl}/wisdom_knowledge_base/GetModelInfo`;
+		return this.http.get(url);
+	}
+	GetAllInformation() {
+		let url = `${this.baseUrl}/wisdom_knowledge_base/GetAllInformation`;
+		return this.http.get(url);
+	}
+	//添加问题答案
+	AdditionalDataInfo(params : any) {
+		let url = this.baseUrl + "/wisdom_knowledge_base/AdditionalDataInfo";
+		return this.http.post(url, params);
+	}
 	// 转换视频
-	AllAudioConversion(params:any){
+	AllAudioConversion(params : any) {
 		let { files } = params;
-		    const formData: FormData = new FormData();
-		    formData.append("files", files);
-		    let url = this.baseUrl + "/complaint_audio/AllAudioConversion";
-		    return this.http.post(url, formData);
+		const formData : FormData = new FormData();
+		formData.append("files", files);
+		let url = this.baseUrl + "/complaint_audio/AllAudioConversion";
+		return this.http.post(url, formData);
 	}
 }

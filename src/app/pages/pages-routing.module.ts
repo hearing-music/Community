@@ -65,6 +65,7 @@ import { MaJiangComponent } from "./game/ma-jiang/ma-jiang.component";
 import { TankBattleComponent } from "./game/tank-battle/tank-battle.component";
 import { NewTankBattleComponent } from './game/new-tank-battle/new-tank-battle.component';
 import { ScriptPromptsComponent } from "./script-prompts/script-prompts.component";
+import { ScriptPromptsInsertComponent } from "./script-prompts/script-prompts-insert/script-prompts-insert.component";
 import { ScreenRecordingComponent } from "./screenRecording/screenRecording.component";
 
 import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
@@ -397,6 +398,12 @@ const routes: Routes = [{
 		      {
 		        path: "script-prompts",
 		        component: ScriptPromptsComponent,
+		        canActivate: [PermissionGuard],
+		      },
+		      // 话术入库
+		      {
+		        path: "script-prompts-insert",
+		        component: ScriptPromptsInsertComponent,
 		        canActivate: [PermissionGuard],
 		      },
 		//生成mv
