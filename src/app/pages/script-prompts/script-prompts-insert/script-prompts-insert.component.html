@@ -13,7 +13,11 @@
           <nz-cascader [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)"></nz-cascader>
         </div>
         <div style="padding: 5px 0">
-          <span style="line-height: 30px">问题</span> <span style="font-size: 12px;color: #ccc;"> {{isNewIssue?"这是一个新的问题":"这不是一个新问题"}}</span>
+          <span style="line-height: 30px">问题</span>
+          <span>
+            <button nz-button nzSize="small" nzType="primary" style="margin-left: 15px;" *ngIf="!isNewIssue&&searchValue" (click)="openAnswer()">查看答案</button>
+          </span>
+          <span style="font-size: 12px;color: rgb(253, 163, 163);" *ngIf="searchValue"> {{isNewIssue?"新":"旧"}}</span>
           <div style="position: relative;">
             <input nz-input placeholder="请输入问题" [(ngModel)]="searchValue" type="text" (ngModelChange)="searchChange($event)" (blur)="miss($event)" (focus)="get($event)"/>
             <div style="position: absolute;right: 0;top: 100%;width: 100%;background-color:#e6e6e6;z-index: 3;border-radius:0 0 5px 5px;max-height: 300px;overflow-y: scroll;" *ngIf="showTip">
@@ -25,14 +29,20 @@
         </div>
     </div>
     </div>
+    <div>
+      <span style="font-size: 14px; color: #ccc">
+        答案中的不想被用户复制的提示词使用"[ ]"包起来，
+        需要换行请使用回车
+      </span>
+    </div>
     <div class="New" style="font-weight: bolder;border: 1px solid #ccc;border-radius: 4px;display: flex;align-items: center;margin: 10px 0;" *ngFor="let item of Answer;let i =index">
       <div style="width: 90%;">
         <div style="padding-bottom: 5px; ">
           <span style="line-height: 30px">答案</span>
-          <span style="font-size: 12px; color: #ccc">
-            答案中的不想被用户复制的提示词使用"[ ]"包起来
+          <span>
+            <button nz-button nzSize="small" nzType="primary" (mouseup)="addSymbol(item,i)" style="margin-left: 15px;">"[]"</button>
           </span>
-        <textarea nz-input placeholder="答案" [nzAutosize]="{ minRows: 2, maxRows: 6 }" [(ngModel)]="item.Answer"></textarea>
+          <textarea nz-input placeholder="答案" [nzAutosize]="{ minRows: 2, maxRows: 6 }" [(ngModel)]="item.Answer" [id]="'inputAnser'+i"></textarea>
         </div>
         <div style="padding: 5px 0" *ngIf="item.Scenario&&isNewIssue">
           <span style="line-height: 30px">场景</span>
@@ -51,6 +61,36 @@
       <button nz-button nzType="primary" style="border-radius: 8px;" [nzSize]="'large'" (click)="addAnswer()">增加答案</button>
       <button nz-button nzType="default" style="border-radius: 8px;margin-left: 100px;" [nzSize]="'large'" (click)="addIsue()">确定入库</button>
     </div>
+  </div>
+  <div *ngIf="visible">
+    <nz-drawer [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" (nzOnClose)="close()" [nzWidth]="400">
+      <ng-container *nzDrawerContent>
+        <div class="problem TextBox" style="padding:12px;">
+          <div style="margin-bottom: 8px;color:green;">
+            {{answerList[0].Module}}——{{answerList[0].TypeId}}
+          </div>
+          <div style="display: flex; align-items: center;margin-bottom: 8px;">
+            <img src="assets/img/ask.jpg" alt="Tent Icon" style="width: 30px;height: 30px;margin-right: 10px;border-radius: 3px;" />
+                <span style="color:#000;">{{ answerList[0].Issues }}
+            </span>
+          </div>
+          <div style="margin: 0 10px; display: flex">
+            <img src="assets/img/request.jpg" alt="Tent Icon" style="width: 30px;height: 30px;margin-right: 10px;border-radius: 3px;margin-top: 10px;" />
+            <div>
+              <div class="copyText" *ngFor="let items of answerList[0].Answer" (click)="copy(items)">
+                <div [innerHTML]="items | highlightBrackets" style="margin: 5px"></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin: 5px 20px;color: rgb(106, 106, 3);font-weight: normal;" *ngIf="answerList[0].Scenario.Take">
+            <span [innerHTML]="answerList[0].Scenario.Take"></span>
+          </div>
+          <div style="margin: 5px 20px; color: red; font-weight: normal" *ngIf="answerList[0].Scenario.Cautions">
+            <span [innerHTML]="answerList[0].Scenario.Cautions"></span>
+          </div>
+        </div>
+      </ng-container>
+    </nz-drawer>
   </div>
 </div>
 <ngx-loading *ngIf="loading"></ngx-loading>

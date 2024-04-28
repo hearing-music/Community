@@ -42,6 +42,7 @@ export class ScriptPromptsInsertComponent implements OnInit {
       UserId: localStorage.getItem("userId") || "0",
     },
   ];
+  visible:any = false;
   onChanges(item: any) {
     this.choseTag.Module = this.tagValue[this.values[0]].Module;
     this.choseTag.TypeId =
@@ -116,7 +117,6 @@ export class ScriptPromptsInsertComponent implements OnInit {
           }
         }
         this.nzOptions = arrData;
-        console.log(this.nzOptions);
         this.choseTag.Module = arrData[0].label;
         this.choseTag.TypeId = arrData[0].children[0].label;
       }
@@ -159,10 +159,7 @@ export class ScriptPromptsInsertComponent implements OnInit {
     });
     mergedMap.forEach((value) => {
       value.Scenario.Take = value.Scenario.Take.replace(/\r?\n/g, "<br>");
-      value.Scenario.Cautions = value.Scenario.Cautions.replace(
-        /\r?\n/g,
-        "<br>"
-      );
+      value.Scenario.Cautions = value.Scenario.Cautions.replace(/\r?\n/g,"<br>");
       mergedData.push(value);
     });
     return mergedData;
@@ -220,5 +217,46 @@ export class ScriptPromptsInsertComponent implements OnInit {
         }
       });
     }
+  }
+  addSymbol(data:any,index:any) {
+    const inputAnswer = document.getElementById("inputAnser" + index)
+    const selectedText = this.getSelectedText(inputAnswer);
+    if (selectedText) {
+      const newText = '[' + selectedText + ']';
+      const value = this.replaceSelectedText(inputAnswer, newText);
+      data.Answer=value
+    } else {
+      data.Answer+="[]"
+    }
+  }
+  getSelectedText(inputElement: any): string {
+    return inputElement.value.substring(inputElement.selectionStart, inputElement.selectionEnd);
+  }
+  replaceSelectedText(inputElement: any, newText: string) {
+    const startPos = inputElement.selectionStart;
+    const endPos = inputElement.selectionEnd;
+    const textBefore = inputElement.value.substring(0, startPos);
+    const textAfter = inputElement.value.substring(endPos, inputElement.value.length);
+    return textBefore + newText + textAfter;
+  }
+  close(): void {
+    this.visible = false;
+  }
+  openAnswer(): void {
+    this.visible = true;
+    console.log(this.answerList)
+  }
+  copy(item: any) {
+    var aux = document.createElement("input");
+    let text = item.replace(/<br>/g, "\n");
+    text = text.replace(/\[.*?\]/g, "");
+    text = text.replace(/^\d+\.\s*/gm, "");
+    text = text.replace(/\（.*?\）/g, "");
+    aux.setAttribute("value", text);
+    document.body.appendChild(aux);
+    aux.select();
+    document.execCommand("copy");
+    document.body.removeChild(aux);
+    this.message.create("success", `复制成功`);
   }
 }

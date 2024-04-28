@@ -26,3 +26,29 @@
     }
   }
 }
+.problem {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: rgba(0, 0, 0, 0.15) -1.4px 1.4px 3.2px;
+  border-radius: 8px;
+  min-height: 36px;
+  padding: 0 16px;
+  cursor: pointer;
+}
+.TextBox {
+  font-weight: bolder;
+  .copyText:hover {
+    color: #4099f0;
+  }
+  .copyText {
+    font-weight: normal;
+  }
+}
+.TextBox:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+.problem:hover .problemText {
+  color: rgba(0, 136, 255, 0.629);
+}

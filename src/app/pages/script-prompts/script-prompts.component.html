@@ -84,9 +84,8 @@
 						<div style="margin: 5px 20px;color: rgb(106, 106, 3);font-weight: normal;" *ngIf="nowAnswer.Scenario.Take">
 							<span [innerHTML]="nowAnswer.Scenario.Take"></span>
 						</div>
-						<div style="margin: 5px 20px; color: red; font-weight: normal"
-							*ngIf="nowAnswer.Scenario.Cautions">
-							{{ nowAnswer.Scenario.Cautions }}
+						<div style="margin: 5px 20px; color: red; font-weight: normal" *ngIf="nowAnswer.Scenario.Cautions">
+							<span [innerHTML]="nowAnswer.Scenario.Cautions"></span>
 						</div>
 					</div>
 				</div>
