@@ -53,31 +53,34 @@
 				</div>
 			</div>
 		</div>
-		<div class="item-center">
-			<!-- 专辑名字 -->
-			<div class="exophanie-item">
-				{{item.albumname}}
-			</div>
-			<div class="">
-				{{item.company}}
-			</div>
-			<div>
-				{{item.alias.length>0?item.alias[0]:''}}
-			</div>
-		</div>
 		<div class="item-right">
-			<div style="display: flex;align-items: center;justify-content: flex-end;">
-				<!-- 播放量 -->
-				<img src="../../../assets/img/bofang.png" class="icon" />
-				<div>{{0}}</div>
+			<div class="itemCenter">
+				<!-- 专辑名字 -->
+				<div class="exophanie-item">
+					{{item.albumname}}
+				</div>
+				<div class="">
+					{{item.company}}
+				</div>
+				<div>
+					{{item.alias.length>0?item.alias[0]:''}}
+				</div>
 			</div>
-			<div style="display: flex;align-items: center;margin-top: 6px;">
-				<div style="display: flex;align-items: center;">
-					<!-- 评论图标 -->
-					<img src="../../../assets/img/pinglun.png" class="icon" />
-					<div>{{common.toThousands(item.commentCount)}}</div>
+			<div class="itemRight">
+				<div style="display: flex;align-items: center;justify-content: flex-end;">
+					<!-- 播放量 -->
+					<img src="../../../assets/img/bofang.png" class="icon" />
+					<div>{{0}}</div>
+				</div>
+				<div style="display: flex;align-items: center;margin-top: 6px;">
+					<div style="display: flex;align-items: center;">
+						<!-- 评论图标 -->
+						<img src="../../../assets/img/pinglun.png" class="icon" />
+						<div>{{common.toThousands(item.commentCount)}}</div>
+					</div>
 				</div>
 			</div>
 		</div>
+		
 	</div>
 </div>

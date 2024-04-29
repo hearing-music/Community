@@ -185,40 +185,43 @@
 					</div>
 				</div>
 			</div>
-			<div class="item-center">
-				<!-- 专辑名字 -->
-				<div style="cursor: pointer;" nz-dropdown [nzDropdownMenu]="menu" [nzTrigger]='"click"'>
-					{{item.album.name}}
-				</div>
-				<nz-dropdown-menu #menu="nzDropdownMenu">
-					<ul nz-menu nzSelectable>
-						<li nz-menu-item (click)='drawOpen(item.album.name,item.album.mid)'>专辑歌曲指数</li>
-					</ul>
-				</nz-dropdown-menu>
-				<div class="exophanie-item u-line-1" (click)="openCompay(item.detail.company_id)">
-					外显：{{item.detail.company}}</div>
-				<div class="exophanie-item u-line-1" (click)="openCompay(item.detail.albumCompany_id)">
-					原始：{{item.detail.albumCompanyName}}</div>
-			</div>
 			<div class="item-right">
-				<div style="display: flex;align-items: center;justify-content: flex-end;">
-					<!-- 收藏图标 -->
-					<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
-					<div>{{common.toThousands(item.col_number)}}</div>
-				</div>
-				<div style="display: flex;align-items: center;margin-top: 6px;">
-					<!-- 播放量 -->
-					<div v-if='item.listenCnt!="-"'>
-						<div>{{item.listenCnt}}</div>
+				<div class="itemCenter">
+					<!-- 专辑名字 -->
+					<div style="cursor: pointer;" nz-dropdown [nzDropdownMenu]="menu" [nzTrigger]='"click"'>
+						{{item.album.name}}
 					</div>
-					<div style="margin: 0 8px;"> | </div>
-					<div style="display: flex;align-items: center;">
-						<!-- 评论图标 -->
-						<img src="../../../assets/img/pinglun.png" class="icon" />
-						<div>{{common.toThousands(item.commentCount)}}</div>
+					<nz-dropdown-menu #menu="nzDropdownMenu">
+						<ul nz-menu nzSelectable>
+							<li nz-menu-item (click)='drawOpen(item.album.name,item.album.mid)'>专辑歌曲指数</li>
+						</ul>
+					</nz-dropdown-menu>
+					<div class="exophanie-item u-line-1" (click)="openCompay(item.detail.company_id)">
+						外显：{{item.detail.company}}</div>
+					<div class="exophanie-item u-line-1" (click)="openCompay(item.detail.albumCompany_id)">
+						原始：{{item.detail.albumCompanyName}}</div>
+				</div>
+				<div class="itemRight">
+					<div style="display: flex;align-items: center;justify-content: flex-end;">
+						<!-- 收藏图标 -->
+						<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
+						<div>{{common.toThousands(item.col_number)}}</div>
+					</div>
+					<div style="display: flex;align-items: center;margin-top: 6px;">
+						<!-- 播放量 -->
+						<div v-if='item.listenCnt!="-"'>
+							<div>{{item.listenCnt}}</div>
+						</div>
+						<div style="margin: 0 8px;"> | </div>
+						<div style="display: flex;align-items: center;">
+							<!-- 评论图标 -->
+							<img src="../../../assets/img/pinglun.png" class="icon" />
+							<div>{{common.toThousands(item.commentCount)}}</div>
+						</div>
 					</div>
 				</div>
 			</div>
+			
 		</div>
 		<div class='more' [ngStyle]="{'height':item.isMore?((item.GrpData.length*136)+'px'):'0px','padding':item.isMore?'8px 12px':'0px'}">
 			<div class="list-item" *ngFor="let citem of item.GrpData;let idx2=index" >
@@ -391,40 +394,43 @@
 						</div>
 					</div>
 				</div>
-				<div class="item-center">
-					<!-- 专辑名字 -->
-					<div style="cursor: pointer;" nz-dropdown [nzDropdownMenu]="menu" [nzTrigger]='"click"'>
-						{{citem.album.name}}
-					</div>
-					<nz-dropdown-menu #menu="nzDropdownMenu">
-						<ul nz-menu nzSelectable>
-							<li nz-menu-item (click)='drawOpen(citem.album.name,citem.album.mid)'>专辑歌曲指数</li>
-						</ul>
-					</nz-dropdown-menu>
-					<div class="exophanie-item u-line-1" (click)="openCompay(citem.detail.company_id)">
-						外显：{{citem.detail.company}}</div>
-					<div class="exophanie-item u-line-1" (click)="openCompay(citem.detail.albumCompany_id)">
-						原始：{{citem.detail.albumCompanyName}}</div>
-				</div>
 				<div class="item-right">
-					<div style="display: flex;align-items: center;justify-content: flex-end;">
-						<!-- 收藏图标 -->
-						<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
-						<div>{{common.toThousands(citem.col_number)}}</div>
-					</div>
-					<div style="display: flex;align-items: center;margin-top: 6px;">
-						<!-- 播放量 -->
-						<div v-if='citem.listenCnt!="-"'>
-							<div>{{citem.listenCnt}}</div>
+					<div class="itemCenter">
+						<!-- 专辑名字 -->
+						<div style="cursor: pointer;" nz-dropdown [nzDropdownMenu]="menu" [nzTrigger]='"click"'>
+							{{citem.album.name}}
 						</div>
-						<div style="margin: 0 8px;"> | </div>
-						<div style="display: flex;align-items: center;">
-							<!-- 评论图标 -->
-							<img src="../../../assets/img/pinglun.png" class="icon" />
-							<div>{{common.toThousands(citem.commentCount)}}</div>
+						<nz-dropdown-menu #menu="nzDropdownMenu">
+							<ul nz-menu nzSelectable>
+								<li nz-menu-item (click)='drawOpen(citem.album.name,citem.album.mid)'>专辑歌曲指数</li>
+							</ul>
+						</nz-dropdown-menu>
+						<div class="exophanie-item u-line-1" (click)="openCompay(citem.detail.company_id)">
+							外显：{{citem.detail.company}}</div>
+						<div class="exophanie-item u-line-1" (click)="openCompay(citem.detail.albumCompany_id)">
+							原始：{{citem.detail.albumCompanyName}}</div>
+					</div>
+					<div class="itemRight">
+						<div style="display: flex;align-items: center;justify-content: flex-end;">
+							<!-- 收藏图标 -->
+							<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
+							<div>{{common.toThousands(citem.col_number)}}</div>
+						</div>
+						<div style="display: flex;align-items: center;margin-top: 6px;">
+							<!-- 播放量 -->
+							<div v-if='citem.listenCnt!="-"'>
+								<div>{{citem.listenCnt}}</div>
+							</div>
+							<div style="margin: 0 8px;"> | </div>
+							<div style="display: flex;align-items: center;">
+								<!-- 评论图标 -->
+								<img src="../../../assets/img/pinglun.png" class="icon" />
+								<div>{{common.toThousands(citem.commentCount)}}</div>
+							</div>
 						</div>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 	</div>

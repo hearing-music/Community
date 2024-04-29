@@ -50,26 +50,29 @@
 				</div>
 			</div>
 		</div>
-		<div class="item-center">
-			<!-- 专辑名字 -->
-			<div class="exophanie-item">
-				{{item.album}}
-			</div>
-		</div>
 		<div class="item-right">
-			<div style="display: flex;align-items: center;justify-content: flex-end;">
-				<!-- 播放量 -->
-				<img src="../../../assets/img/bofang.png" class="icon" />
-				<div>{{0}}</div>
+			<div class="itemCenter">
+				<!-- 专辑名字 -->
+				<div class="exophanie-item">
+					{{item.album}}
+				</div>
 			</div>
-			<div style="display: flex;align-items: center;margin-top: 6px;">
-				<div style="display: flex;align-items: center;">
-					<span (click)='reloadComment(item.rid)' *ngIf='item.commentCount==="-"' nz-icon nzType="reload" nzTheme="outline" style='cursor: pointer;margin-right: 8px;'></span>
-					<!-- 评论图标 -->
-					<img src="../../../assets/img/pinglun.png" class="icon" />
-					<div>{{item.commentCount == '-'?'-':common.toThousands(item.commentCount)}}</div>
+			<div class="itemRight">
+				<div style="display: flex;align-items: center;justify-content: flex-end;">
+					<!-- 播放量 -->
+					<img src="../../../assets/img/bofang.png" class="icon" />
+					<div>{{0}}</div>
+				</div>
+				<div style="display: flex;align-items: center;margin-top: 6px;">
+					<div style="display: flex;align-items: center;">
+						<span (click)='reloadComment(item.rid)' *ngIf='item.commentCount==="-"' nz-icon nzType="reload" nzTheme="outline" style='cursor: pointer;margin-right: 8px;'></span>
+						<!-- 评论图标 -->
+						<img src="../../../assets/img/pinglun.png" class="icon" />
+						<div>{{item.commentCount == '-'?'-':common.toThousands(item.commentCount)}}</div>
+					</div>
 				</div>
 			</div>
 		</div>
+		
 	</div>
 </div>

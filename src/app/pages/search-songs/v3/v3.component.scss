@@ -18,7 +18,7 @@
 		border: 1px solid rgba(0, 0, 0, 0.12);
 		box-shadow:rgb(0 0 0 / 15%) -1.4px 1.4px 3.2px;
 		border-radius: 12px;
-		height: 120px;
+		min-height: 120px;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -31,9 +31,8 @@
 		}
 
 		.item-left {
-			width: 700px;
 			display: flex;
-			flex-shrink: 0;
+			flex:1;
 			align-items: center;
 
 			.linkIcon {
@@ -79,17 +78,24 @@
 			}
 		}
 
-		.item-center {
-			flex-shrink: 0;
-			flex: 1;
+		
 
-			.exophanie-item {
-				margin-top: 4px;
-				width: 250px;
+		.item-right {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width:35%;
+			.itemCenter {
+			
+				.exophanie-item {
+					margin-top: 4px;
+					// width: 250px;
+				}
+			}
+			.itemRight{
+				
 			}
 		}
-
-		.item-right {}
 
 	}
 }

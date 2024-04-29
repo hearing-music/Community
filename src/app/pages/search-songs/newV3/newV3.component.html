@@ -181,52 +181,55 @@
 					</div>
 				</div>
 			</div>
-			<div class="item-center">
-				<!-- 专辑名字 -->
-				<div class="exophanie-item" style="font-weight: bold;margin-top: 0;cursor: pointer;" (click)='openAlbum(item)'>
-					{{common.deleteEM(item.albumName)}}
+			<div class='item-right'>
+				<div class="itemCenter">
+					<!-- 专辑名字 -->
+					<div class="exophanie-item" style="font-weight: bold;margin-top: 0;cursor: pointer;" (click)='openAlbum(item)'>
+						{{common.deleteEM(item.albumName)}}
+					</div>
+					<div class="exophanie-item u-line-1">
+						{{common.deleteEM(item.company)}}
+					</div>
+					<div class="exophanie-item u-line-1">
+						{{item.time_public}}
+					</div>
 				</div>
-				<div class="exophanie-item u-line-1">
-					{{common.deleteEM(item.company)}}
-				</div>
-				<div class="exophanie-item u-line-1">
-					{{item.time_public}}
+				<div class="itemRight">
+					<div style="display: flex;align-items: center;justify-content: flex-end;">
+						<div (click)='common.copy(item.FileHash)' style="max-width: 85px;
+							cursor: pointer;
+							overflow: hidden;
+							white-space: nowrap;
+							text-overflow: ellipsis;">
+							FileHash:{{item.FileHash}}
+						</div>
+						<div style="margin: 0 8px;"> | </div>
+						<div style="display: flex;align-items: center;">
+							<!-- 收藏图标 -->
+							<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
+							<div>{{'-'}}</div>
+						</div>
+					</div>
+					<div style="display: flex;align-items: center;margin-top: 6px;">
+						<!-- 播放量 -->
+						<!-- id -->
+						<span nz-tooltip [nzTooltipTitle]="'添加监测歌曲'">
+							<span style="margin-right: 12px;color: blue;font-size: 16px;cursor: pointer;"
+								(click)='addScid(item.scid)' nz-icon nzType="plus-circle" nzTheme="outline"></span>
+						</span>
+						<div (click)='copyScid(item.scid)' style="cursor: pointer;">
+							<div>id:{{item.scid}}</div>
+						</div>
+						<div style="margin: 0 8px;"> | </div>
+						<div style="display: flex;align-items: center;">
+							<!-- 评论图标 -->
+							<img src="../../../assets/img/pinglun.png" class="icon" />
+							<div>{{common.toThousands(item.commentObj.cnt)}}</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="item-right">
-				<div style="display: flex;align-items: center;justify-content: flex-end;">
-					<div (click)='common.copy(item.FileHash)' style="max-width: 85px;
-						cursor: pointer;
-						overflow: hidden;
-						white-space: nowrap;
-						text-overflow: ellipsis;">
-						FileHash:{{item.FileHash}}
-					</div>
-					<div style="margin: 0 8px;"> | </div>
-					<div style="display: flex;align-items: center;">
-						<!-- 收藏图标 -->
-						<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
-						<div>{{'-'}}</div>
-					</div>
-				</div>
-				<div style="display: flex;align-items: center;margin-top: 6px;">
-					<!-- 播放量 -->
-					<!-- id -->
-					<span nz-tooltip [nzTooltipTitle]="'添加监测歌曲'">
-						<span style="margin-right: 12px;color: blue;font-size: 16px;cursor: pointer;"
-							(click)='addScid(item.scid)' nz-icon nzType="plus-circle" nzTheme="outline"></span>
-					</span>
-					<div (click)='copyScid(item.scid)' style="cursor: pointer;">
-						<div>id:{{item.scid}}</div>
-					</div>
-					<div style="margin: 0 8px;"> | </div>
-					<div style="display: flex;align-items: center;">
-						<!-- 评论图标 -->
-						<img src="../../../assets/img/pinglun.png" class="icon" />
-						<div>{{common.toThousands(item.commentObj.cnt)}}</div>
-					</div>
-				</div>
-			</div>
+			
 		</div>
 		<div class='more' [ngStyle]="{'height':item.isMore?((item.GrpData.length*160)+'px'):'0px','padding':item.isMore?'8px 12px':'0px'}">
 			<div class="list-item" *ngFor="let citem of item.GrpData;let idx2=index" >
@@ -407,52 +410,55 @@
 						</div>
 					</div>
 				</div>
-				<div class="item-center">
-					<!-- 专辑名字 -->
-					<div class="exophanie-item" style="font-weight: bold;margin-top: 0;cursor: pointer;" (click)='openAlbum(citem)'>
-						{{common.deleteEM(citem.albumName)}}
-					</div>
-					<div class="exophanie-item u-line-1">
-						{{common.deleteEM(citem.company)}}
-					</div>
-					<div class="exophanie-item u-line-1">
-						{{citem.time_public}}
-					</div>
-				</div>
 				<div class="item-right">
-					<div style="display: flex;align-items: center;justify-content: flex-end;">
-						<div (click)='common.copy(citem.FileHash)' style="max-width: 85px;
-							cursor: pointer;
-							overflow: hidden;
-							white-space: nowrap;
-							text-overflow: ellipsis;">
-							FileHash:{{citem.FileHash}}
+					<div class="itemCenter">
+						<!-- 专辑名字 -->
+						<div class="exophanie-item" style="font-weight: bold;margin-top: 0;cursor: pointer;" (click)='openAlbum(citem)'>
+							{{common.deleteEM(citem.albumName)}}
 						</div>
-						<div style="margin: 0 8px;"> | </div>
-						<div style="display: flex;align-items: center;">
-							<!-- 收藏图标 -->
-							<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
-							<div>{{'-'}}</div>
+						<div class="exophanie-item u-line-1">
+							{{common.deleteEM(citem.company)}}
+						</div>
+						<div class="exophanie-item u-line-1">
+							{{citem.time_public}}
 						</div>
 					</div>
-					<div style="display: flex;align-items: center;margin-top: 6px;">
-						<!-- 播放量 -->
-						<!-- id -->
-						<span nz-tooltip [nzTooltipTitle]="'添加监测歌曲'">
-							<span style="margin-right: 12px;color: blue;font-size: 16px;cursor: pointer;"
-								(click)='addScid(citem.scid)' nz-icon nzType="plus-circle" nzTheme="outline"></span>
-						</span>
-						<div (click)='copyScid(citem.scid)' style="cursor: pointer;">
-							<div>id:{{citem.scid}}</div>
+					<div class="itemRight">
+						<div style="display: flex;align-items: center;justify-content: flex-end;">
+							<div (click)='common.copy(citem.FileHash)' style="max-width: 85px;
+								cursor: pointer;
+								overflow: hidden;
+								white-space: nowrap;
+								text-overflow: ellipsis;">
+								FileHash:{{citem.FileHash}}
+							</div>
+							<div style="margin: 0 8px;"> | </div>
+							<div style="display: flex;align-items: center;">
+								<!-- 收藏图标 -->
+								<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
+								<div>{{'-'}}</div>
+							</div>
 						</div>
-						<div style="margin: 0 8px;"> | </div>
-						<div style="display: flex;align-items: center;">
-							<!-- 评论图标 -->
-							<img src="../../../assets/img/pinglun.png" class="icon" />
-							<div>{{common.toThousands(citem.commentObj.cnt)}}</div>
+						<div style="display: flex;align-items: center;margin-top: 6px;">
+							<!-- 播放量 -->
+							<!-- id -->
+							<span nz-tooltip [nzTooltipTitle]="'添加监测歌曲'">
+								<span style="margin-right: 12px;color: blue;font-size: 16px;cursor: pointer;"
+									(click)='addScid(citem.scid)' nz-icon nzType="plus-circle" nzTheme="outline"></span>
+							</span>
+							<div (click)='copyScid(citem.scid)' style="cursor: pointer;">
+								<div>id:{{citem.scid}}</div>
+							</div>
+							<div style="margin: 0 8px;"> | </div>
+							<div style="display: flex;align-items: center;">
+								<!-- 评论图标 -->
+								<img src="../../../assets/img/pinglun.png" class="icon" />
+								<div>{{common.toThousands(citem.commentObj.cnt)}}</div>
+							</div>
 						</div>
 					</div>
 				</div>
+				
 			</div>
 			
 		</div>
