@@ -241,6 +241,23 @@ export let MENU_ITEMS : NbMenuItem[] = [
 		],
 	},
 	{
+		title: '监控',
+		icon: {
+			icon: 'jiankong',
+			pack: 'my-icons',
+		},
+		children: [
+			{
+				title: '监控定时',
+				link: '/pages/timeControl',
+			},
+			{
+				title: '监控用户',
+				link: '/pages/userControl',
+			},
+		],
+	},
+	{
 		title: '音频转换',
 		icon: 'flip-2',
 		children: [

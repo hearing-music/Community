@@ -1,0 +1,53 @@
+<div class='userControl'>
+	<div>
+		<div style="font-size: 12px;color: #666;">用户名</div>
+		<nz-select *ngIf='userList.length>0' style="width: 200px;" [(ngModel)]="user"
+			(ngModelChange)='ngModelUser($event)'>
+			<nz-option *ngFor="let item of userList;" [nzValue]="item.ID" [nzLabel]="item.username"></nz-option>
+		</nz-select>
+	</div>
+	<div>
+		<div *ngFor='let item of behaviourListNow' class='listItem'>
+			<div style="display: flex;margin-bottom: 8px;">
+				<div style="margin-right: 16px;">
+					<span style="color:#666;">用户名：</span>{{item.username}}
+				</div>
+				<div>
+					{{common.getTime(item.EnquiryTime)}}
+				</div>
+			</div>
+			<div style="margin-bottom: 8px;">
+				<span style="color:#666;">IP：</span>{{item.IP}}
+			</div>
+			<div style="margin-bottom: 8px;">
+				<span style="color:#666;">接口名称：</span>{{item.ApiName}}
+			</div>
+			<div style="margin-bottom: 8px;display: flex;">
+				<span style="color:#666;">参数：</span>
+				<div *ngIf='item.apiKey.length==0'>
+					无
+				</div>
+				<div *ngIf='item.apiKey.length>0' style="display: flex;">
+					<div *ngFor='let key of item.apiKey;let i = index;' style="margin-right: 6px;">
+						<span style="color:#666;">{{key}}：</span>{{item.apiValue[i]?item.apiValue[i]:'""'}}
+					</div>
+				</div>
+			</div>
+			<div style="cursor: pointer;color: blue;" (click)='seeHeader(item)'>
+				查看Header
+			</div>
+		</div>
+	</div>
+	<div style="display: flex;justify-content: center;">
+		<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="behaviourList.length" (nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
+	</div>
+	<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzFooter]='null' [nzWidth]='600'>
+		<ng-container *nzModalContent>
+			<div style="font-size: 18px;font-weight: bold;margin-bottom: 12px;">Header</div>
+			<div *ngFor='let item of visibleItem.headerKey;let i = index;' style="margin-bottom: 4px;">
+				<span style="color:#666;">{{item}}</span> : {{visibleItem.headerValue[i]}}
+			</div>
+		</ng-container>
+	</nz-modal>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

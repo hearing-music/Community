@@ -47,7 +47,7 @@ import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.component';
-import {EnlightenmentComponent} from './venus/enlightenment/enlightenment.component'
+import { EnlightenmentComponent } from './venus/enlightenment/enlightenment.component'
 // import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
 import { DyHotComponent } from './douyin/douyin-list/dy-hot/dy-hot.component';
 import { DyYyhComponent } from './douyin/douyin-list/dy-yyh/dy-yyh.component';
@@ -81,14 +81,14 @@ import { ChatTempComponent } from './game/song-room/chatTemp/chatTemp.component'
 import { SpecialEffectsQueryComponent } from './kuaishou-searchindex/special-effects-query/special-effects-query.component';
 import { SwollenKsEeListComponent } from './kuaishou-searchindex/swollen-ks-ee-list/swollen-ks-ee-list.component';
 import { KuaishouVideoDetailsComponent } from './kuaishou-searchindex/kuaishou-videoDetails/kuaishou-videoDetails.component';
-import {DyHotDetailComponent} from '../components/dyHotDetail/dyHotDetail.component'
-import {DyVideoTrendComponent} from '../components/dyVideoTrend/dyVideoTrend.component'
-import {DyAuthorComponent} from '../components/dyAuthor/dyAuthor.component'
+import { DyHotDetailComponent } from '../components/dyHotDetail/dyHotDetail.component'
+import { DyVideoTrendComponent } from '../components/dyVideoTrend/dyVideoTrend.component'
+import { DyAuthorComponent } from '../components/dyAuthor/dyAuthor.component'
 import { ArtistVisualizationComponent } from './search-page/artist-visualization/artist-visualization.component';
 import { OriginalAudioComponent } from './original-audio/original-audio.component';
 import { MermaidComponent } from './mermaid/mermaid.component';
-import {EnlightenmentSongsComponent} from './venus/enlightenment-songs/enlightenment-songs.component'
-import { EnlightenmentTop20Component} from './search-songs/enlightenment-top20/enlightenment-top20.component'
+import { EnlightenmentSongsComponent } from './venus/enlightenment-songs/enlightenment-songs.component'
+import { EnlightenmentTop20Component } from './search-songs/enlightenment-top20/enlightenment-top20.component'
 import { QqComponent } from './search-songs/qq/qq.component';
 import { QqPhoneComponent } from './search-songs/qq-phone/qq-phone.component'
 import { V3Component } from './search-songs/v3/v3.component';
@@ -105,7 +105,7 @@ import { SearchComponent } from '../components/search/search.component';
 import { IconsProviderModule } from './icons-provider.module';
 import { UploadFileComponent } from '../components/upload-file/upload-file.component';
 import { LyricComponent } from '../components/lyric/lyric.component';
-import {BloggerVideosComponent} from '../components/bloggerVideos/bloggerVideos.component'
+import { BloggerVideosComponent } from '../components/bloggerVideos/bloggerVideos.component'
 import { LyricAllComponent } from '../components/lyric-all/lyric-all.component';
 import { BrandUserComponent } from './search-page/brand-user/brand-user.component';
 import { BrandSongQqComponent } from "./search-page/brand-song/brand-song-qq/brand-song-qq.component";
@@ -121,7 +121,7 @@ import { NotOpenComponent } from '../components/not-open/not-open.component';
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { TemplateComponent } from './lsdd-page/template/template.component';
 import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
-import {kuaishouPotentialComponent} from './kuaishou-searchindex/kuaishou-potential/kuaishou-potential.component'
+import { kuaishouPotentialComponent } from './kuaishou-searchindex/kuaishou-potential/kuaishou-potential.component'
 import { CopyrightLinkComponent } from './copyright-scanning/copyright-link/copyright-link.component';
 import { AudioTrickComponent } from '../components/audio-trick/audio-trick.component';
 import { ToolComponent } from './tool/tool.component';
@@ -161,11 +161,15 @@ import { NzInputNumberModule } from "ng-zorro-antd/input-number";
 import { NzCascaderModule } from "ng-zorro-antd/cascader";
 import { NewTankBattleComponent } from './game/new-tank-battle/new-tank-battle.component';
 
-import {AudioProcessingComponent} from './audioProcessing/audioProcessing.component';
+import { TimeControlComponent } from './timeControl/timeControl.component';
+import { SongControlComponent } from './timeControl/songControl/songControl.component';
+import { UserControlComponent } from './userControl/userControl.component';
+
+import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
 import { TrackSeparateComponent } from './audioProcessing/track-separate/track-separate.component';
 import { NoiseReductionComponent } from './audioProcessing/noiseReduction/noiseReduction.component';
-import {VolumeNormalisationComponent} from './audioProcessing/volumeNormalisation/volumeNormalisation.component';
-import {SegmentationComponent} from './audioProcessing/segmentation/segmentation.component'
+import { VolumeNormalisationComponent } from './audioProcessing/volumeNormalisation/volumeNormalisation.component';
+import { SegmentationComponent } from './audioProcessing/segmentation/segmentation.component'
 
 import { TmeMapComponent } from './tool/tme-map/tme-map.component';
 import { EnteredByYouNiComponent } from './tool/entered-by-you-ni/entered-by-you-ni.component'
@@ -222,6 +226,9 @@ registerLocaleData(zh);
 	declarations: [
 		HighlightBracketsPipe,
 		VideoPlayerComponent,
+		TimeControlComponent,
+		UserControlComponent,
+		SongControlComponent,
 		YunjiaobenComponent,
 		TmeMapComponent,
 		EnteredByYouNiComponent,
@@ -235,9 +242,9 @@ registerLocaleData(zh);
 		NewTankBattleComponent,
 		TankBattleComponent,
 		FindInspirationComponent,
-		    DouDiZhuComponent,
-		    CardGameComponent,
-		    SongRoomComponent,
+		DouDiZhuComponent,
+		CardGameComponent,
+		SongRoomComponent,
 		MaJiangComponent,
 		ChatTempComponent,
 		DyHotDetailComponent,
@@ -342,11 +349,11 @@ registerLocaleData(zh);
 		WYComponent,
 		ToMvComponent,
 		QqLabelComponent,
-  SongListLabelComponent,
-  McscSearchCNComponent,
-  McscSearchHKComponent,
-  McscSearchZGComponent,
-  TmeMap_hotComponent,
+		SongListLabelComponent,
+		McscSearchCNComponent,
+		McscSearchHKComponent,
+		McscSearchZGComponent,
+		TmeMap_hotComponent,
 	],
 })
 export class PagesModule {

@@ -24,7 +24,7 @@ import { DouyinAssayVideoComponent } from './douyin/douyin-assayVideo/douyin-ass
 import { DouyinPopularAccountsComponent } from "./douyin/douyin-popular-accounts/douyin-popular-accounts.component";
 import { DouyinSoundSourceComponent } from './douyin/douyin-soundSource/douyin-soundSource.component';
 import { DouyinListenSoundSourceComponent } from './douyin/douyin-listenSoundSource/douyin-listenSoundSource.component';
-import {kuaishouPotentialComponent} from './kuaishou-searchindex/kuaishou-potential/kuaishou-potential.component'
+import { kuaishouPotentialComponent } from './kuaishou-searchindex/kuaishou-potential/kuaishou-potential.component'
 import { KuaishouVideoDetailsComponent } from './kuaishou-searchindex/kuaishou-videoDetails/kuaishou-videoDetails.component';
 import { RisingHotComponent } from "./douyin/rising-hot/rising-hot.component";
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
@@ -67,9 +67,10 @@ import { NewTankBattleComponent } from './game/new-tank-battle/new-tank-battle.c
 import { ScriptPromptsComponent } from "./script-prompts/script-prompts.component";
 import { ScriptPromptsInsertComponent } from "./script-prompts/script-prompts-insert/script-prompts-insert.component";
 import { ScreenRecordingComponent } from "./screenRecording/screenRecording.component";
-
+import { TimeControlComponent } from './timeControl/timeControl.component';
+import { UserControlComponent } from './userControl/userControl.component';
 import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
-const routes: Routes = [{
+const routes : Routes = [{
 	path: '',
 	component: PagesComponent,
 	children: [
@@ -79,7 +80,7 @@ const routes: Routes = [{
 			component: SearchSongsComponent,
 			canActivate: [PermissionGuard]
 		},
-		{ path: 'search-songs', component: SearchSongsComponent,canActivate: [PermissionGuard] },
+		{ path: 'search-songs', component: SearchSongsComponent, canActivate: [PermissionGuard] },
 		// {
 		// 	path: 'search-songs',
 		// 	redirectTo: 'search-songs/_/_',
@@ -150,12 +151,12 @@ const routes: Routes = [{
 		// 	component: DouyinHotComponent,
 		// 	canActivate: [PermissionGuard]
 		// },
-		      //抖音热门账号
-		      {
-		        path: "douyin/douyin-popular-accounts",
-		        component: DouyinPopularAccountsComponent,
-		        canActivate: [PermissionGuard],
-		      },
+		//抖音热门账号
+		{
+			path: "douyin/douyin-popular-accounts",
+			component: DouyinPopularAccountsComponent,
+			canActivate: [PermissionGuard],
+		},
 		// 抖音榜单
 		{
 			path: 'douyin/douyin-list',
@@ -212,14 +213,14 @@ const routes: Routes = [{
 		},
 		// 找灵感
 		{
-			path:'find-inspiration',
-			component:FindInspirationComponent,
+			path: 'find-inspiration',
+			component: FindInspirationComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 韵脚本
 		{
-			path:"yunjiaoben",
-			component:YunjiaobenComponent,
+			path: "yunjiaoben",
+			component: YunjiaobenComponent,
 			canActivate: [PermissionGuard]
 		},
 		//云图 由你涨幅排名
@@ -260,23 +261,23 @@ const routes: Routes = [{
 		// },
 		//快手音频使用量
 		{
-			path:'kuaishouVolumeOfUse',
+			path: 'kuaishouVolumeOfUse',
 			component: VolumeOfUseComponent,
 			canActivate: [PermissionGuard]
 		},
-		      //快手特效查询
-		      {
-		        path: "kuaishou-specialEffectsQuery",
-		        component: SpecialEffectsQueryComponent,
-		        canActivate: [PermissionGuard],
-		      },
-			//快手视频详情
-			{
-				path:'kuaishou-videoDetails',
-				component:KuaishouVideoDetailsComponent,
-				canActivate: [PermissionGuard],
-			},
-		      //快手特效监控
+		//快手特效查询
+		{
+			path: "kuaishou-specialEffectsQuery",
+			component: SpecialEffectsQueryComponent,
+			canActivate: [PermissionGuard],
+		},
+		//快手视频详情
+		{
+			path: 'kuaishou-videoDetails',
+			component: KuaishouVideoDetailsComponent,
+			canActivate: [PermissionGuard],
+		},
+		//快手特效监控
 		//       {
 		//         path: "kuaishou-SwollenKsEeLis",
 		//         component: SwollenKsEeListComponent,
@@ -394,62 +395,74 @@ const routes: Routes = [{
 			component: JianyingComponent,
 			canActivate: [PermissionGuard]
 		},
-		      // 话术
-		      {
-		        path: "script-prompts",
-		        component: ScriptPromptsComponent,
-		        canActivate: [PermissionGuard],
-		      },
-		      // 话术入库
-		      {
-		        path: "script-prompts-insert",
-		        component: ScriptPromptsInsertComponent,
-		        canActivate: [PermissionGuard],
-		      },
+		// 话术
+		{
+			path: "script-prompts",
+			component: ScriptPromptsComponent,
+			canActivate: [PermissionGuard],
+		},
+		// 话术入库
+		{
+			path: "script-prompts-insert",
+			component: ScriptPromptsInsertComponent,
+			canActivate: [PermissionGuard],
+		},
+		//定时监控
+		{
+			path: "timeControl",
+			component: TimeControlComponent,
+			canActivate: [PermissionGuard],
+		},
+		//user监控
+		{
+			path: "userControl",
+			component: UserControlComponent,
+			canActivate: [PermissionGuard],
+		},
 		//生成mv
 		{
 			path: 'to-mv',
 			component: ToMvComponent,
 			canActivate: [PermissionGuard]
 		},
-		        //原创音频
-		        {
-		            path: 'original-audio',
-		            component: OriginalAudioComponent,
-		            canActivate: [PermissionGuard]
-		        },
-		      //点歌室
-		      {
-		        path: "song-room",
-		        component: SongRoomComponent,
-		        canActivate: [PermissionGuard],
-		      },
-		      {
-		        path: "dou-di-zhu",
-		        component: DouDiZhuComponent,
-		        canActivate: [PermissionGuard],
-		      },
-		      {
-		        path: "card-game",
-		        component: CardGameComponent,
-		        canActivate: [PermissionGuard],
-		      },
-				{
-		        path: "ma-jiang",
-		        component: MaJiangComponent,
-		        canActivate: [PermissionGuard],
-		      },
+		//原创音频
+		{
+			path: 'original-audio',
+			component: OriginalAudioComponent,
+			canActivate: [PermissionGuard]
+		},
+		//点歌室
+		{
+			path: "song-room",
+			component: SongRoomComponent,
+			canActivate: [PermissionGuard],
+		},
+		{
+			path: "dou-di-zhu",
+			component: DouDiZhuComponent,
+			canActivate: [PermissionGuard],
+		},
+		{
+			path: "card-game",
+			component: CardGameComponent,
+			canActivate: [PermissionGuard],
+		},
+		{
+			path: "ma-jiang",
+			component: MaJiangComponent,
+			canActivate: [PermissionGuard],
+		},
 		//       {
 		//         path: "tank-battle",
 		//         component: TankBattleComponent,
 		//         canActivate: [PermissionGuard],
 		//       },
-		   {
-		        path: "tank-battle",
-		        component: NewTankBattleComponent,
-		        canActivate: [PermissionGuard],
-		      },
-		 
+		{
+			path: "tank-battle",
+			component: NewTankBattleComponent,
+			canActivate: [PermissionGuard],
+		},
+
 		// {
 		// 	path: 'ui-features',
 		// 	loadChildren: () => import('./ui-features/ui-features.module')

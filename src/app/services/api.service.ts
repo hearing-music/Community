@@ -660,6 +660,11 @@ export class ApiService {
 		let url = this.baseUrl + '/qq_kugou/getqq_kugouInfo?page=' + page + '&pageSize=' + pageSize + '&type=' + type + '&keyword=' + keyword + '&orderby=' + orderby + '&plain=' + plain
 		return this.http.get(url)
 	}
+	// 查询ranking数据 全部 用于监控
+	getqq_kugouInfoAll(){
+		let url = this.baseUrl + '/qq_kugou/getqq_kugouInfoAll'
+		return this.http.get(url)
+	}
 	// 刷新ranking数据
 	getqq_kugouKeywordRanking(params : any) {
 		let { mid, scid, keyword } = params;
@@ -1312,5 +1317,18 @@ export class ApiService {
 		formData.append("files", files);
 		let url = this.baseUrl + "/complaint_audio/AllAudioConversion";
 		return this.http.post(url, formData);
+	}
+	// 获取用户行为
+	SearchUserBehaviour(params:any){
+		let data = JSON.stringify({
+		    "UserId":params.ids
+		})
+		let url = this.baseUrl + "/login/SearchUserBehaviour";
+		return this.http.post(url, data);
+	}
+	// 获取全部用户
+	get_webUsersName(){
+		let url = this.baseUrl + "/login/get_webUsersName";
+		return this.http.post(url, {});
 	}
 }
