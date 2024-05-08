@@ -162,7 +162,7 @@ import { NzCascaderModule } from "ng-zorro-antd/cascader";
 import { NewTankBattleComponent } from './game/new-tank-battle/new-tank-battle.component';
 
 import { TimeControlComponent } from './timeControl/timeControl.component';
-import { SongControlComponent } from './timeControl/songControl/songControl.component';
+import { ControlTemplateComponent } from './timeControl/controlTemplate/controlTemplate.component';
 import { UserControlComponent } from './userControl/userControl.component';
 
 import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
@@ -228,7 +228,7 @@ registerLocaleData(zh);
 		VideoPlayerComponent,
 		TimeControlComponent,
 		UserControlComponent,
-		SongControlComponent,
+		ControlTemplateComponent,
 		YunjiaobenComponent,
 		TmeMapComponent,
 		EnteredByYouNiComponent,

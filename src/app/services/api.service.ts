@@ -1331,4 +1331,34 @@ export class ApiService {
 		let url = this.baseUrl + "/login/get_webUsersName";
 		return this.http.post(url, {});
 	}
+	// 获取监控定时描述
+	getTimed_task_lists(){
+		let url = `${this.baseUrl}/articles/getTimed_task_lists`;
+		return this.http.get(url);
+	}
+	// 酷狗免费歌曲定时 监控 获取更新时间
+	freeSongsControl(){
+		let url = `${this.baseUrl}/kugou/freeSongsControl`;
+		return this.http.get(url);
+	}
+	// 抖音监控声源 进度
+	douyinSoundSourceControl(){
+		let url = `${this.baseUrl}/douyin/douyinSoundSourceControl`;
+		return this.http.get(url);
+	}
+	//抖音监控达人进度
+	douyinDarenControl(){
+		let url = `${this.baseUrl}/douyin/douyinDarenControl`;
+		return this.http.get(url);
+	}
+	// 抖音监控视频进度
+	douyinVideoControl(){
+		let url = `${this.baseUrl}/douyin/douyinVideoControl`;
+		return this.http.get(url);
+	}
+	// 云图涨幅100首监控进度
+	GetMusicLimitHundred2(){
+		let url = `${this.baseUrl}/tme_map/GetMusicLimitHundred2`;
+		return this.http.get(url);
+	}
 }

@@ -1,0 +1,17 @@
+<div >
+	<div class='songControl'>
+		<nz-progress [nzPercent]="percent" nzType="circle"></nz-progress>
+		<div *ngIf='percent==100' style="margin: 14px 0;font-size: 13px;color: #00ff00;">
+			定时任务完成！
+		</div>
+		<div style="margin: 14px 0;">
+			{{timed_task.Remarks?timed_task.Remarks:""}}
+		</div>
+		<div style="margin-bottom: 14px;">
+			{{timed_task.TimePeriodStr?timed_task.TimePeriodStr:""}}
+		</div>
+		<div>
+			共 {{total}} 条数据
+		</div>
+	</div>
+</div>

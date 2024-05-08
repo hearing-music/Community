@@ -6,7 +6,8 @@
 			<nz-option *ngFor="let item of userList;" [nzValue]="item.ID" [nzLabel]="item.username"></nz-option>
 		</nz-select>
 	</div>
-	<div>
+	<nz-empty style="margin-top: 100px;" *ngIf='behaviourListNow.length==0'></nz-empty>
+	<div *ngIf='behaviourListNow.length>0'>
 		<div *ngFor='let item of behaviourListNow' class='listItem'>
 			<div style="display: flex;margin-bottom: 8px;">
 				<div style="margin-right: 16px;">
@@ -20,7 +21,7 @@
 				<span style="color:#666;">IP：</span>{{item.IP}}
 			</div>
 			<div style="margin-bottom: 8px;">
-				<span style="color:#666;">接口名称：</span>{{item.ApiName}}
+				<span style="color:#666;">接口名称：</span><span style="margin-right:8px;">{{item.Name}}</span> {{item.ApiName}}
 			</div>
 			<div style="margin-bottom: 8px;display: flex;">
 				<span style="color:#666;">参数：</span>
