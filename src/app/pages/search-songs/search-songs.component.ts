@@ -508,7 +508,7 @@ export class SearchSongsComponent implements OnInit {
 		this.lyric.lyricUp(e.srcElement.currentTime);
 	}
 	// 获取歌词
-	getLyric(songmid:string,i:number){
+	getLyricqq(songmid:string,i:number){
 		this.api.getQQLyric({
 			songmid: songmid,
 		}).subscribe((res: any) => {
@@ -522,12 +522,55 @@ export class SearchSongsComponent implements OnInit {
 			console.log(err)
 		})
 	}
+	getLyrickg(FileHash: any,i:number) {
+		this.api.getKugouLyric({
+			hash: FileHash,
+		}).subscribe((res: any) => {
+			console.log(res)
+			if (res.success) {
+				this.kugouV3List[i].lyricText = res.result
+				this.kugouV3List[i].lyricData = this.common.parseLRC(this.kugouV3List[i].lyricText)
+				this.lyricData = this.kugouV3List[i].lyricData
+			}
+		}, (err: any) => {
+			console.log(err)
+		})
+	
+	}
+	getLyrickuwo(rid:any,i:any){
+		this.api.getKuwoLyric({
+			rid:rid,
+		}).subscribe((res: any) => {
+			console.log(res)
+			if(res.success){
+				this.kuwoList[i].lyricText = res.result
+				this.kuwoList[i].lyricData = this.common.parseLRC2(res.result)
+				this.lyricData = this.kuwoList[i].lyricData
+			}
+		}, (err: any) => {
+			console.log(err)
+		})
+	}
+	getLyricwyy(songid:string,i:number){
+		this.api.getWangyiyunLyric({
+			songid: songid,
+		}).subscribe((res: any) => {
+			console.log(res)
+			if(res.success){
+				this.wangyiyunList[i].lyricText = res.result
+				this.wangyiyunList[i].lyricData = this.common.parseLRC(res.result)
+				this.lyricData = this.wangyiyunList[i].lyricData
+			}
+		}, (err: any) => {
+			console.log(err)
+		})
+	}
 	// qq传参
 	qqSrcChange(params: any) {
 		this.isPlay =true;
 		let { src, i } = params;
 		if(!this.qqList[i].lyricText){
-			this.getLyric(this.qqList[i].mid,i)
+			this.getLyricqq(this.qqList[i].mid,i)
 		}else{
 			this.qqList[i].lyricData = this.common.parseLRC(this.qqList[i].lyricText)
 			this.lyricData = this.qqList[i].lyricData
@@ -536,6 +579,85 @@ export class SearchSongsComponent implements OnInit {
 		let audio: any = document.getElementById('audio')
 		setTimeout(() => {
 			this.qqList.forEach((item: any, index: number) => {
+				if (index == i) {
+					item.isPlay = !item.isPlay
+					if (item.isPlay) {
+						audio.play()
+					} else {
+						audio.pause()
+					}
+				} else {
+					item.isPlay = false;
+				}
+			})
+		}, 50)
+	}
+	// 酷狗传参 播放
+	kgSrcChange(params:any){
+		this.isPlay = true;
+		let { src, i } = params;
+		if (!this.kugouV3List[i].lyricText) {
+			this.getLyrickg(this.kugouV3List[i].FileHash, i)
+		} else {
+			this.kugouV3List[i].lyricData = this.common.parseLRC(this.kugouV3List[i].lyricText)
+			this.lyricData = this.kugouV3List[i].lyricData
+		}
+		this.audioSrc = src;
+		let audio : any = document.getElementById('audio')
+		setTimeout(() => {
+			this.kugouV3List.forEach((item : any, index : number) => {
+				if (index == i) {
+					item.isPlay = !item.isPlay
+					if (item.isPlay) {
+						audio.play()
+					} else {
+						audio.pause()
+					}
+				} else {
+					item.isPlay = false;
+				}
+			})
+		}, 50)
+	}
+	kuwoSrcChange(params:any){
+		this.isPlay = true;
+		let { src, i } = params;
+		if (!this.kuwoList[i].lyricText) {
+			this.getLyrickuwo(this.kuwoList[i].rid, i)
+		} else {
+			this.kuwoList[i].lyricData = this.common.parseLRC2(this.kuwoList[i].lyricText)
+			this.lyricData = this.kuwoList[i].lyricData
+		}
+		this.audioSrc = src;
+		let audio : any = document.getElementById('audio')
+		setTimeout(() => {
+			this.kuwoList.forEach((item : any, index : number) => {
+				if (index == i) {
+					item.isPlay = !item.isPlay
+					if (item.isPlay) {
+						audio.play()
+					} else {
+						audio.pause()
+					}
+				} else {
+					item.isPlay = false;
+				}
+			})
+		}, 50)
+	}
+	wangyiyunSrcChange(params: any){
+		this.isPlay = true;
+		let { src, i } = params;
+		if (!this.wangyiyunList[i].lyricText) {
+			this.getLyricwyy(this.wangyiyunList[i].songid, i)
+		} else {
+			this.wangyiyunList[i].lyricData = this.common.parseLRC(this.wangyiyunList[i].lyricText)
+			this.lyricData = this.wangyiyunList[i].lyricData
+		}
+		this.audioSrc = src;
+		let audio : any = document.getElementById('audio')
+		setTimeout(() => {
+			this.wangyiyunList.forEach((item : any, index : number) => {
 				if (index == i) {
 					item.isPlay = !item.isPlay
 					if (item.isPlay) {
@@ -593,10 +715,26 @@ export class SearchSongsComponent implements OnInit {
 	}
 	play(element: any) {
 		console.log(element)
+		this.pause();
 		if (this.selectItem == 'QQ音乐') {
 			var i = this.qqList.findIndex((e: any) => e.musicUrl == element.srcElement.currentSrc)
 			if (i !== -1) {
 				this.qqList[i].isPlay = true;
+			}
+		} else if (this.selectItem == '酷狗V3') {
+			var i = this.kugouV3List.findIndex((e: any) => e.MusicUrl == element.srcElement.currentSrc)
+			if (i !== -1) {
+				this.kugouV3List[i].isPlay = true;
+			}
+		} else if (this.selectItem == '酷我音乐') {
+			var i = this.kuwoList.findIndex((e: any) => e.downloadUrl == element.srcElement.currentSrc)
+			if (i !== -1) {
+				this.kuwoList[i].isPlay = true;
+			}
+		} else if (this.selectItem == '网易云') {
+			var i = this.wangyiyunList.findIndex((e: any) => e.downloadUrl == element.srcElement.currentSrc)
+			if (i !== -1) {
+				this.wangyiyunList[i].isPlay = true;
 			}
 		} else if (this.selectItem == '铃声多多') {
 			var i = this.lsddList.findIndex((e: any) => e.src == element.srcElement.currentSrc)
@@ -622,6 +760,20 @@ export class SearchSongsComponent implements OnInit {
 		this.copyrightList.forEach((item: any) => {
 			item.isPlay = false;
 		})
+		this.kuwoList.forEach((item: any) => {
+			item.isPlay = false;
+		})
+		this.kugouV3List.forEach((item: any) => {
+			item.isPlay = false;
+		})
+		this.wangyiyunList.forEach((item: any) => {
+			item.isPlay = false;
+		})
+	}
+	audioError(){
+		if(this.isPlay){
+			this.message.error("播放歌曲错误")
+		}
 	}
 	tagNow:any = ''
 	selectItem2 = ''

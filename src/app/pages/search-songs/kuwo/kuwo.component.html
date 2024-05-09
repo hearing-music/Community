@@ -1,10 +1,10 @@
 <nz-empty *ngIf="kuwoList.length==0" style="margin-top: 160px;"></nz-empty>
 <div class="list" *ngIf='kuwoList.length!=0'>
-	<div class="list-item" *ngFor="let item of kuwoList" :key='item.rid'>
+	<div class="list-item" *ngFor="let item of kuwoList;let i = index;">
 		<div class="item-left">
-			<div class="left-icon">
-				<img src="../../../assets/img/play-orange.png" style="width: 100%;height: 100%;" />
-				<!-- <image src="/assets/img/pause-orange.png" style="width: 100%;height: 100%;"> -->
+			<div class="left-icon" (click)='playAudio(item,i)'>
+				<img *ngIf='!item.isPlay' src="assets/img/play-orange.png" style="width: 100%;height: 100%;" />
+				<img *ngIf='item.isPlay' src="assets/img/pause-orange.png" style="width: 100%;height: 100%;">
 			</div>
 			<div class="left-text">
 				<div class="title-area">

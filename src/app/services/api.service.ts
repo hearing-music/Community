@@ -164,6 +164,13 @@ export class ApiService {
 		keyword = encodeURIComponent(keyword);
 		return this.http.get(`${this.baseUrl}/kugou/search_kugou?keyword=${keyword}&page=${page}`)
 	}
+	// 酷狗歌曲链接
+	getKugouSongUrl(params: any) {
+	  let { EMixSongID } = params;
+	  return this.http.get(
+	    this.baseUrl + '/kugou/getKugouSongUrl?EMixSongID=' + EMixSongID
+	  );
+	}
 	getV3_2(params : any) {
 		let {
 			keyword,
@@ -1321,7 +1328,8 @@ export class ApiService {
 	// 获取用户行为
 	SearchUserBehaviour(params:any){
 		let data = JSON.stringify({
-		    "UserId":params.ids
+		    "UserId":params.ids,
+			"Offset":params.Offset
 		})
 		let url = this.baseUrl + "/login/SearchUserBehaviour";
 		return this.http.post(url, data);

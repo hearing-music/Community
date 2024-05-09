@@ -1,6 +1,7 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 import {CommonService} from "../../../services/common.service";
 import { ApiService } from "../../../services/api.service";
+import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
   selector: 'ngx-kuwo',
   templateUrl: './kuwo.component.html',
@@ -8,7 +9,16 @@ import { ApiService } from "../../../services/api.service";
 })
 export class KuwoComponent implements OnInit {
 	@Input() kuwoList: any;
-  constructor(public common: CommonService,public api: ApiService) { }
+	@Output() change: EventEmitter<any> = new EventEmitter<any>();
+  constructor(public common: CommonService,public api: ApiService,public message:NzMessageService) { }
+  playAudio(item:any,i:number){
+  	  if(item.downloadUrl){
+  		  this.change.emit({src:item.downloadUrl,i});
+  	  }else{
+  		  this.message.info("会员歌曲暂无法播放")
+  		  // this.songurl_kuwo(item,i)
+  	  }
+  }
 	openLink(rid:string|number){
 		window.open('http://kuwo.cn/play_detail/'+rid)
 	}
@@ -42,7 +52,8 @@ export class KuwoComponent implements OnInit {
 	}
 	mouseenter(item:any){
 		item.lyricShow = true;
-		if(item.lyricData2){
+		if(item.lyricText){
+			item.lyricData2 = this.common.parseLRC3(item.lyricText)
 			item.lyricReadly = true;
 		}else{
 			item.lyricReadly = false;

@@ -50,7 +50,8 @@ export class UserControlComponent implements OnInit {
 		this.loading = true;
 		let ids = [this.user];
 		if (this.user == '0') ids = []
-		this.api.SearchUserBehaviour({ ids }).subscribe((res : any) => {
+		// 0=全部数据   >0  分页
+		this.api.SearchUserBehaviour({ ids,Offset:0 }).subscribe((res : any) => {
 			this.loading = false;
 			console.log(res)
 			if (res.success) {

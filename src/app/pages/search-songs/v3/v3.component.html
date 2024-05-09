@@ -3,9 +3,9 @@
 	<div *ngFor="let item of kugouV3List;let idx=index">
 		<div class="list-item"  >
 			<div class="item-left">
-				<div class="left-icon">
-					<img src="../../../assets/img/play-blue.png" style="width: 100%;height: 100%;" />
-					<!-- <img src="/assets/img/pause.png" style="width: 100%;height: 100%;"> -->
+				<div class="left-icon" (click)='playAudio(item,idx)'>
+					<img *ngIf='!item.isPlay' src="assets/img/play-blue.png" style="width: 100%;height: 100%;" />
+					<img *ngIf='item.isPlay' src="assets/img/pause-blue.png" style="width: 100%;height: 100%;">
 				</div>
 				<div class="left-text">
 					<div class="title-area">
@@ -463,6 +463,6 @@
 			
 		</div>
 	</div>
-	
+	<ngx-loading *ngIf='loading'></ngx-loading>
 
 </div>

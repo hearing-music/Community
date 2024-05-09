@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
 import { CommonService } from "../../../services/common.service";
 import { ApiService } from "../../../services/api.service";
 import { Router } from '@angular/router';
@@ -9,9 +9,32 @@ import { Router } from '@angular/router';
 })
 export class V3Component implements OnInit {
 	@Input() kugouV3List: any;
+	@Output() change: EventEmitter<any> = new EventEmitter<any>();
 	constructor(public common: CommonService, public api: ApiService, private router: Router) { }
 	ngOnInit(): void {
 
+	}
+	playAudio(item: any, i: number) {
+		if(item.MusicUrl){
+			this.change.emit({src:item.MusicUrl,i});
+		}else{
+			this.getKugouSongUrl(item,i)
+		}
+	}
+	loading=false;
+	getKugouSongUrl(item:any,i:number){
+		this.loading = true;
+		this.api.getKugouSongUrl({EMixSongID:item.EMixSongID}).subscribe((res: any) => {
+			console.log(res)
+			if (res.success) {
+				item.MusicUrl = res.result[0];
+				this.change.emit({src:item.MusicUrl,i});
+			}
+			this.loading = false;
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
 	}
 	// 更多版本
 	moreVersion(item:any){
@@ -52,6 +75,7 @@ export class V3Component implements OnInit {
 	mouseenter(item: any) {
 		item.lyricShow = true;
 		if (item.lyricText) {
+			item.lyricData2 = this.common.parseLRC3(item.lyricText)
 			item.lyricReadly = true;
 		} else {
 			item.lyricReadly = false;

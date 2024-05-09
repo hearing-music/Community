@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 import {CommonService} from "../../../services/common.service";
 import { ApiService } from "../../../services/api.service";
 @Component({
@@ -8,7 +8,13 @@ import { ApiService } from "../../../services/api.service";
 })
 export class WangyiyunComponent implements OnInit {
 	@Input() wangyiyunList: any;
+	@Output() change: EventEmitter<any> = new EventEmitter<any>();
 	constructor(public common: CommonService,public api: ApiService) { }
+	playAudio(url: string, i: number) {
+		if(url){
+			this.change.emit({src:url,i});
+		}
+	}
 	openLink(songid:string|number){
 		window.open('https://music.163.com/#/song?id='+songid)
 	}
@@ -39,6 +45,7 @@ export class WangyiyunComponent implements OnInit {
 	mouseenter(item:any){
 		item.lyricShow = true;
 		if(item.lyricText){
+			item.lyricData2 = this.common.parseLRC3(item.lyricText)
 			item.lyricReadly = true;
 		}else{
 			item.lyricReadly = false;

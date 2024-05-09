@@ -41,10 +41,10 @@
 	<!-- 数据 -->
 	<div class="home-main" [ngClass]='{"home-main2":selectItem2!=""}'>
 		<ngx-qq *ngIf='selectItem=="QQ音乐"' [qqList]="qqList" (change)="qqSrcChange($event)"></ngx-qq>
-		<ngx-v3 *ngIf='selectItem2=="酷狗V3"' [kugouV3List]="kugouV3List"></ngx-v3>
+		<ngx-v3 *ngIf='selectItem2=="酷狗V3"' [kugouV3List]="kugouV3List" (change)="kgSrcChange($event)"></ngx-v3>
 		<ngx-newV3 *ngIf='selectItem2=="多版本"' [kugouNewV3List]="kugouNewV3List"></ngx-newV3>
-		<ngx-kuwo *ngIf='selectItem=="酷我音乐"' [kuwoList]="kuwoList"></ngx-kuwo>
-		<ngx-wangyiyun *ngIf='selectItem=="网易云"' [wangyiyunList]="wangyiyunList"></ngx-wangyiyun>
+		<ngx-kuwo *ngIf='selectItem=="酷我音乐"' [kuwoList]="kuwoList" (change)="kuwoSrcChange($event)"></ngx-kuwo>
+		<ngx-wangyiyun *ngIf='selectItem=="网易云"' [wangyiyunList]="wangyiyunList" (change)="wangyiyunSrcChange($event)"></ngx-wangyiyun>
 		<!-- <ngx-lsdd *ngIf='selectItem=="铃声多多"' [lsddList]="lsddList" (change)="lsddSrcChange($event)"></ngx-lsdd> -->
 		<ngx-enlightenment-top20 *ngIf='selectItem=="唱将音乐"' [enlightenmentList]="enlightenmentList"></ngx-enlightenment-top20>
 		<ngx-fufu-search *ngIf='selectItem=="雷达音乐"' [fufuList]="fufuList"></ngx-fufu-search>
@@ -97,7 +97,7 @@
 	<ngx-lyric #lyric [lyricData]='lyricData'></ngx-lyric>
 	<!-- 播放器 -->
 	<div class="play" [ngClass]="{hide : !isPlay}">
-		<audio id='audio' controls [src]="audioSrc" (play)='play($event)' (pause)='pause()' (timeupdate)="timeupdate($event)">
+		<audio id='audio' controls [src]="audioSrc" (error)="audioError()" (play)='play($event)' (pause)='pause()' (timeupdate)="timeupdate($event)">
 		</audio>
 	</div>
 </div>

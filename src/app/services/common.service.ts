@@ -217,25 +217,25 @@ export class CommonService {
 		}
 	}
 	// 解析歌词
-	parseLRC2(sourceLrc: any) {
+	parseLRC2(sourceLrc : any) {
 		sourceLrc.replaceAll('\n', '')
-		let lrcArr = [];
+		let lrcArr : any = [];
 		try {
 			// 处理歌词，转化成key为时间，value为歌词的对象
 			let lyricArr = sourceLrc.split('[').slice(1); // 先以[进行分割
 			if (lyricArr.length == 0) {
 				return false
 			}
-			lyricArr.forEach((item: any) => {
+			lyricArr.forEach((item : any) => {
 				let arr = item.split(']'); // 再分割右括号
-				let lrcObj = {};
+				let lrcObj : any = {};
 				if (arr[1] != '\r\n' && arr[1] != null) { // 去除歌词中的换行符
 					// lrcObj[arr[0]] = arr[1];
-					lrcObj['time'] = arr[0];
-					lrcObj['lineLyric'] = arr[1]
+					lrcObj['key'] = arr[0] * 1000;
+					lrcObj['value'] = arr[1]
 					lrcArr.push(lrcObj)
 				}
-
+	
 			})
 			// 存储数据
 			return lrcArr;
