@@ -220,6 +220,13 @@ export class ApiService {
 			sort + "&publish_timeOrderby=" + publish_timeOrderby + "&exponentOrderby=" + exponentOrderby + '&isOriginal=' + isOriginal;
 		return this.http.get(url);
 	}
+	// 获取URL预览 qq
+	GetPreview(params:any){
+		let {
+			Url
+		} = params;
+		return this.http.post(this.baseUrl + "/qq/GetPreview",{Url})
+	}
 	// 腾讯音乐人搜索
 	getMusicianTx(params : any) {
 		let {

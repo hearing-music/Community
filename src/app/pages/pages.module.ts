@@ -107,6 +107,7 @@ import { UploadFileComponent } from '../components/upload-file/upload-file.compo
 import { LyricComponent } from '../components/lyric/lyric.component';
 import { BloggerVideosComponent } from '../components/bloggerVideos/bloggerVideos.component'
 import { LyricAllComponent } from '../components/lyric-all/lyric-all.component';
+import { UrlPreviewComponent } from '../components/url-preview/url-preview.component';
 import { BrandUserComponent } from './search-page/brand-user/brand-user.component';
 import { BrandSongQqComponent } from "./search-page/brand-song/brand-song-qq/brand-song-qq.component";
 import { BrandSongKgComponent } from "./search-page/brand-song/brand-song-kg/brand-song-kg.component";
@@ -315,6 +316,7 @@ registerLocaleData(zh);
 		UploadFileComponent,
 		LyricComponent,
 		BloggerVideosComponent,
+		UrlPreviewComponent,
 		LyricAllComponent,
 		NotOpenComponent,
 		BrandUserComponent,

@@ -17,10 +17,12 @@
 								</span>
 							</div>
 						</div>
-						<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.mid)" class="linkIcon"
-							style="margin-left: 18px;">
+						<div (mouseenter)='mouseenterUrl(item,"home")' (mouseleave)='mouseleaveUrl(item,"home")' (click)="openSongDetail(item.mid,$event)" class="linkIcon" style="margin-left: 18px;">
 							<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
-						</button>
+							<!-- 鼠标移入加载urlview -->
+							<ngx-url-preview *ngIf='item.urlPreviewShowhome' [songName]='item.name' [data]='item.urlPreviewhome' 
+								[loading]='item.UrlLoadinghome'></ngx-url-preview>
+						</div>
 						<!-- 收听 -->
 						<div class="" style="display: flex;align-items: center;margin-left: 2px;">
 							<img src="../../../assets/img/erji.png" class="icon" />
@@ -32,10 +34,14 @@
 							<div>{{common.toThousands(item.todayIndex)}}</div>
 						</div>
 						<!-- 指数链接 -->
-						<button (click)="openLink(item.mid)" nz-button nzShape="circle" nzType="text" class="linkIcon"
+						<div (click)="openLink(item.mid)" class="linkIcon"
+							(mouseenter)='mouseenterUrl(item,"exponent")' (mouseleave)='mouseleaveUrl(item,"exponent")'
 							style="margin-left: 2px;">
 							<span nz-icon nzType="link" nzTheme="outline" style='color:#35C035;font-size: 14px;'></span>
-						</button>
+							<!-- 鼠标移入加载urlview -->
+							<ngx-url-preview *ngIf='item.urlPreviewShowexponent' [songName]='item.name' [data]='item.urlPreviewexponent' 
+								[loading]='item.UrlLoadingexponent'></ngx-url-preview>
+						</div>
 						<!-- 昨日指数 -->
 						<div class="" style="display: flex;align-items: center;margin-left: 2px;">
 							<img src="../../../assets/img/shijian.png" class="icon" />
@@ -240,10 +246,13 @@
 									</span>
 								</div>
 							</div>
-							<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(citem.mid)" class="linkIcon"
-								style="margin-left: 18px;">
+							<div
+							 (mouseenter)='mouseenterUrl(citem,"home")' (mouseleave)='mouseleaveUrl(citem,"home")' (click)="openSongDetail(citem.mid,$event)" class="linkIcon" style="margin-left: 18px;position:static;">
 								<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
-							</button>
+								<!-- 鼠标移入加载urlview -->
+								<ngx-url-preview *ngIf='citem.urlPreviewShowhome' [songName]='citem.name' [data]='citem.urlPreviewhome' 
+									[loading]='citem.UrlLoadinghome'></ngx-url-preview>
+							</div>
 							<!-- 收听 -->
 							<div class="" style="display: flex;align-items: center;margin-left: 2px;">
 								<img src="../../../assets/img/erji.png" class="icon" />
@@ -255,10 +264,14 @@
 								<div>{{common.toThousands(citem.todayIndex)}}</div>
 							</div>
 							<!-- 指数链接 -->
-							<button (click)="openLink(citem.mid)" nz-button nzShape="circle" nzType="text" class="linkIcon"
+							<div (click)="openLink(citem.mid)" class="linkIcon"
+								(mouseenter)='mouseenterUrl(citem,"exponent")' (mouseleave)='mouseleaveUrl(citem,"exponent")'
 								style="margin-left: 2px;">
 								<span nz-icon nzType="link" nzTheme="outline" style='color:#35C035;font-size: 14px;'></span>
-							</button>
+								<!-- 鼠标移入加载urlview -->
+								<ngx-url-preview *ngIf='citem.urlPreviewShowexponent' [songName]='citem.name' [data]='citem.urlPreviewexponent' 
+									[loading]='citem.UrlLoadingexponent'></ngx-url-preview>
+							</div>
 							<!-- 昨日指数 -->
 							<div class="" style="display: flex;align-items: center;margin-left: 2px;">
 								<img src="../../../assets/img/shijian.png" class="icon" />
@@ -451,7 +464,7 @@
 			</div>
 			<div *ngFor='let item of albumAllSongs;'
 				style="margin-top: 20px;display: flex;align-items: center;">
-				<div class="drawerSongname" (click)="openSongDetail(item.songmid)">
+				<div class="drawerSongname" (click)="openSongDetail(item.mid,$event)">
 					{{item.songname}}
 				</div>
 				<div style="margin-left: 36px;min-width: 40px;text-align: left;">

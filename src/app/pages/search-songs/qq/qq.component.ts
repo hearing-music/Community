@@ -45,8 +45,37 @@ export class QqComponent implements OnInit {
 			this.message.error('出错了')
 		})
 	}
-	
-	
+	urlPreview = {};
+	mouseenterUrl(item:any,type:string){
+		item['urlPreviewShow'+type] = true;
+		if(item['urlPreview'+type]){
+			
+		}else{
+			let url = ''
+			if(type=='home'){
+				url = 'https://y.qq.com/n/ryqq/songDetail/'+item.mid
+			}
+			if(type=='exponent'){
+				url = 'https://y.qq.com/m/client/music_index/index.html?mid='+item.mid+'&type='+item.mid+'&ADTAG=wxfshare'
+			}
+			this.GetPreview(url,item,type)
+		}
+	}
+	mouseleaveUrl(item:any,type:string){
+		item['urlPreviewShow'+type] = false;
+	}
+	GetPreview(Url:string,item:any,type:string){
+		item['UrlLoading'+type] = true;
+		this.api.GetPreview({Url}).subscribe((res: any) => {
+			item['UrlLoading'+type] = false;
+			if (res.success) {
+				item['urlPreview'+type] = res.data;
+			}
+		}, (err: any) => {
+			console.log(err)
+			item['UrlLoading'+type] = false;
+		})
+	}
 	openQQ(uin:any){
 		window.open('tencent://message/?uin='+uin)
 	}
@@ -154,8 +183,9 @@ export class QqComponent implements OnInit {
 		window.open('https://y.qq.com/portal/company_detail.html?id='+id+'#sort=1&type=album')
 	}
 	// 打开链接
-	openSongDetail(songMid:string){
-		window.open('https://y.qq.com/n/ryqq/songDetail/'+songMid)
+	openSongDetail(songMid:string,e:any){
+		window.open('https://y.qq.com/n/ryqq/songDetail/'+songMid);
+		// e.stopPropagation();
 		
 	}
 	// 打开链接

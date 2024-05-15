@@ -1,0 +1,55 @@
+<div class="url-preview" (mousemove)='mousemove($event)' (mouseenter)='mousemove($event)' (click)='previewClick($event)'>
+	<div *ngIf='loading' class="url-preview_spin">
+		<nz-spin nzSimple></nz-spin>
+	</div>
+	<div class="url-preview_info" *ngIf='!loading'>
+		<div style="text-align: center;padding:18px 0;font-weight: bold;">
+			{{songName}}
+		</div>
+		<div style="display: flex;justify-content: space-between;align-items: center;margin-bottom:10px;">
+			<img [src]="data.image" style="width:100px;">
+			<div style="display: flex;align-items: center;">
+				<img [src]="data.logo" style="width:18px;height:18px;">
+				<div style="white-space:normal;margin-left:10px;">
+					{{data.lang}}
+				</div>
+			</div>
+		</div>
+		<div class='info-text' *ngIf='data.author'>
+			{{data.author}}
+		</div>
+		<div class='info-text' *ngIf='data.date'>
+			{{data.date}}
+		</div>
+		<div class='info-text' *ngIf='data.publisher' style='font-size:12px;'>
+			{{data.publisher}}
+		</div>
+		<div class='info-text' *ngIf='data.title' style="font-weight: bold;font-size:16px;color:#7373f2;">
+			{{data.title}}
+		</div>
+		<div class='info-text' *ngIf='data.description'>
+			{{data.description}}
+		</div>
+		<div class='info-text' *ngIf='data.feed'>
+			{{data.feed}}
+		</div>
+		<div class='info-text' *ngIf='data.iframe'>
+			{{data.iframe}}
+		</div>
+		<div class='info-text' *ngIf='data.url' style="word-break: break-all;">
+			{{data.url}}
+		</div>
+		<!-- <div class='info-controls'>
+			<audio id='urlPreviewAudio' controls src="https://dl.stream.qqmusic.qq.com/C400002202B43Cq4V4.m4a?guid=8348972662&vkey=6C0384F7F1D716C4C400BABD408A863729DB8BBD890110ED55E0F66FCE55B3FF589C5A97803211B4E9A974F09D1CC920D6C026CE0EB7A36A&uin=454574556&fromtag=120032"></audio>
+		</div>
+		<div class='info-controls'>
+			<video src="https://dl.stream.qqmusic.qq.com/C400002202B43Cq4V4.m4a?guid=8348972662&vkey=6C0384F7F1D716C4C400BABD408A863729DB8BBD890110ED55E0F66FCE55B3FF589C5A97803211B4E9A974F09D1CC920D6C026CE0EB7A36A&uin=454574556&fromtag=120032" width="250px" height="408px" id="urlPreviewVideo" style="background:#000;" controls></video>
+		</div> -->
+		<div class='info-controls' *ngIf='data.audio'>
+			<audio id='audio' controls [src]="data.audio"></audio>
+		</div>
+		<div class='info-controls' *ngIf='data.video'>
+			<video [src]="data.video" width="250px" height="408px" id="v" style="background:#000;" controls></video>
+		</div>
+	</div>
+</div>
