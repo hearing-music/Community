@@ -18,6 +18,19 @@ export class RisingHotComponent implements OnInit {
 	page = 1;
 	total = 10;
 	loading = false;
+	
+	tagList=[{
+		value:'challenge',
+		label:'挑战榜'
+	},{
+		value:'rise',
+		label:'上升热点榜'
+	}]
+	tag = "challenge";
+	ngModelTag(e:any){
+		this.page = 1;
+		this.douRiseSearch();
+	}
 	ngOnInit(): void {
 		this.douRiseSearch();
 	}
@@ -28,6 +41,7 @@ export class RisingHotComponent implements OnInit {
 				keyword: this.searchValue,
 				page: this.page,
 				pageSize: 10,
+				tag:this.tag
 			})
 			.subscribe((res: any) => {
 				this.loading = false;
@@ -106,6 +120,7 @@ export class RisingHotComponent implements OnInit {
 	}
 	search(e: any) {
 		this.searchValue = e;
+		this.page = 1;
 		this.douRiseSearch();
 	}
 	pageChange(e: any) {

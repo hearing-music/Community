@@ -415,7 +415,7 @@ export class ApiService {
 	}
 	//抖音上升热点
 	DouRiseSearch(params : any) {
-		let { keyword, page, pageSize } = params;
+		let { keyword, page, pageSize,tag } = params;
 		return this.http.get(
 			this.baseUrl +
 			"/douyin/DouRiseSearch?keyword=" +
@@ -423,7 +423,7 @@ export class ApiService {
 			"&page=" +
 			page +
 			"&page_size=" +
-			pageSize
+			pageSize+'&tag='+tag
 		);
 	}
 	//抖音上升热点详情

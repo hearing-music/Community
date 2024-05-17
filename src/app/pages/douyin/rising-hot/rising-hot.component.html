@@ -1,5 +1,8 @@
 <div class="douyin">
-  <div>
+  <div style='display: flex;'>
+	  <nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="tag" (ngModelChange)='ngModelTag($event)'>
+	  	<nz-option *ngFor="let item of tagList;" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+	  </nz-select>
     <ngx-search
       [searchValue]="searchValue"
       [searchHolder]="searchHolder"
