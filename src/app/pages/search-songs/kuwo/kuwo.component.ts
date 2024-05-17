@@ -42,6 +42,7 @@ export class KuwoComponent implements OnInit {
 		}).subscribe((res: any) => {
 			console.log(res)
 			if(res.success){
+				item.lyricText = res.result || '无';
 				item.lyricData2 = this.common.parseLRC3(res.result)
 				item.lyricReadly = true;
 			}

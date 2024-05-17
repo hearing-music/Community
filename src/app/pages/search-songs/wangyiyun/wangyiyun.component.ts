@@ -33,7 +33,7 @@ export class WangyiyunComponent implements OnInit {
 		}).subscribe((res: any) => {
 			console.log(res)
 			if(res.success){
-				item.lyricText = res.result
+				item.lyricText = res.result || '无';
 				item.lyricData2 = this.common.parseLRC3(item.lyricText)
 				item.lyricReadly = true;
 			}

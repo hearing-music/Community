@@ -124,7 +124,7 @@ export class QqComponent implements OnInit {
 		}).subscribe((res: any) => {
 			console.log(res)
 			if(res.success){
-				item.lyricText = res.result.lyric
+				item.lyricText = res.result.lyric || '无';
 				item.lyricData2 = this.common.parseLRC3(item.lyricText)
 				item.lyricReadly = true;
 			}
