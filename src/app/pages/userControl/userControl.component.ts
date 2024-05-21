@@ -13,11 +13,12 @@ export class UserControlComponent implements OnInit {
 	constructor(public api : ApiService, public common : CommonService, private message : NzMessageService) { }
 	ngOnInit() : void {
 		this.get_webUsersName()
+		this.get_webUsersName2()
 		this.SearchUserBehaviour()
+		this.SearchUserBehaviour2()
 	}
 	loading = false;
 	behaviourList : any = [];
-	behaviourListNow:any = [];
 	user = '0';
 	userList : any = [{
 		ID: '0',
@@ -26,7 +27,18 @@ export class UserControlComponent implements OnInit {
 	isVisible = false;
 	visibleItem:any = {};
 	page = 1;
-	pageSize = 20;
+	pageSize = 25;
+	total = 0;
+	
+	behaviourList2 : any = [];
+	user2 = '0';
+	userList2 : any = [{
+		id: '0',
+		name: "全部"
+	}];
+	page2 = 1;
+	pageSize2 = 25;
+	total2 = 0;
 	seeHeader(item : any) {
 		this.isVisible = true;
 		this.visibleItem = item;
@@ -43,15 +55,18 @@ export class UserControlComponent implements OnInit {
 	
 	nzPageIndexChange(e:any){
 		this.page = e;
-		let behaviourList = JSON.parse(JSON.stringify(this.behaviourList));
-		this.behaviourListNow = behaviourList.splice(((this.page-1)*this.pageSize),this.pageSize)
+		this.SearchUserBehaviour();
+	}
+	nzPageIndexChange2(e:any){
+		this.page2 = e;
+		this.SearchUserBehaviour2();
 	}
 	SearchUserBehaviour() {
 		this.loading = true;
 		let ids = [this.user];
 		if (this.user == '0') ids = []
 		// 0=全部数据   >0  分页
-		this.api.SearchUserBehaviour({ ids,Offset:0 }).subscribe((res : any) => {
+		this.api.SearchUserBehaviour({ ids,Offset:this.page,pageSize:this.pageSize }).subscribe((res : any) => {
 			this.loading = false;
 			console.log(res)
 			if (res.success) {
@@ -61,9 +76,31 @@ export class UserControlComponent implements OnInit {
 					item.headerKey = Object.keys(item.Headers)
 					item.headerValue = Object.values(item.Headers)
 				})
-				this.behaviourList = JSON.parse(JSON.stringify(res.data));
-				this.behaviourListNow = res.data.splice(0,this.pageSize)
-				this.page = 1;
+				this.behaviourList = res.data;
+				this.total = res.total;
+			}
+		}, (err : any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	SearchUserBehaviour2() {
+		this.loading = true;
+		let ids = [this.user2];
+		if (this.user2 == '0') ids = []
+		// 0=全部数据   >0  分页
+		this.api.SearchUserBehaviour2({ ids,Offset:this.page2,pageSize:this.pageSize2 }).subscribe((res : any) => {
+			this.loading = false;
+			console.log(res)
+			if (res.success) {
+				res.data.forEach((item : any) => {
+					item.apiKey = Object.keys(item.Parameters)
+					item.apiValue = Object.values(item.Parameters)
+					item.headerKey = Object.keys(item.Headers)
+					item.headerValue = Object.values(item.Headers)
+				})
+				this.behaviourList2 = res.data;
+				this.total2 = res.total;
 			}
 		}, (err : any) => {
 			console.log(err)
@@ -83,8 +120,27 @@ export class UserControlComponent implements OnInit {
 			this.loading = false;
 		})
 	}
+	get_webUsersName2() {
+		this.loading = true;
+		this.api.get_webUsersName2().subscribe((res : any) => {
+			this.loading = false;
+			console.log(res)
+			if (res.success) {
+				this.userList2.push(...res.result);
+			}
+		}, (err : any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
 
 	ngModelUser(e : any) {
+		this.page = 1;
 		this.SearchUserBehaviour();
 	}
+	ngModelUser2(e : any) {
+		this.page2 = 1;
+		this.SearchUserBehaviour2();
+	}
+	
 }

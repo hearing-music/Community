@@ -1336,14 +1336,30 @@ export class ApiService {
 	SearchUserBehaviour(params:any){
 		let data = JSON.stringify({
 		    "UserId":params.ids,
-			"Offset":params.Offset
+			"Offset":params.Offset,
+			"pageSize":params.pageSize
 		})
 		let url = this.baseUrl + "/login/SearchUserBehaviour";
+		return this.http.post(url, data);
+	}
+	// 获取用户行为 老
+	SearchUserBehaviour2(params:any){
+		let data = JSON.stringify({
+		    "UserId":params.ids,
+			"Offset":params.Offset,
+			"pageSize":params.pageSize
+		})
+		let url = this.baseUrl + "/login/SearchUserBehaviour2";
 		return this.http.post(url, data);
 	}
 	// 获取全部用户
 	get_webUsersName(){
 		let url = this.baseUrl + "/login/get_webUsersName";
+		return this.http.post(url, {});
+	}
+	// 获取全部用户老网站
+	get_webUsersName2(){
+		let url = this.baseUrl + "/login/get_webUsersName2";
 		return this.http.post(url, {});
 	}
 	// 获取监控定时描述
