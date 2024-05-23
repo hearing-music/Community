@@ -17,10 +17,11 @@ export class DouyinSoundSourceComponent implements OnInit {
   
   type: any = "链接搜索";
   typeList: any = [
-  	{ value: "链接搜索", label: "链接搜索" },
-  	{ value: "分享链接搜索", label: "分享链接搜索" },
-  	{ value: "ID搜索", label: "ID搜索" },
+  	{ value: "链接搜索", label: "链接搜索",tip:"https://www.douyin.com/discover?modal_id=7369871233967525157" },
+  	{ value: "分享链接搜索", label: "分享链接搜索",tip:"https://v.douyin.com/i2TNWTMK/" },
+  	{ value: "ID搜索", label: "ID搜索",tip:"7369871233967525157" },
   ];
+  typeIndex=0;
   timeArr:any=[]
   timeList:any=[
 	  { label: '0点', value: '0' },
@@ -70,6 +71,9 @@ export class DouyinSoundSourceComponent implements OnInit {
   userId:any='0'
   ngOnInit(): void {
     this.userId = localStorage.getItem("userId") || "0";
+  }
+  ngModelChangeSelect(e:any){
+  	this.typeIndex = this.typeList.findIndex((item:any)=> item.value == e);
   }
   timeChange(e:any){
 	  let timeArr = e.filter((e:any)=>e.checked==true)

@@ -1,7 +1,10 @@
 <!-- 搜索 -->
 <div class="scanning-search">
-	<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
-	</ngx-search>
+	<div style='display:flex;align-items:center;'>
+		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
+		</ngx-search>
+		<ngx-searchTip [tipStr]='"https://www.youtube.com/watch?v=-ncIVUXZla8"'></ngx-searchTip>
+	</div>
 	<div class="link-sub">
 		注：该功能请求时间大约在10s以上，请耐心等待O(∩_∩)O
 	</div>

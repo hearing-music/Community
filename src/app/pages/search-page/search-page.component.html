@@ -13,13 +13,16 @@
     </div>
     <!-- 搜索 -->
     <div class="SearchBar">
-      <ngx-search
-        [searchValue]="searchValue"
-        [searchHolder]="searchHolder"
-        (input)="input($event)"
-        (childSearch)="search($event)"
-      >
-      </ngx-search>
+		<div style="display:flex;align-items: center;">
+			<ngx-search
+			  [searchValue]="searchValue"
+			  [searchHolder]="searchHolder"
+			  (input)="input($event)"
+			  (childSearch)="search($event)"
+			>
+			</ngx-search>
+			<ngx-searchTip *ngIf='selectItem=="相似歌手"' [tipStr]="'001mLa291el0mR'"></ngx-searchTip>
+		</div>
       <div
         *ngIf="tipDataNow.length > 0 && selectItem == '厂牌歌曲'"
         class="SearchBarTip"

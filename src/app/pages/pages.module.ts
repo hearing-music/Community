@@ -102,6 +102,7 @@ import { KuwoPhoneComponent } from './search-songs/kuwo-phone/kuwo-phone.compone
 // import { LsddComponent } from './search-songs/lsdd/lsdd.component';
 import { MusicianTxComponent } from './search-page/musician-tx/musician-tx.component';
 import { SearchComponent } from '../components/search/search.component';
+import { SearchTipComponent } from '../components/searchTip/searchTip.component';
 import { IconsProviderModule } from './icons-provider.module';
 import { UploadFileComponent } from '../components/upload-file/upload-file.component';
 import { LyricComponent } from '../components/lyric/lyric.component';
@@ -270,6 +271,7 @@ registerLocaleData(zh);
 		SearchPageComponent,
 		QuerySonglistComponent,
 		KugouSoaringComponent,
+		SearchTipComponent,
 		AutoSearchComponent,
 		EnlightenmentComponent,
 		DouyinListComponent,

@@ -9,8 +9,9 @@
             : searchHolder + 'ID'
         " (childSearch)="search($event)">
 			</ngx-search>
+			<ngx-searchTip [tipStr]='typeList[typeIndex].tip'></ngx-searchTip>
 			<div style="margin-left: 12px">
-				<nz-select [(ngModel)]="type">
+				<nz-select [(ngModel)]="type" (ngModelChange)='ngModelChangeSelect($event)'>
 					<nz-option *ngFor="let l of typeList" [nzValue]="l.value" [nzLabel]="l.label"></nz-option>
 				</nz-select>
 			</div>

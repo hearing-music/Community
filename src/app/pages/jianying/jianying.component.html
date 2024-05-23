@@ -1,7 +1,8 @@
 <div class="jianying">
-	<div style='margin-bottom:16px;display: flex;align-items: center;justify-content: space-between;'>
+	<div style='margin-bottom:16px;display: flex;align-items: center;'>
 		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
 		</ngx-search>
+		<ngx-searchTip [tipStr]='"7119105530500566308"'></ngx-searchTip>
 	</div>
 	<nz-empty *ngIf="!result.name" style="margin-top: 160px;"></nz-empty>
 	<div class="result" *ngIf='result.name'>

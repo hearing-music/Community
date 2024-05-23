@@ -1,8 +1,9 @@
 <div class="kuaishou">
-	<div>
+	<div style="display: flex;align-items: center;">
 		<!-- 搜索 -->
 		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)' >
 		</ngx-search>
+		<ngx-searchTip [tipStr]='"https://ktagg6ybi.m.chenzhongtech.com/fw/tag/music?cc=share_copylink&kpf=ANDROID_PHONE&fid=44234066&shareMethod=token&kpn=KUAISHOU&subBiz=MUSIC_TAG&shareId=17613189797923&shareToken=X-4sni9lLgtWo80x&shareResourceType=4&shareType=7&shareMode=app&musicId=5x6tevggg72r6y4&appType=21&shareObjectId=5x6tevggg72r6y4&musicType=4&timestamp=1694581556680"'></ngx-searchTip>
 	</div>
     <div class="kuaishou-left" style="margin-top: 24px;">
         <nz-empty *ngIf="!result.tagName" style="margin-top: 160px;"></nz-empty>

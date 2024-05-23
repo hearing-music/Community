@@ -1,8 +1,9 @@
 <div class="kuaishou">
-	<div style='display:flex;'>
+	<div style='display:flex;align-items:center;'>
 		<!-- 搜索 -->
 		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)' *ngIf="searchType == '切换excel批量搜索'">
 		</ngx-search>
+		<ngx-searchTip *ngIf="searchType == '切换excel批量搜索'" [tipStr]='"https://v.kuaishou.com/lQVLcK/"'></ngx-searchTip>
 		<div style="display: flex; align-items: center" *ngIf="searchType == '切换输入搜索'">
 			<button nz-button nzType="primary" style="margin-left: 20px" (click)="excelSearch()" nzGhost>
 				选择excel文件
