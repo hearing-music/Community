@@ -17,8 +17,8 @@ export class NewV3Component implements OnInit {
 	moreVersion(item:any){
 		item.isMore = item.isMore?false:true;
 	}
-	openSongDetail(scid: string | number, hash: string | number) {
-		window.open('https://www.kugou.com/song/#hash=' + hash + '&album_audio_id=' + scid)
+	openSongDetail(MixSongId: string | number, hash: string | number) {
+		window.open('https://www.kugou.com/song/#hash=' + hash + '&album_audio_id=' + MixSongId)
 	}
 	openExponentLink(item: any) {
 		window.open('https://h5.kugou.com/achievement/v-a34ccad0/index.html?audio_id=' + item.scid + '&hash=' + item.FileHash + '&mixsongid=' + item.MixSongID)

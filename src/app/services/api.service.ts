@@ -756,16 +756,16 @@ export class ApiService {
 		return this.http.post(url, { ...params })
 	}
 	//ogg文件转换
-	oggConversion(params : any) {
-		let {
-			file,
-			typeOf
-		} = params;
-		const formData : FormData = new FormData();
-		formData.append('file', file);
-		let url = 'https://whaleTail.tingjianmusic.top:444/v8/SetOggToMp3?typeOf=' + typeOf;
-		return this.http.post(url, formData);
-	}
+	// oggConversion(params : any) {
+	// 	let {
+	// 		file,
+	// 		typeOf
+	// 	} = params;
+	// 	const formData : FormData = new FormData();
+	// 	formData.append('file', file);
+	// 	let url = 'https://whaleTail.tingjianmusic.top:444/v8/SetOggToMp3?typeOf=' + typeOf;
+	// 	return this.http.post(url, formData);
+	// }
 	getRadarTime() {
 		return this.http.get(this.baseUrl + "/radar/GetRadarMusicTime")
 	}
@@ -863,6 +863,18 @@ export class ApiService {
 		} = params;
 		let url = this.baseUrl + '/zhuanhuanyun/QqAudioDecryptioNew?MusicUrl=' + musicUrl
 		return this.http.get(url);
+		
+	}
+	// ogg - mp3
+	OggToMp3(params:any){
+		let {
+			typeOf,
+			file,
+		} = params;
+			const formData : FormData = new FormData();
+			formData.append('file', file);
+		let url = this.baseUrl + '/zhuanhuanyun/OggToMp3?typeOf=' + typeOf
+		return this.http.post(url,formData);
 	}
 	// 图片识别文字
 	TextExtractionImage(params : any) {
@@ -1370,6 +1382,11 @@ export class ApiService {
 	// 酷狗免费歌曲定时 监控 获取更新时间
 	freeSongsControl(){
 		let url = `${this.baseUrl}/kugou/freeSongsControl`;
+		return this.http.get(url);
+	}
+	// 酷狗热搜榜单
+	DevTipListKugou(){
+		let url = `${this.baseUrl}/kugou/DevTipList`;
 		return this.http.get(url);
 	}
 	// 抖音监控声源 进度

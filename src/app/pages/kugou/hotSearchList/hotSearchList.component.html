@@ -1,0 +1,97 @@
+<div class="hotSearchList">
+	<nz-empty *ngIf="list.length==0" style="margin-top: 160px;"></nz-empty>
+	<div style="display: flex;" *ngIf='list.length>0;'>
+		<div *ngFor='let item of list;let i = index;'>
+			<div class="item-title">
+				{{item.name}}
+			</div>
+			<div *ngFor='let citem of item.infoArr;let cindex = index;' class="list-item">
+				<div class='hotIndex'>
+					<div style="position: relative;z-index: 111;">
+						{{cindex+1}}
+					</div>
+				</div>
+				<div class='item-imgBox' (click)='doPlay(cindex,i)'>
+					<img nz-image [nzFallback]="fallback" [nzSrc]="citem.imgUrl" style="width:100%;height:100%;display: block;">
+					<img *ngIf='!citem.isPlay' src="/assets/img/PLAY-blue.svg" class='imgPlay'>
+					<img *ngIf='citem.isPlay' src="/assets/img/PAUSE-blue.svg" class='imgPlay'>
+				</div>
+				<div style="margin-left: 8px;flex:1;overflow: hidden;">
+					<div style="display: flex;align-items: center;">
+						<img *ngIf='cindex<=2' src="/assets/img/hot.svg" class="hotSvg" />
+						<div style="" class="hideText" nz-tooltip [nzTooltipTitle]="citem.reason">
+							{{citem.reason}}
+						</div>
+					</div>
+					<div style="margin: 4px 0;font-size: 13px;color:#666;" class="hideText" nz-tooltip [nzTooltipTitle]="citem.albumName">
+						{{citem.albumName}}
+					</div>
+					<div style="display: flex;" nz-tooltip [nzTooltipTitle]="citem.singers.join()">
+						<div *ngFor='let singer of citem.singers;let singerI = index;' style="font-size: 13px;color:#666;" class="hideText">
+							{{singerI == citem.singers.length-1?singer:singer+","}}
+						</div>
+					</div>
+				</div>
+				<!-- <div>
+					{{citem.audioUrl}}
+				</div> -->
+			</div>
+		</div>
+		<div *ngFor='let item of list2;let i = index;'>
+			<div class="item-title">
+				{{item.name}}
+			</div>
+			<div *ngFor='let citem of item.infoArr;let cindex = index;' class="list-item">
+				<div class='hotIndex'>
+					<div style="position: relative;z-index: 111;">
+						{{cindex+1}}
+					</div>
+				</div>
+				<div class='item-imgBox'>
+					<img nz-image [nzFallback]="fallback" [nzSrc]="list2[0].infoArr[0].extra.imgurl" style="width:100%;height:100%;display: block;">
+				</div>
+				<div style="margin-left: 8px;flex:1;overflow: hidden;">
+					<div style="display: flex;align-items: center;">
+						<img *ngIf='cindex<=2' src="/assets/img/hot.svg" class="hotSvg" />
+						<div style="" class="hideText" nz-tooltip [nzTooltipTitle]="citem.reason">
+							{{citem.reason}}
+						</div>
+					</div>
+					<div style="margin: 4px 0;font-size: 13px;color:#666;" class="hideText" nz-tooltip [nzTooltipTitle]="citem.albumName">
+						{{citem.extra.album_name}}
+					</div>
+					<div style="font-size: 13px;color:#666;" class="hideText" nz-tooltip [nzTooltipTitle]="citem.extra.author_name">
+						{{citem.extra.author_name}}
+					</div>
+					<div style="font-size: 13px;color:#666;margin-top:4px;" nz-tooltip [nzTooltipTitle]="'关键词:'+citem.keyword">
+						{{citem.keyword}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="item-title">
+				飙升
+			</div>
+			<nz-empty style="margin-top: 160px;"></nz-empty>
+		</div>
+		<div>
+			<div class="item-title">
+				DJ
+			</div>
+			<nz-empty style="margin-top: 160px;"></nz-empty>
+		</div>
+		<div>
+			<div class="item-title">
+				抖音
+			</div>
+			<nz-empty style="margin-top: 160px;"></nz-empty>
+		</div>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+	<!-- 播放器 -->
+	<div class="play" [ngClass]="{hide : !isPlay}">
+		<audio id='audio' controls [src]="audioSrc" (error)="audioError()" (play)='play($event)' (pause)='pause()' (timeupdate)="timeupdate($event)">
+		</audio>
+	</div>
+</div>

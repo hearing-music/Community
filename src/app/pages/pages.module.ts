@@ -43,6 +43,7 @@ import { OggToMp3Component } from './audio-conversion/ogg-to-mp3/ogg-to-mp3.comp
 import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.component';
 import { FreeSongs_kugouComponent } from './kugou/free-songs/free-songs.component';
 import { FreeSongs_qqComponent } from './qq/free-songs/free-songs.component';
+import { HotSearchListComponent } from './kugou/hotSearchList/hotSearchList.component'
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
 import { SearchPageComponent } from './search-page/search-page.component';
@@ -228,6 +229,7 @@ registerLocaleData(zh);
 	declarations: [
 		HighlightBracketsPipe,
 		VideoPlayerComponent,
+		HotSearchListComponent,
 		TimeControlComponent,
 		UserControlComponent,
 		ControlTemplateComponent,

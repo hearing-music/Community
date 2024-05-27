@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from '../../../services/common.service';
-
+import { environment } from '../../../../environments/environment';
+let baseUrl = environment.baseUrl;
 @Component({
   selector: 'ngx-ogg-to-mp3',
   templateUrl: './ogg-to-mp3.component.html',
@@ -37,15 +38,15 @@ export class OggToMp3Component implements OnInit {
       this.mp3File = true
       this.fileNameWithoutExtension = ""
       this.fileURL = ""
-      this.api.oggConversion({
+      this.api.OggToMp3({
         file: this.file,
         typeOf: this.typeOf
       }).subscribe((res: any) => {
         console.log(res)
-        if (res.source) {
+        if (res.success) {
           this.isResData = true
           this.fileNameWithoutExtension = res.file
-          this.fileURL = res.source
+          this.fileURL = baseUrl + res.data
         }
       })
     }

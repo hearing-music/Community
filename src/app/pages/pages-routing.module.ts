@@ -12,6 +12,7 @@ import { AutoSearchComponent } from './kugou/auto-search/auto-search.component';
 import { EnlightenmentComponent } from './venus/enlightenment/enlightenment.component'
 import { JianyingComponent } from './jianying/jianying.component'
 import { YinghuoComponent } from './kugou/yinghuo/yinghuo.component';
+import { HotSearchListComponent } from './kugou/hotSearchList/hotSearchList.component'
 import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinListComponent } from './douyin/douyin-list/douyin-list.component';
 import { YunjiaobenComponent } from './yunjiaoben/yunjiaoben.component';
@@ -143,6 +144,11 @@ const routes : Routes = [{
 		{
 			path: 'kugou/free-songs',
 			component: FreeSongs_kugouComponent,
+			canActivate: [PermissionGuard]
+		},
+		{
+			path: 'kugou/hotSearchList',
+			component: HotSearchListComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 抖音热点
