@@ -20,9 +20,10 @@ export class YunjiaobenComponent implements OnInit {
 			console.log(res)
 			if(res.success){
 				let arr = []
-				res.result.forEach((item:any)=>{
-					arr.push({value:item.vowel,label:item.vowel})
-				})
+				res.result = res.result || res.data;
+					res.result.forEach((item:any)=>{
+						arr.push({value:item.vowel,label:item.vowel})
+					})
 				this.yunjiaolist = arr;
 			}
 			this.loading = false;
@@ -43,6 +44,7 @@ export class YunjiaobenComponent implements OnInit {
 			console.log(res)
 			if(res.success){
 				let arr = [];
+				res.result = res.result || res.data;
 				res.result.forEach((item:any)=>{
 					arr.push({value:item,label:item})
 				})
@@ -137,6 +139,7 @@ export class YunjiaobenComponent implements OnInit {
 			if(res.success){
 				this.yunjiaoPage = 1;
 				this.sousuoPage=1;
+				res.result = res.result || res.data;
 				if(type=="yunjiao"){
 					this.yunjiaoResult = this.common.spArr(res.result,this.size)
 					this.yunjiaoTotal = res.result.length;
