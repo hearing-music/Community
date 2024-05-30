@@ -1,0 +1,68 @@
+	.opa0{
+		opacity:0;
+	}
+	.hotSearchListAll{
+		overflow-x: auto;
+		margin-top:16px;
+		overflow-y: auto;
+		height:calc(100vh - 4.75rem - 4rem - 46px - 24px - 16px)
+	}
+	.hotSearchListAll::-webkit-scrollbar {
+	    width: 8px;
+		height:8px;
+	}
+	.hotSearchListAll::-webkit-scrollbar-thumb {
+	    border-radius: 10px;
+	    background: rgba(0,0,0,0.2);
+	}
+	/* 滚动条滑块在 hover 状态下的样式 */
+	.hotSearchListAll::-webkit-scrollbar-thumb:hover {
+		background: rgba(0,0,0,0.4);
+		/* 更深的灰色 */
+	}
+	.hotSearchListAll::-webkit-scrollbar-track {
+	    border-radius: 10px;
+	    background: rgba(0,0,0,0.1);
+	}
+	
+	
+	.item-title{
+		margin-bottom: 20px;
+		font-size: 18px;
+		font-weight: bold;
+	}
+	.hotIndex{
+		position: relative;
+		margin-right: 6px;font-size: 12px;
+	}
+	.hotSvg{
+		width:24px;height:24px;margin-right: 6px;
+	}
+	.list-item{
+		display: flex;
+		align-items: center;
+		margin-bottom: 16px;
+		width: 280px;
+		.hideText{
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.item-imgBox{
+			flex-shrink: 0;
+			position: relative;
+			width:60px;height:60px;
+			display: block;
+			border-radius: 6px;
+			overflow: hidden;
+			cursor: pointer;
+			.imgPlay{
+				display: block;
+				position: absolute;
+				left:50%;top:50%;
+				transform: translate(-50%,-50%);
+				width:24px;
+				height:24px;
+			}
+		}
+	}

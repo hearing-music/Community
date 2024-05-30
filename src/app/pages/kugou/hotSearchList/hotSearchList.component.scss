@@ -1,90 +1,63 @@
-/* 滚动条宽度 */
-	.hotSearchList::-webkit-scrollbar {
-		width: 10px;
-		height:10px;
-	}
-	
-	/* 滚动条轨道 */
-	.hotSearchList::-webkit-scrollbar-track {
-		background: #f1f1f1;
-		/* 浅灰色 */
-		border-radius: 10px;
-		/* 圆角效果 */
-	}
-	
-	/* 滚动条滑块 */
-	.hotSearchList::-webkit-scrollbar-thumb {
-		background: #888;
-		/* 深灰色 */
-		border-radius: 10px;
-		/* 圆角效果 */
-		transition: background 0.3s ease;
-		/* 平滑过渡效果 */
-	}
-	
-	/* 滚动条滑块在 hover 状态下的样式 */
-	.hotSearchList::-webkit-scrollbar-thumb:hover {
-		background: #555;
-		/* 更深的灰色 */
-	}
-	
-	/* 滚动条滑块在 active 状态下的样式（例如，正在拖动时）*/
-	.hotSearchList::-webkit-scrollbar-thumb:active {
-		background: #444;
-		/* 更深的灰色 */
-	}
 
 .hotSearchList{
 	background-color: #fff;
 	border-radius: 12px;
 	height: calc(100vh - 4.75rem - 4rem);
 	padding:12px 24px;
-	overflow: auto;
 	
-	
-	
-	
-	
-	
-	.item-title{
-		margin-bottom: 20px;
-		font-size: 18px;
-		font-weight: bold;
-	}
-	.hotIndex{
-		position: relative;
-		margin-right: 6px;font-size: 12px;
-	}
-	.hotSvg{
-		width:24px;height:24px;margin-right: 6px;
-	}
-	.list-item{
+	.tagList{
+		margin-top: 6px;
+		height:40px;
 		display: flex;
-		align-items: center;
-		margin-bottom: 16px;
-		width: 280px;
-		.hideText{
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-		}
-		.item-imgBox{
+		// align-items: center;
+		align-items:flex-start;
+		justify-content: space-between;
+		// max-width:662px;
+		margin-right: 40px;
+		overflow-x: auto;
+		.tagList-item{
 			flex-shrink: 0;
-			position: relative;
-			width:60px;height:60px;
-			display: block;
-			border-radius: 6px;
-			overflow: hidden;
+			padding: 4px 10px;
+			color: #494F66;
+			font-size: 13px;
+			background: #F6F7FB;
+			border-radius: 100px;
+			margin-right: 8px;
 			cursor: pointer;
-			.imgPlay{
-				display: block;
-				position: absolute;
-				left:50%;top:50%;
-				transform: translate(-50%,-50%);
-				width:24px;
-				height:24px;
-			}
+			transition: .04s;
 		}
+		.tagList-item:hover{
+			// transform: scale(1.02);
+			box-shadow:rgba(0, 0, 0, 0.1) 0px -50px 36px -28px inset;
+		}
+		.tagList-item:active{
+			transform: scale(1.15);
+		}
+		.tagList-itemActive{
+			background: #4060F6;
+			color:#fff;
+		}
+		.tagList-itemActive2{
+			background: #4099F0;
+			color:#fff;
+		}
+	}
+	.tagList::-webkit-scrollbar {
+	    // width: 4px;
+		height:8px;
+	}
+	.tagList::-webkit-scrollbar-thumb {
+	    border-radius: 10px;
+	    background: rgba(0,0,0,0.2);
+	}
+	/* 滚动条滑块在 hover 状态下的样式 */
+	.tagList::-webkit-scrollbar-thumb:hover {
+		background: rgba(0,0,0,0.4);
+		/* 更深的灰色 */
+	}
+	.tagList::-webkit-scrollbar-track {
+	    border-radius: 10px;
+	    background: rgba(0,0,0,0.1);
 	}
 }
 .play{

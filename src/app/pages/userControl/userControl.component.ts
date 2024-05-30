@@ -117,7 +117,9 @@ export class UserControlComponent implements OnInit {
 			if (res.success) {
 				let fileURL = res.data[0];
 				console.log(downloadUrl+fileURL)
-				this.common.download(downloadUrl+fileURL,res.data[1])
+				setTimeout(()=>{
+					this.common.download(downloadUrl+fileURL,res.data[1])
+				},1000)
 			}
 		}, (err : any) => {
 			console.log(err)

@@ -1404,6 +1404,11 @@ export class ApiService {
 		let url = `${this.baseUrl}/kugou/DevTipList`;
 		return this.http.get(url);
 	}
+	// 酷狗热搜榜单 单独请求
+	DevTipListWeChatMini(params:any){
+		let url = `${this.baseUrl}/kugou/DevTipListWeChatMini?info=${params.info}`;
+		return this.http.get(url);
+	}
 	// 抖音监控声源 进度
 	douyinSoundSourceControl(){
 		let url = `${this.baseUrl}/douyin/douyinSoundSourceControl`;

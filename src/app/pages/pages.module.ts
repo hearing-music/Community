@@ -44,6 +44,8 @@ import { MggToWavComponent } from './audio-conversion/mgg-to-wav/mgg-to-wav.comp
 import { FreeSongs_kugouComponent } from './kugou/free-songs/free-songs.component';
 import { FreeSongs_qqComponent } from './qq/free-songs/free-songs.component';
 import { HotSearchListComponent } from './kugou/hotSearchList/hotSearchList.component'
+import { HotSearchListAllComponent } from './kugou/hotSearchList/hotSearchListAll/hotSearchListAll.component'
+import { HotSearchListTemplateComponent } from './kugou/hotSearchList/hotSearchListTemplate/hotSearchListTemplate.component'
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
 import { SearchPageComponent } from './search-page/search-page.component';
@@ -181,6 +183,7 @@ import { ScreenRecordingComponent } from "./screenRecording/screenRecording.comp
 import { VideoPlayerComponent } from "../components/videoPlayer/videoPlayer.component";
 import { ScriptPromptsInsertComponent } from "./script-prompts/script-prompts-insert/script-prompts-insert.component";
 import { HighlightBracketsPipe } from "./script-prompts/script-prompts.component.pipe";
+
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -230,6 +233,8 @@ registerLocaleData(zh);
 		HighlightBracketsPipe,
 		VideoPlayerComponent,
 		HotSearchListComponent,
+		HotSearchListAllComponent,
+		HotSearchListTemplateComponent,
 		TimeControlComponent,
 		UserControlComponent,
 		ControlTemplateComponent,
