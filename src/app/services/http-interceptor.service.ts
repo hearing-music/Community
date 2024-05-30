@@ -30,7 +30,6 @@ export class HttpInterceptorService implements HttpInterceptor {
     let secureReq: HttpRequest<any> = req;
 	let token = localStorage.getItem('token') || ''
 	let token_expiration_time = localStorage.getItem('token_expiration_time') || ''
-	let AppVersion = localStorage.getItem('AppVersion') || false
 	// console.log(req.url)
 	if(!req.url.includes('/login/login') && !req.url.includes('/login/getSms') && !req.url.includes('/kugou/getLiarUserInfo') && !req.url.includes('/qq/getLiarUserInfo')){
 		if(!token || !token_expiration_time){
@@ -92,6 +91,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 			  }
 			  
 				try{
+					let AppVersion = localStorage.getItem('AppVersion') || false
 					if(response.body.AppVersion){
 						let version = response.body.AppVersion.version
 						if(version!=AppVersion){

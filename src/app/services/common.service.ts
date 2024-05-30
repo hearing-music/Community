@@ -384,7 +384,7 @@ export class CommonService {
 	    };
 	    return result;
 	}
-	download(src: string, name: string, t: any = true) {//下载地址和名
+	download(src: string, name: string='', t: any = true) {//下载地址和名
 		
 		var xhr = new XMLHttpRequest(); xhr.open('GET',src, true);
 		xhr.responseType = 'arraybuffer';
@@ -397,7 +397,9 @@ export class CommonService {
 				var link = document.createElement('a');
 				link.style.display = 'none';
 				link.href = url; 
-				link.download = name;
+				if(name){
+					link.download = name;
+				}
 				// 点击<a>标签弹出下载窗口
 				document.body.appendChild(link);
 				link.click();

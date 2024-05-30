@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import { CommonService } from "../../services/common.service";
 import { NzMessageService } from 'ng-zorro-antd/message';
-
+import { environment } from '../../../environments/environment';
+let downloadUrl = environment.downloadUrl;
 @Component({
 	selector: 'ngx-userControl',
 	templateUrl: './userControl.component.html',
@@ -101,6 +102,22 @@ export class UserControlComponent implements OnInit {
 				})
 				this.behaviourList2 = res.data;
 				this.total2 = res.total;
+			}
+		}, (err : any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	// 老用户行为导出表格
+	UserBehaviourExcel2(){
+		this.loading = true;
+		this.api.UserBehaviourExcel2().subscribe((res : any) => {
+			this.loading = false;
+			console.log(res)
+			if (res.success) {
+				let fileURL = res.data[0];
+				console.log(downloadUrl+fileURL)
+				this.common.download(downloadUrl+fileURL,res.data[1])
 			}
 		}, (err : any) => {
 			console.log(err)

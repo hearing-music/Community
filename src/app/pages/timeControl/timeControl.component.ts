@@ -21,6 +21,8 @@ export class TimeControlComponent implements OnInit {
 	},{
 		name:'酷狗免费歌曲'
 	},{
+		name:'QQ免费歌曲'
+	},{
 		name:'云图'
 	},{
 		name:'抖音视频'
@@ -35,8 +37,11 @@ export class TimeControlComponent implements OnInit {
 		if(this.selectItem=="监测歌曲"&&this.songControlList.length==0){
 			this.getqq_kugouInfoAll();
 		}
-		if(this.selectItem=="酷狗免费歌曲"&&!this.freeSongsGet){
-			this.freeSongsControl();
+		if(this.selectItem=="酷狗免费歌曲"&&!this.freeSongsKGGet){
+			this.freeSongsControlKG();
+		}
+		if(this.selectItem=="QQ免费歌曲"&&!this.freeSongsQQGet){
+			this.freeSongsControlQQ();
 		}
 		if(this.selectItem=="云图"&&this.tme_mapList.length==0){
 			this.GetMusicLimitHundred();
@@ -105,18 +110,41 @@ export class TimeControlComponent implements OnInit {
 			console.log(err)
 		})
 	}
-	freeSongsPercent:any = 0;
-	freeSongsGet:any = false;
-	freeSongsTotal = 0;
+	freeSongsKGPercent:any = 0;
+	freeSongsKGGet:any = false;
+	freeSongsKGTotal = 0;
 	// 酷狗免费歌曲更新 进度
-	freeSongsControl(){
+	freeSongsControlKG(){
 		this.loading = true;
-		this.api.freeSongsControl().subscribe((res: any) => {
+		this.api.freeSongsControlKG().subscribe((res: any) => {
 			console.log(res)
 			if(res.success){
-				this.freeSongsGet = true;
-				this.freeSongsPercent = res.result;
-				this.freeSongsTotal = res.total;
+				this.freeSongsKGGet = true;
+				this.freeSongsKGPercent = res.result;
+				this.freeSongsKGTotal = res.total;
+			}
+			this.loading = false;
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	
+	
+	
+	
+	freeSongsQQPercent:any = 0;
+	freeSongsQQGet:any = false;
+	freeSongsQQTotal = 0;
+	// qq免费歌曲更新 进度
+	freeSongsControlQQ(){
+		this.loading = true;
+		this.api.freeSongsControlQQ().subscribe((res: any) => {
+			console.log(res)
+			if(res.success){
+				this.freeSongsQQGet = true;
+				this.freeSongsQQPercent = res.result;
+				this.freeSongsQQTotal = res.total;
 			}
 			this.loading = false;
 		}, (err: any) => {

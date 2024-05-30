@@ -1364,6 +1364,16 @@ export class ApiService {
 		let url = this.baseUrl + "/login/SearchUserBehaviour2";
 		return this.http.post(url, data);
 	}
+	// 老用户行为导出今日表格
+	UserBehaviourExcel2(){
+		let year = new Date().getFullYear();
+		let month = new Date().getMonth()+1;
+		let date = new Date().getDate();
+		let time = new Date(year+'-'+month+'-'+date + " 00:00:00").getTime();
+		let data = {time}
+		let url = this.baseUrl + "/login/UserBehaviourExcel2";
+		return this.http.post(url, data);
+	}
 	// 获取全部用户
 	get_webUsersName(){
 		let url = this.baseUrl + "/login/get_webUsersName";
@@ -1380,8 +1390,13 @@ export class ApiService {
 		return this.http.get(url);
 	}
 	// 酷狗免费歌曲定时 监控 获取更新时间
-	freeSongsControl(){
+	freeSongsControlKG(){
 		let url = `${this.baseUrl}/kugou/freeSongsControl`;
+		return this.http.get(url);
+	}
+	// qq免费歌曲定时 监控 获取更新时间
+	freeSongsControlQQ(){
+		let url = `${this.baseUrl}/qq/freeSongsControl`;
 		return this.http.get(url);
 	}
 	// 酷狗热搜榜单

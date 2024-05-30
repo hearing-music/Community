@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from '../../../services/common.service';
 import { environment } from '../../../../environments/environment';
-let baseUrl = environment.baseUrl;
+let downloadUrl = environment.downloadUrl;
 @Component({
 	selector: 'ngx-mgg-to-wav',
 	templateUrl: './mgg-to-wav.component.html',
@@ -44,7 +44,7 @@ export class MggToWavComponent implements OnInit {
 			console.log(res)
 			this.isResData = true
 			this.fileNameWithoutExtension = res.result.name
-			this.fileURL = baseUrl + res.result.url
+			this.fileURL = downloadUrl + res.result.url
 		}, (err: any) => {
 			console.log(err)
 			this.isResData = true
@@ -72,7 +72,7 @@ export class MggToWavComponent implements OnInit {
 			if (res.success) {
 				this.isResData = true
 				this.fileNameWithoutExtension = res.data
-				this.fileURL = baseUrl + res.data
+				this.fileURL = downloadUrl + res.data
 			}
 		}, (err: any) => {
 			console.log(err)

@@ -9,10 +9,11 @@
 		</div>
 	</div>
 	<ngx-controlTemplate *ngIf='selectItem=="监测歌曲"' [total]='qq_kugouTotal' [percent]="qq_kugouPercent" [timed_task]="timed_task_lists[0] || {}"></ngx-controlTemplate>
-	<ngx-controlTemplate *ngIf='selectItem=="酷狗免费歌曲"' [total]='freeSongsTotal' [percent]="freeSongsPercent" [timed_task]="timed_task_lists[1] || {}"></ngx-controlTemplate>
-	<ngx-controlTemplate *ngIf='selectItem=="云图"' [total]='tme_mapTotal' [percent]="tme_mapPercent" [timed_task]="timed_task_lists[2] || {}"></ngx-controlTemplate>
-	<ngx-controlTemplate *ngIf='selectItem=="抖音视频"' [total]='douyinVideoTotal' [percent]="douyinVideoPercent" [timed_task]="timed_task_lists[3] || {}"></ngx-controlTemplate>
-	<ngx-controlTemplate *ngIf='selectItem=="抖音达人"' [total]='douyinDarenTotal' [percent]="douyinDarenPercent" [timed_task]="timed_task_lists[4] || {}"></ngx-controlTemplate>
-	<ngx-controlTemplate *ngIf='selectItem=="抖音声源"' [total]='douyinSoundSourceTotal' [percent]="douyinSoundSourcePercent" [timed_task]="timed_task_lists[5] || {}"></ngx-controlTemplate>
+	<ngx-controlTemplate *ngIf='selectItem=="酷狗免费歌曲"' [total]='freeSongsKGTotal' [percent]="freeSongsKGPercent" [timed_task]="timed_task_lists[1] || {}"></ngx-controlTemplate>
+	<ngx-controlTemplate *ngIf='selectItem=="QQ免费歌曲"' [total]='freeSongsQQTotal' [percent]="freeSongsQQPercent" [timed_task]="timed_task_lists[2] || {}"></ngx-controlTemplate>
+	<ngx-controlTemplate *ngIf='selectItem=="云图"' [total]='tme_mapTotal' [percent]="tme_mapPercent" [timed_task]="timed_task_lists[3] || {}"></ngx-controlTemplate>
+	<ngx-controlTemplate *ngIf='selectItem=="抖音视频"' [total]='douyinVideoTotal' [percent]="douyinVideoPercent" [timed_task]="timed_task_lists[4] || {}"></ngx-controlTemplate>
+	<ngx-controlTemplate *ngIf='selectItem=="抖音达人"' [total]='douyinDarenTotal' [percent]="douyinDarenPercent" [timed_task]="timed_task_lists[5] || {}"></ngx-controlTemplate>
+	<ngx-controlTemplate *ngIf='selectItem=="抖音声源"' [total]='douyinSoundSourceTotal' [percent]="douyinSoundSourcePercent" [timed_task]="timed_task_lists[6] || {}"></ngx-controlTemplate>
 	<ngx-loading *ngIf='loading'></ngx-loading>
 </div>
