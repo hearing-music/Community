@@ -1,0 +1,51 @@
+<div class='behaviorControl'>
+		<nz-table #nestedTable [nzData]="list" [nzPageSize]="10000000" [nzShowPagination]='false' style="width: 100%;">
+			<thead>
+				<tr>
+					<th></th>
+					<th>用户名</th>
+					<th>总数</th>
+					<th>占比</th>
+				</tr>
+			</thead>
+			<tbody>
+				<ng-template ngFor let-data [ngForOf]="nestedTable.data">
+					<tr [ngClass]='{"expand":data.expand}'>
+						<td [(nzExpand)]="data.expand"></td>
+						<td>{{ data.name }}</td>
+						<td>{{ data.count }}</td>
+						<td>{{ data.percentage }}</td>
+					</tr>
+					<tr [nzExpand]="data.expand" >
+						<nz-table #innerTable [nzData]="data.info" nzSize="middle" [nzShowPagination]="false" [nzScroll]='{"y":"400px"}'>
+							<thead>
+								<tr>
+									<th>搜索名</th>
+									<th>途径</th>
+									<th>时间</th>
+									<th>IP</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let item of data.info" [id]='item.keyword+item.formatted_time'>
+									<td style="display: flex;align-items: center;">
+										<div>
+											{{item.keyword}}
+										</div>
+										<span (click)='navigate(item,data)' *ngIf='item.Name=="qq搜索"' nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;margin-left: 4px;cursor: pointer;"></span>
+										<span (click)='navigate(item,data)' *ngIf='item.Name=="酷狗v3"' nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;margin-left: 4px;cursor: pointer;"></span>
+									</td>
+									<td>{{ item.Name }}</td>
+									<td>{{ item.formatted_time }}</td>
+									<td>{{ item.IP }}</td>
+								</tr>
+							</tbody>
+						</nz-table>
+					</tr>
+				</ng-template>
+			</tbody>
+		</nz-table>
+
+
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

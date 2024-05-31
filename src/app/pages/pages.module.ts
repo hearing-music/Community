@@ -166,9 +166,10 @@ import { NzInputNumberModule } from "ng-zorro-antd/input-number";
 import { NzCascaderModule } from "ng-zorro-antd/cascader";
 import { NewTankBattleComponent } from './game/new-tank-battle/new-tank-battle.component';
 
-import { TimeControlComponent } from './timeControl/timeControl.component';
-import { ControlTemplateComponent } from './timeControl/controlTemplate/controlTemplate.component';
-import { UserControlComponent } from './userControl/userControl.component';
+import { TimeControlComponent } from './monitor/timeControl/timeControl.component';
+import { ControlTemplateComponent } from './monitor/timeControl/controlTemplate/controlTemplate.component';
+import { UserControlComponent } from './monitor/userControl/userControl.component';
+import { BehaviorControlComponent } from './monitor/behaviorControl/behaviorControl.component';
 
 import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
 import { TrackSeparateComponent } from './audioProcessing/track-separate/track-separate.component';
@@ -183,7 +184,7 @@ import { ScreenRecordingComponent } from "./screenRecording/screenRecording.comp
 import { VideoPlayerComponent } from "../components/videoPlayer/videoPlayer.component";
 import { ScriptPromptsInsertComponent } from "./script-prompts/script-prompts-insert/script-prompts-insert.component";
 import { HighlightBracketsPipe } from "./script-prompts/script-prompts.component.pipe";
-
+import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -191,6 +192,7 @@ registerLocaleData(zh);
 		NzInputNumberModule,
 		NzGridModule,
 		LoadingModule,
+		NzAnchorModule,
 		NzTabsModule,
 		NzDatePickerModule,
 		NzMessageModule,
@@ -237,6 +239,7 @@ registerLocaleData(zh);
 		HotSearchListTemplateComponent,
 		TimeControlComponent,
 		UserControlComponent,
+		BehaviorControlComponent,
 		ControlTemplateComponent,
 		YunjiaobenComponent,
 		TmeMapComponent,

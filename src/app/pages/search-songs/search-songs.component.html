@@ -7,6 +7,9 @@
 					{{item.name}}
 			</div>
 		</div>
+		<div style="margin:0 8px;" *ngIf='isBack'>
+			<button nz-button nzType="primary" (click)='navigateBack()'>返回</button>
+		</div>
 		<!-- 搜索 -->
 		<ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)' (childInput)='childInput($event)' [searchWidth]='"290px"' *ngIf="selectItem2!='大陆音著协'">
 		</ngx-search>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from "../../services/api.service";
-import { CommonService } from "../../services/common.service";
+import { ApiService } from "../../../services/api.service";
+import { CommonService } from "../../../services/common.service";
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({

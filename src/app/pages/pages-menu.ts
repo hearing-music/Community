@@ -259,6 +259,10 @@ export let MENU_ITEMS : NbMenuItem[] = [
 				title: '监控用户',
 				link: '/pages/userControl',
 			},
+			{
+				title: '行为监控',
+				link: '/pages/behaviorControl',
+			},
 		],
 	},
 	{

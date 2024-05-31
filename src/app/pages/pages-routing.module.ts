@@ -68,8 +68,9 @@ import { NewTankBattleComponent } from './game/new-tank-battle/new-tank-battle.c
 import { ScriptPromptsComponent } from "./script-prompts/script-prompts.component";
 import { ScriptPromptsInsertComponent } from "./script-prompts/script-prompts-insert/script-prompts-insert.component";
 import { ScreenRecordingComponent } from "./screenRecording/screenRecording.component";
-import { TimeControlComponent } from './timeControl/timeControl.component';
-import { UserControlComponent } from './userControl/userControl.component';
+import { TimeControlComponent } from './monitor/timeControl/timeControl.component';
+import { UserControlComponent } from './monitor/userControl/userControl.component';
+import { BehaviorControlComponent } from './monitor/behaviorControl/behaviorControl.component';
 import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
 const routes : Routes = [{
 	path: '',
@@ -424,6 +425,18 @@ const routes : Routes = [{
 			path: "userControl",
 			component: UserControlComponent,
 			canActivate: [PermissionGuard],
+		},
+		// 行为监控
+		{
+			path: "behaviorControl",
+			component: BehaviorControlComponent,
+			canActivate: [PermissionGuard],
+		},
+		//音乐搜索
+		{
+			path: 'behaviorControl/:type',
+			component: BehaviorControlComponent,
+			canActivate: [PermissionGuard]
 		},
 		//生成mv
 		{

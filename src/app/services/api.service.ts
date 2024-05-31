@@ -1356,6 +1356,11 @@ export class ApiService {
 		let url = this.baseUrl + "/login/SearchUserBehaviour";
 		return this.http.post(url, data);
 	}
+	// 行为分析
+	SummaryAnalysis(){
+		let url = this.baseUrl + "/data-analysis/SummaryAnalysis";
+		return this.http.get(url);
+	}
 	// 获取用户行为 老
 	SearchUserBehaviour2(params:any){
 		let data = JSON.stringify({

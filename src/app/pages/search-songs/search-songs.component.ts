@@ -2,21 +2,41 @@ import { Component, OnInit,ViewChild  } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { ActivatedRoute } from '@angular/router'
-import { timeout, catchError } from 'rxjs/operators';
+import { ActivatedRoute,Router,NavigationEnd } from '@angular/router'
+import { Observable } from 'rxjs';
+import { filter, pairwise, map } from 'rxjs/operators';
 @Component({
 	selector: 'ngx-search-songs',
 	templateUrl: './search-songs.component.html',
 	styleUrls: ['./search-songs.component.scss']
 })
 export class SearchSongsComponent implements OnInit {
-	constructor(public api: ApiService,public common: CommonService,public message:NzMessageService,public route: ActivatedRoute) {
+	constructor(public api: ApiService,public common: CommonService,public message:NzMessageService,public route: ActivatedRoute,public router:Router) {
 		this.route.params.subscribe((res) => {
 			console.log(res)
 			var path=res.path;
 			var value=res.value;
 			this.pathRedirectTo(path,value)
 		})
+		// 记录上次路由
+		this.router.events
+		      .pipe(
+		        filter(event => event instanceof NavigationEnd),
+		        pairwise(),
+		        map(([previous, current]: [NavigationEnd, NavigationEnd]) => {
+				  if(previous.url=='/pages/behaviorControl'){
+					  this.previousUrl = previous.url + '/navigate'
+				  }
+				  if(previous.url=='/pages/behaviorControl/navigate'){
+				  	  this.previousUrl = previous.url 
+				  }
+		        })
+		      ).subscribe();
+	}
+	previousUrl = ''
+	isBack = false;
+	navigateBack(){
+ 		this.router.navigate([this.previousUrl]);
 	}
 	// 参数跳转
 	pathRedirectTo(path:any,value:any){
@@ -32,6 +52,7 @@ export class SearchSongsComponent implements OnInit {
 			value = decodeURIComponent(value)
 			this.searchValue = value;
 			this.search(this.searchValue)
+			this.isBack = true;
 		}
 		if(path=='v3'){
 			this.selectItem="酷狗V3"
@@ -39,6 +60,7 @@ export class SearchSongsComponent implements OnInit {
 			value = decodeURIComponent(value)
 			this.searchValue = value;
 			this.search(this.searchValue)
+			this.isBack = true;
 		}
 		
 	}
