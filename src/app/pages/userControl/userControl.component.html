@@ -1,11 +1,17 @@
 <div class='userControl'>
 	<div style='flex:1;margin-right:10px;'>
-		<div>
-			<div style="font-size: 12px;color: #666;">用户名</div>
-			<nz-select *ngIf='userList.length>0' style="width: 200px;" [(ngModel)]="user"
-				(ngModelChange)='ngModelUser($event)'>
-				<nz-option *ngFor="let item of userList;" [nzValue]="item.ID" [nzLabel]="item.username"></nz-option>
-			</nz-select>
+		<div style="display: flex;align-items: flex-end;">
+			<div>
+				<div style="font-size: 12px;color: #666;">用户名</div>
+				<nz-select *ngIf='userList.length>0' style="width: 130px;" [(ngModel)]="user"
+					(ngModelChange)='ngModelUser($event)'>
+					<nz-option *ngFor="let item of userList;" [nzValue]="item.ID" [nzLabel]="item.username"></nz-option>
+				</nz-select>
+			</div>
+			<div style="margin-left: 8px;">
+				<div style="font-size: 12px;color: #666;">选择日期区间</div>
+				<nz-range-picker [nzDisabledDate]="disabledDate" [(ngModel)]="nzDefaultPickerValue" (ngModelChange)="onChange($event)"></nz-range-picker>
+			</div>
 		</div>
 		<nz-empty style="margin-top: 100px;" *ngIf='behaviourList.length==0'></nz-empty>
 		<div *ngIf='behaviourList.length>0'>
@@ -46,13 +52,19 @@
 	</div>
 	<div style='flex:1;margin-left:10px;'>
 		<div>
-			<div style="font-size: 12px;color: #666;">用户名(老)</div>
-			<div style="display: flex;align-items: center;">
-				<nz-select *ngIf='userList2.length>0' style="width: 200px;" [(ngModel)]="user2"
-					(ngModelChange)='ngModelUser2($event)'>
-					<nz-option *ngFor="let item of userList2;" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
-				</nz-select>
-				<button (click)='UserBehaviourExcel2()' nz-button nzType="primary" style="display: flex;align-items: center;margin-left: 8px;">
+			<div style="display: flex;align-items: flex-end;">
+				<div>
+					<div style="font-size: 12px;color: #666;">用户名(老)</div>
+					<nz-select *ngIf='userList2.length>0' style="width: 130px;" [(ngModel)]="user2"
+						(ngModelChange)='ngModelUser2($event)'>
+						<nz-option *ngFor="let item of userList2;" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+					</nz-select>
+				</div>
+				<div style="margin-left: 8px;">
+					<div style="font-size: 12px;color: #666;">选择日期区间</div>
+					<nz-range-picker [nzDisabledDate]="disabledDate2" [(ngModel)]="nzDefaultPickerValue2" (ngModelChange)="onChange2($event)"></nz-range-picker>
+				</div>
+				<button *ngIf='timeStart!=0&&timeEnd!=0' (click)='UserBehaviourExcel2()' nz-button nzType="primary" style="display: flex;align-items: center;margin-left: 8px;">
 				      <span nz-icon nzType="download"></span>
 				      下载文件
 				</button>

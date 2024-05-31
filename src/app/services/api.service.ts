@@ -1349,7 +1349,9 @@ export class ApiService {
 		let data = JSON.stringify({
 		    "UserId":params.ids,
 			"Offset":params.Offset,
-			"pageSize":params.pageSize
+			"pageSize":params.pageSize,
+			"timestampStart":params.timeStart,
+			"timestampEnd":params.timeEnd,
 		})
 		let url = this.baseUrl + "/login/SearchUserBehaviour";
 		return this.http.post(url, data);
@@ -1359,18 +1361,19 @@ export class ApiService {
 		let data = JSON.stringify({
 		    "UserId":params.ids,
 			"Offset":params.Offset,
-			"pageSize":params.pageSize
+			"pageSize":params.pageSize,
+			"timestampStart":params.timeStart,
+			"timestampEnd":params.timeEnd,
 		})
 		let url = this.baseUrl + "/login/SearchUserBehaviour2";
 		return this.http.post(url, data);
 	}
 	// 老用户行为导出今日表格
-	UserBehaviourExcel2(){
-		let year = new Date().getFullYear();
-		let month = new Date().getMonth()+1;
-		let date = new Date().getDate();
-		let time = new Date(year+'-'+month+'-'+date + " 00:00:00").getTime();
-		let data = {time}
+	UserBehaviourExcel2(params:any){
+		let {
+			timeStart,timeEnd,userId
+		} = params
+		let data = {timeStart,timeEnd,userId}
 		let url = this.baseUrl + "/login/UserBehaviourExcel2";
 		return this.http.post(url, data);
 	}
