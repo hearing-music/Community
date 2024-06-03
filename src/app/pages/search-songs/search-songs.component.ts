@@ -11,33 +11,31 @@ import { filter, pairwise, map } from 'rxjs/operators';
 	styleUrls: ['./search-songs.component.scss']
 })
 export class SearchSongsComponent implements OnInit {
-	constructor(public api: ApiService,public common: CommonService,public message:NzMessageService,public route: ActivatedRoute,public router:Router) {
-		this.route.params.subscribe((res) => {
-			console.log(res)
-			var path=res.path;
-			var value=res.value;
-			this.pathRedirectTo(path,value)
-		})
-		// 记录上次路由
-		this.router.events
-		      .pipe(
-		        filter(event => event instanceof NavigationEnd),
-		        pairwise(),
-		        map(([previous, current]: [NavigationEnd, NavigationEnd]) => {
-				  if(previous.url=='/pages/behaviorControl'){
-					  this.previousUrl = previous.url + '/navigate'
-				  }
-				  if(previous.url=='/pages/behaviorControl/navigate'){
-				  	  this.previousUrl = previous.url 
-				  }
-		        })
-		      ).subscribe();
-	}
-	previousUrl = ''
-	isBack = false;
-	navigateBack(){
- 		this.router.navigate([this.previousUrl]);
-	}
+	     constructor(public api: ApiService,public common: CommonService,public message:NzMessageService,public route: ActivatedRoute,public router:Router) {
+        this.route.params.subscribe((res) => {
+            var path=res.path;
+            var value=res.value;
+            this.pathRedirectTo(path,value)
+        })
+        // 记录上次路由
+        this.router.events.pipe(
+            filter(event => event instanceof NavigationEnd),
+            pairwise(),
+            map(([previous, current]: [NavigationEnd, NavigationEnd]) => previous.url)
+          ).subscribe((previousUrl: string) => {
+            console.log('Previous URL:', previousUrl);
+            if (previousUrl === '/pages/behaviorControl') {
+              this.previousUrl = previousUrl + '/navigate';
+            } else if (previousUrl === '/pages/behaviorControl/navigate') {
+              this.previousUrl = previousUrl;
+            } 
+          });
+    }
+    previousUrl:any = ''
+    isBack = false;
+    navigateBack() {
+        this.router.navigate(['/pages/behaviorControl/navigate']);
+    }
 	// 参数跳转
 	pathRedirectTo(path:any,value:any){
 		// 词曲版权
