@@ -2,7 +2,7 @@ import { Component, OnInit,ViewChild  } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { ActivatedRoute,Router,NavigationEnd } from '@angular/router'
+import { ActivatedRoute,Router,NavigationEnd,NavigationStart } from '@angular/router'
 import { Observable } from 'rxjs';
 import { filter, pairwise, map } from 'rxjs/operators';
 @Component({
@@ -18,23 +18,40 @@ export class SearchSongsComponent implements OnInit {
             this.pathRedirectTo(path,value)
         })
         // 记录上次路由
-        this.router.events.pipe(
-            filter(event => event instanceof NavigationEnd),
-            pairwise(),
-            map(([previous, current]: [NavigationEnd, NavigationEnd]) => previous.url)
-          ).subscribe((previousUrl: string) => {
-            console.log('Previous URL:', previousUrl);
-            if (previousUrl === '/pages/behaviorControl') {
-              this.previousUrl = previousUrl + '/navigate';
-            } else if (previousUrl === '/pages/behaviorControl/navigate') {
-              this.previousUrl = previousUrl;
-            } 
-          });
+//         this.router.events.pipe(
+//             filter(event => event instanceof NavigationEnd),
+//             pairwise(),
+//             map(([previous, current]: [NavigationEnd, NavigationEnd]) => previous.url)
+//           ).subscribe((previousUrl: string) => {
+//             console.log('Previous URL:', previousUrl);
+//             if (previousUrl === '/pages/behaviorControl') {
+//               this.previousUrl = previousUrl + '/navigate';
+//             } else if (previousUrl === '/pages/behaviorControl/navigate') {
+//               this.previousUrl = previousUrl;
+//             } 
+//           });
     }
-    previousUrl:any = ''
+	ngOnInit(): void {
+		this.previousUrl = localStorage.getItem('previousUrl');
+		this.ismobile = this.common.isMobile()
+		if(!this.common.checkAdmin()){
+			let menu:any = localStorage.getItem('menu')
+			menu = JSON.parse(menu);
+			let menu_list:any = menu || {top:[],left:[]};
+			let tagList = []
+			for(let i = 0;i<menu_list.top.length;i++){
+				if(menu_list.top[i].parent_id == 1){
+					tagList.push(menu_list.top[i].menu)
+				}
+			}
+			this.tagList = tagList
+		}
+	}
+    previousUrl = ''
     isBack = false;
     navigateBack() {
-        this.router.navigate(['/pages/behaviorControl/navigate']);
+		if(this.previousUrl!='/pages/behaviorControl/navigate') return;
+        this.router.navigate([this.previousUrl]);
     }
 	// 参数跳转
 	pathRedirectTo(path:any,value:any){
@@ -1185,21 +1202,6 @@ export class SearchSongsComponent implements OnInit {
 				this.loading=true;
 				this.searchMcscSearchCN()
 			}
-		}
-	}
-	ngOnInit(): void {
-		this.ismobile = this.common.isMobile()
-		if(!this.common.checkAdmin()){
-			let menu:any = localStorage.getItem('menu')
-			menu = JSON.parse(menu);
-			let menu_list:any = menu || {top:[],left:[]};
-			let tagList = []
-			for(let i = 0;i<menu_list.top.length;i++){
-				if(menu_list.top[i].parent_id == 1){
-					tagList.push(menu_list.top[i].menu)
-				}
-			}
-			this.tagList = tagList
 		}
 	}
 }

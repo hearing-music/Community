@@ -48,6 +48,7 @@ export class BehaviorControlComponent implements OnInit {
 			formatted_time:item.formatted_time,
 			keyword:item.keyword
 		}
+		localStorage.setItem('previousUrl','/pages/behaviorControl/navigate')
 		if(item.Name=='qq搜索'){
 			localStorage.setItem('behaviorControlData',JSON.stringify(data))
 			this.router.navigate(['/pages/search-songs/qq/'+keyword]);
