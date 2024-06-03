@@ -2,9 +2,7 @@ import { Component, OnInit,ViewChild  } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { ActivatedRoute,Router,NavigationEnd,NavigationStart } from '@angular/router'
-import { Observable } from 'rxjs';
-import { filter, pairwise, map } from 'rxjs/operators';
+import { ActivatedRoute,Router } from '@angular/router'
 @Component({
 	selector: 'ngx-search-songs',
 	templateUrl: './search-songs.component.html',
@@ -17,19 +15,6 @@ export class SearchSongsComponent implements OnInit {
             var value=res.value;
             this.pathRedirectTo(path,value)
         })
-        // 记录上次路由
-//         this.router.events.pipe(
-//             filter(event => event instanceof NavigationEnd),
-//             pairwise(),
-//             map(([previous, current]: [NavigationEnd, NavigationEnd]) => previous.url)
-//           ).subscribe((previousUrl: string) => {
-//             console.log('Previous URL:', previousUrl);
-//             if (previousUrl === '/pages/behaviorControl') {
-//               this.previousUrl = previousUrl + '/navigate';
-//             } else if (previousUrl === '/pages/behaviorControl/navigate') {
-//               this.previousUrl = previousUrl;
-//             } 
-//           });
     }
 	ngOnInit(): void {
 		this.previousUrl = localStorage.getItem('previousUrl');
@@ -408,7 +393,7 @@ export class SearchSongsComponent implements OnInit {
 					}
 				})
 				
-				item.lyricCompanyName.forEach((litem:any,lindex:number)=>{
+				item.lyricCompanyName.forEach((litem:any)=>{
 					let o = item.musicCompanyName.find((e:any)=>e.companyId == litem.companyId)||{}
 					litem.lyricPercent = o.lyricPercent || 0;
 				})

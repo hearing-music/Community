@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ["./free-songs.component.scss"],
 })
 export class FreeSongs_qqComponent implements OnInit {
+  nextUpdataTime: number = 0;
   constructor(public common: CommonService, public api: ApiService,private router: Router) {}
-
   ngOnInit(): void {
     this.getSortList();
     this.getQq_freeSongs();
@@ -138,8 +138,7 @@ export class FreeSongs_qqComponent implements OnInit {
   }
   getQq_freeSongs() {
     this.loading = true;
-    this.api
-      .getQq_freeSongs({
+    this.api.getQq_freeSongs({
         page: this.pageCurrent,
         pageSize: this.pageSize,
         keyword: this.searchValue,
@@ -148,20 +147,22 @@ export class FreeSongs_qqComponent implements OnInit {
         sort: this.sortId,
 				publish_timeOrderby:this.publish_timeOrderby,
 				exponentOrderby:this.exponentOrderby
-      })
-      .subscribe(
-        (res: any) => {
+      }).subscribe((res: any) => {
           this.loading = false;
           console.log(res);
           if (res.success) {
             res.result.forEach((item: any) => {
+              const date = new Date(item.updated_at);
+              const timestamp = date.getTime();
+              if (this.nextUpdataTime == 0 || this.nextUpdataTime < timestamp) {
+                this.nextUpdataTime=timestamp + (86400000*14)
+              }
               item.newExponent = "";
             });
             this.list = res.result;
             this.pageTotal = res.pageTotal;
           }
-        },
-        (err: any) => {
+        },(err: any) => {
           console.log(err);
           this.loading = false;
         }

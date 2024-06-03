@@ -72,6 +72,7 @@ import { TimeControlComponent } from './monitor/timeControl/timeControl.componen
 import { UserControlComponent } from './monitor/userControl/userControl.component';
 import { BehaviorControlComponent } from './monitor/behaviorControl/behaviorControl.component';
 import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
+import {SongsControlComponent} from './kugou/songsControl/songsControl.component';
 const routes : Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -147,9 +148,16 @@ const routes : Routes = [{
 			component: FreeSongs_kugouComponent,
 			canActivate: [PermissionGuard]
 		},
+		// 推荐热搜
 		{
 			path: 'kugou/hotSearchList',
 			component: HotSearchListComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 酷狗监控歌曲
+		{
+			path: 'kugou/songsControl',
+			component: SongsControlComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 抖音热点

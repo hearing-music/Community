@@ -1,3 +1,21 @@
+.listItem{
+		border-radius: 4px;
+		border:1px solid #ccc;
+		padding:6px 8px;
+		margin-bottom: 12px;
+		display:flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.modalTitle{
+		margin: 0;
+		    color: rgba(0,0,0,.85);
+		    font-weight: 500;
+		    font-size: 16px;
+		    line-height: 22px;
+		    word-wrap: break-word;
+			padding-bottom:12px;
+	}
 .list {
 	// overflow: scroll;
 	padding: 12px;
@@ -8,9 +26,29 @@
 		overflow: hidden;
 		background:linear-gradient(181.2deg, rgb(181, 239, 249) 10.5%, rgb(254, 254, 254) 86.8%);border-radius: 8px;
 	}
-	
-	
+	.Add{
+		cursor: pointer;
+		background: blue;
+		border-radius: 50%;
+		width:46px;
+		height:46px;
+		position:fixed;
+		right:20px;
+		bottom:20px;
+		display:flex;
+		align-items: center;
+		justify-content: center;
+		.badgeCount{
+			position:absolute;
+			left:10px;
+			top:10px;
+		}
+	}
+	.Active{
+		border-color:blue!important;
+	}
 	.list-item {
+		cursor: pointer;
 		font-size: 12px;
 		color: rgba(0, 0, 0, 0.6);
 		margin-bottom: 20px;

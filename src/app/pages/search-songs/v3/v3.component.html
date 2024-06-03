@@ -1,9 +1,9 @@
 <nz-empty *ngIf="kugouV3List.length==0" style="margin-top: 160px;"></nz-empty>
 <div class="list" *ngIf='kugouV3List.length!=0'>
 	<div *ngFor="let item of kugouV3List;let idx=index">
-		<div class="list-item"  >
+		<div class="list-item"  [ngClass]='{"Active":item.isSelect}' (click)='selectItem(item,idx)'>
 			<div class="item-left">
-				<div class="left-icon" (click)='playAudio(item,idx)'>
+				<div class="left-icon" (click)='playAudio(item,idx,$event)'>
 					<img *ngIf='!item.isPlay' src="assets/img/play-blue.png" style="width: 100%;height: 100%;" />
 					<img *ngIf='item.isPlay' src="assets/img/pause-blue.png" style="width: 100%;height: 100%;">
 				</div>
@@ -18,7 +18,7 @@
 							</div>
 						</div>
 						<img src="../../../assets/img/yuanchang.svg" class="icon" style='margin-left: 4px;' *ngIf='item.IsOriginal==1'/>
-						<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.MixSongId,item.FileHash)"
+						<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.MixSongId,item.FileHash,$event)"
 							class="linkIcon" style="margin-left: 10px;">
 							<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
 						</button>
@@ -41,7 +41,7 @@
 							<div>{{common.toThousands(item.exponent)}}</div>
 						</div>
 						<!-- 指数链接 -->
-						<button (click)="openExponentLink(item)" nz-button nzShape="circle" nzType="text" class="linkIcon"
+						<button (click)="openExponentLink(item,$event)" nz-button nzShape="circle" nzType="text" class="linkIcon"
 							style="margin-left: 2px;">
 							<span nz-icon nzType="link" nzTheme="outline" style='color:blue;font-size: 14px;'></span>
 						</button>
@@ -76,7 +76,7 @@
 						overflow: hidden;
 						white-space: nowrap;
 						text-overflow: ellipsis;">
-								<div (click)='goSingerHome(s.id)' *ngFor="let s of item.singers;let si = index;" style="cursor: pointer;">
+								<div (click)='goSingerHome(s.id,$event)' *ngFor="let s of item.singers;let si = index;" style="cursor: pointer;">
 									{{common.deleteEM(s.name)}}{{si==item.singers.length-1?'':'、'}}
 								</div>
 							</div>
@@ -136,7 +136,7 @@
 								<!-- 在听刷新 -->
 								<span nz-icon nzType="reload" nzTheme="outline"
 									style="width: 15px;height: 15px;padding: 5px;vertical-align:0em;cursor: pointer;"
-									(click)="refreshListenPeopleNum(item.MixSongID,idx)">
+									(click)="refreshListenPeopleNum(item.MixSongID,idx,$event)">
 								</span>
 							</span>
 						</div>
@@ -159,7 +159,7 @@
 						<div nz-tooltip [nzTooltipTitle]="'数量'" class="" style="display: flex;align-items: center;margin-left: 8px;">
 							<div>{{item.OwnerCount}}</div>
 						</div>
-						<div *ngIf='item.GrpData.length!=0' style="color: blue;cursor: pointer;margin-left: 8px;" (click)='moreVersion(item)'>
+						<div *ngIf='item.GrpData.length!=0' style="color: blue;cursor: pointer;margin-left: 8px;" (click)='moreVersion(item,$event)'>
 							{{item.isMore?'收起更多':'更多版本'}}
 						</div>
 						<!-- 在唱人 -->
@@ -170,12 +170,12 @@
 									style="width: 10px;height:10px;border-radius: 50%;margin-left: 4px;margin-left: 8px;">
 							</span>
 							<span><span style="color:rgb(78, 194, 223);cursor: pointer;"
-									(click)="goToSeeSinger(item.singingPeople.roomUrl,idx)">{{item.singingPeople.nickName}}</span>在唱
+									(click)="goToSeeSinger(item.singingPeople.roomUrl,idx,$event)">{{item.singingPeople.nickName}}</span>在唱
 							</span>
 							<!-- 在唱刷新 -->
 							<span nz-icon nzType="reload" nzTheme="outline"
 								style="width: 15px;height: 15px;padding: 5px;vertical-align:0em;cursor: pointer;"
-								(click)="refreshSingingPeopleNum(item.songName,idx)">
+								(click)="refreshSingingPeopleNum(item.songName,idx,$event)">
 							</span>
 						</div>
 					</div>
@@ -184,7 +184,7 @@
 			<div class='item-right'>
 				<div class="itemCenter">
 					<!-- 专辑名字 -->
-					<div class="exophanie-item" style="font-weight: bold;margin-top: 0;cursor: pointer;" (click)='openAlbum(item)'>
+					<div class="exophanie-item" style="font-weight: bold;margin-top: 0;cursor: pointer;" (click)='openAlbum(item,$event)'>
 						{{common.deleteEM(item.albumName)}}
 					</div>
 					<div class="exophanie-item u-line-1">
@@ -196,7 +196,7 @@
 				</div>
 				<div class="itemRight">
 					<div style="display: flex;align-items: center;justify-content: flex-end;">
-						<div (click)='common.copy(item.FileHash)' style="max-width: 85px;
+						<div (click)='copy(item.FileHash,$event)' style="max-width: 85px;
 							cursor: pointer;
 							overflow: hidden;
 							white-space: nowrap;
@@ -215,9 +215,9 @@
 						<!-- id -->
 						<span nz-tooltip [nzTooltipTitle]="'添加监测歌曲'">
 							<span style="margin-right: 12px;color: blue;font-size: 16px;cursor: pointer;"
-								(click)='addScid(item.scid)' nz-icon nzType="plus-circle" nzTheme="outline"></span>
+								(click)='addScid(item.scid,$event)' nz-icon nzType="plus-circle" nzTheme="outline"></span>
 						</span>
-						<div (click)='copyScid(item.scid)' style="cursor: pointer;">
+						<div (click)='copyScid(item.scid,$event)' style="cursor: pointer;">
 							<div>id:{{item.scid}}</div>
 						</div>
 						<div style="margin: 0 8px;"> | </div>
@@ -249,7 +249,7 @@
 								</div>
 							</div>
 							<img src="../../../assets/img/yuanchang.svg" class="icon" style='margin-left: 4px;' *ngIf='citem.IsOriginal==1'/>
-							<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(citem.scid,citem.FileHash)"
+							<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(citem.scid,citem.FileHash,$event)"
 								class="linkIcon" style="margin-left: 10px;">
 								<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
 							</button>
@@ -272,7 +272,7 @@
 								<div>{{common.toThousands(citem.exponent)}}</div>
 							</div>
 							<!-- 指数链接 -->
-							<button (click)="openExponentLink(citem)" nz-button nzShape="circle" nzType="text" class="linkIcon"
+							<button (click)="openExponentLink(citem,$event)" nz-button nzShape="circle" nzType="text" class="linkIcon"
 								style="margin-left: 2px;">
 								<span nz-icon nzType="link" nzTheme="outline" style='color:blue;font-size: 14px;'></span>
 							</button>
@@ -307,7 +307,7 @@
 							overflow: hidden;
 							white-space: nowrap;
 							text-overflow: ellipsis;">
-									<div (click)='goSingerHome(s.id)' *ngFor="let s of citem.singers;let si = index;" style="cursor: pointer;">
+									<div (click)='goSingerHome(s.id,$event)' *ngFor="let s of citem.singers;let si = index;" style="cursor: pointer;">
 										{{common.deleteEM(s.name)}}{{si==citem.singers.length-1?'':'、'}}
 									</div>
 								</div>
@@ -367,7 +367,7 @@
 									<!-- 在听刷新 -->
 									<span nz-icon nzType="reload" nzTheme="outline"
 										style="width: 15px;height: 15px;padding: 5px;vertical-align:0em;cursor: pointer;"
-										(click)="refreshListenPeopleNum(citem.MixSongID,idx2)">
+										(click)="refreshListenPeopleNum(citem.MixSongID,idx2,$event)">
 									</span>
 								</span>
 							</div>
@@ -399,12 +399,12 @@
 										style="width: 10px;height:10px;border-radius: 50%;margin-left: 4px;margin-left: 8px;">
 								</span>
 								<span><span style="color:rgb(78, 194, 223);cursor: pointer;"
-										(click)="goToSeeSinger(citem.singingPeople.roomUrl,idx2)">{{citem.singingPeople.nickName}}</span>在唱
+										(click)="goToSeeSinger(citem.singingPeople.roomUrl,idx2,$event)">{{citem.singingPeople.nickName}}</span>在唱
 								</span>
 								<!-- 在唱刷新 -->
 								<span nz-icon nzType="reload" nzTheme="outline"
 									style="width: 15px;height: 15px;padding: 5px;vertical-align:0em;cursor: pointer;"
-									(click)="refreshSingingPeopleNum(citem.songName,idx2)">
+									(click)="refreshSingingPeopleNum(citem.songName,idx2,$event)">
 								</span>
 							</div>
 						</div>
@@ -413,7 +413,7 @@
 				<div class="item-right">
 					<div class="itemCenter">
 						<!-- 专辑名字 -->
-						<div class="exophanie-item" style="font-weight: bold;margin-top: 0;cursor: pointer;" (click)='openAlbum(citem)'>
+						<div class="exophanie-item" style="font-weight: bold;margin-top: 0;cursor: pointer;" (click)='openAlbum(citem,$event)'>
 							{{common.deleteEM(citem.albumName)}}
 						</div>
 						<div class="exophanie-item u-line-1">
@@ -425,7 +425,7 @@
 					</div>
 					<div class="itemRight">
 						<div style="display: flex;align-items: center;justify-content: flex-end;">
-							<div (click)='common.copy(citem.FileHash)' style="max-width: 85px;
+							<div (click)='copy(citem.FileHash,$event)' style="max-width: 85px;
 								cursor: pointer;
 								overflow: hidden;
 								white-space: nowrap;
@@ -444,9 +444,9 @@
 							<!-- id -->
 							<span nz-tooltip [nzTooltipTitle]="'添加监测歌曲'">
 								<span style="margin-right: 12px;color: blue;font-size: 16px;cursor: pointer;"
-									(click)='addScid(citem.scid)' nz-icon nzType="plus-circle" nzTheme="outline"></span>
+									(click)='addScid(citem.scid,$event)' nz-icon nzType="plus-circle" nzTheme="outline"></span>
 							</span>
-							<div (click)='copyScid(citem.scid)' style="cursor: pointer;">
+							<div (click)='copyScid(citem.scid,$event)' style="cursor: pointer;">
 								<div>id:{{citem.scid}}</div>
 							</div>
 							<div style="margin: 0 8px;"> | </div>
@@ -464,5 +464,38 @@
 		</div>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>
-
+	<div class='Add' (click)='openModal()' nz-tooltip [nzTooltipTitle]="'录入酷狗监控'">
+		<nz-badge [nzCount]="cartData.length" class='badgeCount'> <a class="head-example"></a> </nz-badge>
+		<span nz-icon nzType="form" nzTheme="outline" style="font-size: 24px;color:#fff;"></span>
+	</div>
+	<nz-modal [nzStyle]="{ width: '600px' }" [(nzVisible)]="isVisible" [nzFooter]="null" (nzOnCancel)="handleCancel()"
+		[nzClosable]="false" >
+		<ng-container *nzModalContent>
+			<div class="modalTitle">
+				{{'已选'+ cartData.length + '首'}}
+			</div>
+			<div style="height:400px;overflow-y: auto;">
+				<div *ngFor="let item of cartData" class='listItem'>
+					<div>
+						<div>
+							<span style="font-weight: bold;">歌曲名：</span>{{common.deleteEM(item.songName)}}
+						</div>
+						<div style="display: flex;align-items: center;">
+							<span style="font-weight: bold;">歌手名：</span><div style="display: flex;align-items: center;">
+								<div *ngFor="let s of item.singers;let si = index;" style="cursor: pointer;">
+									{{common.deleteEM(s.name)}}{{si==item.singers.length-1?'':'、'}}
+								</div>
+							</div>
+							<div style="margin-left: 12px;">
+								<span style="font-weight: bold;">发行时间：</span>{{item.time_public}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="display: flex;margin-top: 12px;justify-content: center;">
+				<button (click)='add()' nz-button nzType="primary">添加</button>
+			</div>
+		</ng-container>
+	</nz-modal>
 </div>

@@ -27,6 +27,7 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { LoadingModule } from '../components/loading/loading.module'
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzMentionModule } from 'ng-zorro-antd/mention';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
@@ -185,6 +186,8 @@ import { VideoPlayerComponent } from "../components/videoPlayer/videoPlayer.comp
 import { ScriptPromptsInsertComponent } from "./script-prompts/script-prompts-insert/script-prompts-insert.component";
 import { HighlightBracketsPipe } from "./script-prompts/script-prompts.component.pipe";
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
+
+import {SongsControlComponent} from './kugou/songsControl/songsControl.component';
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -196,6 +199,7 @@ registerLocaleData(zh);
 		NzTabsModule,
 		NzDatePickerModule,
 		NzMessageModule,
+		NzBadgeModule,
 		NzCascaderModule,
 		NzModalModule,
 		NzToolTipModule,
@@ -234,6 +238,7 @@ registerLocaleData(zh);
 	declarations: [
 		HighlightBracketsPipe,
 		VideoPlayerComponent,
+		SongsControlComponent,
 		HotSearchListComponent,
 		HotSearchListAllComponent,
 		HotSearchListTemplateComponent,

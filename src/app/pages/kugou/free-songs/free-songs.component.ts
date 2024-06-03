@@ -51,7 +51,8 @@ export class FreeSongs_kugouComponent implements OnInit {
 	exponentOrderby='desc'
 	isOriginal:any='全部'
 	original:any=''
-	originalList:any=[{value:'全部'},{value:'原创'}]
+  originalList: any = [{ value: '全部' }, { value: '原创' }]
+  nextUpdataTime:number = 0
 	ngModelOriginal(e:any){
 		console.log(e)
 		if(e=='全部'){
@@ -171,16 +172,17 @@ export class FreeSongs_kugouComponent implements OnInit {
         type: this.type,
         newly: this.checked,
         sort: this.sortId,
-		publish_timeOrderby:this.publish_timeOrderby,
-		exponentOrderby:this.exponentOrderby,
-		isOriginal:this.original
-      })
-      .subscribe(
-        (res: any) => {
+		    publish_timeOrderby:this.publish_timeOrderby,
+		    exponentOrderby:this.exponentOrderby,
+		    isOriginal:this.original
+      }).subscribe((res: any) => {
           this.loading = false;
           console.log(res);
           if (res.success) {
             res.result.forEach((item: any, index: any) => {
+              if (this.nextUpdataTime == 0 || this.nextUpdataTime<item.updateTime) {
+                this.nextUpdataTime=item.updateTime + (86400000*14)
+              }
               // res.res[index] = res.res[index].length == 0 ? [{}] : res.res[index];
               item.newExponent = "";
               if (typeof item.singerId != "object") {

@@ -43,6 +43,10 @@ export let MENU_ITEMS : NbMenuItem[] = [
 				title: '搜索推荐',
 				link: '/pages/kugou/hotSearchList',
 			},
+			{
+				title: '监控歌曲',
+				link: '/pages/kugou/songsControl',
+			},
 			// {
 			// 	title: '自动搜索',
 			// 	link: '/pages/kugou/auto-search',

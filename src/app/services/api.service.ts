@@ -1437,4 +1437,19 @@ export class ApiService {
 		let url = `${this.baseUrl}/tme_map/GetMusicLimitHundred2`;
 		return this.http.get(url);
 	}
+	// 添加酷狗监控歌曲
+	kgSurveillanceSongs(params:any){
+		// let {
+		// 	SCID,EMixSongID,AlbumID,CommentID,length
+		// } = params
+		// let data = {Parameters:{SCID,EMixSongID,AlbumID,CommentID,length}}
+		let url = this.baseUrl + "/kugou/SurveillanceSongs";
+		return this.http.post(url, params);
+	}
+	//  查看监控歌曲
+	kgSurveillanceSongsInfo(params:any){
+		let data = {Parameters:{},isAll:params.isAll}
+		let url = this.baseUrl + "/kugou/SurveillanceSongsInfo";
+		return this.http.post(url, data);
+	}
 }
