@@ -150,8 +150,7 @@ export class SongsControlComponent implements OnInit {
 							iitem.singerNames = singerNames
 							iitem.IndexKG = iitem.Index.KG;
 							iitem.IndexQQ = iitem.Index.QQ;
-							this.setOptionQQ(iitem)
-							this.setOptionKG(iitem)
+							this.setOption(iitem)
 						})
 					})
 					this.data = res.data[0][1];
@@ -163,10 +162,11 @@ export class SongsControlComponent implements OnInit {
 			this.loading = false;
 		})
 	}
-	setOptionKG(iitem:any){
+	setOption(iitem:any){
 		let dateList = iitem.IndexKG.map((e:any)=>this.common.getTime(e.Time));
 		let dataList = iitem.IndexKG.map((e:any)=>e.Index);
-				iitem.optionsKG = {
+		let dataList2 = iitem.IndexQQ.map((e:any)=>e.Index);
+				iitem.options = {
 				visualMap: [
 					{
 						show: false, // 是否显示该可视化映射
@@ -205,48 +205,10 @@ export class SongsControlComponent implements OnInit {
 							color: 'blue' // 设置折线颜色为红色，你可以根据需要更改这个颜色  
 						},
 					},
-				],
-				height:150
-			};
-		}
-	setOptionQQ(iitem:any){
-		let dateList = iitem.IndexQQ.map((e:any)=>this.common.getTime(e.Time));
-		let dataList = iitem.IndexQQ.map((e:any)=>e.Index);
-				iitem.optionsQQ = {
-				visualMap: [
-					{
-						show: false, // 是否显示该可视化映射
-						type: "continuous", // 可视化映射类型（连续色彩渐变）
-						seriesIndex: 0, // 与第一个系列关联
-						min: 0, // 颜色映射的最小值
-						max: 400, // 颜色映射的最大值
-					},
-				],
-				tooltip: {
-					trigger: "axis", // 触发方式为坐标轴触发
-				},
-				grid: {
-					left: 0,
-					right: 0,
-					top: 0,
-					bottom: 0,
-				},
-				xAxis: [
-					{
-						data: dateList, // x 轴数据
-						show: false, // 隐藏第一个 x 轴
-					},
-				],
-				yAxis: [
-					{
-						show: false, // 隐藏第一个 y 轴
-					},
-				],
-				series: [
 					{
 						type: "line", // 系列类型为折线图
 						showSymbol: false, // 不显示数据点标志
-						data: dataList, // 系列的数据
+						data: dataList2, // 系列的数据
 						lineStyle: {
 							color: 'green', // 设置折线颜色为红色，你可以根据需要更改这个颜色  
 						},
