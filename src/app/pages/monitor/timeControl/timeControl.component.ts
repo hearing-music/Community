@@ -30,6 +30,8 @@ export class TimeControlComponent implements OnInit {
 		name:'抖音达人'
 	},{
 		name:'抖音声源'
+	},{
+		name:'酷狗监控歌曲'
 	}]
 	selectItem = '监测歌曲';
 	onSelect(item: any) {
@@ -55,7 +57,35 @@ export class TimeControlComponent implements OnInit {
 		if(this.selectItem=="抖音声源"&&this.douyinSoundSourceList.length==0){
 			this.douyinSoundSourceControl();
 		}
+		if(this.selectItem=="酷狗监控歌曲"&&!this.kgSongsGet){
+			this.getkgSongsControl();
+		}
 	}
+	
+	kgSongsPercent:any = 0;
+	kgSongsGet:any = false;
+	kgSongsTotal = 0;
+	getkgSongsControl(){
+		this.loading = true;
+		this.api.kgSongsControl().subscribe((res: any) => {
+			this.loading = false;
+			console.log(res)
+			if(res.success){
+				this.kgSongsGet = true;
+				this.kgSongsPercent = res.result;
+				this.kgSongsTotal = res.total;
+			}
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
+	
+	
+	
+	
+	
+	
 	songControlList:any = [];
 	qq_kugouNowTime:any = null;
 	qq_kugouEndTime:any = null;

@@ -82,28 +82,28 @@
 			<div class='more' *ngIf='item.isMore'>
 			<!-- <div class='more' [ngStyle]="{'height':item.isMore?((item.GrpData.length*160)+'px'):'0px','padding':item.isMore?'8px 12px':'0px'}"> -->
 				
-				 <nz-table #columnTable [nzData]="item.Index" [nzPageSize]='10000000' [nzShowPagination]='false' [nzScroll]="{ x: '300px' }">
+				 <nz-table #columnTable [nzData]="item.Index" [nzPageSize]='10000000' [nzShowPagination]='false' [nzScroll]="{ x: '2000px' }">
 				      <thead>
 				        <tr>
-						  <th nzLeft>日期</th>
-				          <th *ngFor="let data of columnTable.data">{{common.getTime(data.Time)}}</th>
+						  <th nzLeft nzAlign='center'>日期</th>
+				          <th nzAlign='center' *ngFor="let data of columnTable.data">{{common.getTime(data.Time)}}</th>
 				        </tr>
 				      </thead>
 				      <tbody>
 				        <tr>
-							<td nzLeft>指数</td>
-				          <td *ngFor="let data of columnTable.data">{{ data.Index }}</td>
+							<td nzAlign='center' nzLeft>指数</td>
+				          <td nzAlign='center' *ngFor="let data of columnTable.data">{{ data.Index }}</td>
 				        </tr>
 						<tr >
-							<td nzLeft>评论</td>
-						  <td *ngFor="let data of columnTable.data;let i = index">
+							<td nzAlign='center' nzLeft>评论</td>
+						  <td nzAlign='center' *ngFor="let data of columnTable.data;let i = index">
 							  <div *ngIf='item.Count[i]'>
 								  {{ item.Count[i].Count }}
 							  </div>
 						  </td>
 						</tr>
 						<tr>
-							<td nzLeft>指数趋势</td>
+							<td nzAlign='center' nzLeft>指数趋势</td>
 							<td [colSpan]="item.Index.length">
 								<div
 								  echarts
@@ -121,7 +121,7 @@
 	</div>
 	<!-- 播放器 -->
 	<div class="play" [ngClass]="{hide : !isPlay}">
-		<audio id='audio' controls [src]="audioSrc" (error)="audioError()" (play)='play($event)' (pause)='pause()'>
+		<audio id='audio' controls [src]="audioSrc" (error)="audioError($event)" (play)='play($event)' (pause)='pause()'>
 		</audio>
 	</div>
 	<ngx-loading *ngIf='loading'></ngx-loading>

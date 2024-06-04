@@ -100,9 +100,16 @@ export class SongsControlComponent implements OnInit {
 		})
 		
 	}
-	audioError(){
+	audioError(ele:any){
 		if(this.isPlay){
 			this.message.error("播放歌曲错误")
+			for(let i = 0;i<this.list.length;i++){
+				let item = this.list[i];
+				let index = item[1].findIndex((e:any)=>e.AudioUrl == ele.srcElement.currentSrc)
+				item[1][index].isPlay = false;
+				this.getKugouSongUrl(item[1][index],index)
+				break;
+			}
 		}
 	}
 	getKugouSongUrl(item:any,i:number){
@@ -111,7 +118,7 @@ export class SongsControlComponent implements OnInit {
 			console.log(res)
 			if (res.success) {
 				item.AudioUrl = res.result[0];
-				this.playAudioFun({src:item.AudioUrl,i})
+				this.playAudio(item,i)
 			}
 			this.loading = false;
 		}, (err: any) => {
@@ -133,7 +140,6 @@ export class SongsControlComponent implements OnInit {
 				if(res.message!='查看全部'){
 					res.data = [['',res.data]]
 				}
-				console.log(res.data)
 				if(res.data.length>0){
 					res.data.forEach((item:any)=>{
 						item[1].forEach((iitem:any)=>{
@@ -141,6 +147,7 @@ export class SongsControlComponent implements OnInit {
 							iitem.Singer.forEach((citem)=>{
 								singerNames+=citem.author_name
 							})
+							iitem.AudioUrl = 'http://xx.xx/'
 							iitem.singerNames = singerNames
 							this.setOption(iitem)
 						})
@@ -151,7 +158,6 @@ export class SongsControlComponent implements OnInit {
 					},1000)
 				}
 				this.list = res.data;
-				console.log(this.data)
 			}
 		}, (err: any) => {
 			console.log(err)

@@ -1402,6 +1402,11 @@ export class ApiService {
 		let url = `${this.baseUrl}/kugou/freeSongsControl`;
 		return this.http.get(url);
 	}
+	// 酷狗监控 歌曲 指数评论定时 监控 获取更新时间
+	kgSongsControl(){
+		let url = `${this.baseUrl}/kugou/kgSongsControl`;
+		return this.http.get(url);
+	}
 	// qq免费歌曲定时 监控 获取更新时间
 	freeSongsControlQQ(){
 		let url = `${this.baseUrl}/qq/freeSongsControl`;
