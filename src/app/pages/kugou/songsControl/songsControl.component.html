@@ -82,7 +82,7 @@
 			<div class='more' *ngIf='item.isMore'>
 			<!-- <div class='more' [ngStyle]="{'height':item.isMore?((item.GrpData.length*160)+'px'):'0px','padding':item.isMore?'8px 12px':'0px'}"> -->
 				
-				 <nz-table #columnTable [nzData]="item.Index" [nzPageSize]='10000000' [nzShowPagination]='false' [nzScroll]="{ x: '2000px' }">
+				 <nz-table #columnTable [nzData]="item.IndexKG" [nzPageSize]='10000000' [nzShowPagination]='false' [nzScroll]="{ x: item.IndexKG.length*200+'px' }">
 				      <thead>
 				        <tr>
 						  <th nzLeft nzAlign='center'>日期</th>
@@ -97,19 +97,26 @@
 						<tr >
 							<td nzAlign='center' nzLeft>评论</td>
 						  <td nzAlign='center' *ngFor="let data of columnTable.data;let i = index">
-							  <div *ngIf='item.Count[i]'>
-								  {{ item.Count[i].Count }}
+							  <div *ngIf='item.Count.KG[i]'>
+								  {{ item.Count.KG[i].Count }}
 							  </div>
 						  </td>
 						</tr>
 						<tr>
 							<td nzAlign='center' nzLeft>指数趋势</td>
-							<td [colSpan]="item.Index.length">
+							<td [colSpan]="item.IndexKG.length">
 								<div
 								  echarts
-								  [options]="item.options"
+								  [options]="item.optionsKG"
 								  class="demo"
-								  style="width: 100%; height: 90px; "
+								  style="width: 100%; height: 180px; display: flex;align-items: center;"
+								></div>
+								<div style="height: 12px;"></div>
+								<div
+								  echarts
+								  [options]="item.optionsQQ"
+								  class="demo"
+								  style="width: 100%; height: 180px; display: flex;align-items: center;"
 								></div>
 							</td>
 						</tr>

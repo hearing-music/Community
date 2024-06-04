@@ -23,7 +23,7 @@ export class SongsControlComponent implements OnInit {
 	data=[];
 	selectIndex = 0;
 	type='';
-	tableWidth = '0px';
+	// tableWidth = '0px';
 	audioSrc = '';
 	isPlay=false;
 	onSelect(item:any,index:number){
@@ -41,18 +41,18 @@ export class SongsControlComponent implements OnInit {
 		window.open('http://www2.kugou.kugou.com/yueku/v8/album/single/' + item.AlbumID + '-0-1.html')
 	}
 	moreVersion(item:any){
-		if(item.Index.length==0) {
+		if(item.IndexKG.length==0) {
 			this.message.info("暂无数据")
 			return
 		};
 		item.isMore = item.isMore?false:true;
-		this.getWidth();
+		// this.getWidth();
 	}
-	getWidth(){
-		var item1 = document.querySelector("#list-item0");
-		var item1_w = window.getComputedStyle(item1).getPropertyValue("width");
-		this.tableWidth = item1_w;
-	}
+	// getWidth(){
+	// 	var item1 = document.querySelector("#list-item0");
+	// 	var item1_w = window.getComputedStyle(item1).getPropertyValue("width");
+	// 	this.tableWidth = item1_w;
+	// }
 	openSongDetail(MixSongId: string | number, hash: string | number) {
 		window.open('https://www.kugou.com/song/#hash=' + hash + '&album_audio_id=' + MixSongId)
 	}
@@ -147,15 +147,14 @@ export class SongsControlComponent implements OnInit {
 							iitem.Singer.forEach((citem)=>{
 								singerNames+=citem.author_name
 							})
-							iitem.AudioUrl = 'http://xx.xx/'
 							iitem.singerNames = singerNames
-							this.setOption(iitem)
+							iitem.IndexKG = iitem.Index.KG;
+							iitem.IndexQQ = iitem.Index.QQ;
+							this.setOptionQQ(iitem)
+							this.setOptionKG(iitem)
 						})
 					})
 					this.data = res.data[0][1];
-					setTimeout(()=>{
-						this.getWidth();
-					},1000)
 				}
 				this.list = res.data;
 			}
@@ -164,10 +163,10 @@ export class SongsControlComponent implements OnInit {
 			this.loading = false;
 		})
 	}
-	setOption(iitem:any){
-		let dateList = iitem.Index.map((e:any)=>this.common.getTime(e.Time));
-				let dataList = iitem.Index.map((e:any)=>e.Index);
-				iitem.options = {
+	setOptionKG(iitem:any){
+		let dateList = iitem.IndexKG.map((e:any)=>this.common.getTime(e.Time));
+		let dataList = iitem.IndexKG.map((e:any)=>e.Index);
+				iitem.optionsKG = {
 				visualMap: [
 					{
 						show: false, // 是否显示该可视化映射
@@ -202,8 +201,58 @@ export class SongsControlComponent implements OnInit {
 						type: "line", // 系列类型为折线图
 						showSymbol: false, // 不显示数据点标志
 						data: dataList, // 系列的数据
+						lineStyle: {  
+							color: 'blue' // 设置折线颜色为红色，你可以根据需要更改这个颜色  
+						},
 					},
 				],
+				height:150
+			};
+		}
+	setOptionQQ(iitem:any){
+		let dateList = iitem.IndexQQ.map((e:any)=>this.common.getTime(e.Time));
+		let dataList = iitem.IndexQQ.map((e:any)=>e.Index);
+				iitem.optionsQQ = {
+				visualMap: [
+					{
+						show: false, // 是否显示该可视化映射
+						type: "continuous", // 可视化映射类型（连续色彩渐变）
+						seriesIndex: 0, // 与第一个系列关联
+						min: 0, // 颜色映射的最小值
+						max: 400, // 颜色映射的最大值
+					},
+				],
+				tooltip: {
+					trigger: "axis", // 触发方式为坐标轴触发
+				},
+				grid: {
+					left: 0,
+					right: 0,
+					top: 0,
+					bottom: 0,
+				},
+				xAxis: [
+					{
+						data: dateList, // x 轴数据
+						show: false, // 隐藏第一个 x 轴
+					},
+				],
+				yAxis: [
+					{
+						show: false, // 隐藏第一个 y 轴
+					},
+				],
+				series: [
+					{
+						type: "line", // 系列类型为折线图
+						showSymbol: false, // 不显示数据点标志
+						data: dataList, // 系列的数据
+						lineStyle: {
+							color: 'green', // 设置折线颜色为红色，你可以根据需要更改这个颜色  
+						},
+					},
+				],
+				height:150
 			};
 		}
 	
