@@ -14,7 +14,7 @@
 				<img *ngIf='citem.isPlay&&citem.audioUrl' src="/assets/img/PAUSE-blue.svg" class='imgPlay'>
 			</div>
 			<div style="margin-left: 8px;flex:1;overflow: hidden;">
-				<div style="display: flex;align-items: center;cursor: pointer;" (click)='openSongDetail(citem.mixSongId,citem.fileHash)'>
+				<div style="display: flex;align-items: center;cursor: pointer;" (click)='openSongDetail(citem.eMixSongID)'>
 					<img *ngIf='cindex<=2' src="/assets/img/hot.svg" class="hotSvg" />
 					<div style="" class="hideText" nz-tooltip [nzTooltipTitle]="citem.reason">
 						{{citem.reason}}

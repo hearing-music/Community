@@ -33,8 +33,8 @@ export class HotSearchListTemplateComponent implements OnInit,OnChanges {
 			this.imgShow = true;
 		}
 	}
-	openSongDetail(MixSongId: string | number, hash: string | number) {
-		window.open('https://www.kugou.com/song/#hash=' + hash + '&album_audio_id=' + MixSongId)
+	openSongDetail(EMixSongID:string) {
+		window.open('https://www.kugou.com/song/#'+EMixSongID)
 	}
 	
 	doPlay(cIndex : any) {

@@ -14,7 +14,7 @@
 			<nz-select style="width: 100px;margin-right: 15px;" [(ngModel)]="isOriginal" (ngModelChange)='ngModelOriginal($event)'>
 				<nz-option *ngFor="let item of originalList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
 			</nz-select>
-			<nz-select style="width: 100px;margin-right: 15px;" [(ngModel)]="sort" (ngModelChange)='ngModelSort($event)'>
+			<nz-select style="width: 130px;margin-right: 15px;" [(ngModel)]="sort" (ngModelChange)='ngModelSort($event)'>
 				<nz-option *ngFor="let item of sortList;" [nzValue]="item.source" [nzLabel]="item.source"></nz-option>
 			</nz-select>
 

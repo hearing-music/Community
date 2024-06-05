@@ -73,8 +73,8 @@ export class GetRankingComponent implements OnInit {
 	openqq(mid: string) {
 		window.open('https://y.qq.com/n/ryqq/songDetail/' + mid)
 	}
-	openkg(scid: string | number, hash: string) {
-		window.open('https://www.kugou.com/song/#hash=' + hash + '&album_audio_id=' + scid)
+	openkg(EMixSongID: string) {
+		window.open('https://www.kugou.com/song/#'+EMixSongID)
 	}
 	ngModelChange(e: any) {
 		this.switch = e;

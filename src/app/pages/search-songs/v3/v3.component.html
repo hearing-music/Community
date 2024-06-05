@@ -18,7 +18,7 @@
 							</div>
 						</div>
 						<img src="../../../assets/img/yuanchang.svg" class="icon" style='margin-left: 4px;' *ngIf='item.IsOriginal==1'/>
-						<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.MixSongID,item.FileHash,$event)"
+						<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.EMixSongID,$event)"
 							class="linkIcon" style="margin-left: 10px;">
 							<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
 						</button>
@@ -249,7 +249,7 @@
 								</div>
 							</div>
 							<img src="../../../assets/img/yuanchang.svg" class="icon" style='margin-left: 4px;' *ngIf='citem.IsOriginal==1'/>
-							<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(citem.scid,citem.FileHash,$event)"
+							<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(citem.EMixSongID,$event)"
 								class="linkIcon" style="margin-left: 10px;">
 								<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
 							</button>

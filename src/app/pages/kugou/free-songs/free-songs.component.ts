@@ -96,7 +96,7 @@ export class FreeSongs_kugouComponent implements OnInit {
         "https://www.kugou.com/song/#hash=" +
           item.hash +
           "&album_audio_id=" +
-          item.audio_id
+          item.album_audio_id
       );
     } else {
       window.open(item.song_url);

@@ -105,8 +105,8 @@ export class V3Component implements OnInit {
 		item.isMore = item.isMore?false:true;
 		e.stopPropagation();
 	}
-	openSongDetail(MixSongId: string | number, hash: string | number,e:any) {
-		window.open('https://www.kugou.com/song/#hash=' + hash + '&album_audio_id=' + MixSongId)
+	openSongDetail(EMixSongID: string ,e:any) {
+		window.open('https://www.kugou.com/song/#'+EMixSongID)
 		e.stopPropagation();
 	}
 	openExponentLink(item: any,e:any) {

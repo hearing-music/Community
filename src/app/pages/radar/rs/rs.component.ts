@@ -25,7 +25,7 @@ export class RSComponent implements OnInit {
     let mixSongId = data.KgMixSongID
     this.api.getKuGouHash({ keyword, mixSongId }).subscribe((res: any) => {
       if (res.result) {
-        window.open('https://www.kugou.com/song/#hash=' + res.result + '&album_audio_id=' + mixSongId)
+        window.open('https://www.kugou.com/song/#'+data.EMixSongID)
       } else {
         this.message.create("error", `该歌曲没有id请自行查找`);
       }

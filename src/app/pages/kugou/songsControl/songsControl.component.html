@@ -34,7 +34,7 @@
 									</span>
 								</div>
 							</div>
-							<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.MixSongID,item.FileHash)"
+							<button nz-button nzShape="circle" nzType="text" (click)="openSongDetail(item.EMixSongID)"
 								class="linkIcon" style="margin-left: 10px;">
 								<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
 							</button>
@@ -80,7 +80,6 @@
 				
 			</div>
 			<div class='more' *ngIf='item.isMore'>
-			<!-- <div class='more' [ngStyle]="{'height':item.isMore?((item.GrpData.length*160)+'px'):'0px','padding':item.isMore?'8px 12px':'0px'}"> -->
 				
 				 <nz-table #columnTable [nzData]="item.IndexKG" [nzPageSize]='10000000' [nzShowPagination]='false' [nzScroll]="{ x: item.IndexKG.length*200+'px' }">
 				      <thead>

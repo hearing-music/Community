@@ -151,6 +151,7 @@ export class FreeSongs_qqComponent implements OnInit {
           this.loading = false;
           console.log(res);
           if (res.success) {
+			  res.result = res.result ||res.data;
             res.result.forEach((item: any) => {
               const date = new Date(item.updated_at);
               const timestamp = date.getTime();

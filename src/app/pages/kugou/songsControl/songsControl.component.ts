@@ -53,8 +53,8 @@ export class SongsControlComponent implements OnInit {
 	// 	var item1_w = window.getComputedStyle(item1).getPropertyValue("width");
 	// 	this.tableWidth = item1_w;
 	// }
-	openSongDetail(MixSongId: string | number, hash: string | number) {
-		window.open('https://www.kugou.com/song/#hash=' + hash + '&album_audio_id=' + MixSongId)
+	openSongDetail(EMixSongID: string) {
+		window.open('https://www.kugou.com/song/#'+EMixSongID)
 	}
 	playAudio(item: any, i: number) {
 		if(item.AudioUrl){

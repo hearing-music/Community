@@ -103,8 +103,8 @@ export class HotSearchListComponent implements OnInit {
 	// 		this.loading = false;
 	// 	})
 	// }
-	openSongDetail(MixSongId: string | number, hash: string | number) {
-		window.open('https://www.kugou.com/song/#hash=' + hash + '&album_audio_id=' + MixSongId)
+	openSongDetail(eMixSongID: string) {
+		window.open('https://www.kugou.com/song/#' + eMixSongID)
 	}
 	play(element : any) {
 		console.log(element)

@@ -39,8 +39,8 @@ export class HotSearchListAllComponent implements OnInit {
 	// }
 	
 	
-	openSongDetail(MixSongId: string | number, hash: string | number) {
-		window.open('https://www.kugou.com/song/#hash=' + hash + '&album_audio_id=' + MixSongId)
+	openSongDetail(EMixSongID: string) {
+		window.open('https://www.kugou.com/song/#'+EMixSongID)
 	}
 	doPlay(cIndex : any, i : number) {
 		this.change.emit({cIndex,i});

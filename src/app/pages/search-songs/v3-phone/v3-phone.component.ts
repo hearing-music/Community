@@ -13,8 +13,8 @@ export class V3PhoneComponent implements OnInit {
 	ngOnInit(): void {
 
 	}
-	openSongDetail(scid: string | number, hash: string | number) {
-		window.open('https://www.kugou.com/song/#hash=' + hash + '&album_audio_id=' + scid)
+	openSongDetail(EMixSongID: string) {
+		window.open('https://www.kugou.com/song/#'+EMixSongID)
 	}
 	openExponentLink(item: any) {
 		window.open('https://h5.kugou.com/achievement/v-a34ccad0/index.html?audio_id=' + item.scid + '&hash=' + item.FileHash + '&mixsongid=' + item.MixSongID)

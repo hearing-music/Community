@@ -72,7 +72,7 @@
 						</div>
 						<div class='kg' *ngIf='item.kugou.song_name'>
 							{{common.deleteEM(item.kugou.song_name)}}
-							<button nz-button nzShape="circle" nzType="text" (click)='openkg(item.kugou.scid,item.kugou.SQFileHash)' class="linkIcon" style="margin-left: 8px;display: flex;align-items: center;justify-content: center;">
+							<button nz-button nzShape="circle" nzType="text" (click)='openkg(item.kugou.EMixSongID)' class="linkIcon" style="margin-left: 8px;display: flex;align-items: center;justify-content: center;">
 								<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
 							</button>
 						</div>
