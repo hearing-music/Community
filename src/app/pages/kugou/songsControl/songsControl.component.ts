@@ -167,39 +167,44 @@ export class SongsControlComponent implements OnInit {
 		let dataList = iitem.IndexKG.map((e:any)=>e.Index);
 		let dataList2 = iitem.IndexQQ.map((e:any)=>e.Index);
 				iitem.options = {
-				visualMap: [
-					{
-						show: false, // 是否显示该可视化映射
-						type: "continuous", // 可视化映射类型（连续色彩渐变）
-						seriesIndex: 0, // 与第一个系列关联
-						min: 0, // 颜色映射的最小值
-						max: 400, // 颜色映射的最大值
-					},
-				],
+				// visualMap: [
+				// 	{
+				// 		show: false, // 是否显示该可视化映射
+				// 		type: "continuous", // 可视化映射类型（连续色彩渐变）
+				// 		seriesIndex: 0, // 与第一个系列关联
+				// 		min: 0, // 颜色映射的最小值
+				// 		max: 400, // 颜色映射的最大值
+				// 	},
+				// ],
 				tooltip: {
 					trigger: "axis", // 触发方式为坐标轴触发
 				},
 				grid: {
-					left: 0,
-					right: 0,
-					top: 0,
-					bottom: 0,
+					left: 60,
+					right: 60,
+					top: 60,
+					bottom: 20,
 				},
 				xAxis: [
 					{
-						data: dateList, // x 轴数据
-						show: false, // 隐藏第一个 x 轴
-					},
+						type: 'category',
+						data: dateList,
+						axisTick: {
+							alignWithLabel: true
+						}
+					}
 				],
 				yAxis: [
 					{
-						show: false, // 隐藏第一个 y 轴
-					},
+						type: 'value',
+						// position: 'left',
+					}
 				],
 				series: [
 					{
 						type: "line", // 系列类型为折线图
-						showSymbol: false, // 不显示数据点标志
+						name: '酷狗',
+						// showSymbol: false, // 不显示数据点标志
 						data: dataList, // 系列的数据
 						lineStyle: {  
 							color: 'blue' // 设置折线颜色为红色，你可以根据需要更改这个颜色  
@@ -207,7 +212,8 @@ export class SongsControlComponent implements OnInit {
 					},
 					{
 						type: "line", // 系列类型为折线图
-						showSymbol: false, // 不显示数据点标志
+						// showSymbol: false, // 不显示数据点标志
+						name: 'QQ',
 						data: dataList2, // 系列的数据
 						lineStyle: {
 							color: 'green', // 设置折线颜色为红色，你可以根据需要更改这个颜色  

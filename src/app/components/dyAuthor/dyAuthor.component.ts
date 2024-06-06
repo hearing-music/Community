@@ -135,6 +135,7 @@ export class DyAuthorComponent implements OnInit {
 				}, {
 					type: 'value',
 					position: 'right',
+					max:1000
 				}
 			],
 			series: [
@@ -159,7 +160,7 @@ export class DyAuthorComponent implements OnInit {
 
 					}
 				}
-			]
+			],
 		}
 	}
 	setEoptions5(e: any) {
@@ -208,6 +209,7 @@ export class DyAuthorComponent implements OnInit {
 				}, {
 					type: 'value',
 					position: 'right',
+					max:1000
 				}
 			],
 			series: [
@@ -285,6 +287,7 @@ export class DyAuthorComponent implements OnInit {
 				}, {
 					type: 'value',
 					position: 'right',
+					max:1000
 				}
 			],
 			series: [
