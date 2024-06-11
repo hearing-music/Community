@@ -80,8 +80,15 @@
 					</div>
 				</td>
 				<td nzAlign='center'>
-					<div *ngFor="let s of item.singer;" style="color:rgba(0, 0, 0, 0.6);cursor: pointer;text-decoration: underline;" (click)='openSinger(s.mid)'>
-						{{s.name?s.name:''}}
+					<div *ngIf='item.singerJson'>
+						<div *ngFor="let s of item.singerJson;" style="color:rgba(0, 0, 0, 0.6);cursor: pointer;text-decoration: underline;" (click)='openSinger(s.mid)'>
+							{{s.name?s.name:''}}
+						</div>
+					</div>
+					<div *ngIf='item.singer'>
+						<div *ngFor="let s of item.singer;" style="color:rgba(0, 0, 0, 0.6);cursor: pointer;text-decoration: underline;" (click)='openSinger(s.mid)'>
+							{{s.name?s.name:''}}
+						</div>
 					</div>
 				</td>
 				<td nzAlign='center' style="color:rgba(0, 0, 0, 0.6);font-size: 12px;">

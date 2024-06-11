@@ -34,6 +34,13 @@ export class ApiService {
 		// return this.http.get(this.tencentUrl + "/music?action=search_qq&params=" + JSON.stringify({ keyword, page }))
 		return this.http.get(this.baseUrl + '/qq/search_qq?page=' + page + '&keyword=' + keyword)
 	}
+	// 酷狗添加监控 搜索qq
+	search_qqFree(params:any){
+		let {
+			keyword,
+		} = params;
+		return this.http.get(this.baseUrl + '/qq/search_qqFree?keyword=' + keyword)
+	}
 	// 获取专辑所有歌曲指数
 	qq_getAlbumExponent(params : any) {
 		let {

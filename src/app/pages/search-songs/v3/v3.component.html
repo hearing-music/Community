@@ -475,22 +475,38 @@
 				{{'已选'+ cartData.length + '首'}}
 			</div>
 			<div style="height:400px;overflow-y: auto;">
-				<div *ngFor="let item of cartData" class='listItem'>
-					<div>
-						<div>
-							<span style="font-weight: bold;">歌曲名：</span>{{common.deleteEM(item.songName)}}
-						</div>
-						<div style="display: flex;align-items: center;">
-							<span style="font-weight: bold;">歌手名：</span><div style="display: flex;align-items: center;">
-								<div *ngFor="let s of item.singers;let si = index;" style="cursor: pointer;">
-									{{common.deleteEM(s.name)}}{{si==item.singers.length-1?'':'、'}}
+				<div *ngFor="let item of cartData;let i = index;">
+					<nz-card [nzTitle]="common.deleteEM(item.songName)" style='border:1px solid #666;font-weight: bold;margin:20px 0;'>
+						<div style="display: flex;align-items: center;justify-content: space-between;">
+							<div>
+								<div style="display: flex;align-items: center;font-size: 13px;font-weight: normal;">
+									<span style="font-weight: bold;">歌手名:</span>
+									<div *ngFor="let s of item.singers;let si = index;">
+										{{common.deleteEM(s.name)}}{{si==item.singers.length-1?'':'、'}}
+									</div>
+								</div>
+								<div style="font-size: 13px;font-weight: normal;">
+									<span style="font-weight: bold;">发行时间:</span>{{item.time_public}}
 								</div>
 							</div>
-							<div style="margin-left: 12px;">
-								<span style="font-weight: bold;">发行时间：</span>{{item.time_public}}
-							</div>
+							<button (click)='removeCart(i)' nz-button nzType="primary" nzDanger>删除</button>
 						</div>
-					</div>
+						<div style="margin: 10px 0;color:#31c27c;">选择qq添加</div>
+						<nz-card (click)='selectQQ(item,qindex)' [ngClass]='{"isSelect":qitem.isSelect}' style="margin: 10px 0;border:1px solid #ccc;font-weight: bold;" *ngFor='let qitem of item.QQData;let qindex = index;' [nzTitle]="qitem.name" [nzHoverable]='true' [nzSize]='"small"'>
+							 <div style="font-size: 13px;font-weight: normal;">
+								<span style="font-weight: bold;">歌手名:</span>{{qitem.singerName}}
+							 </div>
+							 <div style="font-size: 13px;font-weight: normal;">
+								<span style="font-weight: bold;">发行时间:</span>{{qitem.time_public}}
+							 </div>
+							 <div style="font-size: 13px;font-weight: normal;">
+							 	<span style="font-weight: bold;">专辑名:</span>{{qitem.album.name}}
+							 </div>
+							 <div style="font-size: 13px;font-weight: normal;color:blue;" (click)='openSongDetailQQ(qitem.mid,$event)'>
+							 	跳转
+							 </div>
+						</nz-card>
+					</nz-card>
 				</div>
 			</div>
 			<div style="display: flex;margin-top: 12px;justify-content: center;">
