@@ -154,7 +154,11 @@ export class SongsControlComponent implements OnInit {
 							iitem.singerNames = singerNames
 							// 添加 截至到今日没有的日期
 							iitem.IndexKG = this.computedIndex(iitem.Index.KG);
-							iitem.IndexQQ = iitem.Index.QQ;
+							if(iitem.Index.QQ.length>0){
+								iitem.IndexQQ = this.quchong(iitem.Index.QQ,'Time');
+							}else{
+								iitem.IndexQQ = iitem.Index.QQ
+							}
 							// 将评论按指数时间 对上
 							iitem.CountKG = this.computedCount(iitem.Count.KG, iitem.IndexKG);
 							// 将listen分组 一天为一组
@@ -206,9 +210,10 @@ export class SongsControlComponent implements OnInit {
 		}
 		return newCountArr
 	}
-	// 添加 截至到今日没有的日期
+	// 添加 截至到今日没有的日期 + 去重
 	computedIndex(IndexArr : any) {
 		let IndexArrNow = JSON.parse(JSON.stringify(IndexArr));
+		IndexArrNow = this.quchong(IndexArrNow,'Time')
 		let time = IndexArrNow[IndexArrNow.length - 1].Time;
 		let year = new Date(time - 0).getFullYear();
 		let month = new Date(time - 0).getMonth() + 1;
@@ -235,6 +240,17 @@ export class SongsControlComponent implements OnInit {
 	    }  
 	    return uniqueArray;  
 	} 
+	quchong(tempArr:any,key:string) {
+	    let result = [];
+	    let obj = {};
+	    for (let i = 0; i < tempArr.length; i++) {
+	        if (!obj[tempArr[i][key]]) {
+	            result.push(tempArr[i]);
+	            obj[tempArr[i][key]] = true;
+	        };
+	    };
+	    return result;
+	}
 	// 指数 qq 酷狗
 	setOptionIndex(iitem:any){
 		let dateListNow = [...iitem.IndexKG,...iitem.IndexQQ];
@@ -243,11 +259,10 @@ export class SongsControlComponent implements OnInit {
 		dateListNow = this.removeDuplicates(dateListNow);
 		let dataList = iitem.IndexKG.map((e : any) => e.Index);// 酷狗指数数据
 		let dataList2 = iitem.IndexQQ.map((e : any) => e.Index);// QQ指数数据
-		// 补齐qq缺失的时间
+		// 补齐qq缺失的时间 比qq第1个time 小的时间 补齐
 		if(iitem.IndexQQ.length>0){
 			iitem.IndexKG.forEach((item:any)=>{
-				let i = iitem.IndexQQ.findIndex((e:any)=>this.common.getDate(e.Time) == this.common.getDate(item.Time))
-				if(i==-1){
+				if(this.common.getDate(iitem.IndexQQ[0].Time) > this.common.getDate(item.Time)){
 					dataList2.unshift("")
 				}
 			})
@@ -309,8 +324,9 @@ export class SongsControlComponent implements OnInit {
 		// 补齐qq缺失的时间
 		if(iitem.Listen.QQ.length>0){
 			iitem.Listen.KG.forEach((item:any)=>{
-				let i = iitem.Listen.QQ.findIndex((e:any)=>this.common.getTime(e.Time) == this.common.getTime(item.Time))
-				if(i==-1){
+				if(this.common.getTime(iitem.Listen.QQ[0].Time) > this.common.getTime(item.Time)){
+				// let i = iitem.Listen.QQ.findIndex((e:any)=>this.common.getTime(e.Time) == this.common.getTime(item.Time))
+				// if(i==-1){
 					dataList2.unshift("")
 				}
 			})
