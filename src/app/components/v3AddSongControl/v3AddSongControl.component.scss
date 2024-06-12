@@ -1,0 +1,42 @@
+.isSelect{
+	border:2px solid #31c27c!important;
+}
+.icon {
+			margin-right: 4px;
+			width: 16px;
+			height: 16px;
+		}
+		.play{
+			position: fixed;
+			z-index: 9999;
+			left:50%;
+			transform: translateX(-50%);
+			bottom:0px;
+		}
+		.hide{
+			display: none;
+		}
+		.Add{
+			cursor: pointer;
+			background: blue;
+			border-radius: 50%;
+			width:46px;
+			height:46px;
+			position:fixed;
+			right:20px;
+			bottom:20px;
+			display:flex;
+			align-items: center;
+			justify-content: center;
+			.badgeCount{
+				position:absolute;
+				left:10px;
+				top:10px;
+			}
+		}
+.qqCard{
+	transition: .2s;margin: 10px 0;border:1px solid #ccc;font-weight: bold;
+}
+.musicPlay{
+	width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);
+}

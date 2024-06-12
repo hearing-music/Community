@@ -303,11 +303,13 @@ export class SongsControlComponent implements OnInit {
 					type: "line",
 					name: '酷狗指数',
 					data: dataList,
+					smooth: true
 				},
 				{
 					type: "line",
 					name: 'QQ指数',
 					data: dataList2,
+					smooth: true
 				},
 			],
 			height: 150
@@ -361,6 +363,7 @@ export class SongsControlComponent implements OnInit {
 			yAxis: [
 				{
 					type: 'value',
+					
 				}
 			],
 			series: [
@@ -368,11 +371,13 @@ export class SongsControlComponent implements OnInit {
 					type: "line",
 					name: '酷狗收听',
 					data: dataList,
+					smooth: true
 				},
 				{
 					type: "line",
 					name: 'QQ收听',
 					data: dataList2,
+					smooth: true
 				},
 			],
 			height: 150

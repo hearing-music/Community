@@ -12,94 +12,22 @@ export class V3Component implements OnInit {
 	@Input() kugouV3List: any;
 	@Output() change: EventEmitter<any> = new EventEmitter<any>();
 	constructor(public common: CommonService, public api: ApiService, private router: Router,public message:NzMessageService) { }
+	
 	ngOnInit(): void {
 
-	}
-	openModal(){
-		this.isVisible = true;
-	}
-	handleCancel(){
-		this.isVisible = false;
 	}
 	removeCart(i:number){
 		let index = this.kugouV3List.findIndex((e:any)=>e.scid == this.cartData[i].scid)
 		this.kugouV3List[index].isSelect = false;
 		this.cartData.splice(i,1)
 	}
-	add(){
-		if(this.cartData.length==0){
-			this.message.info('请添加')
-			return;
-		}
-		let Parameters = {};
-		let SCID = [];
-		let EMixSongID = [];
-		let AlbumID = [];
-		let CommentID = [];
-		let Mid = [];
-		let Ids = [];
-		let length = [];
-		this.cartData.forEach((item:any)=>{
-			SCID.push(item.scid);
-			EMixSongID.push(item.EMixSongID)
-			AlbumID.push(item.albumID)
-			CommentID.push({"MixSongID":item.MixSongID,"FileHash":item.FileHash})
-			length.push(0)
-			
-			let qqData:any = {}
-			item.QQData = item.QQData.filter((e:any)=>e.isSelect==true)
-			console.log(item.QQData)
-			if(item.QQData.length>0){
-				qqData = item.QQData[0];
-				Mid.push(qqData.mid)
-				Ids.push(qqData.id)
-			}else{
-				Mid.push(false)
-				Ids.push(false)
-			}
-			
-		})
-		Parameters['SCID']=SCID;
-		Parameters['EMixSongID']=EMixSongID;
-		Parameters['AlbumID']=AlbumID;
-		Parameters['CommentID']=CommentID;
-		Parameters['length']=length;
-		Parameters['Mid']=Mid;
-		Parameters['Ids']=Ids;
-		this.loading = true;
-		this.api.kgSurveillanceSongs({Parameters}).subscribe((res: any) => {
-			console.log(res)
-			if (res.success) {
-				this.message.success("添加成功")
-				this.cartData = [];
-				this.kugouV3List.forEach((item:any)=>{
-					item.isSelect = false;
-				})
-				this.isVisible = false;
-			}
-			this.loading = false;
-		}, (err: any) => {
-			console.log(err)
-			this.loading = false;
+	cancelSelect(){
+		this.cartData = [];
+		this.kugouV3List.forEach((item:any)=>{
+			item.isSelect = false;
 		})
 	}
 	cartData:any=[];
-	isVisible=false;
-	selectQQ(item:any,qindex:any){
-		item.QQData.forEach((e:any,index:any)=>{
-			if(qindex==index){
-				e.isSelect = !e.isSelect;
-			}else{
-				e.isSelect = false;
-			}
-		})
-	}
-	// 打开链接
-	openSongDetailQQ(songMid:string,e:any){
-		window.open('https://y.qq.com/n/ryqq/songDetail/'+songMid);
-		e.stopPropagation();
-		
-	}
 	selectItem(item:any,index:number){
 		item.isSelect = !item.isSelect;
 		var i = this.cartData.findIndex((e:any)=>e.scid == item.scid)
@@ -136,6 +64,11 @@ export class V3Component implements OnInit {
 			console.log(err)
 		})
 	}
+	
+	
+	// 酷狗添加监控 播放音乐
+	audioSrc=""
+	isPlay=false;
 	playAudio(item: any, i: number,e:any) {
 		if(item.MusicUrl){
 			this.change.emit({src:item.MusicUrl,i});
@@ -144,6 +77,7 @@ export class V3Component implements OnInit {
 		}
 		e.stopPropagation();
 	}
+	
 	loading=false;
 	getKugouSongUrl(item:any,i:number){
 		this.loading = true;

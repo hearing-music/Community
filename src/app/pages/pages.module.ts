@@ -52,6 +52,7 @@ import { QuerySonglistComponent } from './query-songlist/query-songlist.componen
 import { SearchPageComponent } from './search-page/search-page.component';
 import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.component';
 import { EnlightenmentComponent } from './venus/enlightenment/enlightenment.component'
+import {V3AddSongControlComponent} from'../components/v3AddSongControl/v3AddSongControl.component' 
 // import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
 import { DyHotComponent } from './douyin/douyin-list/dy-hot/dy-hot.component';
 import { DyYyhComponent } from './douyin/douyin-list/dy-yyh/dy-yyh.component';
@@ -246,6 +247,7 @@ registerLocaleData(zh);
 		UserControlComponent,
 		BehaviorControlComponent,
 		ControlTemplateComponent,
+		V3AddSongControlComponent,
 		YunjiaobenComponent,
 		TmeMapComponent,
 		EnteredByYouNiComponent,

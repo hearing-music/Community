@@ -1,0 +1,126 @@
+<!-- 酷狗添加监控 组件 -->
+<div>
+	<!-- 悬浮按钮 -->
+	<div class='Add' (click)='openModal()' nz-tooltip [nzTooltipTitle]="'录入酷狗监控'">
+		<nz-badge [nzCount]="cartData.length" class='badgeCount'> <a class="head-example"></a> </nz-badge>
+		<span nz-icon nzType="form" nzTheme="outline" style="font-size: 24px;color:#fff;"></span>
+	</div>
+	<!-- 播放器 -->
+	<div class="play" [ngClass]="{hide : !isPlay}">
+		<audio id='audioKG' controls [src]="audioSrc" (error)="audioError()" (play)='play($event)' (pause)='pause()'>
+		</audio>
+	</div>
+	<!-- 添加列表 -->
+	<nz-modal [nzStyle]="{ width: '700px' }" [(nzVisible)]="isVisible" [nzFooter]="null" (nzOnCancel)="handleCancel()"
+		[nzClosable]="false" >
+		<ng-container *nzModalContent>
+			<div class="modalTitle">
+				{{'已选'+ cartData.length + '首'}}
+			</div>
+			<div style="height:460px;overflow-y: auto;">
+				<div *ngFor="let item of cartData;let i = index;">
+					<nz-card [nzTitle]="common.deleteEM(item.songName)" style='border:1px solid #666;font-weight: bold;margin:20px 0;'>
+						<div style="display: flex;align-items: center;justify-content: space-between;">
+							<div style="display: flex;align-items: center;">
+								<div (click)='playAudio2(item,i)' style="position: relative;cursor: pointer;">
+									<img [nzDisablePreview]='true' nz-image width="74px" height="74px" style="border-radius: 4px;" [nzSrc]="item.image" [nzFallback]="fallback" /> 
+									<img *ngIf='!item.isPlay2' src="assets/img/play-blue.png" class='musicPlay' />
+									<img *ngIf='item.isPlay2' src="assets/img/pause-blue.png" class='musicPlay'>
+								</div>
+								<div style="margin-left: 12px;font-weight: normal;font-size: 13px;">
+									<div style="display: flex;align-items: center;font-weight: bold;">
+										<!-- 在听人数 -->
+										<div class="" style="display: flex;align-items: center;">
+											<img src="../../../assets/img/erji.png" class="icon" />
+											<div>{{common.toThousands(item.listenPeopleCount)}}</div>
+										</div>
+										<!-- 指数 -->
+										<div *ngIf='item.detailData.listener_num' style="display: flex;align-items: center;margin-left: 8px;">
+											<img src="../../../assets/img/shuangzhexian.png" class="icon" />
+											<div>{{common.toThousands(item.detailData.exponent)}}</div>
+										</div>
+										<div *ngIf='!item.detailData.listener_num' style="display: flex;align-items: center;margin-left: 8px;">
+											<img src="../../../assets/img/shuangzhexian.png" class="icon" />
+											<div>{{common.toThousands(item.exponent)}}</div>
+										</div>
+										<!-- 排名 -->
+										<div *ngIf='item.detailData.listener_num' style="display: flex;align-items: center;margin-left: 8px;">
+											<img src="../../../assets/img/zhexiandian.png" class="icon" />
+											<div>{{common.toThousands(item.detailData.rank)}}</div>
+										</div>
+									</div>
+									<div>
+										<span style="font-weight: bold;">歌手名:</span>{{item.singerNames}}
+									</div>
+									<div *ngIf='item.time_public'>
+										<span style="font-weight: bold;">发行时间:</span>{{item.time_public}}
+									</div>
+									<div *ngIf='item.albumName'>
+										<span style="font-weight: bold;">专辑名:</span>{{item.albumName}}
+									</div>
+								</div>
+							</div>
+							<!-- 删除按钮 -->
+							<button (click)='removeCart(i)' nz-button nzType="primary" nzDanger>删除</button>
+						</div>
+						<div style="margin: 10px 0;color:#31c27c;">选择 QQ音乐平台 添加</div>
+						<div style="display: flex;justify-content: center;">
+							<nz-spin *ngIf='!item.QQData' nzSimple></nz-spin>
+							<div *ngIf='item.QQData'>
+								<nz-empty *ngIf="item.QQData.length==0" style="margin-top: 16px;"></nz-empty>
+							</div>
+						</div>
+						<nz-card (click)='selectQQ(item,qindex)' [ngClass]='{"isSelect":qitem.isSelect}' class='qqCard' 
+						*ngFor='let qitem of item.QQData;let qindex = index;' [nzTitle]="qitem.name" [nzHoverable]='true' [nzSize]='"small"'>
+							<div style="display: flex;align-items: center;">
+								<div (click)='playAudio3(item,i,qitem,qindex,$event)' style="position: relative;cursor: pointer;">
+									<img [nzDisablePreview]='true' nz-image width="64px" height="64px" style="border-radius: 4px;" [nzSrc]="qitem.imgUrl" [nzFallback]="fallback" />
+									<img *ngIf='!qitem.isPlay2' src="assets/img/play-green.png" style="width: 28px;height: 28px;" class="musicPlay" />
+									<img *ngIf='qitem.isPlay2' src="assets/img/pause-green.png" style="width: 28px;height: 28px;" class="musicPlay" />
+								</div>
+								<div style="margin-left: 12px;font-weight: normal;font-size: 13px;">
+									
+									<div style="display: flex;font-weight: bold;">
+										<!-- 收听 -->
+										<div class="" style="display: flex;align-items: center;">
+											<img src="../../../assets/img/erji.png" class="icon" />
+											<div>{{common.toThousands(qitem.cnt)}}</div>
+										</div>
+										<!-- 昨日指数 -->
+										<div class="" style="display: flex;align-items: center;margin-left: 4px;">
+											<img src="../../../assets/img/shuangzhexian.png" class="icon" />
+											<div>{{common.toThousands(qitem.yesterdayIndex)}}</div>
+										</div>
+										<!-- 指数排名 -->
+										<div style="display: flex;align-items: center;margin-left: 4px;">
+											<img src="../../../assets/img/zhexiandian.png" class="icon" />
+											<div>{{common.toThousands(qitem.yesterdayRank)}}</div>
+										</div>
+									</div>
+									
+									<div>
+										<span style="font-weight: bold;">歌手名:</span>{{qitem.singerName}}
+									</div>
+									<div *ngIf='qitem.time_public'>
+										<span style="font-weight: bold;">发行时间:</span>{{qitem.time_public}}
+									</div>
+									<div *ngIf='qitem.album.name'>
+										<span style="font-weight: bold;">专辑名:</span>{{qitem.album.name}}
+									</div>
+									<div style="color:blue;" (click)='openSongDetailQQ(qitem.mid,$event)'>
+										跳转主页
+									</div>
+								</div>
+							</div>
+							
+						</nz-card>
+					</nz-card>
+				</div>
+			</div>
+			<div style="display: flex;margin-top: 12px;justify-content: center;">
+				<button (click)='add()' nz-button nzType="primary">添加</button>
+			</div>
+		</ng-container>
+	</nz-modal>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>
