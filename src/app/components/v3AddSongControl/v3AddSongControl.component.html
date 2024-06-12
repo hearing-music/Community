@@ -58,12 +58,15 @@
 									<div *ngIf='item.albumName'>
 										<span style="font-weight: bold;">专辑名:</span>{{item.albumName}}
 									</div>
+									<div *ngIf='item.company'>
+										<span style="font-weight: bold;">发行公司:</span>{{common.deleteEM(item.company)}}
+									</div>
 								</div>
 							</div>
 							<!-- 删除按钮 -->
 							<button (click)='removeCart(i)' nz-button nzType="primary" nzDanger>删除</button>
 						</div>
-						<div style="margin: 10px 0;color:#31c27c;">选择 QQ音乐平台 添加</div>
+						<div style="padding: 10px 0;color:#31c27c;border-top:3px dashed #31c27c;margin-top: 10px;">选择 QQ音乐平台 添加</div>
 						<div style="display: flex;justify-content: center;">
 							<nz-spin *ngIf='!item.QQData' nzSimple></nz-spin>
 							<div *ngIf='item.QQData'>
