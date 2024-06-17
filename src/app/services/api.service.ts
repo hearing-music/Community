@@ -1380,6 +1380,15 @@ export class ApiService {
 		let url = this.baseUrl + "/login/SearchUserBehaviour2";
 		return this.http.post(url, data);
 	}
+	// 新用户行为导出今日表格
+	UserBehaviourExcel(params:any){
+		let {
+			timeStart,timeEnd,userId
+		} = params
+		let data = {timeStart,timeEnd,userId}
+		let url = this.baseUrl + "/login/UserBehaviourExcel";
+		return this.http.post(url, data);
+	}
 	// 老用户行为导出今日表格
 	UserBehaviourExcel2(params:any){
 		let {

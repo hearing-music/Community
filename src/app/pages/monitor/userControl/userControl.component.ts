@@ -172,14 +172,35 @@ export class UserControlComponent implements OnInit {
 		  this.timeEnd2 = timeEnd;
 		  this.SearchUserBehaviour2()
 	  }
+	  // 新用户行为导出表格
+	  UserBehaviourExcel(){
+		  if(this.timeStart==0||this.timeEnd==0){
+		  	this.message.info("请选择日期区间")
+		  	return;
+		  }
+		  this.loading = true;
+		  this.api.UserBehaviourExcel({timeStart:this.timeStart,timeEnd:this.timeEnd,userId:this.user=="0"?"":this.user}).subscribe((res : any) => {
+		  	this.loading = false;
+		  	console.log(res)
+		  	if (res.success) {
+		  		let fileURL = res.data[0];
+		  		setTimeout(()=>{
+		  			this.common.download(downloadUrl+fileURL,res.data[1])
+		  		},1000)
+		  	}
+		  }, (err : any) => {
+		  	console.log(err)
+		  	this.loading = false;
+		  })
+	  }
 	// 老用户行为导出表格
 	UserBehaviourExcel2(){
-		if(this.timeStart==0||this.timeEnd==0){
+		if(this.timeStart2==0||this.timeEnd2==0){
 			this.message.info("请选择日期区间")
 			return;
 		}
 		this.loading = true;
-		this.api.UserBehaviourExcel2({timeStart:this.timeStart,timeEnd:this.timeEnd,userId:this.user2=="0"?"":this.user2}).subscribe((res : any) => {
+		this.api.UserBehaviourExcel2({timeStart:this.timeStart2,timeEnd:this.timeEnd2,userId:this.user2=="0"?"":this.user2}).subscribe((res : any) => {
 			this.loading = false;
 			console.log(res)
 			if (res.success) {
