@@ -180,7 +180,7 @@ export class SongsControlComponent implements OnInit {
 	computedListen(listenArr : any, IndexArr : any) {
 		let newListenArr = []
 		for (let i = 0; i < IndexArr.length; i++) {
-			let time = IndexArr[i].Time;
+			let time = IndexArr[i].Time - 0;
 			let year = new Date(time).getFullYear();
 			let month = new Date(time).getMonth() + 1;
 			let day = new Date(time).getDate();
@@ -195,10 +195,10 @@ export class SongsControlComponent implements OnInit {
 	computedCount(CountArr : any, IndexArr : any) {
 		let newCountArr = []
 		for (let i = 0; i < IndexArr.length; i++) {
-			let time = IndexArr[i].Time;
-			let year = new Date(time - 0).getFullYear();
-			let month = new Date(time - 0).getMonth() + 1;
-			let day = new Date(time - 0).getDate();
+			let time = IndexArr[i].Time-0;
+			let year = new Date(time).getFullYear();
+			let month = new Date(time).getMonth() + 1;
+			let day = new Date(time).getDate();
 			let startTime = new Date(year + '/' + month + '/' + day + " 00:00:00").getTime();
 			let endTime = startTime + 24 * 60 * 60 * 1000;
 			let arr = CountArr.filter((e : any) => e.Time >= startTime && e.Time < endTime)
@@ -214,10 +214,10 @@ export class SongsControlComponent implements OnInit {
 	computedIndex(IndexArr : any) {
 		let IndexArrNow = JSON.parse(JSON.stringify(IndexArr));
 		IndexArrNow = this.quchong(IndexArrNow,'Time')
-		let time = IndexArrNow[IndexArrNow.length - 1].Time;
-		let year = new Date(time - 0).getFullYear();
-		let month = new Date(time - 0).getMonth() + 1;
-		let day = new Date(time - 0).getDate();
+		let time = IndexArrNow[IndexArrNow.length - 1].Time - 0;
+		let year = new Date(time).getFullYear();
+		let month = new Date(time).getMonth() + 1;
+		let day = new Date(time).getDate();
 		let startTime = new Date(year + '/' + month + '/' + day + " 00:00:00").getTime();
 
 		let yearToday = new Date().getFullYear();
