@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
-
+import { NzMessageService } from "ng-zorro-antd/message";
 @Component({
   selector: "ngx-douyin-listenSoundSource",
   templateUrl: "./douyin-listenSoundSource.component.html",
@@ -15,7 +15,7 @@ export class DouyinListenSoundSourceComponent implements OnInit {
   userId:any='0'
   index = [];
 	highUserList:any=[];
-  constructor(public api: ApiService, public common: CommonService) {}
+  constructor(public api: ApiService, public common: CommonService,private message: NzMessageService) {}
 
   ngOnInit(): void {
 	this.userId = localStorage.getItem("userId") || "0";
@@ -29,6 +29,41 @@ export class DouyinListenSoundSourceComponent implements OnInit {
     this.dataSet = [];
     this.getDouyinListenSourdSource();
   }
+  updateItem:any = {};
+  isVisible = false;
+  isOkLoading = false;
+  newOriginalVoice = ""
+  handleOk(){
+	  this.isOkLoading = true;
+	  this.updateDouyinListenSourdSourceName()
+  }
+  handleCancel(){
+	  this.isVisible = false;
+  }
+  openModel(item:any){
+	  this.updateItem = item;
+	  this.isVisible = true;
+  }
+  originalVoiceData = []
+  mouseenterOriginalVoice(data:any){
+	  this.originalVoiceData = data.originalVoice;
+  }
+  // 修改最新声源名字
+  updateDouyinListenSourdSourceName(){
+	  this.api.updateDouyinListenSourdSourceName({ID:this.updateItem.ID,originalVoice:this.newOriginalVoice}).subscribe((res: any) => {
+		if(res.success){
+			this.message.success(res.message)
+			this.isVisible = false;
+			this.isOkLoading = false;
+			this.updateItem.originalVoice.push(this.updateItem.originalVoiceName)
+			this.updateItem.originalVoiceName = this.newOriginalVoice;
+			this.newOriginalVoice = '';
+			this.updateItem = {}
+		}
+      });
+  }
+  
+  
   loading:any=false;
   getDouyinListenSourdSource() {
 	  this.loading=true;
@@ -38,6 +73,10 @@ export class DouyinListenSoundSourceComponent implements OnInit {
 		  let today = this.common.timeFormat(new Date().getTime())
 		  let yesterday = this.common.timeFormat(new Date().getTime()-24*60*60*1000)
         for (let i = 0; i < res.result.length; i++) {
+			// 最新声源名称
+			res.result[i].originalVoiceName = res.result[i].originalVoice[res.result[i].originalVoice.length-1]
+			
+			res.result[i].originalVoice.splice(res.result[i].originalVoice.length-1,1)
 		 let data:any = res.result[i].utilisation.data || []
 		 for(let j = data.length-1;j>=0;j--){
 			let now = this.common.timeFormat(data[j].GetTime*1000)

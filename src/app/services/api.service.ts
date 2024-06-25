@@ -411,6 +411,11 @@ export class ApiService {
 	douyin_darenTypeList() {
 		return this.http.get(this.baseUrl + "/douyin/douyin_darenTypeList")
 	}
+	// 修改 最新声源名字
+	updateDouyinListenSourdSourceName(params:any){
+		let { ID, originalVoice } = params;
+			return this.http.post(this.baseUrl + "/douyin/updateDouyinListenSourdSourceName",{ID, originalVoice});
+	}
 	// 获取监控声源
 	getDouyinListenSourdSource(params : any) {
 		let { userId, type } = params;
