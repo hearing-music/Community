@@ -22,10 +22,11 @@ export class GuardsGuard implements CanActivate {
 	// @ts-ignore 
 	private async checkLogin(url: string) {
 		console.log('checkLogin guard','刷新')
-		let date = new Date(new Date().getTime() + 1000 * 60 * 60 * 8).toISOString()
+		let date = new Date().getTime()
 		// let phone = localStorage.getItem('phone');
 		let token = localStorage.getItem('token');
 		let token_expiration_time = localStorage.getItem('token_expiration_time');
+		let token_expiration_times = new Date(token_expiration_time).getTime() - 8 *60 *60*1000;
 		// let permission_name_id = localStorage.getItem('permission_name_id');
 		
 		if (!token || !token_expiration_time) {
@@ -36,9 +37,9 @@ export class GuardsGuard implements CanActivate {
 			// 重定向到登录页面
 			return this.router.parseUrl('/login');
 		}
-		if (date > token_expiration_time) {
+		if (date > token_expiration_times) {
 			console.log(date)
-			console.log(token_expiration_time)
+			console.log(token_expiration_times)
 			// this.message.error('登录过期')
 			// 修改登陆后重定向的地址
 			this.authService.redirectUrl = url;

@@ -25,18 +25,19 @@ export class HttpInterceptorService implements HttpInterceptor {
 		console.log(1)
 	}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> | any {
-	let date = new Date(new Date().getTime() + 1000 * 60 * 60 * 8).toISOString()
+	let date = new Date().getTime();
 	let isTrue = true;
     let secureReq: HttpRequest<any> = req;
 	let token = localStorage.getItem('token') || ''
 	let token_expiration_time = localStorage.getItem('token_expiration_time') || ''
+	let token_expiration_times = new Date(token_expiration_time).getTime() - 8 *60 *60*1000;
 	// console.log(req.url)
 	if(!req.url.includes('/login/login') && !req.url.includes('/login/getSms') && !req.url.includes('/kugou/getLiarUserInfo') && !req.url.includes('/qq/getLiarUserInfo')){
 		if(!token || !token_expiration_time){
 			this.message.error('请登录')
 			isTrue = false;
 		}
-		if(date>token_expiration_time){
+		if(date>token_expiration_times){
 			this.message.error('登录过期')
 			isTrue = false;
 		}
