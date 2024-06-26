@@ -47,6 +47,10 @@ export let MENU_ITEMS : NbMenuItem[] = [
 				title: '监控歌曲',
 				link: '/pages/kugou/songsControl',
 			},
+			{
+				title: '酷狗飙升榜',
+				link: '/pages/kugou/kugou-soaring',
+			},
 			// {
 			// 	title: '自动搜索',
 			// 	link: '/pages/kugou/auto-search',
@@ -210,10 +214,6 @@ export let MENU_ITEMS : NbMenuItem[] = [
 			{
 				title: '精选歌手',
 				link: '/pages/venus/enlightenment'
-			},
-			{
-				title: '酷狗飙升榜',
-				link: '/pages/venus/kugou-soaring',
 			},
 
 		],

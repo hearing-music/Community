@@ -50,7 +50,7 @@ import { HotSearchListTemplateComponent } from './kugou/hotSearchList/hotSearchL
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
 import { SearchPageComponent } from './search-page/search-page.component';
-import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.component';
+import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.component';
 import { EnlightenmentComponent } from './venus/enlightenment/enlightenment.component'
 import {V3AddSongControlComponent} from'../components/v3AddSongControl/v3AddSongControl.component' 
 // import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';

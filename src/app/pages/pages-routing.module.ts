@@ -7,7 +7,7 @@ import { FreeSongs_kugouComponent } from './kugou/free-songs/free-songs.componen
 import { FreeSongs_qqComponent } from './qq/free-songs/free-songs.component';
 import { SearchSongsComponent } from './search-songs/search-songs.component';
 import { QuerySonglistComponent } from './query-songlist/query-songlist.component';
-import { KugouSoaringComponent } from './venus/kugou-soaring/kugou-soaring.component';
+import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.component';
 import { AutoSearchComponent } from './kugou/auto-search/auto-search.component';
 import { EnlightenmentComponent } from './venus/enlightenment/enlightenment.component'
 import { JianyingComponent } from './jianying/jianying.component'
@@ -146,6 +146,12 @@ const routes : Routes = [{
 		{
 			path: 'kugou/free-songs',
 			component: FreeSongs_kugouComponent,
+			canActivate: [PermissionGuard]
+		},
+		//  酷狗飙升
+		{
+			path: 'kugou/kugou-soaring',
+			component: KugouSoaringComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 推荐热搜
@@ -390,12 +396,6 @@ const routes : Routes = [{
 		{
 			path: 'radar',
 			component: RadarComponent,
-			canActivate: [PermissionGuard]
-		},
-		// 启明星 酷狗飙升
-		{
-			path: 'venus/kugou-soaring',
-			component: KugouSoaringComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 启明星 qq
