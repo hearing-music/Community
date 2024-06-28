@@ -246,8 +246,8 @@
 									</span>
 								</div>
 							</div>
-							<div
-							 (mouseenter)='mouseenterUrl(citem,"home")' (mouseleave)='mouseleaveUrl(citem,"home")' (click)="openSongDetail(citem.mid,$event)" class="linkIcon" style="margin-left: 18px;position:static;">
+							<div (click)="openSongDetail(citem.mid,$event)" class="linkIcon" style="margin-left: 18px;position:static;">
+							<!-- <div (mouseenter)='mouseenterUrl(citem,"home")' (mouseleave)='mouseleaveUrl(citem,"home")' (click)="openSongDetail(citem.mid,$event)" class="linkIcon" style="margin-left: 18px;position:static;"> -->
 								<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
 								<!-- 鼠标移入加载urlview -->
 								<ngx-url-preview *ngIf='citem.urlPreviewShowhome' [songName]='citem.name' [data]='citem.urlPreviewhome' 
@@ -264,9 +264,8 @@
 								<div>{{common.toThousands(citem.todayIndex)}}</div>
 							</div>
 							<!-- 指数链接 -->
-							<div (click)="openLink(citem.mid)" class="linkIcon"
-								(mouseenter)='mouseenterUrl(citem,"exponent")' (mouseleave)='mouseleaveUrl(citem,"exponent")'
-								style="margin-left: 2px;">
+							<!-- <div (click)="openLink(citem.mid)" class="linkIcon" (mouseenter)='mouseenterUrl(citem,"exponent")' (mouseleave)='mouseleaveUrl(citem,"exponent")' style="margin-left: 2px;"> -->
+							<div (click)="openLink(citem.mid)" class="linkIcon" style="margin-left: 2px;">
 								<span nz-icon nzType="link" nzTheme="outline" style='color:#35C035;font-size: 14px;'></span>
 								<!-- 鼠标移入加载urlview -->
 								<ngx-url-preview *ngIf='citem.urlPreviewShowexponent' [songName]='citem.name' [data]='citem.urlPreviewexponent' 

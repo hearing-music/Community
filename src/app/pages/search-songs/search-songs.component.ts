@@ -16,6 +16,9 @@ export class SearchSongsComponent implements OnInit {
             this.pathRedirectTo(path,value)
         })
     }
+	messageClick(){
+		this.message.info('111')
+	}
 	ngOnInit(): void {
 		this.previousUrl = localStorage.getItem('previousUrl');
 		this.ismobile = this.common.isMobile()
@@ -1053,7 +1056,7 @@ export class SearchSongsComponent implements OnInit {
 		}, (err: any) => {
 			this.qqPage = this.qqPage==1?1:this.qqPage - 1;
 			console.log(err,'超时')
-			this.message.info('网络不稳定，请重试')
+			// this.message.info('网络不稳定，请重试')
 			this.loading = false;
 		})
 	}
