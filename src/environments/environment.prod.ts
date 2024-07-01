@@ -8,7 +8,7 @@ export const environment = {
 	hmr: false,
 	// downloadUrl:'http://139.224.133.131:3223',
 	downloadUrl:'https://communities.tingjianmusic.cn:444',
-	downloadUrl2:'http://60.21.232.166:85/',
+	downloadUrl2:'http://60.21.232.162:85/',
 	baseUrl:'https://communities.tingjianmusic.cn:444',
 	tencentUrl:'https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com',
 	socketUrl:'https://communities.tingjianmusic.cn:444'
