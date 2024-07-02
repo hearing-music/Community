@@ -159,10 +159,9 @@ export class V3AddSongControlComponent implements OnInit {
 			length.push(0)
 			
 			let qqData:any = {}
-			item.QQData = item.QQData.filter((e:any)=>e.isSelect==true)
-			console.log(item.QQData)
-			if(item.QQData.length>0){
-				qqData = item.QQData[0];
+			let QQData = item.QQData.filter((e:any)=>e.isSelect==true)
+			if(QQData.length>0){
+				qqData = QQData[0];
 				Mid.push(qqData.mid)
 				Ids.push(qqData.id)
 			}else{
