@@ -22,8 +22,10 @@ export class HotSearchListTemplateComponent implements OnInit,OnChanges {
 	ngOnChanges(changes:SimpleChanges){
 		if(changes.listIndex.previousValue != changes.listIndex.currentValue){
 			this.count=0;
-			this.imgShow=false;
-			console.log('初始化')
+			if(changes.listItem.currentValue.title != '影视热搜'&& changes.listItem.currentValue.title != '热搜音频榜'){
+				this.imgShow=false;
+				console.log('初始化')
+			}
 		}
 	}
 	imgonload(e:any){
