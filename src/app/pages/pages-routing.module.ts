@@ -73,6 +73,7 @@ import { UserControlComponent } from './monitor/userControl/userControl.componen
 import { BehaviorControlComponent } from './monitor/behaviorControl/behaviorControl.component';
 import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
 import {SongsControlComponent} from './kugou/songsControl/songsControl.component';
+import { CodonceComponent } from './codonce/codonce.component';
 const routes : Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -489,7 +490,12 @@ const routes : Routes = [{
 			component: NewTankBattleComponent,
 			canActivate: [PermissionGuard],
 		},
-
+		
+		{
+			path: "codonce",
+			component: CodonceComponent,
+			canActivate: [PermissionGuard],
+		},
 		// {
 		// 	path: 'ui-features',
 		// 	loadChildren: () => import('./ui-features/ui-features.module')

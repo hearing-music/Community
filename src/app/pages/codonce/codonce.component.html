@@ -1,0 +1,72 @@
+<div class="codonce">
+	
+	<!-- 搜索 -->
+	<nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+		<input [(ngModel)]="searchValue" type="text" nz-input placeholder="搜索关键字" />
+	</nz-input-group>
+	<ng-template #suffixIconButton>
+		<button (click)='keywordSearch()' nz-button nzType="primary" nzSearch><span nz-icon nzType="search"></span></button>
+	</ng-template>
+	
+	<!-- tab栏 -->
+	<div class="tagList">
+		<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
+			[ngClass]="{'tagList-itemActive': item.ProgrammingLanguage==selectItem}">
+				{{item.ProgrammingLanguage}}
+		</div>
+	</div>
+	<!-- 添加栏 -->
+	<div *ngIf='codeLanguageList.length>0' style='padding:12px;box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);border-radius: 4px;'>
+		<div style="width: 100%;display: flex;align-items: center;">
+			<nz-select nzMode="tags" nzPlaceHolder="代码语言" [(ngModel)]="codeLanguage" [nzMaxMultipleCount]='1' style="margin-right: 12px;flex-shrink: 0;width: 160px;flex-shrink: 0;">
+			    <nz-option *ngFor="let option of codeLanguageList;" [nzLabel]="option.ProgrammingLanguage" [nzValue]="option.ProgrammingLanguage"></nz-option>
+			</nz-select>
+			<input [(ngModel)]="codeTitle" type="text" nz-input placeholder="代码标题" style='border-radius: 4px;margin-right: 12px;'/>
+			<input [(ngModel)]="codeDescriptions" type="text" nz-input placeholder="代码描述" style='border-radius: 4px;'/>
+		</div>
+		<div style="margin-top: 12px;">
+			<textarea [nzBorderless]='true' [nzAutosize]="{ minRows: 1, maxRows: 100 }" nz-input [(ngModel)]="codeText" placeholder="请输入代码片段" style="resize: none;color: #fff;background-color: #000;border-radius: 4px;"></textarea>
+		</div>
+		<div style="display: flex;justify-content: space-between;margin-top:12px;">
+			<nz-upload [nzLimit]='1' [(nzFileList)]="videoUploadList" [nzBeforeUpload]='beforeUpload'>
+			      <button nz-button>
+			        <span nz-icon nzType="upload"></span>
+			        选择视频
+			      </button>
+			    </nz-upload>
+			<button nz-button nzType="primary" (click)='save()'>保存</button>
+		</div>
+	</div>
+	<!-- 展示栏 -->
+	<nz-empty *ngIf="codeList.length==0" style="margin-top: 100px;"></nz-empty>
+	<div style="margin-top: 12px;" *ngIf="codeList.length>0">
+		<div *ngFor='let item of codeList;' style="margin-bottom: 12px;">
+			<div style="font-size: 20px; font-weight: bold;">
+				{{item.ProgrammingLanguage}} {{item.Title}}
+			</div>
+			<div style="font-size: 13px;margin: 6px 0;display: flex;justify-content: space-between;align-items: center;">
+				<div>
+					{{item.Descriptions}}
+				</div>
+				<div>
+					<span (click)='common.copy(item.CodingClip)' nz-tooltip nzTooltipTitle="复制" nz-icon nzType="copy" nzTheme="outline" style="cursor: pointer;margin-right: 4px;font-size: 18px;color:#666;"></span>
+					<span *ngIf='!item.play' (click)='playCodingClip(item)' nz-tooltip nzTooltipTitle="运行" nz-icon nzType="play-square" nzTheme="outline" style="cursor: pointer;font-size: 18px;color:#666;"></span>
+					<span *ngIf='item.play' (click)='stopCodingClip(item)' nz-icon nzType="stop" nzTheme="outline" nz-tooltip nzTooltipTitle="停止" style="cursor: pointer;font-size: 18px;color:#666;"></span>
+				</div>
+			</div>
+			<div style="display: flex;align-items: center;">
+				<pre style="flex:1;"><code [highlight]="item.CodingClip"></code></pre>
+				<div *ngIf='item.play' style="width: 50%;display: flex;justify-content: center;">
+					<video autoplay [src]="item.OpenUpUrl" controls></video>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 分页栏 -->
+	<div style="display:flex;justify-content: center;">
+		<nz-pagination *ngIf='codeList.length>0' [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+			(nzPageIndexChange)='PageNext($event)' nzShowQuickJumper></nz-pagination>
+	</div>
+
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

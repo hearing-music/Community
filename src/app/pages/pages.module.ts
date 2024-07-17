@@ -81,6 +81,7 @@ import { ToMvComponent } from './to-mv/to-mv.component';
 import { RiseRankingComponent } from './yuntu/riseRanking/riseRanking.component';
 import { RiseRankingTempComponent } from './yuntu/riseRanking/riseRankingTemp/riseRankingTemp.component';
 import { YunjiaobenComponent } from './yunjiaoben/yunjiaoben.component';
+import { CodonceComponent } from './codonce/codonce.component';
 // componet
 import { ChatTempComponent } from './game/song-room/chatTemp/chatTemp.component';
 import { SpecialEffectsQueryComponent } from './kuaishou-searchindex/special-effects-query/special-effects-query.component';
@@ -187,11 +188,14 @@ import { VideoPlayerComponent } from "../components/videoPlayer/videoPlayer.comp
 import { ScriptPromptsInsertComponent } from "./script-prompts/script-prompts-insert/script-prompts-insert.component";
 import { HighlightBracketsPipe } from "./script-prompts/script-prompts.component.pipe";
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
-
+import {  HighlightModule } from 'ngx-highlightjs';//import providers
 import {SongsControlComponent} from './kugou/songsControl/songsControl.component';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 registerLocaleData(zh);
 @NgModule({
 	imports: [
+		HighlightModule,
+		NzUploadModule,
 		NzCarouselModule,
 		NzInputNumberModule,
 		NzGridModule,
@@ -237,7 +241,9 @@ registerLocaleData(zh);
 		NzStepsModule
 	],
 	declarations: [
+		
 		HighlightBracketsPipe,
+		CodonceComponent,
 		VideoPlayerComponent,
 		SongsControlComponent,
 		HotSearchListComponent,

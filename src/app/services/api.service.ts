@@ -1478,4 +1478,43 @@ export class ApiService {
 		let url = this.baseUrl + "/kugou/SurveillanceSongsInfo";
 		return this.http.post(url, data);
 	}
+	// codonce 查询语言
+	ProgrammingLanguageAll(){
+		let data = {}
+		let url = this.baseUrl + "/coding-clip/ProgrammingLanguageAll";
+		return this.http.post(url, data);
+	}
+	// 查询指定分类或全部或关键字code
+	codingClipSelectAll(params:any){
+		let data = {
+			"Type": params.Type,
+			"KeyWord": params.KeyWord,
+			"limit": params.limit,
+			"offset": params.offset
+		}
+		let url = this.baseUrl + "/coding-clip/SelectAll";
+		return this.http.post(url, data);
+	}
+	// 添加语言
+	ProgrammingLanguageIncrease(params:any){
+		let data = {
+			"ProgrammingLanguage": params.ProgrammingLanguage,
+		}
+		let url = this.baseUrl + "/coding-clip/ProgrammingLanguageIncrease";
+		return this.http.post(url, data);
+	}
+	// 添加代码片段
+	StoreCvIncrease(params:any){
+		let data = new FormData();
+		data.append('mov', params.video);
+		data.append('ProgrammingLanguage',params.ProgrammingLanguage);
+		data.append('Title', params.Title);
+		data.append('PlId', params.PlId);
+		data.append('CodingClip', params.CodingClip);
+		data.append('Descriptions', params.Descriptions);
+		
+		let url = this.baseUrl + "/coding-clip/StoreCvIncrease";
+		return this.http.post(url, data);
+	}
+	
 }

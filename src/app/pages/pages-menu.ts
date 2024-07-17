@@ -395,7 +395,14 @@ export let MENU_ITEMS : NbMenuItem[] = [
 			},
 		],
 	},
-
+	{
+		title: "Codonce",
+		icon: {
+			icon: "codonce",
+			pack: "my-icons",
+		},
+		link: '/pages/codonce',
+	},
 
 	// {
 	// 	title: '西哩xili',

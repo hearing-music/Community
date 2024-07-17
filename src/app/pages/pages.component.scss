@@ -1,4 +1,5 @@
 @import '../@theme/styles/themes';
+@import '~highlight.js/styles/github.css';
 @include nb-install-component() {
   ::ng-deep router-outlet + * {
     display: block;

@@ -36,6 +36,7 @@ import { AuthService } from './services/auth.service';
 import { SocketService } from './services/socket.service';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';//import providers
 // registerLocaleData(zh);
 // import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
 // const ngZorroConfig: NzConfig = {
@@ -91,6 +92,13 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 			provide: LocationStrategy,
 			useClass: HashLocationStrategy
 		},
+		{
+		      provide: HIGHLIGHT_OPTIONS,
+		      useValue: {
+		        fullLibraryLoader: () => import('highlight.js'),
+				themePath: 'assets/styles/solarized-dark.css'
+		      },
+		    }
 		 // { provide: NZ_CONFIG, useValue:  ngZorroConfig  }
 	]
 })
