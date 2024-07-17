@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	<!-- 添加栏 -->
-	<div *ngIf='codeLanguageList.length>0' style='padding:12px;box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);border-radius: 4px;'>
+	<div style='padding:12px;box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);border-radius: 4px;'>
 		<div style="width: 100%;display: flex;align-items: center;">
 			<nz-select nzMode="tags" nzPlaceHolder="代码语言" [(ngModel)]="codeLanguage" [nzMaxMultipleCount]='1' style="margin-right: 12px;flex-shrink: 0;width: 160px;flex-shrink: 0;">
 			    <nz-option *ngFor="let option of codeLanguageList;" [nzLabel]="option.ProgrammingLanguage" [nzValue]="option.ProgrammingLanguage"></nz-option>
