@@ -168,6 +168,8 @@ export class CodonceComponent implements OnInit {
 				this.codeTitle = '';
 				this.codeText = '';
 				this.codeDescriptions = '';
+				this.page = 1;
+				this.codingClipSelectAll()
 			}
 		}, (err: any) => {
 			console.log(err)
