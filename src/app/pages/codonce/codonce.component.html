@@ -12,7 +12,7 @@
 	<div class="tagList">
 		<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
 			[ngClass]="{'tagList-itemActive': item.ProgrammingLanguage==selectItem}">
-				{{item.ProgrammingLanguage}}
+				{{item.ProgrammingLanguage}} {{item.count?item.count:""}}
 		</div>
 	</div>
 	<!-- 添加栏 -->
@@ -54,7 +54,7 @@
 					<span *ngIf='item.play' (click)='stopCodingClip(item)' nz-icon nzType="stop" nzTheme="outline" nz-tooltip nzTooltipTitle="停止" style="cursor: pointer;font-size: 18px;color:#666;"></span>
 				</div>
 			</div>
-			<div style="display: flex;align-items: center;">
+			<div style="display: flex;align-items: flex-start;">
 				<pre style="flex:1;"><code [highlight]="item.CodingClip"></code></pre>
 				<div *ngIf='item.play' style="width: 50%;display: flex;justify-content: center;">
 					<video autoplay [src]="item.OpenUpUrl" controls></video>

@@ -51,7 +51,7 @@ export class CodonceComponent implements OnInit {
 			this.api.ProgrammingLanguageAll().subscribe((res: any) => {
 				this.loading = false;
 				if(res.success){
-					this.tagList = [{ID:0,ProgrammingLanguage:"全部语言"},...res.data];
+					this.tagList = [{ID:0,ProgrammingLanguage:"全部语言",count:res.data.reduce((accumulator:any, currentValue:any) => accumulator + currentValue.count, 0)},...res.data];
 					this.codeLanguageList = res.data;
 					resolve(true)
 				}else{
