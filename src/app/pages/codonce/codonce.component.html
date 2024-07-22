@@ -57,7 +57,7 @@
 			<div style="display: flex;align-items: flex-start;">
 				<pre style="flex:1;"><code [highlight]="item.CodingClip"></code></pre>
 				<div *ngIf='item.play' style="width: 50%;display: flex;justify-content: center;">
-					<video autoplay [src]="item.OpenUpUrl" controls></video>
+					<video autoplay [src]="item.OpenUpUrl" controls style='max-width:100%;'></video>
 				</div>
 			</div>
 		</div>

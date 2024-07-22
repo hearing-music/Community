@@ -169,6 +169,7 @@ export class CodonceComponent implements OnInit {
 				this.codeText = '';
 				this.codeDescriptions = '';
 				this.page = 1;
+				await this.ProgrammingLanguageAll();
 				this.codingClipSelectAll()
 			}
 		}, (err: any) => {
