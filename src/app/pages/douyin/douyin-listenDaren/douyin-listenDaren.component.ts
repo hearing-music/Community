@@ -678,6 +678,7 @@ export class DouyinListenDarenComponent implements OnInit {
 			return
 		}
 		item.typeList = JSON.parse(JSON.stringify(this.typeList))
+		item.typeList.splice(0,1)
 		for(let i = 0;i<item.TypeJson['res'].length;i++){
 			let c = item.typeList.findIndex((e:any)=>e.label==item.TypeJson['res'][i].TypeName&&e.value==item.TypeJson['res'][i].ID)
 			if(c!=-1){
