@@ -74,6 +74,7 @@ import { BehaviorControlComponent } from './monitor/behaviorControl/behaviorCont
 import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
 import {SongsControlComponent} from './kugou/songsControl/songsControl.component';
 import { CodonceComponent } from './codonce/codonce.component';
+import { UiStoreComponent } from './uiStore/uiStore.component';
 const routes : Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -494,6 +495,11 @@ const routes : Routes = [{
 		{
 			path: "codonce",
 			component: CodonceComponent,
+			canActivate: [PermissionGuard],
+		},
+		{
+			path: "uiStore",
+			component: UiStoreComponent,
 			canActivate: [PermissionGuard],
 		},
 		// {

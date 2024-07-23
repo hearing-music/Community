@@ -403,7 +403,14 @@ export let MENU_ITEMS : NbMenuItem[] = [
 		},
 		link: '/pages/codonce',
 	},
-
+	{
+		title: "UiStore",
+		icon: {
+			icon: "UI_icon",
+			pack: "my-icons",
+		},
+		link: '/pages/uiStore',
+	},
 	// {
 	// 	title: '西哩xili',
 	// 	icon: 'message-circle',

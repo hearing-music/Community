@@ -1517,4 +1517,26 @@ export class ApiService {
 		return this.http.post(url, data);
 	}
 	
+	// 添加ui
+	UiStoreCvIncrease(params:any){
+		let data = new FormData();
+		data.append('Video', params.Video);
+		data.append('FigmaExt', params.FigmaExt);
+		data.append('Title',params.Title);
+		data.append('Synopsis', params.Synopsis);
+		data.append('Branch', params.Branch);
+		data.append('UserId', params.UserId);
+		
+		let url = this.baseUrl + "/coding-clip/UiStoreCvIncrease";
+		return this.http.post(url, data);
+	}
+	// 查询ui
+	UiStoreCvSelectDate(params:any){
+		let data = {
+			Title:params.Title, limit:params.limit, offset:params.offset
+		}
+		let url = this.baseUrl + "/coding-clip/UiStoreCvSelectDate";
+		return this.http.post(url, data);
+	}
+	
 }

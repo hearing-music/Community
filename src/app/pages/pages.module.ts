@@ -82,6 +82,7 @@ import { RiseRankingComponent } from './yuntu/riseRanking/riseRanking.component'
 import { RiseRankingTempComponent } from './yuntu/riseRanking/riseRankingTemp/riseRankingTemp.component';
 import { YunjiaobenComponent } from './yunjiaoben/yunjiaoben.component';
 import { CodonceComponent } from './codonce/codonce.component';
+import { UiStoreComponent } from './uiStore/uiStore.component';
 // componet
 import { ChatTempComponent } from './game/song-room/chatTemp/chatTemp.component';
 import { SpecialEffectsQueryComponent } from './kuaishou-searchindex/special-effects-query/special-effects-query.component';
@@ -244,6 +245,7 @@ registerLocaleData(zh);
 		
 		HighlightBracketsPipe,
 		CodonceComponent,
+		UiStoreComponent,
 		VideoPlayerComponent,
 		SongsControlComponent,
 		HotSearchListComponent,

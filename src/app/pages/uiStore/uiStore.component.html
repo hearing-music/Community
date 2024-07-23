@@ -1,0 +1,118 @@
+<div class="codonce">
+	<nz-breadcrumb *ngIf='childShow'>
+	    <nz-breadcrumb-item>
+			<a (click)='back()' style='color:#00000073!important;'>原始</a>
+	    </nz-breadcrumb-item>
+		<nz-breadcrumb-item>子集</nz-breadcrumb-item>
+	</nz-breadcrumb>
+	<div *ngIf='!childShow'>
+		<!-- 添加栏 -->
+		<div style='padding:12px;box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);border-radius: 4px;'>
+			<div style="width: 100%;display: flex;align-items: center;">
+				<input [(ngModel)]="Title" type="text" nz-input placeholder="UI标题" style='border-radius: 4px;margin-right: 12px;'/>
+				<input [(ngModel)]="Descriptions" type="text" nz-input placeholder="UI描述" style='border-radius: 4px;'/>
+			</div>
+			<div style="display: flex;justify-content: space-between;margin-top:12px;">
+				<div style="display: flex;">
+					<nz-upload [nzLimit]='1' [(nzFileList)]="figUploadList" [nzBeforeUpload]='beforeUploadF' style="margin-right: 12px;">
+					      <button nz-button>
+					        <span nz-icon nzType="upload"></span>
+					        选择fig
+					      </button>
+					    </nz-upload>
+					<nz-upload [nzLimit]='1' [(nzFileList)]="videoUploadList" [nzBeforeUpload]='beforeUploadV'>
+					      <button nz-button>
+					        <span nz-icon nzType="upload"></span>
+					        选择视频
+					      </button>
+					    </nz-upload>
+				</div>
+				<button nz-button nzType="primary" (click)='save()'>保存</button>
+			</div>
+		</div>
+		<!-- 展示栏 -->
+		<nz-empty *ngIf="UIList.length==0" style="margin-top: 100px;"></nz-empty>
+		<div style="margin-top: 12px;" *ngIf="UIList.length>0">
+			<div *ngFor='let item of UIList;' style="margin-bottom: 12px;">
+				<div style="font-size: 20px; font-weight: bold;">
+					{{item.title}} <a nz-button nzType="link" nzSize='small' style="color: blue;font-size: 14px;" (click)='openChild(item)'>查看子集</a>
+				</div>
+				<div style="font-size: 13px;margin: 6px 0;">
+					{{item.synopsis}}
+				</div>
+				<div style="display: flex;align-items: flex-start;">
+					<div style="width: 50%;display: flex;justify-content: center;">
+						<video autoplay [src]="item.videoOpenUrl" controls style='max-width:100%;'></video>
+					</div>
+					<div style="flex:1;text-align: center;">
+						<button nz-button (click)='downloadFig(item.figmaOpenUrl)'>
+						  <span nz-icon nzType="download"></span>
+						  下载文件fig
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 分页栏 -->
+		<div style="display:flex;justify-content: center;">
+			<nz-pagination *ngIf='UIList.length>0' [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+				(nzPageIndexChange)='PageNext($event)' nzShowQuickJumper></nz-pagination>
+		</div>
+	</div>
+	<!-- 子集 -->
+	<div *ngIf='childShow'>
+		<!-- 子集添加栏 -->
+		<div style='padding:12px;box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);border-radius: 4px;'>
+			<div style="width: 100%;display: flex;align-items: center;">
+				<input [(ngModel)]="childNow.title" [disabled]='true' type="text" nz-input placeholder="UI标题" style='border-radius: 4px;margin-right: 12px;'/>
+				<input [(ngModel)]="childNow.synopsis" type="text" nz-input placeholder="UI描述" style='border-radius: 4px;'/>
+			</div>
+			<div style="display: flex;justify-content: space-between;margin-top:12px;">
+				<div style="display: flex;">
+					<nz-upload [nzLimit]='1' [(nzFileList)]="figUploadList" [nzBeforeUpload]='beforeUploadF' style="margin-right: 12px;">
+					      <button nz-button>
+					        <span nz-icon nzType="upload"></span>
+					        选择fig
+					      </button>
+					    </nz-upload>
+					<nz-upload [nzLimit]='1' [(nzFileList)]="videoUploadList" [nzBeforeUpload]='beforeUploadV'>
+					      <button nz-button>
+					        <span nz-icon nzType="upload"></span>
+					        选择视频
+					      </button>
+					    </nz-upload>
+				</div>
+				<button nz-button nzType="primary" (click)='saveChild()'>保存</button>
+			</div>
+		</div>
+		<!-- 展示栏 -->
+		<nz-empty *ngIf="childNow.UIList.length==0" style="margin-top: 100px;"></nz-empty>
+		<div style="margin-top: 12px;" *ngIf="childNow.UIList.length>0">
+			<div *ngFor='let item of childNow.UIList;' style="margin-bottom: 12px;">
+				<div style="font-size: 20px; font-weight: bold;">
+					{{item.title}}
+				</div>
+				<div style="font-size: 13px;margin: 6px 0;">
+					{{item.synopsis}}
+				</div>
+				<div style="display: flex;align-items: flex-start;">
+					<div style="width: 50%;display: flex;justify-content: center;">
+						<video autoplay [src]="item.videoOpenUrl" controls style='max-width:100%;'></video>
+					</div>
+					<div style="flex:1;text-align: center;">
+						<button nz-button (click)='downloadFig(item.figmaOpenUrl)'>
+						  <span nz-icon nzType="download"></span>
+						  下载文件fig
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 分页栏 -->
+		<div style="display:flex;justify-content: center;">
+			<nz-pagination *ngIf='childNow.UIList.length>0' [nzPageIndex]="childNow.page" [nzPageSize]='childNow.pageSize' [nzTotal]="childNow.pageTotal"
+				(nzPageIndexChange)='PageNextChild($event)' nzShowQuickJumper></nz-pagination>
+		</div>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>
