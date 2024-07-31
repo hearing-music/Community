@@ -29,8 +29,8 @@ loading=false
 			this.loading = false;
 		})
   }
-  openkg(hash: any, albumId: any) {
-    window.open("https://www.kugou.com/song/#hash=" + hash + "&album_audio_id=" + albumId)
+  openkg(hash: any, mixsongid: any) {
+    window.open("https://www.kugou.com/song/#hash=" + hash + "&album_audio_id=" + mixsongid)
   }
   copy(songName: string) {
     var textarea = document.createElement("textarea");
