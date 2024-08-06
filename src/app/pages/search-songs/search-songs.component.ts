@@ -136,10 +136,10 @@ export class SearchSongsComponent implements OnInit {
 				name:'大陆音著协',
 				holder: '大陆音著协搜索'
 			},
-			{
-				name:'港台音著协',
-				holder:'港台音著协搜索'
-			},
+			// {
+			// 	name:'港台音著协',
+			// 	holder:'港台音著协搜索'
+			// },
 			{
 				name:'中国音集协',
 				holder:'中国音集协搜索'
