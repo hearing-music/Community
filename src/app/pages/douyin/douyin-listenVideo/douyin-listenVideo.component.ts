@@ -184,9 +184,15 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 		this.api.getDouyinAudio({awemeId:item.awemeId})
 		.subscribe((res: any) => {
 			console.log(res)
-			item.originalSound = res.result.originalSound;
+			item.originalSound = res.result.videoUrl || res.result.originalSound;
+			this.audioSrc = res.result.videoUrl || res.result.originalSound;
 			this.audioErr = false;
 			this.loading = false;
+			this.play()
+			setTimeout(()=>{
+				let audio: any = document.getElementById('audio')
+				audio.play()
+			},2000)
 		}, (err: any) => {
 			console.log(err)
 			this.loading = false;

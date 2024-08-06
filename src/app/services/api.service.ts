@@ -425,6 +425,11 @@ export class ApiService {
 			return this.http.get(this.baseUrl + "/douyin/getDouyinListenSourdSource");
 		}
 	}
+	// music_id获取音源
+	getDouyinAudioForMusic_id(params:any){
+		let { music_id } = params;
+			return this.http.get(this.baseUrl + "/douyin/getDouyinAudioForMusic_id?music_id=" + music_id);
+	}
 	//抖音上升热点
 	DouRiseSearch(params : any) {
 		let { keyword, page, pageSize,tag } = params;

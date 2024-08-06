@@ -94,15 +94,18 @@
 			</div>
 		</td>
        <td nzAlign='center'>
-       	<span (click)='playMusic(data)' *ngIf='!data.isplay&&data.originalSound' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
-       	<span (click)='pauseMusic(data)' *ngIf='data.isplay&&data.originalSound' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+		   <span (click)='playMusic(data)' *ngIf='!audioErr&&!data.isplay&&data.originalSound' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+		   <span (click)='pauseMusic(data)' *ngIf='!audioErr&&data.isplay&&data.originalSound' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+		   <button *ngIf='audioErr&&data.originalSound==audioSrc' nz-button nzType="primary" nzSize='small' (click)='reloadAudio(data)'>
+		       重新加载
+		   </button>
        </td>
       </tr>
     </tbody>
   </nz-table>
   <!-- 播放器 -->
   <div class="play" [ngClass]="{playhide : !isPlay}">
-  	<audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()'>
+  	<audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()' (error)='error($event)'>
   	</audio>
   </div>
   <ngx-loading *ngIf='loading'></ngx-loading>

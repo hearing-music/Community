@@ -130,6 +130,31 @@ export class DouyinListenSoundSourceComponent implements OnInit {
   pauseMusic(item: any) {
     this.pause();
   }
+  error(e:any){
+  	if(this.audioSrc){
+  		this.audioErr = true;
+  	}
+  }
+  audioErr=false;
+  reloadAudio(item:any){
+  	this.loading = true;
+  	this.api.getDouyinAudioForMusic_id({music_id:item.music_id})
+  	.subscribe((res: any) => {
+  		console.log(res)
+  		item.originalSound = res.result;
+  		this.audioSrc = res.result;
+  		this.audioErr = false;
+  		this.loading = false;
+  		this.play()
+  		setTimeout(()=>{
+  			let audio: any = document.getElementById('audio')
+  			audio.play()
+  		},2000)
+  	}, (err: any) => {
+  		console.log(err)
+  		this.loading = false;
+  	})
+  }
   play() {
     let audio: any = document.getElementById("audio");
     audio.play();
