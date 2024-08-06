@@ -3,6 +3,7 @@ import {CommonService} from "../../../services/common.service";
 import { ApiService } from "../../../services/api.service";
 import { environment } from '../../../../environments/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Router } from '@angular/router';
 let baseUrl = environment.baseUrl;
 @Component({
 	selector: 'ngx-qq',
@@ -11,7 +12,7 @@ let baseUrl = environment.baseUrl;
 })
 export class QqComponent implements OnInit {
 	@Input() qqList: any;
-	constructor(public common: CommonService,public api: ApiService,public message:NzMessageService,) { }
+	constructor(public common: CommonService,public api: ApiService,public message:NzMessageService,private router: Router) { }
 	@Output() change: EventEmitter<any> = new EventEmitter<any>();
 	playAudio(url: string, i: number) {
 		if(url){
@@ -78,6 +79,9 @@ export class QqComponent implements OnInit {
 	}
 	openQQ(uin:any){
 		window.open('tencent://message/?uin='+uin)
+	}
+	openArtist(mid:string){
+		this.router.navigate(['/pages/search-page/artist-visualization/'+mid]);
 	}
 	// 更多版本
 	moreVersion(item:any){

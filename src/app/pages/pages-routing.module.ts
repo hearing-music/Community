@@ -108,6 +108,7 @@ const routes : Routes = [{
 			component: SearchPageComponent,
 			canActivate: [PermissionGuard]
 		},
+		{ path: 'search-page/:path/:value', component: SearchPageComponent, canActivate: [PermissionGuard] },
 		// qq 免费歌曲
 		{
 			path: 'qq/free-songs',

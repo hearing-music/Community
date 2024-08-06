@@ -130,7 +130,7 @@
 							white-space: nowrap;
 							text-overflow: ellipsis;">
 								<div *ngFor='let singer of item.singers;let ii = index;' style="display: flex;align-items: center;">
-									<div>
+									<div (click)='openArtist(singer.mid)' style="cursor: pointer;">
 										{{singer.name}}
 									</div>
 									<div (click)='openQQ(singer.uin)' *ngIf='singer.uin'>

@@ -1,13 +1,30 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../services/api.service";
 import { CommonService } from "../../services/common.service";
+import { ActivatedRoute } from "@angular/router";
 @Component({
   selector: "ngx-search-page",
   templateUrl: "./search-page.component.html",
   styleUrls: ["./search-page.component.scss"],
 })
 export class SearchPageComponent implements OnInit {
-  constructor(public api: ApiService, public common: CommonService) {}
+  constructor(public api: ApiService, public common: CommonService,public route: ActivatedRoute) {
+	  this.route.params.subscribe((res) => {
+	              var path=res.path;
+	              var value=res.value;
+	              this.pathRedirectTo(path,value)
+	          })
+  }
+  // 参数跳转
+  pathRedirectTo(path:any,value:any){
+  	// 词曲版权
+  	if(path=='artist-visualization'){
+  		this.selectItem="相似歌手"
+  		value = decodeURIComponent(value)
+  		this.searchValue = value;
+  	}
+  	
+  }
   ngOnInit(): void {
     if (!this.common.checkAdmin()) {
       let menu: any = localStorage.getItem("menu");
