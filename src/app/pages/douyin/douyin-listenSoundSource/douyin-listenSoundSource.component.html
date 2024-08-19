@@ -59,8 +59,8 @@
         </td>
         <td nzAlign="center">
 			<div style="display: flex; justify-content: space-around" >
-			  <div style="width: 80%">
-			    {{ data.yesterdayCount ? common.toThousands(data.yesterdayCount) : ""}}
+			  <div style="width: 80%" *ngIf='data.yesterdayCount'>
+			    {{ common.toThousands(data.yesterdayCount)}}
 			  </div>
 			  <div *ngIf="data.utilisation.data.length>0"
 			    style="cursor: pointer; "
