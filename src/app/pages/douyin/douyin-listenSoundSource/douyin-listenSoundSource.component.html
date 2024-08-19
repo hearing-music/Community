@@ -58,18 +58,14 @@
          {{data.audioSize}}s
         </td>
         <td nzAlign="center">
-			<div
-			  style="display: flex; justify-content: space-around"
-			  *ngIf="data.yesterdayCount"
-			>
+			<div style="display: flex; justify-content: space-around" >
 			  <div style="width: 80%">
 			    {{ data.yesterdayCount ? common.toThousands(data.yesterdayCount) : ""}}
 			  </div>
-			  <div
+			  <div *ngIf="data.utilisation.data.length>0"
 			    style="cursor: pointer; "
 			    (mouseenter)="mouseenter(data)"
-			    (mouseleave)="mouseleave(data)"
-			  >
+			    (mouseleave)="mouseleave(data)">
 			   <div nz-icon nzType="clock-circle" nzTheme="outline"
 			     style="font-size: 20px; color: #333; margin-right: 6px"></div>
 			    <div *ngIf="data.show" class="history">
