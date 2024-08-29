@@ -989,7 +989,11 @@ export class SearchSongsComponent implements OnInit {
 					let names:any = ''
 					let names2:any = ''
 					item.singers.forEach((sitem:any)=>{
+						if(sitem.uin){
 							names2+=sitem.name+'：'+sitem.uin+'、'
+						}else{
+							names2+=sitem.name+'、'
+						}
 							names+=sitem.name+'、'
 					})
 					names=names.substr(0,names.length-1)
@@ -1019,11 +1023,21 @@ export class SearchSongsComponent implements OnInit {
 					item.history = history
 					item.GrpData.forEach((citem:any)=>{
 						let names:any = ''
+						let names2:any = ''
 						citem.singers.forEach((sitem:any)=>{
-							names+=sitem.name+'、'
+							if(sitem.uin){
+								names2+=sitem.name+'：'+sitem.uin+'、'
+							}else{
+								names2+=sitem.name+'、'
+							}
+								names+=sitem.name+'、'
 						})
 						names=names.substr(0,names.length-1)
+						names2=names2.substr(0,names2.length-1)
 						citem.singerNames = names
+						citem.singerNames2 = names2
+						
+						
 						citem.topinfo = citem.topinfo || {}
 						citem.playinfo = citem.playinfo || {}
 						citem.isPlay = false;

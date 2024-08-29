@@ -125,13 +125,16 @@
 					<div class="subTitle">
 						<!-- 歌手 发行时间 -->
 						<div style="display: flex;align-items: center;">
-							<div nz-tooltip [nzTooltipTitle]="item.singerNames2" style="display: flex;align-items: center;max-width: 145px; 
+							<div nz-tooltip [nzTooltipTitle]="item.singerNames2" style="display: flex;align-items: center;max-width: 190px; 
 							overflow: hidden;
 							white-space: nowrap;
 							text-overflow: ellipsis;">
 								<div *ngFor='let singer of item.singers;let ii = index;' style="display: flex;align-items: center;">
-									<div (click)='openArtist(singer.mid)' style="cursor: pointer;">
+									<div (click)='common.copy(singer.name)' style="cursor: pointer;">
 										{{singer.name}}
+									</div>
+									<div (click)='openArtist(singer.mid)' >
+										<img src="../../../../assets/img/Artist.svg" style="width:16px;height:16px;margin-left: 4px;cursor: pointer;display: block;">
 									</div>
 									<div (click)='openQQ(singer.uin)' *ngIf='singer.uin'>
 										<img src="../../../../assets/img/QQ.svg" style="width:16px;height:16px;margin-left: 4px;cursor: pointer;display: block;">
@@ -353,21 +356,24 @@
 						</div>
 						<div class="subTitle">
 							<!-- 歌手 发行时间 -->
-							<div style="display: flex;align-items: center;">
-								<span nz-tooltip [nzTooltipTitle]="citem.singerNames">
-									<div style="display: flex;align-items: center;max-width: 145px;
-								overflow: hidden;
-								white-space: nowrap;
-								text-overflow: ellipsis;">
-										{{citem.singerNames}}
+							<div nz-tooltip [nzTooltipTitle]="citem.singerNames2" style="display: flex;align-items: center;max-width: 190px;
+							overflow: hidden;
+							white-space: nowrap;
+							text-overflow: ellipsis;">
+								<div *ngFor='let singer of citem.singers;let ii = index;' style="display: flex;align-items: center;">
+									<div (click)='common.copy(singer.name)' style="cursor: pointer;">
+										{{singer.name}}
 									</div>
-								</span>
-								<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
-								<div>
-									{{citem.time_public}}
+									<div (click)='openArtist(singer.mid)' *ngIf='singer.uin'>
+										<img src="../../../../assets/img/Artist.svg" style="width:16px;height:16px;margin-left: 4px;cursor: pointer;display: block;">
+									</div>
+									<div (click)='openQQ(singer.uin)' *ngIf='singer.uin'>
+										<img src="../../../../assets/img/QQ.svg" style="width:16px;height:16px;margin-left: 4px;cursor: pointer;display: block;">
+									</div>
+									<div *ngIf='ii!=citem.singers.length-1'>
+										、
+									</div>
 								</div>
-								<span *ngIf='citem.time_public' nz-icon nzType="right" nzTheme="outline"
-									style='color:#ccc;'></span>
 							</div>
 							<!-- 排行 -->
 							<!-- <div style="display: flex;margin-left: 8px;cursor: pointer;" (click)='popRank(citem)'>
