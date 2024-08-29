@@ -22,6 +22,7 @@ export class SearchPageComponent implements OnInit {
   		this.selectItem="相似歌手"
   		value = decodeURIComponent(value)
   		this.searchValue = value;
+		this.GetArtists();
   	}
   	
   }
