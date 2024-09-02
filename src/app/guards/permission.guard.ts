@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree,Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import {CommonService} from "../services/common.service";
-import { NzMessageService } from "ng-zorro-antd/message";
 @Injectable({
 	providedIn: 'root'
 })
 export class PermissionGuard implements CanActivate {
-	constructor( private router: Router,private common:CommonService,public message: NzMessageService) {
+	constructor( private router: Router,private common:CommonService) {
 		
 	}
 	// 角色权限验证

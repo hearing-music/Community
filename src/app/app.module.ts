@@ -35,7 +35,6 @@ import { CommonService } from './services/common.service';
 import { AuthService } from './services/auth.service';
 import { SocketService } from './services/socket.service';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
-import { NzMessageModule } from 'ng-zorro-antd/message';
 import { ToastrModule } from 'ngx-toastr';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';//import providers
 // registerLocaleData(zh);
@@ -48,7 +47,6 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';//import providers
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
-		NzMessageModule,
 		NzNotificationModule,
 		HttpClientModule,
 		AppRoutingModule,
@@ -56,8 +54,6 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';//import providers
 		NbMenuModule.forRoot(),
 		SiderbarIconModule,
 		NbDatepickerModule.forRoot(),
-		NbDialogModule.forRoot(),
-		NbWindowModule.forRoot(),
 		// NbToastrModule.forRoot(),
 		ToastrModule.forRoot({
 			positionClass:"toast-top-center"
