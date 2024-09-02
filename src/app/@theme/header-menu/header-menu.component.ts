@@ -11,7 +11,7 @@ export class HeaderMenuComponent implements OnInit {
 		   this.myRouter.events.subscribe(event => { 
 		          if(event instanceof NavigationEnd){
 		            // console.log(event);
-					this.pathname = event.url
+					this.pathname = event.url == '/'?'/pages/search-songs':event.url
 		          }    
 		        })
 			window["NgAppRef"] = { component: this, zone: this.ngZone };
