@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from "../../../services/common.service";
 import { ApiService } from "../../../services/api.service";
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 @Component({
 	selector: 'ngx-hotSearchList',
 	templateUrl: './hotSearchList.component.html',
 	styleUrls: ['./hotSearchList.component.scss']
 })
 export class HotSearchListComponent implements OnInit {
-	constructor(public common : CommonService, public api : ApiService, public message : NzMessageService) { }
+	constructor(public common : CommonService, public api : ApiService, private toast: ToastrService) { }
 
 	ngOnInit() : void {
 		this.DevTipListWeChatMini()
@@ -126,7 +126,7 @@ export class HotSearchListComponent implements OnInit {
 	}
 	audioError() {
 		if (this.isPlay) {
-			this.message.error("播放歌曲错误")
+			this.toast.error("播放歌曲错误")
 			this.pause()
 		}
 	}

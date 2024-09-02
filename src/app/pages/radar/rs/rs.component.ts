@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
-import { NzMessageService } from 'ng-zorro-antd/message';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'ngx-rs',
   templateUrl: './rs.component.html',
@@ -9,7 +8,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class RSComponent implements OnInit {
   @Input() listOfData: any;
-  constructor(public api: ApiService, private message: NzMessageService) { }
+  constructor(public api: ApiService, private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -17,7 +16,7 @@ export class RSComponent implements OnInit {
     if (data != 0) {
       window.open("https://y.qq.com/n/ryqq/songDetail/" + data)
     } else {
-      this.message.create("error", `该歌曲没有id请自行查找`);
+      this.toast.error(`该歌曲没有id请自行查找`);
     }
   }
   toKg(data: any) {
@@ -27,7 +26,7 @@ export class RSComponent implements OnInit {
       if (res.result) {
         window.open('https://www.kugou.com/song/#'+data.EMixSongID)
       } else {
-        this.message.create("error", `该歌曲没有id请自行查找`);
+        this.toast.error(`该歌曲没有id请自行查找`);
       }
     })
   }
@@ -35,7 +34,7 @@ export class RSComponent implements OnInit {
     if (data != 0) {
       window.open("https://h5.kugou.com/achievement/v-a34ccad0/index.html?mixsongid=" + data)
     } else {
-      this.message.create("error", `该歌曲没有id请自行查找`);
+      this.toast.error(`该歌曲没有id请自行查找`);
     }
   }
   toQqIndex(data: any) {
@@ -47,11 +46,11 @@ export class RSComponent implements OnInit {
         if (res.songmid) {
           window.open("https://y.qq.com/m/client/music_index/index.html?mid=" + res.songmid)
         } else {
-          this.message.create("error", `该歌曲没有id请自行查找`);
+		  this.toast.error(`该歌曲没有id请自行查找`);
         }
       })
     } else {
-      this.message.create("error", `该歌曲没有id请自行查找`);
+	  this.toast.error(`该歌曲没有id请自行查找`);
     }
   }
 }

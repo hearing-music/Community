@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 import { resolve } from 'dns';
 @Component({
 	selector: 'ngx-chatgpt',
@@ -10,7 +10,7 @@ import { resolve } from 'dns';
 })
 export class ChatgptComponent implements OnInit {
 
-	constructor(public api: ApiService,public common: CommonService,private message: NzMessageService) { }
+	constructor(public api: ApiService,public common: CommonService,private toast: ToastrService,) { }
 	ngOnInit(): void {
 	}
 	btndisabled = false;
@@ -75,7 +75,7 @@ export class ChatgptComponent implements OnInit {
 		console.log('发送')
 		
 		if(this.question.trim() == ''){
-			this.message.info('不能发送空白信息')
+			this.toast.info('不能发送空白信息')
 			return
 		}
 		this.setChat(1,this.question)

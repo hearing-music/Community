@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: "ngx-douyin-listenSoundSource",
   templateUrl: "./douyin-listenSoundSource.component.html",
@@ -15,7 +15,7 @@ export class DouyinListenSoundSourceComponent implements OnInit {
   userId:any='0'
   index = [];
 	highUserList:any=[];
-  constructor(public api: ApiService, public common: CommonService,private message: NzMessageService) {}
+  constructor(public api: ApiService, public common: CommonService,private toast: ToastrService,) {}
 
   ngOnInit(): void {
 	this.userId = localStorage.getItem("userId") || "0";
@@ -52,7 +52,7 @@ export class DouyinListenSoundSourceComponent implements OnInit {
   updateDouyinListenSourdSourceName(){
 	  this.api.updateDouyinListenSourdSourceName({ID:this.updateItem.ID,originalVoice:this.newOriginalVoice}).subscribe((res: any) => {
 		if(res.success){
-			this.message.success(res.message)
+			this.toast.success(res.message)
 			this.isVisible = false;
 			this.isOkLoading = false;
 			this.updateItem.originalVoice.push(this.updateItem.originalVoiceName)

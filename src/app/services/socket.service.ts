@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { NzMessageService  } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 // @ts-ignore
 import { io } from "./js/socket.io.js";
 
@@ -10,7 +10,7 @@ import { io } from "./js/socket.io.js";
 })
 
 export class SocketService {
-	constructor(private http: HttpClient,private message: NzMessageService,) {
+	constructor(private http: HttpClient,private toast: ToastrService,) {
 	}
 	// 聊天室socket
 	socketUrl = environment.socketUrl;
@@ -196,7 +196,7 @@ export class SocketService {
 		this.socketIO.on('disconnect',() =>{
 		    this.isConnected =false;
 			this.errorCount = 0;
-			this.message.error('连接断开，请刷新重试')
+			this.toast.error('连接断开，请刷新重试')
 			fun('连接断开')
 		});
 	}
@@ -232,7 +232,7 @@ export class SocketService {
 	}
 	login(fun:any){
 		if(!this.token){
-			this.message.error('缺少token，请刷新重试')
+			this.toast.error('缺少token，请刷新重试')
 			fun(false)
 			return
 		}

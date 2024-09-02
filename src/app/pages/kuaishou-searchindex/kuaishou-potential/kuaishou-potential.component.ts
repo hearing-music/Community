@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: "ngx-kuaishou-potential",
   templateUrl: "./kuaishou-potential.component.html",
@@ -11,13 +11,13 @@ export class kuaishouPotentialComponent implements OnInit {
   total = 0;
   dataSet:any = []
   page:any=1;
-  constructor(public api: ApiService, public common: CommonService,private message: NzMessageService) {}
+  constructor(public api: ApiService, public common: CommonService,private toast: ToastrService,) {}
 
   ngOnInit(): void {
 		this.getKuaishouHotEventList();
   }
   nzPageIndexChange(e) {
-	  this.message.info('暂时还不能翻页哦')
+	  this.toast.info('暂时还不能翻页哦')
 	  this.page=1
 	  return
 	  this.page=e;

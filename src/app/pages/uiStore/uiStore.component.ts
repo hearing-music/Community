@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 import { HighlightLoader } from 'ngx-highlightjs';
 @Component({
 	selector: 'ngx-uiStore',
@@ -10,7 +10,7 @@ import { HighlightLoader } from 'ngx-highlightjs';
 })
 export class UiStoreComponent implements OnInit {
 
-	constructor(public api: ApiService,public common: CommonService,private message: NzMessageService) { }
+	constructor(public api: ApiService,public common: CommonService,private toast: ToastrService,) { }
 	async ngOnInit() {
 		this.UiStoreCvSelectDate()
 	}
@@ -59,19 +59,19 @@ export class UiStoreComponent implements OnInit {
 		// console.log(this.videoUploadList)
 		// console.log(this.codeLanguage)
 		if(!this.Title){
-			this.message.info('请添加UI标题')
+			this.toast.info('请添加UI标题')
 			return
 		}
 		if(!this.Descriptions){
-			this.message.info('请添加UI描述')
+			this.toast.info('请添加UI描述')
 			return
 		}
 		if(this.figUploadList.length==0){
-			this.message.info('请添加fig')
+			this.toast.info('请添加fig')
 			return
 		}
 		if(this.videoUploadList.length==0){
-			this.message.info('请添加视频')
+			this.toast.info('请添加视频')
 			return
 		}
 		let userId = localStorage.getItem('userId')
@@ -105,7 +105,7 @@ export class UiStoreComponent implements OnInit {
 		}).subscribe(async (res: any) => {
 			this.loading = false;
 			if(res.success){
-				this.message.success('添加成功');
+				this.toast.success('添加成功');
 				this.videoUploadList = [];
 				this.figUploadList = [];
 				this.Title = '';
@@ -144,11 +144,11 @@ export class UiStoreComponent implements OnInit {
 	}
 	saveChild(){
 		if(this.figUploadList.length==0){
-			this.message.info('请添加fig')
+			this.toast.info('请添加fig')
 			return
 		}
 		if(this.videoUploadList.length==0){
-			this.message.info('请添加视频')
+			this.toast.info('请添加视频')
 			return
 		}
 		let userId = localStorage.getItem('userId')
@@ -181,7 +181,7 @@ export class UiStoreComponent implements OnInit {
 		}).subscribe(async (res: any) => {
 			this.loading = false;
 			if(res.success){
-				this.message.success('添加成功');
+				this.toast.success('添加成功');
 				this.videoUploadList = [];
 				this.figUploadList = [];
 				this.childNow.page = 1;
@@ -208,7 +208,7 @@ export class UiStoreComponent implements OnInit {
 				this.childNow.UIList = res.data.result;
 				this.childNow.pageTotal = res.data.pageTotal;
 				if(this.childNow.UIList.length==0){
-					this.message.info('该UI没有子集')
+					this.toast.info('该UI没有子集')
 				}else{
 					this.childShow=true;
 				}

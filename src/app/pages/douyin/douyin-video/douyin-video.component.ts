@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { ToastrService } from 'ngx-toastr';
 import * as XLSX from "xlsx";
 import * as echarts from "echarts";
 @Component({
@@ -13,7 +13,7 @@ export class DouyinVideoComponent implements OnInit {
 	constructor(
 		public api: ApiService,
 		public common: CommonService,
-		private message: NzMessageService
+		private toast: ToastrService,
 	) { }
 	ngOnInit(): void {
 		echarts.registerMap("china", this.common.geoCoordMap);
@@ -129,7 +129,7 @@ export class DouyinVideoComponent implements OnInit {
 					(res: any) => {
 						console.log(res);
 						if (res.success) {
-							this.message.success(res.message);
+							this.toast.success(res.message);
 							this.loading = false;
 							this.information = "";
 							this.Home = "";
@@ -162,21 +162,21 @@ export class DouyinVideoComponent implements OnInit {
 	DouYinSearchVideoDetails() {
 		let v = this.searchValue;
 		if (!v) {
-			this.message.error("不能空");
+			this.toast.error("不能空");
 			return;
 		}
 		if (
 			this.type == "分享链接搜索" &&
 			v.indexOf("https://v.douyin.com/") == -1
 		) {
-			this.message.error("分享链接格式错误");
+			this.toast.error("分享链接格式错误");
 			return;
 		}
 		if (this.type == "链接搜索") {
 			let index = v.indexOf("modal_id=");
 			let index2 = v.indexOf("https://www.douyin.com/video/");
 			if (index == -1 && index2 == -1) {
-				this.message.error("链接格式错误");
+				this.toast.error("链接格式错误");
 				return;
 			}
 			if (index != -1) {
@@ -194,7 +194,7 @@ export class DouyinVideoComponent implements OnInit {
 			}
 		}
 		if (this.type == "ID搜索" && isNaN(Number(v))) {
-			this.message.error("ID格式错误");
+			this.toast.error("ID格式错误");
 			return;
 		}
 		this.loading = true;
@@ -288,7 +288,7 @@ export class DouyinVideoComponent implements OnInit {
 		if (this.watchComment) {
 			this.commentSecUid = this.BloggerInfo.secUid;
 		} else {
-			this.message.info("请先打开监控评论开关");
+			this.toast.info("请先打开监控评论开关");
 		}
 	}
 	// 添加监控视频
@@ -296,15 +296,15 @@ export class DouyinVideoComponent implements OnInit {
 		let result: any = this.result;
 		if (this.searchType == "切换输入搜索") result = this.result2;
 		if (!this.expectations) {
-			this.message.info("期望点赞必填");
+			this.toast.info("期望点赞必填");
 			return 1;
 		}
 		if (this.watchComment && !this.commentSecUid) {
-			this.message.info("监控评论Id必填");
+			this.toast.info("监控评论Id必填");
 			return 1;
 		}
 		if (this.watchComment && !this.commentText) {
-			this.message.info("监控评论话术必填");
+			this.toast.info("监控评论话术必填");
 			return 1;
 		}
 		let preTitle: any = result.previewTitle;
@@ -353,7 +353,7 @@ export class DouyinVideoComponent implements OnInit {
 						console.log(res);
 						this.loading = false;
 						if (res.success) {
-							this.message.success("添加监控视频成功");
+							this.toast.success("添加监控视频成功");
 							this.isVisible2 = false;
 							this.expectations = "";
 							this.commentSecUid = "";
@@ -402,7 +402,7 @@ export class DouyinVideoComponent implements OnInit {
 		  	}
 		  }, (err: any) => {
 		  	console.log(err)
-		  	// this.message.error(err)
+		  	// this.toast.error(err)
 		  });
 	}
 	handleCancel2() {
@@ -505,7 +505,7 @@ export class DouyinVideoComponent implements OnInit {
 			this.listObj = j;
 			this.listK = Object.keys(j);
 		} catch (e) {
-			this.message.error("格式错误");
+			this.toast.error("格式错误");
 		}
 	}
 	listeChange() {
@@ -533,11 +533,11 @@ export class DouyinVideoComponent implements OnInit {
 					(e + "").length > 11)
 		);
 		if (!isSearch || this.listeValue.indexOf("身份证") > -1) {
-			this.message.error("该列不支持搜索");
+			this.toast.error("该列不支持搜索");
 			return;
 		}
 		if (valueArr.length == 0) {
-			this.message.error("该列为空");
+			this.toast.error("该列为空");
 			return;
 		}
 		this.searchVideoList(valueArr);

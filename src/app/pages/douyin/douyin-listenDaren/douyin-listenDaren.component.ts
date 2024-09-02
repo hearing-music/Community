@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 import * as echarts from "echarts";
 @Component({
 	selector: 'ngx-douyin-listenDaren',
@@ -9,7 +9,7 @@ import * as echarts from "echarts";
 	styleUrls: ['./douyin-listenDaren.component.scss']
 })
 export class DouyinListenDarenComponent implements OnInit {
-	constructor(public api: ApiService, public common: CommonService, private message: NzMessageService, private changeDetectorRef: ChangeDetectorRef) {
+	constructor(public api: ApiService, public common: CommonService, private toast: ToastrService, private changeDetectorRef: ChangeDetectorRef) {
 	}
 	ngOnInit(): void {
 		this.douyin_darenTypeList()
@@ -673,7 +673,7 @@ export class DouyinListenDarenComponent implements OnInit {
 	popUpEdit(item: any) {
 		let arr = []
 		if(this.typeList.length==0){
-			this.message.info("请重试");
+			this.toast.info("请重试");
 			this.douyin_darenTypeList()
 			return
 		}
@@ -697,28 +697,28 @@ export class DouyinListenDarenComponent implements OnInit {
 			TypeJson['res'].push({"ID":typeList2[i].value,"TypeName":typeList2[i].label})
 		}
 		if (TypeJson['res'].length==0) {
-			this.message.info('艺人类型至少选一个')
+			this.toast.info('艺人类型至少选一个')
 			return
 		}
 		TypeJson = JSON.stringify(TypeJson)
 		VocalsShow = VocalsShow == '' ? '' : VocalsShow - 0
 		FeesShow = FeesShow == '' ? '' : FeesShow - 0
 		if (!Number.isInteger(VocalsShow) && Vocals) {
-			this.message.info('翻唱唱酬最低价格必须为数字')
+			this.toast.info('翻唱唱酬最低价格必须为数字')
 			return
 		}
 		if (!Number.isInteger(FeesShow) && Fees) {
-			this.message.info('翻唱视频费用最低价格必须为数字')
+			this.toast.info('翻唱视频费用最低价格必须为数字')
 			return
 		}
 		VocalsShow = VocalsShow - 0
 		FeesShow = FeesShow - 0
 		// if(VocalsShow==0&&Vocals){
-		// 	this.message.info('翻唱唱酬最低价格必须为数字0')
+		// 	this.toast.info('翻唱唱酬最低价格必须为数字0')
 		// 	return
 		// }
 		// if(FeesShow==0&&Fees){
-		// 	this.message.info('翻唱视频费用最低价格不能为0')
+		// 	this.toast.info('翻唱视频费用最低价格不能为0')
 		// 	return
 		// }
 		this.loading = true;
@@ -726,7 +726,7 @@ export class DouyinListenDarenComponent implements OnInit {
 			console.log(res)
 			this.loading = false;
 			if (res.success) {
-				this.message.success('修改成功')
+				this.toast.success('修改成功')
 				let index = this.list.findIndex((e: any) => e.dy_BloggerInfo_ID == this.editItem.dy_BloggerInfo_ID);
 				this.editItem.TypeJson = JSON.parse(TypeJson);
 				this.list[index] = { ...this.editItem }
@@ -740,7 +740,7 @@ export class DouyinListenDarenComponent implements OnInit {
 		}, (err: any) => {
 			console.log(err)
 			this.loading = false;
-			this.message.error('修改失败')
+			this.toast.error('修改失败')
 			this.editItem = {}
 		})
 	}

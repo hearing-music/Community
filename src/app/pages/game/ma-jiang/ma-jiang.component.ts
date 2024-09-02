@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Canvg } from "canvg";
 import { environment } from "../../../../environments/environment";
 import { io } from "../../../services/js/socket.io.js";
-import { NzMessageService } from "ng-zorro-antd/message";
 import { majiangpai } from "./majiangpai";
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: "ngx-ma-jiang",
   templateUrl: "./ma-jiang.component.html",
@@ -112,7 +112,7 @@ export class MaJiangComponent implements OnInit {
     document.body.removeChild(el);
     this.createMessage("success", "复制成功");
   }
-  constructor(private message: NzMessageService) {}
+  constructor(private toast: ToastrService) {}
 
   // socket连接
   connect() {
@@ -549,7 +549,7 @@ export class MaJiangComponent implements OnInit {
   }
 
   createMessage(type: string, msg: any): void {
-    this.message.create(type, `${msg}`);
+    this.toast.info(`${msg}`);
   }
   // 创建房间按钮点击
   roomCreate() {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 import { HighlightLoader } from 'ngx-highlightjs';
 @Component({
 	selector: 'ngx-codonce',
@@ -10,7 +10,7 @@ import { HighlightLoader } from 'ngx-highlightjs';
 })
 export class CodonceComponent implements OnInit {
 
-	constructor(private hljsLoader: HighlightLoader,public api: ApiService,public common: CommonService,private message: NzMessageService) { }
+	constructor(private hljsLoader: HighlightLoader,public api: ApiService,public common: CommonService,private toast: ToastrService,) { }
 	async ngOnInit() {
 		//切换主题
 		this.hljsLoader.setTheme('assets/styles/solarized-dark.css');
@@ -95,23 +95,23 @@ export class CodonceComponent implements OnInit {
 		// console.log(this.videoUploadList)
 		// console.log(this.codeLanguage)
 		if(this.codeLanguage.length==0){
-			this.message.info('请添加代码语言')
+			this.toast.info('请添加代码语言')
 			return
 		}
 		if(!this.codeTitle){
-			this.message.info('请添加代码标题')
+			this.toast.info('请添加代码标题')
 			return
 		}
 		if(!this.codeDescriptions){
-			this.message.info('请添加代码描述')
+			this.toast.info('请添加代码描述')
 			return
 		}
 		if(!this.codeText){
-			this.message.info('请添加代码片段')
+			this.toast.info('请添加代码片段')
 			return
 		}
 		if(this.videoUploadList.length==0){
-			this.message.info('请添加视频')
+			this.toast.info('请添加视频')
 			return
 		}
 		let PlId = await this.ProgrammingLanguageIncrease(this.codeLanguage[0]);
@@ -154,7 +154,7 @@ export class CodonceComponent implements OnInit {
 				PlId = this.codeLanguageList.find((e:any)=>e.ProgrammingLanguage==ProgrammingLanguage).ID;
 			}
 		}catch(e){
-			this.message.info('请重新保存')
+			this.toast.info('请重新保存')
 		}
 		this.loading = true;
 		this.api.StoreCvIncrease({
@@ -162,7 +162,7 @@ export class CodonceComponent implements OnInit {
 		}).subscribe(async (res: any) => {
 			this.loading = false;
 			if(res.success){
-				this.message.success('添加成功');
+				this.toast.success('添加成功');
 				this.videoUploadList = [];
 				this.codeLanguage = [];
 				this.codeTitle = '';

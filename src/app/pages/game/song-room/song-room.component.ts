@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { SocketService } from "../../../services/socket.service";
 import { ApiService } from "../../../services/api.service";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { ToastrService } from 'ngx-toastr';
 import { CommonService } from "../../../services/common.service";
 
 @Component({
@@ -13,7 +13,7 @@ export class SongRoomComponent implements OnInit, OnDestroy {
   constructor(
     public api: ApiService,
     public socket: SocketService,
-    public message: NzMessageService,
+	private toast: ToastrService,
     public common: CommonService
   ) {}
   ngOnDestroy() {
@@ -59,10 +59,10 @@ export class SongRoomComponent implements OnInit, OnDestroy {
       console.log("openLive", data);
       if (data.err == 1) {
         // 有人开播 不能开启直播
-        this.message.error(data.str);
+        this.toast.error(data.str);
       } else if (data.err == 0) {
         // 有人开播 快去看看
-        this.message.info(data.str);
+        this.toast.info(data.str);
         this.liveAuth = data.liveAuth;
       }
     });
@@ -108,12 +108,12 @@ export class SongRoomComponent implements OnInit, OnDestroy {
 	this.socket.chooseSongs((res:any)=>{
 		console.log(res,'有人点歌')
 		if(res.success){
-			res.message&&this.message.success(res.message)
+			res.message&&this.toast.success(res.message)
 			if(res.data){
 				this.SongPlayedList = res.data
 			}
 		}else{
-			this.message.info(res.message)
+			this.toast.info(res.message)
 		}
 	})
 	
@@ -123,7 +123,7 @@ export class SongRoomComponent implements OnInit, OnDestroy {
 		if(res.success){
 			this.playMusic(res.song,res.duration)
 		}else{
-			this.message.info(res.message)
+			this.toast.info(res.message)
 		}
 	})
 	this.socket.changeSongs((res:any)=>{
@@ -132,13 +132,13 @@ export class SongRoomComponent implements OnInit, OnDestroy {
 			this.SongPlayedList = res.list;
 			this.playMusic(res.song)
 		}else{
-			this.message.info(res.message)
+			this.toast.info(res.message)
 		}
 	})
   }
   playMusic(item:any,duration:number=0){
 	  if(!item.url){
-		  this.message.error('歌曲地址获取失败,切歌失败')
+		  this.toast.error('歌曲地址获取失败,切歌失败')
 		  return
 	  }
 	  this.musicName = item.name;
@@ -231,7 +231,7 @@ export class SongRoomComponent implements OnInit, OnDestroy {
     }
   }
   notOpen() {
-    this.message.info("该功能暂未开放哦~");
+    this.toast.info("该功能暂未开放哦~");
   }
 
   // 点歌展开
@@ -272,7 +272,7 @@ export class SongRoomComponent implements OnInit, OnDestroy {
         .AddCollectList({ musicId: item.musicId, state: true })
         .subscribe((res: any) => {
           this.loading = false;
-		  this.message.success(res.message)
+		  this.toast.success(res.message)
 		  if(res.success){
 			  item.collectArr.push(this.userId)
 		  }
@@ -282,7 +282,7 @@ export class SongRoomComponent implements OnInit, OnDestroy {
     }
   }
   collected(){
-	  this.message.info('已经添加收藏拉')
+	  this.toast.info('已经添加收藏拉')
   }
   rmCollect(item: any,i:any) {
     console.log(item.musicId);
@@ -292,7 +292,7 @@ export class SongRoomComponent implements OnInit, OnDestroy {
         .AddCollectList({ musicId: item.musicId, state: false })
         .subscribe((res: any) => {
           this.loading = false;
-		  this.message.success(res.message)
+		  this.toast.success(res.message)
 		  if(res.success){
 			  this.collectList.splice(i,1)
 			  let index = this.SongPlayedList.findIndex((e:any)=>e.musicId==item.musicId)
@@ -553,9 +553,9 @@ export class SongRoomComponent implements OnInit, OnDestroy {
       //   .subscribe((res: any) => {
       //     if (res.success) {
       //       this.loading = false;
-      //       this.message.success(res.message);
+      //       this.toast.success(res.message);
       //     } else {
-      //       this.message.error("添加失败");
+      //       this.toast.error("添加失败");
       //     }
       //   });
     } catch (e) {

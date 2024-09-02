@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: "ngx-volumeOfUse",
   templateUrl: "./volumeOfUse.component.html",
@@ -8,7 +8,7 @@ import { NzMessageService } from "ng-zorro-antd/message";
 })
 export class VolumeOfUseComponent implements OnInit {
   loading = false;
-  constructor(public api: ApiService, private message: NzMessageService) {}
+  constructor(public api: ApiService, private toast: ToastrService) {}
 
   ngOnInit(): void {}
   result: any = {};
@@ -31,7 +31,7 @@ export class VolumeOfUseComponent implements OnInit {
           }
         });
     } else {
-      this.message.error("链接中没有musicId");
+      this.toast.error("链接中没有musicId");
       this.loading = false;
     }
   }

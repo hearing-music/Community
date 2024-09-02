@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service'
 import { ApiService } from '../services/api.service'
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 import {CommonService} from "../services/common.service";
 @Component({
 	selector: 'ngx-login',
@@ -11,7 +11,7 @@ import {CommonService} from "../services/common.service";
 })
 export class LoginComponent implements OnInit {
 
-	constructor(private message:NzMessageService,public api: ApiService,public authService: AuthService, public router: Router,public common: CommonService) { }
+	constructor(private toast: ToastrService,public api: ApiService,public authService: AuthService, public router: Router,public common: CommonService) { }
 
 	ngOnInit(): void {
 		this.phone = localStorage.getItem('phone') || '';
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 	}
 	getSms() {
 		if(!this.common.checkPhone(this.phone)){
-			this.message.error('手机号格式错误')
+			this.toast.error('手机号格式错误')
 			return
 		}
 		this.loading = true;
@@ -53,24 +53,24 @@ export class LoginComponent implements OnInit {
 			console.log(res)
 			this.loading = false;
 			if (res.success) {
-				this.message.success('发送成功')
+				this.toast.success('发送成功')
 				this.smsInterval()
 			}else{
-				// this.message.error(res.message)
+				// this.toast.error(res.message)
 			}
 		}, (err: any) => {
 			this.loading = false;
 			console.log(err)
-			// this.message.error(err)
+			// this.toast.error(err)
 		});
 	}
 	login() {
 		if(!this.common.checkPhone(this.phone)){
-			this.message.error('手机号格式错误')
+			this.toast.error('手机号格式错误')
 			return
 		}
 		if(!this.common.checkSms(this.sms)){
-			this.message.error('验证码格式错误')
+			this.toast.error('验证码格式错误')
 			return
 		}
 		// this.authService.isLoggedIn = true;
@@ -101,6 +101,7 @@ export class LoginComponent implements OnInit {
 					"ks_monitoring_limit":res.result.ks_monitoring_limit
 				})
 				this.authService.isLoggedIn = true;
+				this.toast.success('登录成功')
 				const redirectUrl = this.authService.redirectUrl || '/'; // 防止用户直接在地址栏输入造成的redirectUrl为空的错误
 				// 跳转回重定向路径
 				this.router.navigate([redirectUrl]);
@@ -118,10 +119,10 @@ export class LoginComponent implements OnInit {
 					}
 				}, (err: any) => {
 					console.log(err)
-					// this.message.error(err)
+					// this.toast.error(err)
 				});
 			}else{
-				// this.message.error(res.message)
+				// this.toast.error(res.message)
 			}
 			// if (this.authService.isLoggedIn) {
 			//   const redirectUrl = this.authService.redirectUrl || '/'; // 防止用户直接在地址栏输入造成的redirectUrl为空的错误
@@ -131,7 +132,7 @@ export class LoginComponent implements OnInit {
 		}, (err: any) => {
 			this.loading = false;
 			console.log(err)
-			// this.message.error(err)
+			// this.toast.error(err)
 		});
 	}
 }

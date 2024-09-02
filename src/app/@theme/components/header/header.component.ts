@@ -7,7 +7,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import {CommonService} from "../../../services/common.service";
 import { AuthService } from '../../../services/auth.service'
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 import { ApiService } from "../../../services/api.service";
 @Component({
   selector: 'ngx-header',
@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private themeService: NbThemeService,
               private userService: UserData,
               private layoutService: LayoutService,
-			  public message:NzMessageService,
+			  private toast: ToastrService,
 			  public api: ApiService,
 			  public author:AuthService,
 			  private common:CommonService,
@@ -86,21 +86,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 	confirm(){
 		if(!this.cookie){
-			this.message.info('请输入')
+			this.toast.info('请输入')
 			return
 		}
 		this.cookieLoading = true;
 		if(this.select=='dygf'){
 			this.api.dygw_setCookie({value:this.cookie}).subscribe((res: any) => {
 				this.cookieLoading = false;
-				this.message.success('更换成功')
+				this.toast.success('更换成功')
 			}, (err: any) => {
 				this.cookieLoading = false;
 			})
 		}else if(this.select == 'dyrd'){
 			this.api.dyrd_setCookie({value:this.cookie}).subscribe((res: any) => {
 				this.cookieLoading = false;
-				this.message.success('更换成功')
+				this.toast.success('更换成功')
 			}, (err: any) => {
 				this.cookieLoading = false;
 			})

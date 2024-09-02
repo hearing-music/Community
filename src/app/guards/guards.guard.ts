@@ -4,11 +4,14 @@ import { resolve } from 'dns';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service'
 import {CommonService} from "../services/common.service";
+// import { ToastrService } from 'ngx-toastr';
 @Injectable({
 	providedIn: 'root'
 })
 export class GuardsGuard implements CanActivate {
-	constructor(private authService: AuthService, private router: Router,private common:CommonService) {
+	constructor(private authService: AuthService, private router: Router,private common:CommonService,
+	// private toast: ToastrService,
+	) {
 		
 	}
 	// token 和 token过期时间验证   刷新时 重新加载menu
@@ -30,7 +33,7 @@ export class GuardsGuard implements CanActivate {
 		// let permission_name_id = localStorage.getItem('permission_name_id');
 		
 		if (!token || !token_expiration_time) {
-			// this.message.error('未登录')
+			// this.toast.error('未登录')
 			// 修改登陆后重定向的地址
 			this.authService.redirectUrl = url;
 			this.common.removeLocalStorages()
@@ -40,7 +43,7 @@ export class GuardsGuard implements CanActivate {
 		if (date > token_expiration_times) {
 			console.log(date)
 			console.log(token_expiration_times)
-			// this.message.error('登录过期')
+			// this.toast.error('登录过期')
 			// 修改登陆后重定向的地址
 			this.authService.redirectUrl = url;
 			this.common.removeLocalStorages()
@@ -49,6 +52,7 @@ export class GuardsGuard implements CanActivate {
 
 		}
 		this.authService.isLoggedIn = true;
+		
 		// 刷新时 重新获取menu
 		// this.authService.getPermission().subscribe((res: any) => {
 		// 	// console.log(res)

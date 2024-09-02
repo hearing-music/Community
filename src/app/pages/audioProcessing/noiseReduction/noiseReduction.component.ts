@@ -2,14 +2,14 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { ApiService } from "../../../services/api.service";
 import {CommonService} from "../../../services/common.service";
 import { environment } from '../../../../environments/environment';
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'ngx-noiseReduction',
   templateUrl: './noiseReduction.component.html',
   styleUrls: ['./noiseReduction.component.scss']
 })
 export class NoiseReductionComponent implements OnInit {
-  constructor(public api: ApiService,public common: CommonService,public message:NzMessageService) { }
+  constructor(public api: ApiService,public common: CommonService,private toast: ToastrService,) { }
   ngOnInit(): void {
   }
  
@@ -23,7 +23,7 @@ export class NoiseReductionComponent implements OnInit {
 	//下载zip 直接a链接 不然 这个方法是 先下载完 在出来下载按钮
 	download(){
 		if(!this.downloadUrl){
-			this.message.info('该音频无需降噪')
+			this.toast.info('该音频无需降噪')
 		}else{
 			this.common.downloadServer(this.downloadUrl)
 		}

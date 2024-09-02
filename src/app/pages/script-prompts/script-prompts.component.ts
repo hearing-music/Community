@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../services/api.service";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser'; 
 @Component({
   selector: "ngx-script-prompts",
@@ -17,7 +17,7 @@ export class ScriptPromptsComponent implements OnInit {
   right: "left" | "right";
   problemList = [];
   problemAllList = [];
-  constructor(private api: ApiService, private message: NzMessageService,private sanitizer: DomSanitizer) {}
+  constructor(private api: ApiService, private toast: ToastrService,private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.GetModelInfo();
@@ -123,7 +123,7 @@ export class ScriptPromptsComponent implements OnInit {
     aux.select();
     document.execCommand("copy");
     document.body.removeChild(aux);
-    this.message.create("success", `复制成功`);
+    this.toast.success(`复制成功`);
   }
 
   // right

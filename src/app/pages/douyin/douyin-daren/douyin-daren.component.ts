@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { ToastrService } from 'ngx-toastr';
 import * as echarts from "echarts";
 import * as XLSX from "xlsx";
 @Component({
@@ -13,7 +13,7 @@ export class DouyinDarenComponent implements OnInit {
   constructor(
     public api: ApiService,
     public common: CommonService,
-    private message: NzMessageService
+	private toast: ToastrService,
   ) {}
   ngOnInit(): void {
     echarts.registerMap("china", this.common.geoCoordMap);
@@ -197,7 +197,7 @@ export class DouyinDarenComponent implements OnInit {
     textareaC.select();
     document.execCommand("copy");
     document.body.removeChild(textareaC); //移除DOM元素
-    this.message.create("success", `复制成功`);
+    this.toast.success(`复制成功`);
   }
   ToSee(item: any) {
     if (typeof item == "object") {
@@ -502,7 +502,7 @@ export class DouyinDarenComponent implements OnInit {
     var home = this.Home;
     // var type = this.Type;
 	if(this.typeList.length==0){
-		this.message.info("请重试");
+		this.toast.info("请重试");
 		this.douyin_darenTypeList()
 		return
 	}
@@ -525,7 +525,7 @@ export class DouyinDarenComponent implements OnInit {
     let signature = obj.signature;
     let urlList = obj.urlList;
     // if (!sex||!information || !home || !type || !style || !characteristics || !vocals || !split || !original || !originalShare || !fees) {
-    // 	this.message.info('缺少必填参数')
+    // 	this.toast.info('缺少必填参数')
     // 	return
     // }
     var nickname = obj.nickName;
@@ -534,26 +534,26 @@ export class DouyinDarenComponent implements OnInit {
     vocalsShow = vocalsShow == "" ? "" : vocalsShow - 0;
     feesShow = feesShow == "" ? "" : feesShow - 0;
     if (!Number.isInteger(vocalsShow) && vocals) {
-      this.message.info("翻唱唱酬最低价格必须为数字");
+      this.toast.info("翻唱唱酬最低价格必须为数字");
       return;
     }
     if (!Number.isInteger(feesShow) && fees) {
-      this.message.info("翻唱视频费用最低价格必须为数字");
+      this.toast.info("翻唱视频费用最低价格必须为数字");
       return;
     }
 	if(typeJson['res'].length==0){
-		this.message.info("艺人类别至少选一个");
+		this.toast.info("艺人类别至少选一个");
 		return;
 	}
 	typeJson = JSON.stringify(typeJson)
     vocalsShow = vocalsShow - 0;
     feesShow = feesShow - 0;
     // if(vocalsShow==0&&vocals){
-    // 	this.message.info('翻唱唱酬最低价格必须为数字0')
+    // 	this.toast.info('翻唱唱酬最低价格必须为数字0')
     // 	return
     // }
     // if(feesShow==0&&fees){
-    // 	this.message.info('翻唱视频费用最低价格不能为0')
+    // 	this.toast.info('翻唱视频费用最低价格不能为0')
     // 	return
     // }
     this.loading = true;
@@ -586,7 +586,7 @@ export class DouyinDarenComponent implements OnInit {
           console.log(res);
           this.loading = false;
           if (res.success) {
-            this.message.success("添加监控成功");
+            this.toast.success("添加监控成功");
             this.isVisible = false;
             this.information = "";
             this.Home = "";

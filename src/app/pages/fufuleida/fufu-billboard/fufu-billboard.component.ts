@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
-import { NzMessageService } from 'ng-zorro-antd/message';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'ngx-fufu-billboard',
   templateUrl: './fufu-billboard.component.html',
   styleUrls: ['./fufu-billboard.component.scss']
 })
 export class FufuBillboardComponent implements OnInit {
-  constructor(public api: ApiService, private message: NzMessageService) { }
+  constructor(public api: ApiService, private toast: ToastrService) { }
   fufuleidaList: any = []
   	update:any=''
   isSurePlay: boolean = false
@@ -39,6 +38,6 @@ loading=false
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
-    this.message.create('success', `${songName}Â§çÂà∂ÊàêÂäü`);
+    this.toast.success(`${songName}∏¥÷∆≥…π¶`);
   }
 }

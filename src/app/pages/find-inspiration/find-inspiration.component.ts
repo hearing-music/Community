@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { NzMessageService } from 'ng-zorro-antd/message';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'ngx-find-inspiration',
   templateUrl: './find-inspiration.component.html',
   styleUrls: ['./find-inspiration.component.scss']
 })
 export class FindInspirationComponent implements OnInit {
-  constructor(public api: ApiService, private message: NzMessageService) { }
+  constructor(public api: ApiService, private toast: ToastrService) { }
   ngOnInit(): void {
 	  this.getAudioStorage()
   }
@@ -35,7 +34,7 @@ export class FindInspirationComponent implements OnInit {
 	    } else if (file.type.match('video')) {  
 	      type = 'mp4'
 	    } else {  
-	  	  this.message.error('文件类型错误')
+	  	  this.toast.error('文件类型错误')
 	  	return
 	    }  
 	  const audio = new Audio(URL.createObjectURL(file))
@@ -48,7 +47,7 @@ export class FindInspirationComponent implements OnInit {
 		this.api.synthesis_setAudioStorage({audio:file,type:type,duration}).subscribe((res: any) => {
 			console.log(res)
 			if(res.success){
-					this.message.success('上传成功！')
+					this.toast.success('上传成功！')
 					this.loading = false;
 					this.getAudioStorage()
 			}
@@ -89,7 +88,7 @@ export class FindInspirationComponent implements OnInit {
   // 合成视频
   composeVideo(item:any){
 	  if(this.audioNow == -1){
-		  this.message.info('请选择音频')
+		  this.toast.info('请选择音频')
 		  return
 	  }
 	  this.loading=true;

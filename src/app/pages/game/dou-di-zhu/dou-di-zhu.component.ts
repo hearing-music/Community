@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import "./poker.min";
 import { io } from "../../../services/js/socket.io.js";
-import { NzMessageService } from "ng-zorro-antd/message";
 import { environment } from "../../../../environments/environment";
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: "ngx-dou-di-zhu",
   templateUrl: "./dou-di-zhu.component.html",
   styleUrls: ["./dou-di-zhu.component.scss"],
 })
 export class DouDiZhuComponent implements OnInit, OnDestroy {
-  constructor(private message: NzMessageService) {}
+  constructor(private toast: ToastrService) {}
   roomDetail: any = [];
   canvas: any;
   canvas1: any;
@@ -62,7 +62,7 @@ export class DouDiZhuComponent implements OnInit, OnDestroy {
   }
   //创建全局消息
   createMessage(type: string, msg: any): void {
-    this.message.create(type, `${msg}`);
+    this.toast.info(`${msg}`);
   }
   clearDraw() {
     if (this.nextCtx && this.upCtx && this.myCtx) {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { NzMessageService } from "ng-zorro-antd/message";
 import { ApiService } from "../../../services/api.service";
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: "ngx-script-prompts-insert",
   templateUrl: "./script-prompts-insert.component.html",
@@ -54,7 +53,7 @@ export class ScriptPromptsInsertComponent implements OnInit {
     );
     this.answerList = this.searchTip;
   }
-  constructor(private api: ApiService, private message: NzMessageService) {}
+  constructor(private api: ApiService, private toast: ToastrService,) {}
   searchChange(e: any) {
     let arr = [];
     for (let i = 0; i < this.searchTip.length; i++) {
@@ -181,7 +180,7 @@ export class ScriptPromptsInsertComponent implements OnInit {
       };
       this.api.AdditionalDataInfo(params).subscribe((res: any) => {
         if (res.success) {
-          this.message.success("添加成功");
+          this.toast.success("添加成功");
           this.Answer = [
             {
               Answer: "",
@@ -202,7 +201,7 @@ export class ScriptPromptsInsertComponent implements OnInit {
       };
       this.api.AdditionalDataInfo(params).subscribe((res: any) => {
         if (res.success) {
-          this.message.success("添加成功");
+          this.toast.success("添加成功");
           this.Answer = [
             {
               Answer: "",
@@ -257,6 +256,6 @@ export class ScriptPromptsInsertComponent implements OnInit {
     aux.select();
     document.execCommand("copy");
     document.body.removeChild(aux);
-    this.message.create("success", `复制成功`);
+    this.toast.success(`复制成功`);
   }
 }

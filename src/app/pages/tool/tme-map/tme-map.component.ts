@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { differenceInCalendarDays } from "date-fns";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { ToastrService } from 'ngx-toastr';
 import { ApiService } from "../../../../../src/app/services/api.service";
 import { CommonService } from "../../../services/common.service";
 import { environment } from '../../../../environments/environment';
@@ -52,7 +52,7 @@ export class TmeMapComponent implements OnInit {
   loading = false;
   isCandown = false;
   isCandown2: boolean = false;
-  constructor(public api: ApiService, private message: NzMessageService,public common: CommonService) {}
+  constructor(public api: ApiService,private toast: ToastrService,public common: CommonService) {}
   ngOnInit(): void {
 	     let today = new Date();
 		this.today = today;
@@ -107,11 +107,11 @@ export class TmeMapComponent implements OnInit {
               this.base64Data = res.data;
               this.isCandown = true;
             } else {
-              this.message.error(res.message);
+              this.toast.error(res.message);
             }
           });
       } else {
-        this.message.error("请选择筛查类型");
+        this.toast.error("请选择筛查类型");
       }
     }
     if (this.selectItem == "歌曲") {
@@ -138,11 +138,11 @@ export class TmeMapComponent implements OnInit {
               this.base64Data2 = res.data;
               this.isCandown2 = true;
             } else {
-              this.message.error(res.message);
+              this.toast.error(res.message);
             }
           });
       } else {
-        this.message.error("请选择筛查类型");
+        this.toast.error("请选择筛查类型");
       }
     }
   }

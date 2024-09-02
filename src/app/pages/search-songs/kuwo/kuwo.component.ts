@@ -1,7 +1,7 @@
 import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 import {CommonService} from "../../../services/common.service";
 import { ApiService } from "../../../services/api.service";
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'ngx-kuwo',
   templateUrl: './kuwo.component.html',
@@ -10,12 +10,12 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class KuwoComponent implements OnInit {
 	@Input() kuwoList: any;
 	@Output() change: EventEmitter<any> = new EventEmitter<any>();
-  constructor(public common: CommonService,public api: ApiService,public message:NzMessageService) { }
+  constructor(public common: CommonService,public api: ApiService,private toast: ToastrService,) { }
   playAudio(item:any,i:number){
   	  if(item.downloadUrl){
   		  this.change.emit({src:item.downloadUrl,i});
   	  }else{
-  		  this.message.info("会员歌曲暂无法播放")
+  		  this.toast.info("会员歌曲暂无法播放")
   		  // this.songurl_kuwo(item,i)
   	  }
   }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { environment } from '../../../../environments/environment';
 import { differenceInCalendarDays } from 'date-fns';
+import { ToastrService } from 'ngx-toastr';
 let downloadUrl = environment.downloadUrl;
 @Component({
 	selector: 'ngx-userControl',
@@ -12,7 +12,7 @@ let downloadUrl = environment.downloadUrl;
 })
 export class UserControlComponent implements OnInit {
 
-	constructor(public api : ApiService, public common : CommonService, private message : NzMessageService) { }
+	constructor(public api : ApiService, public common : CommonService,private toast: ToastrService) { }
 	timeStart=0;
 	timeEnd=0;
 	nzDefaultPickerValue = null
@@ -175,7 +175,7 @@ export class UserControlComponent implements OnInit {
 	  // 新用户行为导出表格
 	  UserBehaviourExcel(){
 		  if(this.timeStart==0||this.timeEnd==0){
-		  	this.message.info("请选择日期区间")
+		  	this.toast.info("请选择日期区间")
 		  	return;
 		  }
 		  this.loading = true;
@@ -196,7 +196,7 @@ export class UserControlComponent implements OnInit {
 	// 老用户行为导出表格
 	UserBehaviourExcel2(){
 		if(this.timeStart2==0||this.timeEnd2==0){
-			this.message.info("请选择日期区间")
+			this.toast.info("请选择日期区间")
 			return;
 		}
 		this.loading = true;

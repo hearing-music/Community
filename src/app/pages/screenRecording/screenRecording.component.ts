@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, } from "@angular/core";
 import { ApiService } from "../../services/api.service";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { ToastrService } from 'ngx-toastr';
 import UAParser from "ua-parser-js";
 //解决前面url 多了unsafe:问题
 import { DomSanitizer } from "@angular/platform-browser";
@@ -13,7 +13,7 @@ import { CommonService } from "../../services/common.service";
 })
 export class ScreenRecordingComponent implements OnInit, OnDestroy {
 	@ViewChild('videoPlayer') videoPlayer : any;
-	constructor(private api : ApiService, public common: CommonService,private message : NzMessageService, public sanitizer : DomSanitizer) { }
+	constructor(private api : ApiService, public common: CommonService,private toast: ToastrService, public sanitizer : DomSanitizer) { }
 
 	ngOnInit() : void {
 		// @ts-ignore
@@ -66,7 +66,7 @@ export class ScreenRecordingComponent implements OnInit, OnDestroy {
 					if(res.success){
 						item.downloadUrl = environment.downloadUrl+res.data
 					}else{
-						this.message.error("转换失败")
+						this.toast.error("转换失败")
 					}
 					this.loading = false;
 				},(err)=>{
@@ -102,9 +102,9 @@ export class ScreenRecordingComponent implements OnInit, OnDestroy {
 					this.downloadEl.push(downloadInfo);
 					let recording = false;
 					this.watchRecording(recording)
-					this.message.success("录制完成,请下载！")
+					this.toast.success("录制完成,请下载！")
 				} else {
-					this.message.success("录制已完成！")
+					this.toast.success("录制已完成！")
 					let recording = false;
 					this.watchRecording(recording)
 					// @ts-ignore

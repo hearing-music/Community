@@ -1,14 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
-import { NzMessageService } from "ng-zorro-antd/message";
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: "ngx-douyin-soundSource",
   templateUrl: "./douyin-soundSource.component.html",
   styleUrls: ["./douyin-soundSource.component.scss"],
 })
 export class DouyinSoundSourceComponent implements OnInit {
-  constructor(public api: ApiService, private message: NzMessageService) {}
+  constructor(public api: ApiService,private toast: ToastrService) {}
   loading = false;
   isMonitor = false;
   result: any = {};
@@ -78,7 +77,7 @@ export class DouyinSoundSourceComponent implements OnInit {
   timeChange(e:any){
 	  let timeArr = e.filter((e:any)=>e.checked==true)
 	  if(timeArr.length == 0){
-		  this.message.info('至少选择一个时间段')
+		  this.toast.info('至少选择一个时间段')
 		  this.disabled = true;
 	  }else{
 		  this.disabled = false;
@@ -115,15 +114,15 @@ export class DouyinSoundSourceComponent implements OnInit {
 	  this.loading = true;
 	  this.api.douyinListenSourdSource(params).subscribe((res: any) => {
   			if (res.success) {
-				this.message.success('添加成功')
+				this.toast.success('添加成功')
   			}
 			if(res.update==1){
-				this.message.info('该音源已继承数据完毕')
+				this.toast.info('该音源已继承数据完毕')
 			}
   			this.loading = false;
   		},
   		(err: any) => {
-			this.message.error('添加失败')
+			this.toast.error('添加失败')
   			console.log(err);
   			this.loading = false;
   		}
@@ -133,21 +132,21 @@ export class DouyinSoundSourceComponent implements OnInit {
   DouYinSearchVideoDetails() {
   	let v = this.searchValue;
   	if (!v) {
-  		this.message.error("不能空");
+  		this.toast.error("不能空");
   		return;
   	}
   	if (
   		this.type == "分享链接搜索" &&
   		v.indexOf("https://v.douyin.com/") == -1
   	) {
-  		this.message.error("分享链接格式错误");
+  		this.toast.error("分享链接格式错误");
   		return;
   	}
   	if (this.type == "链接搜索") {
   		let index = v.indexOf("modal_id=");
   		let index2 = v.indexOf("https://www.douyin.com/video/");
   		if (index == -1 && index2 == -1) {
-  			this.message.error("链接格式错误");
+  			this.toast.error("链接格式错误");
   			return;
   		}
   		if (index != -1) {
@@ -165,7 +164,7 @@ export class DouyinSoundSourceComponent implements OnInit {
   		}
   	}
   	if (this.type == "ID搜索" && isNaN(Number(v))) {
-  		this.message.error("ID格式错误");
+  		this.toast.error("ID格式错误");
   		return;
   	}
   	this.loading = true;

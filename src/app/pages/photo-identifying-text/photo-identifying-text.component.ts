@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../services/api.service";
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'ngx-photo-identifying-text',
   templateUrl: './photo-identifying-text.component.html',
@@ -10,7 +10,7 @@ export class PhotoIdentifyingTextComponent implements OnInit {
   language = "eng"
   file = ""
   text = ""
-  constructor(private api: ApiService, private message: NzMessageService) { }
+  constructor(private api: ApiService,private toast: ToastrService,) { }
 
   ngOnInit(): void {
   }
@@ -33,6 +33,6 @@ export class PhotoIdentifyingTextComponent implements OnInit {
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
-    this.message.create('success', `Â§çÂà∂ÊàêÂäü`);
+    this.toast.success(`∏¥÷∆≥…π¶`);
   }
 }

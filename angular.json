@@ -36,6 +36,7 @@
 			],
             "styles": [
 				"src/app/@theme/styles/styles.scss",
+				"node_modules/ngx-toastr/toastr.css",
 				"node_modules/driver.js/dist/driver.css",
 				"node_modules/loaders.css/loaders.css",
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
@@ -139,6 +140,7 @@
             ],
             "styles": [
 				"src/app/@theme/styles/styles.scss",
+				"node_modules/ngx-toastr/toastr.css",
 				"node_modules/driver.js/dist/driver.css",
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",

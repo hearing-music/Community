@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router'
 import { NzModalService } from 'ng-zorro-antd/modal';
 @Component({
@@ -11,7 +11,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 })
 export class SetRankingComponent implements OnInit {
 
-	constructor(private modal: NzModalService,public common: CommonService, public api: ApiService, private message: NzMessageService, public route: ActivatedRoute) {
+	constructor(private modal: NzModalService,public common: CommonService, public api: ApiService, private toast: ToastrService, public route: ActivatedRoute) {
 		this.route.params.subscribe((res) => {
 			// console.log(res)
 			this.kgsearchValue = res.scid;
@@ -60,7 +60,7 @@ export class SetRankingComponent implements OnInit {
 	search() {
 		let { scid, mid, success, message } = this.getData(this.qqsearchValue, this.kgsearchValue)
 		if (!success) {
-			this.message.error(message)
+			this.toast.error(message)
 			return
 		}
 		this.getqq_kugouKeywordInfo(mid, scid)
@@ -128,7 +128,7 @@ export class SetRankingComponent implements OnInit {
 	}).subscribe((res: any) => {
 				console.log(res)
 				if(res.success){
-					this.message.success(res.message)
+					this.toast.success(res.message)
 				}
 				this.loading = false;
 			}, (err: any) => {

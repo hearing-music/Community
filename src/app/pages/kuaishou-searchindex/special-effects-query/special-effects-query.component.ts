@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
-import { NzMessageService } from "ng-zorro-antd/message";
 import { CommonService } from "../../../services/common.service";
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: "ngx-special-effects-query",
   templateUrl: "./special-effects-query.component.html",
@@ -10,7 +10,7 @@ import { CommonService } from "../../../services/common.service";
 export class SpecialEffectsQueryComponent implements OnInit {
   constructor(
     public api: ApiService,
-    private message: NzMessageService,
+	private toast: ToastrService,
     public common: CommonService
   ) {}
   loading = false;
@@ -117,7 +117,7 @@ export class SpecialEffectsQueryComponent implements OnInit {
         });
     } else {
       this.loading = false;
-      this.message.error("链接中没有magicFaceId");
+      this.toast.error("链接中没有magicFaceId");
     }
   }
   monitor() {
@@ -149,7 +149,7 @@ export class SpecialEffectsQueryComponent implements OnInit {
         this.loading = false;
         if (res.success) {
           if (res.result.length == 0) {
-            this.message.info("该关键字没有搜索到BGM。");
+            this.toast.info("该关键字没有搜索到BGM。");
           }
           this.BGMList = res.result;
         }
@@ -161,7 +161,7 @@ export class SpecialEffectsQueryComponent implements OnInit {
   }
   Tomonitor() {
     // if (this.activeBGMIndex === false) {
-    //   this.message.error("BGM必选");
+    //   this.toast.error("BGM必选");
     //   return; // 停止向下执行
     // }
     // let obj = this.BGMList[this.activeBGMIndex];
@@ -170,14 +170,14 @@ export class SpecialEffectsQueryComponent implements OnInit {
         var chinesePhoneNumberRegex =
           /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
         if (!chinesePhoneNumberRegex.test(this.form.phone)) {
-          this.message.error("手机号输入错误,请检查手机号");
+          this.toast.error("手机号输入错误,请检查手机号");
           return; // 停止向下执行
         }
       }
       if (this.form.QQ !== "") {
         var QQRegex = /^[1-9][0-9]\d{4,9}$/;
         if (!QQRegex.test(this.form.QQ)) {
-          this.message.error("QQ输入错误,请检查QQ号");
+          this.toast.error("QQ输入错误,请检查QQ号");
           return; // 停止向下执行
         }
       }
@@ -188,7 +188,7 @@ export class SpecialEffectsQueryComponent implements OnInit {
         if (match) {
           this.magicFaceId1 = match[1];
         } else {
-          this.message.error("magicFaceId中不包含Id");
+          this.toast.error("magicFaceId中不包含Id");
           return;
         }
       }
@@ -218,13 +218,13 @@ export class SpecialEffectsQueryComponent implements OnInit {
             (this.form.weChat = "");
           this.isMonitor = !this.isMonitor;
           if (res.success) {
-            this.message.success("添加成功");
+            this.toast.success("添加成功");
           } else {
-            this.message.error("添加失败");
+            this.toast.error("添加失败");
           }
         });
     } else {
-      this.message.error("缺少上传的参数");
+      this.toast.error("缺少上传的参数");
     }
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit,Output,EventEmitter,Input } from '@angular/core';
-import { NzMessageService  } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'ngx-upload-file',
   templateUrl: './upload-file.component.html',
@@ -7,7 +7,7 @@ import { NzMessageService  } from 'ng-zorro-antd/message';
 })
 export class UploadFileComponent implements OnInit {
 @Input() multiple: any = false;
-  constructor(private message:NzMessageService) { }
+  constructor(private toast: ToastrService,) { }
 	file:any = ''
 	files:any = []
   ngOnInit(): void {
@@ -17,7 +17,7 @@ export class UploadFileComponent implements OnInit {
 		if(this.multiple){
 			if(e.target.files.length>10){
 				// 最多上传10个文件
-				this.message.info('最多上传10个文件')
+				this.toast.info('最多上传10个文件')
 				return
 			}
 			this.files = e.target.files;

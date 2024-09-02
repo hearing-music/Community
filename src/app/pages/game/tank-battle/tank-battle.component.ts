@@ -1,8 +1,7 @@
 import { Component, HostListener, OnInit } from "@angular/core";
-import { NzMessageService } from "ng-zorro-antd/message";
 import { io } from "../../../services/js/socket.io.js";
 import { environment } from "../../../../environments/environment";
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: "ngx-tank-battle",
   templateUrl: "./tank-battle.component.html",
@@ -49,7 +48,7 @@ export class TankBattleComponent implements OnInit {
     this.socketIO.off();
     this.socketIO.disconnect();
   }
-  constructor(private message: NzMessageService) {}
+  constructor(private toast: ToastrService,) {}
   ngOnInit(): void {
     this.connect();
     setTimeout(() => {
@@ -78,7 +77,7 @@ export class TankBattleComponent implements OnInit {
   }
   // 消息弹窗
   createMessage(type: string, msg: any): void {
-    this.message.create(type, `${msg}`);
+    this.toast.info(`${msg}`);
   }
   // 创建房间
   creatRoom() {

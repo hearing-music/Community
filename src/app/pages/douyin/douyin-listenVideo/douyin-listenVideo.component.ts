@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../../services/api.service";
 import {CommonService} from "../../../services/common.service";
-import { NzMessageService  } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as XLSX from 'xlsx'
 @Component({
@@ -10,7 +10,7 @@ import * as XLSX from 'xlsx'
   styleUrls: ['./douyin-listenVideo.component.scss']
 })
 export class DouyinListenVideoComponent implements OnInit {
-constructor(private dz: DomSanitizer,public api: ApiService,public common: CommonService,private message: NzMessageService) {
+constructor(private dz: DomSanitizer,public api: ApiService,public common: CommonService,private toast: ToastrService) {
   }
   ngOnInit(): void {
 	  this.userId = localStorage.getItem('userId') || '0'
@@ -38,7 +38,7 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
   // 取消十分钟监控 改为24小时
   confirm(item:any){
 	  if(item.UserId != this.userId){
-		  this.message.info('不是我的监控')
+		  this.toast.info('不是我的监控')
 		  return
 	  }
 	  this.douyin_cancelInterval10M(item)
@@ -53,7 +53,7 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 	  	console.log(res)
 		if(res.success){
 			item.expectationsDoubled=0;
-			this.message.success('取消成功')
+			this.toast.success('取消成功')
 			this.douyin_videoGetInterval()
 			this.douyin_videoGetIntervalAll(res)
 		}
@@ -81,7 +81,7 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 	  	}
 	  }, (err: any) => {
 	  	console.log(err)
-	  	// this.message.error(err)
+	  	// this.toast.error(err)
 	  });
   }
   // 开关切换
@@ -227,7 +227,7 @@ constructor(private dz: DomSanitizer,public api: ApiService,public common: Commo
 		  .subscribe((res: any) => {
 		  	console.log(res)
 			if(res.result.length==0){
-				this.message.info('没有数据可以导出')
+				this.toast.info('没有数据可以导出')
 				return
 			}
 			res.result.forEach((item:any)=>{

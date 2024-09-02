@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NzMessageService  } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import {
@@ -20,7 +20,7 @@ import {CommonService} from "./common.service";
 
 export class HttpInterceptorService implements HttpInterceptor {
 
-  constructor(private message: NzMessageService,private router:Router,private common:CommonService,private notification: NzNotificationService) { }
+  constructor(private toast: ToastrService,private router:Router,private common:CommonService,private notification: NzNotificationService) { }
 	close(){
 		console.log(1)
 	}
@@ -34,11 +34,11 @@ export class HttpInterceptorService implements HttpInterceptor {
 	// console.log(req.url)
 	if(!req.url.includes('/login/login') && !req.url.includes('/login/getSms') && !req.url.includes('/kugou/getLiarUserInfo') && !req.url.includes('/qq/getLiarUserInfo')){
 		if(!token || !token_expiration_time){
-			this.message.error('请登录')
+			this.toast.error('请登录')
 			isTrue = false;
 		}
 		if(date>token_expiration_times){
-			this.message.error('登录过期')
+			this.toast.error('登录过期')
 			isTrue = false;
 		}
 	}
@@ -79,7 +79,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 						if(req.url.includes(`kugou/kuGouAutoSearch`)||req.url.includes('/tme_map/EnteredByYou')){
 						
 						}else{
-							this.message.error(response.body.message)
+							this.toast.error(response.body.message)
 						}
 					}
 					if(response.body.code == 380){
@@ -122,9 +122,9 @@ export class HttpInterceptorService implements HttpInterceptor {
 		    (error: any) => {
 		      // 处理错误的数据
 			  if(error.url == "http://communityapi.jinzhoushaokao.top/articles/trackSeparate"&&error.status == 500){
-				  this.message.error('文件过大，请选择压缩处理')
+				  this.toast.error('文件过大，请选择压缩处理')
 			  }else{
-				  this.message.error(error.error.code||error.statusText)
+				  this.toast.error(error.error.code||error.statusText)
 			  }
 			  
 		      console.log(error)

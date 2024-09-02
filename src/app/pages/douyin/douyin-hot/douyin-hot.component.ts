@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../../services/api.service";
 import {CommonService} from "../../../services/common.service";
-import { NzMessageService  } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'ngx-douyin-hot',
   templateUrl: './douyin-hot.component.html',
@@ -18,7 +18,7 @@ export class DouyinHotComponent implements OnInit {
  // https://v.douyin.com/h6Ds2dW/
  searchHolder = '请输入链接';
  videoData:any = {}
-  constructor(public api: ApiService,public common: CommonService,private message: NzMessageService) {
+  constructor(public api: ApiService,public common: CommonService,private toast: ToastrService,) {
   }
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class DouyinHotComponent implements OnInit {
 	  console.log(value)
 	  let start = value.indexOf('.com/')
 	  if(start === -1){
-		  this.message.error('链接错误')
+		  this.toast.error('链接错误')
 		  return
 	  }
 	  let end = value.indexOf('/',start+5)
@@ -58,7 +58,7 @@ export class DouyinHotComponent implements OnInit {
 			// if(res.result.res2.code != -1){
 			// 	this.videoData = [res.result.res1,res.result.res2]
 			// }else{
-			// 	this.message.error('链接错误')
+			// 	this.toast.error('链接错误')
 			// }
 		}
 	  }, (err: any) => {

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { ToastrService } from 'ngx-toastr';
 import { CommonService } from "../../../services/common.service";
 @Component({
   selector: "ngx-copyright",
@@ -10,7 +10,7 @@ import { CommonService } from "../../../services/common.service";
 export class CopyrightComponent implements OnInit {
   constructor(
     public api: ApiService,
-    private message: NzMessageService,
+	private toast: ToastrService,
     public common: CommonService
   ) {}
   @Input() copyrightList: any;
@@ -18,7 +18,7 @@ export class CopyrightComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   playAudio(url: string, i: number) {
     if (!url) {
-      this.message.error("没找到歌曲地址😜");
+      this.toast.error("没找到歌曲地址😜");
       return;
     }
     this.audioSrc = url;

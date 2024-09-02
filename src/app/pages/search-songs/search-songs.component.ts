@@ -1,15 +1,15 @@
 import { Component, OnInit,ViewChild  } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import {CommonService} from "../../services/common.service";
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute,Router } from '@angular/router'
+import { ToastrService } from 'ngx-toastr';
 @Component({
 	selector: 'ngx-search-songs',
 	templateUrl: './search-songs.component.html',
 	styleUrls: ['./search-songs.component.scss']
 })
 export class SearchSongsComponent implements OnInit {
-	     constructor(public api: ApiService,public common: CommonService,public message:NzMessageService,public route: ActivatedRoute,public router:Router) {
+	     constructor(public api: ApiService,public common: CommonService,private toast: ToastrService,public route: ActivatedRoute,public router:Router) {
         this.route.params.subscribe((res) => {
             var path=res.path;
             var value=res.value;
@@ -17,7 +17,7 @@ export class SearchSongsComponent implements OnInit {
         })
     }
 	messageClick(){
-		this.message.info('111')
+		this.toast.info('111')
 	}
 	ngOnInit(): void {
 		this.previousUrl = localStorage.getItem('previousUrl');
@@ -366,7 +366,7 @@ export class SearchSongsComponent implements OnInit {
 		}, (err: any) => {
 			this.kugouNewV3Page = this.kugouNewV3Page==1?1:this.kugouNewV3Page - 1;
 			console.log(err)
-			this.message.info('网络不稳定，请重试')
+			this.toast.info('网络不稳定，请重试')
 			this.loading = false;
 		})
 	}
@@ -797,7 +797,7 @@ export class SearchSongsComponent implements OnInit {
 	}
 	audioError(){
 		if(this.isPlay){
-			this.message.error("播放歌曲错误")
+			this.toast.error("播放歌曲错误")
 		}
 	}
 	tagNow:any = ''
@@ -1070,7 +1070,7 @@ export class SearchSongsComponent implements OnInit {
 		}, (err: any) => {
 			this.qqPage = this.qqPage==1?1:this.qqPage - 1;
 			console.log(err,'超时')
-			// this.message.info('网络不稳定，请重试')
+			// this.toast.info('网络不稳定，请重试')
 			this.loading = false;
 		})
 	}
@@ -1100,7 +1100,7 @@ export class SearchSongsComponent implements OnInit {
 		}, (err: any) => {
 			console.log(err)
 			this.kugouV3Page = this.kugouV3Page==1?1:this.kugouV3Page - 1;
-			this.message.info('网络不稳定，请重试')
+			this.toast.info('网络不稳定，请重试')
 			this.loading = false;
 		})
 	}
@@ -1182,7 +1182,7 @@ export class SearchSongsComponent implements OnInit {
 			})
 		}else{
 			this.loading=false;
-			this.message.create("error", `搜索的歌曲名不能为空`);
+			this.toast.error(`搜索的歌曲名不能为空`);
 		}
 	}
 	searchMcscSearchHK(){

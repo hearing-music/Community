@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonService } from "../../../services/common.service";
 import { ApiService } from "../../../services/api.service";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 @Component({
   selector: "ngx-free-songs",
@@ -12,7 +12,7 @@ export class FreeSongs_kugouComponent implements OnInit {
   constructor(
     public common: CommonService,
     public api: ApiService,
-    private message: NzMessageService,
+	private toast: ToastrService,
 	private router: Router
   ) {}
 
@@ -104,7 +104,7 @@ export class FreeSongs_kugouComponent implements OnInit {
   }
   openSingerHome(id: any) {
     if (!id || id == "0") {
-      this.message.info("没找到该歌手id😭");
+      this.toast.info("没找到该歌手id😭");
       return;
     }
     window.open(`https://www.kugou.com/singer/${id}.html`);

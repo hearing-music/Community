@@ -36,6 +36,7 @@ import { AuthService } from './services/auth.service';
 import { SocketService } from './services/socket.service';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { ToastrModule } from 'ngx-toastr';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';//import providers
 // registerLocaleData(zh);
 // import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
@@ -57,7 +58,10 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';//import providers
 		NbDatepickerModule.forRoot(),
 		NbDialogModule.forRoot(),
 		NbWindowModule.forRoot(),
-		NbToastrModule.forRoot(),
+		// NbToastrModule.forRoot(),
+		ToastrModule.forRoot({
+			positionClass:"toast-top-center"
+		}),
 		// NbChatModule.forRoot({
 		// 	messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
 		// }),

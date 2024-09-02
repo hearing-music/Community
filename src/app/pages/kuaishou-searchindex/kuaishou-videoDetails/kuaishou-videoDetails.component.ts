@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { ToastrService } from 'ngx-toastr';
 import {CommonService} from "../../../services/common.service";
 import * as XLSX from "xlsx";
 @Component({
@@ -10,7 +10,7 @@ import * as XLSX from "xlsx";
 })
 export class KuaishouVideoDetailsComponent implements OnInit {
 	loading = false;
-	constructor(public api: ApiService,public common: CommonService, private message: NzMessageService) { }
+	constructor(public api: ApiService,public common: CommonService, private toast: ToastrService,) { }
 
 	ngOnInit(): void { }
 	result: any = {};
@@ -86,7 +86,7 @@ export class KuaishouVideoDetailsComponent implements OnInit {
 			this.listObj = j;
 			this.listK = Object.keys(j);
 		} catch (e) {
-			this.message.error("格式错误");
+			this.toast.error("格式错误");
 		}
 	}
 	listeChange() {
@@ -103,7 +103,7 @@ export class KuaishouVideoDetailsComponent implements OnInit {
 		var isSearch = valueArr.every((e: any) => (e + "").indexOf("https://v.kuaishou.com") != -1 );
 		
 		if (valueArr.length == 0) {
-			this.message.error("该列为空");
+			this.toast.error("该列为空");
 			return;
 		}
 		this.getKsVideoDetailsXlsx(valueArr);
@@ -123,7 +123,7 @@ export class KuaishouVideoDetailsComponent implements OnInit {
 	}
 	getData() {
 		if (!this.searchValue) {
-			this.message.info('请输入视频链接')
+			this.toast.info('请输入视频链接')
 			return
 		}
 		this.loading = true;

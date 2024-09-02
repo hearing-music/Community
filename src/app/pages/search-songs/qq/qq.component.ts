@@ -2,7 +2,7 @@ import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
 import {CommonService} from "../../../services/common.service";
 import { ApiService } from "../../../services/api.service";
 import { environment } from '../../../../environments/environment';
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 let baseUrl = environment.baseUrl;
 @Component({
@@ -12,7 +12,7 @@ let baseUrl = environment.baseUrl;
 })
 export class QqComponent implements OnInit {
 	@Input() qqList: any;
-	constructor(public common: CommonService,public api: ApiService,public message:NzMessageService,private router: Router) { }
+	constructor(public common: CommonService,public api: ApiService,private toast: ToastrService,private router: Router) { }
 	@Output() change: EventEmitter<any> = new EventEmitter<any>();
 	playAudio(url: string, i: number) {
 		if(url){
@@ -38,12 +38,12 @@ export class QqComponent implements OnInit {
 			if (res.success) {
 				this.common.downloadServer(baseUrl + res.data)
 			}else{
-				this.message.error('失败')
+				this.toast.error('失败')
 			}
 		}, (err: any) => {
 			console.log(err)
 			item.loadingDownload = false;
-			this.message.error('出错了')
+			this.toast.error('出错了')
 		})
 	}
 	urlPreview = {};
