@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service'
 import { ApiService } from '../services/api.service'
-import { NzMessageService  } from 'ng-zorro-antd/message';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import {CommonService} from "../services/common.service";
 @Component({
 	selector: 'ngx-login',
@@ -108,9 +108,13 @@ export class LoginComponent implements OnInit {
 					if(res.success){
 						localStorage.setItem('ks_monitoring_limitNow',res.count)
 						// 调用组件方法 更新douyincount
+						try{
 							window['NgAppRef'].zone.run(function () {
 								window['NgAppRef3'].component.updateDYCount();
 							});
+						}catch(e){
+							//TODO handle the exception
+						}
 					}
 				}, (err: any) => {
 					console.log(err)

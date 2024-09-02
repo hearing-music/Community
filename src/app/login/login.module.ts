@@ -15,7 +15,6 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
-
 @NgModule({
 	imports: [
 		LoginRoutingModule,

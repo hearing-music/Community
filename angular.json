@@ -35,8 +35,9 @@
 			  }
 			],
             "styles": [
-							"node_modules/driver.js/dist/driver.css",
-							"node_modules/loaders.css/loaders.css",
+				"src/app/@theme/styles/styles.scss",
+				"node_modules/driver.js/dist/driver.css",
+				"node_modules/loaders.css/loaders.css",
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/typeface-exo/index.css",
@@ -47,7 +48,6 @@
               "node_modules/nebular-icons/scss/nebular-icons.scss",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "node_modules/leaflet/dist/leaflet.css",
-              "src/app/@theme/styles/styles.scss",
 			  "node_modules/highlight.js/styles/github.css"
             ],
             "scripts": [
@@ -138,6 +138,7 @@
 			  "node_modules/echarts/map/js/china.js",
             ],
             "styles": [
+				"src/app/@theme/styles/styles.scss",
 				"node_modules/driver.js/dist/driver.css",
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
@@ -148,7 +149,6 @@
               "node_modules/socicon/css/socicon.css",
               "node_modules/nebular-icons/scss/nebular-icons.scss",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
-              "src/app/@theme/styles/styles.scss",
 			  "node_modules/highlight.js/styles/github.css"
             ],
             "assets": [

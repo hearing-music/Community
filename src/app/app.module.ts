@@ -42,12 +42,13 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';//import providers
 // const ngZorroConfig: NzConfig = {
 //   message: { nzDuration: 0 },
 // };
-
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
+		NzMessageModule,
+		NzNotificationModule,
 		HttpClientModule,
 		AppRoutingModule,
 		NbSidebarModule.forRoot(),
@@ -63,8 +64,6 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';//import providers
 		CoreModule.forRoot(),
 		ThemeModule.forRoot(),
 		FormsModule,
-		NzMessageModule,
-		NzNotificationModule
 	],
 	bootstrap: [AppComponent],
 	// providers: [
@@ -98,8 +97,8 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';//import providers
 		        fullLibraryLoader: () => import('highlight.js'),
 				themePath: 'assets/styles/solarized-dark.css'
 		      },
-		    }
-		 // { provide: NZ_CONFIG, useValue:  ngZorroConfig  }
+		    },
+			// { provide: NZ_CONFIG, useValue:  ngZorroConfig  }
 	]
 })
 export class AppModule { }
