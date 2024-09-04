@@ -12,11 +12,13 @@
 <ngx-header-menu></ngx-header-menu>
 <div class="header-container">
   <nb-actions size="small">
-    <nb-action class="control-item">
+   <!-- <nb-action class="control-item">
       <nb-search type="rotate-layout"></nb-search>
-    </nb-action>
-    <nb-action class="control-item" icon="email-outline"></nb-action>
-    <nb-action class="control-item" icon="bell-outline"></nb-action>
+    </nb-action> -->
+    <nb-action class="control-item" icon="expand-outline" (click)='toggleFullscreen()'></nb-action>
+	<nb-action class="control-item" icon="bell-outline"></nb-action>
+    <!-- <nb-action class="control-item" icon="email-outline"></nb-action> -->
+    <nb-action class="control-item" icon="list-outline" (click)='visible=true'></nb-action>
 <!--  <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
       <nb-user [nbContextMenu]="userMenu"
                [onlyPicture]="userPictureOnly"
@@ -43,6 +45,68 @@
 	    </nz-dropdown-menu>
 	</nb-action>
   </nb-actions>
+  <nz-drawer
+		[nzClosable]='false'
+        [nzVisible]="visible"
+		(nzOnClose)='visible=false'
+		[nzWidth]='400'
+      >
+        <ng-container *nzDrawerContent>
+          <nz-tabset nzCentered >
+			  			 
+			  <nz-tab [nzTitle]="tab.label" *ngFor='let tab of tabs;'>
+			      <div *ngFor='let msg of tab.messages;' class="d-flex align-items-center gap-16 p-16 m-b-16 b-1 r-12">
+			        <div class="d-flex align-items-center justify-content-center r-12 {{msg.color}}"
+			             [style.width.rem]="3" [style.height.rem]="3" style='flex-shrink: 0;'>{{msg.icon}}</div>
+			        <div class="flex-grow-1 w-0">
+			          <div class="f-w-600">{{msg.title}}</div>
+						<div *ngIf='msg.newAdd'>
+							<div style="font-weight: bold;display: flex;">
+								<div>
+									新增功能
+								</div>
+								<div *ngIf='msg.newAdd.length==0' class="text-cyan-80" style="margin-left: 12px;font-weight: normal;">
+									[ 暂无 ]
+								</div>
+							</div>
+							<div *ngFor='let newadd of msg.newAdd;let i = index;'>
+								{{i+1}}.{{newadd}}
+							</div>
+						</div>
+						<div *ngIf='msg.optimize'>
+							<div style="font-weight: bold;display: flex;">
+								<div>
+									改进及优化
+								</div>
+								<div *ngIf='msg.optimize.length==0' class="text-cyan-80" style="margin-left: 12px;font-weight: normal;">
+									[ 暂无 ]
+								</div>
+							</div>
+							<div *ngFor='let opt of msg.optimize;let i = index;'>
+								{{i+1}}.{{opt}}
+							</div>
+						</div>
+						<div *ngIf='msg.bugs'>
+							<div style="font-weight: bold;display: flex;">
+								<div>
+									修复bug
+								</div>
+								<div *ngIf='msg.bugs.length==0' class="text-cyan-80" style="margin-left: 12px;font-weight: normal;">
+									[ 暂无 ]
+								</div>
+							</div>
+							<div *ngFor='let bug of msg.bugs;let i = index;'>
+								{{i+1}}.{{bug}}
+							</div>
+						</div>
+			          <div class="f-s-14 mat-mdc-tooltip-surfaceWrap" *ngIf='msg.content'>{{msg.content}}</div>
+			          <img *ngIf='msg.img' [src]="msg.img" style="width: 200px;object-fit: cover;">
+			        </div>
+			      </div>
+			  </nz-tab>
+          </nz-tabset>
+        </ng-container>
+  </nz-drawer>
   <nz-modal [(nzVisible)]="cookieShow" nzTitle="更换cookie" [nzFooter]='null' (nzOnCancel)="handleCancel()">
        <ng-container *nzModalContent>
 		   <div>

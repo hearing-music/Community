@@ -9,6 +9,8 @@ import {CommonService} from "../../../services/common.service";
 import { AuthService } from '../../../services/auth.service'
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from "../../../services/api.service";
+import screenfull from 'screenfull';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 @Component({
   selector: 'ngx-header',
   styleUrls: ['./header.component.scss'],
@@ -54,10 +56,117 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			  public author:AuthService,
 			  private common:CommonService,
 			  public router:Router,
+			  private notification:NzNotificationService,
               private breakpointService: NbMediaBreakpointsService,
 			  private ngZone: NgZone) {
 				  window["NgAppRef3"] = { component: this, zone: this.ngZone };
   }
+  
+  toggleFullscreen() {
+    if (screenfull.isEnabled) {
+      screenfull.toggle();
+    }
+  }
+  visible=false;
+  
+  	createBasicNotification() {
+  	   this.notification
+  	     .blank(
+  	       '有新的更新',
+  	       `详情点击右上角头像左边图标查看`,
+  				{
+  					nzDuration:3500
+  				}
+  	     )
+  	 }
+    tabs:any = [
+      {
+        label: '更新日志',
+        messages: [
+  		  {
+  		  	icon: '📢',
+  		  	color: 'bg-azure-95',
+  		  	title: '2024年9月3日17:25',
+  			newAdd:['更新日志及其他'],//新增
+  			optimize:[],//优化
+  			bugs:[],//修复bug
+  		  },
+        ],
+      },
+      {
+        label: '其他',
+        messages: [
+          {
+            icon: '👼🏼',
+            color: 'bg-magenta-95',
+            title: '我们的使命',
+            content: `与奋斗者共同进步
+为创作者提升价值
+为社会提供优质和丰富的文化内容`,
+          },
+  		{
+  		    icon: '🙏️',
+  		    color: 'bg-magenta-95',
+  		    title: '我们的愿景',
+  		    content: `五年内，成为国内前三的文娱内容提供商`,
+  		},
+  		{
+  		    icon: '☀️',
+  		    color: 'bg-magenta-95',
+  		    title: '我们的核心价值观',
+  		    content: `相信，探索，传承，公平`,
+  		},
+  		{
+  		    icon: '🧗️',
+  		    color: 'bg-magenta-95',
+  		    title: '我们的精神',
+  		    content: `不抱怨，传承，没有完不成，不要我觉得，
+不要吃老本 要立新功，努力搞歌，
+相信奇迹 才能创造奇迹，可以焦虑 但别丧`,
+  		},
+  		{
+  		    icon: '🤔️',
+  		    color: 'bg-magenta-95',
+  		    title: '我们的管理理念',
+  		    content: `用人不疑，疑人不用
+坚持原则，强调纪律
+过程要尊重，结果是关键
+不放弃任何一个伙伴
+打造学习型团队
+公平公正，尊重努力`,
+  		},
+  		{
+  		    icon: '🤠️',
+  		    color: 'bg-magenta-95',
+  		    title: '我们的工作理念',
+  		    content: `今日事，今日毕
+敢干敢说
+自省，少自我感动
+积极向上
+发现问题，解决问题
+理性思考`,
+  		},
+  		{
+  		    icon: '🏷︎️',
+  		    color: 'bg-magenta-95',
+  		    title: '我们的十个标准',
+  		    content: `善于沟通   诚实正直    尊重他人    乐观自信   公平公正
+积极进取   创新奉献    充满激情    廉洁自律   主人精神`,
+  		},
+  		// {
+  		// 	icon: '👦',
+  		// 	color: 'bg-magenta-95',
+  		// 	title: '我们的老弟',
+  		// 	content: '',
+  		// 	img:'https://7463-tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd-1313286159.tcb.qcloud.la/avatar/wxfiletemp338f7e41bf087150e4ce96c8cc18e23.jpg'
+  		// },
+        ],
+      },
+    ];
+  
+  
+  
+  
 	logOut(){
 		console.log('logout')
 		// localStorage.setItem('phone', null)
@@ -134,7 +243,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(themeName => this.currentTheme = themeName);
-			
+	
+	
+	let nowVersion = '.'+this.tabs[0].messages.length
+	let AppVersion = localStorage.getItem('app-version')
+	if(nowVersion != AppVersion){
+		// 有更新
+		this.createBasicNotification()
+		localStorage.setItem("app-version", nowVersion);
+	}
+	
   }
   ngOnDestroy() {
     this.destroy$.next();

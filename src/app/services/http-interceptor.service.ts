@@ -91,32 +91,32 @@ export class HttpInterceptorService implements HttpInterceptor {
 					}
 			  }
 			  
-				try{
-					let AppVersion = localStorage.getItem('AppVersion') || false
-					if(response.body.AppVersion){
-						let version = response.body.AppVersion.version
-						if(version!=AppVersion){
-							// 版本不一致  存入localstorage 提示更新 刷新
-							// this.modal.create({
-							//       nzTitle: '提示',
-							//       nzContent: '网站有更新哦',
-							//       nzClosable: false,
-							//       nzOnOk: () => location.reload()
-							//     });
-							let updateTip = this.notification.blank('',`<div class="ant-notification-notice-content">
-								<div>
-									<div class="ant-notification-notice-message">提示</div>
-										<div class="ant-notification-notice-description">
-											网站有新内容，刷新网页既可。
-										</div>
-									</div>
-								</div>`,{nzDuration:0});
-							localStorage.setItem('AppVersion',version+'')
-						}
-					}
-				}catch(err){
-					console.log('版本异常',err)
-				}
+				// try{
+				// 	let AppVersion = localStorage.getItem('AppVersion') || false
+				// 	if(response.body.AppVersion){
+				// 		let version = response.body.AppVersion.version
+				// 		if(version!=AppVersion){
+				// 			// 版本不一致  存入localstorage 提示更新 刷新
+				// 			// this.modal.create({
+				// 			//       nzTitle: '提示',
+				// 			//       nzContent: '网站有更新哦',
+				// 			//       nzClosable: false,
+				// 			//       nzOnOk: () => location.reload()
+				// 			//     });
+				// 			let updateTip = this.notification.blank('',`<div class="ant-notification-notice-content">
+				// 				<div>
+				// 					<div class="ant-notification-notice-message">提示</div>
+				// 						<div class="ant-notification-notice-description">
+				// 							网站有新内容，刷新网页既可。
+				// 						</div>
+				// 					</div>
+				// 				</div>`,{nzDuration:0});
+				// 			localStorage.setItem('AppVersion',version+'')
+				// 		}
+				// 	}
+				// }catch(err){
+				// 	console.log('版本异常',err)
+				// }
 			 
 		    },
 		    (error: any) => {

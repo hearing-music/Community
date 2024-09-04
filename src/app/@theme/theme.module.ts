@@ -44,9 +44,13 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
 const NB_MODULES = [
   NbLayoutModule,
 	NzDropDownModule,
+	NzTabsModule,
+	NzDrawerModule,
 	NzModalModule,
 	NzSelectModule,
 	NzInputModule,
