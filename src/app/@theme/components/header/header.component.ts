@@ -83,11 +83,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
       {
         label: '更新日志',
         messages: [
+			{
+				icon: '📢',
+				color: 'bg-azure-95',
+				title: '2024年9月6日18:00',
+			  	newAdd:['qq搜索 酷狗v3搜索 酷我搜索 网易云搜索 新增封面','qq搜索 新增 可选是否查询历史上游 默认开启'],//新增
+			  	optimize:['qq搜索 酷狗v3搜索 酷我搜索 网易云搜索 每页5条->10条'],//优化
+			  	bugs:['修复部分bug'],//修复bug
+			},
   		  {
   		  	icon: '📢',
   		  	color: 'bg-azure-95',
   		  	title: '2024年9月3日17:25',
-  			newAdd:['更新日志及其他'],//新增
+  			newAdd:['更新日志及其他 + 全屏功能'],//新增
   			optimize:[],//优化
   			bugs:[],//修复bug
   		  },

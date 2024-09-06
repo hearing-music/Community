@@ -11,6 +11,7 @@ export class KuwoComponent implements OnInit {
 	@Input() kuwoList: any;
 	@Output() change: EventEmitter<any> = new EventEmitter<any>();
   constructor(public common: CommonService,public api: ApiService,private toast: ToastrService,) { }
+  imgUrlTemplate = "https://img2.kuwo.cn/star/albumcover/";
   playAudio(item:any,i:number){
   	  if(item.downloadUrl){
   		  this.change.emit({src:item.downloadUrl,i});

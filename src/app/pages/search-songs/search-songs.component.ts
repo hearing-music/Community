@@ -593,7 +593,7 @@ export class SearchSongsComponent implements OnInit {
 	// qq传参
 	qqSrcChange(params: any) {
 		this.isPlay =true;
-		let { src, i } = params;
+		let { src, i ,i2} = params;
 		if(!this.qqList[i].lyricText){
 			this.getLyricqq(this.qqList[i].mid,i)
 		}else{
@@ -604,15 +604,36 @@ export class SearchSongsComponent implements OnInit {
 		let audio: any = document.getElementById('audio')
 		setTimeout(() => {
 			this.qqList.forEach((item: any, index: number) => {
-				if (index == i) {
-					item.isPlay = !item.isPlay
-					if (item.isPlay) {
-						audio.play()
+				if(i2!==false){
+					if (index == i) {
+						item.GrpData.forEach((gitem:any,gindex:any)=>{
+							if(gindex==i2){
+								gitem.isPlay = !gitem.isPlay
+								if (gitem.isPlay) {
+									audio.play()
+								} else {
+									audio.pause()
+								}
+							}else{
+								gitem.isPlay = false;
+							}
+						})
 					} else {
-						audio.pause()
+						item.GrpData.forEach((gitem:any,gindex:any)=>{
+							gitem.isPlay = false;
+						})
 					}
-				} else {
-					item.isPlay = false;
+				}else{
+					if (index == i) {
+						item.isPlay = !item.isPlay
+						if (item.isPlay) {
+							audio.play()
+						} else {
+							audio.pause()
+						}
+					} else {
+						item.isPlay = false;
+					}
 				}
 			})
 		}, 50)
@@ -620,7 +641,7 @@ export class SearchSongsComponent implements OnInit {
 	// 酷狗传参 播放
 	kgSrcChange(params:any){
 		this.isPlay = true;
-		let { src, i } = params;
+		let { src, i,i2 } = params;
 		if (!this.kugouV3List[i].lyricText) {
 			this.getLyrickg(this.kugouV3List[i].FileHash, i)
 		} else {
@@ -631,15 +652,36 @@ export class SearchSongsComponent implements OnInit {
 		let audio : any = document.getElementById('audio')
 		setTimeout(() => {
 			this.kugouV3List.forEach((item : any, index : number) => {
-				if (index == i) {
-					item.isPlay = !item.isPlay
-					if (item.isPlay) {
-						audio.play()
+				if(i2!==false){
+					if (index == i) {
+						item.GrpData.forEach((gitem:any,gindex:any)=>{
+							if(gindex==i2){
+								gitem.isPlay = !gitem.isPlay
+								if (gitem.isPlay) {
+									audio.play()
+								} else {
+									audio.pause()
+								}
+							}else{
+								gitem.isPlay = false;
+							}
+						})
 					} else {
-						audio.pause()
+						item.GrpData.forEach((gitem:any,gindex:any)=>{
+							gitem.isPlay = false;
+						})
 					}
-				} else {
-					item.isPlay = false;
+				}else{
+					if (index == i) {
+						item.isPlay = !item.isPlay
+						if (item.isPlay) {
+							audio.play()
+						} else {
+							audio.pause()
+						}
+					} else {
+						item.isPlay = false;
+					}
 				}
 			})
 		}, 50)
@@ -745,11 +787,25 @@ export class SearchSongsComponent implements OnInit {
 			var i = this.qqList.findIndex((e: any) => e.musicUrl == element.srcElement.currentSrc)
 			if (i !== -1) {
 				this.qqList[i].isPlay = true;
+			}else{
+				this.qqList.forEach((item:any,index:any)=>{
+					let i2 = item.GrpData.findIndex((e: any) => e.MusicUrl == element.srcElement.currentSrc);
+					if(i2!==-1){
+						this.qqList[index].GrpData[i2].isPlay = true;
+					}
+				})
 			}
 		} else if (this.selectItem == '酷狗V3') {
 			var i = this.kugouV3List.findIndex((e: any) => e.MusicUrl == element.srcElement.currentSrc)
 			if (i !== -1) {
 				this.kugouV3List[i].isPlay = true;
+			}else{
+				this.kugouV3List.forEach((item:any,index:any)=>{
+					let i2 = item.GrpData.findIndex((e: any) => e.MusicUrl == element.srcElement.currentSrc);
+					if(i2!==-1){
+						this.kugouV3List[index].GrpData[i2].isPlay = true;
+					}
+				})
 			}
 		} else if (this.selectItem == '酷我音乐') {
 			var i = this.kuwoList.findIndex((e: any) => e.downloadUrl == element.srcElement.currentSrc)
@@ -781,6 +837,9 @@ export class SearchSongsComponent implements OnInit {
 		})
 		this.qqList.forEach((item: any) => {
 			item.isPlay = false;
+			item.GrpData.forEach((gitem:any,gindex:any)=>{
+				gitem.isPlay = false;
+			})
 		})
 		this.copyrightList.forEach((item: any) => {
 			item.isPlay = false;
@@ -790,6 +849,9 @@ export class SearchSongsComponent implements OnInit {
 		})
 		this.kugouV3List.forEach((item: any) => {
 			item.isPlay = false;
+			item.GrpData.forEach((gitem:any,gindex:any)=>{
+				gitem.isPlay = false;
+			})
 		})
 		this.wangyiyunList.forEach((item: any) => {
 			item.isPlay = false;
@@ -977,10 +1039,12 @@ export class SearchSongsComponent implements OnInit {
 			this.loading = false;
 		})
 	}
+	qqHistorySwitch=true;
 	searchQQ() {
 		this.api.getQQ({
 			keyword: this.searchValue,
-			page: this.qqPage
+			page: this.qqPage,
+			type:this.qqHistorySwitch?'':'noHistory'
 		}).subscribe((res: any) => {
 			this.loading = false;
 			console.log(res)
@@ -1006,16 +1070,20 @@ export class SearchSongsComponent implements OnInit {
 					let historyArrS = []
 					let historyArrI = []
 					let history=[]
-					for(let i = 0;i<item.VS.length;i++){
-						if(item.VS[i]){
-							historyArrS.push({id:item.VS[i],name:''})
-							history.push(item.VS[i])
+					if(item.VS){
+						for(let i = 0;i<item.VS.length;i++){
+							if(item.VS[i]){
+								historyArrS.push({id:item.VS[i],name:''})
+								history.push(item.VS[i])
+							}
 						}
 					}
-					for(let i = 0;i<item.VI.length;i++){
-						if(item.VI[i]){
-							historyArrI.push({id:item.VI[i],name:''})
-							history.push(item.VI[i])
+					if(item.VI){
+						for(let i = 0;i<item.VI.length;i++){
+							if(item.VI[i]){
+								historyArrI.push({id:item.VI[i],name:''})
+								history.push(item.VI[i])
+							}
 						}
 					}
 					item.historyS = historyArrS

@@ -14,9 +14,9 @@ export class QqComponent implements OnInit {
 	@Input() qqList: any;
 	constructor(public common: CommonService,public api: ApiService,private toast: ToastrService,private router: Router) { }
 	@Output() change: EventEmitter<any> = new EventEmitter<any>();
-	playAudio(url: string, i: number) {
+	playAudio(url: string, i: number,i2:any=false) {
 		if(url){
-			this.change.emit({src:url,i});
+			this.change.emit({src:url,i,i2});
 		}
 	}
 	ngOnInit(): void {

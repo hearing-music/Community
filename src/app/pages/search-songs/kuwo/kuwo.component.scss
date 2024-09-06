@@ -9,7 +9,7 @@
 			background: #FFFFFF;
 			border: 1px solid rgba(0,0,0,0.12);
 			border-radius: 12px;
-			min-height: 80px;
+			min-height: 120px;
 			box-shadow:rgb(0 0 0 / 15%) -1.4px 1.4px 3.2px;
 			display: flex;
 			align-items: center;
@@ -36,8 +36,8 @@
 				}
 				.left-icon{
 					flex-shrink: 0;
-					width: 32px;
-					height: 32px;
+					// width: 32px;
+					// height: 32px;
 					cursor: pointer;
 				}
 				.left-text{

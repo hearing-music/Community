@@ -2,9 +2,10 @@
 <div class="list" *ngIf='wangyiyunList.length!=0'>
 	<div class="list-item" *ngFor="let item of wangyiyunList;let i = index;">
 		<div class="item-left">
-			<div class="left-icon" (click)='playAudio(item.downloadUrl,i)'>
-				<img *ngIf='!item.isPlay' src="assets/img/play-red.png" style="width: 100%;height: 100%;" />
-				<img *ngIf='item.isPlay' src="assets/img/pause-red.png" style="width: 100%;height: 100%;">
+			<div class="left-icon" (click)='playAudio(item.downloadUrl,i)' style="position: relative;">
+				<img [nzDisablePreview]='true' nz-image width="74px" height="74px" style="border-radius: 4px;" [nzSrc]="item.imgUrl" [nzFallback]="common.fallback" />
+				<img *ngIf='!item.isPlay' src="assets/img/play-red.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);" />
+				<img *ngIf='item.isPlay' src="assets/img/pause-red.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);">
 			</div>
 			<div class="left-text">
 				<div class="title-area">

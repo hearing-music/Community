@@ -3,9 +3,10 @@
 	<div *ngFor="let item of qqList;let i =index;">
 		<div class="list-item">
 			<div class="item-left">
-				<div class="left-icon" (click)='playAudio(item.musicUrl,i)'>
-					<img *ngIf='!item.isPlay' src="../../../assets/img/play-green.png" style="width: 100%;height: 100%;" />
-					<img *ngIf='item.isPlay' src="../../../assets/img/pause-green.png" style="width: 100%;height: 100%;">
+				<div class="left-icon" (click)='playAudio(item.musicUrl,i)' style="position: relative;">
+					<img [nzDisablePreview]='true' nz-image width="74px" height="74px" style="border-radius: 4px;" [nzSrc]="item.imgUrl" [nzFallback]="common.fallback" />
+					<img *ngIf='!item.isPlay' src="assets/img/play-green.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);" />
+					<img *ngIf='item.isPlay' src="assets/img/pause-green.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);">
 				</div>
 				<div class="left-text">
 					<div class="title-area">
@@ -62,7 +63,7 @@
 								[lyricReadly]='item.lyricReadly' [lyricData]='item.lyricData2'></ngx-lyric-all>
 						</div>
 						<div style="margin-left: 18px;position:relative" (mouseenter)='mouseenter2(item)'
-							(mouseleave)='mouseleave2(item)'>
+							(mouseleave)='mouseleave2(item)' *ngIf='item.VS'>
 							<img src="../../../assets/img/lishi.svg" style="width: 20px;height: 20px;">
 							<div *ngIf='item.historyShow' class="history">
 								<div>
@@ -95,7 +96,7 @@
 							</div>
 						</div>
 						<div style="margin-left: 18px;position:relative" (mouseenter)='mouseenter3(item)'
-							(mouseleave)='mouseleave3(item)'>
+							(mouseleave)='mouseleave3(item)' *ngIf='item.VS'>
 							<img src="../../../assets/img/lishi2.svg" style="width: 20px;height: 20px;">
 							<div *ngIf='item.historyShow2' class="history">
 								<div>
@@ -235,9 +236,10 @@
 		<div class='more' [ngStyle]="{'height':item.isMore?((item.GrpData.length*136)+'px'):'0px','padding':item.isMore?'8px 12px':'0px'}">
 			<div class="list-item" *ngFor="let citem of item.GrpData;let idx2=index" >
 				<div class="item-left">
-					<div class="left-icon" (click)='playAudio(citem.musicUrl,i)'>
-						<img *ngIf='!citem.isPlay' src="../../../assets/img/play-green.png" style="width: 100%;height: 100%;" />
-						<img *ngIf='citem.isPlay' src="../../../assets/img/pause-green.png" style="width: 100%;height: 100%;">
+					<div class="left-icon" (click)='playAudio(citem.musicUrl,i,idx2)' style="position: relative;">
+						<img [nzDisablePreview]='true' nz-image width="74px" height="74px" style="border-radius: 4px;" [nzSrc]="citem.imgUrl" [nzFallback]="common.fallback" />
+						<img *ngIf='!citem.isPlay' src="assets/img/play-green.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);" />
+						<img *ngIf='citem.isPlay' src="assets/img/pause-green.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);">
 					</div>
 					<div class="left-text">
 						<div class="title-area">
@@ -294,7 +296,7 @@
 									[lyricReadly]='citem.lyricReadly' [lyricData]='citem.lyricData2'></ngx-lyric-all>
 							</div>
 							<div style="margin-left: 18px;position:relative" (mouseenter)='mouseenter2(citem)'
-								(mouseleave)='mouseleave2(citem)'>
+								(mouseleave)='mouseleave2(citem)' *ngIf='item.VS'>
 								<img src="../../../assets/img/lishi.svg" style="width: 20px;height: 20px;">
 								<div *ngIf='citem.historyShow' class="history">
 									<div>
@@ -327,7 +329,7 @@
 								</div>
 							</div>
 							<div style="margin-left: 18px;position:relative" (mouseenter)='mouseenter3(citem)'
-								(mouseleave)='mouseleave3(citem)'>
+								(mouseleave)='mouseleave3(citem)' *ngIf='item.VS'>
 								<img src="../../../assets/img/lishi2.svg" style="width: 20px;height: 20px;">
 								<div *ngIf='citem.historyShow2' class="history">
 									<div>

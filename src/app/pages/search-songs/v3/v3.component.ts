@@ -69,23 +69,23 @@ export class V3Component implements OnInit {
 	// 酷狗添加监控 播放音乐
 	audioSrc=""
 	isPlay=false;
-	playAudio(item: any, i: number,e:any) {
+	playAudio(item: any, i: number,e:any,i2:any=false) {
 		if(item.MusicUrl){
-			this.change.emit({src:item.MusicUrl,i});
+			this.change.emit({src:item.MusicUrl,i,i2});
 		}else{
-			this.getKugouSongUrl(item,i)
+			this.getKugouSongUrl(item,i,i2)
 		}
 		e.stopPropagation();
 	}
 	
 	loading=false;
-	getKugouSongUrl(item:any,i:number){
+	getKugouSongUrl(item:any,i:number,i2:any){
 		this.loading = true;
 		this.api.getKugouSongUrl({EMixSongID:item.EMixSongID}).subscribe((res: any) => {
 			console.log(res)
 			if (res.success) {
 				item.MusicUrl = res.result[0];
-				this.change.emit({src:item.MusicUrl,i});
+				this.change.emit({src:item.MusicUrl,i,i2});
 			}
 			this.loading = false;
 		}, (err: any) => {

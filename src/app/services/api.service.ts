@@ -29,10 +29,11 @@ export class ApiService {
 	getQQ(params : any) {
 		let {
 			keyword,
-			page
+			page,
+			type
 		} = params;
 		// return this.http.get(this.tencentUrl + "/music?action=search_qq&params=" + JSON.stringify({ keyword, page }))
-		return this.http.get(this.baseUrl + '/qq/search_qq?page=' + page + '&keyword=' + keyword)
+		return this.http.get(this.baseUrl + '/qq/search_qq?page=' + page + '&keyword=' + keyword+'&type='+type)
 	}
 	// 酷狗添加监控 搜索qq
 	search_qqFree(params:any){

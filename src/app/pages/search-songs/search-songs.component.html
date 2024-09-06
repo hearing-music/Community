@@ -21,6 +21,10 @@
 		
 	</div>
 	<div class="home-top">
+		<div *ngIf='selectItem=="QQ音乐"' style='display:flex;align-items: center;font-size:13px;position: absolute;right:0;top:-8px;'>
+			<div>历史上游</div>
+			<nz-switch [(ngModel)]="qqHistorySwitch"></nz-switch>
+		</div>
 	<!-- 二级tab -->
 	<div class="tagList tagList2" *ngIf='tagNow' [ngClass]='{"tagList3":selectItem2=="大陆音著协"}'>
 		<div *ngFor='let citem of tagNow.child' (click)="onSelect2(citem)" class="tagList-item" style="font-size: 12px;"
