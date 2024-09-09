@@ -59,8 +59,8 @@
 		<tbody>
 			<tr *ngFor="let item of basicTable.data; let i = index">
 				<td nzAlign='center'>
-					<span (click)='playMusic(item)' *ngIf='!item.isplay&&item.musicUrl' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
-					<span (click)='pauseMusic(item)' *ngIf='item.isplay&&item.musicUrl' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+					<span (click)='playMusic(item)' *ngIf='!item.isplay' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+					<span (click)='pauseMusic(item)' *ngIf='item.isplay' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
 				</td>
 				<td nzAlign='center'>
 					<div style="cursor: pointer;" (click)='copy(item.name)'>

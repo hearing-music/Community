@@ -86,6 +86,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			{
 				icon: '📢',
 				color: 'bg-azure-95',
+				title: '2024年9月9日15:04',
+			  	newAdd:['QQ免费歌曲，酷狗免费歌曲新增 “独立付费”类别查询'],//新增
+			  	optimize:[],//优化
+			  	bugs:[],//修复bug
+			},
+			{
+				icon: '📢',
+				color: 'bg-azure-95',
 				title: '2024年9月6日18:00',
 			  	newAdd:['qq搜索 酷狗v3搜索 酷我搜索 网易云搜索 新增封面','qq搜索 新增 可选是否查询历史上游 默认开启'],//新增
 			  	optimize:['qq搜索 酷狗v3搜索 酷我搜索 网易云搜索 每页5条->10条','抖音监控声源 增长量从高到低排序'],//优化

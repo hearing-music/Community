@@ -24,7 +24,7 @@ export class FreeSongs_kugouComponent implements OnInit {
   loading = false;
   pageCurrent = 1;
   sortId = 0;
-  pageSize = 25;
+  pageSize = 50;
   pageTotal = 0;
   searchValue = "";
   searchHolder = "搜索歌曲名";
@@ -231,5 +231,54 @@ export class FreeSongs_kugouComponent implements OnInit {
         this.sortList.push(item);
       });
     });
+  }
+  audioSrc : any = "";
+  isPlay : any = false;
+  play() {
+  	let audio : any = document.getElementById("audio");
+  	audio.play();
+  	this.list.forEach((item : any) => {
+  		if (item.musicUrl == this.audioSrc) {
+  			item.isplay = true;
+  		}
+  	});
+  }
+  pause() {
+  	let audio : any = document.getElementById("audio");
+  	audio.pause();
+  	this.list.forEach((item : any) => {
+  		item.isplay = false;
+  	});
+  }
+  playMusic(item : any) {
+  	if (item.musicUrl) {
+  		this.playMusicFun(item)
+  	} else {
+  		this.loading = true;
+  		this.api.getKugouSongUrl({ EMixSongID: item.EMixSongID }).subscribe((res : any) => {
+  			this.loading = false;
+  			if (res.success) {
+  				item.musicUrl = res.result[0];
+  				this.playMusicFun(item)
+  			}
+  		}, (err : any) => {
+  			console.log(err);
+  			this.loading = false;
+  		})
+  	}
+  }
+  playMusicFun(item : any) {
+  	this.isPlay = true;
+  	this.audioSrc = item.musicUrl;
+  	setTimeout(() => {
+  		this.list.forEach((item : any) => {
+  			item.isplay = false;
+  		});
+  		item.isplay = true;
+  		this.play();
+  	}, 50);
+  }
+  pauseMusic(item : any) {
+  	this.pause();
   }
 }

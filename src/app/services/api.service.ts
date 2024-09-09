@@ -86,6 +86,14 @@ export class ApiService {
 		let url = this.baseUrl + '/qq/freeSongsLabel?Label=' + label
 		return this.http.get(url)
 	}
+	// mid获取歌曲链接
+	getSongMusicUrl(params : any) {
+		let {
+			mid
+		} = params;
+		let url = this.baseUrl + '/qq/getSongMusicUrl'
+		return this.http.post(url,{mid})
+	}
 	// 根据mid获取 收听 指数 排名
 	getQq_exponent(params : any) {
 		let {
