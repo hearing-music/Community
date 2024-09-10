@@ -1362,6 +1362,14 @@ export class ApiService {
 		let url = this.baseUrl + "/wisdom_knowledge_base/AdditionalDataInfo";
 		return this.http.post(url, params);
 	}
+	  updataScriptPromptsAnswer(params: any): Promise<any> {
+	    let url = this.baseUrl + "/wisdom_knowledge_base/updateAnswer";
+	    return this.http.post(url, params).toPromise();
+	  }
+	  updataScriptPromptsQuestion(params: any) {
+	    let url = this.baseUrl + "/wisdom_knowledge_base/updateQuestion";
+	    return this.http.post(url, params);
+	  }
 	// 转换视频
 	AllAudioConversion(params : any) {
 		let { files } = params;

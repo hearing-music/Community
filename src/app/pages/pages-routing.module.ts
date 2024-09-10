@@ -67,6 +67,7 @@ import { TankBattleComponent } from "./game/tank-battle/tank-battle.component";
 import { NewTankBattleComponent } from './game/new-tank-battle/new-tank-battle.component';
 import { ScriptPromptsComponent } from "./script-prompts/script-prompts.component";
 import { ScriptPromptsInsertComponent } from "./script-prompts/script-prompts-insert/script-prompts-insert.component";
+import { ScriptPromptsUpdataComponent } from "./script-prompts/script-prompts-updata/script-prompts-updata.component";
 import { ScreenRecordingComponent } from "./screenRecording/screenRecording.component";
 import { TimeControlComponent } from './monitor/timeControl/timeControl.component';
 import { UserControlComponent } from './monitor/userControl/userControl.component';
@@ -425,6 +426,12 @@ const routes : Routes = [{
 			component: ScriptPromptsInsertComponent,
 			canActivate: [PermissionGuard],
 		},
+		// 话术修改
+		      {
+		        path: "script-prompts-updata",
+		        component: ScriptPromptsUpdataComponent,
+		        canActivate: [PermissionGuard],
+		      },
 		//定时监控
 		{
 			path: "timeControl",

@@ -1,0 +1,47 @@
+<div class="script-prompts-updata">
+  <div class="mainBox">
+    <div style="padding: 8px;font-size: 16px;">
+      <div style="font-weight: bolder;">
+        <div>
+          <div style="line-height: 30px">选择要修改的问题</div>
+          <nz-cascader [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)"></nz-cascader>
+        </div>
+      </div>
+      <div *ngIf="question">
+        <div style="font-weight: bolder;">
+          <div style="line-height: 30px">问题:</div>
+          <input nz-input [(ngModel)]="question" type="text" style="border-radius: 4px;padding: 6px;"/>
+        </div>
+        <div>
+          <span style="font-size: 14px; color: #ccc">
+            答案中的不想被用户复制的提示词使用"[ ]"包起来，
+            需要换行请使用回车
+          </span>
+        </div>
+        <div class="New" style="font-weight: bolder;border: 1px solid #ccc;border-radius: 4px;display: flex;align-items: center;margin: 10px 0;" *ngFor="let item of answerList;let i =index">
+          <div style="width: 90%;padding: 5px;">
+            <div style="padding-bottom: 5px; ">
+              <span style="line-height: 30px">答案</span>
+              <span>
+                <button nz-button nzSize="small" nzType="primary" (mouseup)="addSymbol(item,i)" style="margin-left: 15px;">"[]"</button>
+              </span>
+              <textarea nz-input placeholder="答案" [nzAutosize]="{ minRows: 2, maxRows: 6 }" [(ngModel)]="item.Answer" [id]="'inputAnser'+i"></textarea>
+            </div>
+            <div style="padding: 5px 0" *ngIf="item.Scenario.Take">
+              <span style="line-height: 30px">场景</span>
+              <textarea nz-input placeholder="请输入场景" [nzAutosize]="{ minRows: 2, maxRows: 6 }" [(ngModel)]="item.Scenario.Take"></textarea>
+            </div>
+            <div style="padding: 5px 0" *ngIf="item.Scenario.Cautions">
+              <span style="line-height: 30px">重点</span>
+              <textarea nz-input placeholder="请输入重点" [nzAutosize]="{ minRows: 2, maxRows: 6 }" [(ngModel)]="item.Scenario.Cautions"></textarea>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex;justify-content: center;padding: 10px;">
+          <button nz-button nzType="default" style="border-radius: 8px;width:200px;" [nzSize]="'large'" (click)="updata()">修改</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-loading *ngIf="loading"></ngx-loading>

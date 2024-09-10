@@ -168,9 +168,11 @@ export class ScriptPromptsInsertComponent implements OnInit {
   }
   addIsue() {
     if (this.isNewIssue) {
-      this.New.Issues.ModelId =
-        this.nzOptions[this.values[0]].children.length * this.values[0] +
-        this.values[1];
+	  let count = 0;
+	  for(let i = 0;i<this.values[0];i++){
+		  count += this.nzOptions[i].children.length;
+	  }
+      this.New.Issues.ModelId = count + this.values[1];
       this.New.Answer = this.Answer;
       let params = {
         Mark: {

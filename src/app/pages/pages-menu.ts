@@ -133,6 +133,10 @@ export let MENU_ITEMS : NbMenuItem[] = [
 	        title: "话术添加",
 	        link: "/pages/script-prompts-insert",
 	      },
+	 		{
+	        title: "话术修改",
+	        link: "/pages/script-prompts-updata",
+	      },
 	    ],
 	  },
 	{

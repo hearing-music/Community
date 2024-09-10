@@ -53,6 +53,7 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { KugouSoaringComponent } from './kugou/kugou-soaring/kugou-soaring.component';
 import { EnlightenmentComponent } from './venus/enlightenment/enlightenment.component'
 import {V3AddSongControlComponent} from'../components/v3AddSongControl/v3AddSongControl.component' 
+import { ScriptPromptsUpdataComponent } from "./script-prompts/script-prompts-updata/script-prompts-updata.component";
 // import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
 import { DyHotComponent } from './douyin/douyin-list/dy-hot/dy-hot.component';
 import { DyYyhComponent } from './douyin/douyin-list/dy-yyh/dy-yyh.component';
@@ -264,6 +265,7 @@ registerLocaleData(zh);
 		NoiseReductionComponent,
 		ScriptPromptsComponent,
 		ScriptPromptsInsertComponent,
+		ScriptPromptsUpdataComponent,
 		VolumeNormalisationComponent,
 		SegmentationComponent,
 		NewTankBattleComponent,
