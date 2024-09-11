@@ -227,7 +227,7 @@ export class FreeSongs_kugouComponent implements OnInit {
   }
   getSortList() {
     this.api.GetSortList().subscribe((res: any) => {
-		res.result = res.result.splice(res.result.length-1,1)
+		 res.result.splice(res.result.length-1,1)
       res.result.forEach((item: any) => {
         this.sortList.push(item);
       });
