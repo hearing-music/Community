@@ -59,20 +59,23 @@
 		<tbody>
 			<tr *ngFor="let item of basicTable.data; let i = index">
 				<td nzAlign='center'>
-					<span (click)='playMusic(item)' *ngIf='!item.isplay' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
-					<span (click)='pauseMusic(item)' *ngIf='item.isplay' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+          <div style="display: flex;align-items: center;">
+            <span (click)='playMusic(item)' *ngIf='!item.isplay' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+            <span (click)='pauseMusic(item)' *ngIf='item.isplay' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+            <img nz-tooltip [nzTooltipTitle]="'最近更新'" src="../../../../assets/img/newUpdateQQ.png" style="width: 18px;margin-left: 5px;" alt="" *ngIf="item.updated_at&&ToDataNum('')-ToDataNum(item.updated_at)<7*86400000&&!updataState">
+          </div>
 				</td>
 				<td nzAlign='center'>
 					<div style="cursor: pointer;" (click)='copy(item.name)'>
 						<span nz-tooltip [nzTooltipTitle]="'点击复制'">
 							{{item.name}}
-						</span> 
+						</span>
+            <img nz-tooltip [nzTooltipTitle]="'三天内新增数据'" src="../../../../assets/img/newQQ.png" style="width: 18px;margin-left: 5px;" alt="" *ngIf="item.created_at&&ToDataNum(item.updated_at)-ToDataNum(item.created_at)<3*86400000">
 						<img nz-tooltip [nzTooltipTitle]="'词曲版权搜索'" src="../../../assets/img/banquan.svg" class="icon" style='margin-left: 4px;' *ngIf='item.audioSourceID==4&&item.name' (click)='gotoCopyright(item.name)'/>
 					</div>
 					<div style="font-size: 12px;color: #b8b8b8;margin-top: 8px;">
 						更新:{{item.updated_at?common.getDate(item.updated_at):'无'}}
 					</div>
-					
 				</td>
 				<td nzAlign='center'>
 					<div (click)='openAlbum(item.album.mid)' style="color:rgba(0, 0, 0, 0.6);cursor: pointer;text-decoration: underline;">
@@ -132,7 +135,7 @@
 					</span>
 				</td>
 				<td nzAlign='center' style="cursor: pointer;">
-						{{common.FreeSongsSource(item.audioSourceID)}}  
+						{{common.FreeSongsSource(item.audioSourceID)}}
 				</td>
 				<td nzAlign='center' (click)='reloadExponent(item)' style="cursor: pointer;">
 					<span nz-tooltip [nzTooltipTitle]="'点击刷新'">

@@ -72,6 +72,11 @@ export class ApiService {
 			sort + "&publish_timeOrderby=" + publish_timeOrderby + "&exponentOrderby=" + exponentOrderby
 		return this.http.get(url);
 	}
+	  // 获取更新时间
+	  GetQqUpdataTime() {
+	    let url = this.baseUrl + "/qq/freeSongsUpdateSetting";
+	    return this.http.get(url);
+	  }
 	//获取免费歌曲排序标签
 	GetSortList() {
 		// GetSortList

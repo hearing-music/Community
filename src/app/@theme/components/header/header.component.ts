@@ -86,6 +86,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			{
 				icon: '📢',
 				color: 'bg-azure-95',
+				title: '2024年9月11日17:19',
+			  	newAdd:['QQ免费歌曲，新增 "最近新增" 类别'],//新增
+			  	optimize:['QQ免费歌曲，最近新增 图标，更新 图标'],//优化
+			  	bugs:[],//修复bug
+			},
+			{
+				icon: '📢',
+				color: 'bg-azure-95',
 				title: '2024年9月9日15:04',
 			  	newAdd:['QQ免费歌曲，酷狗免费歌曲新增 “独立付费”类别查询'],//新增
 			  	optimize:[],//优化

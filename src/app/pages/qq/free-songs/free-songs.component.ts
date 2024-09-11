@@ -12,7 +12,8 @@ export class FreeSongs_qqComponent implements OnInit {
 	constructor(public common : CommonService, public api : ApiService, private router : Router) { }
 	ngOnInit() : void {
 		this.getSortList();
-		this.getQq_freeSongs();
+    this.getQq_freeSongs();
+    this.GetQqUpdataTime();
 	}
 	loading = false;
 	pageCurrent = 1;
@@ -39,9 +40,9 @@ export class FreeSongs_qqComponent implements OnInit {
 		},
 	];
 	checked = false;
-
 	publish_timeOrderby : any = ''
-	exponentOrderby = 'desc'
+  exponentOrderby = 'desc'
+  updataState:boolean=false
 	// 排序
 	publish_timeClick() {
 		this.exponentOrderby = ''
@@ -152,14 +153,14 @@ export class FreeSongs_qqComponent implements OnInit {
 			console.log(res);
 			if (res.success) {
 				res.result = res.result || res.data;
-				res.result.forEach((item : any) => {
-					const date = new Date(item.updated_at);
-					const timestamp = date.getTime();
-					if (this.nextUpdataTime == 0 || this.nextUpdataTime < timestamp) {
-						this.nextUpdataTime = timestamp + (86400000 * 14)
-					}
-					item.newExponent = "";
-				});
+				// res.result.forEach((item : any) => {
+				// 	const date = new Date(item.updated_at);
+				// 	const timestamp = date.getTime();
+				// 	if (this.nextUpdataTime == 0 || this.nextUpdataTime < timestamp) {
+				// 		this.nextUpdataTime = timestamp + (86400000 * 14)
+				// 	}
+				// 	item.newExponent = "";
+				// });
 				this.list = res.result;
 				this.pageTotal = res.pageTotal;
 			}
@@ -176,7 +177,7 @@ export class FreeSongs_qqComponent implements OnInit {
 		audio.play();
 		this.list.forEach((item : any) => {
 			if (item.musicUrl == this.audioSrc) {
-				item.isplay = true;
+        item.isplay = true;
 			}
 		});
 	}
@@ -232,5 +233,27 @@ export class FreeSongs_qqComponent implements OnInit {
 				this.sortList.push(item);
 			});
 		});
-	}
+  }
+  ToDataNum(value: any) {
+    if (value) {
+      const date = new Date(value);
+      const timestamp = date.getTime(); // 得到时间戳，单位是毫秒
+      return timestamp
+    } else {
+      const date = new Date();
+      const timestamp = date.getTime(); // 得到时间戳，单位是毫秒
+      return timestamp
+    }
+  }
+  GetQqUpdataTime() {
+    this.api.GetQqUpdataTime().subscribe((res: any) => {
+      for (let i = 0; i < res.result.length; i++){
+        if (res.result[i].FlatRoofedBuilding == 'QQ') {
+          this.nextUpdataTime = res.result[i].UpdateDate + 14 * 86400000
+          this.updataState = res.result[i].State.data[0]==0 ? false : true
+        }
+      }
+      console.log(res.result)
+    })
+  }
 }
