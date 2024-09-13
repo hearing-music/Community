@@ -30,10 +30,13 @@ export class NoiseReductionComponent implements OnInit {
 	}
 	
 	onFile(file:any): void{
-		console.log(file)
-		// console.log(this.host)
-		this.file = file;
-		this.noiseReduction()
+		let ext = file.name.substr(file.name.length-4);
+		if(ext =='.wav' || ext =='.WAV'){
+			this.file = file;
+			this.noiseReduction();
+		}else{
+			this.toast.info("必须是wav格式");
+		}
 	}
 	noiseReduction(): void {
 		this.loading = true;
