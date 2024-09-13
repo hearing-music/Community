@@ -1412,6 +1412,18 @@ export class ApiService {
 		let url = this.baseUrl + "/login/SearchUserBehaviour2";
 		return this.http.post(url, data);
 	}
+	// 获取用户行为 clone
+	SearchUserBehaviour3(params:any){
+		let data = JSON.stringify({
+		    "UserId":params.ids,
+			"Offset":params.Offset,
+			"pageSize":params.pageSize,
+			"timestampStart":params.timeStart,
+			"timestampEnd":params.timeEnd,
+		})
+		let url = this.baseUrl + "/login/SearchUserBehaviour3";
+		return this.http.post(url, data);
+	}
 	// 新用户行为导出今日表格
 	UserBehaviourExcel(params:any){
 		let {
@@ -1430,6 +1442,15 @@ export class ApiService {
 		let url = this.baseUrl + "/login/UserBehaviourExcel2";
 		return this.http.post(url, data);
 	}
+	// clone行为导出今日表格
+	UserBehaviourExcel3(params:any){
+		let {
+			timeStart,timeEnd,userId
+		} = params
+		let data = {timeStart,timeEnd,userId}
+		let url = this.baseUrl + "/login/UserBehaviourExcel3";
+		return this.http.post(url, data);
+	}
 	// 获取全部用户
 	get_webUsersName(){
 		let url = this.baseUrl + "/login/get_webUsersName";
@@ -1438,6 +1459,11 @@ export class ApiService {
 	// 获取全部用户老网站
 	get_webUsersName2(){
 		let url = this.baseUrl + "/login/get_webUsersName2";
+		return this.http.post(url, {});
+	}
+	// 获取全部用户克隆网站
+	get_webUsersName3(){
+		let url = this.baseUrl + "/login/get_webUsersName3";
 		return this.http.post(url, {});
 	}
 	// 获取监控定时描述

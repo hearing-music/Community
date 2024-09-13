@@ -1,114 +1,180 @@
-<div class='userControl'>
-	<div style='flex:1;margin-right:10px;width:50%;'>
-		<div style="display: flex;align-items: flex-end;">
-			<div>
-				<div style="font-size: 12px;color: #666;">用户名</div>
-				<nz-select *ngIf='userList.length>0' style="width: 130px;" [(ngModel)]="user"
-					(ngModelChange)='ngModelUser($event)'>
-					<nz-option *ngFor="let item of userList;" [nzValue]="item.ID" [nzLabel]="item.username"></nz-option>
-				</nz-select>
-			</div>
-			<div style="margin-left: 8px;">
-				<div style="font-size: 12px;color: #666;">选择日期区间</div>
-				<nz-range-picker [nzDisabledDate]="disabledDate" [(ngModel)]="nzDefaultPickerValue" (ngModelChange)="onChange($event)"></nz-range-picker>
-			</div>
-			<button *ngIf='timeStart!=0&&timeEnd!=0' (click)='UserBehaviourExcel()' nz-button nzType="primary" style="display: flex;align-items: center;margin-left: 8px;">
-			      <span nz-icon nzType="download"></span>
-			      下载文件
-			</button>
-		</div>
-		<nz-empty style="margin-top: 100px;" *ngIf='behaviourList.length==0'></nz-empty>
-		<div *ngIf='behaviourList.length>0'>
-			<div *ngFor='let item of behaviourList' class='listItem'>
-				<div style="display: flex;margin-bottom: 8px;">
-					<div style="margin-right: 16px;">
-						<span style="color:#666;">用户名：</span>{{item.username}}
-					</div>
-					<div>
-						{{common.getTime(item.EnquiryTime)}}
-					</div>
-				</div>
-				<div style="margin-bottom: 8px;">
-					<span style="color:#666;">IP：</span>{{item.IP}}
-				</div>
-				<div style="margin-bottom: 8px;">
-					<span style="color:#666;">接口名称：</span><span style="margin-right:8px;">{{item.Name}}</span> {{item.ApiName}}
-				</div>
-				<div style="margin-bottom: 8px;display: flex;">
-					<span style="color:#666;">参数：</span>
-					<div *ngIf='item.apiKey.length==0'>
-						无
-					</div>
-					<div *ngIf='item.apiKey.length>0' style="display: flex;flex-wrap: wrap;">
-						<div *ngFor='let key of item.apiKey;let i = index;' style="margin-right: 6px;">
-							<span style="color:#666;">{{key}}：</span>{{item.apiValue[i]?item.apiValue[i]:'""'}}
-						</div>
-					</div>
-				</div>
-				<div style="cursor: pointer;color: blue;" (click)='seeHeader(item)'>
-					查看Header
-				</div>
-			</div>
-		</div>
-		<div style="display: flex;justify-content: center;">
-			<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="total" (nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
+<div class='userControlBox'>
+<!-- tab栏 -->
+	<div class="tagList">
+		<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
+			[ngClass]="{'tagList-itemActive': item.name==selectItem}">
+			{{item.name}}
 		</div>
 	</div>
-	<div style='flex:1;margin-left:10px;width:50%;'>
-		<div>
+	<div class='userControl'>
+		<div style='flex:1;width:100%;' *ngIf='selectItem=="新网站"'>
 			<div style="display: flex;align-items: flex-end;">
 				<div>
-					<div style="font-size: 12px;color: #666;">用户名(老)</div>
-					<nz-select *ngIf='userList2.length>0' style="width: 130px;" [(ngModel)]="user2"
-						(ngModelChange)='ngModelUser2($event)'>
-						<nz-option *ngFor="let item of userList2;" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+					<div style="font-size: 12px;color: #666;">用户名</div>
+					<nz-select *ngIf='userList.length>0' style="width: 130px;" [(ngModel)]="user"
+						(ngModelChange)='ngModelUser($event)'>
+						<nz-option *ngFor="let item of userList;" [nzValue]="item.ID" [nzLabel]="item.username"></nz-option>
 					</nz-select>
 				</div>
 				<div style="margin-left: 8px;">
 					<div style="font-size: 12px;color: #666;">选择日期区间</div>
-					<nz-range-picker [nzDisabledDate]="disabledDate2" [(ngModel)]="nzDefaultPickerValue2" (ngModelChange)="onChange2($event)"></nz-range-picker>
+					<nz-range-picker [nzDisabledDate]="disabledDate" [(ngModel)]="nzDefaultPickerValue" (ngModelChange)="onChange($event)"></nz-range-picker>
 				</div>
-				<button *ngIf='timeStart!=0&&timeEnd!=0' (click)='UserBehaviourExcel2()' nz-button nzType="primary" style="display: flex;align-items: center;margin-left: 8px;">
-				      <span nz-icon nzType="download"></span>
-				      下载文件
+				<button *ngIf='timeStart!=0&&timeEnd!=0' (click)='UserBehaviourExcel()' nz-button nzType="primary" style="display: flex;align-items: center;margin-left: 8px;">
+					  <span nz-icon nzType="download"></span>
+					  下载文件
 				</button>
 			</div>
-		</div>
-		<nz-empty style="margin-top: 100px;" *ngIf='behaviourList2.length==0'></nz-empty>
-		<div *ngIf='behaviourList2.length>0'>
-			<div *ngFor='let item of behaviourList2' class='listItem'>
-				<div style="display: flex;margin-bottom: 8px;">
-					<div style="margin-right: 16px;">
-						<span style="color:#666;">用户名：</span>{{item.name}}
-					</div>
-					<div>
-						{{common.getTime(item.EnquiryTime)}}
-					</div>
-				</div>
-				<div style="margin-bottom: 8px;">
-					<span style="color:#666;">IP：</span>{{item.IP}}
-				</div>
-				<div style="margin-bottom: 8px;">
-					<span style="color:#666;">接口名称：</span><span style="margin-right:8px;">{{item.Name}}</span> {{item.ApiName}}
-				</div>
-				<div style="margin-bottom: 8px;display: flex;">
-					<span style="color:#666;">参数：</span>
-					<div *ngIf='item.apiKey.length==0'>
-						无
-					</div>
-					<div *ngIf='item.apiKey.length>0' style="display: flex;flex-wrap: wrap;">
-						<div *ngFor='let key of item.apiKey;let i = index;' style="margin-right: 6px;">
-							<span style="color:#666;">{{key}}：</span>{{item.apiValue[i]?item.apiValue[i]:'""'}}
+			<nz-empty style="margin-top: 100px;" *ngIf='behaviourList.length==0'></nz-empty>
+			<div *ngIf='behaviourList.length>0'>
+				<div *ngFor='let item of behaviourList' class='listItem'>
+					<div style="display: flex;margin-bottom: 8px;">
+						<div style="margin-right: 16px;">
+							<span style="color:#666;">用户名：</span>{{item.username}}
+						</div>
+						<div>
+							{{common.getTime(item.EnquiryTime)}}
 						</div>
 					</div>
-				</div>
-				<div style="cursor: pointer;color: blue;" (click)='seeHeader(item)'>
-					查看Header
+					<div style="margin-bottom: 8px;">
+						<span style="color:#666;">IP：</span>{{item.IP}}
+					</div>
+					<div style="margin-bottom: 8px;">
+						<span style="color:#666;">接口名称：</span><span style="margin-right:8px;">{{item.Name}}</span> {{item.ApiName}}
+					</div>
+					<div style="margin-bottom: 8px;display: flex;">
+						<span style="color:#666;">参数：</span>
+						<div *ngIf='item.apiKey.length==0'>
+							无
+						</div>
+						<div *ngIf='item.apiKey.length>0' style="display: flex;flex-wrap: wrap;">
+							<div *ngFor='let key of item.apiKey;let i = index;' style="margin-right: 6px;">
+								<span style="color:#666;">{{key}}：</span>{{item.apiValue[i]?item.apiValue[i]:'""'}}
+							</div>
+						</div>
+					</div>
+					<div style="cursor: pointer;color: blue;" (click)='seeHeader(item)'>
+						查看Header
+					</div>
 				</div>
 			</div>
+			<div style="display: flex;justify-content: center;">
+				<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="total" (nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper></nz-pagination>
+			</div>
 		</div>
-		<div style="display: flex;justify-content: center;">
-			<nz-pagination [nzPageIndex]="page2" [nzPageSize]='pageSize2' [nzTotal]="total2" (nzPageIndexChange)='nzPageIndexChange2($event)' nzShowQuickJumper></nz-pagination>
+		<div style='flex:1;width:100%;' *ngIf='selectItem=="老网站"'>
+			<div>
+				<div style="display: flex;align-items: flex-end;">
+					<div>
+						<div style="font-size: 12px;color: #666;">用户名</div>
+						<nz-select *ngIf='userList2.length>0' style="width: 130px;" [(ngModel)]="user2"
+							(ngModelChange)='ngModelUser2($event)'>
+							<nz-option *ngFor="let item of userList2;" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+						</nz-select>
+					</div>
+					<div style="margin-left: 8px;">
+						<div style="font-size: 12px;color: #666;">选择日期区间</div>
+						<nz-range-picker [nzDisabledDate]="disabledDate2" [(ngModel)]="nzDefaultPickerValue2" (ngModelChange)="onChange2($event)"></nz-range-picker>
+					</div>
+					<button *ngIf='timeStart!=0&&timeEnd!=0' (click)='UserBehaviourExcel2()' nz-button nzType="primary" style="display: flex;align-items: center;margin-left: 8px;">
+						  <span nz-icon nzType="download"></span>
+						  下载文件
+					</button>
+				</div>
+			</div>
+			<nz-empty style="margin-top: 100px;" *ngIf='behaviourList2.length==0'></nz-empty>
+			<div *ngIf='behaviourList2.length>0'>
+				<div *ngFor='let item of behaviourList2' class='listItem'>
+					<div style="display: flex;margin-bottom: 8px;">
+						<div style="margin-right: 16px;">
+							<span style="color:#666;">用户名：</span>{{item.name}}
+						</div>
+						<div>
+							{{common.getTime(item.EnquiryTime)}}
+						</div>
+					</div>
+					<div style="margin-bottom: 8px;">
+						<span style="color:#666;">IP：</span>{{item.IP}}
+					</div>
+					<div style="margin-bottom: 8px;">
+						<span style="color:#666;">接口名称：</span><span style="margin-right:8px;">{{item.Name}}</span> {{item.ApiName}}
+					</div>
+					<div style="margin-bottom: 8px;display: flex;">
+						<span style="color:#666;">参数：</span>
+						<div *ngIf='item.apiKey.length==0'>
+							无
+						</div>
+						<div *ngIf='item.apiKey.length>0' style="display: flex;flex-wrap: wrap;">
+							<div *ngFor='let key of item.apiKey;let i = index;' style="margin-right: 6px;">
+								<span style="color:#666;">{{key}}：</span>{{item.apiValue[i]?item.apiValue[i]:'""'}}
+							</div>
+						</div>
+					</div>
+					<div style="cursor: pointer;color: blue;" (click)='seeHeader(item)'>
+						查看Header
+					</div>
+				</div>
+			</div>
+			<div style="display: flex;justify-content: center;">
+				<nz-pagination [nzPageIndex]="page2" [nzPageSize]='pageSize2' [nzTotal]="total2" (nzPageIndexChange)='nzPageIndexChange2($event)' nzShowQuickJumper></nz-pagination>
+			</div>
+		</div>
+		<div style='flex:1;width:100%;' *ngIf='selectItem=="克隆网站"'>
+			<div>
+				<div style="display: flex;align-items: flex-end;">
+					<div>
+						<div style="font-size: 12px;color: #666;">用户名</div>
+						<nz-select *ngIf='userList3.length>0' style="width: 130px;" [(ngModel)]="user3"
+							(ngModelChange)='ngModelUser3($event)'>
+							<nz-option *ngFor="let item of userList3;" [nzValue]="item.id" [nzLabel]="item.username"></nz-option>
+						</nz-select>
+					</div>
+					<div style="margin-left: 8px;">
+						<div style="font-size: 12px;color: #666;">选择日期区间</div>
+						<nz-range-picker [nzDisabledDate]="disabledDate3" [(ngModel)]="nzDefaultPickerValue3" (ngModelChange)="onChange3($event)"></nz-range-picker>
+					</div>
+					<button *ngIf='timeStart!=0&&timeEnd!=0' (click)='UserBehaviourExcel3()' nz-button nzType="primary" style="display: flex;align-items: center;margin-left: 8px;">
+						  <span nz-icon nzType="download"></span>
+						  下载文件
+					</button>
+				</div>
+			</div>
+			<nz-empty style="margin-top: 100px;" *ngIf='behaviourList3.length==0'></nz-empty>
+			<div *ngIf='behaviourList3.length>0'>
+				<div *ngFor='let item of behaviourList3' class='listItem'>
+					<div style="display: flex;margin-bottom: 8px;">
+						<div style="margin-right: 16px;">
+							<span style="color:#666;">用户名：</span>{{item.username}}
+						</div>
+						<div>
+							{{common.getTime(item.EnquiryTime)}}
+						</div>
+					</div>
+					<div style="margin-bottom: 8px;">
+						<span style="color:#666;">IP：</span>{{item.IP}}
+					</div>
+					<div style="margin-bottom: 8px;">
+						<span style="color:#666;">接口名称：</span><span style="margin-right:8px;">{{item.Name}}</span> {{item.ApiName}}
+					</div>
+					<div style="margin-bottom: 8px;display: flex;">
+						<span style="color:#666;">参数：</span>
+						<div *ngIf='item.apiKey.length==0'>
+							无
+						</div>
+						<div *ngIf='item.apiKey.length>0' style="display: flex;flex-wrap: wrap;">
+							<div *ngFor='let key of item.apiKey;let i = index;' style="margin-right: 6px;">
+								<span style="color:#666;">{{key}}：</span>{{item.apiValue[i]?item.apiValue[i]:'""'}}
+							</div>
+						</div>
+					</div>
+					<div style="cursor: pointer;color: blue;" (click)='seeHeader(item)'>
+						查看Header
+					</div>
+				</div>
+			</div>
+			<div style="display: flex;justify-content: center;">
+				<nz-pagination [nzPageIndex]="page3" [nzPageSize]='pageSize3' [nzTotal]="total3" (nzPageIndexChange)='nzPageIndexChange3($event)' nzShowQuickJumper></nz-pagination>
+			</div>
 		</div>
 	</div>
 	<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzFooter]='null' [nzWidth]='600'>

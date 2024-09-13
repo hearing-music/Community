@@ -13,23 +13,34 @@ let downloadUrl = environment.downloadUrl;
 export class UserControlComponent implements OnInit {
 
 	constructor(public api : ApiService, public common : CommonService,private toast: ToastrService) { }
+	tagList:any=[{name:'新网站'},{name:'老网站'},{name:'克隆网站'}]
+	selectItem:any='新网站'
+	onSelect(e:any){
+		this.selectItem = e.name
+	}
 	timeStart=0;
 	timeEnd=0;
 	nzDefaultPickerValue = null
 	timeStart2=0;
 	timeEnd2=0;
 	nzDefaultPickerValue2 = null
+	timeStart3=0;
+	timeEnd3=0;
+	nzDefaultPickerValue3 = null
 	
 	dateStart = '2024-05-07 00:00:00'; //新网站默认开始日期
 	dateStart2 = '2024-05-21 00:00:00' // 老网站默认开始日期
+	dateStart3 = '2024-09-13 00:00:00' // 克隆网站默认开始日期
 	ngOnInit() : void {
 		// 设置默认时间
 		this.initDate()
 		
 		this.get_webUsersName()
 		this.get_webUsersName2()
+		this.get_webUsersName3()
 		this.SearchUserBehaviour()
 		this.SearchUserBehaviour2()
+		this.SearchUserBehaviour3()
 	}
 	loading = false;
 	behaviourList : any = [];
@@ -53,6 +64,17 @@ export class UserControlComponent implements OnInit {
 	page2 = 1;
 	pageSize2 = 25;
 	total2 = 0;
+	
+	
+	behaviourList3 : any = [];
+	user3 = '0';
+	userList3 : any = [{
+		id: '0',
+		username: "全部"
+	}];
+	page3 = 1;
+	pageSize3 = 25;
+	total3 = 0;
 	seeHeader(item : any) {
 		this.isVisible = true;
 		this.visibleItem = item;
@@ -74,6 +96,10 @@ export class UserControlComponent implements OnInit {
 	nzPageIndexChange2(e:any){
 		this.page2 = e;
 		this.SearchUserBehaviour2();
+	}
+	nzPageIndexChange3(e:any){
+		this.page3 = e;
+		this.SearchUserBehaviour3();
 	}
 	SearchUserBehaviour() {
 		this.loading = true;
@@ -121,6 +147,29 @@ export class UserControlComponent implements OnInit {
 			this.loading = false;
 		})
 	}
+	SearchUserBehaviour3() {
+		this.loading = true;
+		let ids = [this.user3];
+		if (this.user3 == '0') ids = []
+		// 0=全部数据   >0  分页
+		this.api.SearchUserBehaviour3({timeStart:this.timeStart3,timeEnd:this.timeEnd3, ids,Offset:this.page3,pageSize:this.pageSize3 }).subscribe((res : any) => {
+			this.loading = false;
+			console.log(res)
+			if (res.success) {
+				res.data.forEach((item : any) => {
+					item.apiKey = Object.keys(item.Parameters)
+					item.apiValue = Object.values(item.Parameters)
+					item.headerKey = Object.keys(item.Headers)
+					item.headerValue = Object.values(item.Headers)
+				})
+				this.behaviourList3 = res.data;
+				this.total3 = res.total;
+			}
+		}, (err : any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
 	
 	
 	// 初始化日期
@@ -132,6 +181,10 @@ export class UserControlComponent implements OnInit {
 		this.timeStart2 = new Date(this.dateStart2).getTime()
 		this.timeEnd2 = new Date().getTime()
 		this.nzDefaultPickerValue2 = [new Date(this.dateStart2),new Date()]
+		
+		this.timeStart3 = new Date(this.dateStart3).getTime()
+		this.timeEnd3 = new Date().getTime()
+		this.nzDefaultPickerValue3 = [new Date(this.dateStart3),new Date()]
 	}
 	disabledDate = (current: Date): boolean =>{
 		// 明天之后 和 5.21之前 不可选
@@ -140,6 +193,10 @@ export class UserControlComponent implements OnInit {
 	disabledDate2 = (current: Date): boolean =>{
 		// 明天之后 和 5.21之前 不可选
 		return (differenceInCalendarDays(current, new Date()) > 0||differenceInCalendarDays(current, new Date(this.dateStart2)) < 0);
+	}
+	disabledDate3 = (current: Date): boolean =>{
+		// 明天之后 和 5.21之前 不可选
+		return (differenceInCalendarDays(current, new Date()) > 0||differenceInCalendarDays(current, new Date(this.dateStart3)) < 0);
 	}
 	// 日期change
 	onChange(result: Date[]): void {
@@ -171,6 +228,21 @@ export class UserControlComponent implements OnInit {
 		  this.timeStart2 = timeStart;
 		  this.timeEnd2 = timeEnd;
 		  this.SearchUserBehaviour2()
+	  }
+	  onChange3(result: Date[]): void {
+	  		  var start = result[0].getTime();
+	  		  let year = new Date(start).getFullYear();
+	  		  let month = new Date(start).getMonth()+1;
+	  		  let date = new Date(start).getDate();
+	  		  let timeStart = new Date(year+'-'+month+'-'+date + " 00:00:00").getTime();
+	  		  var end = result[1].getTime();
+	  		  let year2 = new Date(end).getFullYear();
+	  		  let month2 = new Date(end).getMonth()+1;
+	  		  let date2 = new Date(end).getDate();
+	  		  let timeEnd = new Date(year2+'-'+month2+'-'+date2 + " 23:59:59").getTime();
+	  		  this.timeStart3 = timeStart;
+	  		  this.timeEnd3 = timeEnd;
+	  		  this.SearchUserBehaviour3()
 	  }
 	  // 新用户行为导出表格
 	  UserBehaviourExcel(){
@@ -214,6 +286,27 @@ export class UserControlComponent implements OnInit {
 			this.loading = false;
 		})
 	}
+	// 克隆用户行为导出表格
+	UserBehaviourExcel3(){
+		if(this.timeStart3==0||this.timeEnd3==0){
+			this.toast.info("请选择日期区间")
+			return;
+		}
+		this.loading = true;
+		this.api.UserBehaviourExcel3({timeStart:this.timeStart3,timeEnd:this.timeEnd3,userId:this.user3=="0"?"":this.user3}).subscribe((res : any) => {
+			this.loading = false;
+			console.log(res)
+			if (res.success) {
+				let fileURL = res.data[0];
+				setTimeout(()=>{
+					this.common.download(downloadUrl+fileURL,res.data[1])
+				},1000)
+			}
+		}, (err : any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
 	get_webUsersName() {
 		this.loading = true;
 		this.api.get_webUsersName().subscribe((res : any) => {
@@ -240,6 +333,19 @@ export class UserControlComponent implements OnInit {
 			this.loading = false;
 		})
 	}
+	get_webUsersName3() {
+		this.loading = true;
+		this.api.get_webUsersName3().subscribe((res : any) => {
+			this.loading = false;
+			console.log(res)
+			if (res.success) {
+				this.userList3.push(...res.result);
+			}
+		}, (err : any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
 
 	ngModelUser(e : any) {
 		this.page = 1;
@@ -248,6 +354,10 @@ export class UserControlComponent implements OnInit {
 	ngModelUser2(e : any) {
 		this.page2 = 1;
 		this.SearchUserBehaviour2();
+	}
+	ngModelUser3(e : any) {
+		this.page3 = 1;
+		this.SearchUserBehaviour3();
 	}
 	
 }
