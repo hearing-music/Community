@@ -156,6 +156,7 @@ export class SongsControlComponent implements OnInit {
 							iitem.IndexKG = this.computedIndex(iitem.Index.KG);
 							if(iitem.Index.QQ.length>0){
 								iitem.IndexQQ = this.quchong(iitem.Index.QQ,'Time');
+								iitem.IndexQQ = this.computedIndexQQ(iitem.IndexQQ);
 							}else{
 								iitem.IndexQQ = iitem.Index.QQ
 							}
@@ -211,6 +212,7 @@ export class SongsControlComponent implements OnInit {
 		return newCountArr
 	}
 	// 添加 截至到今日没有的日期 + 去重
+	// 添加中间没录入的日期
 	computedIndex(IndexArr : any) {
 		let IndexArrNow = JSON.parse(JSON.stringify(IndexArr));
 		IndexArrNow = this.quchong(IndexArrNow,'Time')
@@ -227,6 +229,37 @@ export class SongsControlComponent implements OnInit {
 		let needAddCount = (startTimeToday - startTime) / (24 * 60 * 60 * 1000);
 		for (let i = 0; i < needAddCount; i++) {
 			IndexArrNow.push({ Time: startTime + (i + 1) * (24 * 60 * 60 * 1000), Index: "" })
+		}
+		// 统计中间没有的时间
+		let IArr = []
+		for(let i = 0;i<IndexArrNow.length;i++){
+			if(i+1>=IndexArrNow.length) break;
+			if((IndexArrNow[i].Time - 0) + (1*24*60*60*1000) != (IndexArrNow[i+1].Time - 0)){
+				IArr.push({i:i+1,value:{
+					Time: (IndexArrNow[i].Time - 0) + (1*24*60*60*1000), Index: ""
+				}})
+			}
+		}
+		for(let i = 0;i<IArr.length;i++){
+			IndexArrNow.splice(IArr[i].i+i,0,IArr[i].value)
+		}
+		return IndexArrNow
+	}
+	// 添加中间没录入的日期 qq
+	computedIndexQQ(IndexArr : any) {
+		let IndexArrNow = JSON.parse(JSON.stringify(IndexArr));
+		// 统计中间没有的时间
+		let IArr = []
+		for(let i = 0;i<IndexArrNow.length;i++){
+			if(i+1>=IndexArrNow.length) break;
+			if((IndexArrNow[i].Time - 0) + (1*24*60*60*1000) != (IndexArrNow[i+1].Time - 0)){
+				IArr.push({i:i+1,value:{
+					Time: (IndexArrNow[i].Time - 0) + (1*24*60*60*1000), Index: ""
+				}})
+			}
+		}
+		for(let i = 0;i<IArr.length;i++){
+			IndexArrNow.splice(IArr[i].i+i,0,IArr[i].value)
 		}
 		return IndexArrNow
 	}
