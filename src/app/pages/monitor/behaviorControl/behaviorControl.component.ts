@@ -51,11 +51,13 @@ export class BehaviorControlComponent implements OnInit {
 		localStorage.setItem('previousUrl','/pages/behaviorControl/navigate')
 		if(item.Name=='qq搜索'){
 			localStorage.setItem('behaviorControlData',JSON.stringify(data))
-			this.router.navigate(['/pages/search-songs/qq/'+keyword]);
+			// this.router.navigate(['/pages/search-songs/qq/'+keyword]);
+			this.common.openInNewWindow('/pages/search-songs/qq/'+keyword)
 		}
 		if(item.Name=='酷狗v3'){
 			localStorage.setItem('behaviorControlData',JSON.stringify(data))
-			this.router.navigate(['/pages/search-songs/v3/'+keyword]);
+			// this.router.navigate(['/pages/search-songs/v3/'+keyword]);
+			this.common.openInNewWindow('/pages/search-songs/v3/'+keyword)
 		}
 	}
 	init(){

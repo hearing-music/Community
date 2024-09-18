@@ -86,6 +86,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			{
 				icon: '📢',
 				color: 'bg-azure-95',
+				title: '2024年9月18日13:37',
+			  	newAdd:[],//新增
+			  	optimize:['部分跳转链接变成打开新窗口跳转'],//优化
+			  	bugs:[],//修复bug
+			},
+			{
+				icon: '📢',
+				color: 'bg-azure-95',
 				title: '2024年9月18日11:03',
 			  	newAdd:['酷狗免费歌曲，新增 "最近新增" 类别'],//新增
 			  	optimize:['酷狗免费歌曲，最近新增 图标，更新 图标'],//优化

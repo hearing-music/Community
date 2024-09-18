@@ -68,7 +68,7 @@
 				<span nz-tooltip [nzTooltipTitle]="'点击复制'">
 					{{item.songname||item.songName}}
 				</span>
-				<img nz-tooltip [nzTooltipTitle]="'词曲版权搜索'" src="../../../assets/img/banquan.svg" class="icon" style='margin-left: 4px;' *ngIf='item.audioSourceID==4&&(item.songname||item.songName)' (click)='gotoCopyright(item.songname||item.songName)'/>
+				<img nz-tooltip [nzTooltipTitle]="'词曲版权搜索'" src="../../../assets/img/banquan.svg" class="icon" style='margin-left: 4px;' *ngIf='item.audioSourceID==4&&(item.songname||item.songName)' (click)='gotoCopyright(item.songname||item.songName,$event)'/>
 				<img src="../../../assets/img/yuanchang.svg" class="icon" style='margin-left: 7px;' *ngIf='item.isOriginal.data[0]==1'/>
 				<img nz-tooltip [nzTooltipTitle]="'七天内新增数据'" src="../../../assets/img/newKuGou.png" class="icon" style='margin-left: 7px;' *ngIf="item.created_at&&ToDataNum(item.updateTime)-ToDataNum(item.created_at)<7*86400000"/>
 				<img nz-tooltip [nzTooltipTitle]="'七天内指数更新'" src="../../../assets/img/updataKuGou.png" class="icon" style='margin-left: 7px;'  *ngIf="item.updateTime&&ToDataNum('')-ToDataNum(item.updateTime)<7*86400000&&!updataState"/>

@@ -135,7 +135,7 @@ export class FreeSongs_qqComponent implements OnInit {
 	}
 	// 跳转词曲版权
 	gotoCopyright(name : any) {
-		this.router.navigate(['/pages/search-songs/copyright/' + name]);
+		this.common.openInNewWindow('/pages/search-songs/copyright/' + name)
 	}
 	getQq_freeSongs() {
 		this.loading = true;

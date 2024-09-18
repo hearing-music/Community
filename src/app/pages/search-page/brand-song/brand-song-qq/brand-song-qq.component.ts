@@ -16,7 +16,8 @@ export class BrandSongQqComponent implements OnInit {
     this.audio = document.getElementById("audio");
   }
   toSearchQQ(item: any) {
-    this.router.navigate(["/pages/search-songs/qq/" + item.name]);
+    // this.router.navigate(["/pages/search-songs/qq/" + item.name]);
+	this.common.openInNewWindow("/pages/search-songs/qq/" + item.name)
   }
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   listenMusic(url: string, i: number) {

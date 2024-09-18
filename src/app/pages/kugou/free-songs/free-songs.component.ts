@@ -153,8 +153,9 @@ export class FreeSongs_kugouComponent implements OnInit {
     this.getKugou_freeSongs();
   }
   // 跳转词曲版权
-  gotoCopyright(name:any){
-	  this.router.navigate(['/pages/search-songs/copyright/'+name]);
+  gotoCopyright(name:any,event:any){
+	  event.stopPropagation()
+	  this.common.openInNewWindow('/pages/search-songs/copyright/'+name)
   }
   ngModelSort(item: any) {
     let arrObjFilter = this.sortList.filter((ele: any) => ele.source == item);

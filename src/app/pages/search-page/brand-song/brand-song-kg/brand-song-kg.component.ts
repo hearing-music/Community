@@ -16,7 +16,8 @@ export class BrandSongKgComponent implements OnInit {
     this.audio = document.getElementById("audio");
   }
   toSearchKg(item: any) {
-    this.router.navigate(["/pages/search-songs/v3/" + item.songName]);
+    // this.router.navigate(["/pages/search-songs/v3/" + item.songName]);
+	this.common.openInNewWindow("/pages/search-songs/v3/" + item.songName)
   }
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   listenMusic(url: string, i: number) {

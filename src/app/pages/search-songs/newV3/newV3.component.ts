@@ -31,7 +31,8 @@ export class NewV3Component implements OnInit {
 		this.common.copy(scid + '')
 	}
 	addScid(scid: string | number) {
-		this.router.navigate(['/pages/set-ranking/', scid]);
+		// this.router.navigate(['/pages/set-ranking/', scid]);
+		this.common.openInNewWindow('/pages/set-ranking/'+scid)
 	}
 	// 获取歌词
 	getLyric(item: any) {

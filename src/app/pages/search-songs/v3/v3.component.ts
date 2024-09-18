@@ -120,7 +120,8 @@ export class V3Component implements OnInit {
 		e.stopPropagation();
 	}
 	addScid(scid: string | number,e:any) {
-		this.router.navigate(['/pages/set-ranking/', scid]);
+		// this.router.navigate(['/pages/set-ranking/', scid]);
+		this.common.openInNewWindow('/pages/set-ranking/'+scid)
 		e.stopPropagation();
 	}
 	// 获取歌词

@@ -81,7 +81,8 @@ export class QqComponent implements OnInit {
 		window.open('tencent://message/?uin='+uin)
 	}
 	openArtist(mid:string){
-		this.router.navigate(['/pages/search-page/artist-visualization/'+mid]);
+		// this.router.navigate(['/pages/search-page/artist-visualization/'+mid]);
+		this.common.openInNewWindow('/pages/search-page/artist-visualization/'+mid)
 	}
 	// 更多版本
 	moreVersion(item:any){
