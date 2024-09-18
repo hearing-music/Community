@@ -70,7 +70,7 @@
 						<span nz-tooltip [nzTooltipTitle]="'点击复制'">
 							{{item.name}}
 						</span>
-            <img nz-tooltip [nzTooltipTitle]="'三天内新增数据'" src="../../../../assets/img/newQQ.png" style="width: 18px;margin-left: 5px;" alt="" *ngIf="item.created_at&&ToDataNum(item.updated_at)-ToDataNum(item.created_at)<3*86400000">
+            <img nz-tooltip [nzTooltipTitle]="'七天内新增数据'" src="../../../../assets/img/newQQ.png" style="width: 18px;margin-left: 5px;" alt="" *ngIf="item.created_at&&ToDataNum(item.updated_at)-ToDataNum(item.created_at)<7*86400000">
 						<img nz-tooltip [nzTooltipTitle]="'词曲版权搜索'" src="../../../assets/img/banquan.svg" class="icon" style='margin-left: 4px;' *ngIf='item.audioSourceID==4&&item.name' (click)='gotoCopyright(item.name)'/>
 					</div>
 					<div style="font-size: 12px;color: #b8b8b8;margin-top: 8px;">

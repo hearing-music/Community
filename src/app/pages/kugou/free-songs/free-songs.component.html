@@ -70,6 +70,8 @@
 				</span>
 				<img nz-tooltip [nzTooltipTitle]="'词曲版权搜索'" src="../../../assets/img/banquan.svg" class="icon" style='margin-left: 4px;' *ngIf='item.audioSourceID==4&&(item.songname||item.songName)' (click)='gotoCopyright(item.songname||item.songName)'/>
 				<img src="../../../assets/img/yuanchang.svg" class="icon" style='margin-left: 7px;' *ngIf='item.isOriginal.data[0]==1'/>
+				<img nz-tooltip [nzTooltipTitle]="'七天内新增数据'" src="../../../assets/img/newKuGou.png" class="icon" style='margin-left: 7px;' *ngIf="item.created_at&&ToDataNum(item.updateTime)-ToDataNum(item.created_at)<7*86400000"/>
+				<img nz-tooltip [nzTooltipTitle]="'七天内指数更新'" src="../../../assets/img/updataKuGou.png" class="icon" style='margin-left: 7px;'  *ngIf="item.updateTime&&ToDataNum('')-ToDataNum(item.updateTime)<7*86400000&&!updataState"/>
 			   <!-- <img *ngIf='item.pay_type==0' src="../../../assets/img/0_round.svg" class="icon" nz-tooltip [nzTooltipTitle]="'pay_type'"/>
 				<img *ngIf='item.pay_type==1' src="../../../assets/img/1_round.svg" class="icon" nz-tooltip [nzTooltipTitle]="'pay_type'" />
 				<img *ngIf='item.pay_type==2' src="../../../assets/img/2_round.svg" class="icon" nz-tooltip [nzTooltipTitle]="'pay_type'" />
@@ -85,13 +87,13 @@
 			</div>
 		  </td>
 		  <td nzAlign='center'>
-		  	{{item.grp?item.grp:0}}	  
+		  	{{item.grp?item.grp:0}}
 		  </td>
 		  <td nzAlign='center'>
-		  	{{item.company?item.company:''}}	  
+		  	{{item.company?item.company:''}}
 		  </td>
 		  <td nzAlign='center'>
-		  	{{item.publish_time?item.publish_time=='无'?'':common.getDate(item.publish_time):''}}	 
+		  	{{item.publish_time?item.publish_time=='无'?'':common.getDate(item.publish_time):''}}
 		  </td>
 		  <td nzAlign='center'>
 		  	{{item.album_name}}
@@ -113,11 +115,11 @@
 			  </span>
 		  </td>
 		  <td nzAlign='center' style="cursor: pointer;">
-		  		{{common.FreeSongsSource(item.audioSourceID)}}  
+		  		{{common.FreeSongsSource(item.audioSourceID)}}
 		  </td>
 		  <td nzAlign='center' style="cursor: pointer;" (click)='copy(item.audio_id)'>
 		  		<span nz-tooltip [nzTooltipTitle]="'点击复制'">
-		  			{{item.audio_id}}  
+		  			{{item.audio_id}}
 		  		</span>
 		  </td>
 		  <td nzAlign='center' style="color:blue;cursor: pointer;" (click)='openLink(item)'>

@@ -19,8 +19,9 @@ export class FreeSongs_kugouComponent implements OnInit {
   ngOnInit(): void {
     this.getKugou_freeSongs();
     this.getSortList();
+    this.GetQqUpdataTime();
   }
-	
+
   loading = false;
   pageCurrent = 1;
   sortId = 0;
@@ -85,7 +86,7 @@ export class FreeSongs_kugouComponent implements OnInit {
 		this.pageCurrent = 1;
 		this.getKugou_freeSongs()
 	}
-	
+
   nzPageIndexChange(e: any) {
     this.pageCurrent = e;
     this.getKugou_freeSongs();
@@ -180,9 +181,9 @@ export class FreeSongs_kugouComponent implements OnInit {
           console.log(res);
           if (res.success) {
             res.result.forEach((item: any, index: any) => {
-              if (this.nextUpdataTime == 0 || this.nextUpdataTime<item.updateTime) {
-                this.nextUpdataTime=item.updateTime + (86400000*14)
-              }
+              // if (this.nextUpdataTime == 0 || this.nextUpdataTime<item.updateTime) {
+              //   this.nextUpdataTime=item.updateTime + (86400000*14)
+              // }
               // res.res[index] = res.res[index].length == 0 ? [{}] : res.res[index];
               item.newExponent = "";
               if (typeof item.singerId != "object") {
@@ -280,5 +281,28 @@ export class FreeSongs_kugouComponent implements OnInit {
   }
   pauseMusic(item : any) {
   	this.pause();
+  }
+  updataState: boolean = false;
+  GetQqUpdataTime() {
+    this.api.GetQqUpdataTime().subscribe((res: any) => {
+      for (let i = 0; i < res.result.length; i++){
+        if (res.result[i].FlatRoofedBuilding == 'KUGOU') {
+          this.nextUpdataTime = res.result[i].UpdateDate + 14 * 86400000
+          this.updataState = res.result[i].State.data[0]==0 ? false : true
+        }
+      }
+      console.log(res.result)
+    })
+  }
+  ToDataNum(value: any) {
+    if (value) {
+      const date = new Date(value);
+      const timestamp = date.getTime(); // 得到时间戳，单位是毫秒
+      return timestamp
+    } else {
+      const date = new Date();
+      const timestamp = date.getTime(); // 得到时间戳，单位是毫秒
+      return timestamp
+    }
   }
 }
