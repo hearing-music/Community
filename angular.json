@@ -35,11 +35,11 @@
 			  }
 			],
             "styles": [
-				"src/app/@theme/styles/styles.scss",
 				"node_modules/ngx-toastr/toastr.css",
 				"node_modules/driver.js/dist/driver.css",
 				"node_modules/loaders.css/loaders.css",
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+			  "src/app/@theme/styles/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/typeface-exo/index.css",
               "node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
@@ -139,10 +139,10 @@
 			  "node_modules/echarts/map/js/china.js",
             ],
             "styles": [
-				"src/app/@theme/styles/styles.scss",
 				"node_modules/ngx-toastr/toastr.css",
 				"node_modules/driver.js/dist/driver.css",
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+			  "src/app/@theme/styles/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/typeface-exo/index.css",
               "node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
