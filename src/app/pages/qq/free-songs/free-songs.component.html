@@ -95,12 +95,12 @@
 					</div>
 				</td>
 				<td nzAlign='center' style="color:rgba(0, 0, 0, 0.6);font-size: 12px;">
-					<div style="text-decoration: underline;cursor: pointer;margin-bottom: 8px;"
-						(click)='openCompay(item.company_id)'>
-						{{item.company?'外显：'+item.company:''}}
-					</div>
 					<div style="text-decoration: underline;cursor: pointer;" (click)='openCompay(item.publisher_id)'>
-						{{item.publisher?'原始：'+item.publisher:''}}
+						{{item.publisher?'外显：'+item.publisher:''}}
+					</div>
+					<div style="text-decoration: underline;cursor: pointer;margin-top: 8px;"
+						(click)='openCompay(item.company_id)'>
+						{{item.company?'原始：'+item.company:''}}
 					</div>
 				</td>
 				<td nzAlign='center' >
