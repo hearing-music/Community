@@ -1129,11 +1129,11 @@ export class SearchSongsComponent implements OnInit {
 						citem.history = history
 					})
 				})
-			}
-			if (this.qqPage == 1) {
-				this.qqList = res.result;
-			} else {
-				this.qqList = [...this.qqList, ...res.result];
+				if (this.qqPage == 1) {
+					this.qqList = res.result;
+				} else {
+					this.qqList = [...this.qqList, ...res.result];
+				}
 			}
 		}, (err: any) => {
 			this.qqPage = this.qqPage==1?1:this.qqPage - 1;
