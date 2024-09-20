@@ -86,6 +86,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			{
 				icon: '📢',
 				color: 'bg-azure-95',
+				title: '2024年9月20日10:59',
+			  	newAdd:[],//新增
+			  	optimize:['浮浮雷达下架'],//优化
+			  	bugs:[],//修复bug
+			},
+			{
+				icon: '📢',
+				color: 'bg-azure-95',
 				title: '2024年9月18日13:37',
 			  	newAdd:[],//新增
 			  	optimize:['部分跳转链接变成打开新窗口跳转'],//优化
