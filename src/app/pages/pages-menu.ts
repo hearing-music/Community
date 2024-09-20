@@ -198,14 +198,14 @@ export let MENU_ITEMS : NbMenuItem[] = [
 			},
 		],
 	},
-	{
-		title: '浮浮雷达',
-		icon: {
-			icon: 'ffld_icon',
-			pack: 'my-icons',
-		},
-		link: '/pages/fufu-billboard',
-	},
+	// {
+	// 	title: '浮浮雷达',
+	// 	icon: {
+	// 		icon: 'ffld_icon',
+	// 		pack: 'my-icons',
+	// 	},
+	// 	link: '/pages/fufu-billboard',
+	// },
 	{
 		title: '雷达音乐',
 		icon: 'radio',
