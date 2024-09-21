@@ -236,32 +236,33 @@ export class FreeSongs_kugouComponent implements OnInit {
   }
   audioSrc : any = "";
   isPlay : any = false;
-  play() {
-  	let audio : any = document.getElementById("audio");
-  	audio.play();
-  	this.list.forEach((item : any) => {
-  		if (item.musicUrl == this.audioSrc) {
-  			item.isplay = true;
-  		}
-  	});
-  }
-  pause() {
-  	let audio : any = document.getElementById("audio");
-  	audio.pause();
-  	this.list.forEach((item : any) => {
-  		item.isplay = false;
-  	});
-  }
-  playMusic(item : any) {
+ play() {
+ 	this.pause()
+ 	this.list.forEach((item : any) => {
+ 		if (item.musicUrl == this.audioSrc) {
+ 			item.isPlay = true;
+ 		}
+ 	});
+ }
+ pause() {
+ 	this.list.forEach((item : any) => {
+ 		item.isPlay = false;
+ 	});
+ }
+  playMusic(item : any,i:number) {
   	if (item.musicUrl) {
-  		this.playMusicFun(item)
+  		this.playMusicFun(item,i)
   	} else {
+		if(!item.EMixSongID){
+			this.toast.info('暂无EMixSongID')
+			return
+		}
   		this.loading = true;
   		this.api.getKugouSongUrl({ EMixSongID: item.EMixSongID }).subscribe((res : any) => {
   			this.loading = false;
   			if (res.success) {
   				item.musicUrl = res.result[0];
-  				this.playMusicFun(item)
+  				this.playMusicFun(item,i)
   			}
   		}, (err : any) => {
   			console.log(err);
@@ -269,16 +270,28 @@ export class FreeSongs_kugouComponent implements OnInit {
   		})
   	}
   }
-  playMusicFun(item : any) {
+  playMusicFun(item : any,i:number) {
+	  if(item.musicUrl==''){
+		  this.toast.info('未获取到音源')
+		  return
+	  }
   	this.isPlay = true;
   	this.audioSrc = item.musicUrl;
+  	let audio : any = document.getElementById('audio')
   	setTimeout(() => {
-  		this.list.forEach((item : any) => {
-  			item.isplay = false;
-  		});
-  		item.isplay = true;
-  		this.play();
-  	}, 50);
+  		this.list.forEach((item : any, index : number) => {
+  			if (index == i) {
+  				item.isPlay = !item.isPlay
+  				if (item.isPlay) {
+  					audio.play()
+  				} else {
+  					audio.pause()
+  				}
+  			} else {
+  				item.isPlay = false;
+  			}
+  		})
+  	}, 50)
   }
   pauseMusic(item : any) {
   	this.pause();

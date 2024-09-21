@@ -30,7 +30,7 @@
 	<nz-table #basicTable [nzData]="list" nzTitle='' [nzFrontPagination]='false'>
 	  <thead>
 	    <tr>
-		  <!-- <th nzAlign='center'></th> -->
+		  <th nzAlign='center'></th>
 		  <th nzAlign='center'>歌曲名称</th>
 		  <th nzAlign='center'>更多音源</th>
 	      <th nzAlign='center'>发行公司</th>
@@ -59,10 +59,13 @@
 	  </thead>
 	  <tbody>
 	    <tr *ngFor="let item of basicTable.data; let i = index">
-			<!-- <td nzAlign='center'>
-				<span (click)='playMusic(item)' *ngIf='!item.isplay' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
-				<span (click)='pauseMusic(item)' *ngIf='item.isplay' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
-			</td> -->
+			<td nzAlign='center'>
+				<div (click)='playMusic(item,i)' style="position: relative;display: flex;align-items: center;box-shadow: 1px 4px 8px #ccc;cursor: pointer;">
+					<img [nzDisablePreview]='true' nz-image width="74px" height="74px" style="border-radius: 4px;" [nzSrc]="item.url" [nzFallback]="common.fallback" />
+					<img *ngIf='!item.isPlay' src="assets/img/play-blue.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);" />
+					<img *ngIf='item.isPlay' src="assets/img/pause-blue.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);">
+				</div>
+			</td>
 		  <td nzAlign='center'>
 			<div  style="cursor: pointer;" (click)='copy(item.songname||item.songName)'>
 				<span nz-tooltip [nzTooltipTitle]="'点击复制'">

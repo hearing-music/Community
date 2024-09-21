@@ -173,31 +173,31 @@ export class FreeSongs_qqComponent implements OnInit {
 	audioSrc : any = "";
 	isPlay : any = false;
 	play() {
-		let audio : any = document.getElementById("audio");
-		audio.play();
+		this.pause()
 		this.list.forEach((item : any) => {
 			if (item.musicUrl == this.audioSrc) {
-        item.isplay = true;
+				item.isPlay = true;
 			}
 		});
 	}
 	pause() {
-		let audio : any = document.getElementById("audio");
-		audio.pause();
 		this.list.forEach((item : any) => {
-			item.isplay = false;
+			item.isPlay = false;
 		});
 	}
-	playMusic(item : any) {
+	
+	
+	
+	playMusic(item : any,i:number) {
 		if (item.musicUrl) {
-			this.playMusicFun(item)
+			this.playMusicFun(item,i)
 		} else {
 			this.loading = true;
 			this.api.getSongMusicUrl({ mid: item.mid }).subscribe((res : any) => {
 				this.loading = false;
 				if (res.success) {
 					item.musicUrl = res.result
-					this.playMusicFun(item)
+					this.playMusicFun(item,i)
 				}
 			}, (err : any) => {
 				console.log(err);
@@ -205,19 +205,24 @@ export class FreeSongs_qqComponent implements OnInit {
 			})
 		}
 	}
-	playMusicFun(item : any) {
-		this.isPlay = true;
+	playMusicFun(item : any,i:number) {
+		this.isPlay=true;
 		this.audioSrc = item.musicUrl;
+		let audio: any = document.getElementById('audio')
 		setTimeout(() => {
-			this.list.forEach((item : any) => {
-				item.isplay = false;
-			});
-			item.isplay = true;
-			this.play();
-		}, 50);
-	}
-	pauseMusic(item : any) {
-		this.pause();
+			this.list.forEach((item: any, index: number) => {
+				if (index == i) {
+					item.isPlay = !item.isPlay
+					if (item.isPlay) {
+						audio.play()
+					} else {
+						audio.pause()
+					}
+				} else {
+					item.isPlay = false;
+				}
+			})
+		}, 50)
 	}
 	ngModelSort(item : any) {
 		let arrObjFilter = this.sortList.filter((ele : any) => ele.source == item);

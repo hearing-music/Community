@@ -59,11 +59,13 @@
 		<tbody>
 			<tr *ngFor="let item of basicTable.data; let i = index">
 				<td nzAlign='center'>
-          <div style="display: flex;align-items: center;">
-            <span (click)='playMusic(item)' *ngIf='!item.isplay' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
-            <span (click)='pauseMusic(item)' *ngIf='item.isplay' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
-            <img nz-tooltip [nzTooltipTitle]="'最近更新'" src="../../../../assets/img/newUpdateQQ.png" style="width: 18px;margin-left: 5px;" alt="" *ngIf="item.updated_at&&ToDataNum('')-ToDataNum(item.updated_at)<7*86400000&&!updataState">
-          </div>
+		  <div (click)='playMusic(item,i)' style="position: relative;display: flex;align-items: center;box-shadow: 1px 4px 8px #ccc;cursor: pointer;">
+		  	<img [nzDisablePreview]='true' nz-image width="74px" height="74px" style="border-radius: 4px;" [nzSrc]="item.url" [nzFallback]="common.fallback" />
+		  	<img *ngIf='!item.isPlay' src="assets/img/play-green.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);" />
+		  	<img *ngIf='item.isPlay' src="assets/img/pause-green.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);">
+		  </div>
+		  
+		  
 				</td>
 				<td nzAlign='center'>
 					<div style="cursor: pointer;" (click)='copy(item.name)'>
@@ -71,6 +73,7 @@
 							{{item.name}}
 						</span>
             <img nz-tooltip [nzTooltipTitle]="'七天内新增数据'" src="../../../../assets/img/newQQ.png" style="width: 18px;margin-left: 5px;" alt="" *ngIf="item.created_at&&ToDataNum(item.updated_at)-ToDataNum(item.created_at)<7*86400000">
+			<img nz-tooltip [nzTooltipTitle]="'最近更新'" src="../../../../assets/img/newUpdateQQ.png" style="width: 18px;margin-left: 5px;" alt="" *ngIf="item.updated_at&&ToDataNum('')-ToDataNum(item.updated_at)<7*86400000&&!updataState">
 						<img nz-tooltip [nzTooltipTitle]="'词曲版权搜索'" src="../../../assets/img/banquan.svg" class="icon" style='margin-left: 4px;' *ngIf='item.audioSourceID==4&&item.name' (click)='gotoCopyright(item.name)'/>
 					</div>
 					<div style="font-size: 12px;color: #b8b8b8;margin-top: 8px;">
