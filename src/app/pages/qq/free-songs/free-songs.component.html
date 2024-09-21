@@ -59,8 +59,8 @@
 		<tbody>
 			<tr *ngFor="let item of basicTable.data; let i = index">
 				<td nzAlign='center'>
-		  <div (click)='playMusic(item,i)' style="position: relative;display: flex;align-items: center;box-shadow: 1px 4px 8px #ccc;cursor: pointer;">
-		  	<img [nzDisablePreview]='true' nz-image width="74px" height="74px" style="border-radius: 4px;" [nzSrc]="item.url" [nzFallback]="common.fallback" />
+		  <div (click)='playMusic(item,i)' style="position: relative;width:74px;box-shadow: 1px 4px 8px #ccc;cursor: pointer;">
+		  	<img [nzDisablePreview]='true' nz-image width="74px" height="74px" style="border-radius: 4px;display: block;" [nzSrc]="item.url" [nzFallback]="common.fallback" />
 		  	<img *ngIf='!item.isPlay' src="assets/img/play-green.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);" />
 		  	<img *ngIf='item.isPlay' src="assets/img/pause-green.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);">
 		  </div>
