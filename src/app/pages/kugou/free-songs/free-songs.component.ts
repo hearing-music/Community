@@ -187,34 +187,7 @@ export class FreeSongs_kugouComponent implements OnInit {
               // }
               // res.res[index] = res.res[index].length == 0 ? [{}] : res.res[index];
               item.newExponent = "";
-              if (typeof item.singerId != "object") {
-                try {
-                  item.singerId = item.singerId.replaceAll(":", "");
-                  item.singerId = item.singerId.split("id");
-                  let singerId = [];
-                  for (let i = 1; i < item.singerId.length; i++) {
-                    let ss = item.singerId[i].split("name");
-                    let id = ss[0].replaceAll(",", "");
-                    let name = ss[1].substr(0, ss[1].indexOf(","));
-                    singerId.push({ name, id });
-                  }
-                  item.singerId = singerId;
-                } catch (e) {
-                  //TODO handle the exception
-                  item.singerId = "";
-                }
-                // item.singerId = item.singerId.replaceAll(':','')
-                // item.singerId = item.singerId.split('id')
-                // item.singerId = item.singerId[1].split('name')
-
-                // item.singerId = item.singerId.replaceAll('}','"}')
-                // item.singerId = item.singerId.replaceAll(':','":"')
-                // item.singerId = item.singerId.replaceAll(',','","')
-                // item.singerId = item.singerId.replaceAll('{"size"}','{size}')
-                // item.singerId = item.singerId.replaceAll('http":"//','http://')
-                // item.singerId = JSON.parse(item.singerId)
-                // item.singerId = eval('('+item.singerId+')')
-              }
+			  item.singerArr = this.ArtistNames(item.singerId);
             });
             this.list = res.result;
             // this.listRes = res.res;
@@ -227,6 +200,32 @@ export class FreeSongs_kugouComponent implements OnInit {
         }
       );
   }
+	ArtistNames(artists: any) {
+	  let artistNames: any = [];
+	  if (typeof artists != "object") {
+	    try {
+	      artists = artists.replaceAll(":", "");
+	      artists = artists.split("id");
+	      for (let i = 1; i < artists.length; i++) {
+	        let ss = artists[i].split("name");
+	        let id = ss[0].replaceAll(",", "");
+	        let name = ss[1].substr(0, ss[1].indexOf(","));
+	        artistNames.push({ name, id });
+	      }
+	    } catch (e) {
+	  					
+	    }
+	  }else{
+		 artists.forEach((item: any) => {
+		   if (item.name) {
+		     artistNames.push({name:item.name,id:item.id});
+		   } else if (item.base && item.base.author_name) {
+		     artistNames.push({name:item.base.author_name,id:item.base.author_id});
+		   }
+		 }); 
+	  }
+		return artistNames;
+	};
   getSortList() {
     this.api.GetSortList().subscribe((res: any) => {
       res.result.forEach((item: any) => {

@@ -102,8 +102,8 @@
 		  	{{item.album_name}}
 		  </td>
 		  <td nzAlign='center'>
-			<div *ngFor="let s of item.singerId; let si = index" (click)='openSingerHome(s.id)' style="cursor: pointer;">
-				{{s.name}}{{si!=item.singerId.length-1?',':''}}
+			<div *ngFor="let s of item.singerArr; let si = index" (click)='openSingerHome(s.id)' style="cursor: pointer;">
+				{{s.name}}{{si!=item.singerArr.length-1?',':''}}
 			</div>
 		  </td>
 		  <td nzAlign='center' style="cursor: pointer;" (click)='reloadExponent(item)'>
