@@ -36,6 +36,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 // page
 import { DouDiZhuComponent } from "./game/dou-di-zhu/dou-di-zhu.component";
+import { FreeQQKGComponent } from "./freeQQKG/freeQQKG.component";
 import { CardGameComponent } from "./game/card-game/card-game.component";
 import { SongRoomComponent } from "./game/song-room/song-room.component";
 import { MaJiangComponent } from "./game/ma-jiang/ma-jiang.component";
@@ -248,6 +249,7 @@ registerLocaleData(zh);
 		CodonceComponent,
 		UiStoreComponent,
 		VideoPlayerComponent,
+		FreeQQKGComponent,
 		SongsControlComponent,
 		HotSearchListComponent,
 		HotSearchListAllComponent,

@@ -683,6 +683,10 @@ export class ApiService {
 		let url = this.baseUrl + '/qq_kugou/getqq_kugouKeywordInfo?mid=' + mid + '&scid=' + scid
 		return this.http.get(url)
 	}
+	FreeQQKG(){
+		let url = this.baseUrl + '/qq_kugou/FreeQQKG'
+		return this.http.post(url, {})
+	}
 	//酷狗刷搜索
 	kuGouAutoSearch(params : any) {
 		let { songName, singerName, playLink, playTime } = params;

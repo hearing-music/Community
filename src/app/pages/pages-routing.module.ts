@@ -16,6 +16,7 @@ import { HotSearchListComponent } from './kugou/hotSearchList/hotSearchList.comp
 import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinListComponent } from './douyin/douyin-list/douyin-list.component';
 import { YunjiaobenComponent } from './yunjiaoben/yunjiaoben.component';
+import { FreeQQKGComponent } from "./freeQQKG/freeQQKG.component";
 // import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
 import { DouyinVideoComponent } from './douyin/douyin-video/douyin-video.component';
 import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
@@ -503,6 +504,11 @@ const routes : Routes = [{
 		{
 			path: "codonce",
 			component: CodonceComponent,
+			canActivate: [PermissionGuard],
+		},
+		{
+			path: "freeQQKG",
+			component: FreeQQKGComponent,
 			canActivate: [PermissionGuard],
 		},
 		{

@@ -1,9 +1,35 @@
 .list {
-    // overflow: scroll;
-    padding: 12px;
-    padding-top: 0;
-    .list-item-box{
-        display: flex;
-        justify-content: center;
-    }
+  // overflow: scroll;
+  padding: 12px;
+  padding-top: 0;
+  .list-item-box {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.leftIndex {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e2dae7;
+}
+
+.HKBox {
+  background-color: #f8f8f8;
+  border-radius: 20px;
+  border: 1px solid #f8f8f8;
+  transition: all 0.25s ease-in;
+}
+.Box :not(:first-child) {
+  margin-top: 10px;
+}
+.tittle {
+  color: #6f4785 !important;
+  border-bottom: 1px solid #6f4785;
+  font-weight: bold;
 }

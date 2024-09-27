@@ -460,12 +460,16 @@ export class CommonService {
 		return (indexRate.toFixed(4) * 100).toFixed(2) + '%'
 	}
 	deleteEM(str: string) {
-		if (str === '') return ''
-		let reg1 = new RegExp('<em>', "g");
-		let reg2 = new RegExp('</em>', "g");
-		str = str.replace(reg1, '')
-		str = str.replace(reg2, '')
-		return str;
+		try{
+			if (str === '') return ''
+			let reg1 = new RegExp('<em>', "g");
+			let reg2 = new RegExp('</em>', "g");
+			str = str.replace(reg1, '')
+			str = str.replace(reg2, '')
+			return str;
+		}catch(e){
+			return str
+		}
 	}
 	toWan(num:any){
 		num = Number(num);

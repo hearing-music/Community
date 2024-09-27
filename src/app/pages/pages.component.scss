@@ -11,6 +11,12 @@
 		.ant-empty-description{
 			color: #000!important;
 		}
+		.ant-collapse-ghost>.ant-collapse-item>.ant-collapse-content>.ant-collapse-content-box{
+			padding-top:0!important;
+		}
+		.ant-collapse>.ant-collapse-item>.ant-collapse-header{
+			padding:4px 16px!important;
+		}
     @keyframes fade {
       from {
         opacity: 0;

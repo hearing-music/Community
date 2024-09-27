@@ -58,6 +58,14 @@ export let MENU_ITEMS : NbMenuItem[] = [
 		],
 	},
 	{
+		title: 'QQ酷狗免费歌曲',
+		icon: {
+			icon: 'free_icon',
+			pack: 'my-icons',
+		},
+		link: '/pages/freeQQKG',
+	},
+	{
 		title: '抖音',
 		icon: {
 			icon: 'dy_icon',
