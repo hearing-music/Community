@@ -389,7 +389,7 @@
 						<audio id="audio" controls [src]="audioSrc" (play)="play()" (pause)="pause()"></audio>
 					</div>
 					<button *ngIf="result.isVideo" nz-button nzType="primary" style="margin-left: 20px"
-						(click)="playVideo(audioSrc, result.previewTitle)" nzGhost>
+						(click)="playVideo(videoSrc, result.previewTitle)" nzGhost>
 						播放视频
 					</button>
 					<button [disabled]="true" *ngIf="!result.isVideo" nz-button nzType="primary"

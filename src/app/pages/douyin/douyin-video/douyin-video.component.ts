@@ -216,6 +216,7 @@ export class DouyinVideoComponent implements OnInit {
 						// res.result.videoUrl = downloadUrl+res.result.videoUrl
 						// res.result.videoUrl =res.result.videoUrl
 						this.audioSrc = res.result.originalSound;
+						this.videoSrc = res.result.videoUrl;
 						this.isPlay = true;
 					}
 					// 获取视频详情 获取热点id
