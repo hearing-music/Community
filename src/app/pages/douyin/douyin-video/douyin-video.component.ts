@@ -4,6 +4,8 @@ import { CommonService } from "../../../services/common.service";
 import { ToastrService } from 'ngx-toastr';
 import * as XLSX from "xlsx";
 import * as echarts from "echarts";
+import { environment } from '../../../../environments/environment';
+let downloadUrl = environment.downloadUrl;
 @Component({
 	selector: "ngx-douyin-video",
 	templateUrl: "./douyin-video.component.html",
@@ -206,9 +208,13 @@ export class DouyinVideoComponent implements OnInit {
 					if (res.success && res.result.BloggerInfo) {
 						res.result.BloggerInfo.homeUrl =
 							"https://www.douyin.com/user/" + res.result.BloggerInfo.secUid;
-						res.result.videoUrl = `https://www.douyin.com/user/${res.result.BloggerInfo.secUid}?modal_id=${res.result.awemeId}`;
+						// res.result.videoUrl = `https://www.douyin.com/user/${res.result.BloggerInfo.secUid}?modal_id=${res.result.awemeId}`;
 						this.BloggerInfo = res.result.BloggerInfo;
 						this.awemeId = res.result.awemeId;
+						// res.result.originalSound = downloadUrl+res.result.originalSound
+						// res.result.originalSound = res.result.originalSound
+						// res.result.videoUrl = downloadUrl+res.result.videoUrl
+						res.result.videoUrl =res.result.videoUrl
 						this.audioSrc = res.result.originalSound;
 						this.isPlay = true;
 					}
@@ -572,7 +578,7 @@ export class DouyinVideoComponent implements OnInit {
 						item.BloggerInfo = item.BloggerInfo || {};
 						item.BloggerInfo.homeUrl =
 							"https://www.douyin.com/user/" + item.BloggerInfo.secUid;
-						item.videoUrl = `https://www.douyin.com/user/${item.BloggerInfo.secUid}?modal_id=${item.awemeId}`;
+						// item.videoUrl = `https://www.douyin.com/user/${item.BloggerInfo.secUid}?modal_id=${item.awemeId}`;
 						this.isPlay = true;
 					});
 					this.resultList = res.result;
