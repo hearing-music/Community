@@ -214,7 +214,7 @@ export class DouyinVideoComponent implements OnInit {
 						// res.result.originalSound = downloadUrl+res.result.originalSound
 						// res.result.originalSound = res.result.originalSound
 						// res.result.videoUrl = downloadUrl+res.result.videoUrl
-						res.result.videoUrl =res.result.videoUrl
+						// res.result.videoUrl =res.result.videoUrl
 						this.audioSrc = res.result.originalSound;
 						this.isPlay = true;
 					}

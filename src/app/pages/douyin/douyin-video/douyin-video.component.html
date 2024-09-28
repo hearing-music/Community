@@ -208,7 +208,7 @@
 							(pause)="pause2(i)"></audio>
 					</div>
 					<button *ngIf="item.isVideo" nz-button nzType="primary" style="margin-left: 20px"
-						(click)="playVideo(item.originalSound, item.previewTitle)" nzGhost>
+						(click)="playVideo(item.videoUrl, item.previewTitle)" nzGhost>
 						播放视频
 					</button>
 					<button [disabled]="true" *ngIf="!item.isVideo" nz-button nzType="primary" style="margin-left: 20px"
