@@ -241,8 +241,8 @@ export class FreeQQKGComponent implements OnInit {
   
   
   // qq 打开链接
-  openSongDetail(item : any) {
-  	let url = "https://y.qq.com/n/ryqq/songDetail/" + item.mid + "/";
+  openSongDetail(mid : any) {
+  	let url = "https://y.qq.com/n/ryqq/songDetail/" + mid + "/";
   	window.open(url);
   }
   openCompay(id : any) {
