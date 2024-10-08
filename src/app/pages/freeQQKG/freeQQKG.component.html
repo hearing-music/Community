@@ -143,7 +143,8 @@
 				        >
 						  <!-- 折叠内容 -->
 						  <!-- 原版 （酷狗） -->
-						  <div style="display: flex;justify-content:center;">
+						  <div *ngIf='!item.un.ID' style="display: flex;justify-content:center;height:85px;align-items: center;">[ 暂无 ]</div>
+						  <div style="display: flex;justify-content:center;" *ngIf='item.un.ID'>
 						  	<div class="un-item">
 						  		<div style="display: flex;align-items: center;width: 70%;">
 						  			<div class="left-icon" (click)='unPlayAudio(item.un,i)' style="position: relative;">

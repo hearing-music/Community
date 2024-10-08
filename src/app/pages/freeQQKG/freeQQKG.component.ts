@@ -84,16 +84,10 @@ export class FreeQQKGComponent implements OnInit {
 		this.api.FreeQQKG().subscribe((res : any) => {
 			this.loading = false;
 			if (res.success) {
-				let list = []
-				for(let i = 0;i<res.result.Un.length;i++){
-					list.push({
-						qq:res.result.Qq[i],
-						kg:res.result.Kg[i],
-						un:res.result.Un[i],
-					})
-					list[i].active=false;
+				for(let i = 0;i<res.result.length;i++){
+					res.result[i].active=false;
 				}
-				this.list = list;
+				this.list = res.result;
 				console.log(this.list);
 				// this.pageTotal = res.pageTotal;
 			}
