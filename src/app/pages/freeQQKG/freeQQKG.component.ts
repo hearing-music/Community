@@ -85,7 +85,9 @@ export class FreeQQKGComponent implements OnInit {
 			this.loading = false;
 			if (res.success) {
 				for(let i = 0;i<res.result.length;i++){
-					res.result[i].active=false;
+					res.result[i].qq.active=false;
+					res.result[i].kg.active=false;
+					res.result[i].un.active=false;
 				}
 				this.list = res.result;
 				this.pageTotal = res.pageTotal;
@@ -113,19 +115,19 @@ export class FreeQQKGComponent implements OnInit {
 	}
 	
 	unPlayAudio(item : any,i:number){
-		if (item.audio_url) {
-			this.qqPlayMusicFun(item,i)
+		if (item.un.audio_url) {
+			this.qqPlayMusicFun(item.un,i)
 		} else {
-			if(!item.EMixSongID || item.EMixSongID=='0'){
+			if(!item.un.EMixSongID || item.un.EMixSongID=='0'){
 				this.toast.info('暂无EMixSongID')
 				return
 			}
 			this.loading = true;
-			this.api.getKugouSongUrl({ EMixSongID: item.EMixSongID }).subscribe((res : any) => {
+			this.api.getKugouSongUrl({ EMixSongID: item.un.EMixSongID }).subscribe((res : any) => {
 				this.loading = false;
 				if (res.success) {
-					item.audio_url = res.result[0];
-					this.unPlayMusicFun(item,i)
+					item.un.audio_url = res.result[0];
+					this.unPlayMusicFun(item.un,i)
 				}
 			}, (err : any) => {
 				console.log(err);
@@ -135,19 +137,19 @@ export class FreeQQKGComponent implements OnInit {
 		
 	}
 	kgPlayAudio(item : any,i:number){
-		if (item.audio_url) {
-			this.qqPlayMusicFun(item,i)
+		if (item.kg.audio_url) {
+			this.qqPlayMusicFun(item.kg,i)
 		} else {
-			if(!item.EMixSongID || item.EMixSongID=='0'){
+			if(!item.kg.EMixSongID || item.kg.EMixSongID=='0'){
 				this.toast.info('暂无EMixSongID')
 				return
 			}
 			this.loading = true;
-			this.api.getKugouSongUrl({ EMixSongID: item.EMixSongID }).subscribe((res : any) => {
+			this.api.getKugouSongUrl({ EMixSongID: item.kg.EMixSongID }).subscribe((res : any) => {
 				this.loading = false;
 				if (res.success) {
-					item.audio_url = res.result[0];
-					this.kgPlayMusicFun(item,i)
+					item.kg.audio_url = res.result[0];
+					this.kgPlayMusicFun(item.kg,i)
 				}
 			}, (err : any) => {
 				console.log(err);
@@ -158,15 +160,15 @@ export class FreeQQKGComponent implements OnInit {
 	}
 	// qq播放歌曲
 	qqPlayAudio(item : any,i:number) {
-		if (item.audio_url) {
-			this.qqPlayMusicFun(item,i)
+		if (item.qq.audio_url) {
+			this.qqPlayMusicFun(item.qq,i)
 		} else {
 			this.loading = true;
-			this.api.getSongMusicUrl({ mid: item.mid }).subscribe((res : any) => {
+			this.api.getSongMusicUrl({ mid: item.qq.mid }).subscribe((res : any) => {
 				this.loading = false;
 				if (res.success) {
-					item.audio_url = res.result
-					this.qqPlayMusicFun(item,i)
+					item.qq.audio_url = res.result
+					this.qqPlayMusicFun(item.kg,i)
 				}
 			}, (err : any) => {
 				console.log(err);
@@ -182,6 +184,8 @@ export class FreeQQKGComponent implements OnInit {
 			this.list.forEach((listitem: any, index: number) => {
 				if (index == i) {
 					listitem.qq.isPlay = !listitem.qq.isPlay
+					listitem.un.isPlay = false
+					listitem.kg.isPlay = false
 					if (listitem.qq.isPlay) {
 						audio.play()
 					} else {
@@ -195,12 +199,14 @@ export class FreeQQKGComponent implements OnInit {
 	}
 	kgPlayMusicFun(item : any,i:number) {
 		this.isPlay=true;
-		this.audioSrc = item.audio_url;
+		this.audioSrc = item.kg.audio_url;
 		let audio: any = document.getElementById('audio')
 		setTimeout(() => {
 			this.list.forEach((listitem: any, index: number) => {
 				if (index == i) {
 					listitem.kg.isPlay = !listitem.kg.isPlay
+					listitem.qq.isPlay = false
+					listitem.un.isPlay = false
 					if (listitem.kg.isPlay) {
 						audio.play()
 					} else {
@@ -220,6 +226,8 @@ export class FreeQQKGComponent implements OnInit {
 			this.list.forEach((listitem: any, index: number) => {
 				if (index == i) {
 					listitem.un.isPlay = !listitem.un.isPlay
+					listitem.qq.isPlay = false
+					listitem.kg.isPlay = false
 					if (listitem.un.isPlay) {
 						audio.play()
 					} else {
