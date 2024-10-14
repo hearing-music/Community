@@ -116,7 +116,7 @@ export class FreeQQKGComponent implements OnInit {
 	
 	unPlayAudio(item : any,i:number){
 		if (item.un.audio_url) {
-			this.qqPlayMusicFun(item.un,i)
+			this.unPlayMusicFun(item.un,i)
 		} else {
 			if(!item.un.EMixSongID || item.un.EMixSongID=='0'){
 				this.toast.info('暂无EMixSongID')
@@ -138,7 +138,7 @@ export class FreeQQKGComponent implements OnInit {
 	}
 	kgPlayAudio(item : any,i:number){
 		if (item.kg.audio_url) {
-			this.qqPlayMusicFun(item.kg,i)
+			this.kgPlayMusicFun(item.kg,i)
 		} else {
 			if(!item.kg.EMixSongID || item.kg.EMixSongID=='0'){
 				this.toast.info('暂无EMixSongID')
@@ -168,7 +168,7 @@ export class FreeQQKGComponent implements OnInit {
 				this.loading = false;
 				if (res.success) {
 					item.qq.audio_url = res.result
-					this.qqPlayMusicFun(item.kg,i)
+					this.qqPlayMusicFun(item.qq,i)
 				}
 			}, (err : any) => {
 				console.log(err);
@@ -182,10 +182,10 @@ export class FreeQQKGComponent implements OnInit {
 		let audio: any = document.getElementById('audio')
 		setTimeout(() => {
 			this.list.forEach((listitem: any, index: number) => {
+				listitem.un.isPlay = false
+				listitem.kg.isPlay = false
 				if (index == i) {
 					listitem.qq.isPlay = !listitem.qq.isPlay
-					listitem.un.isPlay = false
-					listitem.kg.isPlay = false
 					if (listitem.qq.isPlay) {
 						audio.play()
 					} else {
@@ -199,14 +199,14 @@ export class FreeQQKGComponent implements OnInit {
 	}
 	kgPlayMusicFun(item : any,i:number) {
 		this.isPlay=true;
-		this.audioSrc = item.kg.audio_url;
+		this.audioSrc = item.audio_url;
 		let audio: any = document.getElementById('audio')
 		setTimeout(() => {
 			this.list.forEach((listitem: any, index: number) => {
+				listitem.qq.isPlay = false
+				listitem.un.isPlay = false
 				if (index == i) {
 					listitem.kg.isPlay = !listitem.kg.isPlay
-					listitem.qq.isPlay = false
-					listitem.un.isPlay = false
 					if (listitem.kg.isPlay) {
 						audio.play()
 					} else {
@@ -224,10 +224,10 @@ export class FreeQQKGComponent implements OnInit {
 		let audio: any = document.getElementById('audio')
 		setTimeout(() => {
 			this.list.forEach((listitem: any, index: number) => {
+				listitem.qq.isPlay = false
+				listitem.kg.isPlay = false
 				if (index == i) {
 					listitem.un.isPlay = !listitem.un.isPlay
-					listitem.qq.isPlay = false
-					listitem.kg.isPlay = false
 					if (listitem.un.isPlay) {
 						audio.play()
 					} else {

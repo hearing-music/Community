@@ -79,8 +79,8 @@
 					<div style="display: flex;align-items: center;width: 70%;">
 						<div class="left-icon" (click)='kgPlayAudio(item,i)' style="position: relative;">
 							<img [nzDisablePreview]='true' nz-image width="74px" height="74px" style="border-radius: 4px;" [nzSrc]="item.kg.url" [nzFallback]="common.fallback" />
-							<img *ngIf='!item.isPlay' src="assets/img/play-blue.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);" />
-							<img *ngIf='item.isPlay' src="assets/img/pause-blue.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);">
+							<img *ngIf='!item.kg.isPlay' src="assets/img/play-blue.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);" />
+							<img *ngIf='item.kg.isPlay' src="assets/img/pause-blue.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);">
 						</div>
 						<div style="margin-left: 16px;">
 							<div style="display: flex;align-items: center;">
@@ -149,8 +149,8 @@
 						  		<div style="display: flex;align-items: center;width: 70%;">
 						  			<div class="left-icon" (click)='unPlayAudio(item,i)' style="position: relative;">
 						  				<img [nzDisablePreview]='true' nz-image width="74px" height="74px" style="border-radius: 4px;" [nzSrc]="item.un.url" [nzFallback]="common.fallback" />
-						  				<img *ngIf='!item.isPlay' src="assets/img/play-blue.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);" />
-						  				<img *ngIf='item.isPlay' src="assets/img/pause-blue.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);">
+						  				<img *ngIf='!item.un.isPlay' src="assets/img/play-blue.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);" />
+						  				<img *ngIf='item.un.isPlay' src="assets/img/pause-blue.png" style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);">
 						  			</div>
 						  			<div style="margin-left: 16px;">
 						  				<div style="display: flex;align-items: center;">
