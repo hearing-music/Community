@@ -16,7 +16,7 @@ export class FreeQQKGComponent implements OnInit {
 	}
 	loading = false;
 	pageCurrent = 1;
-	pageSize = 50;
+	pageSize = 30;
 	pageTotal = 0;
 	list : any = [];
 	exponents: any = '全部'
@@ -81,15 +81,14 @@ export class FreeQQKGComponent implements OnInit {
 	}
 	getQq_freeSongs() {
 		this.loading = true;
-		this.api.FreeQQKG().subscribe((res : any) => {
+		this.api.FreeQQKG({page:this.pageCurrent,pageSize:this.pageSize}).subscribe((res : any) => {
 			this.loading = false;
 			if (res.success) {
 				for(let i = 0;i<res.result.length;i++){
 					res.result[i].active=false;
 				}
 				this.list = res.result;
-				console.log(this.list);
-				// this.pageTotal = res.pageTotal;
+				this.pageTotal = res.pageTotal;
 			}
 		}, (err : any) => {
 			console.log(err);

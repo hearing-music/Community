@@ -683,9 +683,9 @@ export class ApiService {
 		let url = this.baseUrl + '/qq_kugou/getqq_kugouKeywordInfo?mid=' + mid + '&scid=' + scid
 		return this.http.get(url)
 	}
-	FreeQQKG(){
+	FreeQQKG(params:any){
 		let url = this.baseUrl + '/qq_kugou/FreeQQKG'
-		return this.http.post(url, {})
+		return this.http.post(url, {page:params.page,pageSize:params.pageSize})
 	}
 	//酷狗刷搜索
 	kuGouAutoSearch(params : any) {
