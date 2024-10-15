@@ -6,17 +6,8 @@
 			<div class="left-text">
 				<div class="title-area">
 					<!-- 歌名 -->
-					<div style="display: flex;align-items: flex-end;">
-						<span nz-tooltip [nzTooltipTitle]="item.trackName">
-						<div class="title">
-							{{item.trackName}}
-						</div>
-						</span>
-						<span nz-tooltip nzTooltipTitle="专辑">
-						<div *ngIf='item.albumName' style="color: #d91818;font-size: 12px;">
-							>{{item.albumName}}
-						</div>
-						</span>
+					<div class="title" nz-tooltip [nzTooltipTitle]="item.trackName">
+						{{item.trackName}}
 					</div>
 				</div>
 				<div class="subTitle">
@@ -25,16 +16,17 @@
 						<div>
 							{{item.publicTime?item.publicTime:''}}
 						</div>
-						<span *ngIf='item.publicTime' nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
-						<span nz-tooltip nzTooltipTitle="语种: 普:普通话 未:未知 其他:其他 英:英语">
+						<span *ngIf='item.publicTime' nz-icon nzType="right" nzTheme="outline" style='color:#666;'></span>
+						<!-- <span nz-tooltip nzTooltipTitle="语种: 普:普通话 未:未知 其他:其他 英:英语"> -->
 						<div>
-							<img *ngIf='item.languageName=="未知"' src="../../../assets/img/wei.svg" class="icon">
+							{{item.languageName}}
+							<!-- <img *ngIf='item.languageName=="未知"' src="../../../assets/img/wei.svg" class="icon">
 							<img *ngIf='item.languageName=="普通话"' src="../../../assets/img/pu.svg" class="icon">
 							<img *ngIf='item.languageName=="其他"' src="../../../assets/img/qita.svg" class="icon">
-							<img *ngIf='item.languageName=="英语"' src="../../../assets/img/yingyu.svg" class="icon">
+							<img *ngIf='item.languageName=="英语"' src="../../../assets/img/yingyu.svg" class="icon"> -->
 						</div>
-						</span>
-						<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+						<!-- </span> -->
+						<span nz-icon nzType="right" nzTheme="outline" style='color:#666;'></span>
 						<span nz-tooltip nzTooltipTitle="付费类型: 免:免费 未:未知 1:付费1.0 2:付费2.0 3:付费3.0">
 							<div>
 								<img *ngIf='item.paymentType=="免费"' src="../../../assets/img/mian.svg" class="icon">
@@ -44,22 +36,20 @@
 								<img *ngIf='item.paymentType=="付费3.0"' src="../../../assets/img/shuzi3.svg" class="icon" style="width:18px;height:18px;">
 							</div>
 						</span>
-						<span *ngIf='item.changJiangName' nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
-						<div *ngIf='item.changJiangName' style="cursor: pointer;" (click)='goChangJiangHome(item.homepageUrl)'>
-							<span style="color: #000;">唱：</span>{{item.changJiangName}}
-						</div>
-						<span *ngIf='item.lyricAuthor||item.musicAuthor' nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
-						<div *ngIf='item.lyricAuthor'>
-							<span style="color: #000;">词：</span>{{item.lyricAuthor}}
-						</div>
-						<span *ngIf='item.lyricAuthor' nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
-						<div *ngIf='item.musicAuthor'>
-							<span style="color: #000;">曲：</span>{{item.musicAuthor}}
-						</div>
 					</div>
-				
 				</div>
-				<div class="item-right">
+				<div class="subTitle">
+					<div *ngIf='item.changJiangName' style="cursor: pointer;margin-right: 4px;" (click)='goChangJiangHome(item.homepageUrl)'>
+						<span style="color: #000;">唱：</span>{{item.changJiangName}}
+					</div>
+					<div *ngIf='item.lyricAuthor' style="margin-right: 4px;">
+						<span style="color: #000;">词：</span>{{item.lyricAuthor}}
+					</div>
+					<div *ngIf='item.musicAuthor'>
+						<span style="color: #000;">曲：</span>{{item.musicAuthor}}
+					</div>
+				</div>
+				<div class="subTitle">
 						<div style="margin-right: 6px;"><span style="color:#000;">播：</span>{{item.playIndex}}</div>
 						<div style="margin-right: 6px;"><span style="color:#000;">搜：</span>{{item.searchPlayIndex}}</div>
 						<div style="margin-right: 6px;"><span style="color:#000;">藏：</span>{{item.favIndex}}</div>
@@ -69,6 +59,16 @@
 				
 			</div>
 			
+		</div>
+		<div class="">
+			<!-- 专辑名字 -->
+			<div class="exophanie-item" *ngIf='item.albumName' nz-tooltip [nzTooltipTitle]="item.albumName" nzTooltipPlacement='topLeft'>
+				{{item.albumName}}
+			</div>
+			<div *ngIf='item.company' class="exophanie-item" (click)="openCompay(item.company_id)" nz-tooltip [nzTooltipTitle]="item.company" nzTooltipPlacement='topLeft'>
+				外显：{{item.company}}</div>
+			<div *ngIf='item.company_vi' class="exophanie-item" (click)="openCompay(item.vi)" nz-tooltip [nzTooltipTitle]="item.company_vi" nzTooltipPlacement='topLeft'>
+				原始：{{item.company_vi}}</div>
 		</div>
 		<div (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)' style="position: relative;">
 			<div *ngFor='let p of item.priceList;' style="margin-right: 3px;">

@@ -14,6 +14,9 @@
 			justify-content: space-between;
 			padding: 12px;
 			margin-bottom: 12px;
+			.item-left{
+				width:550px;
+			}
 			.left-text{
 			}
 			.icon {
@@ -46,6 +49,15 @@
 				display: flex;
 			}
 		}
+	}
+	.exophanie-item {
+		cursor: pointer;
+		margin-top: 4px;
+		width: 250px;
+		cursor: pointer;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 	.play{
 			position: fixed;
