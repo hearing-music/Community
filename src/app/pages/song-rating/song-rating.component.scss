@@ -1,0 +1,44 @@
+.song-rating {
+  background-color: #fff;
+  border-radius: 12px;
+  min-height: calc(100vh - 4.75rem - 4rem);
+  padding: 20px;
+  color: #000;
+  .song-rating-box{
+    display: flex;
+    width: 100%;
+    .top-btn{
+      margin-top: 6px;
+      height:40px;
+      display: flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      margin-right: 40px;
+      overflow-x: auto;
+    }
+  }
+}
+.uploadFile-box{
+		margin-top: 18px;padding:0 24px;
+	}
+	.tagList-item{
+	  flex-shrink: 0;
+	  padding: 4px 10px;
+	  color: #494F66;
+	  font-size: 13px;
+	  background: #F6F7FB;
+	  border-radius: 100px;
+	  margin-right: 8px;
+	  cursor: pointer;
+	  transition: .04s;
+	}
+	.tagList-item:hover{
+	  box-shadow:rgba(0, 0, 0, 0.1) 0px -50px 36px -28px inset;
+	}
+	.tagList-item:active{
+	  transform: scale(1.15);
+	}
+	.tagList-itemActive{
+	  background: #4060F6;
+	  color:#fff;
+	}

@@ -85,6 +85,7 @@ import { RiseRankingTempComponent } from './yuntu/riseRanking/riseRankingTemp/ri
 import { YunjiaobenComponent } from './yunjiaoben/yunjiaoben.component';
 import { CodonceComponent } from './codonce/codonce.component';
 import { UiStoreComponent } from './uiStore/uiStore.component';
+import {SongRatingComponent} from './song-rating/song-rating.component'
 // componet
 import { ChatTempComponent } from './game/song-room/chatTemp/chatTemp.component';
 import { SpecialEffectsQueryComponent } from './kuaishou-searchindex/special-effects-query/special-effects-query.component';
@@ -249,6 +250,7 @@ registerLocaleData(zh);
 		CodonceComponent,
 		UiStoreComponent,
 		VideoPlayerComponent,
+		SongRatingComponent,
 		FreeQQKGComponent,
 		SongsControlComponent,
 		HotSearchListComponent,

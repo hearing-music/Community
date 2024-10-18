@@ -148,6 +148,14 @@ export let MENU_ITEMS : NbMenuItem[] = [
 	    ],
 	  },
 	{
+		title: '投票打分',
+		icon: {
+			icon: 'songRating',
+			pack: 'my-icons'
+		},
+		link: '/pages/song-rating'
+	},
+	{
 		title: '韵脚本',
 		icon: {
 			icon: 'yunjiao',

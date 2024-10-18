@@ -1595,5 +1595,32 @@ export class ApiService {
 		let url = this.baseUrl + "/coding-clip/UiStoreCvSelectDate";
 		return this.http.post(url, data);
 	}
+	// 上传音频
+	UploadAudio(params:any){
+		let data = new FormData();
+		data.append('UserId', params.UserId);
+		data.append('Audio', params.Audio);
+		data.append('FileName',params.FileName);
+		let url = this.baseUrl + "/song-rating/UploadAudio";
+		return this.http.post(url, data);
+	}
+	//评价歌曲
+	Referendum(params:any){
+		let data ={
+			"UserId":params.UserId,
+			"SongId":params.SongId,
+			"Opinion":params.Opinion
+		}
+		let url = this.baseUrl + "/song-rating/Referendum";
+		return this.http.post(url, data);
+	}
+	//查询歌曲
+	SearchAllSongs(params:any){
+		let data ={
+			"UserId":params.UserId,
+		}
+		let url = this.baseUrl + "/song-rating/SearchAllSongs";
+		return this.http.post(url, data);
+	}
 	
 }

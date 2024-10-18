@@ -1,0 +1,92 @@
+<div class="song-rating">
+  <div class="song-rating-box">
+    <div class="top-btn">
+      <div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item" [ngClass]="{'tagList-itemActive': item.name==selectItem}">
+        {{item.name}}
+	  </div>
+    </div>
+  </div>
+  <div *ngIf='selectItem=="投票打分"'>
+	  
+	  <div style="display: flex;">
+		  <div *ngFor="let item of tagList2" (click)="onSelect2(item)" class="tagList-item" [ngClass]="{'tagList-itemActive': item.name==selectItem2}">
+		    {{item.name}}
+		  </div>
+	  </div>
+	  
+	  <div *ngIf='selectItem2=="已投票"'>
+		  <nz-table #basicTable [nzData]='yes' nzTitle='' [nzFrontPagination]='false'>
+		  	<thead>
+		  		<tr>
+		  			<th nzAlign='center'>歌曲名称</th>
+		  			<th nzAlign='center'>分数</th>
+		  			<th nzAlign='center'>上传时间</th>
+		  			<th nzAlign='center'>投票打分</th>
+		  		</tr>
+		  	</thead>
+		  	<tbody>
+		  		<tr *ngFor="let item of basicTable.data; let i = index">
+		  			<td nzAlign='center'>
+						{{item.Title}}
+		  			</td>
+		  			<td nzAlign='center'>
+						<div style="color: #ec3333;">
+							好听：<span style="color: #ec3333;">{{item.lackey}}</span>
+						</div>
+						<div style="color: #41d741;">
+							不好听：<span style="color: #41d741;">{{item.nlackey}}</span>
+						</div>
+		  			</td>
+		  			<td nzAlign='center'>
+						{{common.timeFormat(item.AddTime)}}
+		  			</td>
+		  			<td nzAlign='center'>
+						<button nzSize='small' nz-button nzType="primary" disabled>好听</button>
+						<button nzSize='small' nz-button nzType="primary" nzDanger disabled>不好听</button>
+		  			</td>
+		  		</tr>
+		  	</tbody>
+		  </nz-table>
+	  </div>
+	  <div *ngIf='selectItem2=="未投票"'>
+	  		  <nz-table #basicTable [nzData]='no' nzTitle='' [nzFrontPagination]='false'>
+	  		  	<thead>
+	  		  		<tr>
+	  		  			<th nzAlign='center'>歌曲名称</th>
+	  		  			<th nzAlign='center'>分数</th>
+	  		  			<th nzAlign='center'>上传时间</th>
+	  		  			<th nzAlign='center'>投票打分</th>
+	  		  		</tr>
+	  		  	</thead>
+	  		  	<tbody>
+	  		  		<tr *ngFor="let item of basicTable.data; let i = index">
+	  		  			<td nzAlign='center'>
+	  						{{item.Title}}
+	  		  			</td>
+	  		  			<td nzAlign='center'>
+							<div style="color: #ec3333;">
+								好听：<span style="color: #ec3333;">{{item.lackey}}</span>
+							</div>
+							<div style="color: #41d741;">
+								不好听：<span style="color: #41d741;">{{item.nlackey}}</span>
+							</div>
+	  		  			</td>
+	  		  			<td nzAlign='center'>
+	  						{{common.timeFormat(item.AddTime)}}
+	  		  			</td>
+	  		  			<td nzAlign='center'>
+	  						<button nzSize='small' nz-button nzType="primary" (click)='Referendum(item,0)'>好听</button>
+	  						<button nzSize='small' nz-button nzType="primary" nzDanger (click)='Referendum(item,1)'>不好听</button>
+	  		  			</td>
+	  		  		</tr>
+	  		  	</tbody>
+	  		  </nz-table>
+	  </div>
+  </div>
+  <div *ngIf='selectItem=="上传歌曲"'>
+  		<div class="uploadFile-box">
+  		  	<ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+  		</div>
+  </div>
+  <ngx-loading *ngIf="loading"></ngx-loading>
+</div>

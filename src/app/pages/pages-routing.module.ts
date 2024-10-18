@@ -17,6 +17,7 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinListComponent } from './douyin/douyin-list/douyin-list.component';
 import { YunjiaobenComponent } from './yunjiaoben/yunjiaoben.component';
 import { FreeQQKGComponent } from "./freeQQKG/freeQQKG.component";
+import {SongRatingComponent} from './song-rating/song-rating.component'
 // import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
 import { DouyinVideoComponent } from './douyin/douyin-video/douyin-video.component';
 import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
@@ -241,6 +242,12 @@ const routes : Routes = [{
 		{
 			path: 'find-inspiration',
 			component: FindInspirationComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 投票打分
+		{
+			path: "song-rating",
+			component: SongRatingComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 韵脚本
