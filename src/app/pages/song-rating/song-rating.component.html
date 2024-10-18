@@ -18,6 +18,7 @@
 		  <nz-table #basicTable [nzData]='yes' nzTitle='' [nzFrontPagination]='false'>
 		  	<thead>
 		  		<tr>
+		  			<th nzAlign='center'></th>
 		  			<th nzAlign='center'>歌曲名称</th>
 		  			<th nzAlign='center'>分数</th>
 		  			<th nzAlign='center'>上传时间</th>
@@ -26,6 +27,12 @@
 		  	</thead>
 		  	<tbody>
 		  		<tr *ngFor="let item of basicTable.data; let i = index">
+					<td>
+						<div style="display: flex;align-items: center;">
+							<span (click)='playMusic(item)' *ngIf='!item.isplay' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+							<span (click)='pauseMusic(item)' *ngIf='item.isplay' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+						</div>
+					</td>
 		  			<td nzAlign='center'>
 						{{item.Title}}
 		  			</td>
@@ -52,6 +59,7 @@
 	  		  <nz-table #basicTable [nzData]='no' nzTitle='' [nzFrontPagination]='false'>
 	  		  	<thead>
 	  		  		<tr>
+						<th nzAlign='center'></th>
 	  		  			<th nzAlign='center'>歌曲名称</th>
 	  		  			<th nzAlign='center'>分数</th>
 	  		  			<th nzAlign='center'>上传时间</th>
@@ -60,6 +68,12 @@
 	  		  	</thead>
 	  		  	<tbody>
 	  		  		<tr *ngFor="let item of basicTable.data; let i = index">
+						<td>
+							<div style="display: flex;align-items: center;">
+								<span (click)='playMusic(item)' *ngIf='!item.isplay' nz-icon nzType="play-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+								<span (click)='pauseMusic(item)' *ngIf='item.isplay' nz-icon nzType="pause-circle" nzTheme="outline" style="cursor: pointer;font-size: 16px;"></span>
+							</div>
+						</td>
 	  		  			<td nzAlign='center'>
 	  						{{item.Title}}
 	  		  			</td>
@@ -87,6 +101,11 @@
   		<div class="uploadFile-box">
   		  	<ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
   		</div>
+  </div>
+  <!-- 播放器 -->
+  <div class="play" [ngClass]="{hide : !isPlay}">
+  	<audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()'>
+  	</audio>
   </div>
   <ngx-loading *ngIf="loading"></ngx-loading>
 </div>

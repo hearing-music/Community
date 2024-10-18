@@ -102,4 +102,49 @@ export class SongRatingComponent implements OnInit{
 		  this.loading =false;
 	  })
   }
+  pause() {
+  	let audio: any = document.getElementById('audio')
+  	audio.pause()
+  	this.yes.forEach((item:any)=>{
+  		item.isplay=false;
+  	})
+	this.no.forEach((item:any)=>{
+		item.isplay=false;
+	})
+  }
+  play() {
+  	let audio: any = document.getElementById('audio')
+  	audio.play()
+		this.no.forEach((item:any)=>{
+			if(item.OpenUpUrl==this.audioSrc){
+				item.isplay=true;
+			}
+		})
+		this.yes.forEach((item:any)=>{
+			if(item.OpenUpUrl==this.audioSrc){
+				item.isplay=true;
+			}
+		})
+  }
+  isPlay=false;
+  audioSrc=''
+  playMusic(item:any){
+  		this.isPlay = true;
+  		this.audioSrc = item.OpenUpUrl
+  		setTimeout(() => {
+				this.yes.forEach((item:any)=>{
+					item.isplay=false;
+				})
+				this.no.forEach((item:any)=>{
+					item.isplay=false;
+				})
+				item.isplay=true;
+			let audio: any = document.getElementById('audio')
+			audio.play()
+  		},50)
+  	
+  }
+  pauseMusic(item:any){
+  	this.pause()
+  }
 }
