@@ -86,6 +86,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			{
 				icon: '📢',
 				color: 'bg-azure-95',
+				title: '2024年10月21日17:07',
+			  	newAdd:[],//新增
+			  	optimize:['歌曲打分新增波形图显示'],//优化
+			  	bugs:['修复歌曲打分可重复点击评分'],//修复bug
+			},
+			{
+				icon: '📢',
+				color: 'bg-azure-95',
 				title: '2024年10月18日19:07',
 			  	newAdd:['新增歌曲打分功能'],//新增
 			  	optimize:[],//优化

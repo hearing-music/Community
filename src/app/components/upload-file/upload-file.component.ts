@@ -13,6 +13,10 @@ export class UploadFileComponent implements OnInit {
   ngOnInit(): void {
   }
 	@Output() onFileChild=new EventEmitter();
+	clearFile(){
+		this.file = ''
+		this.files = []
+	}
 	inputChange(e:any) {
 		if(this.multiple){
 			if(e.target.files.length>10){

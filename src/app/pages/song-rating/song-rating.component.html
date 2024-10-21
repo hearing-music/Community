@@ -6,7 +6,7 @@
 	  </div>
     </div>
   </div>
-  <div *ngIf='selectItem=="投票打分"'>
+  <div *ngIf='selectItem=="投票打分"' style="padding-bottom:140px;">
 	  
 	  <div style="display: flex;">
 		  <div *ngFor="let item of tagList2" (click)="onSelect2(item)" class="tagList-item" [ngClass]="{'tagList-itemActive': item.name==selectItem2}">
@@ -22,6 +22,7 @@
 		  			<th nzAlign='center'>歌曲名称</th>
 		  			<th nzAlign='center'>分数</th>
 		  			<th nzAlign='center'>上传时间</th>
+		  			<th nzAlign='center'>推荐理由</th>
 		  			<th nzAlign='center'>投票打分</th>
 		  		</tr>
 		  	</thead>
@@ -34,7 +35,17 @@
 						</div>
 					</td>
 		  			<td nzAlign='center'>
-						{{item.Title}}
+						<div style="display: flex;align-items: center;justify-content: center;">
+							<div>
+								{{item.Title}}
+							</div>
+							<div style="margin-left: 18px;" (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)' *ngIf='item.Lyric'>
+								<img src="/assets/img/lyric-green.png" style="width: 20px;height: 20px;">
+								<!-- 鼠标移入加载歌词 -->
+								<ngx-lyric-all *ngIf='item.lyricShow' [songName]='item.Title'
+									[lyricReadly]='true' [lyricData]='item.Lyric'></ngx-lyric-all>
+							</div>
+						</div>
 		  			</td>
 		  			<td nzAlign='center'>
 						<div style="color: #ec3333;">
@@ -47,6 +58,9 @@
 		  			<td nzAlign='center'>
 						{{common.timeFormat(item.AddTime)}}
 		  			</td>
+					<td nzAlign='center'>
+						{{item.Reason}}
+					</td>
 		  			<td nzAlign='center'>
 						<button nzSize='small' nz-button nzType="primary" disabled>好听</button>
 						<button nzSize='small' nz-button nzType="primary" nzDanger disabled>不好听</button>
@@ -63,6 +77,7 @@
 	  		  			<th nzAlign='center'>歌曲名称</th>
 	  		  			<th nzAlign='center'>分数</th>
 	  		  			<th nzAlign='center'>上传时间</th>
+	  		  			<th nzAlign='center'>推荐理由</th>
 	  		  			<th nzAlign='center'>投票打分</th>
 	  		  		</tr>
 	  		  	</thead>
@@ -75,7 +90,17 @@
 							</div>
 						</td>
 	  		  			<td nzAlign='center'>
-	  						{{item.Title}}
+	  						<div style="display: flex;align-items: center;justify-content: center;">
+	  							<div>
+	  								{{item.Title}}
+	  							</div>
+	  							<div style="margin-left: 18px;" (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)' *ngIf='item.Lyric'>
+	  								<img src="/assets/img/lyric-green.png" style="width: 20px;height: 20px;">
+	  								<!-- 鼠标移入加载歌词 -->
+	  								<ngx-lyric-all *ngIf='item.lyricShow' [songName]='item.Title'
+	  									[lyricReadly]='true' [lyricData]='item.Lyric'></ngx-lyric-all>
+	  							</div>
+	  						</div>
 	  		  			</td>
 	  		  			<td nzAlign='center'>
 							<div style="color: #ec3333;">
@@ -88,9 +113,12 @@
 	  		  			<td nzAlign='center'>
 	  						{{common.timeFormat(item.AddTime)}}
 	  		  			</td>
+						<td nzAlign='center'>
+							{{item.Reason}}
+						</td>
 	  		  			<td nzAlign='center'>
-	  						<button nzSize='small' nz-button nzType="primary" (click)='Referendum(item,0)'>好听</button>
-	  						<button nzSize='small' nz-button nzType="primary" nzDanger (click)='Referendum(item,1)'>不好听</button>
+	  						<button nzSize='small' nz-button nzType="primary" [disabled]='loading' (click)='Referendum(item,0,i)'>好听</button>
+	  						<button nzSize='small' nz-button nzType="primary" [disabled]='loading' nzDanger (click)='Referendum(item,1,i)'>不好听</button>
 	  		  			</td>
 	  		  		</tr>
 	  		  	</tbody>
@@ -99,13 +127,30 @@
   </div>
   <div *ngIf='selectItem=="上传歌曲"'>
   		<div class="uploadFile-box">
-  		  	<ngx-upload-file (onFileChild)='onFile($event)'></ngx-upload-file>
+  		  	<ngx-upload-file (onFileChild)='onFile($event)' #uploadFileRef></ngx-upload-file>
+			
+			<div style='display:flex;'>
+				<nz-input-group class="ant-input-affix-wrapper-textarea-with-clear-btn" style="margin-right: 12px;">
+						<div>歌词</div>
+				      <textarea nz-input [(ngModel)]="LyricText" placeholder="请填写歌词" [nzAutosize]='{"minRows":5,"maxRows":5}'></textarea>
+				</nz-input-group>
+				<nz-input-group class="ant-input-affix-wrapper-textarea-with-clear-btn">
+					<div>推荐理由</div>
+				      <textarea nz-input [(ngModel)]="ReasonText" placeholder="请填写推荐理由" [nzAutosize]='{"minRows":5,"maxRows":5}'></textarea>
+				</nz-input-group>
+			</div>
+			<div style='display:flex;justify-content: center;margin-top: 18px;'>
+				<button nz-button nzType="primary" [disabled]='loading' (click)='uploadFile()' style="width: 240px;">上传歌曲</button>
+			</div>
   		</div>
   </div>
   <!-- 播放器 -->
   <div class="play" [ngClass]="{hide : !isPlay}">
-  	<audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()'>
-  	</audio>
+	  <div id='time' style='font-size:12px;'></div>
+	  <div id='timeStart' style='font-size:12px;'>0:00</div>
+	  <div id='timeEnd' style='font-size:12px;'>0:00</div>
+	  <div id='waveform' ></div>
+  	<!-- <audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()'></audio> -->
   </div>
   <ngx-loading *ngIf="loading"></ngx-loading>
 </div>

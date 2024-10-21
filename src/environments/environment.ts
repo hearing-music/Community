@@ -15,7 +15,7 @@ export const environment = {
 	downloadUrl2:'https://spleeter.jinzhoushaokao.top:444/',
 	// downloadUrl:'http://192.168.43.44:3222',
 	// baseUrl:'http://localhost:3222',
-	baseUrl:'http://192.168.2.221:3222',
+	baseUrl:'http://localhost:3222',
 	tencentUrl:'https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com',
 	// socketUrl:'http://127.0.0.1:3222',
 	socketUrl:'http://192.168.0.53:3222'

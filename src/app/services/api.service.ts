@@ -1601,6 +1601,8 @@ export class ApiService {
 		data.append('UserId', params.UserId);
 		data.append('Audio', params.Audio);
 		data.append('FileName',params.FileName);
+		data.append('Lyric',params.Lyric);
+		data.append('Reason',params.Reason);
 		let url = this.baseUrl + "/song-rating/UploadAudio";
 		return this.http.post(url, data);
 	}

@@ -4,6 +4,7 @@
   min-height: calc(100vh - 4.75rem - 4rem);
   padding: 20px;
   color: #000;
+  position:relative;
   .song-rating-box{
     display: flex;
     width: 100%;
@@ -18,13 +19,27 @@
     }
   }
 }
+// .ant-table-tbody>tr>td{
+// 	position:static;
+// }
 .hide{
 		display: none;
 	}
 	.play{
-		position: fixed;
-		right:80px;
-		bottom:30px;
+		overflow: hidden;
+		position: sticky;
+		right:2.25rem;left:2.25rem;
+		bottom:10px;
+		// width:100%;
+		background-color: #fff;
+		#timeStart{
+			position:absolute;
+			left:0;
+		}
+		#timeEnd{
+			position:absolute;
+			right:0;
+		}
 	}
 .uploadFile-box{
 		margin-top: 18px;padding:0 24px;
