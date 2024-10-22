@@ -1,21 +1,20 @@
 <div class="douyin">
-  <div style="display: flex">
+  <div style="display: flex;align-items:center">
     <ngx-search
       [searchValue]="searchValue"
-      [searchHolder]="searchHolder"
+      [searchHolder]="searchTypeList[searchTypeIndex].searchHolder"
       (childSearch)="search($event)"
       *ngIf="ToExle.isSelect"
     >
     </ngx-search>
+	<ngx-searchTip [tipStr]='searchTypeList[searchTypeIndex].tip'></ngx-searchTip>
+	<div style="margin-left: 12px">
+		<nz-select [(ngModel)]="searchType" (ngModelChange)='ngModelChangeSelect($event)' [nzDropdownMatchSelectWidth]='false'>
+			<nz-option *ngFor="let l of searchTypeList" [nzValue]="l.value" [nzLabel]="l.label"></nz-option>
+		</nz-select>
+	</div>
     <div>
-      <button
-        nz-button
-        nzType="primary"
-        style="margin-left: 20px"
-        nzGhost
-        (click)="selectExle()"
-        *ngIf="!ToExle.isSelect"
-      >
+      <button nz-button nzType="primary" style="margin-left: 20px" nzGhost (click)="selectExle()" *ngIf="!ToExle.isSelect">
         上传Exel
       </button>
       <button
@@ -372,7 +371,7 @@
       </div>
 
       <!-- 分页 -->
-      <div class="pagination" *ngIf="ToExle.isSelect">
+      <div class="pagination" *ngIf="ToExle.isSelect && paginationShow">
         <span
           *ngIf="list.length > 0"
           nz-icon
