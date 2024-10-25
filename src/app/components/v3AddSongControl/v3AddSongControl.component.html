@@ -83,7 +83,7 @@
 								</div>
 								<div style="margin-left: 12px;font-weight: normal;font-size: 13px;">
 									
-									<div style="display: flex;font-weight: bold;">
+									<div style="display: flex;font-weight: bold;align-items: center;">
 										<!-- 收听 -->
 										<div class="" style="display: flex;align-items: center;">
 											<img src="../../../assets/img/erji.png" class="icon" />
@@ -99,6 +99,9 @@
 											<img src="../../../assets/img/zhexiandian.png" class="icon" />
 											<div>{{common.toThousands(qitem.yesterdayRank)}}</div>
 										</div>
+										<!-- 钱币图标 -->
+										<img [src]="qitem.pay.pay_play==0?'/assets/img/price.png':'/assets/img/price-green.png'"
+											class="icon" style="margin-left: 4px;"/>
 									</div>
 									
 									<div>
