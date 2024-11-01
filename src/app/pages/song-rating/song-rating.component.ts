@@ -195,8 +195,8 @@ export class SongRatingComponent implements OnInit {
 		if (!this.WS) {
 			this.WS = WaveSurfer.create({
 				container: '#waveform',
-				waveColor: 'rgb(0, 240, 0)',
-				progressColor: 'rgb(0, 170, 0)',
+				waveColor: 'rgb(200, 0, 200)',
+				progressColor: 'rgb(100, 0, 100)',
 				url,
 				sampleRate: 22050,
 				height: 70,
@@ -214,11 +214,11 @@ export class SongRatingComponent implements OnInit {
 				      labelColor: '#fff',
 				      labelSize: '11px',
 				    }),
-					Spectrogram.create({
-						labels: true,
-						height: 110,
-						splitChannels: false,
-					}),
+					// Spectrogram.create({
+					// 	labels: true,
+					// 	height: 110,
+					// 	splitChannels: false,
+					// }),
 				  ],
 			})
 			// Play on click
