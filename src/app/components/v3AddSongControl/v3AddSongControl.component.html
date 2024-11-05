@@ -74,7 +74,7 @@
 							</div>
 						</div>
 						<nz-card (click)='selectQQ(item,qindex)' [ngClass]='{"isSelect":qitem.isSelect}' class='qqCard' 
-						*ngFor='let qitem of item.QQData;let qindex = index;' [nzTitle]="qitem.name" [nzHoverable]='true' [nzSize]='"small"'>
+						*ngFor='let qitem of item.QQData;let qindex = index;' [nzTitle]="qitem.title" [nzHoverable]='true' [nzSize]='"small"'>
 							<div style="display: flex;align-items: center;">
 								<div (click)='playAudio3(item,i,qitem,qindex,$event)' style="position: relative;cursor: pointer;">
 									<img [nzDisablePreview]='true' nz-image width="64px" height="64px" style="border-radius: 4px;" [nzSrc]="qitem.imgUrl" [nzFallback]="fallback" />
