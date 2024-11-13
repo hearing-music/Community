@@ -151,12 +151,27 @@ export class V3AddSongControlComponent implements OnInit {
 		let Mid = [];
 		let Ids = [];
 		let length = [];
+		
+		
+		let kgSinger = [];
+		let kgAlbumName = [];
+		let kgImg = [];
+		let kgPlayUrl = [];
+		let kgSongName = [];
+		
 		this.cartData.forEach((item:any)=>{
 			SCID.push(item.scid);
 			EMixSongID.push(item.EMixSongID)
 			AlbumID.push(item.albumID)
 			CommentID.push({"MixSongID":item.MixSongID,"FileHash":item.FileHash})
 			length.push(0)
+			kgSongName.push(this.common.deleteEM(item.songName))
+			kgAlbumName.push(this.common.deleteEM(item.albumName))
+			kgImg.push(item.image)
+			kgSinger.push(item.singers)
+			kgPlayUrl.push(item.MusicUrl || "")
+			
+			
 			
 			let qqData:any = {}
 			let QQData = item.QQData.filter((e:any)=>e.isSelect==true)
@@ -177,6 +192,12 @@ export class V3AddSongControlComponent implements OnInit {
 		Parameters['length']=length;
 		Parameters['Mid']=Mid;
 		Parameters['Ids']=Ids;
+		
+		Parameters['kgSinger']=kgSinger;
+		Parameters['kgAlbumName']=kgAlbumName;
+		Parameters['kgImg']=kgImg;
+		Parameters['kgPlayUrl']=kgPlayUrl;
+		Parameters['kgSongName']=kgSongName;
 		this.loading = true;
 		this.api.kgSurveillanceSongs({Parameters}).subscribe((res: any) => {
 			console.log(res)
