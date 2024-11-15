@@ -271,36 +271,13 @@ export class SongsControlComponent implements OnInit {
 		this.api.SurveillanceSongsInfoCancel({ID:obj.ID,contract}).subscribe((res:any)=>{
 			this.loading = false;
 			if(res.success){
+				let i = this.list.findIndex((e:any)=>e.ID == obj.ID)
+					if(i!=-1){
+						this.list.splice(i,1);
+					}
 				if(contract){
-					this.list.forEach((item:any)=>{
-						let i = -1;
-						item[1][0].forEach((iitem:any,index:any)=>{
-							if(iitem.ID==obj.ID){
-								iitem.State.data[0] = 1;
-								iitem.Contract = 1;
-								i = index
-							}
-						})
-						if(i!=-1){
-							item[1][0].splice(i,1);
-							item[1][2].push(obj)
-						}
-					})
 					this.toast.success('签约成功')
 				}else{
-					this.list.forEach((item:any)=>{
-						let i = -1;
-						item[1][0].forEach((iitem:any,index:any)=>{
-							if(iitem.ID==obj.ID){
-								iitem.State.data[0] = 1;
-								i = index
-							}
-						})
-						if(i!=-1){
-							item[1][0].splice(i,1);
-							item[1][1].push(obj)
-						}
-					})
 					this.toast.success('取消成功')
 				}
 				
