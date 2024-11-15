@@ -14,9 +14,11 @@ export class SongsControlComponent implements OnInit {
 		this.todayTIME = new Date().getFullYear() + ' ' + new Date().getMonth() + ' ' +new Date().getDate()
 		// this.DevTipListWeChatMini()
 		this.isAdmin = this.common.checkAdmin()
+		this.userId = localStorage.getItem('userId')
 		this.switch = !this.isAdmin;
 		this.SurveillanceSongsInfo()
 	}
+	userId='0';
 	loading = false;
 	switch = false;
 	isAdmin = false;
@@ -157,7 +159,9 @@ export class SongsControlComponent implements OnInit {
 			let newValue = values[i].filter((e:any)=>e.State.data[0] == 0)
 			// 未监控
 			let newValue2 = values[i].filter((e:any)=>e.State.data[0] == 1)
-			newData.push([keys[i],[newValue,newValue2],[1,1]])
+			// 签约
+			let newValue3 = values[i].filter((e:any)=>e.State.data[0] == 1&&e.Contract==true)
+			newData.push([keys[i],[newValue,newValue2,newValue3],[1,1,1]])
 		}
 		return newData
 	}
@@ -179,13 +183,17 @@ export class SongsControlComponent implements OnInit {
 		let data1 = data.filter((e:any)=>e.State.data[0] == 0)
 		// 未监控
 		let data2 = data.filter((e:any)=>e.State.data[0] == 1)
-		let newData = [['全部',[data1,data2],[1,1]]]
+		// 签约
+		let data3 = data.filter((e:any)=>e.State.data[0] == 1&&e.Contract==true)
+		let newData = [['全部',[data1,data2,data3],[1,1,1]]]
 		for(let i = 0;i<keys.length;i++){
 			// 监控中
 			let newValue = values[i].filter((e:any)=>e.State.data[0] == 0)
 			// 未监控
 			let newValue2 = values[i].filter((e:any)=>e.State.data[0] == 1)
-			newData.push([keys[i],[newValue,newValue2],[1,1]])
+			// 签约
+			let newValue3 = values[i].filter((e:any)=>e.State.data[0] == 1&&e.Contract==true)
+			newData.push([keys[i],[newValue,newValue2,newValue3],[1,1,1]])
 		}
 		return newData
 	}
@@ -243,27 +251,47 @@ export class SongsControlComponent implements OnInit {
 			this.loading = false;
 		})
 	}
-	// 取消监控
-	cancelMonitor(obj:any){
+	cancel(){}
+	// 取消监控 + 是否签约
+	cancelMonitor(obj:any,contract:any){
 		this.loading = true;
-		this.api.SurveillanceSongsInfoCancel({ID:obj.ID}).subscribe((res:any)=>{
+		this.api.SurveillanceSongsInfoCancel({ID:obj.ID,contract}).subscribe((res:any)=>{
+			this.loading = false;
 			if(res.success){
-				this.list.forEach((item:any)=>{
-					let i = -1;
-					item[1][0].forEach((iitem:any,index:any)=>{
-						if(iitem.ID==obj.ID){
-							iitem.State.data[0] = 1;
-							i = index
+				if(contract){
+					this.list.forEach((item:any)=>{
+						let i = -1;
+						item[1][0].forEach((iitem:any,index:any)=>{
+							if(iitem.ID==obj.ID){
+								iitem.State.data[0] = 1;
+								iitem.Contract = 1;
+								i = index
+							}
+						})
+						if(i!=-1){
+							item[1][0].splice(i,1);
+							item[1][2].push(obj)
 						}
 					})
-					if(i!=-1){
-						item[1][0].splice(i,1);
-						item[1][1].push(obj)
-					}
-				})
-				this.toast.success('取消成功')
+					this.toast.success('签约成功')
+				}else{
+					this.list.forEach((item:any)=>{
+						let i = -1;
+						item[1][0].forEach((iitem:any,index:any)=>{
+							if(iitem.ID==obj.ID){
+								iitem.State.data[0] = 1;
+								i = index
+							}
+						})
+						if(i!=-1){
+							item[1][0].splice(i,1);
+							item[1][1].push(obj)
+						}
+					})
+					this.toast.success('取消成功')
+				}
+				
 			}
-			this.loading = false;
 		},(err:any)=>{
 			this.loading = false;
 		})

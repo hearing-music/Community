@@ -21,7 +21,11 @@
 		</div>
 		<div (click)="onSelect2(1)" class="tagList-item"
 			[ngClass]="{'tagList-itemActive': 1==selectIndex2}">
-			未监控
+			取消监控
+		</div>
+		<div (click)="onSelect2(2)" class="tagList-item"
+			[ngClass]="{'tagList-itemActive': 2==selectIndex2}">
+			已签约
 		</div>
 	</div>
 	<nz-empty *ngIf="data[selectIndex2].length==0" style="margin-top: 160px;"></nz-empty>
@@ -86,9 +90,25 @@
 								录入者：{{item.username}}
 							</div>
 						</div>
-						<div *ngIf='item.State.data[0]==0' style="cursor: pointer;display: flex;flex-direction: column;align-items: center;margin-left:6px;" (click)='cancelMonitor(item)'>
+						<div *ngIf='item.State.data[0]==0&&userId==item.UserId' 
+						style="cursor: pointer;display: flex;flex-direction: column;align-items: center;margin-left:6px;" 
+						  nz-popconfirm
+						  [nzPopconfirmTitle]='"是否取消监控 " + item.SongName'
+						  nzPopconfirmPlacement="bottom"
+						  (nzOnConfirm)="cancelMonitor(item,null)"
+						  (nzOnCancel)="cancel()">
 							<img src="/assets/img/cancelMonitor.svg" style="width:24px;height:24px;">
 							<div>取消监控</div>
+						</div>
+						<div *ngIf='item.State.data[0]==0&&userId==item.UserId' 
+						style="cursor: pointer;display: flex;flex-direction: column;align-items: center;margin-left:6px;" 
+						nz-popconfirm
+						[nzPopconfirmTitle]='"是否已签约 " + item.SongName'
+						nzPopconfirmPlacement="bottom"
+						(nzOnConfirm)="cancelMonitor(item,1)"
+						(nzOnCancel)="cancel()">
+							<img src="/assets/img/contract.svg" style="width:24px;height:24px;">
+							<div>已签约</div>
 						</div>
 					</div>
 				</div>

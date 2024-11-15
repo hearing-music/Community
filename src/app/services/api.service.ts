@@ -1537,7 +1537,7 @@ export class ApiService {
 	}
 	// 取消酷狗监控歌曲
 	SurveillanceSongsInfoCancel(params:any){
-		let data = {ID:params.ID}
+		let data = {ID:params.ID,contract:params.contract}
 		let url = this.baseUrl + "/kugou/SurveillanceSongsInfoCancel";
 		return this.http.post(url, data);
 	}
