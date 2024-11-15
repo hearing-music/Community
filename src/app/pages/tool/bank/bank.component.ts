@@ -20,23 +20,29 @@ export class BankComponent implements OnInit {
     idTrue: false,
     bankTrue: false
   }
+  loading=false;
   constructor(public api: ApiService) { }
 
   ngOnInit(): void {
   }
   searchUser() {
+	  this.loading = true;
     if (this.testTrue.nameTrue && this.testTrue.idTrue && this.testTrue.bankTrue) {
       this.message = ""
       this.api.getbank({ Name: this.name, IdCard: this.idCard, BankId: this.bankIdCard }).subscribe((res: any) => {
         console.log(res, '2356 +')
-        if (res.data.data.result==0) {
-       		    this.errmessage = ''
-       		    this.message = res.data.data.msg
-       		  }else {
-       		    this.message = ''
-       		    this.errmessage = res.data.data.msg
-       		  }
-      })
+		this.message = res.message
+		this.loading = false;
+        // if (res.data.data.result==0) {
+       	// 	    this.errmessage = ''
+       	// 	    this.message = res.message
+       	// 	  }else {
+       	// 	    this.message = ''
+       	// 	    this.errmessage = res.data.data.msg
+       	// 	  }
+      },(err:any)=>{
+		  this.loading = false;
+	  })
     }
   }
   closeMessage() {
