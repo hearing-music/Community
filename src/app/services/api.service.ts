@@ -1535,6 +1535,12 @@ export class ApiService {
 		let url = this.baseUrl + "/kugou/SurveillanceSongsInfo";
 		return this.http.post(url, data);
 	}
+	// 取消酷狗监控歌曲
+	SurveillanceSongsInfoCancel(params:any){
+		let data = {ID:params.ID}
+		let url = this.baseUrl + "/kugou/SurveillanceSongsInfoCancel";
+		return this.http.post(url, data);
+	}
 	// codonce 查询语言
 	ProgrammingLanguageAll(){
 		let data = {}

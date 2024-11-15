@@ -4,7 +4,7 @@
 	border-radius: 12px;
 	min-height: calc(100vh - 4.75rem - 4rem);
 	padding:12px 24px;
-	.title{
+	.TITLE{
 		font-weight: bold;
 		display: flex;
 		align-items: center;
@@ -131,7 +131,7 @@
 						font-weight: bold;
 						font-size: 16px;
 						color: #000;
-						max-width: 175px;
+						max-width: 200px;
 						cursor: pointer;
 						overflow: hidden;
 						white-space: nowrap;
@@ -152,7 +152,7 @@
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
-				width:35%;
+				width:45%;
 				.itemCenter {
 				
 					.exophanie-item {
@@ -161,12 +161,15 @@
 					}
 				}
 				.itemRight{
-					
+					display: flex;align-items: center;
 				}
 			}
 	
 		}
 	}
+}
+.purple{
+	color:#c506c5;
 }
 .play{
 		position: fixed;

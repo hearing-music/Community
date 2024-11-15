@@ -11,6 +11,7 @@ export class SongsControlComponent implements OnInit {
 	constructor(public common : CommonService, public api : ApiService, private toast: ToastrService,) { }
 
 	ngOnInit() : void {
+		this.todayTIME = new Date().getFullYear() + ' ' + new Date().getMonth() + ' ' +new Date().getDate()
 		// this.DevTipListWeChatMini()
 		this.isAdmin = this.common.checkAdmin()
 		this.switch = !this.isAdmin;
@@ -20,19 +21,24 @@ export class SongsControlComponent implements OnInit {
 	switch = false;
 	isAdmin = false;
 	list = [];
-	data = [];
+	data = [[],[]];
 	selectIndex = 0;
+	selectIndex2 = 0;
 	type = '';
 	// tableWidth = '0px';
 	audioSrc = '';
 	isPlay = false;
 	listenData=[];
+	todayTIME = '';
 	mouseenter(arr:any){
 		this.listenData = arr;
 	}
 	onSelect(item : any, index : number) {
 		this.selectIndex = index;
 		this.data = item[1];
+	}
+	onSelect2(index:any){
+		this.selectIndex2 = index;
 	}
 	ngModelChange(e : any) {
 		this.switch = e;
@@ -131,51 +137,139 @@ export class SongsControlComponent implements OnInit {
 		})
 	}
 
-
-
+	// 按人名分组
+	songsInfoGroup(data:any){
+		data = data || []
+		const groupedByA = data.reduce((acc:any, obj:any) => {
+		  // 如果 acc 中还没有该 key，则初始化为一个空数组
+		  if (!acc[obj.username]) {
+		    acc[obj.username] = [];
+		  }
+		  // 将对象添加到对应的 key 数组中
+		  acc[obj.username].push(obj);
+		  return acc;
+		}, {});
+		let values:any = Object.values(groupedByA)
+		let keys = Object.keys(groupedByA)
+		let newData = []
+		for(let i = 0;i<keys.length;i++){
+			// 监控中
+			let newValue = values[i].filter((e:any)=>e.State.data[0] == 0)
+			// 未监控
+			let newValue2 = values[i].filter((e:any)=>e.State.data[0] == 1)
+			newData.push([keys[i],[newValue,newValue2],[1,1]])
+		}
+		return newData
+	}
+	// 全部分组
+	songsInfoGroupAll(data:any){
+		data = data || []
+		const groupedByA = data.reduce((acc:any, obj:any) => {
+		  // 如果 acc 中还没有该 key，则初始化为一个空数组
+		  if (!acc[obj.username]) {
+		    acc[obj.username] = [];
+		  }
+		  // 将对象添加到对应的 key 数组中
+		  acc[obj.username].push(obj);
+		  return acc;
+		}, {});
+		let values:any = Object.values(groupedByA)
+		let keys = Object.keys(groupedByA)
+		// 监控中
+		let data1 = data.filter((e:any)=>e.State.data[0] == 0)
+		// 未监控
+		let data2 = data.filter((e:any)=>e.State.data[0] == 1)
+		let newData = [['全部',[data1,data2],[1,1]]]
+		for(let i = 0;i<keys.length;i++){
+			// 监控中
+			let newValue = values[i].filter((e:any)=>e.State.data[0] == 0)
+			// 未监控
+			let newValue2 = values[i].filter((e:any)=>e.State.data[0] == 1)
+			newData.push([keys[i],[newValue,newValue2],[1,1]])
+		}
+		return newData
+	}
 	SurveillanceSongsInfo() {
 		this.loading = true;
 		this.api.kgSurveillanceSongsInfo({ isAll: !this.switch }).subscribe((res : any) => {
-			console.log(res)
 			this.loading = false;
 			if (res.success) {
 				this.type = res.message;
 				this.selectIndex = 0;
 				if (res.message != '查看全部') {
-					res.data = [['', res.data]]
+					// 分组 不显示全部
+					res.data = this.songsInfoGroup(res.data)
+				}else{
+					// 显示 全部 及分组
+					res.data = this.songsInfoGroupAll(res.data)
 				}
 				if (res.data.length > 0) {
 					res.data.forEach((item : any) => {
-						item[1].forEach((iitem : any) => {
-							let singerNames = ''
-							iitem.Singer.forEach((citem : any) => {
-								singerNames += citem.author_name
+						item[1].forEach((gitem : any) => {
+							gitem.forEach((iitem:any)=>{
+								let singerNames = ''
+									iitem.Singer.forEach((citem : any) => {
+										singerNames += citem.author_name
+									})
+									iitem.singerNames = singerNames
+									// 添加 截至到今日没有的日期
+									iitem.IndexKG = this.computedIndex(iitem.Index.KG);
+									if(iitem.Index.QQ.length>0){
+										iitem.IndexQQ = this.quchong(iitem.Index.QQ,'Time');
+										iitem.IndexQQ = this.computedIndexQQ(iitem.IndexQQ);
+									}else{
+										iitem.IndexQQ = iitem.Index.QQ
+									}
+									// 将评论按指数时间 对上
+									iitem.CountKG = this.computedCount(iitem.Count.KG, iitem.IndexKG);
+									// 将listen分组 一天为一组
+									iitem.ListenKG = this.computedListen(iitem.Listen.KG, iitem.IndexKG);
+									this.setOptionIndex(iitem)
+									this.setOptionListen(iitem)
+									iitem.TIME = new Date(iitem.AddDate-0).getFullYear() + ' ' + new Date(iitem.AddDate-0).getMonth() + ' ' +new Date(iitem.AddDate-0).getDate()
 							})
-							iitem.singerNames = singerNames
-							// 添加 截至到今日没有的日期
-							iitem.IndexKG = this.computedIndex(iitem.Index.KG);
-							if(iitem.Index.QQ.length>0){
-								iitem.IndexQQ = this.quchong(iitem.Index.QQ,'Time');
-								iitem.IndexQQ = this.computedIndexQQ(iitem.IndexQQ);
-							}else{
-								iitem.IndexQQ = iitem.Index.QQ
-							}
-							// 将评论按指数时间 对上
-							iitem.CountKG = this.computedCount(iitem.Count.KG, iitem.IndexKG);
-							// 将listen分组 一天为一组
-							iitem.ListenKG = this.computedListen(iitem.Listen.KG, iitem.IndexKG);
-							this.setOptionIndex(iitem)
-							this.setOptionListen(iitem)
 						})
 					})
-					this.data = res.data[0][1];
+					this.data = res.data[0][1] || [[],[]];
+				}else{
+					this.data = [[],[]];
 				}
 				this.list = res.data;
+				console.log(this.data)
+				console.log(this.list)
 			}
 		}, (err : any) => {
 			console.log(err)
 			this.loading = false;
 		})
+	}
+	// 取消监控
+	cancelMonitor(obj:any){
+		this.loading = true;
+		this.api.SurveillanceSongsInfoCancel({ID:obj.ID}).subscribe((res:any)=>{
+			if(res.success){
+				this.list.forEach((item:any)=>{
+					let i = -1;
+					item[1][0].forEach((iitem:any,index:any)=>{
+						if(iitem.ID==obj.ID){
+							iitem.State.data[0] = 1;
+							i = index
+						}
+					})
+					if(i!=-1){
+						item[1][0].splice(i,1);
+						item[1][1].push(obj)
+					}
+				})
+				this.toast.success('取消成功')
+			}
+			this.loading = false;
+		},(err:any)=>{
+			this.loading = false;
+		})
+	}
+	PageNext(page:any){
+		this.list[this.selectIndex][2][this.selectIndex2] = page;
 	}
 	// 将listen分组 一天为一组
 	computedListen(listenArr : any, IndexArr : any) {
