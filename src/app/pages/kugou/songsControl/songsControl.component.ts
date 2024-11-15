@@ -16,7 +16,7 @@ export class SongsControlComponent implements OnInit {
 		this.isAdmin = this.common.checkAdmin()
 		this.userId = localStorage.getItem('userId')
 		this.switch = !this.isAdmin;
-		this.SurveillanceSongsInfo()
+		this.getSurvillanceSongsTag()
 	}
 	userId='0';
 	loading = false;
@@ -32,20 +32,31 @@ export class SongsControlComponent implements OnInit {
 	isPlay = false;
 	listenData=[];
 	todayTIME = '';
+	
+	tagList:any=[];
+	page=1;
+	pageSize=30;
+	pageTotal=0;
+	
+	
 	mouseenter(arr:any){
 		this.listenData = arr;
 	}
 	onSelect(item : any, index : number) {
 		this.selectIndex = index;
-		this.data = item[1];
+		this.page = 1;
+		this.selectIndex2=0
+		this.SurveillanceSongsInfo(item.ID,this.page,this.pageSize)
 	}
 	onSelect2(index:any){
 		this.selectIndex2 = index;
+		this.page = 1;
+		this.SurveillanceSongsInfo(this.tagList[this.selectIndex].ID,this.page,this.pageSize)
 	}
-	ngModelChange(e : any) {
-		this.switch = e;
-		this.SurveillanceSongsInfo()
-	}
+	// ngModelChange(e : any) {
+	// 	this.switch = e;
+	// 	this.SurveillanceSongsInfo()
+	// }
 
 
 	openAlbum(item : any) {
@@ -60,11 +71,6 @@ export class SongsControlComponent implements OnInit {
 		item.isMore = item.isMore ? false : true;
 		// this.getWidth();
 	}
-	// getWidth(){
-	// 	var item1 = document.querySelector("#list-item0");
-	// 	var item1_w = window.getComputedStyle(item1).getPropertyValue("width");
-	// 	this.tableWidth = item1_w;
-	// }
 	openSongDetail(EMixSongID : string) {
 		window.open('https://www.kugou.com/song/#' + EMixSongID)
 	}
@@ -111,6 +117,19 @@ export class SongsControlComponent implements OnInit {
 			})
 		})
 
+	}
+	// 获取标签
+	getSurvillanceSongsTag(){
+		this.api.getSurvillanceSongsTag().subscribe((res : any) => {
+			this.loading = false;
+			if (res.success) {
+				this.tagList = res.result;
+				this.SurveillanceSongsInfo(res.result[0].ID,this.page,this.pageSize)
+			}
+		}, (err : any) => {
+			console.log(err)
+			this.loading = false;
+		})
 	}
 	audioError(ele : any) {
 		if (this.isPlay) {
@@ -197,53 +216,47 @@ export class SongsControlComponent implements OnInit {
 		}
 		return newData
 	}
-	SurveillanceSongsInfo() {
+	SurveillanceSongsInfo(ID:any,page:any,pageSize:any) {
+		let Contract = false;
+		let State = false;
+		if(this.selectIndex2==1 || this.selectIndex2 == 2){
+			State=true
+		}
+		if(this.selectIndex2==2){
+			Contract=true
+		}
 		this.loading = true;
-		this.api.kgSurveillanceSongsInfo({ isAll: !this.switch }).subscribe((res : any) => {
+		// ID=0 = 全部
+		this.api.kgSurveillanceSongsInfo({ ID,page,pageSize,Contract,State }).subscribe((res : any) => {
 			this.loading = false;
 			if (res.success) {
-				this.type = res.message;
-				this.selectIndex = 0;
-				if (res.message != '查看全部') {
-					// 分组 不显示全部
-					res.data = this.songsInfoGroup(res.data)
-				}else{
-					// 显示 全部 及分组
-					res.data = this.songsInfoGroupAll(res.data)
-				}
+				
 				if (res.data.length > 0) {
-					res.data.forEach((item : any) => {
-						item[1].forEach((gitem : any) => {
-							gitem.forEach((iitem:any)=>{
-								let singerNames = ''
-									iitem.Singer.forEach((citem : any) => {
-										singerNames += citem.author_name
-									})
-									iitem.singerNames = singerNames
-									// 添加 截至到今日没有的日期
-									iitem.IndexKG = this.computedIndex(iitem.Index.KG);
-									if(iitem.Index.QQ.length>0){
-										iitem.IndexQQ = this.quchong(iitem.Index.QQ,'Time');
-										iitem.IndexQQ = this.computedIndexQQ(iitem.IndexQQ);
-									}else{
-										iitem.IndexQQ = iitem.Index.QQ
-									}
-									// 将评论按指数时间 对上
-									iitem.CountKG = this.computedCount(iitem.Count.KG, iitem.IndexKG);
-									// 将listen分组 一天为一组
-									iitem.ListenKG = this.computedListen(iitem.Listen.KG, iitem.IndexKG);
-									this.setOptionIndex(iitem)
-									this.setOptionListen(iitem)
-									iitem.TIME = new Date(iitem.AddDate-0).getFullYear() + ' ' + new Date(iitem.AddDate-0).getMonth() + ' ' +new Date(iitem.AddDate-0).getDate()
-							})
+					res.data.forEach((iitem : any) => {
+						let singerNames = ''
+						iitem.Singer.forEach((citem : any) => {
+							singerNames += citem.author_name
 						})
+						iitem.singerNames = singerNames
+						// 添加 截至到今日没有的日期
+						iitem.IndexKG = this.computedIndex(iitem.Index.KG);
+						if(iitem.Index.QQ.length>0){
+							iitem.IndexQQ = this.quchong(iitem.Index.QQ,'Time');
+							iitem.IndexQQ = this.computedIndexQQ(iitem.IndexQQ);
+						}else{
+							iitem.IndexQQ = iitem.Index.QQ
+						}
+						// 将评论按指数时间 对上
+						iitem.CountKG = this.computedCount(iitem.Count.KG, iitem.IndexKG);
+						// 将listen分组 一天为一组
+						iitem.ListenKG = this.computedListen(iitem.Listen.KG, iitem.IndexKG);
+						this.setOptionIndex(iitem)
+						this.setOptionListen(iitem)
+						iitem.TIME = new Date(iitem.AddDate-0).getFullYear() + ' ' + new Date(iitem.AddDate-0).getMonth() + ' ' +new Date(iitem.AddDate-0).getDate()
 					})
-					this.data = res.data[0][1] || [[],[]];
-				}else{
-					this.data = [[],[]];
 				}
 				this.list = res.data;
-				console.log(this.data)
+				this.pageTotal = res.pageTotal;
 				console.log(this.list)
 			}
 		}, (err : any) => {
@@ -297,7 +310,8 @@ export class SongsControlComponent implements OnInit {
 		})
 	}
 	PageNext(page:any){
-		this.list[this.selectIndex][2][this.selectIndex2] = page;
+		this.page = this.page + 1;
+		this.SurveillanceSongsInfo(this.tagList[this.selectIndex].ID,this.page,this.pageSize)
 	}
 	// 将listen分组 一天为一组
 	computedListen(listenArr : any, IndexArr : any) {

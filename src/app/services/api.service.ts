@@ -1529,9 +1529,15 @@ export class ApiService {
 		let url = this.baseUrl + "/kugou/SurveillanceSongs";
 		return this.http.post(url, params);
 	}
+	//  查看监控歌曲 标签
+	getSurvillanceSongsTag(){
+		let data = {}
+		let url = this.baseUrl + "/kugou/getSurvillanceSongsTag";
+		return this.http.post(url, data);
+	}
 	//  查看监控歌曲
 	kgSurveillanceSongsInfo(params:any){
-		let data = {Parameters:{},isAll:params.isAll}
+		let data = {ID:params.ID,page:params.page,pageSize:params.pageSize,State:params.State,Contract:params.Contract}
 		let url = this.baseUrl + "/kugou/SurveillanceSongsInfo";
 		return this.http.post(url, data);
 	}

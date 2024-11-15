@@ -3,18 +3,18 @@
 		<div class="TITLE">
 			酷狗监测歌曲
 		</div>
-		<div *ngIf='isAdmin'>
+		<!-- <div *ngIf='isAdmin'>
 			<nz-switch [ngModel]="switch" nzCheckedChildren="我的" nzUnCheckedChildren="全部"
 				(ngModelChange)='ngModelChange($event)'></nz-switch>
-		</div>
+		</div> -->
 	</div>
 	<div class="tagList" >
-		<div *ngFor="let item of list;let i = index;" (click)="onSelect(item,i)" class="tagList-item"
+		<div *ngFor="let item of tagList;let i = index;" (click)="onSelect(item,i)" class="tagList-item"
 			[ngClass]="{'tagList-itemActive': i==selectIndex}">
-				{{item[0]}}
+				{{item.username}}
 		</div>
 	</div>
-	<div class="tagList" *ngIf='list.length>0' >
+	<div class="tagList" *ngIf='tagList.length>0'>
 		<div (click)="onSelect2(0)" class="tagList-item"
 			[ngClass]="{'tagList-itemActive': 0==selectIndex2}">
 			监控中
@@ -28,9 +28,9 @@
 			已签约
 		</div>
 	</div>
-	<nz-empty *ngIf="data[selectIndex2].length==0" style="margin-top: 160px;"></nz-empty>
-	<div class="list" *ngIf='data[selectIndex2].length!=0'>
-		<div *ngFor="let item of data[selectIndex2].slice((list[selectIndex][2][selectIndex2] - 1)*30,list[selectIndex][2][selectIndex2]*30);let idx=index">
+	<nz-empty *ngIf="list.length==0" style="margin-top: 160px;"></nz-empty>
+	<div class="list" *ngIf='list.length!=0'>
+		<div *ngFor="let item of list;let idx=index">
 			<div class="list-item" [id]='"list-item"+idx'>
 				<div class="item-left">
 					<div class="left-icon" (click)='playAudio(item,idx)'>
@@ -182,7 +182,7 @@
 		</div>
 	</div>
 	<div style="display: flex;justify-content: center;">
-		<nz-pagination *ngIf='list.length>0' [nzPageIndex]="list[selectIndex][2][selectIndex2]" [nzPageSize]='30' [nzTotal]="list[selectIndex][1][selectIndex2].length"
+		<nz-pagination *ngIf='list.length>0' [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
 			(nzPageIndexChange)='PageNext($event)' nzShowQuickJumper></nz-pagination>
 	</div>
 	<!-- 播放器 -->
