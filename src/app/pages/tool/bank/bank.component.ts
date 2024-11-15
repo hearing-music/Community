@@ -27,7 +27,7 @@ export class BankComponent implements OnInit {
   searchUser() {
     if (this.testTrue.nameTrue && this.testTrue.idTrue && this.testTrue.bankTrue) {
       this.message = ""
-      this.api.getbank({ name: this.name, idcard_number: this.idCard, bankcard_number: this.bankIdCard }).subscribe((res: any) => {
+      this.api.getbank({ Name: this.name, IdCard: this.idCard, BankId: this.bankIdCard }).subscribe((res: any) => {
         console.log(res, '2356 +')
         if (res.data.data.result==0) {
        		    this.errmessage = ''

@@ -7,10 +7,10 @@ import { CommonService } from "../../services/common.service";
 })
 export class ToolComponent implements OnInit {
   tagList: any[] = [
-    // {
-    //   title: "银行",
-    //   holder: "搜索银行",
-    // },
+    {
+      title: "银行",
+      holder: "搜索银行",
+    },
     {
       title: "转换文件",
       holder: "转换文件",

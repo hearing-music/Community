@@ -665,8 +665,8 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/kuaishou/discover?page=" + page)
 	}
 	//工具银行卡
-	getbank(params : { name : any; idcard_number : any; bankcard_number : any; }) {
-		let url = "http://betaapi.tingjianmusic.cn/egress/aliyun/bank/validate"
+	getbank(params : { Name : any; IdCard : any; BankId : any; }) {
+		let url = "https://whale.tingjianmusic.cn:444/CheckBankID/Check"
 		return this.http.post(url, params)
 	}
 	//exel转json
