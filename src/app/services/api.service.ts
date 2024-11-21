@@ -27,7 +27,7 @@ export class ApiService {
 	}
 	// 预估计算器
 	TJMusicMultiModalLearning(data:any){
-		return this.http.post('http://192.168.2.110:3222/multi-modal-algorithm/TJMusicMultiModalLearning',data)
+		return this.http.post(this.baseUrl+'/multi-modal-algorithm/TJMusicMultiModalLearning',data)
 	}
 	// qq搜索歌曲
 	getQQ(params : any) {
