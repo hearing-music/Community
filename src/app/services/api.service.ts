@@ -25,6 +25,10 @@ export class ApiService {
 		const blob = await response.blob();
 		return blob;
 	}
+	// 预估计算器
+	TJMusicMultiModalLearning(data:any){
+		return this.http.post('http://192.168.2.110:3222/multi-modal-algorithm/TJMusicMultiModalLearning',data)
+	}
 	// qq搜索歌曲
 	getQQ(params : any) {
 		let {

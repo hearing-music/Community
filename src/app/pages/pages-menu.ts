@@ -119,6 +119,14 @@ export let MENU_ITEMS : NbMenuItem[] = [
 		],
 	},
 	{
+		title: '预估计算器',
+		icon: {
+			icon: 'multiModalLearning',
+			pack: 'my-icons'
+		},
+		link: '/pages/multiModalLearning'
+	},
+	{
 		title: '找灵感',
 		icon: {
 			icon: 'linggan',

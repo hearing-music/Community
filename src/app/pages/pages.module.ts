@@ -35,6 +35,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 // page
+import { MultiModalLearningComponent } from "./multiModalLearning/multiModalLearning.component";
 import { DouDiZhuComponent } from "./game/dou-di-zhu/dou-di-zhu.component";
 import { FreeQQKGComponent } from "./freeQQKG/freeQQKG.component";
 import { CardGameComponent } from "./game/card-game/card-game.component";
@@ -248,6 +249,7 @@ registerLocaleData(zh);
 		
 		HighlightBracketsPipe,
 		CodonceComponent,
+		MultiModalLearningComponent,
 		UiStoreComponent,
 		VideoPlayerComponent,
 		SongRatingComponent,

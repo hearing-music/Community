@@ -78,6 +78,7 @@ import { AudioProcessingComponent } from './audioProcessing/audioProcessing.comp
 import {SongsControlComponent} from './kugou/songsControl/songsControl.component';
 import { CodonceComponent } from './codonce/codonce.component';
 import { UiStoreComponent } from './uiStore/uiStore.component';
+import { MultiModalLearningComponent } from "./multiModalLearning/multiModalLearning.component";
 const routes : Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -236,6 +237,12 @@ const routes : Routes = [{
 		{
 			path: 'douyin/douyin-listenSoundSource',
 			component: DouyinListenSoundSourceComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 预估计算器
+		{
+			path: 'multiModalLearning',
+			component: MultiModalLearningComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 找灵感
