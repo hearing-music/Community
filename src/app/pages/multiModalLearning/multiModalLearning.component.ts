@@ -13,7 +13,9 @@ export class MultiModalLearningComponent implements OnInit {
 	constructor(public api : ApiService, public common : CommonService, private toast : ToastrService,) { }
 	async ngOnInit() {
 		this.getWeekStr();
+		this.generateTimeArray();
 		this.getHourTime();
+		this.getMinuteTime()
 	}
 	captchaTooltipIcon : NzFormTooltipIcon = {
 		type: 'info-circle',
@@ -121,25 +123,23 @@ export class MultiModalLearningComponent implements OnInit {
 		let hourTime : any = new Date().getHours();
 		if (hourTime < 10) hourTime = "0" + hourTime
 		this.HourTime = hourTime + ":00"
-		// 设置分钟
-		this.generateTimeArray(hourTime);
 		
 	}
-	getMinuteTime(Date:any) {
-		let hourTime : any = Date.getHours();
+	getMinuteTime() {
+		let hourTime : any = new Date().getHours();
 		if (hourTime < 10) hourTime = "0" + hourTime
-		let minuteTime : any = Date.getMinutes();
+		let minuteTime : any = new Date().getMinutes();
 		minuteTime = minuteTime - (minuteTime % 5);
 		if (minuteTime < 10) minuteTime = "0" + minuteTime
 		this.MinuteTime = hourTime + ":" + minuteTime;
 	}
 	
 	
-	generateTimeArray(hourStr:string) {
+	generateTimeArray() {
 	  let timeArray = [];
-	  let currentTime = new Date("2024-03-04 "+hourStr+":00:00"); // 创建一个当前时间的Date对象，但稍后我们会设置具体的时间
-	 
-	  for (let i = 0; i < (60 / 5); i++) {
+	  let currentTime = new Date(); // 创建一个当前时间的Date对象，但稍后我们会设置具体的时间
+	  currentTime.setHours(0, 0, 0, 0);
+	  for (let i = 0; i < (24 * 60 / 5); i++) {
 	    let minutes = ('0' + (currentTime.getMinutes())).slice(-2); // 格式化分钟为两位数字符串
 	    let timeString = currentTime.getHours().toString().padStart(2, '0') + ':' + minutes; // 构建时间字符串
 	 
@@ -157,12 +157,9 @@ export class MultiModalLearningComponent implements OnInit {
 	  }
 	  // 设置所选小时的分数
 	 this.MinuteTimeArr = timeArray;
-	 // 获取当前分钟 设置分钟
-	 let minutesStr = new Date().getMinutes();
-	 this.getMinuteTime(new Date(`2024-03-04 ${hourStr}:${minutesStr}:00`))
 	}
 	ngModelChangeHour(e:any){
-		let hourStr = e.replace(":00","")
-		this.generateTimeArray(hourStr)
+		// let hourStr = e.replace(":00","")
+		// this.generateTimeArray(hourStr)
 	}
 }
