@@ -44,4 +44,69 @@
 		transform: translate(-50%,-50%);
 		z-index: 666;
 	}
+	
+	
+	
+	.tagList{
+		margin-top: 6px;
+		height:40px;
+		display: flex;
+		// align-items: center;
+		align-items:flex-start;
+		// max-width:662px;
+		margin-right: 40px;
+		overflow-x: auto;
+		.tagList-item{
+			flex-shrink: 0;
+			padding: 4px 10px;
+			color: #494F66;
+			font-size: 13px;
+			background: #F6F7FB;
+			border-radius: 100px;
+			margin-right: 8px;
+			cursor: pointer;
+			transition: .04s;
+		}
+		.tagList-item:hover{
+			// transform: scale(1.02);
+			box-shadow:rgba(0, 0, 0, 0.1) 0px -50px 36px -28px inset;
+		}
+		.tagList-item:active{
+			transform: scale(1.15);
+		}
+		.tagList-itemActive{
+			background: #4060F6;
+			color:#fff;
+		}
+	}
+	
 }
+.datalist{
+		display: flex;align-items: center;margin-bottom: 24px;border:1px solid #ccc;border-radius: 6px;
+		padding:12px 16px;
+		cursor: pointer;
+		.musicPlay{
+			width: 32px;
+			height: 32px;
+			cursor: pointer;
+		}
+	}
+	.isSelect{
+		border:2px solid #35C035;
+	}
+	.isSelect2{
+		border:2px solid blue;
+	}
+	.play{
+		position: fixed;
+		right:80px;
+		bottom:30px;
+	}
+	.hide{
+		display: none;
+	}
+	.icon {
+		width: 16px;
+		margin-right: 4px;
+		height: 16px;
+	}
