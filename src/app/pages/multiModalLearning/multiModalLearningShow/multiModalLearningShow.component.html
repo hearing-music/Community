@@ -1,0 +1,56 @@
+<div class="multiModalLearning">
+  <div class="mainBox">
+    <div  *ngFor="let item of GetObservationDataArr">
+      <div class="list-item">
+        <div style="width: 100%;display: flex;justify-content: space-between;padding-top: 8px;">
+          <div>
+            <div class="song-name">歌曲名: <span style="margin-left: 8px;color: black;">{{ item.KeyWord }}</span></div>
+            <div style="display: flex; margin-top: 8px">
+              <div style="display: flex; align-items: center">
+                {{ item.MeasuredParameter.Week }}
+                <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+                {{ item.MeasuredParameter.SongType }}
+                <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+                {{ item.username }}
+              </div>
+            </div>
+          </div>
+          <div>
+            <div>播放分钟时间:<span style="margin-left: 8px;color: black;">{{ item.MeasuredParameter.MinuteTime }}</span></div>
+            <div style="margin-top: 8px">搜索小时时间:<span style="margin-left: 8px;color: black;">{{ item.MeasuredParameter.HourTime }}</span></div>
+          </div>
+          <div>
+            <div>录入歌曲生态昨日播放:<span style="margin-left: 8px;color: black;">{{ item.MeasuredParameter.EcologyPlayedYesterday }}</span></div>
+            <div style="margin-top: 8px">录入歌曲近24H雷达播放:<span style="margin-left: 8px;color: black;">{{item.MeasuredParameter["24HourRadarPlayback"]}}</span>
+            </div>
+          </div>
+          <div>
+            <div>录入歌曲小时播放数:<span style="margin-left: 8px;color: black;">{{ item.MeasuredParameter.HourlyPlayback }}</span></div>
+            <div style="margin-top: 8px">录入歌曲分数播放数:<span style="margin-left: 8px;color: black;">{{ item.MeasuredParameter.ScorePlayback }}</span></div>
+          </div>
+          <div>
+            <div>录入歌曲近1H总PV搜索数:<span style="margin-left: 8px;color: black;">{{item.MeasuredParameter["1HTotalPVPlayback"]}}</span></div>
+            <div style="margin-top: 8px">录入歌曲近24H总PV搜索数:<span style="margin-left: 8px;color: black;">{{item.MeasuredParameter["24HourTotalPVPlayback"]}}</span></div>
+          </div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap;">
+          <div [ngClass]="i == 2|| i == 5?'boxlast':'boxTow'" *ngFor="let items of item.MeasurementResults;let i = index" >{{ items[0] }}:<span style="margin-left: 8px;color: black;">{{ items[1] }}</span></div>
+          <div (click)="moreVersion(item)" style="width: 30%;display: flex;align-items: center;justify-content: center;color: blue;cursor: pointer;font-size: 14px;" *ngIf="item.PlatformData.KG">
+            {{ item.isMore ? "收起" : "展开" }}
+          </div>
+        </div>
+      </div>
+      <div class='more' *ngIf='item.isMore'>
+        <div style="display: flex;align-items: center;margin-top: 12px;">
+          <div style="flex:1;">
+            <div echarts [options]="item.PlatformData.optionsIndex" class="demo" style="width: 100%; height: 240px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-box">
+    <nz-pagination [nzPageIndex]="params.Offset" [nzTotal]="total" nzShowSizeChanger (nzPageIndexChange)="changeIndex($event)"></nz-pagination>
+  </div>
+</div>
+<ngx-loading *ngIf="loading"></ngx-loading>

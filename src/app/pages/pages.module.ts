@@ -195,6 +195,7 @@ import { HighlightBracketsPipe } from "./script-prompts/script-prompts.component
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 import {  HighlightModule } from 'ngx-highlightjs';//import providers
 import {SongsControlComponent} from './kugou/songsControl/songsControl.component';
+import { multiModalLearningShowComponent } from "./multiModalLearning/multiModalLearningShow/multiModalLearningShow.component";
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 registerLocaleData(zh);
 @NgModule({
@@ -248,6 +249,7 @@ registerLocaleData(zh);
 	declarations: [
 		
 		HighlightBracketsPipe,
+		multiModalLearningShowComponent,
 		CodonceComponent,
 		MultiModalLearningComponent,
 		UiStoreComponent,

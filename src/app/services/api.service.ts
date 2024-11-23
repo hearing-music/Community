@@ -15,35 +15,40 @@ export class ApiService {
 
 	}
 	async fetchFile(fileUrl : string) {
-		// 使用fetch获取文件  
+		// 使用fetch获取文件
 		const response = await fetch(this.downloadUrl + fileUrl);
-		// 确保响应成功  
+		// 确保响应成功
 		if (!response.ok) {
 			throw new Error('Network response was not ok');
 		}
-		// 将响应体读取为Blob  
+		// 将响应体读取为Blob
 		const blob = await response.blob();
 		return blob;
 	}
 	// 预估计算器
 	TJMusicMultiModalLearning(data:any){
 		// return this.http.post(this.baseUrl+'/multi-modal-algorithm/TJMusicMultiModalLearning',data)
-		return this.http.post('https://communities.tingjianmusic.cn:444/multi-modal-algorithm/TJMusicMultiModalLearning',data)
+		return this.http.post(this.baseUrl + '/multi-modal-algorithm/TJMusicMultiModalLearning',data)
 	}
 	// 双平台搜索
 	searchQQKG(data:any){
-		return this.http.post(this.baseUrl+'/multi-modal-algorithm/searchQQKG',data)
+		return this.http.post(this.baseUrl + '/multi-modal-algorithm/searchQQKG',data)
 	}
 	// 双平台数据搜索
 	ObservationalData(data:any){
 		// return this.http.post(this.baseUrl+'/multi-modal-algorithm/ObservationalData',data)
-		return this.http.post('http://192.168.2.110:3222/multi-modal-algorithm/ObservationalData',data)
+		return this.http.post(this.baseUrl + '/multi-modal-algorithm/ObservationalData',data)
 	}
 	// 存入数据
 	ObservationDataStorage(data:any){
 		// return this.http.post(this.baseUrl+'/multi-modal-algorithm/ObservationDataStorage',data)
-		return this.http.post('http://192.168.2.110:3222/multi-modal-algorithm/ObservationDataStorage',data)
-	}
+		return this.http.post(this.baseUrl + '/multi-modal-algorithm/ObservationDataStorage',data)
+  }
+  //查询添加
+  GetObservationData(data:any) {
+    	// return this.http.post(this.baseUrl+'/multi-modal-algorithm/ObservationDataStorage',data)
+		return this.http.post(this.baseUrl + '/multi-modal-algorithm/GetObservationData',data)
+  }
 	// qq搜索歌曲
 	getQQ(params : any) {
 		let {
@@ -102,7 +107,7 @@ export class ApiService {
 		let url = this.baseUrl + "/qq/GetSortList";
 		return this.http.get(url);
 	}
-	// qq 免费歌手 歌曲列表 标签 
+	// qq 免费歌手 歌曲列表 标签
 	getQq_freeSongsLabel(params : any) {
 		let {
 			label
@@ -917,7 +922,7 @@ export class ApiService {
 		} = params;
 		let url = this.baseUrl + '/zhuanhuanyun/QqAudioDecryptioNew?MusicUrl=' + musicUrl
 		return this.http.get(url);
-		
+
 	}
 	// ogg - mp3
 	OggToMp3(params:any){
@@ -1600,11 +1605,11 @@ export class ApiService {
 		data.append('PlId', params.PlId);
 		data.append('CodingClip', params.CodingClip);
 		data.append('Descriptions', params.Descriptions);
-		
+
 		let url = this.baseUrl + "/coding-clip/StoreCvIncrease";
 		return this.http.post(url, data);
 	}
-	
+
 	// 添加ui
 	UiStoreCvIncrease(params:any){
 		let data = new FormData();
@@ -1614,7 +1619,7 @@ export class ApiService {
 		data.append('Synopsis', params.Synopsis);
 		data.append('Branch', params.Branch);
 		data.append('UserId', params.UserId);
-		
+
 		let url = this.baseUrl + "/coding-clip/UiStoreCvIncrease";
 		return this.http.post(url, data);
 	}
@@ -1655,5 +1660,5 @@ export class ApiService {
 		let url = this.baseUrl + "/song-rating/SearchAllSongs";
 		return this.http.post(url, data);
 	}
-	
+
 }
