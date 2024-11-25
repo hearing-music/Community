@@ -15,8 +15,8 @@ export class MultiModalLearningComponent implements OnInit {
   ) {}
   async ngOnInit() {
   }
-  tagList: any = [{ name: "预估" }, { name: "历史记录" }];
-  selectItem = "预估";
+  tagList: any = [{ name: "计算器" }, { name: "我的评估" }];
+  selectItem = "计算器";
   onSelect(e: any) {
     this.selectItem = e.name;
   }
