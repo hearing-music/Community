@@ -166,7 +166,7 @@
                 <span style="margin-left: 8px;color: black;font-weight: bolder;">
                   {{ common.toThousands(item.MeasurementResults[0][1]) }}
                 </span>
-                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;"  nz-tooltip nzTooltipTitle="计算今日近24H总PV搜索平均值倍数"></span>
+                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;"  nz-tooltip nzTooltipTitle="这是按小时预估24H可能会产生的播放量"></span>
               </div>
               <div style="display: flex;align-items: center;margin-left: 10px;">
                 <span style="margin-left: 8px;font-weight: bolder;" [ngClass]="{ upColor: item.MeasurementResults[6][1] >= 1000, downColor: item.MeasurementResults[6][1] < 1000}">

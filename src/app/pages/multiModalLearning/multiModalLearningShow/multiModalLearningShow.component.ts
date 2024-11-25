@@ -109,7 +109,9 @@ export class MultiModalLearningShowComponent implements OnInit {
         this.GetObservationDataArr = res.data.res;
         this.total = res.data.count;
       }
-    });
+    },(err:any)=>{
+		this.loading = false;
+	});
   }
   moreVersion(item: any) {
     item.isMore = item.isMore ? false : true;
