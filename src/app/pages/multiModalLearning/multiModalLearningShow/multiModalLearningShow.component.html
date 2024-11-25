@@ -178,7 +178,10 @@
               </div>
             </div>
             <div style="display: flex;width: 32%;">
-              <div>{{ item.MeasurementResults[2][0] }}</div>
+              <div style="display: flex;align-items: center;">
+				{{ item.MeasurementResults[2][0] }}
+				<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;"  nz-tooltip nzTooltipTitle="计算今日近24H总PV搜索平均值倍数"></span>
+			  </div>
               <div style="display: flex;align-items: center;">
                 <span style="margin-left: 8px;color: black;font-weight: bolder;">
                   {{ common.toThousands(item.MeasurementResults[2][1]) }}
@@ -197,7 +200,6 @@
                 <span style="margin-left: 8px;color: black;font-weight: bolder;">
                   {{ common.toThousands(item.MeasurementResults[4][1]) }}
                 </span>
-                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;"  nz-tooltip nzTooltipTitle="这是按小时预估24H可能会产生的播放量"></span>
               </div>
             </div>
             <div style="width: 4%;"></div>
@@ -223,12 +225,12 @@
             <div style="display: flex;width: 32%">
               <div style="display: flex;align-items: center;">
                 {{ item.MeasurementResults[3][0] }}
+				<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;"  nz-tooltip nzTooltipTitle="当看不到播放量的时候，此数据可作为参考"></span>
               </div>
               <div style="display: flex;align-items: center;">
                 <span style="margin-left: 8px;color: black;font-weight: bolder;">
                   {{ common.toThousands(item.MeasurementResults[3][1]) }}
                 </span>
-                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;"  nz-tooltip nzTooltipTitle="当看不到播放量的时候，此数据可作为参考"></span>
               </div>
             </div>
             <div style="display: flex;width: 32%">
