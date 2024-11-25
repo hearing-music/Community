@@ -442,18 +442,14 @@ export class MultiModalLearningComputedComponent implements OnInit {
       console.log("获取双平台数据错误 不存入");
       return;
     }
-    console.log({
-      UserId: this.userId,
-      KeyWord: this.keyword,
-      MeasuredParameter: MeasuredParameter,
-      MeasurementResults: this.Data,
-      PlatformData: this.obData,
-      PlatformParameter: PlatformParameter,
-    });
+	if(PlatformParameter.QMid && this.keyword===""){
+		console.log("有平台数据 但没有keyword 不存入");
+		return;
+	}
     this.api
       .ObservationDataStorage({
         UserId: this.userId,
-        KeyWord: this.keyword,
+        KeyWord: PlatformParameter.QMid?this.keyword:"",
         MeasuredParameter: MeasuredParameter,
         MeasurementResults: this.Data,
         PlatformData: this.obData,
