@@ -27,12 +27,15 @@ export class ApiService {
 	}
 	// 预估计算器
 	TJMusicMultiModalLearning(data:any){
-		// return this.http.post(this.baseUrl+'/multi-modal-algorithm/TJMusicMultiModalLearning',data)
-		return this.http.post(this.baseUrl + '/multi-modal-algorithm/TJMusicMultiModalLearning',data)
+		return this.http.post('https://communities.tingjianmusic.cn:444/multi-modal-algorithm/TJMusicMultiModalLearning',data)
+		// return this.http.post(this.baseUrl + '/multi-modal-algorithm/TJMusicMultiModalLearning',data)
 	}
 	// 双平台搜索
-	searchQQKG(data:any){
-		return this.http.post(this.baseUrl + '/multi-modal-algorithm/searchQQKG',data)
+	searchQQ_multi(data:any){
+		return this.http.post(this.baseUrl + '/multi-modal-algorithm/searchQQ',data)
+	}
+	searchKG_multi(data:any){
+		return this.http.post(this.baseUrl + '/multi-modal-algorithm/searchKG',data)
 	}
 	// 双平台数据搜索
 	ObservationalData(data:any){

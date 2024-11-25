@@ -24,7 +24,7 @@
 							<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
 						</button>
 						<!-- 收听 -->
-						<span *ngIf='item.detailData.listener_num' nz-tooltip [nzTooltipTitle]="'总播放'">
+						<span *ngIf='item.detailData.listener_num' nz-tooltip [nzTooltipTitle]="'总收听'">
 							<div class="" style="display: flex;align-items: center;margin-left: 2px;">
 								<img src="../../../assets/img/erji.png" class="icon" />
 								<div>{{common.toThousands(item.detailData.listener_num)}}</div>

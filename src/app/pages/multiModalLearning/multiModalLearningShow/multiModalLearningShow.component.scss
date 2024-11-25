@@ -15,7 +15,7 @@
       border: 1px solid rgba(0, 0, 0, 0.12);
       box-shadow: rgba(0, 0, 0, 0.15) -1.4px 1.4px 3.2px;
       border-radius: 12px;
-      min-height: 160px;
+      min-height: 120px;
       padding: 0 8px;
       display: flex;
       flex-direction: column;
@@ -24,11 +24,16 @@
         font-weight: bold;
         font-size: 16px;
         color: #000;
-        max-width: 200px;
+        max-width: 150px;
         cursor: pointer;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+      }
+      .picTip{
+        display: flex;
+        align-items: center;
+        margin-left: 8px;
       }
     }
   }
@@ -55,4 +60,10 @@
   overflow: hidden;
   margin-bottom: 8px;
   // background:linear-gradient(181.2deg, rgb(181, 239, 249) 10.5%, rgb(254, 254, 254) 86.8%);border-radius: 8px;
+}
+.upColor {
+  color: #c20000;
+}
+.downColor {
+  color: #cbcb00;
 }

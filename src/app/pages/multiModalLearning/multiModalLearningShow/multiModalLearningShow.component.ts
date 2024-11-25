@@ -7,7 +7,7 @@ import { ToastrService } from "ngx-toastr";
   templateUrl: "./multiModalLearningShow.component.html",
   styleUrls: ["./multiModalLearningShow.component.scss"],
 })
-export class multiModalLearningShowComponent implements OnInit {
+export class MultiModalLearningShowComponent implements OnInit {
   GetObservationDataArr: any = [];
   loading = false;
   params = {
@@ -113,6 +113,7 @@ export class multiModalLearningShowComponent implements OnInit {
               });
             }
             this.setOptionIndex(res.data.res[i].PlatformData);
+            this.setOptionIndex1(res.data.res[i].PlatformData)
           }
         }
         this.GetObservationDataArr = res.data.res;
@@ -127,8 +128,137 @@ export class multiModalLearningShowComponent implements OnInit {
     this.params.Offset = index;
     this.GetObservationData();
   }
-
-  // 指数 qq 酷狗
+  // 指数增长 排名上涨 评论
+  setOptionIndex1(iitem: any) {
+    let dateListNow = [
+      ...iitem.indexRateKG,
+      ...iitem.indexRateQQ,
+      ...iitem.RankDiffKG,
+      ...iitem.RankDiffQQ,
+      ...iitem.commentKG,
+      ...iitem.commentQQ,
+    ]
+    dateListNow = dateListNow.sort((a: any, b: any) => a.Time - b.Time);
+    dateListNow = dateListNow.map((e: any) => this.common.getDate(e.Time));
+    dateListNow = this.removeDuplicates(dateListNow);
+    let dataList5 = iitem.RankKG.map((e: any) => e.Rank); // 酷狗排名
+    let dataList6 = iitem.RankQQ.map((e: any) => e.Rank); // QQ排名
+    let dataList9 = iitem.RankDiffKG.map((e: any) => e.rankDiff); // 酷狗排名上涨
+    let dataList10 = iitem.RankDiffQQ.map((e: any) => e.rankDiff); // QQ排名上涨
+    let dataList11 = iitem.commentKG.map((e: any) => e.count); // 酷狗评论
+    let dataList12 = iitem.commentQQ.map((e: any) => e.count); // QQ评论
+    if (iitem.IndexQQ.length > 0) {
+      iitem.RankKG.forEach((item: any) => {
+        if (
+          this.common.getTime(iitem.indexRateQQ[0].Time) >
+          this.common.getTime(item.Time)
+        ) {
+          dataList6.unshift("");
+        }
+      });
+      iitem.RankDiffKG.forEach((item: any) => {
+        if (
+          this.common.getTime(iitem.RankDiffQQ[0].Time) >
+          this.common.getTime(item.Time)
+        ) {
+          dataList10.unshift("");
+        }
+      });
+      iitem.commentKG.forEach((item: any) => {
+        if (
+          this.common.getTime(iitem.commentQQ[0].Time) >
+          this.common.getTime(item.Time)
+        ) {
+          dataList12.unshift("");
+        }
+      });
+    }
+    let color = [
+      "#c3d4bb",
+      "#326318",
+      "#d4bbc8",
+      "#631840",
+      "#7e9a5f",
+      "#24370e",
+    ];
+    iitem.optionsIndex1 = {
+      color: color,
+      legend: {
+        selected: {
+          酷狗排名: true, // 默认隐藏
+          QQ排名: true, // 默认隐藏
+          酷狗排名上涨: false, // 默认隐藏
+          QQ排名上涨: false,
+          酷狗评论: false, // 默认隐藏
+          QQ评论: false,
+        },
+      },
+      tooltip: {
+        trigger: "axis", // 触发方式为坐标轴触发
+      },
+      grid: {
+        left: 60,
+        right: 60,
+        top: 60,
+        bottom: 20,
+      },
+      xAxis: [
+        {
+          type: "category",
+          data: dateListNow,
+          axisTick: {
+            alignWithLabel: true,
+          },
+        },
+      ],
+      yAxis: [
+        {
+          type: "value",
+        },
+      ],
+      series: [
+        {
+          type: "line",
+          name: "酷狗排名",
+          data: dataList5,
+          smooth: true,
+        },
+        {
+          type: "line",
+          name: "QQ排名",
+          data: dataList6,
+          smooth: true,
+        },
+        {
+          type: "line",
+          name: "酷狗排名上涨",
+          data: dataList9,
+          smooth: true,
+        },
+        {
+          type: "line",
+          name: "QQ排名上涨",
+          data: dataList10,
+          smooth: true,
+        },
+        {
+          type: "line",
+          name: "酷狗评论",
+          data: dataList11,
+          smooth: true,
+        },
+        {
+          type: "line",
+          name: "QQ评论",
+          data: dataList12,
+          smooth: true,
+        },
+      ],
+      height: 150,
+    };
+    console.log(iitem.optionsIndex1)
+  }
+  // 指数 收听 排名
   setOptionIndex(iitem: any) {
     let dateListNow = [
       ...iitem.IndexKG,
@@ -137,12 +267,6 @@ export class multiModalLearningShowComponent implements OnInit {
       ...iitem.ListenQQ,
       ...iitem.RankKG,
       ...iitem.RankQQ,
-      ...iitem.indexRateKG,
-      ...iitem.indexRateQQ,
-      ...iitem.RankDiffKG,
-      ...iitem.RankDiffQQ,
-      ...iitem.commentKG,
-      ...iitem.commentQQ,
     ];
     dateListNow = dateListNow.sort((a: any, b: any) => a.Time - b.Time);
     dateListNow = dateListNow.map((e: any) => this.common.getDate(e.Time));
@@ -151,14 +275,10 @@ export class multiModalLearningShowComponent implements OnInit {
     let dataList2 = iitem.IndexQQ.map((e: any) => e.Index); // QQ指数数据
     let dataList3 = iitem.ListenKG.map((e: any) => e.Count); // 酷狗收听数据
     let dataList4 = iitem.ListenQQ.map((e: any) => e.Count); // QQ收听数据
-    let dataList5 = iitem.RankKG.map((e: any) => e.Rank); // 酷狗排名
-    let dataList6 = iitem.RankQQ.map((e: any) => e.Rank); // QQ排名
     let dataList7 = iitem.indexRateKG.map((e: any) => e.indexRate); // 酷狗指数上涨
     let dataList8 = iitem.indexRateQQ.map((e: any) => e.indexRate); // QQ指数上涨
-    let dataList9 = iitem.RankDiffKG.map((e: any) => e.rankDiff); // 酷狗排名上涨
-    let dataList10 = iitem.RankDiffQQ.map((e: any) => e.rankDiff); // QQ排名上涨
-    let dataList11 = iitem.commentKG.map((e: any) => e.count); // 酷狗评论
-    let dataList12 = iitem.commentQQ.map((e: any) => e.count); // QQ评论
+
+
     // 补齐qq缺失的时间 比qq第1个time 小的时间 补齐
     if (iitem.IndexQQ.length > 0) {
       iitem.IndexKG.forEach((item: any) => {
@@ -177,38 +297,15 @@ export class multiModalLearningShowComponent implements OnInit {
           dataList4.unshift("");
         }
       });
-      iitem.RankKG.forEach((item: any) => {
+      iitem.indexRateKG.forEach((item: any) => {
         if (
           this.common.getTime(iitem.RankQQ[0].Time) >
           this.common.getTime(item.Time)
         ) {
-          dataList6.unshift("");
+          dataList8.unshift("");
         }
       });
-      iitem.indexRateKG.forEach((item: any) => {
-        if (
-          this.common.getTime(iitem.indexRateQQ[0].Time) >
-          this.common.getTime(item.Time)
-        ) {
-          dataList6.unshift("");
-        }
-      });
-      iitem.RankDiffKG.forEach((item: any) => {
-        if (
-          this.common.getTime(iitem.RankDiffQQ[0].Time) >
-          this.common.getTime(item.Time)
-        ) {
-          dataList6.unshift("");
-        }
-      });
-      iitem.commentKG.forEach((item: any) => {
-        if (
-          this.common.getTime(iitem.commentQQ[0].Time) >
-          this.common.getTime(item.Time)
-        ) {
-          dataList6.unshift("");
-        }
-      });
+
     }
     let color = [
       "#bbbbd4",
@@ -217,12 +314,6 @@ export class multiModalLearningShowComponent implements OnInit {
       "#185f63",
       "#bbd4c8",
       "#18633f",
-      "#c3d4bb",
-      "#326318",
-      "#d4bbc8",
-      "#631840",
-      "#7e9a5f",
-      "#24370e",
     ];
     iitem.optionsIndex = {
       color: color,
@@ -232,14 +323,8 @@ export class multiModalLearningShowComponent implements OnInit {
           QQ指数: true, // 默认显示
           酷狗收听: false, // 默认隐藏
           QQ收听: false, // 默认隐藏
-          酷狗排名: false, // 默认隐藏
-          QQ排名: false, // 默认隐藏
-          酷狗指数增长: false, // 默认隐藏
-          QQ指数增长: false, // 默认隐藏
-          酷狗排名上涨: false, // 默认隐藏
-          QQ排名上涨: false,
-          酷狗评论: false, // 默认隐藏
-          QQ评论: false,
+          酷狗指数上涨: false, // 默认隐藏
+          QQ指数上涨: false, // 默认隐藏
         },
       },
       tooltip: {
@@ -292,50 +377,14 @@ export class multiModalLearningShowComponent implements OnInit {
         },
         {
           type: "line",
-          name: "酷狗排名",
-          data: dataList5,
-          smooth: true,
-        },
-        {
-          type: "line",
-          name: "QQ排名",
-          data: dataList6,
-          smooth: true,
-        },
-        {
-          type: "line",
-          name: "酷狗指数增长",
+          name: "酷狗指数上涨",
           data: dataList7,
           smooth: true,
         },
         {
           type: "line",
-          name: "QQ指数增长",
+          name: "QQ指数上涨",
           data: dataList8,
-          smooth: true,
-        },
-        {
-          type: "line",
-          name: "酷狗排名上涨",
-          data: dataList9,
-          smooth: true,
-        },
-        {
-          type: "line",
-          name: "QQ排名上涨",
-          data: dataList10,
-          smooth: true,
-        },
-        {
-          type: "line",
-          name: "酷狗评论",
-          data: dataList11,
-          smooth: true,
-        },
-        {
-          type: "line",
-          name: "QQ评论",
-          data: dataList12,
           smooth: true,
         },
       ],

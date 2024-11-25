@@ -26,10 +26,10 @@
 								[loading]='item.UrlLoadinghome'></ngx-url-preview>
 						</div>
 						<!-- 收听 -->
-						<div class="" style="display: flex;align-items: center;margin-left: 2px;">
+						<!-- <div class="" style="display: flex;align-items: center;margin-left: 2px;">
 							<img src="../../../assets/img/erji.png" class="icon" />
 							<div>{{common.toThousands(item.cnt)}}</div>
-						</div>
+						</div> -->
 						<!-- 指数 -->
 						<div class="" style="display: flex;align-items: center;margin-left: 8px;">
 							<img src="../../../assets/img/shuangzhexian.png" class="icon" />
@@ -145,32 +145,15 @@
 									</div>
 								</div>
 							</div>
-							<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
-							<div>
-								{{item.time_public}}
-							</div>
-							<span *ngIf='item.time_public' nz-icon nzType="right" nzTheme="outline"
-								style='color:#ccc;'></span>
 						</div>
-						<!-- 排行 -->
-						<!-- <div style="display: flex;margin-left: 8px;cursor: pointer;" (click)='popRank(item)'>
-							<span *ngIf='!item.record.newData' nz-icon nzType="profile" nzTheme="outline"
-								style='color:grey'></span>
-							<span *ngIf='item.record.newData' nz-icon nzType="profile" nzTheme="outline"
-								style='color:blue'></span>
-						</div> -->
 						<!-- 图标 -->
-						<div style="display: flex;margin-left: 4px;">
+						<div style="display: flex;margin-left: 8px;">
 							<!-- 钱币图标 -->
-							<img [src]="item.pay.pay_play==0?'../../../assets/img/price.png':'../../../assets/img/price-green.png'"
+							<img [src]="item.pay.pay_play==0?'/assets/img/price.png':'/assets/img/price-green.png'"
 								class="icon" />
 							<!-- 音乐图标 -->
-							<img [src]="item.pay.pay_down==0?'../../../assets/img/music.png':'../../../assets/img/music-green.png'"
+							<img [src]="item.pay.pay_down==0?'/assets/img/music.png':'/assets/img/music-green.png'"
 								class="icon" />
-						</div>
-						<!-- 价格 -->
-						<div style="margin-left: 8px;">
-							<div>￥{{common.toThousands(item.price_track)}}</div>
 						</div>
 						<!-- 排名 -->
 						<div style="display: flex;align-items: center;margin-left: 8px;">
@@ -185,8 +168,28 @@
 								nzTheme="outline"></span>
 							<div>{{item.rankRate}}</div>
 						</div>
+						<!-- 在听人数 -->
+						<div style="display: flex;align-items: center;white-space: nowrap;margin-left: 8px;">
+							<div style="color:rgb(78, 194, 223)">{{common.toThousands(item.cnt)}}</div>人在听
+						</div>
+					</div>
+					<div class="subTitle">
+						<div>
+								{{item.time_public}}
+						</div>
+						<!-- 排行 -->
+						<!-- <div style="display: flex;margin-left: 8px;cursor: pointer;" (click)='popRank(item)'>
+							<span *ngIf='!item.record.newData' nz-icon nzType="profile" nzTheme="outline"
+								style='color:grey'></span>
+							<span *ngIf='item.record.newData' nz-icon nzType="profile" nzTheme="outline"
+								style='color:blue'></span>
+						</div> -->
+						<!-- 价格 -->
+						<div style="margin-left: 8px;">
+							<div>￥{{common.toThousands(item.price_track)}}</div>
+						</div>
 						<!-- 下载wav -->
-						<button nz-tooltip [nzTooltipTitle]="'下载wav'" [nzLoading]='item.loadingDownload' nz-button nzShape="circle" nzType="text"  style="margin-left: 2px;" class="linkIcon" (click)='downloadWav(item)'>
+						<button nz-tooltip [nzTooltipTitle]="'下载wav'" [nzLoading]='item.loadingDownload' nz-button nzShape="circle" nzType="text"  style="margin-left: 8px;" class="linkIcon" (click)='downloadWav(item)'>
 							<span nz-icon nzType="download" nzTheme="outline" style='color:#35C035;font-size: 14px;'></span>
 						</button>
 						<div *ngIf='item.GrpData.length!=0' style="color: blue;cursor: pointer;margin-left: 8px;" (click)='moreVersion(item)'>
