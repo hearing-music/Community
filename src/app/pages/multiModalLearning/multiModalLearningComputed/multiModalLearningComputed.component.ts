@@ -334,7 +334,10 @@ export class MultiModalLearningComputedComponent implements OnInit {
       this.toast.info("请检查输入项");
       return;
     }
-  
+	if(this.keyword===""){
+		this.toast.info("请填入关键字并搜索");
+		return;
+	}
     this.loadingSpin = true;
     let res: any = await this.TJMusicMultiModalLearning();
     this.Data = res.res;
@@ -442,14 +445,10 @@ export class MultiModalLearningComputedComponent implements OnInit {
       console.log("获取双平台数据错误 不存入");
       return;
     }
-	if(PlatformParameter.QMid && this.keyword===""){
-		console.log("有平台数据 但没有keyword 不存入");
-		return;
-	}
     this.api
       .ObservationDataStorage({
         UserId: this.userId,
-        KeyWord: PlatformParameter.QMid?this.keyword:"",
+        KeyWord: this.keyword,
         MeasuredParameter: MeasuredParameter,
         MeasurementResults: this.Data,
         PlatformData: this.obData,
@@ -526,6 +525,9 @@ export class MultiModalLearningComputedComponent implements OnInit {
     }
     // 设置所选小时的分数
     this.MinuteTimeArr = timeArray;
+  }
+  cancel(){
+	  
   }
 }
 

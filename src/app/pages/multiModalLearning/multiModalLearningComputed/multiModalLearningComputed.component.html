@@ -216,6 +216,13 @@
 				<button nz-button nzType="primary" (click)="begin()" [disabled]="loadingSpin">
 					开始预估
 				</button>
+				<!-- <button nz-button nzType="primary" [disabled]="loadingSpin" nz-popconfirm *ngIf='!keyword'
+				  nzPopconfirmTitle="还没有输入选择歌曲,快去输入选择吧!"
+				  nzPopconfirmPlacement="bottom"
+				  (nzOnConfirm)="cancel()"
+				  (nzOnCancel)="cancel()">
+					开始预估
+				</button> -->
 			</div>
 		</div>
 	</div>
