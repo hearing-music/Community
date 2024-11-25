@@ -6,7 +6,7 @@ import { CommonService } from "../../../services/common.service";
   templateUrl: "./multiModalLearningShow.component.html",
   styleUrls: ["./multiModalLearningShow.component.scss"],
 })
-export class multiModalLearningShowComponent implements OnInit {
+export class MultiModalLearningShowComponent implements OnInit {
   GetObservationDataArr: any = [];
   loading = false;
   params = {
