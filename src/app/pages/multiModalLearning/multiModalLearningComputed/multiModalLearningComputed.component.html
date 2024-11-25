@@ -3,7 +3,7 @@
 		<div nz-row>
 			<div nz-col nzSpan="6">
 				<div style="display: flex; align-items: center">
-					<ngx-search [searchValue]="keyword" searchHolder="请搜索歌曲关键字" (childSearch)="search($event)"
+					<ngx-search [searchValue]="keyword" searchHolder="请搜索歌曲关键字" (childSearch)="search($event)" (childInput)='childInput($event)' 
 						[searchWidth]="'100%'"></ngx-search>
 					<div class="picTip" nz-tooltip nzTooltipTitle="搜索歌曲关键字并选择两个平台对应歌曲 (选填)">
 						<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
@@ -366,7 +366,7 @@
 				<div style="width: 40%;" *ngIf="obData.QQ">
 					<div style='width: 100%;'>
 						<div class="formsLabel" style="text-align: center;">QQ</div>
-						<div style="display: flex; align-items: center; margin-top: 6px;">
+						<div style="display: flex; align-items: center;justify-content: center; margin-top: 6px;">
 							<!-- 收听 -->
 							<div class="" style="display: flex; align-items: center; margin-left: 0px">
 								<img src="/assets/img/erji2.svg" class="icon" />
@@ -400,7 +400,7 @@
 								</div>
 							</div>
 						</div>
-						<div style="display: flex; align-items: center; margin-top: 20px">
+						<div style="display: flex; align-items: center; justify-content: center; margin-top: 20px">
 							<!-- 评论 -->
 							<div style="display: flex; align-items: center">
 								<img src="/assets/img/pinglun.png" class="icon" />
@@ -432,7 +432,7 @@
 					
 					<div style='width: 100%;margin-top: 44px;'>
 						<div class="formsLabel" style="text-align: center;">酷狗</div>
-						<div style="display: flex; align-items: center; margin-top: 6px;">
+						<div style="display: flex; align-items: center;justify-content: center;  margin-top: 6px;">
 							<!-- 正在听收听 -->
 							<span *ngIf="obData.KG[0].KExponents.data.listener_num" nz-tooltip nzTooltipTitle="正在收听">
 								<div class="" style="display: flex; align-items: center; margin-left: 0px">
@@ -492,7 +492,7 @@
 								</div>
 							</span>
 						</div>
-						<div style="display: flex; align-items: center; margin-top: 20px">
+						<div style="display: flex; align-items: center;justify-content: center;  margin-top: 20px">
 							<!-- 评论 -->
 							<div style="display: flex; align-items: center"
 								*ngIf="obData.KG[0].KExponents.data.listener_num">

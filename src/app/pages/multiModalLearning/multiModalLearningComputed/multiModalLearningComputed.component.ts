@@ -114,6 +114,12 @@ export class MultiModalLearningComputedComponent implements OnInit {
   	  this.qqDataPage = 1;
   	  this.kgDataPage = 1;
   }
+  reset2(){
+  	  this.chooseQQKGData = {};
+  	  this.qqkgData = {};
+  	  this.qqDataPage = 1;
+  	  this.kgDataPage = 1;
+  }
   openSongsList() {
     if (!this.qqkgData.qqData || !this.qqkgData.kgData) return;
     this.showSongsList = true;
@@ -335,7 +341,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
       return;
     }
 	if(this.keyword===""){
-		this.toast.info("请填入关键字并搜索");
+		this.toast.info("请填入关键字");
 		return;
 	}
     this.loadingSpin = true;
@@ -430,6 +436,11 @@ export class MultiModalLearningComputedComponent implements OnInit {
         }
       );
     });
+  }
+  // 输入监听
+  childInput(e:any){
+  	this.keyword = e;
+	this.reset2();
   }
   // 存入数据
   ObservationDataStorage(MeasuredParameter: any, PlatformParameter: any) {

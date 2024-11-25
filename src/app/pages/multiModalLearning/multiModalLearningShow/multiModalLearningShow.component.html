@@ -1,4 +1,8 @@
 <div class="multiModalLearning">
+  <div *ngIf="GetObservationDataArr.length == 0"
+  	style="display: flex;align-items: center;justify-content: center;width: 100%;height: 300px;">
+  	<nz-empty></nz-empty>
+  </div>
   <div class="mainBox">
     <div  *ngFor="let item of GetObservationDataArr">
       <div class="list-item">

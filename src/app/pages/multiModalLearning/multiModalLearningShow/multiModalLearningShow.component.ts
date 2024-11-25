@@ -174,13 +174,13 @@ export class MultiModalLearningShowComponent implements OnInit {
       });
     }
     let color = [
-      "#c3d4bb",
-      "#326318",
-      "#d4bbc8",
-      "#631840",
-      "#7e9a5f",
-      "#24370e",
-    ];
+      "#1415f1",
+	  '#5e980c',
+      "#564bed",
+      "#8cdf16",
+      "#a39df1",
+	  "#aaed4b",
+    ]
     iitem.optionsIndex1 = {
       color: color,
       legend: {
@@ -194,6 +194,7 @@ export class MultiModalLearningShowComponent implements OnInit {
         },
       },
       tooltip: {
+		  confine:true,
         trigger: "axis", // 触发方式为坐标轴触发
       },
       grid: {
@@ -308,12 +309,12 @@ export class MultiModalLearningShowComponent implements OnInit {
 
     }
     let color = [
-      "#bbbbd4",
-      "#1a1863",
-      "#bbd2d4",
-      "#185f63",
-      "#bbd4c8",
-      "#18633f",
+      "#1415f1",
+	  '#5e980c',
+      "#564bed",
+      "#8cdf16",
+      "#a39df1",
+	  "#aaed4b",
     ];
     iitem.optionsIndex = {
       color: color,
@@ -328,6 +329,7 @@ export class MultiModalLearningShowComponent implements OnInit {
         },
       },
       tooltip: {
+		  confine:true,
         trigger: "axis", // 触发方式为坐标轴触发
       },
       grid: {
