@@ -135,6 +135,14 @@ export class HotSearchListComponent implements OnInit {
 	}
 	playChange(obj:any){
 		let {cIndex,i} = obj;
+		if(!this.list[i].infoArr[cIndex].audioUrl){
+			this.getKugouSongUrl(cIndex,i)
+		}else{
+			this.playChange2(obj)
+		}
+	}
+	playChange2(obj:any){
+		let {cIndex,i} = obj;
 		this.audioSrc = this.list[i].infoArr[cIndex].audioUrl
 		if(!this.audioSrc) return;
 		this.isPlay = true;
@@ -155,5 +163,19 @@ export class HotSearchListComponent implements OnInit {
 				})
 			})
 		}, 50)
+	}
+	getKugouSongUrl(cIndex:number,i:number){
+		this.loading = true;
+		this.api.getKugouSongUrl({EMixSongID:this.list[i].infoArr[cIndex].eMixSongID}).subscribe((res: any) => {
+			console.log(res)
+			if (res.success) {
+				this.list[i].infoArr[cIndex].audioUrl = res.result[0];
+				this.playChange2({cIndex,i})
+			}
+			this.loading = false;
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
 	}
 }

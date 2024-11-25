@@ -13,9 +13,9 @@
 						</div>
 					</div>
 					<div class='item-imgBox' (click)='doPlay(cindex,i)'>
-						<img nz-image [nzFallback]="fallback" [nzSrc]="citem.imgUrl" [nzPlaceholder]="fallback" style="width:100%;height:100%;display: block;">
-						<img *ngIf='!citem.isPlay&&citem.audioUrl' src="/assets/img/PLAY-blue.svg" class='imgPlay'>
-						<img *ngIf='citem.isPlay&&citem.audioUrl' src="/assets/img/PAUSE-blue.svg" class='imgPlay'>
+						<img [nzDisablePreview]='true' nz-image [nzFallback]="fallback" [nzSrc]="citem.imgUrl" [nzPlaceholder]="fallback" style="width:100%;height:100%;display: block;">
+						<img *ngIf='!citem.isPlay' src="/assets/img/PLAY-blue.svg" class='imgPlay'>
+						<img *ngIf='citem.isPlay' src="/assets/img/PAUSE-blue.svg" class='imgPlay'>
 					</div>
 					<div style="margin-left: 8px;flex:1;overflow: hidden;">
 						<div style="display: flex;align-items: center;cursor: pointer;" (click)='openSongDetail(citem.eMixSongID)'>
@@ -24,12 +24,12 @@
 								{{citem.reason}}
 							</div>
 						</div>
-						<div style="margin: 4px 0;font-size: 13px;color:#666;" class="hideText" nz-tooltip [nzTooltipTitle]="citem.albumName">
-							{{citem.albumName}}
+						<div style="margin: 4px 0;font-size: 13px;color:#666;" class="hideText" nz-tooltip [nzTooltipTitle]="common.deleteEM(citem.albumName)">
+							{{common.deleteEM(citem.albumName)}}
 						</div>
 						<div style="display: flex;" nz-tooltip [nzTooltipTitle]="citem.singers.join()">
 							<div *ngFor='let singer of citem.singers;let singerI = index;' style="font-size: 13px;color:#666;" class="hideText">
-								{{singerI == citem.singers.length-1?singer:singer+","}}
+								{{singerI == citem.singers.length-1?common.deleteEM(singer):common.deleteEM(singer)+","}}
 							</div>
 						</div>
 					</div>
