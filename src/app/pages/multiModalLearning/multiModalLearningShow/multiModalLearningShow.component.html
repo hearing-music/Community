@@ -7,9 +7,15 @@
     <div  *ngFor="let item of GetObservationDataArr">
       <div class="list-item">
         <div style="width: 100%;display: flex;justify-content: space-between;padding-top: 8px;">
-          <div style="width: 150px;">
-            <div class="song-name">
-              <span style="margin-left: 8px;color: black;font-size: 20px;"  nz-tooltip [nzTooltipTitle]="item.KeyWord">{{ item.KeyWord }}</span>
+          <div style="width: 170px;">
+            <div style="display: flex;align-items: center;margin-left: 8px;">
+              <div class="song-name" nz-tooltip [nzTooltipTitle]="item.KeyWord">
+                {{ item.KeyWord }}
+              </div>
+              <div style="width: 50px;display: flex;align-items: center;justify-content: space-around;">
+                <span nz-icon nzType="select" nzTheme="outline" style="cursor: pointer;color:#35C035;font-size: 14px;" nz-tooltip nzTooltipTitle="前往QQ" (click)="openQqSongDetail(item.PlatformParameter.QMid[0],$event)"></span>
+                <span nz-icon nzType="select" nzTheme="outline" style="cursor: pointer;color:#3576c0;font-size: 14px;" nz-tooltip nzTooltipTitle="前往酷狗" (click)="openKGSongDetail(item.PlatformParameter.KEMixSongID[0],$event)"></span>
+              </div>
             </div>
             <div style="margin-left: 8px;display: flex; margin-top: 8px;font-size: 12px;">
               <div style="display: flex; align-items: center">
@@ -17,13 +23,13 @@
                 <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
                 {{ item.MeasuredParameter.SongType }}
                 <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
-				<span style="color: #000;">
-					{{ item.username }}
-				</span>
+				        <span style="color: #000;">
+				        	{{ item.username }}
+				        </span>
               </div>
             </div>
           </div>
-          <div style="width:calc(100% - 150px) ;display: flex;align-items: center;font-size: 13px;">
+          <div style="width:calc(100% - 220px) ;display: flex;align-items: center;font-size: 13px;">
             <div>
               <div style="display: flex;align-items: center;">
                 <div>

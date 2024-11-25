@@ -3,8 +3,8 @@
 		<div nz-row>
 			<div nz-col nzSpan="6">
 				<div style="display: flex; align-items: center">
-					<ngx-search [searchValue]="keyword" searchHolder="请搜索歌曲关键字" (childSearch)="search($event)" (childInput)='childInput($event)' 
-						[searchWidth]="'100%'"></ngx-search>
+					<ngx-search [searchValue]="keyword" searchHolder="请搜索歌曲关键字" (childSearch)="search($event)"
+						(childInput)='childInput($event)' [searchWidth]="'100%'"></ngx-search>
 					<div class="picTip" nz-tooltip nzTooltipTitle="搜索歌曲关键字并选择两个平台对应歌曲 (选填)">
 						<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
 					</div>
@@ -18,13 +18,13 @@
 				<div style="display: flex; align-items: center; height: 100%">
 					<div *ngIf="chooseQQKGData.qqData" style="margin: 0 6px">
 						<span class="formsLabel">
-							QQ已选: 
+							QQ已选:
 						</span>
 						{{ chooseQQKGData.qqData.title }}
 					</div>
 					<div *ngIf="chooseQQKGData.kgData" style="margin: 0 6px">
 						<span class="formsLabel">
-							酷狗已选: 
+							酷狗已选:
 						</span>
 						{{ common.deleteEM(chooseQQKGData.kgData.SongName) }}
 					</div>
@@ -246,7 +246,8 @@
 						</div>
 						<div nz-col nzSpan="2" style="display: flex; align-items: center">
 							<div class="picTip" nz-tooltip nzTooltipTitle="这是按小时预估24H可能会产生的播放量">
-								<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+								<span nz-icon nzType="info-circle" nzTheme="outline"
+									style="color: rgba(0, 0, 0, 0.85)"></span>
 							</div>
 						</div>
 						<div nz-col nzSpan="3" style="display: flex; align-items: center">
@@ -256,12 +257,14 @@
 						</div>
 						<div nz-col nzSpan="1" style="display: flex; align-items: center">
 							<div style="display: flex; align-items: center; margin-left: 8px">
-								<i *ngIf="Data[6][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
+								<i *ngIf="Data[6][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline"
+									class="upColor"></i>
 								<i *ngIf="Data[6][1] < 1000" nz-icon nzType="arrow-down" nzTheme="outline"
 									class="downColor"></i>
 							</div>
 							<div class="picTip" nz-tooltip nzTooltipTitle="计算雷达近24H较今日小时预估播放量涨幅情况 >1000 增长 | <1000 下滑">
-								<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+								<span nz-icon nzType="info-circle" nzTheme="outline"
+									style="color: rgba(0, 0, 0, 0.85)"></span>
 							</div>
 						</div>
 					</div>
@@ -274,7 +277,8 @@
 						</div>
 						<div nz-col nzSpan="2" style="display: flex; align-items: center">
 							<div class="picTip" nz-tooltip nzTooltipTitle="这是按分钟预估24H可能会产生的播放量">
-								<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+								<span nz-icon nzType="info-circle" nzTheme="outline"
+									style="color: rgba(0, 0, 0, 0.85)"></span>
 							</div>
 						</div>
 						<div nz-col nzSpan="3">
@@ -284,12 +288,14 @@
 						</div>
 						<div nz-col nzSpan="1" style="display: flex; align-items: center">
 							<div style="display: flex; align-items: center; margin-left: 8px">
-								<i *ngIf="Data[7][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
+								<i *ngIf="Data[7][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline"
+									class="upColor"></i>
 								<i *ngIf="Data[7][1] < 1000" nz-icon nzType="arrow-down" nzTheme="outline"
 									class="downColor"></i>
 							</div>
 							<div class="picTip" nz-tooltip nzTooltipTitle="计算雷达近24H较今日分钟预估播放量涨幅情况 >1000 增长 | <1000 下滑">
-								<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+								<span nz-icon nzType="info-circle" nzTheme="outline"
+									style="color: rgba(0, 0, 0, 0.85)"></span>
 							</div>
 						</div>
 					</div>
@@ -297,7 +303,8 @@
 						<div nz-col nzSpan="12" style="display: flex; align-items: center">
 							<div class="formsLabel">计算今日近24H总PV搜索平均值倍数</div>
 							<div class="picTip" nz-tooltip nzTooltipTitle="计算今日近24H总PV搜索平均值倍数">
-								<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+								<span nz-icon nzType="info-circle" nzTheme="outline"
+									style="color: rgba(0, 0, 0, 0.85)"></span>
 							</div>
 						</div>
 						<div nz-col nzSpan="3" style="display: flex; align-items: center">
@@ -307,58 +314,65 @@
 						</div>
 						<div nz-col nzSpan="2" style="display: flex; align-items: center">
 							<div class="picTip" nz-tooltip nzTooltipTitle=">25 资产播放合格 | <25 搜索播放合格">
-								<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+								<span nz-icon nzType="info-circle" nzTheme="outline"
+									style="color: rgba(0, 0, 0, 0.85)"></span>
 							</div>
 						</div>
 					</div>
-					
+
 					<div nz-row style="margin-top: 20px">
 						<div nz-col nzSpan="12" style="display: flex; align-items: center">
 							<div class="formsLabel">计算今日近1H总PV搜索数的预估播放量</div>
 							<div class="picTip" nz-tooltip nzTooltipTitle="当看不到播放量的时候，此数据可作为参考">
-								<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+								<span nz-icon nzType="info-circle" nzTheme="outline"
+									style="color: rgba(0, 0, 0, 0.85)"></span>
 							</div>
 						</div>
 						<div nz-col nzSpan="3" style="display: flex; align-items: center">
 							{{ common.toThousands(Data[3][1]) }}
 						</div>
-					
+
 					</div>
 					<div nz-row style="margin-top: 20px">
 						<div nz-col nzSpan="12" style="display: flex; align-items: center">
 							<div class="formsLabel">计算今日近24H总PV搜索数的预估播放量</div>
 							<div class="picTip" nz-tooltip nzTooltipTitle="当看不到播放量的时候，此数据可作为参考">
-								<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+								<span nz-icon nzType="info-circle" nzTheme="outline"
+									style="color: rgba(0, 0, 0, 0.85)"></span>
 							</div>
 						</div>
 						<div nz-col nzSpan="3">
 							{{ common.toThousands(Data[4][1]) }}
 						</div>
 					</div>
-					
+
 					<div nz-row style="margin-top: 20px">
 						<div nz-col nzSpan="12" style="display: flex; align-items: center">
 							<div class="formsLabel">计算雷达近24H较昨日生态涨幅播放量</div>
 							<div class="picTip" nz-tooltip nzTooltipTitle="计算雷达近24H较昨日生态涨幅播放量">
-								<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+								<span nz-icon nzType="info-circle" nzTheme="outline"
+									style="color: rgba(0, 0, 0, 0.85)"></span>
 							</div>
 						</div>
 						<div nz-col nzSpan="2" style="display: flex; align-items: center">
-							<div [ngClass]="{upColor: Data[5][1] >= 1000,downColor: Data[5][1] < 1000}" style="width: 70px">
+							<div [ngClass]="{upColor: Data[5][1] >= 1000,downColor: Data[5][1] < 1000}"
+								style="width: 70px">
 								{{ common.toThousands(Data[5][1]) }}
 							</div>
-					
+
 						</div>
 						<div nz-col nzSpan="1" style="display: flex; align-items: center;justify-content: flex-end;">
 							<div style="display: flex; align-items: center">
-								<i *ngIf="Data[5][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
+								<i *ngIf="Data[5][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline"
+									class="upColor"></i>
 								<i *ngIf="Data[5][1] < 1000" nz-icon nzType="arrow-down" nzTheme="outline"
 									class="downColor"></i>
 							</div>
 						</div>
 						<div nz-col nzSpan="1" style="display: flex; align-items: center">
 							<div class="picTip" nz-tooltip nzTooltipTitle=">1000 增长 | <1000 下滑">
-								<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+								<span nz-icon nzType="info-circle" nzTheme="outline"
+									style="color: rgba(0, 0, 0, 0.85)"></span>
 							</div>
 						</div>
 					</div>
@@ -422,6 +436,11 @@
 									style="color: red" nzTheme="outline"></span>
 								<div>{{ obData.QQ[0].realtimeData.rankRate }}</div>
 							</div>
+							<!-- 预估播放量 -->
+							<div style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="预估播放量">
+								<img src="/assets/img/calculatePlayback.png" class="icon" />
+								{{common.toThousands(obData.QQ[0].realtimeData.yesterdayIndex * 3)}}
+							</div>
 							<!-- 收藏 -->
 							<div style="display: flex; align-items: center; margin-left: 8px">
 								<img src="/assets/img/love.png" class="icon" />
@@ -429,7 +448,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div style='width: 100%;margin-top: 44px;'>
 						<div class="formsLabel" style="text-align: center;">酷狗</div>
 						<div style="display: flex; align-items: center;justify-content: center;  margin-top: 6px;">
@@ -517,16 +536,28 @@
 									style="color: red" nzTheme="outline"></span>
 								<div>{{ obData.KG[0].KExponents.data.rank_diff }}</div>
 							</div>
+							<!-- 预估播放量 -->
+							<div style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="预估播放量"
+								*ngIf="obData.KG[0].KExponents.data.listener_num">
+								<img src="/assets/img/calculatePlayback.png" class="icon" />
+								{{common.toThousands((obData.KG[0].KExponents.data.exponent) * 8)}}
+							</div>
+							<!-- 预估播放量 -->
+							<div style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="预估播放量"
+								*ngIf="!obData.KG[0].KExponents.data.listener_num">
+								<img src="/assets/img/calculatePlayback.png" class="icon" />
+								{{common.toThousands((obData.KG[0].KShareExponents[obData.KG[0].KShareExponents.length - 1].exponent) * 8)}}
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
 			<!-- <div nz-row style="margin-top: 20px;">
 	      <div nz-col nzSpan="5"></div>
 	      <div nz-col nzSpan="9" style="display: flex;align-items: center;">
@@ -551,7 +582,7 @@
 	      </div>
 	      <div nz-col nzSpan="3"></div>
 	    </div>
-	
+
 	    <div nz-row style="margin-top: 20px;">
 	      <div nz-col nzSpan="5"></div>
 	      <div nz-col nzSpan="9" style="display: flex;align-items: center;">
@@ -644,7 +675,7 @@
 					<div nz-icon nzType="down-circle" nzTheme="twotone" (click)='kgPageNext()'
 						style="cursor: pointer;font-size:16px;margin-top: 12px;"></div>
 				</div>
-				
+
 			</div>
 			<div style="display: flex;justify-content: center;width: 100%;margin-top: 12px;">
 				<button nz-button nzType="primary" (click)='handleOk()' style="width: 160px;">确定</button>

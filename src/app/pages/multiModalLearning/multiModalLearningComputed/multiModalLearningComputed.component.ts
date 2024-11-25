@@ -380,13 +380,15 @@ export class MultiModalLearningComputedComponent implements OnInit {
 				FileHash: this.chooseQQKGData.kgData.FileHash,
 			},
 		];
-		let KMixSongID = [this.chooseQQKGData.kgData.MixSongID];
+    let KMixSongID = [this.chooseQQKGData.kgData.MixSongID];
+    let KEMixSongID = [this.chooseQQKGData.kgData.EMixSongID];
 		let obj = {
 			QMid,
 			Qid,
 			KScid,
 			KQbjId,
-			KMixSongID,
+      KMixSongID,
+      KEMixSongID,
 		};
 		return new Promise((resolve : any) => {
 			this.api.ObservationalData(obj).subscribe(

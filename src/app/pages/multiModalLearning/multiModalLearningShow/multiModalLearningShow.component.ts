@@ -49,30 +49,31 @@ export class MultiModalLearningShowComponent implements OnInit {
             let qq = res.data.res[i].PlatformData.QQ;
             for (let j = 0; j < Kg.length; j++) {
               res.data.res[i].PlatformData.IndexKG.push({
-                Index: Kg[j].KExponents.data.exponent,
-                Time: new Date(Kg[j].KExponents.data.date).getTime(),
+                Index: Kg[j].KExponents.data.exponent || Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].exponent,
+                Time: new Date(Kg[j].KExponents.data.date).getTime() || Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].date * 1000,
               });
               res.data.res[i].PlatformData.ListenKG.push({
-                Count: Kg[j].listenPeopleCount.count,
-                Time: new Date(Kg[j].KExponents.data.date).getTime(),
+                Count: Kg[j].listenPeopleCount.count || 0,
+                Time: new Date(Kg[j].KExponents.data.date).getTime() || Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].date * 1000,
               });
               res.data.res[i].PlatformData.RankKG.push({
-                Rank: Kg[j].KExponents.data.rank,
-                Time: new Date(Kg[j].KExponents.data.date).getTime(),
+                Rank: Kg[j].KExponents.data.rank || 0,
+                Time: new Date(Kg[j].KExponents.data.date).getTime()|| Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].date * 1000,
               });
               res.data.res[i].PlatformData.indexRateKG.push({
-                indexRate: Kg[j].KExponents.data.exponent_diff,
-                Time: new Date(Kg[j].KExponents.data.date).getTime(),
+                indexRate: Kg[j].KExponents.data.exponent_diff || 0,
+                Time: new Date(Kg[j].KExponents.data.date).getTime()|| Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].date * 1000,
               });
               res.data.res[i].PlatformData.RankDiffKG.push({
-                rankDiff: Kg[j].KExponents.data.rank_diff,
-                Time: new Date(Kg[j].KExponents.data.date).getTime(),
+                rankDiff: Kg[j].KExponents.data.rank_diff || 0,
+                Time: new Date(Kg[j].KExponents.data.date).getTime()|| Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].date * 1000,
               });
               res.data.res[i].PlatformData.commentKG.push({
                 count: Kg[j].comment.cnt,
-                Time: new Date(Kg[j].KExponents.data.date).getTime(),
+                Time: new Date(Kg[j].KExponents.data.date).getTime()|| Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].date * 1000,
               });
             }
+            console.log(res.data.res[i].PlatformData)
             for (let j = 0; j < qq.length; j++) {
               const date = new Date(qq[j].realtimeData.updateTime);
               const zeroHourTimestamp = new Date(date.getFullYear(),date.getMonth(),date.getDate() - 1).getTime();
@@ -343,5 +344,11 @@ export class MultiModalLearningShowComponent implements OnInit {
       }
     }
     return uniqueArray;
+  }
+  openQqSongDetail(songMid: string, e: any) {
+		window.open('https://y.qq.com/n/ryqq/songDetail/'+songMid);
+  }
+  openKGSongDetail(KEMixSongID: string, e: any) {
+		window.open('https://www.kugou.com/song/#'+KEMixSongID)
   }
 }
