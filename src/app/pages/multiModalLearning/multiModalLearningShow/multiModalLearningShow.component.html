@@ -7,12 +7,12 @@
     <div  *ngFor="let item of GetObservationDataArr">
       <div class="list-item">
         <div style="width: 100%;display: flex;justify-content: space-between;padding-top: 8px;">
-          <div style="width: 170px;">
+          <div style="width: 230px;">
             <div style="display: flex;align-items: center;margin-left: 8px;">
               <div class="song-name" nz-tooltip [nzTooltipTitle]="item.KeyWord">
                 {{ item.KeyWord }}
               </div>
-              <div style="width: 50px;display: flex;align-items: center;justify-content: space-around;">
+              <div style="width: 50px;display: flex;align-items: center;justify-content: space-around;" *ngIf="item.PlatformData.KG">
                 <span nz-icon nzType="select" nzTheme="outline" style="cursor: pointer;color:#35C035;font-size: 14px;" nz-tooltip nzTooltipTitle="前往QQ" (click)="openQqSongDetail(item.PlatformParameter.QMid[0],$event)"></span>
                 <span nz-icon nzType="select" nzTheme="outline" style="cursor: pointer;color:#3576c0;font-size: 14px;" nz-tooltip nzTooltipTitle="前往酷狗" (click)="openKGSongDetail(item.PlatformParameter.KEMixSongID[0],$event)"></span>
               </div>
@@ -29,7 +29,7 @@
               </div>
             </div>
           </div>
-          <div style="width:calc(100% - 220px) ;display: flex;align-items: center;font-size: 13px;">
+          <div style="width:calc(100% - 230px) ;display: flex;align-items: center;font-size: 13px;">
             <div>
               <div style="display: flex;align-items: center;">
                 <div>
@@ -185,9 +185,9 @@
             </div>
             <div style="display: flex;width: 32%;">
               <div style="display: flex;align-items: center;">
-				{{ item.MeasurementResults[2][0] }}
-				<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;"  nz-tooltip nzTooltipTitle="计算今日近24H总PV搜索平均值倍数"></span>
-			  </div>
+				        {{ item.MeasurementResults[2][0] }}
+				        <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;"  nz-tooltip nzTooltipTitle="计算今日近24H总PV搜索平均值倍数"></span>
+			        </div>
               <div style="display: flex;align-items: center;">
                 <span style="margin-left: 8px;color: black;font-weight: bolder;">
                   {{ common.toThousands(item.MeasurementResults[2][1]) }}
@@ -231,7 +231,7 @@
             <div style="display: flex;width: 32%">
               <div style="display: flex;align-items: center;">
                 {{ item.MeasurementResults[3][0] }}
-				<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;"  nz-tooltip nzTooltipTitle="当看不到播放量的时候，此数据可作为参考"></span>
+				        <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;"  nz-tooltip nzTooltipTitle="当看不到播放量的时候，此数据可作为参考"></span>
               </div>
               <div style="display: flex;align-items: center;">
                 <span style="margin-left: 8px;color: black;font-weight: bolder;">

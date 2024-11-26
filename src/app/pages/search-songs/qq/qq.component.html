@@ -22,7 +22,7 @@
 						<div (click)="openSongDetail(item.mid,$event)" class="linkIcon" style="margin-left: 18px;">
 							<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
 							<!-- 鼠标移入加载urlview -->
-							<ngx-url-preview *ngIf='item.urlPreviewShowhome' [songName]='item.name' [data]='item.urlPreviewhome' 
+							<ngx-url-preview *ngIf='item.urlPreviewShowhome' [songName]='item.name' [data]='item.urlPreviewhome'
 								[loading]='item.UrlLoadinghome'></ngx-url-preview>
 						</div>
 						<!-- 收听 -->
@@ -30,8 +30,8 @@
 							<img src="../../../assets/img/erji.png" class="icon" />
 							<div>{{common.toThousands(item.cnt)}}</div>
 						</div> -->
-						<!-- 指数 -->
-						<div class="" style="display: flex;align-items: center;margin-left: 8px;">
+						<!-- 当前指数 -->
+						<div class="" style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="当前指数">
 							<img src="../../../assets/img/shuangzhexian.png" class="icon" />
 							<div>{{common.toThousands(item.todayIndex)}}</div>
 						</div>
@@ -40,16 +40,16 @@
 						<!-- <div (click)="openLink(item.mid)" class="linkIcon" (mouseenter)='mouseenterUrl(item,"exponent")' (mouseleave)='mouseleaveUrl(item,"exponent")' style="margin-left: 2px;"> -->
 							<span nz-icon nzType="link" nzTheme="outline" style='color:#35C035;font-size: 14px;'></span>
 							<!-- 鼠标移入加载urlview -->
-							<ngx-url-preview *ngIf='item.urlPreviewShowexponent' [songName]='item.name' [data]='item.urlPreviewexponent' 
+							<ngx-url-preview *ngIf='item.urlPreviewShowexponent' [songName]='item.name' [data]='item.urlPreviewexponent'
 								[loading]='item.UrlLoadingexponent'></ngx-url-preview>
 						</div>
 						<!-- 昨日指数 -->
-						<div class="" style="display: flex;align-items: center;margin-left: 2px;">
+						<div class="" style="display: flex;align-items: center;margin-left: 2px;" nz-tooltip nzTooltipTitle="昨日指数">
 							<img src="../../../assets/img/shijian.png" class="icon" />
 							<div>{{common.toThousands(item.yesterdayIndex)}}</div>
 						</div>
 						<!-- 指数增长率 -->
-						<div class="" v-if='item.indexRate!=0' style="display: flex;align-items: center;margin-left: 8px;">
+						<div class="" v-if='item.indexRate!=0' style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="指数增长率">
 							<span *ngIf='item.indexRate<0' nz-icon nzType="arrow-down" style='color:green;'
 								nzTheme="outline"></span>
 							<span *ngIf='item.indexRate>0' nz-icon nzType="arrow-up" style='color:red;'
@@ -126,7 +126,7 @@
 					<div class="subTitle">
 						<!-- 歌手 发行时间 -->
 						<div style="display: flex;align-items: center;">
-							<div nz-tooltip [nzTooltipTitle]="item.singerNames2" style="display: flex;align-items: center;max-width: 190px; 
+							<div nz-tooltip [nzTooltipTitle]="item.singerNames2" style="display: flex;align-items: center;max-width: 190px;
 							overflow: hidden;
 							white-space: nowrap;
 							text-overflow: ellipsis;">
@@ -156,12 +156,12 @@
 								class="icon" />
 						</div>
 						<!-- 排名 -->
-						<div style="display: flex;align-items: center;margin-left: 8px;">
+						<div style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="排名">
 							<img src="../../../assets/img/zhexiandian.png" class="icon" />
 							<div>{{common.toThousands(item.todayRank)}}</div>
 						</div>
-						<!-- 指数增长 -->
-						<div class="" v-if='item.rankRate!=0' style="display: flex;align-items: center;margin-left: 8px;">
+						<!-- 排名增长 -->
+						<div class="" v-if='item.rankRate!=0' style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="排名增长">
 							<span *ngIf='item.rankRate<0' nz-icon nzType="arrow-down" style='color:green;'
 								nzTheme="outline"></span>
 							<span *ngIf='item.rankRate>0' nz-icon nzType="arrow-up" style='color:red;'
@@ -169,7 +169,7 @@
 							<div>{{item.rankRate}}</div>
 						</div>
 						<!-- 在听人数 -->
-						<div style="display: flex;align-items: center;white-space: nowrap;margin-left: 8px;">
+						<div style="display: flex;align-items: center;white-space: nowrap;margin-left: 8px;" nz-tooltip nzTooltipTitle="在听人数">
 							<div style="color:rgb(78, 194, 223)">{{common.toThousands(item.cnt)}}</div>人在听
 						</div>
 					</div>
@@ -215,18 +215,18 @@
 						原始：{{item.detail.albumCompanyName}}</div>
 				</div>
 				<div class="itemRight">
-					<div style="display: flex;align-items: center;justify-content: flex-end;">
+					<div style="display: flex;align-items: center;justify-content: flex-end;" nz-tooltip nzTooltipTitle="收藏">
 						<!-- 收藏图标 -->
 						<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
 						<div>{{common.toThousands(item.col_number)}}</div>
 					</div>
 					<div style="display: flex;align-items: center;margin-top: 6px;">
 						<!-- 播放量 -->
-						<div v-if='item.listenCnt!="-"'>
+						<div v-if='item.listenCnt!="-"' nz-tooltip nzTooltipTitle="播放量">
 							<div>{{item.listenCnt}}</div>
 						</div>
 						<div style="margin: 0 8px;"> | </div>
-						<div style="display: flex;align-items: center;">
+						<div style="display: flex;align-items: center;" nz-tooltip nzTooltipTitle="评论">
 							<!-- 评论图标 -->
 							<img src="../../../assets/img/pinglun.png" class="icon" />
 							<div>{{common.toThousands(item.commentCount)}}</div>
@@ -234,7 +234,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 		</div>
 		<div class='more' [ngStyle]="{'height':item.isMore?((item.GrpData.length*136)+'px'):'0px','padding':item.isMore?'8px 12px':'0px'}">
 			<div class="list-item" *ngFor="let citem of item.GrpData;let idx2=index" >
@@ -258,16 +258,16 @@
 							<!-- <div (mouseenter)='mouseenterUrl(citem,"home")' (mouseleave)='mouseleaveUrl(citem,"home")' (click)="openSongDetail(citem.mid,$event)" class="linkIcon" style="margin-left: 18px;position:static;"> -->
 								<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
 								<!-- 鼠标移入加载urlview -->
-								<ngx-url-preview *ngIf='citem.urlPreviewShowhome' [songName]='citem.name' [data]='citem.urlPreviewhome' 
+								<ngx-url-preview *ngIf='citem.urlPreviewShowhome' [songName]='citem.name' [data]='citem.urlPreviewhome'
 									[loading]='citem.UrlLoadinghome'></ngx-url-preview>
 							</div>
 							<!-- 收听 -->
-							<div class="" style="display: flex;align-items: center;margin-left: 2px;">
+							<div class="" style="display: flex;align-items: center;margin-left: 2px;" nz-tooltip nzTooltipTitle="在听人数">
 								<img src="../../../assets/img/erji.png" class="icon" />
 								<div>{{common.toThousands(citem.cnt)}}</div>
 							</div>
 							<!-- 指数 -->
-							<div class="" style="display: flex;align-items: center;margin-left: 8px;">
+							<div class="" style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="当前指数">
 								<img src="../../../assets/img/shuangzhexian.png" class="icon" />
 								<div>{{common.toThousands(citem.todayIndex)}}</div>
 							</div>
@@ -276,16 +276,16 @@
 							<div (click)="openLink(citem.mid)" class="linkIcon" style="margin-left: 2px;">
 								<span nz-icon nzType="link" nzTheme="outline" style='color:#35C035;font-size: 14px;'></span>
 								<!-- 鼠标移入加载urlview -->
-								<ngx-url-preview *ngIf='citem.urlPreviewShowexponent' [songName]='citem.name' [data]='citem.urlPreviewexponent' 
+								<ngx-url-preview *ngIf='citem.urlPreviewShowexponent' [songName]='citem.name' [data]='citem.urlPreviewexponent'
 									[loading]='citem.UrlLoadingexponent'></ngx-url-preview>
 							</div>
 							<!-- 昨日指数 -->
-							<div class="" style="display: flex;align-items: center;margin-left: 2px;">
+							<div class="" style="display: flex;align-items: center;margin-left: 2px;" nz-tooltip nzTooltipTitle="昨日指数">
 								<img src="../../../assets/img/shijian.png" class="icon" />
 								<div>{{common.toThousands(citem.yesterdayIndex)}}</div>
 							</div>
 							<!-- 指数增长率 -->
-							<div class="" v-if='citem.indexRate!=0' style="display: flex;align-items: center;margin-left: 8px;">
+							<div class="" v-if='citem.indexRate!=0' style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="指数增长率">
 								<span *ngIf='citem.indexRate<0' nz-icon nzType="arrow-down" style='color:green;'
 									nzTheme="outline"></span>
 								<span *ngIf='citem.indexRate>0' nz-icon nzType="arrow-up" style='color:red;'
@@ -401,19 +401,19 @@
 								<div>￥{{common.toThousands(citem.price_track)}}</div>
 							</div>
 							<!-- 排名 -->
-							<div style="display: flex;align-items: center;margin-left: 8px;">
+							<div style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="排名">
 								<img src="../../../assets/img/zhexiandian.png" class="icon" />
 								<div>{{common.toThousands(citem.todayRank)}}</div>
 							</div>
-							<!-- 指数增长 -->
-							<div class="" v-if='citem.rankRate!=0' style="display: flex;align-items: center;margin-left: 8px;">
+							<!-- 排名增长 -->
+							<div class="" v-if='citem.rankRate!=0' style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="排名增长">
 								<span *ngIf='citem.rankRate<0' nz-icon nzType="arrow-down" style='color:green;'
 									nzTheme="outline"></span>
 								<span *ngIf='citem.rankRate>0' nz-icon nzType="arrow-up" style='color:red;'
 									nzTheme="outline"></span>
 								<div>{{citem.rankRate}}</div>
 							</div>
-							
+
 						</div>
 					</div>
 				</div>
@@ -434,18 +434,18 @@
 							原始：{{citem.detail.albumCompanyName}}</div>
 					</div>
 					<div class="itemRight">
-						<div style="display: flex;align-items: center;justify-content: flex-end;">
+						<div style="display: flex;align-items: center;justify-content: flex-end;" nz-tooltip nzTooltipTitle="收藏">
 							<!-- 收藏图标 -->
 							<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
 							<div>{{common.toThousands(citem.col_number)}}</div>
 						</div>
 						<div style="display: flex;align-items: center;margin-top: 6px;">
 							<!-- 播放量 -->
-							<div v-if='citem.listenCnt!="-"'>
+							<div v-if='citem.listenCnt!="-"' nz-tooltip nzTooltipTitle="播放量">
 								<div>{{citem.listenCnt}}</div>
 							</div>
 							<div style="margin: 0 8px;"> | </div>
-							<div style="display: flex;align-items: center;">
+							<div style="display: flex;align-items: center;" nz-tooltip nzTooltipTitle="评论">
 								<!-- 评论图标 -->
 								<img src="../../../assets/img/pinglun.png" class="icon" />
 								<div>{{common.toThousands(citem.commentCount)}}</div>
@@ -453,11 +453,11 @@
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
-		
+
 </div>
 <nz-drawer *ngIf='qqList.length>0' [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" [nzTitle]="'专辑: ' + albumNameDrawer"
 	(nzOnClose)="drawClose()" [nzWidth]='450'>

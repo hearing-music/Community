@@ -381,22 +381,22 @@
 					<div style='width: 100%;'>
 						<div class="formsLabel" style="text-align: center;">QQ</div>
 						<div style="display: flex; align-items: center;justify-content: center; margin-top: 6px;">
-							<!-- 收听 -->
-							<div class="" style="display: flex; align-items: center; margin-left: 0px">
+							<!-- 当前在听 -->
+							<div class="" style="display: flex; align-items: center; margin-left: 0px" nz-tooltip nzTooltipTitle="当前在听">
 								<img src="/assets/img/erji2.svg" class="icon" />
 								<div>
 									{{ common.toThousands(obData.QQ[0].nowListenUsers.cnt) }}
 								</div>
 							</div>
-							<!-- 指数 -->
-							<div class="" style="display: flex; align-items: center; margin-left: 8px">
+							<!-- 当前指数 -->
+							<div class="" style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="当前指数">
 								<img src="/assets/img/shuangzhexian.png" class="icon" />
 								<div>
 									{{ common.toThousands(obData.QQ[0].realtimeData.todayIndex) }}
 								</div>
 							</div>
 							<!-- 昨日指数 -->
-							<div class="" style="display: flex; align-items: center; margin-left: 8px">
+							<div class="" style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="昨日指数">
 								<img src="/assets/img/shijian.png" class="icon" />
 								<div>
 									{{common.toThousands(obData.QQ[0].realtimeData.yesterdayIndex)}}
@@ -404,7 +404,7 @@
 							</div>
 							<!-- 指数增长率 -->
 							<div class="" v-if="obData.QQ[0].realtimeData.indexRate!=0"
-								style="display: flex; align-items: center; margin-left: 8px">
+								style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="指数增长率">
 								<span *ngIf="obData.QQ[0].realtimeData.indexRate < 0" nz-icon nzType="arrow-down"
 									style="color: green" nzTheme="outline"></span>
 								<span *ngIf="obData.QQ[0].realtimeData.indexRate > 0" nz-icon nzType="arrow-up"
@@ -416,20 +416,20 @@
 						</div>
 						<div style="display: flex; align-items: center; justify-content: center; margin-top: 20px">
 							<!-- 评论 -->
-							<div style="display: flex; align-items: center">
+							<div style="display: flex; align-items: center" nz-tooltip nzTooltipTitle="评论">
 								<img src="/assets/img/pinglun.png" class="icon" />
 								<div>{{ common.toThousands(obData.QQ[0].comment.count) }}</div>
 							</div>
 							<!-- 排名 -->
-							<div style="display: flex; align-items: center; margin-left: 8px">
+							<div style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="排名">
 								<img src="/assets/img/zhexiandian.png" class="icon" />
 								<div>
 									{{ common.toThousands(obData.QQ[0].realtimeData.todayRank) }}
 								</div>
 							</div>
-							<!-- 指数增长 -->
+							<!-- 排名增长 -->
 							<div class="" v-if="obData.QQ[0].realtimeData.rankRate!=0"
-								style="display: flex; align-items: center; margin-left: 8px">
+								style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="排名增长">
 								<span *ngIf="obData.QQ[0].realtimeData.rankRate < 0" nz-icon nzType="arrow-down"
 									style="color: green" nzTheme="outline"></span>
 								<span *ngIf="obData.QQ[0].realtimeData.rankRate > 0" nz-icon nzType="arrow-up"
@@ -442,7 +442,7 @@
 								{{common.toThousands(obData.QQ[0].realtimeData.yesterdayIndex * 3)}}
 							</div>
 							<!-- 收藏 -->
-							<div style="display: flex; align-items: center; margin-left: 8px">
+							<div style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="收藏">
 								<img src="/assets/img/love.png" class="icon" />
 								<div>{{ common.toThousands(obData.QQ[0].m_numbers) }}</div>
 							</div>
@@ -452,8 +452,8 @@
 					<div style='width: 100%;margin-top: 44px;'>
 						<div class="formsLabel" style="text-align: center;">酷狗</div>
 						<div style="display: flex; align-items: center;justify-content: center;  margin-top: 6px;">
-							<!-- 正在听收听 -->
-							<span *ngIf="obData.KG[0].KExponents.data.listener_num" nz-tooltip nzTooltipTitle="正在收听">
+							<!-- 当前在听 -->
+							<span *ngIf="obData.KG[0].KExponents.data.listener_num" nz-tooltip nzTooltipTitle="当前在听">
 								<div class="" style="display: flex; align-items: center; margin-left: 0px">
 									<img src="/assets/img/erji2.svg" class="icon" />
 									<div>
@@ -461,32 +461,33 @@
 									</div>
 								</div>
 							</span>
-							<!-- 指数 -->
+							<!-- 昨日指数 -->
 							<div *ngIf="obData.KG[0].KExponents.data.listener_num"
-								style="display: flex; align-items: center; margin-left: 8px">
-								<img src="/assets/img/shuangzhexian.png" class="icon" />
+								style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="昨日指数">
+                <img src="/assets/img/shijian.png" class="icon" />
 								<div>
 									{{common.toThousands(obData.KG[0].KExponents.data.exponent)}}
 								</div>
 							</div>
+              <!-- 总收听数 -->
 							<div *ngIf="!obData.KG[0].KExponents.data.listener_num"
-								style="display: flex; align-items: center; margin-left: 8px">
+								style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="总收听数">
 								<img src="/assets/img/shuangzhexian.png" class="icon" />
 								<div>
 									{{common.toThousands(obData.KG[0].KShareExponents[obData.KG[0].KShareExponents.length - 1].exponent)}}
 								</div>
 							</div>
-							<!-- 昨日指数 -->
+							<!-- 前日指数 -->
 							<div *ngIf="obData.KG[0].KExponents.data.listener_num" class=""
-								style="display: flex; align-items: center; margin-left: 8px">
-								<img src="/assets/img/shijian.png" class="icon" />
+								style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="前日指数">
+								<img src="/assets/img/qiantian.png" class="icon" />
 								<div>
 									{{common.toThousands(obData.KG[0].KExponents.data.exponent - (obData.KG[0].KExponents.data.exponent_diff - 0))}}
 								</div>
 							</div>
-							<!-- 指数增长率 -->
+							<!-- 指数增长 -->
 							<div *ngIf="obData.KG[0].KExponents.data.listener_num" class=""
-								style="display: flex; align-items: center; margin-left: 8px">
+								style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="指数增长">
 								<span *ngIf="obData.KG[0].KExponents.data.exponent_diff < 0" nz-icon nzType="arrow-down"
 									style="color: green" nzTheme="outline"></span>
 								<span *ngIf="obData.KG[0].KExponents.data.exponent_diff > 0" nz-icon nzType="arrow-up"
@@ -497,7 +498,7 @@
 							</div>
 							<!-- 评论 -->
 							<div style="display: flex; align-items: center; margin-left: 8px"
-								*ngIf="!obData.KG[0].KExponents.data.listener_num">
+								*ngIf="!obData.KG[0].KExponents.data.listener_num"  nz-tooltip nzTooltipTitle="评论">
 								<img src="/assets/img/pinglun.png" class="icon" />
 								<div>{{ common.toThousands(obData.KG[0].comment.cnt) }}</div>
 							</div>
@@ -514,13 +515,13 @@
 						<div style="display: flex; align-items: center;justify-content: center;  margin-top: 20px">
 							<!-- 评论 -->
 							<div style="display: flex; align-items: center"
-								*ngIf="obData.KG[0].KExponents.data.listener_num">
+								*ngIf="obData.KG[0].KExponents.data.listener_num" nz-tooltip nzTooltipTitle="评论">
 								<img src="/assets/img/pinglun.png" class="icon" />
 								<div>{{ common.toThousands(obData.KG[0].comment.cnt) }}</div>
 							</div>
 							<!-- 排名 -->
 							<div *ngIf="obData.KG[0].KExponents.data.listener_num"
-								style="display: flex; align-items: center; margin-left: 8px">
+								style="display: flex; align-items: center; margin-left: 8px"  nz-tooltip nzTooltipTitle="排名">
 								<img src="/assets/img/zhexiandian.png" class="icon" />
 								<div>
 									{{ common.toThousands(obData.KG[0].KExponents.data.rank) }}
@@ -529,7 +530,7 @@
 							<!-- 排名增长 -->
 							<div *ngIf="obData.KG[0].KExponents.data.listener_num" class=""
 								v-if="obData.KG[0].KExponents.data.rank_diff!=0"
-								style="display: flex; align-items: center; margin-left: 8px">
+								style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="排名增长">
 								<span *ngIf="obData.KG[0].KExponents.data.rank_diff < 0" nz-icon nzType="arrow-down"
 									style="color: green" nzTheme="outline"></span>
 								<span *ngIf="obData.KG[0].KExponents.data.rank_diff > 0" nz-icon nzType="arrow-up"

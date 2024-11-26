@@ -29,14 +29,14 @@
 								<div>{{common.toThousands(item.detailData.listener_num)}}</div>
 							</div>
 						</span>
-						<!-- 指数 -->
+						<!-- 昨日指数 -->
 						<div *ngIf='item.detailData.listener_num' nz-tooltip [nzTooltipTitle]="item.detailData.date"
-							style="display: flex;align-items: center;margin-left: 8px;">
+							style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="昨日指数">
 							<img src="../../../assets/img/shuangzhexian.png" class="icon" />
 							<div>{{common.toThousands(item.detailData.exponent)}}</div>
 						</div>
 						<div *ngIf='!item.detailData.listener_num'
-							style="display: flex;align-items: center;margin-left: 8px;">
+							style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="指数">
 							<img src="../../../assets/img/shuangzhexian.png" class="icon" />
 							<div>{{common.toThousands(item.exponent)}}</div>
 						</div>
@@ -45,23 +45,23 @@
 							style="margin-left: 2px;">
 							<span nz-icon nzType="link" nzTheme="outline" style='color:blue;font-size: 14px;'></span>
 						</button>
-						<!-- 昨日指数 -->
+						<!-- 前日指数 -->
 						<div *ngIf='item.detailData.listener_num' class=""
-							style="display: flex;align-items: center;margin-left: 2px;">
+							style="display: flex;align-items: center;margin-left: 2px;" nz-tooltip nzTooltipTitle="前日指数">
 							<img src="../../../assets/img/shijian.png" class="icon" />
 							<div>{{common.toThousands(item.detailData.exponent - (item.detailData.exponent_diff - 0))}}
 							</div>
 						</div>
 						<!-- 指数增长率 -->
-						<div *ngIf='item.detailData.listener_num' class="" 
-							style="display: flex;align-items: center;margin-left: 8px;">
+						<div *ngIf='item.detailData.listener_num' class=""
+							style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="指数增长">
 							<span *ngIf='item.detailData.exponent_diff<0' nz-icon nzType="arrow-down" style='color:green;'
 								nzTheme="outline"></span>
 							<span *ngIf='item.detailData.exponent_diff>0' nz-icon nzType="arrow-up" style='color:red;'
 								nzTheme="outline"></span>
 							<div>{{common.toThousands(item.detailData.exponent_diff)}}</div>
 						</div>
-						
+
 						<div style="margin-left: 25px;" (mouseenter)='mouseenter(item)' (mouseleave)='mouseleave(item)'>
 							<img src="../../../assets/img/lyric-blue.png" style="width: 20px;height: 20px;">
 							<!-- 鼠标移入加载歌词 -->
@@ -93,13 +93,13 @@
 						</div>
 						<!-- 排名 -->
 						<div *ngIf='item.detailData.listener_num'
-							style="display: flex;align-items: center;margin-left: 8px;">
+							style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="排名">
 							<img src="../../../assets/img/zhexiandian.png" class="icon" />
 							<div>{{common.toThousands(item.detailData.rank)}}</div>
 						</div>
-						<!-- 指数增长 -->
+						<!-- 排名增长 -->
 						<div *ngIf='item.detailData.listener_num' class="" v-if='item.detailData.rank_diff!=0'
-							style="display: flex;align-items: center;margin-left: 8px;">
+							style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="排名增长">
 							<span *ngIf='item.detailData.rank_diff<0' nz-icon nzType="arrow-down" style='color:green;'
 								nzTheme="outline"></span>
 							<span *ngIf='item.detailData.rank_diff>0' nz-icon nzType="arrow-up" style='color:red;'
@@ -124,7 +124,7 @@
 								</span>
 							</span> -->
 							<!-- 在听人数 -->
-							<span style="margin-left: 10px;">
+							<span style="margin-left: 10px;" nz-tooltip nzTooltipTitle="在听人数">
 								<span style="color:rgb(78, 194, 223)">{{common.toThousands(item.listenPeopleCount)}}</span>人在听
 							</span>
 							<span>
@@ -204,7 +204,7 @@
 							FileHash:{{item.FileHash}}
 						</div>
 						<div style="margin: 0 8px;"> | </div>
-						<div style="display: flex;align-items: center;">
+						<div style="display: flex;align-items: center;" nz-tooltip nzTooltipTitle="收藏">
 							<!-- 收藏图标 -->
 							<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
 							<div>{{'-'}}</div>
@@ -221,7 +221,7 @@
 							<div>id:{{item.scid}}</div>
 						</div>
 						<div style="margin: 0 8px;"> | </div>
-						<div style="display: flex;align-items: center;">
+						<div style="display: flex;align-items: center;" nz-tooltip nzTooltipTitle="评论">
 							<!-- 评论图标 -->
 							<img src="../../../assets/img/pinglun.png" class="icon" />
 							<div>{{common.toThousands(item.commentObj.cnt)}}</div>
@@ -229,7 +229,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 		</div>
 		<div class='more' [ngStyle]="{'height':item.isMore?((item.GrpData.length*160)+'px'):'0px','padding':item.isMore?'8px 12px':'0px'}">
 			<div class="list-item" *ngFor="let citem of item.GrpData;let idx2=index" >
@@ -254,20 +254,20 @@
 								<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
 							</button>
 							<!-- 收听 -->
-							<span *ngIf='citem.detailData.listener_num' nz-tooltip [nzTooltipTitle]="citem.detailData.date">
+							<span *ngIf='citem.detailData.listener_num' nz-tooltip [nzTooltipTitle]="citem.detailData.date" nz-tooltip nzTooltipTitle="总收听">
 								<div class="" style="display: flex;align-items: center;margin-left: 2px;">
 									<img src="../../../assets/img/erji.png" class="icon" />
 									<div>{{common.toThousands(citem.detailData.listener_num)}}</div>
 								</div>
 							</span>
-							<!-- 指数 -->
+							<!-- 昨日指数 -->
 							<div *ngIf='citem.detailData.listener_num'
-								style="display: flex;align-items: center;margin-left: 8px;">
+								style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="昨日指数">
 								<img src="../../../assets/img/shuangzhexian.png" class="icon" />
 								<div>{{common.toThousands(citem.detailData.exponent)}}</div>
 							</div>
 							<div *ngIf='!citem.detailData.listener_num'
-								style="display: flex;align-items: center;margin-left: 8px;">
+								style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="昨日指数">
 								<img src="../../../assets/img/shuangzhexian.png" class="icon" />
 								<div>{{common.toThousands(citem.exponent)}}</div>
 							</div>
@@ -276,23 +276,23 @@
 								style="margin-left: 2px;">
 								<span nz-icon nzType="link" nzTheme="outline" style='color:blue;font-size: 14px;'></span>
 							</button>
-							<!-- 昨日指数 -->
+							<!-- 前日指数 -->
 							<div *ngIf='citem.detailData.listener_num' class=""
-								style="display: flex;align-items: center;margin-left: 2px;">
+								style="display: flex;align-items: center;margin-left: 2px;" nz-tooltip nzTooltipTitle="前日指数">
 								<img src="../../../assets/img/shijian.png" class="icon" />
 								<div>{{common.toThousands(citem.detailData.exponent - (citem.detailData.exponent_diff - 0))}}
 								</div>
 							</div>
 							<!-- 指数增长率 -->
 							<div *ngIf='citem.detailData.listener_num' class=""
-								style="display: flex;align-items: center;margin-left: 8px;">
+								style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="指数增长">
 								<span *ngIf='citem.detailData.exponent_diff<0' nz-icon nzType="arrow-down" style='color:green;'
 									nzTheme="outline"></span>
 								<span *ngIf='citem.detailData.exponent_diff>0' nz-icon nzType="arrow-up" style='color:red;'
 									nzTheme="outline"></span>
 								<div>{{common.toThousands(citem.detailData.exponent_diff)}}</div>
 							</div>
-							
+
 							<div style="margin-left: 25px;" (mouseenter)='mouseenter(citem)' (mouseleave)='mouseleave(citem)'>
 								<img src="../../../assets/img/lyric-blue.png" style="width: 20px;height: 20px;">
 								<!-- 鼠标移入加载歌词 -->
@@ -324,13 +324,13 @@
 							</div>
 							<!-- 排名 -->
 							<div *ngIf='citem.detailData.listener_num'
-								style="display: flex;align-items: center;margin-left: 8px;">
+								style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="排名">
 								<img src="../../../assets/img/zhexiandian.png" class="icon" />
 								<div>{{common.toThousands(citem.detailData.rank)}}</div>
 							</div>
-							<!-- 指数增长 -->
+							<!-- 排名增长 -->
 							<div *ngIf='citem.detailData.listener_num' class="" v-if='citem.detailData.rank_diff!=0'
-								style="display: flex;align-items: center;margin-left: 8px;">
+								style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="排名增长">
 								<span *ngIf='citem.detailData.rank_diff<0' nz-icon nzType="arrow-down" style='color:green;'
 									nzTheme="outline"></span>
 								<span *ngIf='citem.detailData.rank_diff>0' nz-icon nzType="arrow-up" style='color:red;'
@@ -355,7 +355,7 @@
 									</span>
 								</span> -->
 								<!-- 在听人数 -->
-								<span style="margin-left: 10px;">
+								<span style="margin-left: 10px;" nz-tooltip nzTooltipTitle="在听人数">
 									<span style="color:rgb(78, 194, 223)">{{citem.listenPeopleCount}}</span>人在听
 								</span>
 								<span>
@@ -390,7 +390,6 @@
 							<div nz-tooltip [nzTooltipTitle]="'数量'" class="" style="display: flex;align-items: center;margin-left: 8px;">
 								<div>{{citem.OwnerCount}}</div>
 							</div>
-					
 							<!-- 在唱人 -->
 							<div style="margin-left: 12px;">
 								<!-- 在唱人图片 -->
@@ -433,7 +432,7 @@
 								FileHash:{{citem.FileHash}}
 							</div>
 							<div style="margin: 0 8px;"> | </div>
-							<div style="display: flex;align-items: center;">
+							<div style="display: flex;align-items: center;" nz-tooltip nzTooltipTitle="收藏">
 								<!-- 收藏图标 -->
 								<img src="../../../assets/img/love.png" class="icon" style='width: 18px;height:16px' />
 								<div>{{'-'}}</div>
@@ -450,7 +449,7 @@
 								<div>id:{{citem.scid}}</div>
 							</div>
 							<div style="margin: 0 8px;"> | </div>
-							<div style="display: flex;align-items: center;">
+							<div style="display: flex;align-items: center;" nz-tooltip nzTooltipTitle="评论">
 								<!-- 评论图标 -->
 								<img src="../../../assets/img/pinglun.png" class="icon" />
 								<div>{{common.toThousands(citem.commentObj.cnt)}}</div>
@@ -458,11 +457,7 @@
 						</div>
 					</div>
 				</div>
-				
 			</div>
-			
 		</div>
 	</div>
-	
-
 </div>
