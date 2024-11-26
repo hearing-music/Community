@@ -175,7 +175,7 @@
                 <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;"  nz-tooltip nzTooltipTitle="这是按小时预估24H可能会产生的播放量"></span>
               </div>
               <div style="display: flex;align-items: center;margin-left: 10px;">
-                <span style="margin-left: 8px;font-weight: bolder;" [ngClass]="{ upColor: item.MeasurementResults[6][1] >= 1000, downColor: item.MeasurementResults[6][1] < 1000}">
+                <span style="margin-left: 8px;font-weight: bolder;margin-right: 8px;" [ngClass]="{ upColor: item.MeasurementResults[6][1] >= 1000, downColor: item.MeasurementResults[6][1] < 1000}">
                   {{ common.toThousands(item.MeasurementResults[6][1]) }}
                 </span>
                 <i *ngIf="item.MeasurementResults[6][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
@@ -221,7 +221,7 @@
               </div>
               <div style="display: flex;align-items: center;margin-left: 10px;">
                 <span style="margin-left: 8px;font-weight: bolder;margin-right: 8px;" [ngClass]="{ upColor: item.MeasurementResults[7][1] >= 1000, downColor: item.MeasurementResults[7][1] < 1000}">
-                  {{ common.toThousands(item.MeasurementResults[6][1]) }}
+                  {{ common.toThousands(item.MeasurementResults[7][1]) }}
                 </span>
                 <i *ngIf="item.MeasurementResults[7][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
                 <i *ngIf="item.MeasurementResults[7][1] < 1000" nz-icon nzType="arrow-down" nzTheme="outline" class="downColor"></i>
