@@ -178,7 +178,7 @@ export class MultiModalLearningShowComponent implements OnInit {
         }
       });
     }
-    let color = [ "#1415f1",'#5e980c',"#564bed","#8cdf16","#a39df1","#aaed4b"];
+	let color = [ "#14195d",'#145d24',"#535bc7","#28b948","#a9ade3","#94dca4"];
     let series = [
       {
         type: "line",
