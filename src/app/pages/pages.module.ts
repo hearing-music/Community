@@ -198,6 +198,7 @@ import {SongsControlComponent} from './kugou/songsControl/songsControl.component
 import { MultiModalLearningShowComponent } from "./multiModalLearning/multiModalLearningShow/multiModalLearningShow.component";
 import { MultiModalLearningComputedComponent } from "./multiModalLearning/multiModalLearningComputed/multiModalLearningComputed.component";
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { DouyinComprehensiveSearchComponent } from "./douyin/douyin-comprehensiveSearch/douyin-comprehensiveSearch.component";
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -253,6 +254,7 @@ registerLocaleData(zh);
 		MultiModalLearningShowComponent,
 		MultiModalLearningComputedComponent,
 		CodonceComponent,
+		DouyinComprehensiveSearchComponent,
 		MultiModalLearningComponent,
 		UiStoreComponent,
 		VideoPlayerComponent,

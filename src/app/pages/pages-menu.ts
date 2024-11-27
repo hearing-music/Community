@@ -77,6 +77,15 @@ export let MENU_ITEMS : NbMenuItem[] = [
 			// 	link: '/pages/douyin/douyin-hot',
 			// },
 			{
+				title:"即将上线功能",
+				children:[
+					{
+						title: '功能1号',
+						link: '/pages/douyin/douyin-comprehensiveSearch',
+					}
+				]
+			},
+			{
 				title: "热门账号",
 				link: "/pages/douyin/douyin-popular-accounts",
 			},

@@ -1,0 +1,71 @@
+<div class="douyin">
+  <div class="right-search">
+    <ngx-search [searchValue]='searchValue' [searchHolder]='searchHolder' (childSearch)='search($event)'>
+    </ngx-search>
+  </div>
+  <div style="margin-top: 10px;width: 100%;display: flex;flex-direction: column;"  *ngIf="Data.length != 0">
+    <div style="width:100% ;display: flex;" *ngFor="let items of Data">
+      <div class="list-item" *ngFor="let item of items.data">
+        <div style="width: 220px;" *ngIf="item.time <= 0">
+          <div style="display: flex">
+            <span style="max-width: 120px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;" nz-tooltip [nzTooltipTitle]="item.result[0].original_title">
+              {{item.result[0].original_title}}
+            </span>
+            <span nz-icon nzType="select" nzTheme="outline" style="cursor: pointer;color:#808080;display: flex;align-items: center;margin-left: 8px;font-size: 14px;" nz-tooltip nzTooltipTitle="前往抖音" (click)="openDetail(item.result[0].aweme_id)"></span>
+            <span style="margin-left: 10px;display: flex;" nz-tooltip nzTooltipTitle="音源使用量">
+              <img src="/assets/douyinNew/选择音源.png" style="width: 16px; height: 16px;" />
+              <div style="margin-left: 5px;">{{item.result[0].original_count}}</div>
+            </span>
+          </div>
+          <div style="display: flex">
+            <span style="max-width: 120px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;" nz-tooltip [nzTooltipTitle]="item.result[1].original_title">
+              {{item.result[1].original_title}}
+            </span>
+            <span nz-icon nzType="select" nzTheme="outline" style="cursor: pointer;color:#808080;display: flex;align-items: center;margin-left: 8px;font-size: 14px;" nz-tooltip nzTooltipTitle="前往抖音" (click)="openDetail(item.result[1].aweme_id)"></span>
+            <span style="margin-left: 10px;display: flex;" nz-tooltip nzTooltipTitle="音源使用量">
+              <img src="/assets/douyinNew/选择音源.png" style="width: 16px; height: 16px;" />
+              <div style="margin-left: 5px;">{{item.result[1].original_count}}</div>
+            </span>
+          </div>
+          <div style="display: flex">
+            <span style="max-width: 120px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;" nz-tooltip [nzTooltipTitle]="item.result[2].original_title">
+              {{item.result[2].original_title}}
+            </span>
+            <span nz-icon nzType="select" nzTheme="outline" style="cursor: pointer;color:#808080;display: flex;align-items: center;margin-left: 8px;font-size: 14px;" nz-tooltip nzTooltipTitle="前往抖音" (click)="openDetail(item.result[2].aweme_id)"></span>
+            <span style="margin-left: 10px;display: flex;" nz-tooltip nzTooltipTitle="音源使用量">
+              <img src="/assets/douyinNew/选择音源.png" style="width: 16px; height: 16px;" />
+              <div style="margin-left: 5px;">{{item.result[2].original_count}}</div>
+            </span>
+          </div>
+        </div>
+        <div *ngIf="item.digg && item.time <= 0" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; width: calc(100% - 200px);">
+          <div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总喜欢量">
+            <img src="/assets/douyinNew/喜欢.png" style="width: 16px; height: 16px;" />
+            <div style="margin-left: 5px;">{{ item.digg }}</div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center;margin-left: 16px;" nz-tooltip nzTooltipTitle="总分享量">
+            <img src="/assets/douyinNew/分享.png" style="width: 16px; height: 16px;" />
+            <div style="margin-left: 5px;">{{ item.share }}</div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center;margin-left: 16px;" nz-tooltip nzTooltipTitle="总评论量">
+            <img src="/assets/douyinNew/评论.png" style="width: 14px; height: 14px;" />
+            <div style="margin-left: 5px;">{{ item.comment }}</div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center;margin-left: 16px;" nz-tooltip nzTooltipTitle="总收藏量">
+            <img src="/assets/douyinNew/收藏.png" style="width: 14px; height: 14px;" />
+            <div style="margin-left: 5px;">{{ item.collect }}</div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center;margin-left: 16px;" nz-tooltip nzTooltipTitle="总下载量">
+            <img src="/assets/douyinNew/下载.png" style="width: 16px; height: 16px;" />
+            <div style="margin-left: 5px;">{{ item.download }}</div>
+          </div>
+        </div>
+        <div *ngIf="item.time > 0">
+          <span style="color: red;">{{item.time}}</span> 秒后显示数据，请勿刷新
+        </div>
+      </div>
+    </div>
+  </div>
+  <nz-empty *ngIf="Data.length == 0"></nz-empty>
+  <ngx-loading *ngIf="loading"></ngx-loading>
+</div>

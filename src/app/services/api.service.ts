@@ -287,6 +287,13 @@ export class ApiService {
 	getMusician_phone(params : any) {
 		return this.http.get(this.baseUrl + "/qq/search_qq_musician_phone?uinList=" + JSON.stringify(params.uinList))
 	}
+	//抖音待上线功能
+	ComprehensiveSearch(params: any) {
+	  let { KeyWord } = params;
+	  let data = new FormData();
+	  data.append("KeyWord", KeyWord);
+	  return this.http.post(this.baseUrl + "/douyin/ComprehensiveSearch", params);
+	}
 	// 抖音热点
 	getDouyinHot() {
 		return this.http.get(this.baseUrl + "/douyin/douyin_hot")

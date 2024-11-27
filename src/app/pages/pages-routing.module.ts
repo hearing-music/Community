@@ -76,6 +76,7 @@ import { UserControlComponent } from './monitor/userControl/userControl.componen
 import { BehaviorControlComponent } from './monitor/behaviorControl/behaviorControl.component';
 import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
 import {SongsControlComponent} from './kugou/songsControl/songsControl.component';
+import { DouyinComprehensiveSearchComponent } from "./douyin/douyin-comprehensiveSearch/douyin-comprehensiveSearch.component";
 import { CodonceComponent } from './codonce/codonce.component';
 import { UiStoreComponent } from './uiStore/uiStore.component';
 import { MultiModalLearningComponent } from "./multiModalLearning/multiModalLearning.component";
@@ -237,6 +238,11 @@ const routes : Routes = [{
 		{
 			path: 'douyin/douyin-listenSoundSource',
 			component: DouyinListenSoundSourceComponent,
+			canActivate: [PermissionGuard]
+		},
+		{
+			path: 'douyin/douyin-comprehensiveSearch',
+			component: DouyinComprehensiveSearchComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 预估计算器
