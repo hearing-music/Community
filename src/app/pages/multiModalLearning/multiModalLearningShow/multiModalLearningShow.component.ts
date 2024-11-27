@@ -48,6 +48,7 @@ export class MultiModalLearningShowComponent implements OnInit {
             let Kg = res.data.res[i].PlatformData.KG;
             let qq = res.data.res[i].PlatformData.QQ;
             for (let j = 0; j < Kg.length; j++) {
+				Kg[j].KExponents = Kg[j].KExponents || {data:{}}
               res.data.res[i].PlatformData.IndexKG.push({
                 Index: Kg[j].KExponents.data.exponent || Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].exponent,
                 Time: new Date(Kg[j].KExponents.data.date).getTime() || Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].date * 1000,
