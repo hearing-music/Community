@@ -287,7 +287,7 @@ export class SongsControlComponent implements OnInit {
 		})
 	}
 	PageNext(page:any){
-		this.page = this.page + 1;
+		this.page = page;
 		this.SurveillanceSongsInfo(this.tagList[this.selectIndex].ID,this.page,this.pageSize)
 	}
 	// 将listen分组 一天为一组
