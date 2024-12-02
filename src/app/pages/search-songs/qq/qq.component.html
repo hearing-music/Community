@@ -131,14 +131,14 @@
 							white-space: nowrap;
 							text-overflow: ellipsis;">
 								<div *ngFor='let singer of item.singers;let ii = index;' style="display: flex;align-items: center;">
-									<div (click)='common.copy(singer.name)' style="cursor: pointer;">
+									<div (click)='openSinger(singer.mid)' style="cursor: pointer;">
 										{{singer.name}}
 									</div>
 									<div (click)='openArtist(singer.mid)' >
-										<img src="../../../../assets/img/Artist.svg" style="width:16px;height:16px;margin-left: 4px;cursor: pointer;display: block;">
+										<img src="/assets/img/Artist.svg" style="width:16px;height:16px;margin-left: 4px;cursor: pointer;display: block;">
 									</div>
 									<div (click)='openQQ(singer.uin)' *ngIf='singer.uin'>
-										<img src="../../../../assets/img/QQ.svg" style="width:16px;height:16px;margin-left: 4px;cursor: pointer;display: block;">
+										<img src="/assets/img/QQ.svg" style="width:16px;height:16px;margin-left: 4px;cursor: pointer;display: block;">
 									</div>
 									<div *ngIf='ii!=item.singers.length-1'>
 										、

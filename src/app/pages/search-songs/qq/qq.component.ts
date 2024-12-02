@@ -193,6 +193,10 @@ export class QqComponent implements OnInit {
 		// e.stopPropagation();
 		
 	}
+	// 打开歌手
+	openSinger(singerMid:string){
+		window.open("https://y.qq.com/n/ryqq/singer/"+singerMid)
+	}
 	// 打开链接
 	openLink(mid:string|number){
 		window.open('https://y.qq.com/m/client/music_index/index.html?mid='+mid+'&type='+mid+'&ADTAG=wxfshare')
