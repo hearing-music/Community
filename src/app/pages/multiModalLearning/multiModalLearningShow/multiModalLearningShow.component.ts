@@ -15,105 +15,47 @@ export class MultiModalLearningShowComponent implements OnInit {
     Offset: 1,
   };
   total = 0;
-  constructor(public api: ApiService,public common: CommonService) {}
+  constructor(public api: ApiService, public common: CommonService) {}
   async ngOnInit() {
     this.GetObservationData();
   }
   GetObservationData() {
     this.loading = true;
-    this.api.GetObservationData(this.params).subscribe((res: any) => {
-      this.loading = false;
-      if (res.success) {
-        for (let i = 0; i < res.data.res.length; i++) {
-          res.data.res[i].isMore = false;
-          if (res.data.res[i].PlatformData.KG) {
-            res.data.res[i].PlatformData.ListenKG = [];
-            res.data.res[i].PlatformData.ListenQQ = [];
-
-            res.data.res[i].PlatformData.IndexQQ = [];
-            res.data.res[i].PlatformData.IndexKG = [];
-
-            res.data.res[i].PlatformData.RankQQ = [];
-            res.data.res[i].PlatformData.RankKG = [];
-
-            res.data.res[i].PlatformData.indexRateQQ = [];
-            res.data.res[i].PlatformData.indexRateKG = [];
-
-            res.data.res[i].PlatformData.RankDiffKG = [];
-            res.data.res[i].PlatformData.RankDiffQQ = [];
-
-            res.data.res[i].PlatformData.commentKG = [];
-            res.data.res[i].PlatformData.commentQQ = [];
-
-            let Kg = res.data.res[i].PlatformData.KG;
-            let qq = res.data.res[i].PlatformData.QQ;
-            for (let j = 0; j < Kg.length; j++) {
-				Kg[j].KExponents = Kg[j].KExponents || {data:{}}
-              res.data.res[i].PlatformData.IndexKG.push({
-                Index: Kg[j].KExponents.data.exponent || Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].exponent,
-                Time: new Date(Kg[j].KExponents.data.date).getTime() || Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].date * 1000,
-              });
-              res.data.res[i].PlatformData.ListenKG.push({
-                Count: Kg[j].listenPeopleCount.count || 0,
-                Time: new Date(Kg[j].KExponents.data.date).getTime() || Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].date * 1000,
-              });
-              res.data.res[i].PlatformData.RankKG.push({
-                Rank: Kg[j].KExponents.data.rank || 0,
-                Time: new Date(Kg[j].KExponents.data.date).getTime()|| Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].date * 1000,
-              });
-              res.data.res[i].PlatformData.indexRateKG.push({
-                indexRate: Kg[j].KExponents.data.exponent_diff || 0,
-                Time: new Date(Kg[j].KExponents.data.date).getTime()|| Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].date * 1000,
-              });
-              res.data.res[i].PlatformData.RankDiffKG.push({
-                rankDiff: Kg[j].KExponents.data.rank_diff || 0,
-                Time: new Date(Kg[j].KExponents.data.date).getTime()|| Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].date * 1000,
-              });
-              res.data.res[i].PlatformData.commentKG.push({
-                count: Kg[j].comment.cnt,
-                Time: new Date(Kg[j].KExponents.data.date).getTime()|| Kg[j].KShareExponents[Kg[j].KShareExponents.length - 1].date * 1000,
-              });
+    this.api.GetObservationData(this.params).subscribe(
+      (res: any) => {
+        this.loading = false;
+        if (res.success) {
+          for (let i = 0; i < res.data.res.length; i++) {
+            let data = res.data.res[i];
+            if (data.PlatformData.KG && data.PlatformData.KG.length > 0) {
+              data.isMore = false;
+              //酷狗数据拆分
+              data.PlatformData = this.splitKG(data.PlatformData);
             }
-            console.log(res.data.res[i].PlatformData)
-            for (let j = 0; j < qq.length; j++) {
-              const date = new Date(qq[j].realtimeData.updateTime);
-              const zeroHourTimestamp = new Date(date.getFullYear(),date.getMonth(),date.getDate() - 1).getTime();
-              res.data.res[i].PlatformData.IndexQQ.push({
-                Index: qq[j].realtimeData.yesterdayIndex,
-                Time: zeroHourTimestamp,
-              });
-              res.data.res[i].PlatformData.ListenQQ.push({
-                Count: qq[j].nowListenUsers.cnt,
-                Time: zeroHourTimestamp,
-              });
-              res.data.res[i].PlatformData.RankQQ.push({
-                Rank: qq[j].realtimeData.todayRank,
-                Time: zeroHourTimestamp,
-              });
-              res.data.res[i].PlatformData.indexRateQQ.push({
-                indexRate:
-                  qq[j].realtimeData.yesterdayIndex *
-                  qq[j].realtimeData.indexRate,
-                Time: zeroHourTimestamp,
-              });
-              res.data.res[i].PlatformData.RankDiffQQ.push({
-                rankDiff: qq[j].realtimeData.rankDiff,
-                Time: zeroHourTimestamp,
-              });
-              res.data.res[i].PlatformData.commentQQ.push({
-                count: qq[j].comment.count,
-                Time: zeroHourTimestamp,
-              });
+            if (data.PlatformData.QQ && data.PlatformData.QQ.length > 0) {
+              data.isMore = false;
+              //QQ数据拆分
+              data.PlatformData = this.splitQQ(data.PlatformData);
+              this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.IndexQQ);
+              this.fillMissingDates(data.PlatformData.ListenKG, data.PlatformData.ListenQQ);
+              this.fillMissingDates(data.PlatformData.indexRateKG, data.PlatformData.indexRateQQ);
+              this.fillMissingDates(data.PlatformData.RankKG, data.PlatformData.RankQQ);
+              this.fillMissingDates(data.PlatformData.RankDiffKG, data.PlatformData.RankDiffQQ);
+              this.fillMissingDates(data.PlatformData.commentKG, data.PlatformData.commentQQ);
             }
-            this.setOptionIndex(res.data.res[i].PlatformData);
+            res.data.res[i] = data;
+            if (data.PlatformData.KG) {
+              this.setOptionIndex(res.data.res[i].PlatformData);
+            }
           }
+          this.GetObservationDataArr = res.data.res;
+          this.total = res.data.count;
         }
-        this.GetObservationDataArr = res.data.res;
-        this.total = res.data.count;
+      },
+      (err: any) => {
+        this.loading = false;
       }
-    },(err:any)=>{
-		this.loading = false;
-	});
+    );
   }
   moreVersion(item: any) {
     item.isMore = item.isMore ? false : true;
@@ -124,7 +66,14 @@ export class MultiModalLearningShowComponent implements OnInit {
   }
   // 指数 收听 排名
   setOptionIndex(iitem: any) {
-    let dateListNow = [...iitem.IndexKG,...iitem.IndexQQ,...iitem.ListenKG,...iitem.ListenQQ,...iitem.indexRateKG,...iitem.indexRateQQ,];
+    let dateListNow = [
+      ...iitem.IndexKG,
+      ...iitem.IndexQQ,
+      ...iitem.ListenKG,
+      ...iitem.ListenQQ,
+      ...iitem.indexRateKG,
+      ...iitem.indexRateQQ,
+    ];
     dateListNow = dateListNow.sort((a: any, b: any) => a.Time - b.Time);
     dateListNow = dateListNow.map((e: any) => this.common.getDate(e.Time));
     dateListNow = this.removeDuplicates(dateListNow);
@@ -135,7 +84,14 @@ export class MultiModalLearningShowComponent implements OnInit {
     let dataList7 = iitem.indexRateKG.map((e: any) => e.indexRate); // 酷狗指数上涨
     let dataList8 = iitem.indexRateQQ.map((e: any) => e.indexRate); // QQ指数上涨
 
-    let dateListNow1 = [...iitem.RankKG,...iitem.RankQQ,...iitem.RankDiffKG,...iitem.RankDiffQQ,...iitem.commentKG,...iitem.commentQQ,];
+    let dateListNow1 = [
+      ...iitem.RankKG,
+      ...iitem.RankQQ,
+      ...iitem.RankDiffKG,
+      ...iitem.RankDiffQQ,
+      ...iitem.commentKG,
+      ...iitem.commentQQ,
+    ];
     dateListNow1 = dateListNow1.sort((a: any, b: any) => a.Time - b.Time);
     dateListNow1 = dateListNow1.map((e: any) => this.common.getDate(e.Time));
     dateListNow1 = this.removeDuplicates(dateListNow1);
@@ -145,6 +101,7 @@ export class MultiModalLearningShowComponent implements OnInit {
     let dataList10 = iitem.RankDiffQQ.map((e: any) => e.rankDiff); // QQ排名上涨
     let dataList11 = iitem.commentKG.map((e: any) => e.count); // 酷狗评论
     let dataList12 = iitem.commentQQ.map((e: any) => e.count); // QQ评论
+
     // 补齐qq缺失的时间 比qq第1个time 小的时间 补齐
     if (iitem.IndexQQ.length > 0) {
       iitem.IndexKG.forEach((item: any) => {
@@ -152,33 +109,22 @@ export class MultiModalLearningShowComponent implements OnInit {
           dataList2.unshift("");
         }
       });
-      iitem.ListenKG.forEach((item: any) => {
-        if (this.common.getTime(iitem.ListenQQ[0].Time) > this.common.getTime(item.Time)) {
-          dataList4.unshift("");
-        }
-      });
-      iitem.indexRateKG.forEach((item: any) => {
-        if (this.common.getTime(iitem.indexRateQQ[0].Time) > this.common.getTime(item.Time)) {
-          dataList8.unshift("");
-        }
-      });
+    }
+    if (iitem.RankQQ.length > 0) {
       iitem.RankKG.forEach((item: any) => {
-        if (this.common.getTime(iitem.RankQQ[0].Time) > this.common.getTime(item.Time)) {
+        if (this.common.getDate(iitem.RankQQ[0].Time) > this.common.getDate(item.Time)) {
           dataList6.unshift("");
         }
       });
-      iitem.RankDiffKG.forEach((item: any) => {
-        if (this.common.getTime(iitem.RankDiffQQ[0].Time) > this.common.getTime(item.Time)) {
-          dataList10.unshift("");
-        }
-      });
-      iitem.commentKG.forEach((item: any) => {
-        if (this.common.getTime(iitem.commentQQ[0].Time) > this.common.getTime(item.Time)) {
-          dataList12.unshift("");
-        }
-      });
     }
-	let color = [ "#14195d",'#145d24',"#535bc7","#28b948","#a9ade3","#94dca4"];
+    let color = [
+      "#14195d",
+      "#145d24",
+      "#535bc7",
+      "#28b948",
+      "#a9ade3",
+      "#94dca4",
+    ];
     let series = [
       {
         type: "line",
@@ -231,7 +177,7 @@ export class MultiModalLearningShowComponent implements OnInit {
         selected: selected,
       },
       tooltip: {
-        confine:true,
+        confine: true,
         trigger: "axis", // 触发方式为坐标轴触发
       },
       grid: {
@@ -309,7 +255,7 @@ export class MultiModalLearningShowComponent implements OnInit {
         selected: selected1,
       },
       tooltip: {
-        confine:true,
+        confine: true,
         trigger: "axis", // 触发方式为坐标轴触发
       },
       grid: {
@@ -347,9 +293,123 @@ export class MultiModalLearningShowComponent implements OnInit {
     return uniqueArray;
   }
   openQqSongDetail(songMid: string, e: any) {
-		window.open('https://y.qq.com/n/ryqq/songDetail/'+songMid);
+    window.open("https://y.qq.com/n/ryqq/songDetail/" + songMid);
   }
   openKGSongDetail(KEMixSongID: string, e: any) {
-		window.open('https://www.kugou.com/song/#'+KEMixSongID)
+    window.open("https://www.kugou.com/song/#" + KEMixSongID);
+  }
+  splitKG(item: any) {
+    let data = item;
+    data.ListenKG = [];
+    data.IndexKG = [];
+    data.RankKG = [];
+    data.indexRateKG = [];
+    data.RankDiffKG = [];
+    data.commentKG = [];
+    let Kg = data.KG;
+    for (let i = 0; i < Kg.length; i++) {
+      if (Kg[i].KExponents && Kg[i].KExponents.data.exponent) {
+        data.IndexKG.push({
+          Index: Kg[i].KExponents.data.exponent,
+          Time: new Date(Kg[i].KExponents.data.date).getTime(),
+        });
+        data.ListenKG.push({
+          Count: Kg[i].listenPeopleCount.count || 0,
+          Time: new Date(Kg[i].KExponents.data.date).getTime(),
+        });
+        data.RankKG.push({
+          Rank: Kg[i].KExponents.data.rank || 0,
+          Time: new Date(Kg[i].KExponents.data.date).getTime(),
+        });
+        data.indexRateKG.push({
+          indexRate: Kg[i].KExponents.data.exponent_diff || 0,
+          Time: new Date(Kg[i].KExponents.data.date).getTime(),
+        });
+        data.RankDiffKG.push({
+          rankDiff: Kg[i].KExponents.data.rank_diff || 0,
+          Time: new Date(Kg[i].KExponents.data.date).getTime(),
+        });
+        data.commentKG.push({
+          count: Kg[i].comment.cnt || 0,
+          Time: new Date(Kg[i].KExponents.data.date).getTime(),
+        });
+      } else {
+        if (Kg[i].KShareExponents && Kg[i].KShareExponents.length > 0) {
+          data.IndexKG.push({
+            Index: Kg[i].KShareExponents[Kg[i].KShareExponents.length - 1].exponent,
+            Time: Kg[i].KShareExponents[Kg[i].KShareExponents.length - 1].date * 1000,
+          });
+          data.ListenKG.push({
+            Count: Kg[i].listenPeopleCount.count || 0,
+            Time: Kg[i].KShareExponents[Kg[i].KShareExponents.length - 1].date * 1000,
+          });
+          data.commentKG.push({
+            count: Kg[i].comment.cnt,
+            Time: Kg[i].KShareExponents[Kg[i].KShareExponents.length - 1].date * 1000,
+          });
+        }
+      }
+    }
+    return data;
+  }
+  splitQQ(item: any) {
+    let data = item;
+    data.ListenQQ = [];
+    data.IndexQQ = [];
+    data.RankQQ = [];
+    data.indexRateQQ = [];
+    data.RankDiffQQ = [];
+    data.commentQQ = [];
+    let qq = data.QQ;
+    for (let i = 0; i < qq.length; i++) {
+      const date = new Date(qq[i].realtimeData.updateTime);
+      const zeroHourTimestamp = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1).getTime();
+      data.IndexQQ.push({
+        Index: qq[i].realtimeData.yesterdayIndex,
+        Time: zeroHourTimestamp,
+      });
+      data.ListenQQ.push({
+        Count: qq[i].nowListenUsers.cnt,
+        Time: zeroHourTimestamp,
+      });
+      data.RankQQ.push({
+        Rank: qq[i].realtimeData.todayRank,
+        Time: zeroHourTimestamp,
+      });
+      data.indexRateQQ.push({
+        indexRate: qq[i].realtimeData.yesterdayIndex * qq[i].realtimeData.indexRate,
+        Time: zeroHourTimestamp,
+      });
+      data.RankDiffQQ.push({
+        rankDiff: qq[i].realtimeData.rankDiff,
+        Time: zeroHourTimestamp,
+      });
+      data.commentQQ.push({
+        count: qq[i].comment.count,
+        Time: zeroHourTimestamp,
+      });
+    }
+    return data;
+  }
+  fillMissingDates(array1: any[], array2: any[]) {
+    const getDateString = (timestamp: number): string => {
+      const date = new Date(timestamp);
+      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    };
+    const dateSet1 = new Set(array1.map((item) => getDateString(item.Time)));
+    const dateSet2 = new Set(array2.map((item) => getDateString(item.Time)));
+    const allDates = Array.from(new Set([...dateSet1, ...dateSet2]));
+    allDates.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+    allDates.forEach((dateStr) => {
+      const timestamp = new Date(dateStr).getTime();
+      if (!dateSet1.has(dateStr)) {
+        array1.push({ Time: timestamp });
+      }
+      if (!dateSet2.has(dateStr)) {
+        array2.push({ Time: timestamp });
+      }
+    });
+    array1.sort((a, b) => a.Time - b.Time);
+    array2.sort((a, b) => a.Time - b.Time);
   }
 }
