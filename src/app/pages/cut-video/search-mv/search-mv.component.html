@@ -1,0 +1,25 @@
+<div class="search-mv">
+	<div class="home-top">
+		<!-- tab栏 -->
+		<div class="tagList">
+			<div *ngFor="let item of tagList;let i = index;" (click)="onSelect(i)" class="tagList-item"
+				[ngClass]="{'tagList-itemActive': i==selectIndex}">
+					{{item.name}}
+			</div>
+		</div>
+		<div style="display: flex;align-items: center;">
+			<!-- 搜索提示 -->
+			<ngx-searchTip [tipStr]='tagList[selectIndex].tip' style="margin-right: 8px;"></ngx-searchTip>
+			<!-- 搜索 -->
+			<ngx-search [searchValue]='keyword' [searchHolder]='tagList[selectIndex].holder' (childSearch)='search($event)' [searchWidth]='"390px"'>
+			</ngx-search>
+		</div>
+	</div>
+	<div style="height: 100%;">
+		<ngx-mv-qq *ngIf='selectIndex==0' [data]='qqData'></ngx-mv-qq>
+		<ngx-mv-kg *ngIf='selectIndex==1' [data]='kgData' [item]='kgSongItem' (getKgSong)="searchSongKg()"></ngx-mv-kg>
+	</div>
+	
+	<!-- loading -->
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

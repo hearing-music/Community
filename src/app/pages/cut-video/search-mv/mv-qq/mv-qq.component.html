@@ -1,0 +1,50 @@
+<div class="" style="height: 100%;">
+	<nz-empty *ngIf="!data" style="margin-top: 160px;"></nz-empty>
+	<div *ngIf='data' style="display: flex;padding:16px;border-radius: 6px;">
+		<div>
+			<div style="font-size: 18px;cursor: pointer;" (click)='openMv(data.mid)'>
+				{{data.name}}
+			</div>
+			<div class="subtitle" style="margin-top: 8px;">
+				简介：{{data.desc?data.desc:"[ 暂无 ]"}}
+			</div>
+			<div style="display: flex;align-items: center;margin-top: 8px;">
+				<div *ngFor='let singer of data.singers;' (click)='openSinger(singer.mid)' style="display: flex;align-items: center;cursor: pointer;margin-right: 8px;">
+					<img [src]="singer.picurl" style="width: 28px;height:28px;border-radius: 4px;margin-right: 4px;" />
+					<div>
+						{{singer.name}}
+					</div>
+				</div>
+			</div>
+			<!-- 图标 -->
+			<div style="display: flex;align-items: center;margin-top: 8px;">
+				<!-- 钱币图标 -->
+				<img [src]="data.video_pay.is_pay==0?'/assets/img/price.png':'/assets/img/price-green.png'" nz-tooltip nzTooltipTitle="是否付费"
+					class="icon" />
+				<div style="margin-left: 8px;" class="subtitle" nz-tooltip nzTooltipTitle="价格">
+					￥{{common.toThousands(data.video_pay.price)}}
+				</div>
+				<div style="margin-left: 8px;" class="subtitle" nz-tooltip nzTooltipTitle="折扣价格">
+					￥{{common.toThousands(data.video_pay.discount_price)}}
+				</div>
+				<div style='display:flex;align-items:center;margin-left: 8px;'>
+					<img src="/assets/img/bofang.svg" style='width:16px;height:16px;margin-right:6px;'>
+					<div>
+						{{common.toThousands(data.playcnt)}}
+					</div>
+				</div>
+				<div style="color: blue;cursor: pointer;margin-left: 8px;font-size: 14px;" (click)='data.videoShow = !data.videoShow'>
+					{{data.videoShow?"收起视频":"查看视频"}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div *ngIf='data&&data.videoShow'>
+		<video controls [src]="data.freeflow_url" style='height:225px;'></video>
+		<div>
+			{{common.formatFileSize(data.fileSize)}}
+		</div>
+	</div>
+	<!-- loading -->
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

@@ -11,6 +11,19 @@ export class CommonService {
 	openInNewWindow(path : string) {
 		window.open('/#' + path, '_blank')
 	}
+	// 字节转换
+	formatFileSize(bytes:any) {  
+		bytes = bytes - 0;
+	  if (bytes === 0) return '0 Bytes';  
+	  
+	  const k = 1024;  
+	  const dm = (decimalPlaces:any) => (num:any) => num.toFixed(decimalPlaces).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');  
+	  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];  
+	  
+	  const i = Math.floor(Math.log(bytes) / Math.log(k));  
+	  
+	  return dm(2)(bytes / Math.pow(k, i)) + ' ' + sizes[i];  
+	} 
 	// 免费歌曲来源
 	FreeSongsSource(id : any) {
 		let o = {

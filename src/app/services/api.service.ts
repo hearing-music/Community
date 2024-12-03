@@ -25,6 +25,18 @@ export class ApiService {
 		const blob = await response.blob();
 		return blob;
 	}
+	// 剪辑 搜索mv
+	MvInfoUrlProxyQQ(data:any){
+		return this.http.post(this.baseUrl + '/qq/MvInfoUrlProxy',data)
+	}
+	MvInfoUrlProxyKG(data:any){
+		return this.http.post(this.baseUrl + '/kugou/MvDetailProxy',data)
+	}
+	// mv搜索酷狗详细数据
+	searchKeywordKGForMv(data:any){
+		return this.http.post(this.baseUrl + '/kugou/searchKeywordKGForMv',data)
+	}
+	
 	// 预估计算器
 	TJMusicMultiModalLearning(data:any){
 		// return this.http.post('https://communities.tingjianmusic.cn:444/multi-modal-algorithm/TJMusicMultiModalLearning',data)

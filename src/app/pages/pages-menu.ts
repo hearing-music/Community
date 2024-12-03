@@ -128,6 +128,19 @@ export let MENU_ITEMS : NbMenuItem[] = [
 		],
 	},
 	{
+		title: '剪辑',
+		icon: {
+			icon: 'cutVideo',
+			pack: 'my-icons',
+		},
+		children: [
+			{
+				title: "搜索mv",
+				link: "/pages/cut-video/search-mv",
+			},
+		],
+	},
+	{
 		title: '预估计算器',
 		icon: {
 			icon: 'multiModalLearning',

@@ -80,6 +80,7 @@ import { DouyinComprehensiveSearchComponent } from "./douyin/douyin-comprehensiv
 import { CodonceComponent } from './codonce/codonce.component';
 import { UiStoreComponent } from './uiStore/uiStore.component';
 import { MultiModalLearningComponent } from "./multiModalLearning/multiModalLearning.component";
+import { SearchMvComponent } from "./cut-video/search-mv/search-mv.component";
 const routes : Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -243,6 +244,12 @@ const routes : Routes = [{
 		{
 			path: 'douyin/douyin-comprehensiveSearch',
 			component: DouyinComprehensiveSearchComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 搜索mv
+		{
+			path: 'cut-video/search-mv',
+			component: SearchMvComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 预估计算器
