@@ -412,4 +412,14 @@ export class MultiModalLearningShowComponent implements OnInit {
     array1.sort((a, b) => a.Time - b.Time);
     array2.sort((a, b) => a.Time - b.Time);
   }
+   GetTime(params:any) {
+    var date = new Date(params);  // 参数需要毫秒数，所以这里将秒数乘于 1000
+    let Y = date.getFullYear() + '-';
+    let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+    let D = date.getDate() + ' ';
+    let h = date.getHours() + ':';
+    let m = date.getMinutes() + ':';
+    let s = date.getSeconds();
+    return Y+M+D+h+m+s;
+  }
 }
