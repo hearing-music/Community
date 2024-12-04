@@ -40,7 +40,7 @@ export class SearchMvComponent implements OnInit {
 			this.qqApi(KeyWord)
 		}
 		if(this.selectIndex==1){
-			if(KeyWord.indexOf("www.kugou.com/mv/") == -1 || KeyWord.indexOf("www.kugou.com/mvweb/html") == -1){
+			if(KeyWord.indexOf("www.kugou.com/mv/") == -1 && KeyWord.indexOf("www.kugou.com/mvweb/html") == -1){
 				this.toast.info("链接格式错误")
 				return
 			}
