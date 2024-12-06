@@ -8,7 +8,7 @@
 		</div>
 	</div>
 	<nz-empty *ngIf="data.length==0" style="margin-top: 160px;"></nz-empty>
-	<div style="height: 100%;">
+	<div style="height: 100%;" *ngIf='data.length>0'>
 		<nz-table style='margin-top: 24px;' #nestedTable [nzData]="data" nzTitle='' [nzFrontPagination]='false'>
 			<thead>
 				<tr>
@@ -29,93 +29,101 @@
 						<td [(nzExpand)]="item.expand"></td>
 						<td nzAlign='center'>
 							<div class="flexCcenter">
-								<div class="qq" *ngIf='item.QQ.Mid'>
-									<div>
-										{{item.QQ.Mid}}
-									</div>
-									<div (click)="openMvQQ(item.QQ.Mid)" class="linkIcon" style="margin-left: 8px;">
-										<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
-									</div>
-								</div>
-								<div class='kg' *ngIf='item.KG.Mid'>
-									<div>
-										{{item.KG.Mid}}
-									</div>
-									<div (click)="openMvKG(item.KG.Mid)" class="linkIcon" style="margin-left: 8px;">
-										<span nz-icon nzType="select" nzTheme="outline" style="color:#blue;font-size: 14px;"></span>
+								<div *ngFor='let q of item.QQ;'>
+									<div class="qq" *ngIf='q.Mid'>
+										<div>
+											{{q.Mid}}
+										</div>
+										<div (click)="openMvQQ(q.Mid)" class="linkIcon" style="margin-left: 8px;">
+											<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
+										</div>
 									</div>
 								</div>
-							</div>
-						</td>
-						<td nzAlign='center'>
-							{{item.QQ.SongName || item.KG.SongName}}
-						</td>
-						<td nzAlign='center'>
-							{{item.QQ.Releases || item.KG.Releases}}
-						</td>
-						<td nzAlign='center'>
-							<div *ngIf='item.QQ.SingerName' style="display: flex;justify-content: center;">
-								<div *ngFor='let singer of item.QQ.SingerName;let i = index;'>
-									<span>{{singer}}</span>
-									<span *ngIf='i != item.QQ.SingerName.length-1'>，</span>
-								</div>
-							</div>
-							<div *ngIf='item.KG.SingerName&&!item.QQ.SingerName' style="display: flex;justify-content: center;">
-								<div *ngFor='let singer of item.KG.SingerName;let i = index;'>
-									<span>{{singer}}</span>
-									<span *ngIf='i != item.KG.SingerName.length-1'>，</span>
+								<div *ngFor='let k of item.KG;'>
+									<div class='kg' *ngIf='k.Mid'>
+										<div>
+											{{k.Mid}}
+										</div>
+										<div (click)="openMvKG(k.Mid)" class="linkIcon" style="margin-left: 8px;">
+											<span nz-icon nzType="select" nzTheme="outline" style="color:#blue;font-size: 14px;"></span>
+										</div>
+									</div>
 								</div>
 							</div>
 						</td>
 						<td nzAlign='center'>
-							<div *ngIf='item.QQ.LyricsAuthorName' style="display: flex;justify-content: center;">
-								<div *ngFor='let singer of item.QQ.LyricsAuthorName;let i = index;'>
+							{{item.QQ[0].SongName || item.KG[0].SongName}}
+						</td>
+						<td nzAlign='center'>
+							{{item.QQ[0].Releases || item.KG[0].Releases}}
+						</td>
+						<td nzAlign='center'>
+							<div *ngIf='item.QQ[0].SingerName' style="display: flex;justify-content: center;">
+								<div *ngFor='let singer of item.QQ[0].SingerName;let i = index;'>
 									<span>{{singer}}</span>
-									<span *ngIf='i != item.QQ.LyricsAuthorName.length-1'>，</span>
+									<span *ngIf='i != item.QQ[0].SingerName.length-1'>，</span>
 								</div>
 							</div>
-							<div *ngIf='item.KG.LyricsAuthorName&&!item.QQ.LyricsAuthorName' style="display: flex;justify-content: center;">
-								<div *ngFor='let singer of item.KG.LyricsAuthorName;let i = index;'>
+							<div *ngIf='item.KG[0].SingerName&&!item.QQ[0].SingerName' style="display: flex;justify-content: center;">
+								<div *ngFor='let singer of item.KG[0].SingerName;let i = index;'>
 									<span>{{singer}}</span>
-									<span *ngIf='i != item.KG.LyricsAuthorName.length-1'>，</span>
+									<span *ngIf='i != item.KG[0].SingerName.length-1'>，</span>
 								</div>
 							</div>
 						</td>
 						<td nzAlign='center'>
-							<div *ngIf='item.QQ.SongAuthorName' style="display: flex;justify-content: center;">
-								<div *ngFor='let singer of item.QQ.SongAuthorName;let i = index;'>
+							<div *ngIf='item.QQ[0].LyricsAuthorName' style="display: flex;justify-content: center;">
+								<div *ngFor='let singer of item.QQ[0].LyricsAuthorName;let i = index;'>
 									<span>{{singer}}</span>
-									<span *ngIf='i != item.QQ.SongAuthorName.length-1'>，</span>
+									<span *ngIf='i != item.QQ[0].LyricsAuthorName.length-1'>，</span>
 								</div>
 							</div>
-							<div *ngIf='item.KG.SongAuthorName&&!item.QQ.SongAuthorName' style="display: flex;justify-content: center;">
-								<div *ngFor='let singer of item.KG.SongAuthorName;let i = index;'>
+							<div *ngIf='item.KG[0].LyricsAuthorName&&!item.QQ[0].LyricsAuthorName' style="display: flex;justify-content: center;">
+								<div *ngFor='let singer of item.KG[0].LyricsAuthorName;let i = index;'>
 									<span>{{singer}}</span>
-									<span *ngIf='i != item.KG.SongAuthorName.length-1'>，</span>
+									<span *ngIf='i != item.KG[0].LyricsAuthorName.length-1'>，</span>
 								</div>
 							</div>
 						</td>
 						<td nzAlign='center'>
-							{{common.getDate(item.QQ.ReleaseDate||item.KG.ReleaseDate)}}
+							<div *ngIf='item.QQ[0].SongAuthorName' style="display: flex;justify-content: center;">
+								<div *ngFor='let singer of item.QQ[0].SongAuthorName;let i = index;'>
+									<span>{{singer}}</span>
+									<span *ngIf='i != item.QQ[0].SongAuthorName.length-1'>，</span>
+								</div>
+							</div>
+							<div *ngIf='item.KG[0].SongAuthorName&&!item.QQ[0].SongAuthorName' style="display: flex;justify-content: center;">
+								<div *ngFor='let singer of item.KG[0].SongAuthorName;let i = index;'>
+									<span>{{singer}}</span>
+									<span *ngIf='i != item.KG[0].SongAuthorName.length-1'>，</span>
+								</div>
+							</div>
+						</td>
+						<td nzAlign='center'>
+							{{common.getDate(item.QQ[0].ReleaseDate||item.KG[0].ReleaseDate)}}
 						</td>
 						<td nzAlign='center'>
 							<div class="flexCcenter">
-								<div class="qq" *ngIf='item.QQ.AddTime'>
-									{{common.getDate(item.QQ.AddTime)}}
+								<div *ngFor='let q of item.QQ;'>
+									<div class="qq" *ngIf='q.AddTime'>
+										{{common.getDate(q.AddTime)}}
+									</div>
 								</div>
-								<div class='kg' *ngIf='item.KG.AddTime'>
-									{{common.getDate(item.KG.AddTime)}}
+								<div *ngFor='let k of item.KG;'>
+									<div class='kg' *ngIf='k.AddTime'>
+										{{common.getDate(k.AddTime)}}
+									</div>
 								</div>
 							</div>
 						</td>
 					</tr>
 					<tr [nzExpand]="item.expand">
 						<div style="display: flex;">
-							<div *ngIf='item.QQ.echarts' style="flex:1;">
-								<div echarts [options]="item.QQ.echarts" style="width: 100%; height: 240px;"></div>
+							<div *ngIf='item.QQ[0].echarts' style="flex:1;">
+								<div echarts [options]="item.QQ[0].echarts" style="width: 100%; height: 240px;"></div>
 							</div>
-							<div *ngIf='item.KG.echarts' style="flex:1;">
-								<div echarts [options]="item.KG.echarts" style="width: 100%; height: 240px;"></div>
+							<div *ngIf='item.KG[0].echarts' style="flex:1;">
+								<div echarts [options]="item.KG[0].echarts" style="width: 100%; height: 240px;"></div>
 							</div>
 						</div>
 					</tr>

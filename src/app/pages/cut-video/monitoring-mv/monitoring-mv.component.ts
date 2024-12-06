@@ -50,17 +50,36 @@ export class MonitoringMvComponent implements OnInit {
 		this.req();
 	}
 	echartsInit(item : any, PlatformName : string) {
-		if (!item[PlatformName].TotalPlayed) {
+		if (!item[PlatformName][0].TotalPlayed[0]?.Time) {
 			return;
 		}
-		let color = PlatformName == "QQ" ? "#31c27c" : "#0062FF"
-		let date = item[PlatformName].TotalPlayed.map((e : any) => this.common.getDate(e.Time));
-		let data = item[PlatformName].TotalPlayed.map((e : any) => e.Played);
+		let color = PlatformName == "QQ" ? ["#31c27c"] : ["#0062FF"]
+		let date = item[PlatformName][0].TotalPlayed.map((e : any) => this.common.getDate(e.Time));
+		let seriesArr = []
+		let legend = []
+		for(let i = 0;i<item[PlatformName].length;i++){
+			let D = item[PlatformName][i];
+			let data = D.TotalPlayed.map((e : any) => e.Played);
+			let series = {
+				name:D.Mid,
+				data,
+				type: 'line',
+				smooth: true,
+				areaStyle: {
+					color
+				}
+			}
+			legend.push(D.Mid)
+			seriesArr.push(series)
+		}
 		let option : any = {
 			title: {
 				text: PlatformName=="QQ"?"QQ":"酷狗"
 			},
 			color,
+			legend: {
+			    data: legend
+			  },
 			tooltip: {
 			  confine: true,
 			  trigger: "axis", // 触发方式为坐标轴触发
@@ -81,19 +100,10 @@ export class MonitoringMvComponent implements OnInit {
 			yAxis: {
 				type: 'value'
 			},
-			series: [
-				{
-					data: data,
-					type: 'line',
-					smooth: true,
-					areaStyle: {
-						color
-					}
-				}
-			],
+			series:seriesArr,
 			height: 150,
 		};
-		item[PlatformName].echarts = option;
+		item[PlatformName][0].echarts = option;
 	}
 	
 	openMvQQ(mid:any){
