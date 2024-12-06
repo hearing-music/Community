@@ -9,7 +9,8 @@
 				简介：{{data.desc?data.desc:"[ 暂无 ]"}}
 			</div>
 			<div style="display: flex;align-items: center;margin-top: 8px;">
-				<div *ngFor='let singer of data.singers;' (click)='openSinger(singer.mid)' style="display: flex;align-items: center;cursor: pointer;margin-right: 8px;">
+				<div *ngFor='let singer of data.singers;' (click)='openSinger(singer.mid)'
+					style="display: flex;align-items: center;cursor: pointer;margin-right: 8px;">
 					<img [src]="singer.picurl" style="width: 28px;height:28px;border-radius: 4px;margin-right: 4px;" />
 					<div>
 						{{singer.name}}
@@ -19,8 +20,8 @@
 			<!-- 图标 -->
 			<div style="display: flex;align-items: center;margin-top: 8px;">
 				<!-- 钱币图标 -->
-				<img [src]="data.video_pay.is_pay==0?'/assets/img/price.png':'/assets/img/price-green.png'" nz-tooltip nzTooltipTitle="是否付费"
-					class="icon" />
+				<img [src]="data.video_pay.is_pay==0?'/assets/img/price.png':'/assets/img/price-green.png'" nz-tooltip
+					nzTooltipTitle="是否付费" class="icon" />
 				<div style="margin-left: 8px;" class="subtitle" nz-tooltip nzTooltipTitle="价格">
 					￥{{common.toThousands(data.video_pay.price)}}
 				</div>
@@ -33,8 +34,13 @@
 						{{common.toThousands(data.playcnt)}}
 					</div>
 				</div>
-				<div style="color: blue;cursor: pointer;margin-left: 8px;font-size: 14px;" (click)='data.videoShow = !data.videoShow'>
+				<div style="color: blue;cursor: pointer;margin-left: 8px;font-size: 14px;"
+					(click)='data.videoShow = !data.videoShow'>
 					{{data.videoShow?"收起视频":"查看视频"}}
+				</div>
+				<div style="cursor: pointer;margin-left: 8px;display: flex;align-items: center;" (click)='enter()'
+					nz-tooltip nzTooltipTitle="录入信息">
+					<span nz-icon nzType="plus-circle" nzTheme="outline" style="color:blue;font-size:16px;"></span>
 				</div>
 			</div>
 		</div>
@@ -47,4 +53,62 @@
 	</div>
 	<!-- loading -->
 	<ngx-loading *ngIf='loading'></ngx-loading>
+	<nz-modal [nzStyle]="{ width: '800px' }" [(nzVisible)]="isVisible" nzTitle="QQ：录入mv" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+		<ng-container *nzModalContent>
+			<div>
+				<div style="display: flex;">
+					<div style='flex:1;'>
+						<div>Mid</div>
+						<input nz-input placeholder="mid" [(ngModel)]="enterData.mid" [disabled]="true"/>
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							名字
+						</div>
+						<input nz-input placeholder="名字" [(ngModel)]="enterData.name" [disabled]="true" />
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							歌手
+						</div>
+						<input nz-input placeholder="歌手" [(ngModel)]="enterData.singerNames" [disabled]="true" />
+					</div>
+				</div>
+				<div style='display:flex;margin-top:16px;'>
+					<div style='flex:1;'>
+						<div>
+							歌曲名字
+						</div>
+						<input nz-input placeholder="输入歌曲名字" [(ngModel)]="reqData.SongName" />
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							歌曲版本
+						</div>
+						<input nz-input placeholder="输入歌曲版本" [(ngModel)]="reqData.Releases" />
+					</div>
+				</div>
+				<div style='display:flex;margin-top:16px;'>
+					<div style="flex:1;">
+						<div>
+							词作者 <span style="font-size: 12px;color: #666;">多个作者用,隔开</span>
+						</div>
+						<input nz-input placeholder="输入词作者" [(ngModel)]="LyricsAuthorName" />
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							曲作者 <span style="font-size: 12px;color: #666;">多个作者用,隔开</span>
+						</div>
+						<input nz-input placeholder="输入曲作者" [(ngModel)]="SongAuthorName" />
+					</div>
+				</div>
+				<div style="margin-top: 8px;">
+					<div>
+						发行时间
+					</div>
+					<nz-date-picker [(ngModel)]="ReleaseDate" (ngModelChange)="onDateChange($event)"></nz-date-picker>
+				</div>
+			</div>
+		</ng-container>
+	</nz-modal>
 </div>

@@ -138,6 +138,10 @@ export let MENU_ITEMS : NbMenuItem[] = [
 				title: "搜索mv",
 				link: "/pages/cut-video/search-mv",
 			},
+			{
+				title: "监控mv",
+				link: "/pages/cut-video/monitoring-mv",
+			},
 		],
 	},
 	{

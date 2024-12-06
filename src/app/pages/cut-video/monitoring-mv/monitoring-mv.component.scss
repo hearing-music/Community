@@ -1,0 +1,25 @@
+.monitoring-mv{
+	height: 100%;
+	background-color: #fff;
+	border-radius: 12px;
+	min-height: calc(100vh - 4.75rem - 4rem);
+	position: relative;
+	padding:18px;
+	
+	.home-top{
+		display: flex;
+		position: relative;
+		// align-items: center;
+		justify-content: space-between;
+		
+	}
+	.flexCcenter{		display: flex;align-items: center;flex-direction: column;	}.qq{		color: #35C035;		display: flex;		align-items: center;	}	.kg{		color:blue;		margin-top: 8px;		display: flex;		align-items: center;	}
+	.linkIcon{
+		    display: flex;
+		    align-items: center;
+		    width: 32px;
+		    height: 32px;
+		    cursor: pointer;
+		    justify-content: center;
+	}
+}

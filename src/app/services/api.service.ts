@@ -36,7 +36,14 @@ export class ApiService {
 	searchKeywordKGForMv(data:any){
 		return this.http.post(this.baseUrl + '/kugou/searchKeywordKGForMv',data)
 	}
-	
+	// mv存库 监控
+	EnterMvInfo(data:any){
+		return this.http.post(this.baseUrl + '/qq/EnterMvInfo',data)
+	}
+	// mv获取监控
+	GetMvInfo(data:any){
+		return this.http.post(this.baseUrl + '/qq/GetMvInfo',data)
+	}
 	// 预估计算器
 	TJMusicMultiModalLearning(data:any){
 		// return this.http.post('https://communities.tingjianmusic.cn:444/multi-modal-algorithm/TJMusicMultiModalLearning',data)
@@ -442,6 +449,10 @@ export class ApiService {
 			type
 		} = params;
 		return this.http.get(this.baseUrl + "/douyin/DouYinSearchVideoDetails?keyword=" + keyword + '&type=' + type)
+	}
+	// 达人搜索 视频链接搜索
+	DouYinSearchBigVForVideoLink(params:any){
+		return this.http.post(this.baseUrl + "/douyin/DouYinSearchBigVForVideoLink",{link:params.link})
 	}
 	// 抖音 获取音乐跟拍 arr
 	getMusicInfo(params : any) {

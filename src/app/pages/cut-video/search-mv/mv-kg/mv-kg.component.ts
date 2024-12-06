@@ -17,8 +17,90 @@ export class MvKgComponent implements OnInit {
 	@Input() item:any=null;
 	@Output() getKgSong: EventEmitter<any> = new EventEmitter<any>();
 	loading=false;
+	isVisible = false;
 	audioSrc=""
 	isPlay=false;
+	enterData : any = {}
+	reqData : any = {
+		"Mid": "",
+		"SongName": "",
+		"Releases": "",
+		"SingerName": [],
+		"LyricsAuthorName": [],
+		"SongAuthorName": [],
+		"ReleaseDate": 0,
+		"PlatformName": "KG"
+	}
+	LyricsAuthorName:any=''
+	SongAuthorName:any=''
+	ReleaseDate:any=''
+  
+	onDateChange(e:any){
+	}
+	enter() {
+		this.reqData = {
+			"Mid": "",
+			"SongName": "",
+			"Releases": "",
+			"SingerName": [],
+			"LyricsAuthorName": [],
+			"SongAuthorName": [],
+			"ReleaseDate": 0,
+			"PlatformName": "KG"
+		}
+		this.reqData.Mid = this.data.id;
+		let enterData = this.data;
+		let singerNames:any = ''
+		enterData.authors.forEach((item : any) => {
+			singerNames += item.singername + ','
+		})
+		singerNames = singerNames.substr(0, singerNames.length - 1)
+		enterData.singerNames = singerNames;
+		this.reqData.SingerName = singerNames.split(',')
+		this.enterData = enterData;
+		this.isVisible = true;
+	}
+	handleOk() {
+		if(!this.ReleaseDate || !this.reqData.SongName){
+			this.toast.info("歌曲名字和发行时间必填")
+			return
+		}
+		this.reqData.LyricsAuthorName = this.LyricsAuthorName.replaceAll("，",",")
+		this.reqData.LyricsAuthorName = this.reqData.LyricsAuthorName.split(',');
+		this.reqData.SongAuthorName = this.SongAuthorName.replaceAll("，",",");
+		this.reqData.SongAuthorName = this.reqData.SongAuthorName.split(',');
+		this.reqData.ReleaseDate = new Date(this.ReleaseDate).setHours(0, 0, 0, 0);
+		this.loading = true;
+		this.api.EnterMvInfo(this.reqData).subscribe((res:any)=>{
+			this.loading = false;
+			if(res.success){
+				this.toast.success("录入成功")
+				this.LyricsAuthorName='';
+				this.SongAuthorName='';
+				this.ReleaseDate='';
+				this.reqData = {
+					"Mid": "",
+					"SongName": "",
+					"Releases": "",
+					"SingerName": [],
+					"LyricsAuthorName": [],
+					"SongAuthorName": [],
+					"ReleaseDate": 0,
+					"PlatformName": "KG"
+				}
+				this.isVisible = false;
+			}
+		},(err:any)=>{
+			this.loading = false;
+		})
+	
+	}
+	handleCancel() {
+		this.isVisible = false;
+	}
+  
+  
+  
   
 	getKgSongEmit(){
 		this.getKgSong.emit();

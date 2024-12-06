@@ -132,7 +132,7 @@ export class DouyinDarenComponent implements OnInit {
   	}
   	this.loading = true;
   	this.api
-  		.DouYinSearchVideoDetails({ keyword: v, type: '分享链接搜索' })
+  		.DouYinSearchBigVForVideoLink({ link: v})
   		.subscribe(
   			async (res: any) => {
   				console.log(res);

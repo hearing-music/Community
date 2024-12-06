@@ -47,6 +47,10 @@
 				<div (click)="getKgSongEmit()" style="color: blue;cursor: pointer;margin-left: 8px;font-size: 14px;">
 					点击搜索歌曲信息
 				</div>
+				<div style="cursor: pointer;margin-left: 8px;display: flex;align-items: center;" (click)='enter()'
+					nz-tooltip nzTooltipTitle="录入信息">
+					<span nz-icon nzType="plus-circle" nzTheme="outline" style="color:blue;font-size:16px;"></span>
+				</div>
 			</div>
 		</div>
 		
@@ -57,6 +61,67 @@
 			{{common.formatFileSize(data.filesize)}}
 		</div>
 	</div>
+	
+	
+	<nz-modal [nzStyle]="{ width: '800px' }" [(nzVisible)]="isVisible" nzTitle="酷狗：录入mv" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+		<ng-container *nzModalContent>
+			<div>
+				<div style="display: flex;">
+					<div style='flex:1;'>
+						<div>id</div>
+						<input nz-input placeholder="id" [(ngModel)]="enterData.id" [disabled]="true"/>
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							名字
+						</div>
+						<input nz-input placeholder="名字" [(ngModel)]="enterData.mv_name" [disabled]="true" />
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							歌手
+						</div>
+						<input nz-input placeholder="歌手" [(ngModel)]="enterData.singerNames" [disabled]="true" />
+					</div>
+				</div>
+				<div style='display:flex;margin-top:16px;'>
+					<div style='flex:1;'>
+						<div>
+							歌曲名字
+						</div>
+						<input nz-input placeholder="输入歌曲名字" [(ngModel)]="reqData.SongName" />
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							歌曲版本
+						</div>
+						<input nz-input placeholder="输入歌曲版本" [(ngModel)]="reqData.Releases" />
+					</div>
+				</div>
+				<div style='display:flex;margin-top:16px;'>
+					<div style="flex:1;">
+						<div>
+							词作者 <span style="font-size: 12px;color: #666;">多个作者用,隔开</span>
+						</div>
+						<input nz-input placeholder="输入词作者" [(ngModel)]="LyricsAuthorName" />
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							曲作者 <span style="font-size: 12px;color: #666;">多个作者用,隔开</span>
+						</div>
+						<input nz-input placeholder="输入曲作者" [(ngModel)]="SongAuthorName" />
+					</div>
+				</div>
+				<div style="margin-top: 8px;">
+					<div>
+						发行时间
+					</div>
+					<nz-date-picker [(ngModel)]="ReleaseDate" (ngModelChange)="onDateChange($event)"></nz-date-picker>
+				</div>
+			</div>
+		</ng-container>
+	</nz-modal>
+	
 	
 	<div *ngIf='item' style="margin-top: 12px;">
 		

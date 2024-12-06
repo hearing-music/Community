@@ -81,6 +81,7 @@ import { CodonceComponent } from './codonce/codonce.component';
 import { UiStoreComponent } from './uiStore/uiStore.component';
 import { MultiModalLearningComponent } from "./multiModalLearning/multiModalLearning.component";
 import { SearchMvComponent } from "./cut-video/search-mv/search-mv.component";
+import { MonitoringMvComponent } from "./cut-video/monitoring-mv/monitoring-mv.component";
 const routes : Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -250,6 +251,12 @@ const routes : Routes = [{
 		{
 			path: 'cut-video/search-mv',
 			component: SearchMvComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 监控mv
+		{
+			path: 'cut-video/monitoring-mv',
+			component: MonitoringMvComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 预估计算器
