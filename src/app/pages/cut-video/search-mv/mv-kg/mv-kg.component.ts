@@ -20,7 +20,7 @@ export class MvKgComponent implements OnInit {
 	isVisible = false;
 	audioSrc=""
 	isPlay=false;
-	enterData : any = {}
+	enterData : any = {singerNames:''}
 	reqData : any = {
 		"Mid": "",
 		"SongName": "",
@@ -48,6 +48,7 @@ export class MvKgComponent implements OnInit {
 			"ReleaseDate": 0,
 			"PlatformName": "KG"
 		}
+		this.enterData.singerNames = ''
 		this.reqData.Mid = this.data.id;
 		let enterData = this.data;
 		let singerNames:any = ''
@@ -56,7 +57,6 @@ export class MvKgComponent implements OnInit {
 		})
 		singerNames = singerNames.substr(0, singerNames.length - 1)
 		enterData.singerNames = singerNames;
-		this.reqData.SingerName = singerNames.split(',')
 		this.enterData = enterData;
 		this.isVisible = true;
 	}
@@ -70,6 +70,8 @@ export class MvKgComponent implements OnInit {
 		this.reqData.SongAuthorName = this.SongAuthorName.replaceAll("，",",");
 		this.reqData.SongAuthorName = this.reqData.SongAuthorName.split(',');
 		this.reqData.ReleaseDate = new Date(this.ReleaseDate).setHours(0, 0, 0, 0);
+		this.reqData.SingerName = this.enterData.singerNames.replaceAll("，",",");
+		this.reqData.SingerName = this.reqData.SingerName.split(',')
 		this.loading = true;
 		this.api.EnterMvInfo(this.reqData).subscribe((res:any)=>{
 			this.loading = false;
@@ -78,6 +80,7 @@ export class MvKgComponent implements OnInit {
 				this.LyricsAuthorName='';
 				this.SongAuthorName='';
 				this.ReleaseDate='';
+				this.enterData.singerNames = ''
 				this.reqData = {
 					"Mid": "",
 					"SongName": "",

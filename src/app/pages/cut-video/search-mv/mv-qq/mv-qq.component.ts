@@ -17,7 +17,7 @@ export class MvQqComponent implements OnInit {
 	loading = false;
 	isVisible = false;
 
-	enterData : any = {}
+	enterData : any = {singerNames:""}
 	reqData : any = {
 		"Mid": "",
 		"SongName": "",
@@ -50,6 +50,7 @@ export class MvQqComponent implements OnInit {
 			"ReleaseDate": 0,
 			"PlatformName": "QQ"
 		}
+		this.enterData.singerNames = ''
 		this.reqData.Mid = this.data.mid;
 		let enterData = this.data;
 		let singerNames:any = ''
@@ -58,7 +59,6 @@ export class MvQqComponent implements OnInit {
 		})
 		singerNames = singerNames.substr(0, singerNames.length - 1)
 		enterData.singerNames = singerNames;
-		this.reqData.SingerName = singerNames.split(',')
 		this.enterData = enterData;
 		this.isVisible = true;
 	}
@@ -72,6 +72,8 @@ export class MvQqComponent implements OnInit {
 		this.reqData.SongAuthorName = this.SongAuthorName.replaceAll("，",",");
 		this.reqData.SongAuthorName = this.reqData.SongAuthorName.split(',');
 		this.reqData.ReleaseDate = new Date(this.ReleaseDate).setHours(0, 0, 0, 0);
+		this.reqData.SingerName = this.enterData.singerNames.replaceAll("，",",");
+		this.reqData.SingerName = this.reqData.SingerName.split(',')
 		this.loading = true;
 		this.api.EnterMvInfo(this.reqData).subscribe((res:any)=>{
 			this.loading = false;
@@ -90,6 +92,7 @@ export class MvQqComponent implements OnInit {
 					"ReleaseDate": 0,
 					"PlatformName": "QQ"
 				}
+				this.enterData.singerNames = ''
 				this.isVisible = false;
 			}
 		},(err:any)=>{
