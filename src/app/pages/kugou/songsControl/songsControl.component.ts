@@ -241,8 +241,8 @@ export class SongsControlComponent implements OnInit {
 						// 添加 截至到今日没有的日期
 						iitem.IndexKG = this.computedIndex(iitem.Index.KG);
 						if(iitem.Index.QQ.length>0){
-							iitem.IndexQQ = this.quchong(iitem.Index.QQ,'Time');
-							iitem.IndexQQ = this.computedIndexQQ(iitem.IndexQQ);
+							// iitem.IndexQQ = this.quchong(iitem.Index.QQ,'Time');
+							iitem.IndexQQ = this.computedIndexQQ(iitem.Index.QQ);
 						}else{
 							iitem.IndexQQ = iitem.Index.QQ
 						}
@@ -328,52 +328,60 @@ export class SongsControlComponent implements OnInit {
 	// 添加中间没录入的日期
 	computedIndex(IndexArr : any) {
 		let IndexArrNow = JSON.parse(JSON.stringify(IndexArr));
+		IndexArrNow.forEach((item:any)=>{
+			item.Time = this.common.getDate(item.Time-0)
+		})
 		IndexArrNow = this.quchong(IndexArrNow,'Time')
-		let time = IndexArrNow[IndexArrNow.length - 1].Time - 0;
-		let year = new Date(time).getFullYear();
-		let month = new Date(time).getMonth() + 1;
-		let day = new Date(time).getDate();
-		let startTime = new Date(year + '/' + month + '/' + day + " 00:00:00").getTime();
+		// let time = new Date(IndexArrNow[IndexArrNow.length - 1].Time).getTime();
+		// let year = new Date(time).getFullYear();
+		// let month = new Date(time).getMonth() + 1;
+		// let day = new Date(time).getDate();
+		// let startTime = new Date(year + '/' + month + '/' + day + " 00:00:00").getTime();
 
-		let yearToday = new Date().getFullYear();
-		let monthToday = new Date().getMonth() + 1;
-		let dayToday = new Date().getDate();
-		let startTimeToday = new Date(yearToday + '/' + monthToday + '/' + dayToday + " 00:00:00").getTime();
-		let needAddCount = (startTimeToday - startTime) / (24 * 60 * 60 * 1000);
-		for (let i = 0; i < needAddCount; i++) {
-			IndexArrNow.push({ Time: startTime + (i + 1) * (24 * 60 * 60 * 1000), Index: "" })
-		}
-		// 统计中间没有的时间
-		let IArr = []
-		for(let i = 0;i<IndexArrNow.length;i++){
-			if(i+1>=IndexArrNow.length) break;
-			if((IndexArrNow[i].Time - 0) + (1*24*60*60*1000) != (IndexArrNow[i+1].Time - 0)){
-				IArr.push({i:i+1,value:{
-					Time: (IndexArrNow[i].Time - 0) + (1*24*60*60*1000), Index: ""
-				}})
-			}
-		}
-		for(let i = 0;i<IArr.length;i++){
-			IndexArrNow.splice(IArr[i].i+i,0,IArr[i].value)
-		}
+		// let yearToday = new Date().getFullYear();
+		// let monthToday = new Date().getMonth() + 1;
+		// let dayToday = new Date().getDate();
+		// let startTimeToday = new Date(yearToday + '/' + monthToday + '/' + dayToday + " 00:00:00").getTime();
+		// let needAddCount = (startTimeToday - startTime) / (24 * 60 * 60 * 1000);
+		// for (let i = 0; i < needAddCount; i++) {
+		// 	IndexArrNow.push({ Time: this.common.getDate(startTime + (i + 1) * (24 * 60 * 60 * 1000)), Index: "" })
+		// }
+		// // 统计中间没有的时间
+		// let IArr = []
+		// for(let i = 0;i<IndexArrNow.length;i++){
+		// 	if(i+1>=IndexArrNow.length) break;
+		// 	let T1:any = (new Date(IndexArrNow[i].Time).getTime() - 0) + (1*24*60*60*1000);
+		// 	let T2:any = (new Date(IndexArrNow[i+1].Time).getTime() - 0);
+		// 	if(T1 != T2){
+		// 		IArr.push({i:i+1,value:{
+		// 			Time:this.common.getDate(T1), Index: ""
+		// 		}})
+		// 	}
+		// }
 		return IndexArrNow
 	}
 	// 添加中间没录入的日期 qq
 	computedIndexQQ(IndexArr : any) {
 		let IndexArrNow = JSON.parse(JSON.stringify(IndexArr));
-		// 统计中间没有的时间
-		let IArr = []
-		for(let i = 0;i<IndexArrNow.length;i++){
-			if(i+1>=IndexArrNow.length) break;
-			if((IndexArrNow[i].Time - 0) + (1*24*60*60*1000) != (IndexArrNow[i+1].Time - 0)){
-				IArr.push({i:i+1,value:{
-					Time: (IndexArrNow[i].Time - 0) + (1*24*60*60*1000), Index: ""
-				}})
-			}
-		}
-		for(let i = 0;i<IArr.length;i++){
-			IndexArrNow.splice(IArr[i].i+i,0,IArr[i].value)
-		}
+		IndexArrNow.forEach((item:any)=>{
+			item.Time = this.common.getDate(item.Time-0)
+		})
+		IndexArrNow = this.quchong(IndexArrNow,'Time')
+		// // 统计中间没有的时间
+		// let IArr = []
+		// for(let i = 0;i<IndexArrNow.length;i++){
+		// 	if(i+1>=IndexArrNow.length) break;
+		// 	let T1:any = (new Date(IndexArrNow[i].Time).getTime() - 0) + (1*24*60*60*1000);
+		// 	let T2:any = (new Date(IndexArrNow[i+1].Time).getTime() - 0);
+		// 	if(T1 != T2){
+		// 		IArr.push({i:i+1,value:{
+		// 			Time: this.common.getDate(T1), Index: ""
+		// 		}})
+		// 	}
+		// }
+		// for(let i = 0;i<IArr.length;i++){
+		// 	IndexArrNow.splice(IArr[i].i+i,0,IArr[i].value)
+		// }
 		return IndexArrNow
 	}
 	// 去重
@@ -399,27 +407,18 @@ export class SongsControlComponent implements OnInit {
 	}
 	// 指数 qq 酷狗
 	setOptionIndex(iitem:any){
-		let dateListNow = [...iitem.IndexKG,...iitem.IndexQQ];
-		dateListNow = dateListNow.sort((a:any,b:any)=>a.Time-b.Time)
-		dateListNow = dateListNow.map((e:any)=>this.common.getDate(e.Time))
-		dateListNow = this.removeDuplicates(dateListNow);
-		let dataList = iitem.IndexKG.map((e : any) => e.Index);// 酷狗指数数据
-		let dataList2 = iitem.IndexQQ.map((e : any) => e.Index);// QQ指数数据
-		// 补齐qq缺失的时间 比qq第1个time 小的时间 补齐
-		if(iitem.IndexQQ.length>0){
-			iitem.IndexKG.forEach((item:any)=>{
-				if(this.common.getDate(iitem.IndexQQ[0].Time) > this.common.getDate(item.Time)){
-					dataList2.unshift("")
-				}
-			})
-			// let lengthCount = parseInt((iitem.IndexQQ[0].Time - iitem.IndexKG[0].Time) / (60*60*24*1000)+"")
-			// for(let i = 0;i<lengthCount;i++){
-			// 	dataList2.unshift("")
-			// }
-		}
+		let dateListNow1 = [...iitem.IndexQQ];
+		let dateListNow2 = [...iitem.IndexKG];
+		dateListNow1 = dateListNow1.sort((a:any,b:any)=>a.Time-b.Time)
+		dateListNow1 = dateListNow1.map((e:any)=>e.Time)
+		
+		dateListNow2 = dateListNow2.sort((a:any,b:any)=>a.Time-b.Time)
+		dateListNow2 = dateListNow2.map((e:any)=>e.Time)
+		let dataList1 = iitem.IndexQQ.map((e : any) => e.Index);// QQ指数数据
+		let dataList2 = iitem.IndexKG.map((e : any) => e.Index);// kg指数数据
 		let color = ['#00A9FF', '#31c27c']
-		iitem.optionsIndex = {
-			color: color,
+		iitem.optionsIndex1 = {
+			color: color[1],
 			legend: {},
 			tooltip: {
 				trigger: "axis", // 触发方式为坐标轴触发
@@ -433,7 +432,43 @@ export class SongsControlComponent implements OnInit {
 			xAxis: [
 				{
 					type: 'category',
-					data: dateListNow,
+					data: dateListNow1,
+					axisTick: {
+						alignWithLabel: true
+					}
+				}
+			],
+			yAxis: [
+				{
+					type: 'value',
+				}
+			],
+			series: [
+				{
+					type: "line",
+					name: 'QQ指数',
+					data: dataList1,
+					smooth: true
+				},
+			],
+			height: 150
+		};
+		iitem.optionsIndex2 = {
+			color: color[0],
+			legend: {},
+			tooltip: {
+				trigger: "axis", // 触发方式为坐标轴触发
+			},
+			grid: {
+				left: 60,
+				right: 60,
+				top: 60,
+				bottom: 20,
+			},
+			xAxis: [
+				{
+					type: 'category',
+					data: dateListNow2,
 					axisTick: {
 						alignWithLabel: true
 					}
@@ -448,12 +483,6 @@ export class SongsControlComponent implements OnInit {
 				{
 					type: "line",
 					name: '酷狗指数',
-					data: dataList,
-					smooth: true
-				},
-				{
-					type: "line",
-					name: 'QQ指数',
 					data: dataList2,
 					smooth: true
 				},
@@ -463,30 +492,32 @@ export class SongsControlComponent implements OnInit {
 	}
 	// 收听 qq 酷狗
 	setOptionListen(iitem : any) {
-		let dateListNow = [...iitem.Listen.KG,...iitem.Listen.QQ];
-		dateListNow = dateListNow.sort((a:any,b:any)=>a.Time-b.Time)
-		dateListNow = dateListNow.map((e:any)=>this.common.getTime(e.Time))
-		dateListNow = this.removeDuplicates(dateListNow);
-		let dataList = iitem.Listen.KG.map((e : any) => e.Count);// 酷狗收听数据
-		let dataList2 = iitem.Listen.QQ.map((e : any) => e.Count);// QQ收听数据
-		// 补齐qq缺失的时间
-		if(iitem.Listen.QQ.length>0){
-			iitem.Listen.KG.forEach((item:any)=>{
-				if(this.common.getTime(iitem.Listen.QQ[0].Time) > this.common.getTime(item.Time)){
-				// let i = iitem.Listen.QQ.findIndex((e:any)=>this.common.getTime(e.Time) == this.common.getTime(item.Time))
-				// if(i==-1){
-					dataList2.unshift("")
-				}
-			})
-			// let lengthCount = parseInt((iitem.Listen.QQ[0].Time - iitem.Listen.KG[0].Time) / (60*60*1000)+"")
-			// for(let i = 0;i<lengthCount;i++){
-			// 	dataList2.unshift("")
-			// }
-		}
+		// let dateListNow = [...iitem.Listen.KG,...iitem.Listen.QQ];
+		let dateListNow1 = [...iitem.Listen.QQ];
+		dateListNow1.forEach((item:any)=>{
+			item.Time = this.common.getTime(item.Time)
+		})
+		dateListNow1 = this.quchong(dateListNow1,'Time')
+		dateListNow1 = dateListNow1.sort((a:any,b:any)=>a.Time-b.Time)
+		dateListNow1 = dateListNow1.map((e:any)=>e.Time)
+		
+		
+		
+		let dateListNow2 = [...iitem.Listen.KG];
+		dateListNow2.forEach((item:any)=>{
+			item.Time = this.common.getTime(item.Time)
+		})
+		dateListNow2 = this.quchong(dateListNow2,'Time')
+		dateListNow2 = dateListNow2.sort((a:any,b:any)=>a.Time-b.Time)
+		dateListNow2 = dateListNow2.map((e:any)=>e.Time)
+		
+		
+		let dataList1 = iitem.Listen.QQ.map((e : any) => e.Count);// 酷狗收听数据
+		let dataList2 = iitem.Listen.KG.map((e : any) => e.Count);// QQ收听数据
 		
 		let color = ['#00A9FF', '#31c27c']
-		iitem.optionsListen = {
-			color: color,
+		iitem.optionsListen1 = {
+			color: color[1],
 			legend: {},
 			tooltip: {
 				trigger: "axis", // 触发方式为坐标轴触发
@@ -500,7 +531,44 @@ export class SongsControlComponent implements OnInit {
 			xAxis: [
 				{
 					type: 'category',
-					data: dateListNow,
+					data: dateListNow1,
+					axisTick: {
+						alignWithLabel: true
+					}
+				},
+			],
+			yAxis: [
+				{
+					type: 'value',
+					
+				}
+			],
+			series: [
+				{
+					type: "line",
+					name: 'QQ收听',
+					data: dataList1,
+					smooth: true
+				},
+			],
+			height: 150
+		};
+		iitem.optionsListen2 = {
+			color: color[0],
+			legend: {},
+			tooltip: {
+				trigger: "axis", // 触发方式为坐标轴触发
+			},
+			grid: {
+				left: 60,
+				right: 60,
+				top: 60,
+				bottom: 20,
+			},
+			xAxis: [
+				{
+					type: 'category',
+					data: dateListNow2,
 					axisTick: {
 						alignWithLabel: true
 					}
@@ -516,12 +584,6 @@ export class SongsControlComponent implements OnInit {
 				{
 					type: "line",
 					name: '酷狗收听',
-					data: dataList,
-					smooth: true
-				},
-				{
-					type: "line",
-					name: 'QQ收听',
 					data: dataList2,
 					smooth: true
 				},
@@ -529,5 +591,50 @@ export class SongsControlComponent implements OnInit {
 			height: 150
 		};
 	}
-
+	// 寻找缺失时间
+	findDate(timestamps:any,startDate:any){
+		// 将时间戳转换为日期，并提取年、月和日信息
+	const datesFromTimestamps = timestamps.map((timestamp:any) => {
+	  const date = new Date(timestamp.Time);
+	  return {
+	    year: date.getFullYear(),
+	    month: date.getMonth() + 1, // 月份从0开始，需要加1
+	    day: date.getDate(),
+		Index:timestamp.Index
+	  };
+	});
+	 
+	// 找到最早和最晚的日期
+	const endDate = new Date().setHours(0, 0, 0, 0) - 1000;
+	 
+	// 创建一个连续日期列表
+	const dateRange = [];
+	const currentDate = new Date(startDate);
+	const lastDate = new Date(endDate);
+	while (currentDate <= lastDate) {
+	  dateRange.push({
+	    year: currentDate.getFullYear(),
+	    month: currentDate.getMonth() + 1,
+	    day: currentDate.getDate()
+	  });
+	  currentDate.setDate(currentDate.getDate() + 1);
+	}
+	 
+	// 找出缺失的日期
+	const missingDates = dateRange.filter((dateRangeDate:any) => {
+	  return !datesFromTimestamps.some((timestampDate:any) =>
+	    timestampDate.year === dateRangeDate.year &&
+	    timestampDate.month === dateRangeDate.month &&
+	    timestampDate.day === dateRangeDate.day
+	  );
+	});
+	let timearr:any = []
+	// 打印缺失的日期
+	missingDates.forEach(missingDate => {
+		let time = new Date(`${missingDate.year}-${missingDate.month}-${missingDate.day}`).getTime()
+		time = parseInt(time/1000 + "");
+		timearr.push(time)
+	});
+	return timearr
+	}
 }

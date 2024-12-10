@@ -154,28 +154,46 @@
 						</tr>
 				      </tbody>
 				    </nz-table>
-					<div style="display: flex;align-items: center;margin-top: 12px;">
+					<div style="margin-top: 24px;">
 						<div style="margin-right: 16px;flex-shrink: 0;font-size: 13px;padding-left:12px;">
 							指数趋势
 						</div>
-						<div style="flex:1;">
-							<div
-								echarts
-								[options]="item.optionsIndex"
-								class="demo"
-								style="width: 100%; height: 240px;"></div>
+						<div style='display:flex;'>
+							<div style="flex:1;">
+								<div
+									echarts
+									[options]="item.optionsIndex2"
+									class="demo"
+									style="width: 100%; height: 240px;"></div>
+							</div>
+							<div style="flex:1;" *ngIf='item.Mid'>
+								<div 
+									echarts
+									[options]="item.optionsIndex1"
+									class="demo"
+									style="width: 100%; height: 240px;"></div>
+							</div>
 						</div>
 					</div>
-					<div style="display: flex;align-items: center;">
+					<div>
 						<div style="margin-right: 16px;flex-shrink: 0;font-size: 13px;padding-left:12px;">
 							收听趋势
 						</div>
-						<div style="flex:1;">
-							<div
-								echarts
-								[options]="item.optionsListen"
-								class="demo"
-								style="width: 100%; height: 240px;"></div>
+						<div style='display: flex;align-items: center;'>
+							<div style="flex:1;">
+								<div
+									echarts
+									[options]="item.optionsListen2"
+									class="demo"
+									style="width: 100%; height: 240px;"></div>
+							</div>
+							<div style="flex:1;" *ngIf='item.Mid'>
+								<div 
+									echarts
+									[options]="item.optionsListen1"
+									class="demo"
+									style="width: 100%; height: 240px;"></div>
+							</div>
 						</div>
 					</div>
 			</div>
