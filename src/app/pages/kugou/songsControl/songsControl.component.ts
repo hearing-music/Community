@@ -410,12 +410,14 @@ export class SongsControlComponent implements OnInit {
 		let dateListNow1 = [...iitem.IndexQQ];
 		let dateListNow2 = [...iitem.IndexKG];
 		dateListNow1 = dateListNow1.sort((a:any,b:any)=>a.Time-b.Time)
-		dateListNow1 = dateListNow1.map((e:any)=>e.Time)
+		let dateList1 = dateListNow1.map((e:any)=>e.Time)
+		let dataList1 = dateListNow1.map((e : any) => e.Index);// QQ指数数据
+		
+		
 		
 		dateListNow2 = dateListNow2.sort((a:any,b:any)=>a.Time-b.Time)
-		dateListNow2 = dateListNow2.map((e:any)=>e.Time)
-		let dataList1 = iitem.IndexQQ.map((e : any) => e.Index);// QQ指数数据
-		let dataList2 = iitem.IndexKG.map((e : any) => e.Index);// kg指数数据
+		let dateList2 = dateListNow2.map((e:any)=>e.Time)
+		let dataList2 = dateListNow2.map((e : any) => e.Index);// QQ指数数据
 		let color = ['#00A9FF', '#31c27c']
 		iitem.optionsIndex1 = {
 			color: color[1],
@@ -432,7 +434,7 @@ export class SongsControlComponent implements OnInit {
 			xAxis: [
 				{
 					type: 'category',
-					data: dateListNow1,
+					data: dateList1,
 					axisTick: {
 						alignWithLabel: true
 					}
@@ -468,7 +470,7 @@ export class SongsControlComponent implements OnInit {
 			xAxis: [
 				{
 					type: 'category',
-					data: dateListNow2,
+					data: dateList2,
 					axisTick: {
 						alignWithLabel: true
 					}
@@ -499,8 +501,8 @@ export class SongsControlComponent implements OnInit {
 		})
 		dateListNow1 = this.quchong(dateListNow1,'Time')
 		dateListNow1 = dateListNow1.sort((a:any,b:any)=>a.Time-b.Time)
-		dateListNow1 = dateListNow1.map((e:any)=>e.Time)
-		
+		let dateList1 = dateListNow1.map((e:any)=>e.Time)
+		let dataList1 = dateListNow1.map((e : any) => e.Count);
 		
 		
 		let dateListNow2 = [...iitem.Listen.KG];
@@ -509,11 +511,9 @@ export class SongsControlComponent implements OnInit {
 		})
 		dateListNow2 = this.quchong(dateListNow2,'Time')
 		dateListNow2 = dateListNow2.sort((a:any,b:any)=>a.Time-b.Time)
-		dateListNow2 = dateListNow2.map((e:any)=>e.Time)
+		let dateList2 = dateListNow2.map((e : any) => e.Time);// QQ收听数据
+		let dataList2 = dateListNow2.map((e : any) => e.Count);// QQ收听数据
 		
-		
-		let dataList1 = iitem.Listen.QQ.map((e : any) => e.Count);// 酷狗收听数据
-		let dataList2 = iitem.Listen.KG.map((e : any) => e.Count);// QQ收听数据
 		
 		let color = ['#00A9FF', '#31c27c']
 		iitem.optionsListen1 = {
@@ -531,7 +531,7 @@ export class SongsControlComponent implements OnInit {
 			xAxis: [
 				{
 					type: 'category',
-					data: dateListNow1,
+					data: dateList1,
 					axisTick: {
 						alignWithLabel: true
 					}
@@ -568,7 +568,7 @@ export class SongsControlComponent implements OnInit {
 			xAxis: [
 				{
 					type: 'category',
-					data: dateListNow2,
+					data: dateList2,
 					axisTick: {
 						alignWithLabel: true
 					}

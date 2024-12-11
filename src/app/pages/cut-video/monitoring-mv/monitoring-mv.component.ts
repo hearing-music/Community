@@ -112,4 +112,93 @@ export class MonitoringMvComponent implements OnInit {
 	openMvKG(id:any){
 		window.open("https://www.kugou.com/mv/"+id+"/")
 	}
+	
+	
+	editQQ(q:any){
+		let editData1 = {...q};
+		editData1.LyricsAuthorName = editData1.LyricsAuthorName.join(",");
+		editData1.SongAuthorName = editData1.SongAuthorName.join(",");
+		editData1.SingerName = editData1.SingerName.join(",");
+		editData1.ReleaseDate = new Date(editData1.ReleaseDate);
+		this.editData1 = editData1;
+		this.isVisible1 = true;
+	}
+	editKG(k:any){
+		let editData2 = {...k};
+		
+		editData2.LyricsAuthorName = editData2.LyricsAuthorName.join(",");
+		editData2.SongAuthorName = editData2.SongAuthorName.join(",");
+		editData2.SingerName = editData2.SingerName.join(",");
+		editData2.ReleaseDate = new Date(editData2.ReleaseDate);
+		this.editData2 = editData2;
+		this.isVisible2 = true;
+	}
+	
+	editData1:any={}
+	editData2:any={}
+	onDateChange1(e:any){
+		
+	}
+	onDateChange2(e:any){
+		
+	}
+	
+	handleOk1() {
+		let LyricsAuthorName = this.editData1.LyricsAuthorName.replaceAll("，",",")
+		LyricsAuthorName = this.editData1.LyricsAuthorName.split(",");
+		
+		let SingerName = this.editData1.SingerName.replaceAll("，",",")
+		SingerName = this.editData1.SingerName.split(",");
+		
+		let SongAuthorName = this.editData1.SongAuthorName.replaceAll("，",",")
+		SongAuthorName = this.editData1.SongAuthorName.split(",");
+		let SongName = this.editData1.SongName;
+		let ReleaseDate = new Date(this.editData1.ReleaseDate).setHours(0,0,0,0);
+		let Releases = this.editData1.Releases;
+		let ID = this.editData1.ID;
+		let data = {
+			LyricsAuthorName,SingerName,SongAuthorName,SongName,ReleaseDate,Releases,ID
+		}
+		this.api.EditMvInfo(data).subscribe((res:any)=>{
+			if(res.success){
+				this.toast.success("修改成功")
+				this.isVisible1 = false;
+				this.req();
+			}
+		})
+	
+	}
+	handleOk2() {
+		let LyricsAuthorName = this.editData2.LyricsAuthorName.replaceAll("，",",")
+		LyricsAuthorName = this.editData2.LyricsAuthorName.split(",");
+		
+		let SingerName = this.editData2.SingerName.replaceAll("，",",")
+		SingerName = this.editData2.SingerName.split(",");
+		
+		let SongAuthorName = this.editData2.SongAuthorName.replaceAll("，",",")
+		SongAuthorName = this.editData2.SongAuthorName.split(",");
+		let SongName = this.editData2.SongName;
+		let ReleaseDate = new Date(this.editData2.ReleaseDate).setHours(0,0,0,0);
+		let Releases = this.editData2.Releases;
+		let ID = this.editData2.ID;
+		let data = {
+			LyricsAuthorName,SingerName,SongAuthorName,SongName,ReleaseDate,Releases,ID
+		}
+		this.api.EditMvInfo(data).subscribe((res:any)=>{
+			if(res.success){
+				this.toast.success("修改成功")
+				this.isVisible2 = false;
+				this.req();
+			}
+		})
+	
+	}
+	isVisible1=false;
+	isVisible2=false;
+	handleCancel1() {
+		this.isVisible1 = false;
+	}
+	handleCancel2() {
+		this.isVisible2 = false;
+	}
 }

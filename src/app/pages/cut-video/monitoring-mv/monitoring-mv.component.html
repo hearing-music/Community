@@ -37,6 +37,9 @@
 										<div (click)="openMvQQ(q.Mid)" class="linkIcon" style="margin-left: 8px;">
 											<span nz-icon nzType="select" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
 										</div>
+										<div (click)="editQQ(q)" class="linkIcon" style="margin-left: 8px;">
+											<span nz-icon nzType="edit" nzTheme="outline" style="color:#35C035;font-size: 14px;"></span>
+										</div>
 									</div>
 								</div>
 								<div *ngFor='let k of item.KG;'>
@@ -45,7 +48,10 @@
 											{{k.Mid}}
 										</div>
 										<div (click)="openMvKG(k.Mid)" class="linkIcon" style="margin-left: 8px;">
-											<span nz-icon nzType="select" nzTheme="outline" style="color:#blue;font-size: 14px;"></span>
+											<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
+										</div>
+										<div (click)="editKG(k)" class="linkIcon" style="margin-left: 8px;">
+											<span nz-icon nzType="edit" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
 										</div>
 									</div>
 								</div>
@@ -137,4 +143,111 @@
 	</div>
 	<!-- loading -->
 	<ngx-loading *ngIf='loading'></ngx-loading>
+	
+	<!-- qq -->
+	<nz-modal [nzStyle]="{ width: '800px' }" [(nzVisible)]="isVisible1" nzTitle="QQ：修改mv信息" (nzOnCancel)="handleCancel1()" (nzOnOk)="handleOk1()">
+		<ng-container *nzModalContent>
+			<div>
+				<div style="display: flex;">
+					<div style='flex:1;'>
+						<div>Mid</div>
+						<input nz-input placeholder="Mid" [(ngModel)]="editData1.Mid" [disabled]="true"/>
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							歌手 <span style="font-size: 12px;color: #666;">多个作者用,隔开</span>
+						</div>
+						<input nz-input placeholder="歌手" [(ngModel)]="editData1.SingerName" />
+					</div>
+				</div>
+				<div style='display:flex;margin-top:16px;'>
+					<div style='flex:1;'>
+						<div>
+							歌曲名字
+						</div>
+						<input nz-input placeholder="输入歌曲名字" [(ngModel)]="editData1.SongName" />
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							歌曲版本
+						</div>
+						<input nz-input placeholder="输入歌曲版本" [(ngModel)]="editData1.Releases" />
+					</div>
+				</div>
+				<div style='display:flex;margin-top:16px;'>
+					<div style="flex:1;">
+						<div>
+							词作者 <span style="font-size: 12px;color: #666;">多个作者用,隔开</span>
+						</div>
+						<input nz-input placeholder="输入词作者" [(ngModel)]="editData1.LyricsAuthorName" />
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							曲作者 <span style="font-size: 12px;color: #666;">多个作者用,隔开</span>
+						</div>
+						<input nz-input placeholder="输入曲作者" [(ngModel)]="editData1.SongAuthorName" />
+					</div>
+				</div>
+				<div style="margin-top: 8px;">
+					<div>
+						发行时间
+					</div>
+					<nz-date-picker [(ngModel)]="editData1.ReleaseDate" (ngModelChange)="onDateChange1($event)"></nz-date-picker>
+				</div>
+			</div>
+		</ng-container>
+	</nz-modal>
+	<!-- kg -->
+	<nz-modal [nzStyle]="{ width: '800px' }" [(nzVisible)]="isVisible2" nzTitle="酷狗：修改mv信息" (nzOnCancel)="handleCancel2()" (nzOnOk)="handleOk2()">
+		<ng-container *nzModalContent>
+			<div>
+				<div style="display: flex;">
+					<div style='flex:1;'>
+						<div>id</div>
+						<input nz-input placeholder="Mid" [(ngModel)]="editData2.Mid" [disabled]="true"/>
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							歌手 <span style="font-size: 12px;color: #666;">多个作者用,隔开</span>
+						</div>
+						<input nz-input placeholder="歌手" [(ngModel)]="editData2.SingerName" />
+					</div>
+				</div>
+				<div style='display:flex;margin-top:16px;'>
+					<div style='flex:1;'>
+						<div>
+							歌曲名字
+						</div>
+						<input nz-input placeholder="输入歌曲名字" [(ngModel)]="editData2.SongName" />
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							歌曲版本
+						</div>
+						<input nz-input placeholder="输入歌曲版本" [(ngModel)]="editData2.Releases" />
+					</div>
+				</div>
+				<div style='display:flex;margin-top:16px;'>
+					<div style="flex:1;">
+						<div>
+							词作者 <span style="font-size: 12px;color: #666;">多个作者用,隔开</span>
+						</div>
+						<input nz-input placeholder="输入词作者" [(ngModel)]="editData2.LyricsAuthorName" />
+					</div>
+					<div style="margin-left: 8px;flex:1;">
+						<div>
+							曲作者 <span style="font-size: 12px;color: #666;">多个作者用,隔开</span>
+						</div>
+						<input nz-input placeholder="输入曲作者" [(ngModel)]="editData2.SongAuthorName" />
+					</div>
+				</div>
+				<div style="margin-top: 8px;">
+					<div>
+						发行时间
+					</div>
+					<nz-date-picker [(ngModel)]="editData2.ReleaseDate" (ngModelChange)="onDateChange2($event)"></nz-date-picker>
+				</div>
+			</div>
+		</ng-container>
+	</nz-modal>
 </div>

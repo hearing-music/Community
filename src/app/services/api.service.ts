@@ -44,6 +44,10 @@ export class ApiService {
 	GetMvInfo(data:any){
 		return this.http.post(this.baseUrl + '/qq/GetMvInfo',data)
 	}
+	// mv修改信息
+	EditMvInfo(data:any){
+		return this.http.post(this.baseUrl + '/qq/EditMvInfo',data)
+	}
 	// 预估计算器
 	TJMusicMultiModalLearning(data:any){
 		// return this.http.post('https://communities.tingjianmusic.cn:444/multi-modal-algorithm/TJMusicMultiModalLearning',data)
