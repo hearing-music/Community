@@ -88,7 +88,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				color: 'bg-azure-95',
 				title: '2024年12月11日11:11',
 			  	newAdd:["mv信息修改"],//新增
-			  	optimize:["预估计算器显示酷狗排名，抖音搜索词条前五"],//优化
+			  	optimize:["预估计算器显示酷狗排名，抖音搜索词条前五，歌曲排行榜"],//优化
 			  	bugs:[],//修复bug
 			},
 			{

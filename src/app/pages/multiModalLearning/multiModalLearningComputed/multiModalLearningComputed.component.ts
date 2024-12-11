@@ -572,7 +572,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
   }
   // 存入数据
   ObservationDataStorage(MeasuredParameter: any, PlatformParameter: any) {
-	  // return
+	  return
     if (this.Data.length == 0) {
       console.log("获取预估数据错误 不存入");
       return;
