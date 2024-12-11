@@ -402,7 +402,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 			for (let j = 0; j < qq[0].QShareExponents.length; j++) {
 				data.IndexQQ.push({
 					Index: qq[0].QShareExponents[j].exponent,
-					Time: qq[0].QShareExponents[j].date,
+					Time: qq[0].QShareExponents[j].date*1000,
 				});
 			}
 		}
