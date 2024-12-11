@@ -3,6 +3,7 @@ import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
 import { ToastrService } from "ngx-toastr";
 import { NzFormTooltipIcon } from "ng-zorro-antd/form";
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: "ngx-multiModalLearningComputed",
   templateUrl: "./multiModalLearningComputed.component.html",
@@ -33,7 +34,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
   }
   // 建立 WebSocket 连接
   connect(): void {
-    this.socket = new WebSocket("wss://communities.tingjianmusic.cn:444/ws/");
+    this.socket = new WebSocket(environment.websocketUrl);
     // 监听连接打开事件
     this.socket.onopen = () => {
       console.log("连接成功");

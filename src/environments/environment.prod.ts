@@ -13,6 +13,7 @@ export const environment = {
 	baseUrl:'https://communities.tingjianmusic.cn:444',
 	// baseUrl:'http://communities.tingjianmusic.cn:81',
 	tencentUrl:'https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com',
-	socketUrl:'https://communities.tingjianmusic.cn:444'
+	socketUrl:'https://communities.tingjianmusic.cn:444',
+	websocketUrl:"wss://communities.tingjianmusic.cn:444/ws/"
 	// socketUrl:'http://communities.tingjianmusic.cn:81'
 };

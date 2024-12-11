@@ -19,6 +19,7 @@ export const environment = {
     // baseUrl:'https://communities.tingjianmusic.cn:444',
     tencentUrl:'https://tcb-3e8ebbnm0ab0c7-9ddrxa0a7ebcd.service.tcloudbase.com',
     // socketUrl:'http://127.0.0.1:3222',
-    socketUrl:'http://localhost:3222'
+    socketUrl:'http://localhost:3222',
+  websocketUrl:"wss://localhost:4399"
     // baseUrl:'http://communityapi.jinzhoushaokao.top',
 };
