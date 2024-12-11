@@ -15,6 +15,8 @@ export class MultiModalLearningComputedComponent implements OnInit {
   KGSoaringSongs: any = [];
   DyVedioTopFive: any = [];
   ThreePartyInterface: any = [];
+  MassiveArithmeticDaRen: any = [];
+  MassiveArithmeticVedio: any = [];
   DyVedioTopFiveTime: any = 300;
   DyVedioTopFiveSchedule: any = null;
   isVisibleRecommendations: any = false;
@@ -80,7 +82,6 @@ export class MultiModalLearningComputedComponent implements OnInit {
       } else if (result.message == "酷狗搜索推荐查询") {
         if (result.data.length > 0) {
           this.KGSearchRecommendations = result.data;
-          console.log(this.KGSearchRecommendations)
         }
       } else if (result.message == "酷狗飙升榜查询") {
         if (result.data.length > 0) {
@@ -90,7 +91,16 @@ export class MultiModalLearningComputedComponent implements OnInit {
         if (result.data.length > 0) {
           this.ThreePartyInterface = result.data;
         }
+      } else if (result.message == "巨量算数达人搜索") {
+        if (result.data.length > 0) {
+          this.MassiveArithmeticDaRen = result.data;
+        }
+      } else if (result.message == "巨量算数视频搜索") {
+        if (result.data.length > 0) {
+          this.MassiveArithmeticVedio = result.data;
+        }
       }
+
     };
     // 监听连接关闭事件
     this.socket.onclose = (event) => {
@@ -463,12 +473,17 @@ export class MultiModalLearningComputedComponent implements OnInit {
     let res2: any = {};
     if (this.chooseQQKGData.qqData && this.chooseQQKGData.kgData) {
       res2 = await this.ObservationalData();
+	  res2.res.KG[0].KExponents.data = res2.res.KG[0].KExponents.data || {}
+	  res2.res.KG[0].record = res2.res.KG[0].record || []
+	  res2.res.QQ[0].record = res2.res.QQ[0].record || []
       this.obData = res2.res;
     }
     this.DyVedioTopFive = [];
     this.KGSearchRecommendations = [];
     this.KGSoaringSongs = [];
     this.ThreePartyInterface = [];
+    this.MassiveArithmeticDaRen = [];
+    this.MassiveArithmeticVedio = [];
     this.DyVedioTopFiveTime = 300;
     this.DyVedioTopFiveSchedule = null;
     this.sendMessage({
@@ -477,6 +492,8 @@ export class MultiModalLearningComputedComponent implements OnInit {
         ["DevTipListInfo", this.keyword],
         ["ComprehensiveSearchTop5", this.keyword],
         ["TripartiteInterfaceBuzzword", this.keyword],
+        ["TrendinsightSearch", this.keyword],
+        ["ItemQueryVideo", this.keyword]
       ],
     });
     this.loadingSpin = false;

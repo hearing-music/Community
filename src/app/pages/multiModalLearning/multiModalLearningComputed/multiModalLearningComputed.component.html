@@ -500,8 +500,8 @@
           </div>
         </div>
       </div>
-		<div style="display: flex;justify-content: center;margin-top: 20px;">
-			<div style="margin-right: 56px;">
+		<div style="display: flex;justify-content: center;margin-top: 20px;" *ngIf='obData.QQ'>
+			<div style="margin-right: 56px;" *ngIf='obData.QQ[0].record.length>0'>
 				<div>QQ</div>
 				<div style="font-size: 13px;font-weight: bold;color:rgba(26,26,26,.6);">
 					<div *ngFor='let r of obData.QQ[0].record;'>
@@ -509,9 +509,9 @@
 					</div>
 				</div>
 			</div>
-			<div>
+			<div *ngIf='obData.KG[0].record.length>0'>
 				<div>酷狗</div>
-				<div style="font-size: 13px;font-weight: bold;color:rgba(26,26,26,.6);">
+				<div style="font-size: 13px;font-weight: bold;color:rgba(26,26,26,.6);" >
 					<div *ngFor='let r of obData.KG[0].record;'>
 						{{r.rank_name}} 当期排名{{r.rank_sort_list[0].sort}} 历史在榜{{r.rank_times+'期'}} 最高排名{{r.highest_rank}}
 					</div>
@@ -570,7 +570,7 @@
 	      <div nz-col nzSpan="3"></div>
 	    </div> -->
     </div>
-    <div style="display: flex;justify-content: center;margin-top: 20px;">
+    <div style="display: flex;justify-content: center;margin-top: 20px;flex-wrap: wrap;">
       <div *ngIf="KGSearchRecommendations.length>0">
         <div style="font-size: 16px;margin-bottom: 8px;">
           <span>酷狗搜索推荐查询</span>
@@ -674,14 +674,31 @@
           <div style="color: #8c8c8c;margin-top: 12px;" *ngIf="DyVedioTopFive.length == 1">
             {{DyVedioTopFiveTime}}秒后显示数据
           </div>
-          <!-- <div *ngIf="DyVedioTopFive.length==1">
-            <span>300后显示数据</span>
-          </div> -->
       </div>
       <div *ngIf="ThreePartyInterface.length>0" style="margin-left: 50px;">
         <div style="font-size: 16px;margin-bottom: 8px;">三方接口(榜单&&热搜词)</div>
         <div *ngFor="let item of ThreePartyInterface">
           <span style="color: #8c8c8c;">{{item[0]}}</span><span style="margin-left: 8px;color: #000;">{{item[1]}}</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="MassiveArithmeticDaRen.length>0" style="width: 100%;height: auto;">
+      <div style="font-size: 16px;margin-bottom: 8px;">巨量算数达人搜索</div>
+      <div style="width: 100%;height: 300px;overflow-y: auto;">
+        <div *ngFor="let item of ThreePartyInterface" class="list-item">
+          <img [src]="item[1].data.SongInfo.imgUrl" alt="" style="width: 45px;height: 45px;border-radius: 50%;" *ngIf="item[1].data.SongInfo.imgUrl">
+          <div style="display: flex;align-items: center;">
+            <span style="font-size: 16px;">{{item.user_name}}</span>
+            <span nz-tooltip nzTooltipTitle="粉丝数" style="margin-left: 8px;">{{common.toThousands(item.follow_count)}}</span>
+            <span nz-tooltip nzTooltipTitle="总获赞数" style="margin-left: 8px;">{{common.toThousands(item.follow_count)}}</span>
+          </div>
+          <div>
+            <span nz-tooltip nzTooltipTitle="均涨粉">{{common.toThousands(item.follow_count)}}</span>
+            <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;" *ngIf="item[1].rank"></span>
+            <span nz-tooltip nzTooltipTitle="均分享">{{common.toThousands(item.follow_count)}}</span>
+            <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;" *ngIf="item[1].rank"></span>
+            <span nz-tooltip nzTooltipTitle="均评论">{{common.toThousands(item.follow_count)}}</span>
+          </div>
         </div>
       </div>
     </div>
