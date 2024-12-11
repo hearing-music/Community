@@ -64,44 +64,38 @@
 							{{item.QQ[0].Releases || item.KG[0].Releases}}
 						</td>
 						<td nzAlign='center'>
-							<div *ngIf='item.QQ[0].SingerName' style="display: flex;justify-content: center;">
+							<div *ngIf='item.QQ[0].SingerName'>
 								<div *ngFor='let singer of item.QQ[0].SingerName;let i = index;'>
 									<span>{{singer}}</span>
-									<span *ngIf='i != item.QQ[0].SingerName.length-1'>，</span>
 								</div>
 							</div>
-							<div *ngIf='item.KG[0].SingerName&&!item.QQ[0].SingerName' style="display: flex;justify-content: center;">
+							<div *ngIf='item.KG[0].SingerName&&!item.QQ[0].SingerName'>
 								<div *ngFor='let singer of item.KG[0].SingerName;let i = index;'>
 									<span>{{singer}}</span>
-									<span *ngIf='i != item.KG[0].SingerName.length-1'>，</span>
 								</div>
 							</div>
 						</td>
 						<td nzAlign='center'>
-							<div *ngIf='item.QQ[0].LyricsAuthorName' style="display: flex;justify-content: center;">
+							<div *ngIf='item.QQ[0].LyricsAuthorName' >
 								<div *ngFor='let singer of item.QQ[0].LyricsAuthorName;let i = index;'>
 									<span>{{singer}}</span>
-									<span *ngIf='i != item.QQ[0].LyricsAuthorName.length-1'>，</span>
 								</div>
 							</div>
-							<div *ngIf='item.KG[0].LyricsAuthorName&&!item.QQ[0].LyricsAuthorName' style="display: flex;justify-content: center;">
+							<div *ngIf='item.KG[0].LyricsAuthorName&&!item.QQ[0].LyricsAuthorName' >
 								<div *ngFor='let singer of item.KG[0].LyricsAuthorName;let i = index;'>
 									<span>{{singer}}</span>
-									<span *ngIf='i != item.KG[0].LyricsAuthorName.length-1'>，</span>
 								</div>
 							</div>
 						</td>
 						<td nzAlign='center'>
-							<div *ngIf='item.QQ[0].SongAuthorName' style="display: flex;justify-content: center;">
+							<div *ngIf='item.QQ[0].SongAuthorName' >
 								<div *ngFor='let singer of item.QQ[0].SongAuthorName;let i = index;'>
 									<span>{{singer}}</span>
-									<span *ngIf='i != item.QQ[0].SongAuthorName.length-1'>，</span>
 								</div>
 							</div>
-							<div *ngIf='item.KG[0].SongAuthorName&&!item.QQ[0].SongAuthorName' style="display: flex;justify-content: center;">
+							<div *ngIf='item.KG[0].SongAuthorName&&!item.QQ[0].SongAuthorName' >
 								<div *ngFor='let singer of item.KG[0].SongAuthorName;let i = index;'>
 									<span>{{singer}}</span>
-									<span *ngIf='i != item.KG[0].SongAuthorName.length-1'>，</span>
 								</div>
 							</div>
 						</td>
