@@ -22,6 +22,7 @@ export class MonitoringMvComponent implements OnInit {
 	data = []
 	search(keyword : string) {
 		this.keyword = keyword;
+		this.page = 1;
 		this.req();
 	}
 	req() {
