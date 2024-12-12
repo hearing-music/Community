@@ -1,0 +1,47 @@
+.multiModalLearning {
+  background-color: #fff;
+  border-radius: 12px;
+  min-height: calc(100vh - 4.75rem - 4rem);
+  position: relative;
+  color: #000;
+  padding: 18px;
+  width: 100%;
+
+  .tagList {
+    margin-top: 6px;
+    height: 40px;
+    display: flex;
+    // align-items: center;
+    align-items: flex-start;
+    // max-width:662px;
+    margin-right: 40px;
+    overflow-x: auto;
+    .tagList-item {
+      flex-shrink: 0;
+      padding: 4px 10px;
+      color: #494f66;
+      font-size: 13px;
+      background: #f6f7fb;
+      border-radius: 100px;
+      margin-right: 8px;
+      cursor: pointer;
+      transition: 0.04s;
+    }
+    .tagList-item:hover {
+      // transform: scale(1.02);
+      box-shadow: rgba(0, 0, 0, 0.1) 0px -50px 36px -28px inset;
+    }
+    .tagList-item:active {
+      transform: scale(1.15);
+    }
+    .tagList-itemActive {
+      background: #4060f6;
+      color: #fff;
+    }
+  }
+}
+.mainBox {
+  width: 100%;
+  height: calc(100% - 46px);
+  padding: 8px;
+}
