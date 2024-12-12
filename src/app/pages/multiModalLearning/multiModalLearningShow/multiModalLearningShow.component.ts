@@ -346,6 +346,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 		data.indexRateKG = [];
 		data.RankDiffKG = [];
 		data.commentKG = [];
+		
 		let Kg = data.KG;
 		if (Kg[0].KShareExponents && Kg[0].KShareExponents.length > 0) {
 			for (let j = 0; j < Kg[0].KShareExponents.length; j++) {
@@ -356,7 +357,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 			}
 		}
 		for (let i = 0; i < Kg.length; i++) {
-
+			Kg[i].KExponents.data = Kg[i].KExponents.data||{}
 
 
 			if (Kg[i].KExponents && Kg[i].KExponents.data.exponent) {

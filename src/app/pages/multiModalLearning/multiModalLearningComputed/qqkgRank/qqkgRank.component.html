@@ -1,0 +1,23 @@
+	<div class="item_list" *ngIf='obData.QQ[0].record.length>0'>
+		<div>
+			<div>QQ排行榜</div>
+			<div style="font-size: 13px;font-weight: bold;color:rgba(26,26,26,.6);">
+				<div *ngFor='let r of obData.QQ[0].record;'>
+					{{r}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="item_list" *ngIf='obData.KG[0].record.length>0'>
+		<div>
+			<div>酷狗排行榜</div>
+			<div style="font-size: 13px;font-weight: bold;color:rgba(26,26,26,.6);">
+				<div *ngFor='let r of obData.KG[0].record;'>
+					{{r.rank_name}} 当期排名{{r.rank_sort_list[0].sort}} 历史在榜{{r.rank_times+'期'}}
+					最高排名{{r.highest_rank}}
+				</div>
+			</div>
+		</div>
+	</div>

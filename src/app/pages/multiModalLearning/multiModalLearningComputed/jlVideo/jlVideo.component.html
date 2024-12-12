@@ -1,0 +1,38 @@
+<div style="font-size: 16px;margin-bottom: 8px;">巨量算数视频搜索</div>
+<div style="width: 100%;height: 400px;overflow-y: auto;display: flex;align-items: center;justify-content: space-between;flex-wrap: wrap;"
+	(scroll)="onScroll($event)">
+	<div *ngFor="let item of paginatedData" class="Vedio">
+		<div style="width: 100%;display: flex;align-items: center;justify-content: center;">
+			<img [src]="item.thumbnail" alt="" style="width: 90%;height: 260px;cursor: pointer; object-fit: cover;"
+				(click)="OpenDy(item.url)">
+		</div>
+		<div style="width: 100%;margin-top: 10px;">
+			<div style="display: flex;align-items: center;">
+				<img [src]="item.avatarUrl" alt="" style="width: 30px;height: 30px;flex-wrap: wrap;border-radius: 50%;">
+				<div>
+					<div nz-tooltip [nzTooltipTitle]="item.nickname"
+						style="margin-left: 8px;font-size: 16px;color: #000;max-width: 100px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;">
+						{{item.nickname}}
+					</div>
+				</div>
+			</div>
+			<div nz-tooltip [nzTooltipTitle]="item.title"
+				style="margin-top: 8px;;width: 95%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;font-size: 14px;">
+				{{item.title}}</div>
+			<div style="font-size: 12px;display: flex;align-items: center;">
+				<div nz-tooltip nzTooltipTitle="视频指数" style="display: flex;align-items: center;">
+					<img src="/assets/multiModalLearning/index.png" alt="" style="width: 16px; height: 16px;">
+					{{common.toThousands(item.index)}}
+				</div>
+				<div nz-tooltip nzTooltipTitle="粉丝数" style="display: flex;align-items: center;margin-left: 8px;">
+					<img src="/assets/multiModalLearning/Fans.png" alt="" style="width: 16px; height: 16px;">
+					{{common.toThousands(item.fans)}}
+				</div>
+			</div>
+			<div style="font-size: 12px;display: flex;align-items: center;margin-top: 4px;">
+				<img src="/assets/multiModalLearning/time.png" alt="" style="width: 16px; height: 16px;">
+				<div nz-tooltip nzTooltipTitle="发布时间">{{item.createTime}}</div>
+			</div>
+		</div>
+	</div>
+</div>

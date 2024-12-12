@@ -1,877 +1,341 @@
 <div class="multiModalLearning_computed">
-  <div class="Enter">
-    <div nz-row>
-      <div nz-col nzSpan="6">
-        <div style="display: flex; align-items: center">
-          <ngx-search [searchValue]="keyword" searchHolder="请搜索歌曲关键字" (childSearch)="search($event)" (childInput)="childInput($event)" [searchWidth]="'100%'"></ngx-search>
-          <div class="picTip" nz-tooltip nzTooltipTitle="搜索歌曲关键字并选择两个平台对应歌曲 (选填)">
-            <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-          </div>
-          <div class="picTip" (click)="openSongsList()">
-            <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
-          </div>
-        </div>
-      </div>
-      <div nz-col nzSpan="1"></div>
-      <div nz-col nzSpan="15">
-        <div style="display: flex; align-items: center; height: 100%">
-          <div *ngIf="chooseQQKGData.qqData" style="margin: 0 6px">
-            <span class="formsLabel"> QQ已选: </span>
-            {{ chooseQQKGData.qqData.title }}
-          </div>
-          <div *ngIf="chooseQQKGData.kgData" style="margin: 0 6px">
-            <span class="formsLabel"> 酷狗已选: </span>
-            {{ common.deleteEM(chooseQQKGData.kgData.SongName) }}
-          </div>
-          <div *ngIf="chooseQQKGData.kgData || chooseQQKGData.qqData" nzSize="small" style="margin: 0 6px">
-            <button nz-button nzType="primary" (click)="reset()">
-              清空搜索
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div nz-row style="margin-top: 20px">
-      <div nz-col nzSpan="5">
-        <!-- 选择新歌老歌 -->
-        <div class="formsBox">
-          <div class="formsLabel">歌曲类型：</div>
-          <nz-select [(ngModel)]="SongType" [nzDropdownMatchSelectWidth]="false" style="width: 85px">
-            <nz-option nzValue="新歌" nzLabel="新歌"></nz-option>
-            <nz-option nzValue="老歌" nzLabel="老歌"></nz-option>
-          </nz-select>
-        </div>
-      </div>
-      <div nz-col nzSpan="9">
-        <!-- 录入歌曲生态昨日播放 -->
-        <div class="formsBox">
-          <div class="formsLabel">录入歌曲生态昨日播放：</div>
-          <nz-input-group [nzSuffix]="suffixTemplateInfo1">
-            <input type="text" nz-input placeholder="请输入..." [(ngModel)]="EcologyPlayedYesterday"/>
-          </nz-input-group>
-          <ng-template #suffixTemplateInfo1>
-            <span nz-icon nz-tooltip nzTooltipTitle="打开生态系统-版权查询录入昨日播放数" nzType="info-circle"></span>
-          </ng-template>
-          <div class="picTip" nz-popover [nzPopoverContent]="picTemplate1" nzPopoverPlacement="bottomRight">
-            <span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-          </div>
-          <ng-template #picTemplate1 let-thing>
-            <img src="/assets/img/EcologyPlayedYesterday.png" />
-          </ng-template>
-        </div>
-      </div>
-      <div nz-col nzSpan="1"></div>
-      <div nz-col nzSpan="9">
-        <!-- 录入歌曲近24H雷达播放 -->
-        <div class="formsBox">
-          <div class="formsLabel">录入歌曲近24H雷达播放：</div>
-          <nz-input-group [nzSuffix]="suffixTemplateInfo2">
-            <input type="text" nz-input placeholder="请输入..." [(ngModel)]="_24HourRadarPlayback"/>
-          </nz-input-group>
-          <ng-template #suffixTemplateInfo2>
-            <span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入24H播放数" nzType="info-circle"></span>
-          </ng-template>
-          <div class="picTip" nz-popover [nzPopoverContent]="picTemplate2" nzPopoverPlacement="bottomRight">
-            <span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-          </div>
-          <ng-template #picTemplate2 let-thing>
-            <img src="/assets/img/24HourRadarPlayback.png" />
-          </ng-template>
-        </div>
-      </div>
-    </div>
-    <div nz-row style="margin-top: 20px">
-      <div nz-col nzSpan="5">
-        <!-- 星期 -->
-        <div class="formsBox">
-          <div class="formsLabel">对应星期：</div>
-          <nz-select [(ngModel)]="Week" [nzDropdownMatchSelectWidth]="false" style="width: 85px">
-            <nz-option *ngFor="let item of WeekArr" [nzValue]="item" [nzLabel]="item"></nz-option>
-          </nz-select>
-          <div class="picTip" nz-tooltip nzTooltipTitle="选择今日对应的星期">
-            <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-          </div>
-        </div>
-      </div>
-      <div nz-col nzSpan="9">
-        <!-- 录入歌曲小时播放数 -->
-        <div class="formsBox">
-          <div class="formsLabel">录入歌曲小时播放数：</div>
-          <nz-input-group [nzSuffix]="suffixTemplateInfo4">
-            <input type="text" nz-input placeholder="请输入..." [(ngModel)]="HourlyPlayback"/>
-          </nz-input-group>
-          <ng-template #suffixTemplateInfo4>
-            <span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入1H播放数" nzType="info-circle"></span>
-          </ng-template>
-          <div class="picTip" nz-popover [nzPopoverContent]="picTemplate3" nzPopoverPlacement="bottomRight">
-            <span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-          </div>
-          <ng-template #picTemplate3 let-thing>
-            <img src="/assets/img/HourlyPlayback.png" />
-          </ng-template>
-        </div>
-      </div>
-      <div nz-col nzSpan="1"></div>
-      <div nz-col nzSpan="9">
-        <!-- 录入歌曲分数播放数 -->
-        <div class="formsBox">
-          <div class="formsLabel">录入歌曲分钟播放数：</div>
-          <nz-input-group [nzSuffix]="suffixTemplateInfo5">
-            <input type="text" nz-input placeholder="请输入..." [(ngModel)]="ScorePlayback"/>
-          </nz-input-group>
-          <ng-template #suffixTemplateInfo5>
-            <span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入5min播放数" nzType="info-circle"></span>
-          </ng-template>
-          <div class="picTip" nz-popover [nzPopoverContent]="picTemplate4" nzPopoverPlacement="bottomRight">
-            <span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-          </div>
-          <ng-template #picTemplate4 let-thing>
-            <img src="/assets/img/ScorePlayback.png" />
-          </ng-template>
-        </div>
-      </div>
-    </div>
-    <div nz-row style="margin-top: 20px">
-      <div nz-col nzSpan="5">
-        <!-- 搜索小时时间 -->
-        <div class="formsBox">
-          <div class="formsLabel">搜索小时：</div>
-          <nz-select [(ngModel)]="HourTime" [nzDropdownMatchSelectWidth]="false" style="width: 85px">
-            <nz-option *ngFor="let item of HourTimeArr" [nzValue]="item" [nzLabel]="item"></nz-option>
-          </nz-select>
-          <div class="picTip" nz-tooltip nzTooltipTitle="打开雷达音乐-搜索热搜词-点击分钟录入最新数据的时间">
-            <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-          </div>
-          <div class="picTip" nz-popover [nzPopoverContent]="picTemplate8" nzPopoverPlacement="bottomRight">
-            <span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-          </div>
-          <ng-template #picTemplate8 let-thing>
-            <img src="/assets/img/HourTime.png" />
-          </ng-template>
-        </div>
-      </div>
-      <div nz-col nzSpan="9">
-        <!-- 录入歌曲近1H总PV搜索数 -->
-        <div class="formsBox">
-          <div class="formsLabel">录入歌曲近1H总PV搜索数：</div>
-          <nz-input-group [nzSuffix]="suffixTemplateInfo6">
-            <input type="text" nz-input placeholder="请输入..." [(ngModel)]="_1HTotalPVPlayback"/>
-          </nz-input-group>
-          <ng-template #suffixTemplateInfo6>
-            <span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索热搜词录入1H总PV" nzType="info-circle"></span>
-          </ng-template>
-          <div class="picTip" nz-popover [nzPopoverContent]="picTemplate5" nzPopoverPlacement="bottomRight">
-            <span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-          </div>
-          <ng-template #picTemplate5 let-thing>
-            <img src="/assets/img/1HTotalPVPlayback.png" />
-          </ng-template>
-        </div>
-      </div>
-      <div nz-col nzSpan="1"></div>
-      <div nz-col nzSpan="9">
-        <!-- 录入歌曲近24H总PV搜索数 -->
-        <div class="formsBox">
-          <div class="formsLabel">录入歌曲近24H总PV搜索数：</div>
-          <nz-input-group [nzSuffix]="suffixTemplateInfo7">
-            <input type="text" nz-input placeholder="请输入..." [(ngModel)]="_24HourTotalPVPlayback"/>
-          </nz-input-group>
-          <ng-template #suffixTemplateInfo7>
-            <span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索热搜词录入24H总PV" nzType="info-circle"></span>
-          </ng-template>
-          <div class="picTip" nz-popover [nzPopoverContent]="picTemplate6" nzPopoverPlacement="bottomRight">
-            <span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-          </div>
-          <ng-template #picTemplate6 let-thing>
-            <img src="/assets/img/24HourTotalPVPlayback.png" />
-          </ng-template>
-        </div>
-      </div>
-    </div>
-    <div nz-row style="margin-top: 20px">
-      <div nz-col nzSpan="5">
-        <!-- 播放分钟时间 -->
-        <div class="formsBox">
-          <div class="formsLabel">播放分钟：</div>
-          <nz-select [(ngModel)]="MinuteTime" [nzDropdownMatchSelectWidth]="false" style="width: 85px">
-            <nz-option *ngFor="let item of MinuteTimeArr" [nzValue]="item" [nzLabel]="item"></nz-option>
-          </nz-select>
-          <div class="picTip" nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入最新数据的时间">
-            <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-          </div>
-          <div class="picTip" nz-popover [nzPopoverContent]="picTemplate7" nzPopoverPlacement="bottomRight">
-            <span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-          </div>
-          <ng-template #picTemplate7 let-thing>
-            <img src="/assets/img/MinuteTime.png" />
-          </ng-template>
-        </div>
-      </div>
-      <div nz-col nzSpan="7">
-        <button nz-button nzType="primary" (click)="begin()" [disabled]="loadingSpin">
-          开始预估
-        </button>
-        <!-- <button nz-button nzType="primary" [disabled]="loadingSpin" nz-popconfirm *ngIf='!keyword'
-				  nzPopconfirmTitle="还没有输入选择歌曲,快去输入选择吧!"
-				  nzPopconfirmPlacement="bottom"
-				  (nzOnConfirm)="cancel()"
-				  (nzOnCancel)="cancel()">
-					开始预估
-				</button> -->
-      </div>
-    </div>
-  </div>
-  <div class="Show">
-    <div class="loadingSpin" *ngIf="loadingSpin">
-      <nz-spin nzSimple nzSize="large"></nz-spin>
-    </div>
-    <div *ngIf="Data.length == 0" style="display: flex;align-items: center;justify-content: center;width: 100%;height: 300px;">
-      <nz-empty></nz-empty>
-    </div>
-    <div *ngIf="Data.length > 0">
-      <div style="display: flex; justify-content: center">
-        <div style="width: 56%">
-          <div nz-row>
-            <div nz-col nzSpan="12" style="display: flex; align-items: center">
-              <div class="formsLabel">计算今日小时预估播放量</div>
-            </div>
-            <div nz-col nzSpan="3" style="display: flex; align-items: center">
-              {{ common.toThousands(Data[0][1]) }}
-            </div>
-            <div nz-col nzSpan="2" style="display: flex; align-items: center">
-              <div class="picTip" nz-tooltip nzTooltipTitle="这是按小时预估24H可能会产生的播放量">
-                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-              </div>
-            </div>
-            <div nz-col nzSpan="3" style="display: flex; align-items: center">
-              <div [ngClass]="{upColor: Data[6][1] >= 1000,downColor: Data[6][1] < 1000}">
-                {{ common.toThousands(Data[6][1]) }}
-              </div>
-            </div>
-            <div nz-col nzSpan="1" style="display: flex; align-items: center">
-              <div style="display: flex; align-items: center; margin-left: 8px">
-                <i *ngIf="Data[6][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
-                <i *ngIf="Data[6][1] < 1000" nz-icon nzType="arrow-down" nzTheme="outline" class="downColor"></i>
-              </div>
-              <div class="picTip" nz-tooltip nzTooltipTitle="计算雷达近24H较今日小时预估播放量涨幅情况 >1000 增长 | <1000 下滑">
-                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-              </div>
-            </div>
-          </div>
-          <div nz-row style="margin-top: 20px">
-            <div nz-col nzSpan="12" style="display: flex; align-items: center">
-              <div class="formsLabel">计算今日分钟预估播放量</div>
-            </div>
-            <div nz-col nzSpan="3" style="display: flex; align-items: center">
-              {{ common.toThousands(Data[1][1]) }}
-            </div>
-            <div nz-col nzSpan="2" style="display: flex; align-items: center">
-              <div class="picTip" nz-tooltip nzTooltipTitle="这是按分钟预估24H可能会产生的播放量">
-                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-              </div>
-            </div>
-            <div nz-col nzSpan="3">
-              <div [ngClass]="{upColor: Data[7][1] >= 1000,downColor: Data[7][1] < 1000}">
-                {{ common.toThousands(Data[7][1]) }}
-              </div>
-            </div>
-            <div nz-col nzSpan="1" style="display: flex; align-items: center">
-              <div style="display: flex; align-items: center; margin-left: 8px">
-                <i *ngIf="Data[7][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
-                <i *ngIf="Data[7][1] < 1000" nz-icon nzType="arrow-down" nzTheme="outline" class="downColor"></i>
-              </div>
-              <div class="picTip" nz-tooltip nzTooltipTitle="计算雷达近24H较今日分钟预估播放量涨幅情况 >1000 增长 | <1000 下滑">
-                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-              </div>
-            </div>
-          </div>
-          <div nz-row style="margin-top: 20px">
-            <div nz-col nzSpan="12" style="display: flex; align-items: center">
-              <div class="formsLabel">计算今日近24H总PV搜索平均值倍数</div>
-              <div class="picTip" nz-tooltip nzTooltipTitle="计算今日近24H总PV搜索平均值倍数">
-                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-              </div>
-            </div>
-            <div nz-col nzSpan="3" style="display: flex; align-items: center">
-              <div style="width: 85px">
-                {{ common.toThousands(Data[2][1]) }}
-              </div>
-            </div>
-            <div nz-col nzSpan="2" style="display: flex; align-items: center">
-              <div class="picTip" nz-tooltip nzTooltipTitle=">25 资产播放合格 | <25 搜索播放合格">
-                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-              </div>
-            </div>
-          </div>
-
-          <div nz-row style="margin-top: 20px">
-            <div nz-col nzSpan="12" style="display: flex; align-items: center">
-              <div class="formsLabel">计算今日近1H总PV搜索数的预估播放量</div>
-              <div class="picTip" nz-tooltip nzTooltipTitle="当看不到播放量的时候，此数据可作为参考">
-                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-              </div>
-            </div>
-            <div nz-col nzSpan="3" style="display: flex; align-items: center">
-              {{ common.toThousands(Data[3][1]) }}
-            </div>
-          </div>
-          <div nz-row style="margin-top: 20px">
-            <div nz-col nzSpan="12" style="display: flex; align-items: center">
-              <div class="formsLabel">计算今日近24H总PV搜索数的预估播放量</div>
-              <div class="picTip" nz-tooltip nzTooltipTitle="当看不到播放量的时候，此数据可作为参考">
-                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-              </div>
-            </div>
-            <div nz-col nzSpan="3">
-              {{ common.toThousands(Data[4][1]) }}
-            </div>
-          </div>
-
-          <div nz-row style="margin-top: 20px">
-            <div nz-col nzSpan="12" style="display: flex; align-items: center">
-              <div class="formsLabel">计算雷达近24H较昨日生态涨幅播放量</div>
-              <div class="picTip" nz-tooltip nzTooltipTitle="计算雷达近24H较昨日生态涨幅播放量">
-                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-              </div>
-            </div>
-            <div nz-col nzSpan="2" style="display: flex; align-items: center">
-              <div [ngClass]="{upColor: Data[5][1] >= 1000,downColor: Data[5][1] < 1000}" style="width: 70px">
-                {{ common.toThousands(Data[5][1]) }}
-              </div>
-            </div>
-            <div nz-col nzSpan="1" style="display: flex;align-items: center;justify-content: flex-end;">
-              <div style="display: flex; align-items: center">
-                <i *ngIf="Data[5][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
-                <i *ngIf="Data[5][1] < 1000" nz-icon nzType="arrow-down" nzTheme="outline" class="downColor"></i>
-              </div>
-            </div>
-            <div nz-col nzSpan="1" style="display: flex; align-items: center">
-              <div class="picTip" nz-tooltip nzTooltipTitle=">1000 增长 | <1000 下滑">
-                <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="width: 40%" *ngIf="obData.QQ">
-          <div style="width: 100%">
-            <div class="formsLabel" style="text-align: center">QQ</div>
-            <div style="display: flex;align-items: center;justify-content: center;margin-top: 6px;">
-              <!-- 当前在听 -->
-              <div class="" style="display: flex; align-items: center; margin-left: 0px" nz-tooltip nzTooltipTitle="当前在听">
-                <img src="/assets/img/erji2.svg" class="icon" />
-                <div>
-                  {{ common.toThousands(obData.QQ[0].nowListenUsers.cnt) }}
-                </div>
-              </div>
-              <!-- 当前指数 -->
-              <div class="" style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="当前指数">
-                <img src="/assets/img/shuangzhexian.png" class="icon" />
-                <div>
-                  {{ common.toThousands(obData.QQ[0].realtimeData.todayIndex) }}
-                </div>
-              </div>
-              <!-- 昨日指数 -->
-              <div class="" style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="昨日指数">
-                <img src="/assets/img/shijian.png" class="icon" />
-                <div>
-                  {{common.toThousands(obData.QQ[0].realtimeData.yesterdayIndex)}}
-                </div>
-              </div>
-              <!-- 指数增长率 -->
-              <div class="" v-if="obData.QQ[0].realtimeData.indexRate!=0" style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="指数增长率">
-                <span *ngIf="obData.QQ[0].realtimeData.indexRate < 0" nz-icon nzType="arrow-down" style="color: green" nzTheme="outline"></span>
-                <span *ngIf="obData.QQ[0].realtimeData.indexRate > 0" nz-icon nzType="arrow-up" style="color: red" nzTheme="outline"></span>
-                <div>
-                  {{ common.tFixed(obData.QQ[0].realtimeData.indexRate) }}
-                </div>
-              </div>
-            </div>
-            <div style="display: flex;align-items: center;justify-content: center;margin-top: 20px;">
-              <!-- 评论 -->
-              <div style="display: flex; align-items: center" nz-tooltip nzTooltipTitle="评论">
-                <img src="/assets/img/pinglun.png" class="icon" />
-                <div>{{ common.toThousands(obData.QQ[0].comment.count) }}</div>
-              </div>
-              <!-- 排名 -->
-              <div style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="排名">
-                <img src="/assets/img/zhexiandian.png" class="icon" />
-                <div>
-                  {{ common.toThousands(obData.QQ[0].realtimeData.todayRank) }}
-                </div>
-              </div>
-              <!-- 排名增长 -->
-              <div class="" v-if="obData.QQ[0].realtimeData.rankRate!=0" style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="排名增长">
-                <span *ngIf="obData.QQ[0].realtimeData.rankRate < 0" nz-icon nzType="arrow-down" style="color: green" nzTheme="outline"></span>
-                <span *ngIf="obData.QQ[0].realtimeData.rankRate > 0" nz-icon nzType="arrow-up" style="color: red" nzTheme="outline"></span>
-                <div>{{ obData.QQ[0].realtimeData.rankRate }}</div>
-              </div>
-              <!-- 预估播放量 -->
-              <div style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="预估播放量">
-                <img src="/assets/img/calculatePlayback.png" class="icon" />
-                {{common.toThousands(obData.QQ[0].realtimeData.yesterdayIndex * 3)}}
-              </div>
-              <!-- 收藏 -->
-              <div style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="收藏">
-                <img src="/assets/img/love.png" class="icon" />
-                <div>{{ common.toThousands(obData.QQ[0].m_numbers) }}</div>
-              </div>
-            </div>
-          </div>
-          <div style="width: 100%; margin-top: 44px">
-            <div class="formsLabel" style="text-align: center">酷狗</div>
-            <div style="display: flex;align-items: center;justify-content: center;margin-top: 6px;">
-              <!-- 当前在听 -->
-              <span *ngIf="obData.KG[0].KExponents.data.listener_num" nz-tooltip nzTooltipTitle="当前在听">
-                <div class="" style="display: flex; align-items: center; margin-left: 0px">
-                  <img src="/assets/img/erji2.svg" class="icon" />
-                  <div>
-                    {{common.toThousands(obData.KG[0].listenPeopleCount.count)}}
-                  </div>
-                </div>
-              </span>
-              <!-- 昨日指数 -->
-              <div *ngIf="obData.KG[0].KExponents.data.listener_num" style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="昨日指数">
-                <img src="/assets/img/shijian.png" class="icon" />
-                <div>
-                  {{common.toThousands(obData.KG[0].KExponents.data.exponent)}}
-                </div>
-              </div>
-              <!-- 总收听数 -->
-              <div *ngIf="!obData.KG[0].KExponents.data.listener_num" style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="总收听数">
-                <img src="/assets/img/shuangzhexian.png" class="icon" />
-                <div>
-                  {{common.toThousands(obData.KG[0].KShareExponents[obData.KG[0].KShareExponents.length - 1].exponent)}}
-                </div>
-              </div>
-              <!-- 前日指数 -->
-              <div *ngIf="obData.KG[0].KExponents.data.listener_num" class="" style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="前日指数">
-                <img src="/assets/img/qiantian.png" class="icon" />
-                <div>{{common.toThousands(obData.KG[0].KExponents.data.exponent -(obData.KG[0].KExponents.data.exponent_diff - 0))}}</div>
-              </div>
-              <!-- 指数增长 -->
-              <div *ngIf="obData.KG[0].KExponents.data.listener_num" class="" style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="指数增长">
-                <span *ngIf="obData.KG[0].KExponents.data.exponent_diff < 0" nz-icon nzType="arrow-down" style="color: green" nzTheme="outline"></span>
-                <span *ngIf="obData.KG[0].KExponents.data.exponent_diff > 0" nz-icon nzType="arrow-up" style="color: red" nzTheme="outline"></span>
-                <div>{{common.toThousands(obData.KG[0].KExponents.data.exponent_diff)}}</div>
-              </div>
-              <!-- 评论 -->
-              <div style="display: flex; align-items: center; margin-left: 8px" *ngIf="!obData.KG[0].KExponents.data.listener_num" nz-tooltip nzTooltipTitle="评论">
-                <img src="/assets/img/pinglun.png" class="icon" />
-                <div>{{ common.toThousands(obData.KG[0].comment.cnt) }}</div>
-              </div>
-              <!-- 总收听 -->
-              <span *ngIf="obData.KG[0].KExponents.data.listener_num" nz-tooltip nzTooltipTitle="总收听">
-                <div class="" style="display: flex; align-items: center; margin-left: 8px">
-                  <img src="/assets/img/erji.png" class="icon" />
-                  <div>
-                    {{common.toThousands(obData.KG[0].KExponents.data.listener_num)}}
-                  </div>
-                </div>
-              </span>
-            </div>
-            <div style="display: flex;align-items: center;justify-content: center;margin-top: 20px;">
-              <!-- 评论 -->
-              <div style="display: flex; align-items: center" *ngIf="obData.KG[0].KExponents.data.listener_num" nz-tooltip nzTooltipTitle="评论">
-                <img src="/assets/img/pinglun.png" class="icon" />
-                <div>{{ common.toThousands(obData.KG[0].comment.cnt) }}</div>
-              </div>
-              <!-- 排名 -->
-              <div *ngIf="obData.KG[0].KExponents.data.listener_num" style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="排名">
-                <img src="/assets/img/zhexiandian.png" class="icon" />
-                <div>{{ common.toThousands(obData.KG[0].KExponents.data.rank) }}</div>
-              </div>
-              <!-- 排名增长 -->
-              <div *ngIf="obData.KG[0].KExponents.data.listener_num" class="" v-if="obData.KG[0].KExponents.data.rank_diff!=0" style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="排名增长">
-                <span *ngIf="obData.KG[0].KExponents.data.rank_diff < 0" nz-icon nzType="arrow-down" style="color: green" nzTheme="outline"></span>
-                <span *ngIf="obData.KG[0].KExponents.data.rank_diff > 0" nz-icon nzType="arrow-up" style="color: red" nzTheme="outline"></span>
-                <div>{{ obData.KG[0].KExponents.data.rank_diff }}</div>
-              </div>
-              <!-- 预估播放量 -->
-              <div style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="预估播放量" *ngIf="obData.KG[0].KExponents.data.listener_num">
-                <img src="/assets/img/calculatePlayback.png" class="icon" />
-                {{common.toThousands(obData.KG[0].KExponents.data.exponent * 8)}}
-              </div>
-              <!-- 预估播放量 -->
-              <div style="display: flex; align-items: center; margin-left: 8px" nz-tooltip nzTooltipTitle="预估播放量" *ngIf="!obData.KG[0].KExponents.data.listener_num">
-                <img src="/assets/img/calculatePlayback.png" class="icon" />
-                {{common.toThousands(obData.KG[0].KShareExponents[obData.KG[0].KShareExponents.length - 1].exponent * 8)}}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-		<div style="display: flex;justify-content: center;margin-top: 20px;" *ngIf='obData.QQ'>
-			<div style="margin-right: 56px;" *ngIf='obData.QQ[0].record.length>0'>
-				<div>QQ</div>
-				<div style="font-size: 13px;font-weight: bold;color:rgba(26,26,26,.6);">
-					<div *ngFor='let r of obData.QQ[0].record;'>
-						{{r}}
+	<div class="Enter">
+		<div nz-row>
+			<div nz-col nzSpan="6">
+				<div style="display: flex; align-items: center">
+					<ngx-search [searchValue]="keyword" searchHolder="请搜索歌曲关键字" (childSearch)="search($event)"
+						(childInput)="childInput($event)" [searchWidth]="'100%'"></ngx-search>
+					<div class="picTip" nz-tooltip nzTooltipTitle="搜索歌曲关键字并选择两个平台对应歌曲 (选填)">
+						<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+					<div class="picTip" (click)="openSongsList()">
+						<span nz-icon nzType="unordered-list" nzTheme="outline"></span>
 					</div>
 				</div>
 			</div>
-			<div *ngIf='obData.KG[0].record.length>0'>
-				<div>酷狗</div>
-				<div style="font-size: 13px;font-weight: bold;color:rgba(26,26,26,.6);" >
-					<div *ngFor='let r of obData.KG[0].record;'>
-						{{r.rank_name}} 当期排名{{r.rank_sort_list[0].sort}} 历史在榜{{r.rank_times+'期'}} 最高排名{{r.highest_rank}}
+			<div nz-col nzSpan="1"></div>
+			<div nz-col nzSpan="15">
+				<div style="display: flex; align-items: center; height: 100%">
+					<div *ngIf="chooseQQKGData.qqData" style="margin: 0 6px">
+						<span class="formsLabel"> QQ已选: </span>
+						{{ chooseQQKGData.qqData.title }}
+					</div>
+					<div *ngIf="chooseQQKGData.kgData" style="margin: 0 6px">
+						<span class="formsLabel"> 酷狗已选: </span>
+						{{ common.deleteEM(chooseQQKGData.kgData.SongName) }}
+					</div>
+					<div *ngIf="chooseQQKGData.kgData || chooseQQKGData.qqData" nzSize="small" style="margin: 0 6px">
+						<button nz-button nzType="primary" (click)="reset()">
+							清空搜索
+						</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div nz-row style="margin-top: 20px">
+			<div nz-col nzSpan="5">
+				<!-- 选择新歌老歌 -->
+				<div class="formsBox">
+					<div class="formsLabel">歌曲类型：</div>
+					<nz-select [(ngModel)]="SongType" [nzDropdownMatchSelectWidth]="false" style="width: 85px">
+						<nz-option nzValue="新歌" nzLabel="新歌"></nz-option>
+						<nz-option nzValue="老歌" nzLabel="老歌"></nz-option>
+					</nz-select>
+				</div>
+			</div>
+			<div nz-col nzSpan="9">
+				<!-- 录入歌曲生态昨日播放 -->
+				<div class="formsBox">
+					<div class="formsLabel">录入歌曲生态昨日播放：</div>
+					<nz-input-group [nzSuffix]="suffixTemplateInfo1">
+						<input type="text" nz-input placeholder="请输入..." [(ngModel)]="EcologyPlayedYesterday" />
+					</nz-input-group>
+					<ng-template #suffixTemplateInfo1>
+						<span nz-icon nz-tooltip nzTooltipTitle="打开生态系统-版权查询录入昨日播放数" nzType="info-circle"></span>
+					</ng-template>
+					<div class="picTip" nz-popover [nzPopoverContent]="picTemplate1" nzPopoverPlacement="bottomRight">
+						<span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+					<ng-template #picTemplate1 let-thing>
+						<img src="/assets/img/EcologyPlayedYesterday.png" />
+					</ng-template>
+				</div>
+			</div>
+			<div nz-col nzSpan="1"></div>
+			<div nz-col nzSpan="9">
+				<!-- 录入歌曲近24H雷达播放 -->
+				<div class="formsBox">
+					<div class="formsLabel">录入歌曲近24H雷达播放：</div>
+					<nz-input-group [nzSuffix]="suffixTemplateInfo2">
+						<input type="text" nz-input placeholder="请输入..." [(ngModel)]="_24HourRadarPlayback" />
+					</nz-input-group>
+					<ng-template #suffixTemplateInfo2>
+						<span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入24H播放数" nzType="info-circle"></span>
+					</ng-template>
+					<div class="picTip" nz-popover [nzPopoverContent]="picTemplate2" nzPopoverPlacement="bottomRight">
+						<span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+					<ng-template #picTemplate2 let-thing>
+						<img src="/assets/img/24HourRadarPlayback.png" />
+					</ng-template>
+				</div>
+			</div>
+		</div>
+		<div nz-row style="margin-top: 20px">
+			<div nz-col nzSpan="5">
+				<!-- 星期 -->
+				<div class="formsBox">
+					<div class="formsLabel">对应星期：</div>
+					<nz-select [(ngModel)]="Week" [nzDropdownMatchSelectWidth]="false" style="width: 85px">
+						<nz-option *ngFor="let item of WeekArr" [nzValue]="item" [nzLabel]="item"></nz-option>
+					</nz-select>
+					<div class="picTip" nz-tooltip nzTooltipTitle="选择今日对应的星期">
+						<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+				</div>
+			</div>
+			<div nz-col nzSpan="9">
+				<!-- 录入歌曲小时播放数 -->
+				<div class="formsBox">
+					<div class="formsLabel">录入歌曲小时播放数：</div>
+					<nz-input-group [nzSuffix]="suffixTemplateInfo4">
+						<input type="text" nz-input placeholder="请输入..." [(ngModel)]="HourlyPlayback" />
+					</nz-input-group>
+					<ng-template #suffixTemplateInfo4>
+						<span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入1H播放数" nzType="info-circle"></span>
+					</ng-template>
+					<div class="picTip" nz-popover [nzPopoverContent]="picTemplate3" nzPopoverPlacement="bottomRight">
+						<span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+					<ng-template #picTemplate3 let-thing>
+						<img src="/assets/img/HourlyPlayback.png" />
+					</ng-template>
+				</div>
+			</div>
+			<div nz-col nzSpan="1"></div>
+			<div nz-col nzSpan="9">
+				<!-- 录入歌曲分数播放数 -->
+				<div class="formsBox">
+					<div class="formsLabel">录入歌曲分钟播放数：</div>
+					<nz-input-group [nzSuffix]="suffixTemplateInfo5">
+						<input type="text" nz-input placeholder="请输入..." [(ngModel)]="ScorePlayback" />
+					</nz-input-group>
+					<ng-template #suffixTemplateInfo5>
+						<span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入5min播放数" nzType="info-circle"></span>
+					</ng-template>
+					<div class="picTip" nz-popover [nzPopoverContent]="picTemplate4" nzPopoverPlacement="bottomRight">
+						<span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+					<ng-template #picTemplate4 let-thing>
+						<img src="/assets/img/ScorePlayback.png" />
+					</ng-template>
+				</div>
+			</div>
+		</div>
+		<div nz-row style="margin-top: 20px">
+			<div nz-col nzSpan="5">
+				<!-- 搜索小时时间 -->
+				<div class="formsBox">
+					<div class="formsLabel">搜索小时：</div>
+					<nz-select [(ngModel)]="HourTime" [nzDropdownMatchSelectWidth]="false" style="width: 85px">
+						<nz-option *ngFor="let item of HourTimeArr" [nzValue]="item" [nzLabel]="item"></nz-option>
+					</nz-select>
+					<div class="picTip" nz-tooltip nzTooltipTitle="打开雷达音乐-搜索热搜词-点击分钟录入最新数据的时间">
+						<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+					<div class="picTip" nz-popover [nzPopoverContent]="picTemplate8" nzPopoverPlacement="bottomRight">
+						<span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+					<ng-template #picTemplate8 let-thing>
+						<img src="/assets/img/HourTime.png" />
+					</ng-template>
+				</div>
+			</div>
+			<div nz-col nzSpan="9">
+				<!-- 录入歌曲近1H总PV搜索数 -->
+				<div class="formsBox">
+					<div class="formsLabel">录入歌曲近1H总PV搜索数：</div>
+					<nz-input-group [nzSuffix]="suffixTemplateInfo6">
+						<input type="text" nz-input placeholder="请输入..." [(ngModel)]="_1HTotalPVPlayback" />
+					</nz-input-group>
+					<ng-template #suffixTemplateInfo6>
+						<span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索热搜词录入1H总PV" nzType="info-circle"></span>
+					</ng-template>
+					<div class="picTip" nz-popover [nzPopoverContent]="picTemplate5" nzPopoverPlacement="bottomRight">
+						<span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+					<ng-template #picTemplate5 let-thing>
+						<img src="/assets/img/1HTotalPVPlayback.png" />
+					</ng-template>
+				</div>
+			</div>
+			<div nz-col nzSpan="1"></div>
+			<div nz-col nzSpan="9">
+				<!-- 录入歌曲近24H总PV搜索数 -->
+				<div class="formsBox">
+					<div class="formsLabel">录入歌曲近24H总PV搜索数：</div>
+					<nz-input-group [nzSuffix]="suffixTemplateInfo7">
+						<input type="text" nz-input placeholder="请输入..." [(ngModel)]="_24HourTotalPVPlayback" />
+					</nz-input-group>
+					<ng-template #suffixTemplateInfo7>
+						<span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索热搜词录入24H总PV" nzType="info-circle"></span>
+					</ng-template>
+					<div class="picTip" nz-popover [nzPopoverContent]="picTemplate6" nzPopoverPlacement="bottomRight">
+						<span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+					<ng-template #picTemplate6 let-thing>
+						<img src="/assets/img/24HourTotalPVPlayback.png" />
+					</ng-template>
+				</div>
+			</div>
+		</div>
+		<div nz-row style="margin-top: 20px">
+			<div nz-col nzSpan="5">
+				<!-- 播放分钟时间 -->
+				<div class="formsBox">
+					<div class="formsLabel">播放分钟：</div>
+					<nz-select [(ngModel)]="MinuteTime" [nzDropdownMatchSelectWidth]="false" style="width: 85px">
+						<nz-option *ngFor="let item of MinuteTimeArr" [nzValue]="item" [nzLabel]="item"></nz-option>
+					</nz-select>
+					<div class="picTip" nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入最新数据的时间">
+						<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+					<div class="picTip" nz-popover [nzPopoverContent]="picTemplate7" nzPopoverPlacement="bottomRight">
+						<span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+					<ng-template #picTemplate7 let-thing>
+						<img src="/assets/img/MinuteTime.png" />
+					</ng-template>
+				</div>
+			</div>
+			<div nz-col nzSpan="7">
+				<button nz-button nzType="primary" (click)="begin()" [disabled]="loadingSpin">
+					开始预估
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="Show">
+		<div class="loadingSpin" *ngIf="loadingSpin">
+			<nz-spin nzSimple nzSize="large"></nz-spin>
+		</div>
+		<div *ngIf="Data.length == 0" style="display: flex;align-items: center;justify-content: center;width: 100%;height: 300px;">
+			<nz-empty></nz-empty>
+		</div>
+		<div *ngIf="Data.length > 0">
+			<div style="display: flex; justify-content: center">
+				<div style="width: 56%">
+					<!-- 预测数据 -->
+					<ngx-predictData [Data]='Data'></ngx-predictData>
+				</div>
+				<div style="width: 40%" *ngIf="obData.QQ">
+					<!-- qq酷狗指数相关数据 -->
+					<ngx-qqkgInfo [obData]='obData'></ngx-qqkgInfo>
+				</div>
+			</div>
+			
+			<div style="display: flex;flex-wrap: wrap;margin-top:20px;">
+				<!-- qq酷狗排行榜数据 -->
+				<ngx-qqkgRank [obData]='obData' *ngIf="obData.QQ"></ngx-qqkgRank>
+				<div>
+					<!-- 酷狗搜索推荐数据 -->
+					<ngx-kgSearchReferral [KGSearchRecommendations]='KGSearchRecommendations'></ngx-kgSearchReferral>
+					<!-- 酷狗飙升榜 三方接口(榜单&&热搜词) -->
+					<ngx-kgSoaring [KGSoaringSongs]='KGSoaringSongs' [ThreePartyInterface]='ThreePartyInterface'></ngx-kgSoaring>	
+				</div>
+				<!-- 抖音该词条前五的数据 -->
+				<ngx-dyVedioTopFive [DyVedioTopFiveTime]='DyVedioTopFiveTime' [DyVedioTopFive]='DyVedioTopFive'></ngx-dyVedioTopFive>
+				<!-- 抖音挑战榜 -->
+				<ngx-dyChallenge [DyChallengeList]='DyChallengeList'></ngx-dyChallenge>
+			</div>
 
-
-      <!-- <div nz-row style="margin-top: 20px;">
-	      <div nz-col nzSpan="5"></div>
-	      <div nz-col nzSpan="9" style="display: flex;align-items: center;">
-	        <div class="formsLabel">
-	          计算雷达近24H较今日小时预估播放量涨幅情况
-	        </div>
-	        <div class="picTip" nz-tooltip nzTooltipTitle="计算雷达近24H较今日小时预估播放量涨幅情况">
-	          <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0,0,0,.85);"></span>
-	        </div>
-	      </div>
-	      <div nz-col nzSpan="6" style="display: flex;align-items: center;">
-	        <div [ngClass]='{"upColor":Data[6][1] >= 1000,"downColor":Data[6][1] < 1000}' style="width: 70px;">
-	          {{common.toThousands(Data[6][1])}}
-	        </div>
-	        <div style="display: flex;align-items: center;">
-	          <i *ngIf='Data[6][1] >= 1000' nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
-	          <i *ngIf='Data[6][1] < 1000' nz-icon nzType="arrow-down" nzTheme="outline" class="downColor"></i>
-	        </div>
-	        <div class="picTip" nz-tooltip nzTooltipTitle=">1000 增长 | <1000 下滑">
-	          <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0,0,0,.85);"></span>
-	        </div>
-	      </div>
-	      <div nz-col nzSpan="3"></div>
-	    </div>
-
-	    <div nz-row style="margin-top: 20px;">
-	      <div nz-col nzSpan="5"></div>
-	      <div nz-col nzSpan="9" style="display: flex;align-items: center;">
-	        <div class="formsLabel">
-	          计算雷达近24H较今日分钟预估播放量涨幅情况
-	        </div>
-	        <div class="picTip" nz-tooltip nzTooltipTitle="计算雷达近24H较今日分钟预估播放量涨幅情况">
-	          <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0,0,0,.85);"></span>
-	        </div>
-	      </div>
-	      <div nz-col nzSpan="6" style="display: flex;align-items: center;">
-	        <div [ngClass]='{"upColor":Data[7][1] >= 1000,"downColor":Data[7][1] < 1000}' style="width: 70px;">
-	          {{common.toThousands(Data[7][1])}}
-	        </div>
-	        <div style="display: flex;align-items: center;">
-	          <i *ngIf='Data[7][1] >= 1000' nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
-	          <i *ngIf='Data[7][1] < 1000' nz-icon nzType="arrow-down" nzTheme="outline" class="downColor"></i>
-	        </div>
-	        <div class="picTip" nz-tooltip nzTooltipTitle=">1000 增长 | <1000 下滑">
-	          <span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0,0,0,.85);"></span>
-	        </div>
-	      </div>
-	      <div nz-col nzSpan="3"></div>
-	    </div> -->
-    </div>
-    <div style="display: flex;margin-top: 20px;flex-wrap: wrap;align-items: flex-start;width: 100%;">
-      <div *ngIf="KGSearchRecommendations.length>0" class="item_list">
-        <div style="font-size: 16px;margin-bottom: 8px;">
-          <span>酷狗搜索推荐查询</span>
-          <span style="margin-left: 8px;color: rgb(39, 39, 214);cursor: pointer;" (click)="showKGSearchRecommendations()">查看</span></div>
-        <div *ngFor="let item of KGSearchRecommendations">
-          <span style="color: #8c8c8c;">{{item[0]}}</span>
-          <span style="margin-left: 8px;color: #8c8c8c;">排名：<span style="color: #000;">{{item[1].rank}}</span></span>
-        </div>
-      </div>
-      <div style="margin-left: 20px;">
-        <div *ngIf="KGSoaringSongs.length>0" class="item_list">
-          <div style="font-size: 16px;margin-bottom: 8px;">
-            酷狗飙升榜查询
-          </div>
-          <div *ngFor="let item of KGSoaringSongs">
-            <div style="color: #8c8c8c;display: flex;align-items: center;">今日排名：
-              <span style="color: #000;">{{item.Ran}}</span>
-              <span *ngIf='item.Strend=="up"' nz-icon nzType="arrow-up" nzTheme="outline" style="color:green;"></span>
-              <span *ngIf='item.Strend=="down"' nz-icon nzType="arrow-down" nzTheme="outline" style="color:red;"></span>
-              <span *ngIf='item.Strend=="normal"' nz-icon nzType="minus" nzTheme="outline" style="color:blue;"></span>
-            </div>
-            <div style="color: #8c8c8c;">昨日排名：
-              <span style="color: #000;"  *ngIf="item.Strend == 'down'">{{(item.Ran-0) + (item.Trend-0)}}</span>
-              <span style="color: #000;"  *ngIf="item.Strend == 'up'">{{(item.Ran-0)- (item.Trend-0)}}</span>
-              <span style="color: #000;"  *ngIf="item.Strend == 'normal'">{{item.Ran}}</span>
-              <span style="margin-left: 8px;color: rgb(39, 39, 214);cursor: pointer;" (click)="openLink(item.SingerId)">查看</span>
-            </div>
-          </div>
-        </div>
-        <div *ngIf="ThreePartyInterface.length>0" class="item_list"  style="margin-top: 20px;">
-          <div style="font-size: 16px;margin-bottom: 8px;">三方接口(榜单&&热搜词)</div>
-          <div *ngFor="let item of ThreePartyInterface">
-            <span style="color: #8c8c8c;">{{item[0]}}</span><span style="margin-left: 8px;color: #000;">{{item[1]}}</span>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="DyVedioTopFive.length>0" class="item_list"  style="margin-left: 20px;">
-        <div style="font-size: 16px;margin-bottom: 8px;">抖音该词条前五的数据</div>
-          <div style="color: #8c8c8c;">
-            <div *ngFor="let item of DyVedioTopFive[0].data">
-              <div style="display: flex">
-                <span style="max-width: 120px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;" nz-tooltip [nzTooltipTitle]="item.desc">
-                  {{item.original_title}}
-                </span>
-                <span nz-icon nzType="select" nzTheme="outline" style="cursor: pointer;color:#808080;display: flex;align-items: center;margin-left: 8px;font-size: 14px;" nz-tooltip nzTooltipTitle="前往抖音" (click)="openDetail(item.aweme_id)"></span>
-                <span style="margin-left: 10px;display: flex;" nz-tooltip nzTooltipTitle="音源使用量">
-                  <img src="/assets/douyinNew/选择音源.png" style="width: 16px; height: 16px;" />
-                  <div style="margin-left: 5px;color: #000;">{{item.original_count}}</div>
-                </span>
-              </div>
-            </div>
-            <div style="width: 200px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
-              <div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总喜欢量">
-                <img src="/assets/douyinNew/喜欢.png" style="width: 16px; height: 16px;" />
-                <div style="color: #000;">{{ DyVedioTopFive[0].digg_count }}</div>
-              </div>
-              <div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总分享量">
-                <img src="/assets/douyinNew/分享.png" style="width: 16px; height: 16px;" />
-                <div style="color: #000;">{{ DyVedioTopFive[0].share_count }}</div>
-              </div>
-              <div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总评论量">
-                <img src="/assets/douyinNew/评论.png" style="width: 14px; height: 14px;" />
-                <div style="color: #000;">{{ DyVedioTopFive[0].comment_count }}</div>
-              </div>
-              <div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总收藏量">
-                <img src="/assets/douyinNew/收藏.png" style="width: 14px; height: 14px;" />
-                <div style="color: #000;">{{ DyVedioTopFive[0].collect_count }}</div>
-              </div>
-              <div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总下载量">
-                <img src="/assets/douyinNew/下载.png" style="width: 16px; height: 16px;" />
-                <div style="color: #000;">{{ DyVedioTopFive[0].download_count }}</div>
-              </div>
-            </div>
-          </div>
-          <div style="color: #8c8c8c;margin-top: 12px;" *ngIf="DyVedioTopFive.length == 2">
-            <div *ngFor="let item of DyVedioTopFive[1].data">
-              <div style="display: flex">
-                <span style="max-width: 120px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;" nz-tooltip [nzTooltipTitle]="item.desc">
-                  {{item.original_title}}
-                </span>
-                <span nz-icon nzType="select" nzTheme="outline" style="cursor: pointer;color:#808080;display: flex;align-items: center;margin-left: 8px;font-size: 14px;" nz-tooltip nzTooltipTitle="前往抖音" (click)="openDetail(item.aweme_id)"></span>
-                <span style="margin-left: 10px;display: flex;" nz-tooltip nzTooltipTitle="音源使用量">
-                  <img src="/assets/douyinNew/选择音源.png" style="width: 16px; height: 16px;" />
-                  <div style="margin-left: 5px;color: #000;">{{item.original_count}}</div>
-                </span>
-              </div>
-            </div>
-            <div style="width: 200px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
-              <div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总喜欢量">
-                <img src="/assets/douyinNew/喜欢.png" style="width: 16px; height: 16px;" />
-                <div style="color: #000;">{{ DyVedioTopFive[1].digg_count }}</div>
-              </div>
-              <div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总分享量">
-                <img src="/assets/douyinNew/分享.png" style="width: 16px; height: 16px;" />
-                <div style="color: #000;">{{ DyVedioTopFive[1].share_count }}</div>
-              </div>
-              <div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总评论量">
-                <img src="/assets/douyinNew/评论.png" style="width: 14px; height: 14px;" />
-                <div style="color: #000;">{{ DyVedioTopFive[1].comment_count }}</div>
-              </div>
-              <div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总收藏量">
-                <img src="/assets/douyinNew/收藏.png" style="width: 14px; height: 14px;" />
-                <div style="color: #000;">{{ DyVedioTopFive[1].collect_count }}</div>
-              </div>
-              <div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总下载量">
-                <img src="/assets/douyinNew/下载.png" style="width: 16px; height: 16px;" />
-                <div style="color: #000;">{{ DyVedioTopFive[1].download_count }}</div>
-              </div>
-            </div>
-          </div>
-          <div style="color: #8c8c8c;margin-top: 12px;" *ngIf="DyVedioTopFive.length == 1">
-            {{DyVedioTopFiveTime}}秒后显示数据
-          </div>
-      </div>
-      <div *ngIf="DyChallengeList.length>0" class="item_list"  style="margin-left: 20px;">
-        <div style="font-size: 16px;margin-bottom: 8px;">抖音挑战榜</div>
-        <div style="height: 300px;overflow-y: auto;">
-          <div *ngFor="let item of DyChallengeList" style="display: flex;align-items: center;">
-            <div nz-tooltip nzTooltipTitle="排名" style="width: 14px;">{{item.position}}</div>
-            <img [src]="item.word_cover[0]" alt="" style="width: 30px;height: 30px;border-radius: 6px;margin-left: 8px;object-fit: cover;">
-            <div style="margin-left: 8px;">
-              <div nz-tooltip [nzTooltipTitle]="item.word" style="max-width: 165px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;">{{item.word}}</div>
-              <div nz-tooltip nzTooltipTitle="热度">{{common.toThousands(item.hot_value)}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="width: 100%;display: flex;" *ngIf="MassiveArithmeticDaRen.length>0 || MassiveArithmeticVedio.length>0">
-      <div *ngIf="MassiveArithmeticDaRen.length>0" style="width: 55%;height: auto;" class="item_list">
-        <div style="font-size: 16px;margin-bottom: 8px;">巨量算数达人搜索</div>
-        <div style="width: 100%;height: 300px;overflow-y: auto;">
-          <div *ngFor="let item of MassiveArithmeticDaRen" class="list-item">
-            <img [src]="item.user_head_logo" alt="" style="width: 45px;height: 45px;border-radius: 50%;" *ngIf="item.user_head_logo">
-            <div style="margin-left: 8px;">
-              <div style="display: flex;align-items: center;">
-                <span style="font-size: 16px;color: #000;" (click)="OpenDy(item.aweme_url)">{{item.user_name}}</span>
-                <span nz-tooltip nzTooltipTitle="粉丝数" style="margin-left: 8px;">{{common.toThousands(item.follow_count)}}</span>
-                <span nz-tooltip nzTooltipTitle="总获赞数" style="margin-left: 8px;">{{common.toThousands(item.follow_count)}}</span>
-              </div>
-              <div style="display: flex;align-items: center;">
-                <div *ngIf="item.dayWeek">
-                  <span nz-tooltip nzTooltipTitle="均赞">{{common.toThousands(item.MileInfo.like_info[0].like_average_count_by_week)}}</span>
-                  <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"></span>
-                  <span nz-tooltip nzTooltipTitle="均涨粉">{{common.toThousands(item.MileInfo.fans_info[0].fans_average_count_by_week)}}</span>
-                  <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"></span>
-                  <span nz-tooltip nzTooltipTitle="均分享">{{common.toThousands(item.MileInfo.share_info[0].share_average_count_by_week)}}</span>
-                  <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"></span>
-                  <span nz-tooltip nzTooltipTitle="均评论">{{common.toThousands(item.MileInfo.comment_info[0].comment_average_count_by_week)}}</span>
-                </div>
-                <div *ngIf="!item.dayWeek">
-                  <span nz-tooltip nzTooltipTitle="均赞">{{common.toThousands(item.MileInfo.like_info[0].like_average_count_by_month)}}</span>
-                  <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"></span>
-                  <span nz-tooltip nzTooltipTitle="均涨粉">{{common.toThousands(item.MileInfo.fans_info[0].fans_average_count_by_month)}}</span>
-                  <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"></span>
-                  <span nz-tooltip nzTooltipTitle="均分享">{{common.toThousands(item.MileInfo.share_info[0].share_average_count_by_month)}}</span>
-                  <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"></span>
-                  <span nz-tooltip nzTooltipTitle="均评论">{{common.toThousands(item.MileInfo.comment_info[0].comment_average_count_by_month)}}</span>
-                </div>
-                <div style="margin-left: 8px;">
-                  <div *ngIf="!item.dayWeek" style="color: rgb(39, 39, 214);cursor: pointer;display: flex;align-items: center;" (click)="ChangeWeek(item)">切换7天</div>
-                  <div *ngIf="item.dayWeek" style="color: rgb(39, 39, 214);cursor: pointer;display: flex;align-items: center;" (click)="ChangeWeek(item)">切换30天</div>
-                </div>
-              </div>
-            </div>
-            <div style="margin-left: 40px;" *ngIf="item.UserTopOneVideo.length>0">
-              <div>
-                <div nz-tooltip [nzTooltipTitle]="item.UserTopOneVideo[0].video_text" style="max-width: 300px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;" >
-                  {{item.UserTopOneVideo[0].video_text}}
-                </div>
-              </div>
-              <div style="display: flex;align-items: center;">
-                <span nz-tooltip nzTooltipTitle="点赞">{{common.toThousands(item.UserTopOneVideo[0].like_cnt)}}</span>
-                <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"></span>
-                <span nz-tooltip nzTooltipTitle="评论">{{common.toThousands(item.UserTopOneVideo[0].coment_cnt)}}</span>
-                <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"></span>
-                <span nz-tooltip nzTooltipTitle="分享">{{common.toThousands(item.UserTopOneVideo[0].share_cnt)}}</span>
-                <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"></span>
-                <span nz-tooltip nzTooltipTitle="收藏">{{common.toThousands(item.UserTopOneVideo[0].follow_cnt)}}</span>
-                <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"></span>
-                <span nz-tooltip nzTooltipTitle="最火时间段">{{getTimeCode(item.UserTopOneVideo)}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="MassiveArithmeticVedio.length>0" style="width: 45%;height: auto;" class="item_list">
-        <div style="font-size: 16px;margin-bottom: 8px;">巨量算数视频搜索</div>
-        <div style="width: 100%;height: 300px;overflow-y: auto;display: flex;align-items: center;justify-content: space-between;flex-wrap: wrap;">
-          <div *ngFor="let item of MassiveArithmeticVedio" class="Vedio">
-            <div style="width: 100%;display: flex;align-items: center;justify-content: center;">
-              <img [src]="item.thumbnail" alt="" style="width: 90%;height: 260px;cursor: pointer; object-fit: cover;" (click)="OpenDy(item.url)">
-            </div>
-            <div style="width: 100%;margin-top: 10px;">
-              <div style="display: flex;align-items: center;">
-                <img [src]="item.avatarUrl" alt="" style="width: 30px;height: 30px;flex-wrap: wrap;border-radius: 50%;">
-                <div>
-                  <div nz-tooltip [nzTooltipTitle]="item.nickname" style="margin-left: 8px;font-size: 16px;color: #000;max-width: calc(95% - 38px);overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;">
-                    {{item.nickname}}
-                  </div>
-                  <div style="font-size: 12px;display: flex;align-items: center;">
-                    <span nz-tooltip nzTooltipTitle="视频指数">{{item.index}}</span>
-                    <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"></span>
-                    <span nz-tooltip nzTooltipTitle="粉丝数">{{common.toThousands(item.fans)}}</span>
-                    <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"></span>
-                    <span nz-tooltip nzTooltipTitle="发布时间">{{common.toThousands(item.createTime)}}</span>
-                  </div>
-                </div>
-              </div>
-              <div nz-tooltip [nzTooltipTitle]="item.title" style="margin-top: 8px;;width: 95%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;font-size: 14px;">{{item.title}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <nz-modal [(nzVisible)]="showSongsList" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzFooter]="null" [nzStyle]="{ width: '1000px' }">
-    <ng-container *nzModalContent>
-      <div style="display: flex; width: 99%; height: 70vh; overflow: hidden">
-        <div style="display: flex;flex-direction: column;align-items: center;flex: 1;">
-          <div style="margin-right: 16px;height: 100%;overflow-y: auto;width: calc(100% - 16px);">
-            <div>QQ</div>
-            <div *ngFor="let item of qqkgData.qqData; let i = index" class="datalist" [ngClass]="{ isSelect: item.isSelect }" (click)="chooseQQ(item, i)">
-              <div><img [src]="item.Image" style="width: 60px; height: 60px; border-radius: 4px"/></div>
-              <div style="margin-left: 16px">
-                <div>{{ item.title }}</div>
-                <div style=" font-size: 13px;color: rgba(0, 0, 0, 0.7);margin: 4px 0;">{{ item.album.name }}</div>
-                <div *ngFor="let singer of item.singer" style="font-size: 13px; color: rgba(0, 0, 0, 0.7)">{{ singer.name }}</div>
-              </div>
-              <div style="flex: 1; display: flex; justify-content: flex-end">
-                <img *ngIf="!item.isPlay" src="assets/img/play-green.png" class="musicPlay" (click)="playqq(item, i, $event)"/>
-                <img *ngIf="item.isPlay" src="assets/img/pause-green.png" class="musicPlay" (click)="playqq(item, i, $event)"/>
-              </div>
-            </div>
-          </div>
-          <div nz-icon nzType="down-circle" nzTheme="twotone" (click)="qqPageNext()" style="cursor: pointer; font-size: 16px; margin-top: 12px"></div>
-        </div>
-        <div style="display: flex;flex-direction: column;align-items: center;flex: 1;">
-          <div style="height: 100%; overflow-y: auto; width: 100%">
-            <div>酷狗</div>
-            <div *ngFor="let item of qqkgData.kgData; let i = index" class="datalist" [ngClass]="{ isSelect2: item.isSelect }" (click)="chooseKG(item, i)">
-              <div>
-                <img [src]="item.Image" style="width: 60px; height: 60px; border-radius: 4px"/>
-              </div>
-              <div style="margin-left: 16px">
-                <div>
-                  {{ common.deleteEM(item.SongName) }}
-                </div>
-                <div style="font-size: 13px;color: rgba(0, 0, 0, 0.7);margin: 4px 0;">
-                  {{ common.deleteEM(item.AlbumName) }}
-                </div>
-                <div *ngFor="let singer of item.Singers" style="font-size: 13px; color: rgba(0, 0, 0, 0.7)">
-                  {{ common.deleteEM(singer.name) }}
-                </div>
-              </div>
-              <div style="flex: 1; display: flex; justify-content: flex-end">
-                <img *ngIf="!item.isPlay" src="assets/img/play-blue.png" class="musicPlay" (click)="playkg(item, i, $event)"/>
-                <img *ngIf="item.isPlay" src="assets/img/pause-blue.png" class="musicPlay" (click)="playkg(item, i, $event)"/>
-              </div>
-            </div>
-          </div>
-          <div nz-icon nzType="down-circle" nzTheme="twotone" (click)="kgPageNext()" style="cursor: pointer; font-size: 16px; margin-top: 12px"></div>
-        </div>
-      </div>
-      <div style="display: flex;justify-content: center;width: 100%;margin-top: 12px;">
-        <button nz-button nzType="primary" (click)="handleOk()" style="width: 160px">确定</button>
-      </div>
-    </ng-container>
-  </nz-modal>
-  <!-- 播放器 -->
-  <div class="play" [ngClass]="{ hide: !isPlay }">
-    <audio id="audio" controls [src]="audioSrc" (play)="play($event)" (pause)="pause()"></audio>
-  </div>
-  <ngx-loading *ngIf="loading"></ngx-loading>
+		</div>
+		<div style="width: 100%;display: flex;" *ngIf="MassiveArithmeticDaRen.length>0 || MassiveArithmeticVedio.length>0">
+			<div *ngIf="MassiveArithmeticDaRen.length>0" style="width: 55%;height: auto;" class="item_list">
+				<!-- 巨量算数达人搜索 -->
+				<ngx-jlBigV [MassiveArithmeticDaRen]='MassiveArithmeticDaRen'></ngx-jlBigV>
+			</div>
+			<div *ngIf="MassiveArithmeticVedio.length>0" style="width: 45%;height: auto;" class="item_list">
+				<!-- 巨量算数视频搜索 -->
+				<ngx-jlVideo [MassiveArithmeticVedio]='MassiveArithmeticVedio'></ngx-jlVideo>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	<!-- 搜索关键字弹出选择歌曲信息 -->
+	<nz-modal [(nzVisible)]="showSongsList" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzFooter]="null"
+		[nzStyle]="{ width: '1000px' }">
+		<ng-container *nzModalContent>
+			<div style="display: flex; width: 99%; height: 70vh; overflow: hidden">
+				<div style="display: flex;flex-direction: column;align-items: center;flex: 1;">
+					<div style="margin-right: 16px;height: 100%;overflow-y: auto;width: calc(100% - 16px);">
+						<div>QQ</div>
+						<div *ngFor="let item of qqkgData.qqData; let i = index" class="datalist"
+							[ngClass]="{ isSelect: item.isSelect }" (click)="chooseQQ(item, i)">
+							<div><img [src]="item.Image" style="width: 60px; height: 60px; border-radius: 4px" /></div>
+							<div style="margin-left: 16px">
+								<div>{{ item.title }}</div>
+								<div style=" font-size: 13px;color: rgba(0, 0, 0, 0.7);margin: 4px 0;">
+									{{ item.album.name }}
+								</div>
+								<div *ngFor="let singer of item.singer"
+									style="font-size: 13px; color: rgba(0, 0, 0, 0.7)">{{ singer.name }}</div>
+							</div>
+							<div style="flex: 1; display: flex; justify-content: flex-end">
+								<img *ngIf="!item.isPlay" src="assets/img/play-green.png" class="musicPlay"
+									(click)="playqq(item, i, $event)" />
+								<img *ngIf="item.isPlay" src="assets/img/pause-green.png" class="musicPlay"
+									(click)="playqq(item, i, $event)" />
+							</div>
+						</div>
+					</div>
+					<div nz-icon nzType="down-circle" nzTheme="twotone" (click)="qqPageNext()"
+						style="cursor: pointer; font-size: 16px; margin-top: 12px"></div>
+				</div>
+				<div style="display: flex;flex-direction: column;align-items: center;flex: 1;">
+					<div style="height: 100%; overflow-y: auto; width: 100%">
+						<div>酷狗</div>
+						<div *ngFor="let item of qqkgData.kgData; let i = index" class="datalist"
+							[ngClass]="{ isSelect2: item.isSelect }" (click)="chooseKG(item, i)">
+							<div>
+								<img [src]="item.Image" style="width: 60px; height: 60px; border-radius: 4px" />
+							</div>
+							<div style="margin-left: 16px">
+								<div>
+									{{ common.deleteEM(item.SongName) }}
+								</div>
+								<div style="font-size: 13px;color: rgba(0, 0, 0, 0.7);margin: 4px 0;">
+									{{ common.deleteEM(item.AlbumName) }}
+								</div>
+								<div *ngFor="let singer of item.Singers"
+									style="font-size: 13px; color: rgba(0, 0, 0, 0.7)">
+									{{ common.deleteEM(singer.name) }}
+								</div>
+							</div>
+							<div style="flex: 1; display: flex; justify-content: flex-end">
+								<img *ngIf="!item.isPlay" src="assets/img/play-blue.png" class="musicPlay"
+									(click)="playkg(item, i, $event)" />
+								<img *ngIf="item.isPlay" src="assets/img/pause-blue.png" class="musicPlay"
+									(click)="playkg(item, i, $event)" />
+							</div>
+						</div>
+					</div>
+					<div nz-icon nzType="down-circle" nzTheme="twotone" (click)="kgPageNext()"
+						style="cursor: pointer; font-size: 16px; margin-top: 12px"></div>
+				</div>
+			</div>
+			<div style="display: flex;justify-content: center;width: 100%;margin-top: 12px;">
+				<button nz-button nzType="primary" (click)="handleOk()" style="width: 160px">确定</button>
+			</div>
+		</ng-container>
+	</nz-modal>
+	<!-- 播放器 -->
+	<div class="play" [ngClass]="{ hide: !isPlay }">
+		<audio id="audio" controls [src]="audioSrc" (play)="play($event)" (pause)="pause()"></audio>
+	</div>
+	<ngx-loading *ngIf="loading"></ngx-loading>
 </div>
 
-
-<nz-modal [(nzVisible)]="isVisibleRecommendations" nzTitle="酷狗搜索推荐" (nzOnCancel)="handleCancelRecommendations()" [nzFooter]="null">
-  <ng-container *nzModalContent>
-    <div>
-      <div *ngFor="let item of KGSearchRecommendations" class="list-item">
-        <img [src]="item[1].data.SongInfo.imgUrl" alt="" style="width: 45px;height: 45px;border-radius: 50%;" *ngIf="item[1].data.SongInfo.imgUrl">
-        <div style="margin-left: 15px;width: 190px;">
-          <div style="display: flex;" *ngIf="item[1].data.reason">
-            <div (click)="openSongs(item[1].data.SongInfo)" nz-tooltip [nzTooltipTitle]="item[1].data.reason" style="color: #000000;cursor: pointer;font-size: 18px;max-width: 200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
-              {{item[1].data.reason}}
-            </div>
-          </div>
-          <div style="display: flex;align-items: center;">
-            <span nz-tooltip nzTooltipTitle="历史榜单" style="color: #ccc;font-size: 12px;">{{item[0]}}</span>
-            <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;" *ngIf="item[1].rank"></span>
-            <span nz-tooltip nzTooltipTitle="排行" style="color: #ccc;font-size: 12px;margin-left: 2px;" *ngIf="item[1].rank">{{item[1].rank}}</span>
-            <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;" *ngIf="item[1].data.SongInfo.singers"></span>
-            <span nz-tooltip [nzTooltipTitle]="item[1].data.SongInfo.singers.join()" style="color: #ccc;font-size: 12px;margin-left: 2px;max-width:100px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;" *ngIf="item[1].data.SongInfo.singers">{{item[1].data.SongInfo.singers.join()}}</span>
-          </div>
-        </div>
-        <div style="margin-left: 30px;display: flex;align-items: center;" *ngIf="item[1].data.SongInfo.albumName" nz-tooltip nzTooltipTitle="专辑名称">
-          {{item[1].data.SongInfo.albumName}}
-        </div>
-      </div>
-    </div>
-  </ng-container>
-</nz-modal>

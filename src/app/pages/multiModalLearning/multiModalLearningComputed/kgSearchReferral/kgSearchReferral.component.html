@@ -1,0 +1,47 @@
+<div *ngIf="KGSearchRecommendations.length>0" class="item_list" style="margin-left: 20px;">
+	<div style="font-size: 16px;margin-bottom: 8px;">
+		<span>酷狗搜索推荐查询</span>
+		<span style="margin-left: 8px;color: rgb(39, 39, 214);cursor: pointer;"
+			(click)="showKGSearchRecommendations()">查看</span>
+	</div>
+	<div *ngFor="let item of KGSearchRecommendations">
+		<span style="color: #8c8c8c;">{{item[0]}}</span>
+		<span style="margin-left: 8px;color: #8c8c8c;">排名：<span style="color: #000;">{{item[1].rank}}</span></span>
+	</div>
+</div>
+<nz-modal [(nzVisible)]="isVisibleRecommendations" nzTitle="酷狗搜索推荐" (nzOnCancel)="handleCancelRecommendations()"
+	[nzFooter]="null">
+	<ng-container *nzModalContent>
+		<div>
+			<div *ngFor="let item of KGSearchRecommendations" class="list-item">
+				<img [src]="item[1].data.SongInfo.imgUrl" alt="" style="width: 45px;height: 45px;border-radius: 50%;"
+					*ngIf="item[1].data.SongInfo.imgUrl">
+				<div style="margin-left: 15px;width: 190px;">
+					<div style="display: flex;" *ngIf="item[1].data.reason">
+						<div (click)="openSongs(item[1].data.SongInfo)" nz-tooltip
+							[nzTooltipTitle]="item[1].data.reason"
+							style="color: #000000;cursor: pointer;font-size: 18px;max-width: 200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+							{{item[1].data.reason}}
+						</div>
+					</div>
+					<div style="display: flex;align-items: center;">
+						<span nz-tooltip nzTooltipTitle="历史榜单" style="color: #ccc;font-size: 12px;">{{item[0]}}</span>
+						<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"
+							*ngIf="item[1].rank"></span>
+						<span nz-tooltip nzTooltipTitle="排行" style="color: #ccc;font-size: 12px;margin-left: 2px;"
+							*ngIf="item[1].rank">{{item[1].rank}}</span>
+						<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc;margin-left: 2px;"
+							*ngIf="item[1].data.SongInfo.singers"></span>
+						<span nz-tooltip [nzTooltipTitle]="item[1].data.SongInfo.singers.join()"
+							style="color: #ccc;font-size: 12px;margin-left: 2px;max-width:100px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"
+							*ngIf="item[1].data.SongInfo.singers">{{item[1].data.SongInfo.singers.join()}}</span>
+					</div>
+				</div>
+				<div style="margin-left: 30px;display: flex;align-items: center;"
+					*ngIf="item[1].data.SongInfo.albumName" nz-tooltip nzTooltipTitle="专辑名称">
+					{{item[1].data.SongInfo.albumName}}
+				</div>
+			</div>
+		</div>
+	</ng-container>
+</nz-modal>

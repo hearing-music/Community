@@ -1,0 +1,30 @@
+<div style="margin-left: 20px;" *ngIf='KGSoaringSongs.length>0||ThreePartyInterface.length>0'>
+	<div *ngIf="KGSoaringSongs.length>0" class="item_list">
+		<div style="font-size: 16px;margin-bottom: 8px;">
+			酷狗飙升榜查询
+		</div>
+		<div *ngFor="let item of KGSoaringSongs">
+			<div style="color: #8c8c8c;display: flex;align-items: center;">今日排名：
+				<span style="color: #000;">{{item.Ran}}</span>
+				<span *ngIf='item.Strend=="up"' nz-icon nzType="arrow-up" nzTheme="outline" style="color:green;"></span>
+				<span *ngIf='item.Strend=="down"' nz-icon nzType="arrow-down" nzTheme="outline"
+					style="color:red;"></span>
+				<span *ngIf='item.Strend=="normal"' nz-icon nzType="minus" nzTheme="outline" style="color:blue;"></span>
+			</div>
+			<div style="color: #8c8c8c;">昨日排名：
+				<span style="color: #000;" *ngIf="item.Strend == 'down'">{{(item.Ran-0) + (item.Trend-0)}}</span>
+				<span style="color: #000;" *ngIf="item.Strend == 'up'">{{(item.Ran-0)- (item.Trend-0)}}</span>
+				<span style="color: #000;" *ngIf="item.Strend == 'normal'">{{item.Ran}}</span>
+				<span style="margin-left: 8px;color: rgb(39, 39, 214);cursor: pointer;"
+					(click)="openLink(item.SingerId)">查看</span>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="ThreePartyInterface.length>0" class="item_list" style="margin-top: 20px;">
+		<div style="font-size: 16px;margin-bottom: 8px;">三方接口(榜单&&热搜词)</div>
+		<div *ngFor="let item of ThreePartyInterface">
+			<span style="color: #8c8c8c;">{{item[0]}}</span><span
+				style="margin-left: 8px;color: #000;">{{item[1]}}</span>
+		</div>
+	</div>
+</div>

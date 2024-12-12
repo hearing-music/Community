@@ -1,0 +1,120 @@
+<div nz-row>
+	<div nz-col nzSpan="12" style="display: flex; align-items: center">
+		<div class="formsLabel">计算今日小时预估播放量</div>
+	</div>
+	<div nz-col nzSpan="3" style="display: flex; align-items: center">
+		{{ common.toThousands(Data[0][1]) }}
+	</div>
+	<div nz-col nzSpan="2" style="display: flex; align-items: center">
+		<div class="picTip" nz-tooltip nzTooltipTitle="这是按小时预估24H可能会产生的播放量">
+			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+		</div>
+	</div>
+	<div nz-col nzSpan="3" style="display: flex; align-items: center">
+		<div [ngClass]="{upColor: Data[6][1] >= 1000,downColor: Data[6][1] < 1000}">
+			{{ common.toThousands(Data[6][1]) }}
+		</div>
+	</div>
+	<div nz-col nzSpan="1" style="display: flex; align-items: center">
+		<div style="display: flex; align-items: center; margin-left: 8px">
+			<i *ngIf="Data[6][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
+			<i *ngIf="Data[6][1] < 1000" nz-icon nzType="arrow-down" nzTheme="outline" class="downColor"></i>
+		</div>
+		<div class="picTip" nz-tooltip nzTooltipTitle="计算雷达近24H较今日小时预估播放量涨幅情况 >1000 增长 | <1000 下滑">
+			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+		</div>
+	</div>
+</div>
+<div nz-row style="margin-top: 20px">
+	<div nz-col nzSpan="12" style="display: flex; align-items: center">
+		<div class="formsLabel">计算今日分钟预估播放量</div>
+	</div>
+	<div nz-col nzSpan="3" style="display: flex; align-items: center">
+		{{ common.toThousands(Data[1][1]) }}
+	</div>
+	<div nz-col nzSpan="2" style="display: flex; align-items: center">
+		<div class="picTip" nz-tooltip nzTooltipTitle="这是按分钟预估24H可能会产生的播放量">
+			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+		</div>
+	</div>
+	<div nz-col nzSpan="3">
+		<div [ngClass]="{upColor: Data[7][1] >= 1000,downColor: Data[7][1] < 1000}">
+			{{ common.toThousands(Data[7][1]) }}
+		</div>
+	</div>
+	<div nz-col nzSpan="1" style="display: flex; align-items: center">
+		<div style="display: flex; align-items: center; margin-left: 8px">
+			<i *ngIf="Data[7][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
+			<i *ngIf="Data[7][1] < 1000" nz-icon nzType="arrow-down" nzTheme="outline" class="downColor"></i>
+		</div>
+		<div class="picTip" nz-tooltip nzTooltipTitle="计算雷达近24H较今日分钟预估播放量涨幅情况 >1000 增长 | <1000 下滑">
+			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+		</div>
+	</div>
+</div>
+<div nz-row style="margin-top: 20px">
+	<div nz-col nzSpan="12" style="display: flex; align-items: center">
+		<div class="formsLabel">计算今日近24H总PV搜索平均值倍数</div>
+		<div class="picTip" nz-tooltip nzTooltipTitle="计算今日近24H总PV搜索平均值倍数">
+			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+		</div>
+	</div>
+	<div nz-col nzSpan="3" style="display: flex; align-items: center">
+		<div style="width: 85px">
+			{{ common.toThousands(Data[2][1]) }}
+		</div>
+	</div>
+	<div nz-col nzSpan="2" style="display: flex; align-items: center">
+		<div class="picTip" nz-tooltip nzTooltipTitle=">25 资产播放合格 | <25 搜索播放合格">
+			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+		</div>
+	</div>
+</div>
+
+<div nz-row style="margin-top: 20px">
+	<div nz-col nzSpan="12" style="display: flex; align-items: center">
+		<div class="formsLabel">计算今日近1H总PV搜索数的预估播放量</div>
+		<div class="picTip" nz-tooltip nzTooltipTitle="当看不到播放量的时候，此数据可作为参考">
+			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+		</div>
+	</div>
+	<div nz-col nzSpan="3" style="display: flex; align-items: center">
+		{{ common.toThousands(Data[3][1]) }}
+	</div>
+</div>
+<div nz-row style="margin-top: 20px">
+	<div nz-col nzSpan="12" style="display: flex; align-items: center">
+		<div class="formsLabel">计算今日近24H总PV搜索数的预估播放量</div>
+		<div class="picTip" nz-tooltip nzTooltipTitle="当看不到播放量的时候，此数据可作为参考">
+			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+		</div>
+	</div>
+	<div nz-col nzSpan="3">
+		{{ common.toThousands(Data[4][1]) }}
+	</div>
+</div>
+
+<div nz-row style="margin-top: 20px">
+	<div nz-col nzSpan="12" style="display: flex; align-items: center">
+		<div class="formsLabel">计算雷达近24H较昨日生态涨幅播放量</div>
+		<div class="picTip" nz-tooltip nzTooltipTitle="计算雷达近24H较昨日生态涨幅播放量">
+			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+		</div>
+	</div>
+	<div nz-col nzSpan="2" style="display: flex; align-items: center">
+		<div [ngClass]="{upColor: Data[5][1] >= 1000,downColor: Data[5][1] < 1000}" style="width: 70px">
+			{{ common.toThousands(Data[5][1]) }}
+		</div>
+	</div>
+	<div nz-col nzSpan="1" style="display: flex;align-items: center;justify-content: flex-end;">
+		<div style="display: flex; align-items: center">
+			<i *ngIf="Data[5][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
+			<i *ngIf="Data[5][1] < 1000" nz-icon nzType="arrow-down" nzTheme="outline" class="downColor"></i>
+		</div>
+	</div>
+	<div nz-col nzSpan="1" style="display: flex; align-items: center">
+		<div class="picTip" nz-tooltip nzTooltipTitle=">1000 增长 | <1000 下滑">
+			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+		</div>
+	</div>
+</div>

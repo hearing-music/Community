@@ -1,0 +1,17 @@
+<div *ngIf="DyChallengeList.length>0" class="item_list" style="margin-left: 20px;">
+	<div style="font-size: 16px;margin-bottom: 8px;">抖音挑战榜</div>
+	<div style="height: 300px;overflow-y: auto;">
+		<div *ngFor="let item of DyChallengeList" style="display: flex;align-items: center;">
+			<div nz-tooltip nzTooltipTitle="排名" style="width: 14px;">{{item.position}}</div>
+			<img [src]="item.word_cover[0]" alt=""
+				style="width: 30px;height: 30px;border-radius: 6px;margin-left: 8px;object-fit: cover;">
+			<div style="margin-left: 8px;">
+				<div nz-tooltip [nzTooltipTitle]="item.word"
+					style="max-width: 165px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;">
+					{{item.word}}
+				</div>
+				<div nz-tooltip nzTooltipTitle="热度">{{common.toThousands(item.hot_value)}}</div>
+			</div>
+		</div>
+	</div>
+</div>

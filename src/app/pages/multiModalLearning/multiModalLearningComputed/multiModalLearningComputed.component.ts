@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
 import { ToastrService } from "ngx-toastr";
@@ -17,10 +17,14 @@ export class MultiModalLearningComputedComponent implements OnInit {
   ThreePartyInterface: any = [];
   MassiveArithmeticDaRen: any = [];
   MassiveArithmeticVedio: any = [];
+  paginatedData: any[] = []; // 分页后的数据
+  currentPage = 1; // 当前页码
+  pageSize = 30; // 每页大小
   DyChallengeList: any = [];
   DyVedioTopFiveTime: any = 300;
   DyVedioTopFiveSchedule: any = null;
-  isVisibleRecommendations: any = false;
+  hasMore: any = true;
+  isLoading: any = false; // 是否正在加载
   constructor(
     public api: ApiService,
     public common: CommonService,
@@ -45,6 +49,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
     // 监听消息事件
     this.socket.onmessage = (event) => {
       let result: any = JSON.parse(event.data);
+      console.log(result.data);
       if (result.message == "抖音该词条前五的数据") {
         if (result.data.length > 0) {
           let obg = {
@@ -68,7 +73,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
               original_count: result.data[i].original_count,
             });
           }
-          this.DyVedioTopFive.push(obg);
+          this.DyVedioTopFive = [...this.DyVedioTopFive,obg]
           if (this.DyVedioTopFiveTime == 300) {
             this.DyVedioTopFiveSchedule = setInterval(() => {
               this.DyVedioTopFiveTime -= 1;
@@ -78,6 +83,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
                   Functionality: [["ComprehensiveSearchTop5", this.keyword]],
                 });
                 clearInterval(this.DyVedioTopFiveSchedule);
+				this.DyVedioTopFiveSchedule = null;
               }
             }, 1000);
           }
@@ -103,8 +109,10 @@ export class MultiModalLearningComputedComponent implements OnInit {
         }
       } else if (result.message == "巨量算数视频搜索") {
         if (result.data.data.length > 0) {
+          this.MassiveArithmeticVedio = [];
           this.MassiveArithmeticVedio = result.data.data;
-          console.log(this.MassiveArithmeticVedio);
+          // this.loadPage(this.currentPage);
+		  // this.jlVideo.loadPage();
         }
       } else if (result.message == "抖音挑战榜") {
         if (result.data.length > 0) {
@@ -325,6 +333,12 @@ export class MultiModalLearningComputedComponent implements OnInit {
         );
     });
   }
+  getFirstNElements<T>(arr: T[], count: number): T[] {
+    if (count <= 0) {
+      return []; // 如果需要的数量小于等于 0，返回空数组
+    }
+    return arr.slice(0, count);
+  }
   // 搜索keyword
   async searchQQKG() {
     if (this.keyword == "") {
@@ -387,6 +401,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
       this.chooseQQKGData.kgData = null;
     }
   }
+
   // 播放qq音乐
   playqq(item: any, i: any, e: any) {
     this.isPlay = true;
@@ -610,8 +625,8 @@ export class MultiModalLearningComputedComponent implements OnInit {
   // 预估
   TJMusicMultiModalLearning() {
     this.obData = {
-      qq: [],
-      kg: [],
+      // QQ: [],
+      // KG: [],
     };
     let data = {
       "1HTotalPVPlayback": this._1HTotalPVPlayback - 0,
@@ -649,6 +664,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
       );
     });
   }
+
   // 输入监听
   childInput(e: any) {
     this.keyword = e;
@@ -749,34 +765,5 @@ export class MultiModalLearningComputedComponent implements OnInit {
     }
     // 设置所选小时的分数
     this.MinuteTimeArr = timeArray;
-  }
-  cancel() {}
-  openDetail(item: any) {
-    window.open("https://www.douyin.com/discover?modal_id=" + item);
-  }
-  //酷狗歌手页
-  openLink(id: string | number) {
-    window.open("https://www.kugou.com/singer/" + id + ".html");
-  }
-  handleCancelRecommendations(): void {
-    this.isVisibleRecommendations = false;
-  }
-  showKGSearchRecommendations() {
-    this.isVisibleRecommendations = true;
-  }
-  //酷狗歌曲页
-  openSongs(item: any) {
-    // https://www.kugou.com/song/#j410q60
-    if (item.eMixSongID) {
-      window.open("https://www.kugou.com/song/#" + item.eMixSongID);
-    }
-  }
-  //巨量达人显示7/30
-  ChangeWeek(item: any) {
-    item.dayWeek = !item.dayWeek;
-  }
-  //巨量达人跳转主页  || 视频主页
-  OpenDy(item: any) {
-    window.open(item);
   }
 }

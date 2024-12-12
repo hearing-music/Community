@@ -203,6 +203,16 @@ import { SearchMvComponent } from "./cut-video/search-mv/search-mv.component";
 import { MonitoringMvComponent } from "./cut-video/monitoring-mv/monitoring-mv.component";
 import { MvQqComponent } from "./cut-video/search-mv/mv-qq/mv-qq.component";
 import { MvKgComponent } from "./cut-video/search-mv/mv-kg/mv-kg.component";
+
+import {QqkgInfoComponent} from './multiModalLearning/multiModalLearningComputed/qqkgInfo/qqkgInfo.component';
+import {QqkgRankComponent} from './multiModalLearning/multiModalLearningComputed/qqkgRank/qqkgRank.component';
+import {PredictDataComponent} from './multiModalLearning/multiModalLearningComputed/predictData/predictData.component';
+import {KgSearchReferralComponent} from './multiModalLearning/multiModalLearningComputed/kgSearchReferral/kgSearchReferral.component';
+import {KgSoaringComponent} from './multiModalLearning/multiModalLearningComputed/kgSoaring/kgSoaring.component';
+import {DyVedioTopFiveComponent} from './multiModalLearning/multiModalLearningComputed/dyVedioTopFive/dyVedioTopFive.component';
+import {DyChallengeComponent} from './multiModalLearning/multiModalLearningComputed/dyChallenge/dyChallenge.component';
+import {JlBigVComponent} from './multiModalLearning/multiModalLearningComputed/jlBigV/jlBigV.component';
+import {JlVideoComponent} from './multiModalLearning/multiModalLearningComputed/jlVideo/jlVideo.component';
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -256,6 +266,15 @@ registerLocaleData(zh);
 		
 		HighlightBracketsPipe,
 		SearchMvComponent,
+		QqkgInfoComponent,
+		QqkgRankComponent,
+		PredictDataComponent,
+		KgSearchReferralComponent,
+		KgSoaringComponent,
+		DyVedioTopFiveComponent,
+		DyChallengeComponent,
+		JlBigVComponent,
+		JlVideoComponent,
 		MvQqComponent,
 		MvKgComponent,
 		MonitoringMvComponent,

@@ -1,0 +1,86 @@
+<div *ngIf="DyVedioTopFive.length>0" class="item_list" style="margin-left: 20px;">
+	<div style="font-size: 16px;margin-bottom: 8px;">抖音该词条前五的数据</div>
+	<div style="color: #8c8c8c;">
+		<div *ngFor="let item of DyVedioTopFive[0].data">
+			<div style="display: flex">
+				<span
+					style="max-width: 120px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;"
+					nz-tooltip [nzTooltipTitle]="item.desc">
+					{{item.original_title}}
+				</span>
+				<span nz-icon nzType="select" nzTheme="outline"
+					style="cursor: pointer;color:#808080;display: flex;align-items: center;margin-left: 8px;font-size: 14px;"
+					nz-tooltip nzTooltipTitle="前往抖音" (click)="openDetail(item.aweme_id)"></span>
+				<span style="margin-left: 10px;display: flex;" nz-tooltip nzTooltipTitle="音源使用量">
+					<img src="/assets/douyinNew/选择音源.png" style="width: 16px; height: 16px;" />
+					<div style="margin-left: 5px;color: #000;">{{item.original_count}}</div>
+				</span>
+			</div>
+		</div>
+		<div style="width: 200px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
+			<div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总喜欢量">
+				<img src="/assets/douyinNew/喜欢.png" style="width: 16px; height: 16px;" />
+				<div style="color: #000;">{{ DyVedioTopFive[0].digg_count }}</div>
+			</div>
+			<div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总分享量">
+				<img src="/assets/douyinNew/分享.png" style="width: 16px; height: 16px;" />
+				<div style="color: #000;">{{ DyVedioTopFive[0].share_count }}</div>
+			</div>
+			<div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总评论量">
+				<img src="/assets/douyinNew/评论.png" style="width: 14px; height: 14px;" />
+				<div style="color: #000;">{{ DyVedioTopFive[0].comment_count }}</div>
+			</div>
+			<div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总收藏量">
+				<img src="/assets/douyinNew/收藏.png" style="width: 14px; height: 14px;" />
+				<div style="color: #000;">{{ DyVedioTopFive[0].collect_count }}</div>
+			</div>
+			<div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总下载量">
+				<img src="/assets/douyinNew/下载.png" style="width: 16px; height: 16px;" />
+				<div style="color: #000;">{{ DyVedioTopFive[0].download_count }}</div>
+			</div>
+		</div>
+	</div>
+	<div style="color: #8c8c8c;margin-top: 12px;" *ngIf="DyVedioTopFive.length == 2">
+		<div *ngFor="let item of DyVedioTopFive[1].data">
+			<div style="display: flex">
+				<span
+					style="max-width: 120px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;"
+					nz-tooltip [nzTooltipTitle]="item.desc">
+					{{item.original_title}}
+				</span>
+				<span nz-icon nzType="select" nzTheme="outline"
+					style="cursor: pointer;color:#808080;display: flex;align-items: center;margin-left: 8px;font-size: 14px;"
+					nz-tooltip nzTooltipTitle="前往抖音" (click)="openDetail(item.aweme_id)"></span>
+				<span style="margin-left: 10px;display: flex;" nz-tooltip nzTooltipTitle="音源使用量">
+					<img src="/assets/douyinNew/选择音源.png" style="width: 16px; height: 16px;" />
+					<div style="margin-left: 5px;color: #000;">{{item.original_count}}</div>
+				</span>
+			</div>
+		</div>
+		<div style="width: 200px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
+			<div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总喜欢量">
+				<img src="/assets/douyinNew/喜欢.png" style="width: 16px; height: 16px;" />
+				<div style="color: #000;">{{ DyVedioTopFive[1].digg_count }}</div>
+			</div>
+			<div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总分享量">
+				<img src="/assets/douyinNew/分享.png" style="width: 16px; height: 16px;" />
+				<div style="color: #000;">{{ DyVedioTopFive[1].share_count }}</div>
+			</div>
+			<div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总评论量">
+				<img src="/assets/douyinNew/评论.png" style="width: 14px; height: 14px;" />
+				<div style="color: #000;">{{ DyVedioTopFive[1].comment_count }}</div>
+			</div>
+			<div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总收藏量">
+				<img src="/assets/douyinNew/收藏.png" style="width: 14px; height: 14px;" />
+				<div style="color: #000;">{{ DyVedioTopFive[1].collect_count }}</div>
+			</div>
+			<div style="display: flex; align-items: center; justify-content: center;" nz-tooltip nzTooltipTitle="总下载量">
+				<img src="/assets/douyinNew/下载.png" style="width: 16px; height: 16px;" />
+				<div style="color: #000;">{{ DyVedioTopFive[1].download_count }}</div>
+			</div>
+		</div>
+	</div>
+	<div style="color: #8c8c8c;margin-top: 12px;" *ngIf="DyVedioTopFive.length == 1">
+		{{DyVedioTopFiveTime}}秒后显示数据
+	</div>
+</div>
