@@ -45,7 +45,7 @@
 					<!-- 图标 -->
 					<div style="display: flex;margin-left: 4px;">
 						<!-- 钱币图标 -->
-						<img [src]="!item.payInfo.feeType.song?'../../../assets/img/price.png':'../../../assets/img/price-orange.png'"
+						<img [src]="item.payInfo.feeType.song==0?'/assets/img/price.png':'/assets/img/price-orange.png'"
 							class="icon" />
 					</div>
 				</div>
