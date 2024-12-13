@@ -1,0 +1,125 @@
+.douyin{
+	background-color: #fff;
+	border-radius: 12px;
+	height: 100%;
+	min-height: calc(100vh - 4.75rem - 4rem);
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	color: #000;
+	
+	.tagList{
+		margin-top: 6px;
+		height:40px;
+		display: flex;
+		// align-items: center;
+		align-items:flex-start;
+		justify-content: space-between;
+		// max-width:662px;
+		margin-right: 40px;
+		overflow-x: auto;
+		.tagList-item{
+			flex-shrink: 0;
+			padding: 4px 10px;
+			color: #494F66;
+			font-size: 13px;
+			background: #F6F7FB;
+			border-radius: 100px;
+			margin-right: 8px;
+			cursor: pointer;
+			transition: .04s;
+		}
+		.tagList-item:hover{
+			// transform: scale(1.02);
+			box-shadow:rgba(0, 0, 0, 0.1) 0px -50px 36px -28px inset;
+		}
+		.tagList-item:active{
+			transform: scale(1.15);
+		}
+		.tagList-itemActive{
+			background: #4060F6;
+			color:#fff;
+		}
+		.tagList-itemActive2{
+			background: #4099F0;
+			color:#fff;
+		}
+	}
+	.tagList::-webkit-scrollbar {
+	    // width: 4px;
+		height:8px;
+	}
+	.tagList::-webkit-scrollbar-thumb {
+	    border-radius: 10px;
+	    background: rgba(0,0,0,0.2);
+	}
+	/* 滚动条滑块在 hover 状态下的样式 */
+	.tagList::-webkit-scrollbar-thumb:hover {
+		background: rgba(0,0,0,0.4);
+		/* 更深的灰色 */
+	}
+	.tagList::-webkit-scrollbar-track {
+	    border-radius: 10px;
+	    background: rgba(0,0,0,0.1);
+	}
+	.details{
+		border-radius: 8px;
+		border: 1px solid #ccc;
+		padding:8px 12px;
+		min-height:100px;
+		display:flex;
+		align-items:center;
+		margin-bottom: 12px;
+		.title {
+			font-weight: bold;
+			font-size: 16px;
+			color: #000;
+			max-width: 400px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.ellip{
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			max-width: 140px;
+			display: flex;
+			align-items: center;
+		}
+		.subTitle{
+			font-size:14px;
+			color:#666;
+		}
+		.imgPlay{
+			display: block;
+			position: absolute;
+			left:50%;top:50%;
+			transform: translate(-50%,-50%);
+			width:24px;
+			height:24px;
+		}
+	}
+	.linkIcon {
+		display: flex;
+		align-items: center;
+		width: 32px;
+		height: 32px;
+		cursor: pointer;
+		justify-content: center;
+	}
+	.icon {
+		margin-right: 4px;
+		width: 16px;
+		height: 16px;
+	}
+	
+}
+.play{
+		position: fixed;
+		right:80px;
+		bottom:30px;
+	}
+	.hide{
+		display: none;
+	}

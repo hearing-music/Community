@@ -82,6 +82,7 @@ import { UiStoreComponent } from './uiStore/uiStore.component';
 import { MultiModalLearningComponent } from "./multiModalLearning/multiModalLearning.component";
 import { SearchMvComponent } from "./cut-video/search-mv/search-mv.component";
 import { MonitoringMvComponent } from "./cut-video/monitoring-mv/monitoring-mv.component";
+import { QishuiHotSearchComponent } from "./qishui/qishuiHotSearch/qishuiHotSearch.component";
 const routes : Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -182,6 +183,12 @@ const routes : Routes = [{
 		// 	component: DouyinHotComponent,
 		// 	canActivate: [PermissionGuard]
 		// },
+		// 汽水热搜
+		{
+			path: "qishui/qishuiHotSearch",
+			component: QishuiHotSearchComponent,
+			canActivate: [PermissionGuard],
+		},
 		//抖音热门账号
 		{
 			path: "douyin/douyin-popular-accounts",

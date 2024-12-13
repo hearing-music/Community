@@ -21,6 +21,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
   currentPage = 1; // 当前页码
   pageSize = 30; // 每页大小
   DyChallengeList: any = [];
+  ComprehensiveRankingList:any=[];
   DyVedioTopFiveTime: any = 300;
   DyVedioTopFiveSchedule: any = null;
   hasMore: any = true;
@@ -50,6 +51,9 @@ export class MultiModalLearningComputedComponent implements OnInit {
     this.socket.onmessage = (event) => {
       let result: any = JSON.parse(event.data);
       console.log(result.data);
+	  if(!result.success){
+		  this.toast.info(result.message)
+	  }
       if (result.message == "抖音该词条前五的数据") {
         if (result.data.length > 0) {
           let obg = {
@@ -119,7 +123,9 @@ export class MultiModalLearningComputedComponent implements OnInit {
           result.data = this.sortByKeyword(result.data, this.keyword);
           this.DyChallengeList = result.data;
         }
-      }
+      }else if (result.message == "综合榜单") {
+        this.ComprehensiveRankingList = result.data;
+      }
     };
     // 监听连接关闭事件
     this.socket.onclose = (event) => {
@@ -562,6 +568,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
     this.ThreePartyInterface = [];
     this.MassiveArithmeticDaRen = [];
     this.MassiveArithmeticVedio = [];
+	this.ComprehensiveRankingList=[];
     this.DyChallengeList = [];
     this.DyVedioTopFive = [];
     this.DyVedioTopFiveTime = 300;
@@ -575,6 +582,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
         ["TrendinsightSearch", this.keyword],
         ["ItemQueryVideo", this.keyword],
         ["ChallengeList", ""],
+		["ComprehensiveList",this.keyword],
       ],
     });
     this.loadingSpin = false;
@@ -729,16 +737,24 @@ export class MultiModalLearningComputedComponent implements OnInit {
     }
   }
   getHourTime() {
-    let hourTime: any = new Date().getHours();
+	  // 减2小时
+	  let newDate:any = new Date().getTime();
+	  newDate = newDate - 2 * 60 * 60*1000;
+    let hourTime: any = new Date(newDate).getHours();
     if (hourTime < 10) hourTime = "0" + hourTime;
     this.HourTime = hourTime + ":00";
   }
   getMinuteTime() {
-    let hourTime: any = new Date().getHours();
+	  // 减五分钟
+	let newDate:any = new Date().getTime();
+	newDate = newDate - 5 * 60*1000;
+	
+	let hourTime: any = new Date(newDate).getHours();
+	let minuteTime: any = new Date(newDate).getMinutes();
     if (hourTime < 10) hourTime = "0" + hourTime;
-    let minuteTime: any = new Date().getMinutes();
     minuteTime = minuteTime - (minuteTime % 5);
     if (minuteTime < 10) minuteTime = "0" + minuteTime;
+	
     this.MinuteTime = hourTime + ":" + minuteTime;
   }
 

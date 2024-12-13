@@ -1,0 +1,16 @@
+<div class="box">
+	<div *ngFor='let item of lyricData;let i = index;'>
+		<div *ngIf='i!=lyricData.length-1&&playSongTime>=item.o&&playSongTime<=(lyricData[i+1].o)' class="text">
+			<p *ngFor='let ws of item.ws;let i = index;'
+			[ngStyle]='{"background-image":"-webkit-linear-gradient(top, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%), -webkit-linear-gradient(left, #f00 "+((playSongTime-(ws.o+item.o))/ws.d*100)+"%, #00f 0%)"}'>
+				{{ws.w}}
+			</p>
+		</div>
+		<div *ngIf='i==lyricData.length-1&&playSongTime>=item.o&&playSongTime<=(item.o+item.d)' class="text">
+			<p *ngFor='let ws of item.ws;let i = index;'
+			[ngStyle]='{"background-image":"-webkit-linear-gradient(top, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%), -webkit-linear-gradient(left, #f00 "+((playSongTime-(ws.o+item.o))/ws.d*100)+"%, #00f 0%)"}'>
+				{{ws.w}}
+			</p>
+		</div>
+	</div>
+</div>

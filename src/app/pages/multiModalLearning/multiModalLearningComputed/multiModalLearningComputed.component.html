@@ -247,6 +247,8 @@
 				<ngx-dyVedioTopFive [DyVedioTopFiveTime]='DyVedioTopFiveTime' [DyVedioTopFive]='DyVedioTopFive'></ngx-dyVedioTopFive>
 				<!-- 抖音挑战榜 -->
 				<ngx-dyChallenge [DyChallengeList]='DyChallengeList'></ngx-dyChallenge>
+				<!-- 综合榜单 -->
+				<ngx-comprehensiveRanking *ngIf='ComprehensiveRankingList.length>0' [ComprehensiveRankingList]="ComprehensiveRankingList"></ngx-comprehensiveRanking>
 			</div>
 
 		</div>

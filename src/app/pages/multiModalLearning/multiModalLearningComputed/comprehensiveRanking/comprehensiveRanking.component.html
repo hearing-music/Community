@@ -1,0 +1,98 @@
+<div *ngIf="ComprehensiveRankingList[0][1].length > 0 || ComprehensiveRankingList[1][1].length > 0||ComprehensiveRankingList[2][1].length > 0" class="item_list" style="margin-left: 20px">
+  <div style="font-size: 16px; margin-bottom: 8px">综合榜单</div>
+  <div *ngFor="let item of ComprehensiveRankingList">
+    <div *ngIf="item[0] == '全站音乐榜单'&&item[1].length>0">
+      <div style="font-size: 14px;margin-bottom: 4px;">
+        全站音乐榜单
+      </div>
+      <div *ngFor="let items of item[1]" style="display: flex;margin-left: 6px;">
+        <div style="display: flex;align-items: center;">
+          <img [src]="items.mv_cover" alt="" style="width: 30px;height: 30px;object-fit: cover;border-radius: 50%;">
+        </div>
+        <div style="margin-left: 4px;">
+          <div (click)="OpenLink(items.music_url)" nz-tooltip [nzTooltipTitle]="items.music_title" style="font-size: 14px;cursor: pointer;;font-weight: bold;color: #000;max-width: 200px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;">
+            {{items.music_title}}
+          </div>
+          <div style="font-size: 12px;color: #ccc;display: flex;align-items: center;">
+            <div nz-tooltip [nzTooltipTitle]="items.singer" style="color: #000;max-width: 100px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;">{{items.singer}}</div>
+            <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+            <div nz-tooltip [nzTooltipTitle]="items.album" style="color: #000;max-width: 100px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;">{{items.album}}</div>
+            <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+            <img src="/assets/multiModalLearning/hot.png" alt="" style="width: 14px;height: 14px;">
+            <div nz-tooltip nzTooltipTitle="热度" style="color: #000;max-width: 100px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;">{{common.toThousands(items.heat)}}</div>
+          </div>
+        </div>
+        <div style="margin-left: 25px;color: #000;">
+          <div *ngFor="let itemss of items.achievements">
+            {{itemss}}
+          </div>
+        </div>
+        <div style="margin-left: 15px;display: flex;align-items: center;color: #000;" nz-tooltip nzTooltipTitle="所在期数时间">
+          {{common.getTime(items.ReleaseTime)}}
+        </div>
+      </div>
+      <div *ngFor="let items of item[1]" style="display: flex;margin-left: 20px;margin-top: 10px;">
+        <div style="display: flex;align-items: center;">
+          <img [src]="items.creation_cover" alt="" style="height: 30px;object-fit: cover;border-radius: 4px;">
+        </div>
+        <div style="margin-left: 10px;">
+          <div (click)="OpenLink(items.video_url)" nz-tooltip [nzTooltipTitle]="items.creation_title" style="font-size: 14px;cursor: pointer;;font-weight: bold;color: #000;max-width: 200px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;">
+            {{items.creation_title}}
+          </div>
+          <div style="font-size: 12px;color: #ccc;display: flex;align-items: center;">
+            <div (click)="OpenLink('https://space.bilibili.com/'+items.creation_up)" nz-tooltip [nzTooltipTitle]="items.creation_nickname" style="color: #000;max-width: 100px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;">{{items.creation_nickname}}</div>
+            <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+            <img src="/assets/multiModalLearning/play.png" alt="" style="width: 14px;height: 14px;">
+            <div nz-tooltip nzTooltipTitle="播放量" style="color: #000;max-width: 100px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;">{{common.toThousands(items.creation_play)}}</div>
+          </div>
+        </div>
+        <div style="margin-left: 15px;display: flex;align-items: center;color: #000;">
+          {{items.creation_reason}}
+        </div>
+      </div>
+    </div>
+    <div *ngIf="item[0] != '全站音乐榜单'&&item[1].length>0" style="margin-top: 4px;">
+      <div style="font-size: 14px;margin-bottom: 4px;">
+        {{item[0]}}
+      </div>
+      <div *ngFor="let items of item[1]" style="display: flex;margin-left: 6px;">
+        <div style="display: flex;align-items: center;">
+          <img [src]="items.albumImgs[0].img" alt="" style="width: 30px;height: 30px;object-fit: cover;border-radius: 50%;">
+        </div>
+        <div style="margin-left: 4px;">
+          <div (click)="OpenLink(items.music_url)" nz-tooltip [nzTooltipTitle]="items.songName" style="cursor: pointer;font-size: 14px;font-weight: bold;color: #000;max-width: 200px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;">
+            {{items.songName}}
+          </div>
+          <div style="font-size: 12px;color: #ccc;display: flex;align-items: center;color: #000;">
+            <div nz-tooltip [nzTooltipTitle]="items.singer" style="max-width: 100px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;cursor: pointer;" (click)="OpenLink(items.singer_url)">{{items.singer}}</div>
+            <span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+            <div nz-tooltip [nzTooltipTitle]="items.album" style="max-width: 100px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;cursor: pointer;" (click)="OpenLink(items.album_url)">{{items.album}}</div>
+          </div>
+        </div>
+        <div style="font-size: 12px;color: #ccc;margin-left: 10px;">
+          <div nz-tooltip nzTooltipTitle="播放量" style="display: flex;align-items: center;color: #000;">
+            <img src="/assets/multiModalLearning/Share.png" alt="" style="width: 14px;height: 14px;">
+            {{common.toThousands(items.playNum)}}
+          </div>
+          <div nz-tooltip nzTooltipTitle="播放量" style="display: flex;align-items: center;color: #000;">
+            <img src="/assets/multiModalLearning/play.png" alt="" style="width: 14px;height: 14px;">
+            {{common.toThousands(items.keepNum)}}
+          </div>
+        </div>
+        <div style="font-size: 12px;color: #ccc;margin-left: 10px;color: #000;">
+          <div nz-tooltip nzTooltipTitle="评论量" style="display: flex;align-items: center;">
+            <img src="/assets/multiModalLearning/Comment.png" alt="" style="width: 14px;height: 14px;">
+            {{common.toThousands(items.commentNum)}}
+          </div>
+          <div nz-tooltip nzTooltipTitle="分享量" style="display: flex;align-items: center;color: #000;">
+            <img src="/assets/multiModalLearning/Share.png" alt="" style="width: 14px;height: 14px;">
+            {{common.toThousands(items.shareNum)}}
+          </div>
+        </div>
+        <div style="margin-left: 15px;display: flex;align-items: center;color: #000;" nz-tooltip nzTooltipTitle="所在期数时间">
+          {{common.getTimeStr(items.ReleaseTime)}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

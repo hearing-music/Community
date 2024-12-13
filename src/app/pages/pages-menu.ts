@@ -128,6 +128,35 @@ export let MENU_ITEMS : NbMenuItem[] = [
 		],
 	},
 	{
+		title: '汽水音乐',
+		icon: {
+			icon: 'soda',
+			pack: 'my-icons',
+		},
+		children:[
+			{
+				title:"汽水热搜",
+				link:"/pages/qishui/qishuiHotSearch"
+			}
+		]
+	},
+	{
+		title: '铃声多多',
+		icon: {
+			icon: 'lsdd_icon',
+			pack: 'my-icons',
+		},
+		link: '/pages/lsdd-page',
+	},
+	{
+		title: '预估计算器',
+		icon: {
+			icon: 'multiModalLearning',
+			pack: 'my-icons'
+		},
+		link: '/pages/multiModalLearning'
+	},
+	{
 		title: '剪辑',
 		icon: {
 			icon: 'cutVideo',
@@ -143,14 +172,6 @@ export let MENU_ITEMS : NbMenuItem[] = [
 				link: "/pages/cut-video/monitoring-mv",
 			},
 		],
-	},
-	{
-		title: '预估计算器',
-		icon: {
-			icon: 'multiModalLearning',
-			pack: 'my-icons'
-		},
-		link: '/pages/multiModalLearning'
 	},
 	{
 		title: '找灵感',
@@ -279,14 +300,6 @@ export let MENU_ITEMS : NbMenuItem[] = [
 			pack: 'my-icons',
 		},
 		link: '/pages/jianying',
-	},
-	{
-		title: '铃声多多',
-		icon: {
-			icon: 'lsdd_icon',
-			pack: 'my-icons',
-		},
-		link: '/pages/lsdd-page',
 	},
 	{
 		title: '监测歌曲',

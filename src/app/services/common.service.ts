@@ -309,6 +309,27 @@ export class CommonService {
 		var mytime = ' ' + hour + ':' + minutes
 		return mydate + mytime
 	}
+	getTimeStr(date : string) {
+		var time = new Date(date);
+		var year = time.getFullYear()  //年
+		var month = ("0" + (time.getMonth() + 1)).slice(-2); //月
+		var day = ("0" + time.getDate()).slice(-2); //日
+		var mydate = year + "-" + month + "-" + day + '';
+		var hour : any = time.getHours() //时
+		var minutes : any = time.getMinutes() //分
+		var seconds : any = time.getSeconds() //秒
+		if (hour < 10) {
+			hour = '0' + hour
+		}
+		if (minutes < 10) {
+			minutes = '0' + minutes
+		}
+		if (seconds < 10) {
+			seconds = '0' + seconds
+		}
+		var mytime = ' ' + hour + ':' + minutes
+		return mydate + mytime
+	}
 	// 多久之前
 	timeFrom(timestamp = null, format : any = 'yyyy-mm-dd') {
 		if (timestamp == null) timestamp = Number(new Date())

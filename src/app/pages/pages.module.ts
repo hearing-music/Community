@@ -199,10 +199,13 @@ import { MultiModalLearningShowComponent } from "./multiModalLearning/multiModal
 import { MultiModalLearningComputedComponent } from "./multiModalLearning/multiModalLearningComputed/multiModalLearningComputed.component";
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { DouyinComprehensiveSearchComponent } from "./douyin/douyin-comprehensiveSearch/douyin-comprehensiveSearch.component";
+import { QishuiHotSearchComponent } from "./qishui/qishuiHotSearch/qishuiHotSearch.component";
 import { SearchMvComponent } from "./cut-video/search-mv/search-mv.component";
 import { MonitoringMvComponent } from "./cut-video/monitoring-mv/monitoring-mv.component";
 import { MvQqComponent } from "./cut-video/search-mv/mv-qq/mv-qq.component";
 import { MvKgComponent } from "./cut-video/search-mv/mv-kg/mv-kg.component";
+import { LsddKeywordComponent } from "./lsdd-page/lsdd-hotKeyword/lsdd-hotKeyword.component";
+import {KaraokeSubTitleComponent} from '../components/karaokeSubTitle/karaokeSubTitle.component'
 
 import {QqkgInfoComponent} from './multiModalLearning/multiModalLearningComputed/qqkgInfo/qqkgInfo.component';
 import {QqkgRankComponent} from './multiModalLearning/multiModalLearningComputed/qqkgRank/qqkgRank.component';
@@ -213,6 +216,7 @@ import {DyVedioTopFiveComponent} from './multiModalLearning/multiModalLearningCo
 import {DyChallengeComponent} from './multiModalLearning/multiModalLearningComputed/dyChallenge/dyChallenge.component';
 import {JlBigVComponent} from './multiModalLearning/multiModalLearningComputed/jlBigV/jlBigV.component';
 import {JlVideoComponent} from './multiModalLearning/multiModalLearningComputed/jlVideo/jlVideo.component';
+import{ComprehensiveRankingComponent} from './multiModalLearning/multiModalLearningComputed/comprehensiveRanking/comprehensiveRanking.component'
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -265,6 +269,7 @@ registerLocaleData(zh);
 	declarations: [
 		
 		HighlightBracketsPipe,
+		KaraokeSubTitleComponent,
 		SearchMvComponent,
 		QqkgInfoComponent,
 		QqkgRankComponent,
@@ -272,8 +277,10 @@ registerLocaleData(zh);
 		KgSearchReferralComponent,
 		KgSoaringComponent,
 		DyVedioTopFiveComponent,
+		ComprehensiveRankingComponent,
 		DyChallengeComponent,
 		JlBigVComponent,
+		LsddKeywordComponent,
 		JlVideoComponent,
 		MvQqComponent,
 		MvKgComponent,
@@ -282,6 +289,7 @@ registerLocaleData(zh);
 		MultiModalLearningComputedComponent,
 		CodonceComponent,
 		DouyinComprehensiveSearchComponent,
+		QishuiHotSearchComponent,
 		MultiModalLearningComponent,
 		UiStoreComponent,
 		VideoPlayerComponent,

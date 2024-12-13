@@ -1,0 +1,145 @@
+<div class="douyin">
+	<div style="display: flex;justify-content: space-between;align-items: center;">
+		<div class="tagList" *ngIf='list.length>0'>
+			<div *ngFor="let item of list;let i = index" (click)="onSelect(item,i)" class="tagList-item"
+				[ngClass]="{ 'tagList-itemActive': i == selectIndex }">
+				{{ item[0] }}
+			</div>
+		</div>
+	</div>
+	<nz-empty *ngIf="list.length==0" style="margin-top: 160px;"></nz-empty>
+	<div *ngIf="list.length>0">
+		<div *ngIf='list[selectIndex].length>=3'>
+			<div *ngFor='let item of list[selectIndex][1];let i = index;' style="margin-bottom: 16px;">
+				<div style="display: flex;align-items: center;">
+					<div style="margin-right: 8px;color:red;">
+						{{i+1}}
+					</div>
+					<div>
+						{{item.keyword}}
+					</div>
+					<div *ngIf='item.tags'>
+						<div *ngFor='let tag of item.tags;'
+							[ngStyle]='{"margin-left":"4px","color":tag.title_color,"background-color":tag.background_color,"border-radius":"4px","padding":"0 4px","font-size":"12px"}'>
+							{{tag.title}}
+						</div>
+					</div>
+					<div *ngIf='item.details' style="margin-left: 4px;font-size: 12px;color:#ccc;">
+						详情见如下
+					</div>
+				</div>
+				<div *ngIf='item.details' class='details'>
+					<div style='position:relative;width: 56px;cursor: pointer;' (click)='playMusic(item.details,i)'>
+						<img [src]="item.details.img" style="width: 56px;height: 56px;border-radius: 4px;" />
+						<img *ngIf='!item.details.isPlay' src="/assets/img/PLAY-blue.svg" class='imgPlay'>
+						<img *ngIf='item.details.isPlay' src="/assets/img/PAUSE-blue.svg" class='imgPlay'>
+					</div>
+					<div style="margin-left: 12px;width: 70%;">
+						<div style='display: flex;align-items: center;'>
+							<div nz-tooltip [nzTooltipTitle]="item.details.name" class="title">
+								{{item.details.name}}
+							</div>
+							<img src="/assets/img/yuanchang.svg" class="icon" style='margin-left: 4px;'
+								*ngIf='item.details.is_original' />
+							<button nz-button nzShape="circle" nzType="text" (click)="openLink(item.details.songsUrl)"
+								class="linkIcon" style="margin-left: 10px;">
+								<span nz-icon nzType="select" nzTheme="outline" style="color:blue;font-size: 14px;"></span>
+							</button>
+						</div>
+						<div style='display: flex;align-items: center;margin-top: 4px;' class="subTitle">
+							<div nz-tooltip nzTooltipTitle="发行时间">
+								⏰<span style="color: #000;">{{common.getDate(item.details.release_date*1000)}}</span>
+							</div>
+							<div style="margin:0 8px;cursor: pointer;" nz-tooltip nzTooltipTitle="专辑" (click)='openLink("https://music.douyin.com/qishui/share/album?share_platform=link&album_id="+item.details.album_id)'>
+								💿<span style="color: #000;">{{item.details.album_name}}</span>
+							</div>
+							<div nz-tooltip nzTooltipTitle="风格">
+								🎸<span style="color: #000;">{{item.details.genre_tag}}</span>
+							</div>
+						</div>
+						<div style='display: flex;align-items: center;margin-top: 8px;text-wrap: nowrap;' class="subTitle">
+							<div style="max-width: 340px;" class="ellip" nz-tooltip
+								[nzTooltipTitle]="item.details.singerNames">
+								<div>唱：</div>
+								<div *ngFor='let singer of item.details.singer;let si = index;'
+									style='display: flex;align-items: center;color: #000; cursor: pointer;'
+									(click)="openLink(singer.url)">
+									<img [src]="singer.img"
+										style="width: 24px;height:24px;border-radius: 50%;margin-right: 4px;" />
+									<span>
+										{{si==item.details.singer.length-1?singer.name:(singer.name+",")}}
+									</span>
+								</div>
+							</div>
+							<div style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip
+								[nzTooltipTitle]="item.details.composerNames">
+								<div>曲：</div>
+								<div *ngIf='item.details.songTeam.composers.length==0'>[ 暂无 ]</div>
+								<div class="ellip">
+									<span *ngFor='let composer of item.details.songTeam.composers;let ci = index;'
+										style="color: #000;">
+										{{ci==item.details.songTeam.composers.length-1?composer.name:(composer.name+",")}}
+									</span>
+								</div>
+							</div>
+							<div style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip
+								[nzTooltipTitle]="item.details.lyricistNames">
+								<div>词：</div>
+								<div *ngIf='item.details.songTeam.lyricists.length==0'>[ 暂无 ]</div>
+								<div class="ellip">
+									<span *ngFor='let lyricist of item.details.songTeam.lyricists;let li = index;'
+										style="color: #000;">
+										{{li==item.details.songTeam.lyricists.length-1?lyricist.name:(lyricist.name+",")}}
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style='flex:1;'>
+						<div style="display: flex;align-items: center;">
+							<div style="display: flex;align-items: center;">
+								<img src="/assets/img/shoucang.svg" class="icon" />
+								<div>
+									{{common.toThousands(item.details.preview.count_collected)}}
+								</div>
+							</div>
+							<div style="display: flex;align-items: center;margin: 0 8px;">
+								<img src="/assets/img/pinglun.svg" class="icon" />
+								<div>
+									{{common.toThousands(item.details.preview.count_comment)}}
+								</div>
+							</div>
+							<div style="display: flex;align-items: center;">
+								<img src="/assets/img/fenxiang.svg" class="icon" />
+								<div>
+									{{common.toThousands(item.details.preview.count_shared)}}
+								</div>
+							</div>
+						</div>
+						<div style="margin-top: 8px;display: flex;align-items: center;"
+							class="subTitle">
+							<div>
+								是否vip下载{{item.details.only_vip_download?"✅":"❎"}}
+							</div>
+							<div style="margin-left: 18px;">
+								是否vip收听{{item.details.only_vip_playable?"✅":"❎"}}
+							</div>
+						</div>
+					</div>
+					<!-- <div *ngFor='let canplay of item.details.quality_only_vip_can_play;'>
+							{{canplay}}
+						</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+	<!-- 播放器 -->
+	<div class="play" [ngClass]="{hide : !isPlay}">
+		<audio id='audio' controls [src]="audioSrc" (error)="audioError()" (play)='play($event)' (pause)='pause()'
+			(timeupdate)="timeupdate($event)">
+		</audio>
+	</div>
+	<!-- 歌词字母 -->
+	<ngx-karaokeSubTitle [data]='lyricData' [playSongTime]='playSongTime'></ngx-karaokeSubTitle>
+</div>

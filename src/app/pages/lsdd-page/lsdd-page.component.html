@@ -14,7 +14,8 @@
 	</div>
 	<!-- 数据 -->
 	<div class="home-main">
-		<ngx-template [list]="list"></ngx-template>
+		<ngx-template [list]="list" *ngIf='selectItem !="热搜词"&&list.length>0'></ngx-template>
+    <ngx-lsdd-hotKeyword [list]="keyWordRes" *ngIf='selectItem =="热搜词"&&keyWordRes.hot.length>0'></ngx-lsdd-hotKeyword>
 	</div>
 	<!-- 分页 -->
 	<div style="display: flex;justify-content: center;">

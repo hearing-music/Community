@@ -1,0 +1,56 @@
+<div class="list" *ngIf="list.hot.length != 0">
+	<div style="width: 40%;">
+		<div>
+			铃声多多热词上升
+		</div>
+		<div style="display: flex; flex-wrap: wrap; gap: 10px;margin-top: 10px;">
+			<div *ngFor="let item of list.trend; let i = index"
+				style="width: calc(50% - 10px); margin-bottom: 10px; display: flex;">
+				<div>
+					<div style="display: flex;align-items: center;justify-content: center;font-size: 16px; font-weight: bold; width: 35px;color: #ccc;">
+						{{item.sort + 1}}
+					</div>
+					<div *ngIf="item.trend"
+						style="font-size: 13px;display: flex;align-items: center;justify-content: center; width: 35px;">
+						<span class="up" *ngIf="item.trend>0">{{ item.trend }}</span>
+						<span *ngIf='item.trend>0' nz-icon nzType="arrow-up" nzTheme="outline"
+							style="color:red;"></span>
+					</div>
+				</div>
+				<div style="margin-left: 10px;">
+					{{item.txt}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div style="width: 1px;background-color: #ccc;"></div>
+	<div style="width: 40%;">
+		<div>
+			铃声多多热搜词
+		</div>
+		<div style="display: flex; flex-wrap: wrap; gap: 10px;margin-top: 10px;">
+			<div *ngFor="let item of list.hot; let i = index"
+				style="width: calc(50% - 10px); margin-bottom: 10px; display: flex;">
+				<div>
+					<div
+						style="display: flex;align-items: center;justify-content: center;font-size: 16px; font-weight: bold; width: 35px;color: #ccc;">
+						{{ i + 1 }}
+					</div>
+					<div *ngIf="item.trend"
+						style="font-size: 13px;display: flex;align-items: center;justify-content: center; width: 35px;">
+						<span class="isnew" *ngIf="item.trend == 'new'">{{ item.trend }}</span>
+						<span class="up" *ngIf="item.trend>0">{{ item.trend }}</span>
+						<span class="down" *ngIf="item.trend<0">{{ item.trend.replace("-","") }}</span>
+						<span *ngIf='item.trend<0' nz-icon nzType="arrow-down" nzTheme="outline"
+							style="color:rgb(0, 204, 255);"></span>
+						<span *ngIf='item.trend>0' nz-icon nzType="arrow-up" nzTheme="outline"
+							style="color:red;"></span>
+					</div>
+				</div>
+				<div style="margin-left: 10px;">
+					{{item.txt}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

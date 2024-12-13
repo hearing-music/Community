@@ -1,0 +1,18 @@
+.list {
+  padding: 12px;
+  padding-top: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.isnew {
+  color: rgb(26, 185, 26);
+}
+
+.down {
+  color: rgb(0, 204, 255);
+}
+.up {
+  color: red;
+}

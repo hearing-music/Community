@@ -14,6 +14,7 @@ export class ApiService {
 	constructor(private http : HttpClient) {
 
 	}
+	
 	async fetchFile(fileUrl : string) {
 		// 使用fetch获取文件
 		const response = await fetch(this.downloadUrl + fileUrl);
@@ -25,6 +26,20 @@ export class ApiService {
 		const blob = await response.blob();
 		return blob;
 	}
+	
+	  //铃声多多热搜榜
+	  lsdd_gethotkeyword() {
+	    return this.http.get(this.baseUrl + "/lsdd/lsdd_gethotkeyword")
+	  }
+	// 汽水歌曲详情
+	HotSearchRecommendedAdditional(data:any){
+		return this.http.post(this.baseUrl + '/qishui/HotSearchRecommendedAdditional',data)
+	}
+	// 汽水热搜
+	HotSearchRecommended(){
+		return this.http.post(this.baseUrl + '/qishui/HotSearchRecommended',{})
+	}
+	
 	// 剪辑 搜索mv
 	MvInfoUrlProxyQQ(data:any){
 		return this.http.post(this.baseUrl + '/qq/MvInfoUrlProxy',data)
