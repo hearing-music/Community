@@ -57,7 +57,7 @@
 							white-space: nowrap;
 							text-overflow: ellipsis;">
 									<div *ngFor="let s of item.Singer;let si = index;" style="cursor: pointer;">
-										{{common.deleteEM(s.author_name)}}{{si==item.Singer.length-1?'':'、'}}
+										{{common.deleteEM(s.author_name || s.name)}}{{si==item.Singer.length-1?'':'、'}}
 									</div>
 								</div>
 							</span>

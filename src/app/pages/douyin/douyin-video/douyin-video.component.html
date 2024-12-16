@@ -435,6 +435,14 @@
 					<div *ngIf='!result.sentence_id' style='color:#ccc;margin-left: 16px;'>
 						暂无热点
 					</div>
+					
+					<div *ngIf='!result.recognizeMusicLoading' style="cursor: pointer; color: blue; margin-left: 16px" (click)="recognizeMusic(result)">
+						听歌识曲&版权搜索
+					</div>
+					
+					<div *ngIf="result.recognizeMusicLoading" style="margin-left: 16px">
+						请求成功后在右上角小铃铛展示
+					</div>
 				</div>
 			</div>
 			<!-- 作者趋势 -->

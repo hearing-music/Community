@@ -715,4 +715,14 @@ export class DouyinVideoComponent implements OnInit {
 			item.loadingFinished = true;
 		})
 	}
+	recognizeMusic(item : any) {
+		item.recognizeMusicLoading = true;
+		this.api.recognizeMusic(item).subscribe((res : any) => {
+			if (!res.success) {
+				item.recognizeMusicLoading = false;
+			}
+		}, (err : any) => {
+			item.recognizeMusicLoading = false;
+		});
+	}
 }

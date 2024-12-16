@@ -1,130 +1,308 @@
 <div class="header-container">
-  <div class="logo-container">
-    <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
-      <nb-icon icon="menu-2-outline"></nb-icon>
-    </a>
-    <a class="logo" href="#" (click)="navigateHome()"><span>听见音乐</span></a>
-  </div>
-  <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
-    <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
-  </nb-select>
+	<div class="logo-container">
+		<a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
+			<nb-icon icon="menu-2-outline"></nb-icon>
+		</a>
+		<a class="logo" href="#" (click)="navigateHome()"><span>听见音乐</span></a>
+	</div>
+	<nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
+		<nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
+	</nb-select>
 </div>
 <ngx-header-menu></ngx-header-menu>
 <div class="header-container">
-  <nb-actions size="small">
-   <!-- <nb-action class="control-item">
+	<nb-actions size="small">
+		<!-- <nb-action class="control-item">
       <nb-search type="rotate-layout"></nb-search>
     </nb-action> -->
-    <nb-action class="control-item" icon="expand-outline" (click)='toggleFullscreen()'></nb-action>
-	<nb-action class="control-item" icon="bell-outline"></nb-action>
-    <!-- <nb-action class="control-item" icon="email-outline"></nb-action> -->
-    <nb-action class="control-item" icon="list-outline" (click)='visible=true'></nb-action>
-<!--  <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
+		<nb-action class="control-item" icon="expand-outline" (click)='toggleFullscreen()'></nb-action>
+
+		<nb-action *ngIf='recognizeMusicList.length>0' class="control-item" icon="bell-outline" nz-dropdown
+			nzTrigger="click" [nzDropdownMenu]="menu" [badgeText]="recognizeMusicList.length"
+			badgePosition="bottom right" badgeStatus="danger">
+			<nz-dropdown-menu #menu="nzDropdownMenu">
+				<ul nz-menu style='max-height:300px;padding:10px 0;overflow-y: auto;'>
+					<li nz-menu-item *ngFor='let item of recognizeMusicList;' (click)='openRecognizeDetail(item)' style='padding:10px 0;'>
+						{{item.oriData.title}}
+					</li>
+				</ul>
+			</nz-dropdown-menu>
+		</nb-action>
+		<nb-action class="control-item" icon="bell-outline" *ngIf='recognizeMusicList.length==0'></nb-action>
+
+		<!-- <nb-action class="control-item" icon="email-outline"></nb-action> -->
+		<nb-action class="control-item" icon="list-outline" (click)='visible=true'></nb-action>
+		<!--  <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
       <nb-user [nbContextMenu]="userMenu"
                [onlyPicture]="userPictureOnly"
                [name]="user?.name"
                [picture]="user?.picture">
       </nb-user>
     </nb-action> -->
-	<nb-action class="user-action" *nbIsGranted="['view', 'user']" >
-		<a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" style="display: flex;">
-	     <div style="display: flex;align-items: center;">
-	     	<img [src]="user.picture" style="width: 40px;height: 40px;border-radius: 50%;">
-	     	<div style="font-size: 14px; font-weight: normal;margin-left: 6px;width: 60px;overflow: hidden;">
-	     		{{user.name}}
-	     	</div>
-	     </div>
-	      <span nz-icon nzType="down"></span>
-	    </a>
-	    <nz-dropdown-menu #menu="nzDropdownMenu">
-	      <ul nz-menu>
-	        <li nz-menu-item (click)='logOut()'>{{userMenu[0].title}}</li>
-	        <li nz-menu-item >{{'DY：'+ks_monitoring_limitNow+'/'+ks_monitoring_limit}}</li>
-	        <li nz-menu-item (click)='showCookie()'>cookie</li>
-	      </ul>
-	    </nz-dropdown-menu>
-	</nb-action>
-  </nb-actions>
-  <nz-drawer
-		[nzClosable]='false'
-        [nzVisible]="visible"
-		(nzOnClose)='visible=false'
-		[nzWidth]='400'
-      >
-        <ng-container *nzDrawerContent>
-          <nz-tabset nzCentered >
-			  			 
-			  <nz-tab [nzTitle]="tab.label" *ngFor='let tab of tabs;'>
-			      <div *ngFor='let msg of tab.messages;' class="d-flex align-items-center gap-16 p-16 m-b-16 b-1 r-12">
-			        <div class="d-flex align-items-center justify-content-center r-12 {{msg.color}}"
-			             [style.width.rem]="3" [style.height.rem]="3" style='flex-shrink: 0;'>{{msg.icon}}</div>
-			        <div class="flex-grow-1 w-0">
-			          <div class="f-w-600">{{msg.title}}</div>
-						<div *ngIf='msg.newAdd'>
-							<div style="font-weight: bold;display: flex;">
-								<div>
-									新增功能
+		<nb-action class="user-action" *nbIsGranted="['view', 'user']">
+			<a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" style="display: flex;">
+				<div style="display: flex;align-items: center;">
+					<img [src]="user.picture" style="width: 40px;height: 40px;border-radius: 50%;">
+					<div style="font-size: 14px; font-weight: normal;margin-left: 6px;width: 60px;overflow: hidden;">
+						{{user.name}}
+					</div>
+				</div>
+				<span nz-icon nzType="down"></span>
+			</a>
+			<nz-dropdown-menu #menu="nzDropdownMenu">
+				<ul nz-menu>
+					<li nz-menu-item (click)='logOut()'>{{userMenu[0].title}}</li>
+					<li nz-menu-item>{{'DY：'+ks_monitoring_limitNow+'/'+ks_monitoring_limit}}</li>
+					<li nz-menu-item (click)='showCookie()'>cookie</li>
+				</ul>
+			</nz-dropdown-menu>
+		</nb-action>
+	</nb-actions>
+	<nz-drawer [nzClosable]='false' [nzVisible]="visible" (nzOnClose)='visible=false' [nzWidth]='400'>
+		<ng-container *nzDrawerContent>
+			<nz-tabset nzCentered>
+
+				<nz-tab [nzTitle]="tab.label" *ngFor='let tab of tabs;'>
+					<div *ngFor='let msg of tab.messages;'
+						class="d-flex align-items-center gap-16 p-16 m-b-16 b-1 r-12">
+						<div class="d-flex align-items-center justify-content-center r-12 {{msg.color}}"
+							[style.width.rem]="3" [style.height.rem]="3" style='flex-shrink: 0;'>{{msg.icon}}</div>
+						<div class="flex-grow-1 w-0">
+							<div class="f-w-600">{{msg.title}}</div>
+							<div *ngIf='msg.newAdd'>
+								<div style="font-weight: bold;display: flex;">
+									<div>
+										新增功能
+									</div>
+									<div *ngIf='msg.newAdd.length==0' class="text-cyan-80"
+										style="margin-left: 12px;font-weight: normal;">
+										[ 暂无 ]
+									</div>
 								</div>
-								<div *ngIf='msg.newAdd.length==0' class="text-cyan-80" style="margin-left: 12px;font-weight: normal;">
-									[ 暂无 ]
+								<div *ngFor='let newadd of msg.newAdd;let i = index;'>
+									{{i+1}}.{{newadd}}
 								</div>
 							</div>
-							<div *ngFor='let newadd of msg.newAdd;let i = index;'>
-								{{i+1}}.{{newadd}}
+							<div *ngIf='msg.optimize'>
+								<div style="font-weight: bold;display: flex;">
+									<div>
+										改进及优化
+									</div>
+									<div *ngIf='msg.optimize.length==0' class="text-cyan-80"
+										style="margin-left: 12px;font-weight: normal;">
+										[ 暂无 ]
+									</div>
+								</div>
+								<div *ngFor='let opt of msg.optimize;let i = index;'>
+									{{i+1}}.{{opt}}
+								</div>
 							</div>
+							<div *ngIf='msg.bugs'>
+								<div style="font-weight: bold;display: flex;">
+									<div>
+										修复bug
+									</div>
+									<div *ngIf='msg.bugs.length==0' class="text-cyan-80"
+										style="margin-left: 12px;font-weight: normal;">
+										[ 暂无 ]
+									</div>
+								</div>
+								<div *ngFor='let bug of msg.bugs;let i = index;'>
+									{{i+1}}.{{bug}}
+								</div>
+							</div>
+							<div class="f-s-14 mat-mdc-tooltip-surfaceWrap" *ngIf='msg.content'>{{msg.content}}</div>
+							<img *ngIf='msg.img' [src]="msg.img" style="width: 200px;object-fit: cover;">
 						</div>
-						<div *ngIf='msg.optimize'>
-							<div style="font-weight: bold;display: flex;">
-								<div>
-									改进及优化
+					</div>
+				</nz-tab>
+			</nz-tabset>
+		</ng-container>
+	</nz-drawer>
+	<nz-modal [(nzVisible)]="cookieShow" nzTitle="更换cookie" [nzFooter]='null' (nzOnCancel)="handleCancel()">
+		<ng-container *nzModalContent>
+			<div>
+				<div>
+					<input nz-input placeholder="输入cookie" [(ngModel)]="cookie" />
+				</div>
+				<div style="height:20px;"></div>
+				<div style="display: flex;justify-content: space-around;">
+					<nz-select [(ngModel)]="select" (ngModelChange)='ngModelChange($event)'>
+						<nz-option nzValue="dygf" nzLabel="抖音官方"></nz-option>
+						<nz-option nzValue="dyrd" nzLabel="抖音热点"></nz-option>
+					</nz-select>
+
+					<button nz-button nzType="primary" [nzLoading]='cookieLoading' (click)='confirm()'>
+						确定
+					</button>
+				</div>
+			</div>
+		</ng-container>
+	</nz-modal>
+
+	<nz-modal [nzStyle]="{ width: '80vw' }" [(nzVisible)]="recognizeShow" [nzTitle]="recognizeData.oriData.title"
+		[nzFooter]='null' (nzOnCancel)="handleCancel2()">
+		<ng-container *nzModalContent>
+			<div>
+				<!-- 听歌识曲 -->
+				<div style="font-weight: bold;">听歌识曲</div>
+				<nz-table #basicTable [nzData]="recognizeData.data1" nzTitle='' [nzFrontPagination]='false'
+					*ngIf='recognizeData.data1'>
+					<thead>
+						<tr>
+							<th nzAlign='center'>歌曲</th>
+							<th nzAlign='center'>专辑</th>
+							<th nzAlign='center'>歌手</th>
+							<th nzAlign='center'>时长</th>
+							<th nzAlign='center'>作曲家</th>
+							<th nzAlign='center'>专辑发布时间</th>
+							<th nzAlign='center'>版权方</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of basicTable.data; let i = index">
+							<td nzAlign='center'>
+								{{item.songname}}
+							</td>
+							<td nzAlign='center'>
+								{{item.albumname}}
+							</td>
+							<td nzAlign='center'>
+								{{item.singer}}
+							</td>
+							<td nzAlign='center'>
+								<div *ngIf='item.timelength'>
+									{{common.toFixed2(item.timelength/1000) + 's'}}
 								</div>
-								<div *ngIf='msg.optimize.length==0' class="text-cyan-80" style="margin-left: 12px;font-weight: normal;">
-									[ 暂无 ]
+							</td>
+							<td nzAlign='center'>
+								{{item.verison}}
+							</td>
+							<td nzAlign='center'>
+								{{item.publish_date}}
+							</td>
+							<td nzAlign='center'>
+								{{item.copyright}}
+							</td>
+						</tr>
+					</tbody>
+				</nz-table>
+				<!-- 版权 -->
+				<div style="font-weight: bold;">版权扫描</div>
+				<nz-table #basicTable [nzData]="recognizeData.data2" nzTitle='' [nzFrontPagination]='false'
+					*ngIf='recognizeData.data2'>
+					<thead>
+						<tr>
+							<th nzAlign='center'>歌曲名</th>
+							<th nzAlign='center'>专辑名</th>
+							<th nzAlign='center'>发行公司</th>
+							<th nzAlign='center'>歌手</th>
+							<th nzAlign='center'>音乐分区</th>
+							<th nzAlign='center'>分数</th>
+							<th nzAlign='center'>歌曲时长</th>
+							<th nzAlign='center'>发行时间</th>
+							<th nzAlign='center'>Spotify</th>
+							<th nzAlign='center'>Deezer</th>
+							<th nzWidth='80px' nzAlign='center'>youtube</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of basicTable.data; let i = index">
+							<td nzAlign='center' (click)='checkReload(item)' style="cursor: pointer;">
+								<div nz-tooltip [nzTooltipTitle]="'点击刷新'" style="display: flex;align-items: center;justify-content: center;">
+									<div>
+										{{item.results.result.title}}
+									</div>
+									<span nz-icon nzType="redo" nzTheme="outline" style="color: royalblue;"
+										*ngIf='!item.isReload'></span>
 								</div>
-							</div>
-							<div *ngFor='let opt of msg.optimize;let i = index;'>
-								{{i+1}}.{{opt}}
-							</div>
-						</div>
-						<div *ngIf='msg.bugs'>
-							<div style="font-weight: bold;display: flex;">
-								<div>
-									修复bug
+							</td>
+							<td nzAlign='center'>
+								<div *ngIf='item.results.result.album'>
+									{{item.results.result.album.name}}
 								</div>
-								<div *ngIf='msg.bugs.length==0' class="text-cyan-80" style="margin-left: 12px;font-weight: normal;">
-									[ 暂无 ]
+							</td>
+							<td nzAlign='center'>
+								{{item.results.result.label}}
+
+							</td>
+							<td nzAlign='center'>
+								<div *ngIf='item.results.result.artists'>
+									{{item.results.result.artists[0].name}}
 								</div>
-							</div>
-							<div *ngFor='let bug of msg.bugs;let i = index;'>
-								{{i+1}}.{{bug}}
-							</div>
-						</div>
-			          <div class="f-s-14 mat-mdc-tooltip-surfaceWrap" *ngIf='msg.content'>{{msg.content}}</div>
-			          <img *ngIf='msg.img' [src]="msg.img" style="width: 200px;object-fit: cover;">
-			        </div>
-			      </div>
-			  </nz-tab>
-          </nz-tabset>
-        </ng-container>
-  </nz-drawer>
-  <nz-modal [(nzVisible)]="cookieShow" nzTitle="更换cookie" [nzFooter]='null' (nzOnCancel)="handleCancel()">
-       <ng-container *nzModalContent>
-		   <div>
-			   <div>
-			      <input nz-input placeholder="输入cookie" [(ngModel)]="cookie" />
-			   </div>
-			   <div style="height:20px;"></div>
-			   <div style="display: flex;justify-content: space-around;">
-			      <nz-select [(ngModel)]="select" (ngModelChange)='ngModelChange($event)'>
-			           <nz-option nzValue="dygf" nzLabel="抖音官方"></nz-option>
-			           <nz-option nzValue="dyrd" nzLabel="抖音热点"></nz-option>
-			       </nz-select>
-				   
-				   <button nz-button nzType="primary" [nzLoading]='cookieLoading' (click)='confirm()'>
-				       确定
-				   </button>
-			   </div>
-		   </div>
-	   </ng-container>
-  </nz-modal>
+							</td>
+							<td nzAlign='center'>
+								<div *ngIf='item.results.result.genres'>
+									<span *ngFor="let genres of item.results.result.genres;let genresIndex = index">
+										{{genresIndex == item.results.result.genres.length - 1?genres.name:genres.name+','}}
+									</span>
+								</div>
+							</td>
+							<td nzAlign='center'>
+								{{item.results.result.score}}
+							</td>
+							<td nzAlign='center'>
+								{{item.results.result.duration_ms?common.toFixed2(item.results.result.duration_ms/1000) + 's':''}}
+							</td>
+							<td nzAlign='center'>
+								{{item.results.result.release_date}}
+							</td>
+							<td nzAlign='center'>
+								<div *ngIf='item.results.result.external_metadata'>
+									<a *ngIf='item.results.result.external_metadata.spotify'
+										[href]="'https://open.spotify.com/track/'+item.results.result.external_metadata.spotify.track.id"
+										target="_blank">spotify</a>
+								</div>
+							</td>
+							<td nzAlign='center'>
+								<div *ngIf='item.results.result.external_metadata'>
+									<a *ngIf='item.results.result.external_metadata.deezer'
+										[href]="'https://www.deezer.com/us/track/'+ item.results.result.external_metadata.deezer.track.id"
+										target="_blank">deezer</a>
+								</div>
+							</td>
+							<td nzAlign='center'>
+								<div *ngIf='item.results.result.external_metadata'>
+									<a *ngIf='item.results.result.external_metadata.youtube'
+										[href]="'https://www.toutube.com/watch?v='+item.results.result.external_metadata.youtube.vid"
+										target="_blank">youtube</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</nz-table>
+				<div style='display:flex;align-items: center;'>
+					<!-- 播放器 -->
+					<div class="play" [ngClass]="{ hide: !isPlay }">
+						<audio id="audio" controls [src]="audioSrc" (play)="play()" (pause)="pause()"></audio>
+					</div>
+					<button *ngIf="recognizeData.oriData.isVideo" nz-button nzType="primary" style="margin-left: 20px"
+						(click)="playVideo(videoSrc, recognizeData.oriData.previewTitle)" nzGhost>
+						播放视频
+					</button>
+					<button [disabled]="true" *ngIf="!recognizeData.oriData.isVideo" nz-button nzType="primary"
+						style="margin-left: 20px" nzGhost>
+						该条是图文
+					</button>
+					<div style="margin-left: 18px">
+						<span style="color: #a09d9d">发布时间：</span>{{ common.getTime(recognizeData.oriData.createTime * 1000) }}
+					</div>
+					<!-- <div style="margin-left: 18px">
+						<span style="color: #666">声源：</span>{{ recognizeData.oriData.title }}
+					</div> -->
+					<div style="margin-left: 18px">
+						<span style="color: #a09d9d">跟拍量：</span>{{ recognizeData.oriData.user_count }}
+					</div>
+				</div>
+			</div>
+		</ng-container>
+	</nz-modal>
+	<nz-modal [(nzVisible)]="videoShow" [nzFooter]="null" (nzOnCancel)="closeVideo()" [nzClosable]="false"
+		[nzTitle]="videoTitle">
+		<ng-container *nzModalContent>
+			<div style="display: flex; justify-content: center">
+				<video [src]="videoSrc" style="width: 260px" id="v" controls></video>
+			</div>
+		</ng-container>
+	</nz-modal>
 </div>

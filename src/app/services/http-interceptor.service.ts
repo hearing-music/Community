@@ -3,140 +3,147 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor, // 拦截器
-  HttpRequest, // 请求
+	HttpEvent,
+	HttpHandler,
+	HttpInterceptor, // 拦截器
+	HttpRequest, // 请求
 } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import {CommonService} from "./common.service";
+import { CommonService } from "./common.service";
 // import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 
 export class HttpInterceptorService implements HttpInterceptor {
 
-  constructor(private toast: ToastrService,private router:Router,private common:CommonService,private notification: NzNotificationService) { }
-	close(){
+	constructor(private toast : ToastrService, private router : Router, private common : CommonService, private notification : NzNotificationService) { }
+	close() {
 		console.log(1)
 	}
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> | any {
-	let date = new Date().getTime();
-	let isTrue = true;
-    let secureReq: HttpRequest<any> = req;
-	let token = localStorage.getItem('token') || ''
-	let token_expiration_time = localStorage.getItem('token_expiration_time') || ''
-	let token_expiration_times = new Date(token_expiration_time).getTime() - 8 *60 *60*1000;
-	// console.log(req.url)
-	if(!req.url.includes('/login/login') && !req.url.includes('/login/getSms') && !req.url.includes('/kugou/getLiarUserInfo') && !req.url.includes('/qq/getLiarUserInfo')){
-		if(!token || !token_expiration_time){
-			this.toast.error('请登录')
-			isTrue = false;
+	intercept(req : HttpRequest<any>, next : HttpHandler) : Observable<HttpEvent<any>> | any {
+		let date = new Date().getTime();
+		let isTrue = true;
+		let secureReq : HttpRequest<any> = req;
+		let token = localStorage.getItem('token') || ''
+		let token_expiration_time = localStorage.getItem('token_expiration_time') || ''
+		let token_expiration_times = new Date(token_expiration_time).getTime() - 8 * 60 * 60 * 1000;
+		// console.log(req.url)
+		if (!req.url.includes('/login/login') && !req.url.includes('/login/getSms') && !req.url.includes('/kugou/getLiarUserInfo') && !req.url.includes('/qq/getLiarUserInfo')) {
+			if (!token || !token_expiration_time) {
+				this.toast.error('请登录')
+				isTrue = false;
+			}
+			if (date > token_expiration_times) {
+				this.toast.error('登录过期')
+				isTrue = false;
+			}
 		}
-		if(date>token_expiration_times){
-			this.toast.error('登录过期')
-			isTrue = false;
-		}
-	}
-    secureReq = secureReq.clone({
-      // url: environment.baseUrl + req.url,
-      url:req.url,
-		setHeaders:{
-			"Access-Control-Allow-Origin":"*",
-			"token":token
-		}
-    });
-	if(isTrue){
-		return next.handle(secureReq).pipe(
-		  tap(
-		    (response: any) => {
-		      // 处理响应的数据
-		      // console.log(response)
-			  if(response.type==0){
-				  return
-			  }
-			  // 由你录入 弹窗
-			  if(req.url.includes('/tme_map/EnteredByYou')){
-				   this.notification.blank('',`<div class="ant-notification-notice-content">
+		secureReq = secureReq.clone({
+			// url: environment.baseUrl + req.url,
+			url: req.url,
+			setHeaders: {
+				"Access-Control-Allow-Origin": "*",
+				"token": token
+			}
+		});
+		if (isTrue) {
+			return next.handle(secureReq).pipe(
+				tap(
+					(response : any) => {
+						// 处理响应的数据
+						// console.log(response)
+						if (response.type == 0) {
+							return
+						}
+						// 由你录入 弹窗
+						if (req.url.includes('/tme_map/EnteredByYou')) {
+							this.notification.blank('', `<div class="ant-notification-notice-content">
 				   	<div>
 				   		<div class="ant-notification-notice-message">提示</div>
 				   			<div class="ant-notification-notice-description">
 				   				${response.body.data}
 				   			</div>
 				   		</div>
-				   	</div>`,{nzDuration:0});
-			  }
-			  if(!response.body.success){
-					if(response.body.message){
-						if(typeof response.body.message=='object'){
-							response.body.message = JSON.stringify(response.body.message)
+				   	</div>`, { nzDuration: 0 });
 						}
-						// 这些接口不弹窗
-						if(req.url.includes(`kugou/kuGouAutoSearch`)||req.url.includes('/tme_map/EnteredByYou')){
-						
-						}else{
-							this.toast.error(response.body.message)
+						if (!response.body.success) {
+							if (response.body.message) {
+								if (typeof response.body.message == 'object') {
+									response.body.message = JSON.stringify(response.body.message)
+								}
+								// 这些接口不弹窗
+								if (req.url.includes(`kugou/kuGouAutoSearch`) || req.url.includes('/tme_map/EnteredByYou')) {
+
+								} else {
+									this.toast.error(response.body.message)
+								}
+							}
+							if (response.body.code == 380) {
+								// 返回登录页面
+								setTimeout(() => {
+									this.common.removeLocalStorages()
+									this.router.navigate(['/login']);
+								}, 1400)
+							}
 						}
+						// 抖音听歌识曲版权扫描
+						if (req.url.includes("douyin/recognizeMusic")) {
+							this.toast.success("听歌识曲版权扫描已完成")
+							window['NgAppRef3'].zone.run(function () {
+								window['NgAppRef3'].component.setDyRecognizeMusicList(response.body);
+							});
+						}
+
+						// try{
+						// 	let AppVersion = localStorage.getItem('AppVersion') || false
+						// 	if(response.body.AppVersion){
+						// 		let version = response.body.AppVersion.version
+						// 		if(version!=AppVersion){
+						// 			// 版本不一致  存入localstorage 提示更新 刷新
+						// 			// this.modal.create({
+						// 			//       nzTitle: '提示',
+						// 			//       nzContent: '网站有更新哦',
+						// 			//       nzClosable: false,
+						// 			//       nzOnOk: () => location.reload()
+						// 			//     });
+						// 			let updateTip = this.notification.blank('',`<div class="ant-notification-notice-content">
+						// 				<div>
+						// 					<div class="ant-notification-notice-message">提示</div>
+						// 						<div class="ant-notification-notice-description">
+						// 							网站有新内容，刷新网页既可。
+						// 						</div>
+						// 					</div>
+						// 				</div>`,{nzDuration:0});
+						// 			localStorage.setItem('AppVersion',version+'')
+						// 		}
+						// 	}
+						// }catch(err){
+						// 	console.log('版本异常',err)
+						// }
+
+					},
+					(error : any) => {
+						// 处理错误的数据
+						// if(error.url == "http://communityapi.jinzhoushaokao.top/articles/trackSeparate"&&error.status == 500){
+						//  this.toast.error('文件过大，请选择压缩处理')
+						// }else{
+						this.toast.error(error.error.code || error.statusText)
+						// }
+
+						console.log(error)
 					}
-					if(response.body.code == 380){
-						// 返回登录页面
-						setTimeout(()=>{
-							this.common.removeLocalStorages()
-							this.router.navigate(['/login']);
-						},1400)
-					}
-			  }
-			  
-				// try{
-				// 	let AppVersion = localStorage.getItem('AppVersion') || false
-				// 	if(response.body.AppVersion){
-				// 		let version = response.body.AppVersion.version
-				// 		if(version!=AppVersion){
-				// 			// 版本不一致  存入localstorage 提示更新 刷新
-				// 			// this.modal.create({
-				// 			//       nzTitle: '提示',
-				// 			//       nzContent: '网站有更新哦',
-				// 			//       nzClosable: false,
-				// 			//       nzOnOk: () => location.reload()
-				// 			//     });
-				// 			let updateTip = this.notification.blank('',`<div class="ant-notification-notice-content">
-				// 				<div>
-				// 					<div class="ant-notification-notice-message">提示</div>
-				// 						<div class="ant-notification-notice-description">
-				// 							网站有新内容，刷新网页既可。
-				// 						</div>
-				// 					</div>
-				// 				</div>`,{nzDuration:0});
-				// 			localStorage.setItem('AppVersion',version+'')
-				// 		}
-				// 	}
-				// }catch(err){
-				// 	console.log('版本异常',err)
-				// }
-			 
-		    },
-		    (error: any) => {
-		      // 处理错误的数据
-			  // if(error.url == "http://communityapi.jinzhoushaokao.top/articles/trackSeparate"&&error.status == 500){
-				 //  this.toast.error('文件过大，请选择压缩处理')
-			  // }else{
-				  this.toast.error(error.error.code||error.statusText)
-			  // }
-			  
-		      console.log(error)
-		    }
-		  )
-		)
-	}else{
-		setTimeout(()=>{
-			this.router.navigate(['/login']);
-		},1400)
-		return []
+				)
+			)
+		} else {
+			setTimeout(() => {
+				this.router.navigate(['/login']);
+			}, 1400)
+			return []
+		}
+
 	}
-    
-  }
 }

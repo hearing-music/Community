@@ -234,8 +234,11 @@ export class SongsControlComponent implements OnInit {
 				if (res.data.length > 0) {
 					res.data.forEach((iitem : any) => {
 						let singerNames = ''
+						if(Array.isArray(iitem.Singer)){
+							iitem.Singer = iitem.Singer[0]
+						}
 						iitem.Singer.forEach((citem : any) => {
-							singerNames += citem.author_name
+							singerNames += citem.author_name || citem.name
 						})
 						iitem.singerNames = singerNames
 						// 添加 截至到今日没有的日期

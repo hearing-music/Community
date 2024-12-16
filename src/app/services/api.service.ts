@@ -26,6 +26,10 @@ export class ApiService {
 		const blob = await response.blob();
 		return blob;
 	}
+	// 抖音 视频链接听歌识曲版权扫描
+	recognizeMusic(data){
+		return this.http.post(this.baseUrl + '/douyin/recognizeMusic',data)
+	}
 	
 	  //铃声多多热搜榜
 	  lsdd_gethotkeyword() {

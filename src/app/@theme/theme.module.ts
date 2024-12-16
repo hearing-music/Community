@@ -14,6 +14,7 @@ import {
   NbIconModule,
   NbThemeModule,
 } from '@nebular/theme';
+import { LoadingModule } from '../components/loading/loading.module'
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbSecurityModule } from '@nebular/security';
 import {
@@ -46,8 +47,14 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 const NB_MODULES = [
   NbLayoutModule,
+  NzToolTipModule,
+  NzTableModule,
+  NzIconModule,
 	NzDropDownModule,
 	NzTabsModule,
 	NzDrawerModule,
@@ -67,6 +74,7 @@ const NB_MODULES = [
   NbSelectModule,
   NbIconModule,
   NbEvaIconsModule,
+  LoadingModule,
 ];
 const COMPONENTS = [
   HeaderComponent,
