@@ -51,12 +51,12 @@
 						</div>
 						<div class="subTitle">
 							<!-- 歌手 发行时间 -->
-							<span nz-tooltip [nzTooltipTitle]="item.singerNames">
+							<span nz-tooltip [nzTooltipTitle]="common.deleteEM(item.singerNames)">
 								<div style="display: flex;align-items: center;max-width: 145px;
 							overflow: hidden;
 							white-space: nowrap;
 							text-overflow: ellipsis;">
-									<div *ngFor="let s of item.Singer;let si = index;" style="cursor: pointer;">
+									<div *ngFor="let s of item.Singer;let si = index;" style="cursor: pointer;" (click)='openSinger(s)'>
 										{{common.deleteEM(s.author_name || s.name)}}{{si==item.Singer.length-1?'':'、'}}
 									</div>
 								</div>

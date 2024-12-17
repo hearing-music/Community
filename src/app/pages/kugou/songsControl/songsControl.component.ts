@@ -118,6 +118,11 @@ export class SongsControlComponent implements OnInit {
 		})
 
 	}
+	openSinger(singer:any){
+		if(singer.id){
+			window.open("https://www.kugou.com/singer/info/"+singer.id)
+		}
+	}
 	// 获取标签
 	getSurvillanceSongsTag(){
 		this.api.getSurvillanceSongsTag().subscribe((res : any) => {
