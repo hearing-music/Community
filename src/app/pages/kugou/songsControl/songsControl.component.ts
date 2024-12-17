@@ -234,7 +234,6 @@ export class SongsControlComponent implements OnInit {
 				if (res.data.length > 0) {
 					res.data.forEach((iitem : any,i:any) => {
 						let singerNames = ''
-						console.log(i)
 						if(Array.isArray(iitem.Singer[0])){
 							iitem.Singer = iitem.Singer[0]
 						}
