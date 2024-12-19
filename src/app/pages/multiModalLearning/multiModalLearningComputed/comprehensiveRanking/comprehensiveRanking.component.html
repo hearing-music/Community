@@ -242,7 +242,7 @@
 			<div style="font-size: 16px;margin-bottom: 6px;">
 				{{item[0]}}
 			</div>
-			<div *ngFor="let items of item[1].MiGuRingtonesList" style="display: flex;margin-left: 8px;color: #000;">
+			<div *ngFor="let items of item[1].MiGuRingtonesList" style="display: flex;margin-left: 8px;color: #000;margin-bottom: 12px;">
 				<div style="display: flex;align-items: center;">
 					<img [src]="items.albumImgs[0].img" style="width: 66px;height: 66px;object-fit: cover;border-radius: 4px;">
 				</div>
@@ -301,9 +301,9 @@
 								历史期数
 							</div>
 							<ng-template #HistorycontentTemplate>
-								<div *ngIf='item[1].MiGuRingtonesListHistory.length>0'
+								<div *ngIf='items.history.length>0'
 									style="max-height:350px;overflow-y: auto;">
-									<div *ngFor='let his of item[1].MiGuRingtonesListHistory;'
+									<div *ngFor='let his of items.history;'
 										style="padding: 8px;border-bottom: 1px dashed #ccc;display: flex;align-items: center;">
 										<div nz-tooltip nzTooltipTitle="排行"
 											style="display: flex;align-items: center;color: #000;width: 50px;">
@@ -336,7 +336,7 @@
 									</div>
 						
 								</div>
-								<div *ngIf='item[1].MiGuRingtonesListHistory.length==0'>
+								<div *ngIf='items.history.length==0'>
 									暂无历史
 								</div>
 							</ng-template>
