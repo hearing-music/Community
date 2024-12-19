@@ -21,7 +21,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
   currentPage = 1; // 当前页码
   pageSize = 30; // 每页大小
   DyChallengeList: any = [];
-  ComprehensiveRankingList:any=[];
+  ComprehensiveRankingList: any = [];
   DyVedioTopFiveTime: any = 300;
   DyVedioTopFiveSchedule: any = null;
   hasMore: any = true;
@@ -50,10 +50,9 @@ export class MultiModalLearningComputedComponent implements OnInit {
     // 监听消息事件
     this.socket.onmessage = (event) => {
       let result: any = JSON.parse(event.data);
-      console.log(result.data);
-	  if(!result.success){
-		  this.toast.info(result.message)
-	  }
+      if (!result.success) {
+        this.toast.info(result.message);
+      }
       if (result.message == "抖音该词条前五的数据") {
         if (result.data.length > 0) {
           let obg = {
@@ -77,7 +76,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
               original_count: result.data[i].original_count,
             });
           }
-          this.DyVedioTopFive = [...this.DyVedioTopFive,obg]
+          this.DyVedioTopFive = [...this.DyVedioTopFive, obg];
           if (this.DyVedioTopFiveTime == 300) {
             this.DyVedioTopFiveSchedule = setInterval(() => {
               this.DyVedioTopFiveTime -= 1;
@@ -87,7 +86,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
                   Functionality: [["ComprehensiveSearchTop5", this.keyword]],
                 });
                 clearInterval(this.DyVedioTopFiveSchedule);
-				this.DyVedioTopFiveSchedule = null;
+                this.DyVedioTopFiveSchedule = null;
               }
             }, 1000);
           }
@@ -98,7 +97,8 @@ export class MultiModalLearningComputedComponent implements OnInit {
         }
       } else if (result.message == "酷狗飙升榜查询") {
         if (result.data.length > 0) {
-          this.KGSoaringSongs = result.data;
+          result.data = this.SoaringKgSinger(result.data)
+          this.KGSoaringSongs = [...this.KGSoaringSongs,...result.data];
         }
       } else if (result.message == "三方接口(榜单&&热搜词)") {
         if (result.data.length > 0) {
@@ -109,23 +109,23 @@ export class MultiModalLearningComputedComponent implements OnInit {
           result.data.forEach((ele: any) => {
             ele.dayWeek = false;
           });
-          this.MassiveArithmeticDaRen = result.data;
+          this.MassiveArithmeticDaRen = [...this.MassiveArithmeticDaRen,...result.data];
         }
       } else if (result.message == "巨量算数视频搜索") {
         if (result.data.data.length > 0) {
           this.MassiveArithmeticVedio = [];
           this.MassiveArithmeticVedio = result.data.data;
           // this.loadPage(this.currentPage);
-		  // this.jlVideo.loadPage();
+          // this.jlVideo.loadPage();
         }
       } else if (result.message == "抖音挑战榜") {
         if (result.data.length > 0) {
           result.data = this.sortByKeyword(result.data, this.keyword);
           this.DyChallengeList = result.data;
         }
-      }else if (result.message == "综合榜单") {
-        this.ComprehensiveRankingList = result.data;
-      }
+      } else if (result.message == "综合榜单") {
+        this.ComprehensiveRankingList = result.data;
+      }
     };
     // 监听连接关闭事件
     this.socket.onclose = (event) => {
@@ -568,23 +568,29 @@ export class MultiModalLearningComputedComponent implements OnInit {
     this.ThreePartyInterface = [];
     this.MassiveArithmeticDaRen = [];
     this.MassiveArithmeticVedio = [];
-	this.ComprehensiveRankingList=[];
+    this.ComprehensiveRankingList = [];
     this.DyChallengeList = [];
     this.DyVedioTopFive = [];
     this.DyVedioTopFiveTime = 300;
     this.DyVedioTopFiveSchedule = null;
-    this.sendMessage({
+    let songInfor: any = await this.searchQQ();
+    let message = {
       Functionality: [
-        ["GetSoaringHistories", this.keyword],
         ["DevTipListInfo", this.keyword],
         ["ComprehensiveSearchTop5", this.keyword],
         ["TripartiteInterfaceBuzzword", this.keyword],
-        ["TrendinsightSearch", this.keyword],
         ["ItemQueryVideo", this.keyword],
         ["ChallengeList", ""],
-		["ComprehensiveList",this.keyword],
+        ["ComprehensiveList", this.keyword],
       ],
-    });
+    }
+    if (songInfor.length > 0) {
+      for (let i = 0; i < songInfor[0].singer.length; i++){
+        message.Functionality.push(["GetSoaringHistories", songInfor[0].singer[i].name])
+        message.Functionality.push(["TrendinsightSearch", songInfor[0].singer[i].name])
+      }
+    }
+    this.sendMessage(message);
     this.loadingSpin = false;
     // 存入数据
     this.ObservationDataStorage(res.data, res2.data || {});
@@ -737,24 +743,24 @@ export class MultiModalLearningComputedComponent implements OnInit {
     }
   }
   getHourTime() {
-	  // 减2小时
-	  let newDate:any = new Date().getTime();
-	  newDate = newDate - 2 * 60 * 60*1000;
+    // 减2小时
+    let newDate: any = new Date().getTime();
+    newDate = newDate - 2 * 60 * 60 * 1000;
     let hourTime: any = new Date(newDate).getHours();
     if (hourTime < 10) hourTime = "0" + hourTime;
     this.HourTime = hourTime + ":00";
   }
   getMinuteTime() {
-	  // 减五分钟
-	let newDate:any = new Date().getTime();
-	newDate = newDate - 5 * 60*1000;
-	
-	let hourTime: any = new Date(newDate).getHours();
-	let minuteTime: any = new Date(newDate).getMinutes();
+    // 减五分钟
+    let newDate: any = new Date().getTime();
+    newDate = newDate - 5 * 60 * 1000;
+
+    let hourTime: any = new Date(newDate).getHours();
+    let minuteTime: any = new Date(newDate).getMinutes();
     if (hourTime < 10) hourTime = "0" + hourTime;
     minuteTime = minuteTime - (minuteTime % 5);
     if (minuteTime < 10) minuteTime = "0" + minuteTime;
-	
+
     this.MinuteTime = hourTime + ":" + minuteTime;
   }
 
@@ -781,5 +787,31 @@ export class MultiModalLearningComputedComponent implements OnInit {
     }
     // 设置所选小时的分数
     this.MinuteTimeArr = timeArray;
+  }
+  SoaringKgSinger(item: any) {
+    const result = Object.values(
+      item.reduce((acc: any, item: any) => {
+        // 使用 Name 作为 key
+        const key = item.Name;
+
+        // 如果 key 不存在，则初始化
+        if (!acc[key]) {
+          acc[key] = { Name: key, other: [] };
+        }
+
+        // 将当前 item 放到 other 数组中
+        acc[key].other.push({
+          Ran: item.Ran,
+          Strend: item.Strend,
+          Trend: item.Trend,
+          SingerId: item.SingerId,
+          Href: item.Href,
+          Time: item.Time,
+        });
+
+        return acc;
+      }, {})
+    );
+    return result;
   }
 }
