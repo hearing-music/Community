@@ -357,6 +357,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 			}
 		}
 		for (let i = 0; i < Kg.length; i++) {
+			Kg[i].KExponents = Kg[i].KExponents || {}
 			Kg[i].KExponents.data = Kg[i].KExponents.data||{}
 
 
