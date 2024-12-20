@@ -158,7 +158,7 @@ export class V3AddSongControlComponent implements OnInit {
 		let kgImg = [];
 		let kgPlayUrl = [];
 		let kgSongName = [];
-		
+		let publicTime = []
 		this.cartData.forEach((item:any)=>{
 			SCID.push(item.scid);
 			EMixSongID.push(item.EMixSongID)
@@ -170,7 +170,7 @@ export class V3AddSongControlComponent implements OnInit {
 			kgImg.push(item.image)
 			kgSinger.push(item.singers)
 			kgPlayUrl.push(item.MusicUrl || "")
-			
+			publicTime.push(item.time_public || "")
 			
 			
 			let qqData:any = {}
@@ -193,6 +193,7 @@ export class V3AddSongControlComponent implements OnInit {
 		Parameters['Mid']=Mid;
 		Parameters['Ids']=Ids;
 		
+		Parameters['publicTime'] = publicTime;
 		Parameters['kgSinger']=kgSinger;
 		Parameters['kgAlbumName']=kgAlbumName;
 		Parameters['kgImg']=kgImg;
