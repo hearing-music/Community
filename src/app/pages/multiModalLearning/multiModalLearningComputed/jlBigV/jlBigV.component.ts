@@ -13,13 +13,11 @@ export class JlBigVComponent implements OnInit {
     public common: CommonService,
     private toast: ToastrService
   ) {}
-  async ngOnInit() {
-  }
-  
-@Input() MassiveArithmeticDaRen:any=[]
+  async ngOnInit() {}
 
+  @Input() MassiveArithmeticDaRen: any = [];
 
- //巨量达人跳转主页  || 视频主页
+  //巨量达人跳转主页  || 视频主页
   OpenDy(item: any) {
     window.open(item);
   }
@@ -47,5 +45,13 @@ export class JlBigVComponent implements OnInit {
     const month = create_time.substring(4, 6);
     const day = create_time.substring(6, 8);
     return `${year}-${month}-${day}`;
+  }
+  calculateHeight() {
+    if (this.MassiveArithmeticDaRen.length>1) {
+      const height = 390 / this.MassiveArithmeticDaRen.length;
+      return `${height}px`;
+    } else {
+      return `400px`;
+    }
   }
 }

@@ -233,7 +233,7 @@
 					<ngx-qqkgInfo [obData]='obData'></ngx-qqkgInfo>
 				</div>
 			</div>
-			
+
 			<div style="display: flex;flex-wrap: wrap;margin-top:20px;">
 				<!-- qq酷狗排行榜数据 -->
 				<ngx-qqkgRank [obData]='obData' *ngIf="obData.QQ"></ngx-qqkgRank>
@@ -241,7 +241,7 @@
 					<!-- 酷狗搜索推荐数据 -->
 					<ngx-kgSearchReferral [KGSearchRecommendations]='KGSearchRecommendations'></ngx-kgSearchReferral>
 					<!-- 酷狗飙升榜 三方接口(榜单&&热搜词) -->
-					<ngx-kgSoaring [KGSoaringSongs]='KGSoaringSongs' [ThreePartyInterface]='ThreePartyInterface'></ngx-kgSoaring>	
+					<ngx-kgSoaring [KGSoaringSongs]='KGSoaringSongs' [ThreePartyInterface]='ThreePartyInterface'></ngx-kgSoaring>
 				</div>
 				<!-- 抖音该词条前五的数据 -->
 				<ngx-dyVedioTopFive [DyVedioTopFiveTime]='DyVedioTopFiveTime' [DyVedioTopFive]='DyVedioTopFive'></ngx-dyVedioTopFive>
@@ -255,7 +255,7 @@
 		<div style="width: 100%;display: flex;" *ngIf="MassiveArithmeticDaRen.length>0 || MassiveArithmeticVedio.length>0">
 			<div *ngIf="MassiveArithmeticDaRen.length>0" style="width: 55%;height: auto;" class="item_list">
 				<!-- 巨量算数达人搜索 -->
-				<ngx-jlBigV [MassiveArithmeticDaRen]='MassiveArithmeticDaRen'></ngx-jlBigV>
+				<ngx-jlBigV [MassiveArithmeticDaRen]='BigVArr'></ngx-jlBigV>
 			</div>
 			<div *ngIf="MassiveArithmeticVedio.length>0" style="width: 45%;height: auto;" class="item_list">
 				<!-- 巨量算数视频搜索 -->
@@ -263,10 +263,10 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	
-	
+
+
+
+
 	<!-- 搜索关键字弹出选择歌曲信息 -->
 	<nz-modal [(nzVisible)]="showSongsList" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzFooter]="null"
 		[nzStyle]="{ width: '1000px' }">
