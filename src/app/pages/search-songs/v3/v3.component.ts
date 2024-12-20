@@ -18,7 +18,9 @@ export class V3Component implements OnInit {
 	}
 	removeCart(i:number){
 		let index = this.kugouV3List.findIndex((e:any)=>e.scid == this.cartData[i].scid)
-		this.kugouV3List[index].isSelect = false;
+		if(index!=-1){
+			this.kugouV3List[index].isSelect = false;
+		}
 		this.cartData.splice(i,1)
 	}
 	cancelSelect(){
