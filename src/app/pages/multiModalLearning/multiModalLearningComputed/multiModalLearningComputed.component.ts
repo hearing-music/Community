@@ -114,7 +114,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
             ...this.MassiveArithmeticDaRen,
             ...result.data,
           ];
-          this.BigVArr = this.BigVList(this.MassiveArithmeticDaRen);
+          this.BigVArr = this.MassiveArithmeticDaRen;
           console.log(this.BigVArr);
         }
       } else if (result.message == "巨量算数视频搜索") {

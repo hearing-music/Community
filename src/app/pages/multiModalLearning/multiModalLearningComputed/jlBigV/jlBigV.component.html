@@ -1,9 +1,7 @@
 <div style="font-size: 16px;margin-bottom: 8px;">巨量算数达人搜索</div>
-<div style="width: 100%;height: 400px;" class="boxMain">
-  <div [ngStyle]="{ 'height': calculateHeight() }" style="width: 100%;overflow-y: auto;" *ngFor="let items of MassiveArithmeticDaRen">
-    <div *ngFor="let item of items.data" class="list-item">
-      <img [src]="item.user_head_logo" alt="" style="width: 45px;height: 45px;border-radius: 50%;"
-        *ngIf="item.user_head_logo">
+<div style="width: 100%;height: 400px;overflow-y: auto">
+    <div class="list-item" *ngFor="let item of MassiveArithmeticDaRen">
+      <img [src]="item.user_head_logo" alt="" style="width: 45px;height: 45px;border-radius: 50%;" *ngIf="item.user_head_logo">
       <div style="margin-left: 8px;">
         <div style="display: flex;align-items: center;">
           <span style="font-size: 16px;color: #000;cursor: pointer;" nz-tooltip nzTooltipTitle="前往主页"
@@ -118,7 +116,5 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
-
 </div>
