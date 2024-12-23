@@ -1,11 +1,18 @@
 .item_list {
-  font-size: 12px;
+  font-size: 14px;
   color: rgba(0, 0, 0, 0.6);
-  margin-bottom: 20px;
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  box-shadow: rgba(0, 0, 0, 0.15) -1.4px 1.4px 3.2px;
-  border-radius: 12px;
-  padding: 3px 6px;
   height: auto;
 }
+.scrollList::-webkit-scrollbar {
+		width:8px;
+	}
+	.scrollList::-webkit-scrollbar-thumb {
+	    border-radius: 10px;
+	    background: rgba(0,0,0,0.2);
+	}
+	
+	.scrollList::-webkit-scrollbar-track {
+	    border-radius: 10px;
+	    background: rgba(0,0,0,0.1);
+	}

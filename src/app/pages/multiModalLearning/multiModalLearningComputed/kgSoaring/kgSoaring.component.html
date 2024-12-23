@@ -1,35 +1,57 @@
-<div style="margin-left: 20px;" *ngIf='KGSoaringSongs.length>0||ThreePartyInterface.length>0'>
-	<div *ngIf="KGSoaringSongs.length>0" class="item_list">
-		<div style="font-size: 16px;margin-bottom: 8px;">
-			酷狗飙升榜查询
+	<nz-card [nzLoading]="KGSoaringSongsLoading" [nzHoverable]='true' style="border-radius: 6px;margin-left:10px;border-color: rgba(0, 0, 0, 0.6);">
+		<div class="item_list">
+			<div style="font-size: 16px;margin-bottom: 8px;">
+				酷狗飙升榜查询
+			</div>
+			<div *ngIf="KGSoaringSongs.length==0">
+				[ 暂无数据 ]
+			</div>
+			<div *ngFor="let item of KGSoaringSongs;" style="margin-bottom: 4px;">
+				<div style="font-size: 16px;font-weight: bold;">
+					{{item.Name}}
+				</div>
+				<div style="max-height: 80px;overflow-y: auto;overflow-y: auto;" class="scrollList">
+					<div style="margin-left: 8px;" *ngFor="let items of item.other;let i = index">
+						<div style="color: #8c8c8c;display: flex;align-items: center;">
+							{{common.getDate(items.Time)}}：
+							<span style="color: #000;">{{items.Ran}}</span>
+							<span *ngIf='items.Strend=="up"' nz-icon nzType="arrow-up" nzTheme="outline"
+								style="color:green;"></span>
+							<span *ngIf='items.Strend=="down"' nz-icon nzType="arrow-down" nzTheme="outline"
+								style="color:red;"></span>
+							<span *ngIf='items.Strend=="normal"' nz-icon nzType="minus" nzTheme="outline"
+								style="color:blue;"></span>
+						</div>
+						<div style="color: #8c8c8c;">相较前一日：
+							<span style="color: #000;"
+								*ngIf="items.Strend == 'down'">{{(items.Ran-0) + (items.Trend-0)}}</span>
+							<span style="color: #000;"
+								*ngIf="items.Strend == 'up'">{{(items.Ran-0)- (items.Trend-0)}}</span>
+							<span style="color: #000;" *ngIf="items.Strend == 'normal'">{{items.Ran}}</span>
+							<span style="margin-left: 8px;color: rgb(39, 39, 214);cursor: pointer;"
+								(click)="openLink(items.SingerId)" *ngIf="i == 0">查看</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div *ngFor="let item of KGSoaringSongs;" style="margin-bottom: 4px;">
-      <div style="font-size: 16px;font-weight: bold;">
-        {{item.Name}}
-      </div>
-      <div style="max-height: 80px;overflow-y: auto;overflow-y: auto;">
-        <div style="margin-left: 8px;" *ngFor="let items of item.other;let i = index">
-          <div style="color: #8c8c8c;display: flex;align-items: center;">{{common.getDate(items.Time)}}：
-            <span style="color: #000;">{{items.Ran}}</span>
-            <span *ngIf='items.Strend=="up"' nz-icon nzType="arrow-up" nzTheme="outline" style="color:green;"></span>
-            <span *ngIf='items.Strend=="down"' nz-icon nzType="arrow-down" nzTheme="outline" style="color:red;"></span>
-            <span *ngIf='items.Strend=="normal"' nz-icon nzType="minus" nzTheme="outline" style="color:blue;"></span>
-          </div>
-          <div style="color: #8c8c8c;">相较前一日：
-            <span style="color: #000;" *ngIf="items.Strend == 'down'">{{(items.Ran-0) + (items.Trend-0)}}</span>
-            <span style="color: #000;" *ngIf="items.Strend == 'up'">{{(items.Ran-0)- (items.Trend-0)}}</span>
-            <span style="color: #000;" *ngIf="items.Strend == 'normal'">{{items.Ran}}</span>
-            <span style="margin-left: 8px;color: rgb(39, 39, 214);cursor: pointer;" (click)="openLink(items.SingerId)" *ngIf="i == 0">查看</span>
-          </div>
-        </div>
-      </div>
+	</nz-card>
+
+
+
+	<nz-card [nzLoading]="ThreePartyInterfaceLoading" [nzHoverable]='true' style="margin: 20px 0;border-radius: 6px;margin-left:10px;border-color: rgba(0, 0, 0, 0.6);">
+		<div class="item_list">
+			<div style="font-size: 16px;margin-bottom: 8px;">三方接口(榜单&&热搜词)</div>
+			<div *ngIf="ThreePartyInterface.length==0">
+				[ 暂无数据 ]
+			</div>
+			<div *ngFor="let item of ThreePartyInterface">
+				<span style="color: #8c8c8c;">
+					{{item[0]}}
+				</span>
+				<span style="margin-left: 8px;color: #000;">
+					{{item[1]}}
+				</span>
+			</div>
 		</div>
-	</div>
-	<div *ngIf="ThreePartyInterface.length>0" class="item_list" style="margin-top: 20px;">
-		<div style="font-size: 16px;margin-bottom: 8px;">三方接口(榜单&&热搜词)</div>
-		<div *ngFor="let item of ThreePartyInterface">
-			<span style="color: #8c8c8c;">{{item[0]}}</span><span
-				style="margin-left: 8px;color: #000;">{{item[1]}}</span>
-		</div>
-	</div>
-</div>
+	</nz-card>

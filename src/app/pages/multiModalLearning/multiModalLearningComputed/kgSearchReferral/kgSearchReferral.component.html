@@ -1,14 +1,19 @@
-<div *ngIf="KGSearchRecommendations.length>0" class="item_list" style="margin-left: 20px;">
-	<div style="font-size: 16px;margin-bottom: 8px;">
-		<span>酷狗搜索推荐查询</span>
-		<span style="margin-left: 8px;color: rgb(39, 39, 214);cursor: pointer;"
-			(click)="showKGSearchRecommendations()">查看</span>
-	</div>
-	<div *ngFor="let item of KGSearchRecommendations">
-		<span style="color: #8c8c8c;">{{item[0]}}</span>
-		<span style="margin-left: 8px;color: #8c8c8c;">排名：<span style="color: #000;">{{item[1].rank}}</span></span>
-	</div>
-</div>
+<nz-card [nzLoading]="loading" [nzHoverable]='true' style="margin-bottom: 20px;border-radius: 6px;margin-left:10px;border-color: rgba(0, 0, 0, 0.6);">
+    <div class="item_list">
+    	<div style="font-size: 16px;margin-bottom: 8px;">
+    		<span>酷狗搜索推荐查询</span>
+    		<span *ngIf="KGSearchRecommendations.length>0" style="margin-left: 8px;color: blue;cursor: pointer;font-size: 13px;"
+    			(click)="showKGSearchRecommendations()">查看</span>
+    	</div>
+		<div *ngIf="KGSearchRecommendations.length==0">
+			[ 暂无数据 ]
+		</div>
+    	<div *ngFor="let item of KGSearchRecommendations">
+    		<span style="color: #8c8c8c;">{{item[0]}}</span>
+    		<span style="margin-left: 8px;color: #8c8c8c;">排名：<span style="color: #000;">{{item[1].rank}}</span></span>
+    	</div>
+    </div>
+</nz-card>
 <nz-modal [(nzVisible)]="isVisibleRecommendations" nzTitle="酷狗搜索推荐" (nzOnCancel)="handleCancelRecommendations()"
 	[nzFooter]="null">
 	<ng-container *nzModalContent>

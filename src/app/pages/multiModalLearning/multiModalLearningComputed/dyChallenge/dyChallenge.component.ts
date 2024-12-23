@@ -16,4 +16,5 @@ export class DyChallengeComponent implements OnInit {
   async ngOnInit() {
   }
 @Input() DyChallengeList:any=[]
+@Input() loading:any=true
 }

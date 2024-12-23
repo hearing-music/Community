@@ -219,7 +219,8 @@
 		<div class="loadingSpin" *ngIf="loadingSpin">
 			<nz-spin nzSimple nzSize="large"></nz-spin>
 		</div>
-		<div *ngIf="Data.length == 0" style="display: flex;align-items: center;justify-content: center;width: 100%;height: 300px;">
+		<div *ngIf="Data.length == 0"
+			style="display: flex;align-items: center;justify-content: center;width: 100%;height: 300px;">
 			<nz-empty></nz-empty>
 		</div>
 		<div *ngIf="Data.length > 0">
@@ -228,39 +229,62 @@
 					<!-- 预测数据 -->
 					<ngx-predictData [Data]='Data'></ngx-predictData>
 				</div>
-				<div style="width: 40%" *ngIf="obData.QQ">
+				<div style="width: 40%" *ngIf="obData.QQ[0]">
 					<!-- qq酷狗指数相关数据 -->
 					<ngx-qqkgInfo [obData]='obData'></ngx-qqkgInfo>
 				</div>
 			</div>
 
-			<div style="display: flex;flex-wrap: wrap;margin-top:20px;">
-				<!-- qq酷狗排行榜数据 -->
-				<ngx-qqkgRank [obData]='obData' *ngIf="obData.QQ"></ngx-qqkgRank>
-				<div>
+			<div nz-row style="margin-top:20px;">
+				<div nz-col nzSpan="8">
 					<!-- 酷狗搜索推荐数据 -->
-					<ngx-kgSearchReferral [KGSearchRecommendations]='KGSearchRecommendations'></ngx-kgSearchReferral>
+					<ngx-kgSearchReferral [KGSearchRecommendations]='KGSearchRecommendations'
+						[loading]='KGSearchRecommendationsLoading'></ngx-kgSearchReferral>
 					<!-- 酷狗飙升榜 三方接口(榜单&&热搜词) -->
-					<ngx-kgSoaring [KGSoaringSongs]='KGSoaringSongs' [ThreePartyInterface]='ThreePartyInterface'></ngx-kgSoaring>
+					<ngx-kgSoaring [KGSoaringSongs]='KGSoaringSongs' [ThreePartyInterface]='ThreePartyInterface'
+						[ThreePartyInterfaceLoading]='ThreePartyInterfaceLoading'
+						[KGSoaringSongsLoading]='KGSoaringSongsLoading'></ngx-kgSoaring>
 				</div>
-				<!-- 抖音该词条前五的数据 -->
-				<ngx-dyVedioTopFive [DyVedioTopFiveTime]='DyVedioTopFiveTime' [DyVedioTopFive]='DyVedioTopFive'></ngx-dyVedioTopFive>
-				<!-- 抖音挑战榜 -->
-				<ngx-dyChallenge [DyChallengeList]='DyChallengeList'></ngx-dyChallenge>
-				<!-- 综合榜单 -->
-				<ngx-comprehensiveRanking *ngIf='ComprehensiveRankingList.length>0' [ComprehensiveRankingList]="ComprehensiveRankingList"></ngx-comprehensiveRanking>
+				<div nz-col nzSpan="1"></div>
+				<div nz-col nzSpan="6">
+					<!-- 抖音该词条前五的数据 -->
+					<ngx-dyVedioTopFive [DyVedioTopFiveTime]='DyVedioTopFiveTime' [DyVedioTopFive]='DyVedioTopFive'
+						[loading]='DyVedioTopFiveLoading'></ngx-dyVedioTopFive>
+				</div>
+				<div nz-col nzSpan="1"></div>
+				<div nz-col nzSpan="8">
+					<!-- 抖音挑战榜 -->
+					<ngx-dyChallenge [DyChallengeList]='DyChallengeList'
+						[loading]='DyChallengeListLoading'></ngx-dyChallenge>
+				</div>
+
+
+				<!-- 第二行 -->
+				<div nz-col nzSpan="8">
+					<!-- qq酷狗排行榜数据 -->
+					<ngx-qqkgRank [obData]='obData' [loading]='obDataLoading'></ngx-qqkgRank>
+				</div>
+				<div nz-col nzSpan="1"></div>
+				<div nz-col nzSpan="15">
+					<!-- 综合榜单 -->
+					<ngx-comprehensiveRanking [loading]='ComprehensiveRankingListLoading'
+						[ComprehensiveRankingList]="ComprehensiveRankingList"></ngx-comprehensiveRanking>
+				</div>
+
+
+				<!-- 第三行 -->
+				<div nz-col nzSpan="12">
+					<!-- 巨量算数达人搜索 -->
+					<ngx-jlBigV [MassiveArithmeticDaRen]='BigVArr'
+						[loading]='MassiveArithmeticDaRenLoading'></ngx-jlBigV>
+				</div>
+				<div nz-col nzSpan="12">
+					<!-- 巨量算数视频搜索 -->
+					<ngx-jlVideo [MassiveArithmeticVedio]='MassiveArithmeticVedio'
+						[loading]='MassiveArithmeticVedioLoading'></ngx-jlVideo>
+				</div>
 			</div>
 
-		</div>
-		<div style="width: 100%;display: flex;" *ngIf="MassiveArithmeticDaRen.length>0 || MassiveArithmeticVedio.length>0">
-			<div *ngIf="MassiveArithmeticDaRen.length>0" style="width: 55%;height: auto;" class="item_list">
-				<!-- 巨量算数达人搜索 -->
-				<ngx-jlBigV [MassiveArithmeticDaRen]='BigVArr'></ngx-jlBigV>
-			</div>
-			<div *ngIf="MassiveArithmeticVedio.length>0" style="width: 45%;height: auto;" class="item_list">
-				<!-- 巨量算数视频搜索 -->
-				<ngx-jlVideo [MassiveArithmeticVedio]='MassiveArithmeticVedio'></ngx-jlVideo>
-			</div>
 		</div>
 	</div>
 
@@ -340,4 +364,3 @@
 	</div>
 	<ngx-loading *ngIf="loading"></ngx-loading>
 </div>
-

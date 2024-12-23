@@ -1,120 +1,129 @@
-<div style="font-size: 16px;margin-bottom: 8px;">巨量算数达人搜索</div>
-<div style="width: 100%;height: 400px;overflow-y: auto">
-    <div class="list-item" *ngFor="let item of MassiveArithmeticDaRen">
-      <img [src]="item.user_head_logo" alt="" style="width: 45px;height: 45px;border-radius: 50%;" *ngIf="item.user_head_logo">
-      <div style="margin-left: 8px;">
-        <div style="display: flex;align-items: center;">
-          <span style="font-size: 16px;color: #000;cursor: pointer;" nz-tooltip nzTooltipTitle="前往主页"
-            (click)="OpenDy(item.aweme_url)">{{item.user_name}}</span>
-          <div style="display: flex;align-items: center;margin-left: 8px;">
-            <img src="/assets/multiModalLearning/Fans.png" alt="" style="width: 16px; height: 16px;">
-            <span nz-tooltip nzTooltipTitle="粉丝数"
-              style="display: flex;align-items: center;">{{common.toThousands(item.follow_count)}}</span>
-          </div>
-          <div style="display: flex;align-items: center;margin-left: 8px;margin-left: 2px;">
-            <img src="/assets/multiModalLearning/LikeCount.png" alt="" style="width: 16px; height: 16px;">
-            <span nz-tooltip nzTooltipTitle="总获赞数"
-              style="display: flex;align-items: center;">{{common.toThousands(item.follow_count)}}</span>
-          </div>
-        </div>
-        <div style="display: flex;align-items: center;">
-          <div *ngIf="item.dayWeek" style="display: flex;margin-top: 8px;">
-            <div style="display: flex;align-items: center;">
-              <img src="/assets/multiModalLearning/AverageLike.png" alt="" style="width: 16px; height: 16px;">
-              <span nz-tooltip nzTooltipTitle="均赞"
-                style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.like_info[0].like_average_count_by_week)}}</span>
-            </div>
-            <div style="display: flex;align-items: center;margin-left: 4px;">
-              <img src="/assets/multiModalLearning/AverageFollowers.png" alt=""
-                style="width: 16px; height: 16px;">
-              <span nz-tooltip nzTooltipTitle="均涨粉"
-                style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.fans_info[0].fans_average_count_by_week)}}</span>
-            </div>
-            <div style="display: flex;align-items: center;margin-left: 4px;">
-              <img src="/assets/multiModalLearning/AverageShare.png" alt=""
-                style="width: 16px; height: 16px;">
-              <span nz-tooltip nzTooltipTitle="均分享"
-                style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.share_info[0].share_average_count_by_week)}}</span>
-            </div>
-            <div style="display: flex;align-items: center;margin-left: 4px;">
-              <img src="/assets/multiModalLearning/AverageComment.png" alt=""
-                style="width: 16px; height: 16px;">
-              <span nz-tooltip nzTooltipTitle="均评论"
-                style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.comment_info[0].comment_average_count_by_week)}}</span>
-            </div>
-          </div>
-          <div *ngIf="!item.dayWeek" style="display: flex;margin-top: 8px;">
-            <div style="display: flex;align-items: center;">
-              <img src="/assets/multiModalLearning/AverageLike.png" alt="" style="width: 16px; height: 16px;">
-              <span nz-tooltip nzTooltipTitle="均赞"
-                style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.like_info[0].like_average_count_by_month)}}</span>
-            </div>
-            <div style="display: flex;align-items: center;margin-left: 4px;">
-              <img src="/assets/multiModalLearning/AverageFollowers.png" alt=""
-                style="width: 16px; height: 16px;">
-              <span nz-tooltip nzTooltipTitle="均涨粉"
-                style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.fans_info[0].fans_average_count_by_month)}}</span>
-            </div>
-            <div style="display: flex;align-items: center;margin-left: 4px;">
-              <img src="/assets/multiModalLearning/AverageShare.png" alt=""
-                style="width: 16px; height: 16px;">
-              <span nz-tooltip nzTooltipTitle="均分享"
-                style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.share_info[0].share_average_count_by_month)}}</span>
-            </div>
-            <div style="display: flex;align-items: center;margin-left: 4px;">
-              <img src="/assets/multiModalLearning/AverageComment.png" alt=""
-                style="width: 16px; height: 16px;">
-              <span nz-tooltip nzTooltipTitle="均评论"
-                style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.comment_info[0].comment_average_count_by_month)}}</span>
-            </div>
-          </div>
-          <div style="margin-left: 8px;margin-top: 8px;">
-            <div *ngIf="!item.dayWeek"
-              style="color: rgb(39, 39, 214);cursor: pointer;display: flex;align-items: center;"
-              (click)="ChangeWeek(item)">切换7天</div>
-            <div *ngIf="item.dayWeek"
-              style="color: rgb(39, 39, 214);cursor: pointer;display: flex;align-items: center;"
-              (click)="ChangeWeek(item)">切换30天</div>
-          </div>
-        </div>
-      </div>
-      <div style="margin-left: 40px;" *ngIf="item.UserTopOneVideo.length>0">
-        <div>
-          <div nz-tooltip [nzTooltipTitle]="item.UserTopOneVideo[0].video_text"
-            style="max-width: 300px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;cursor: pointer;"
-            (click)="OpenDy(item.UserTopOneVideo[0].video_url)">
-            {{item.UserTopOneVideo[0].video_text}}
-          </div>
-        </div>
-        <div>
-          <div style="display: flex;align-items: center;">
-            <div style="display: flex;align-items: center;">
-              <img src="/assets/multiModalLearning/Like.png" alt="" style="width: 16px; height: 16px;">
-              <span nz-tooltip nzTooltipTitle="点赞"
-                style="display: flex;align-items: center;">{{common.toThousands(item.UserTopOneVideo[0].like_cnt)}}</span>
-            </div>
-            <div style="display: flex;align-items: center;margin-left: 4px;">
-              <img src="/assets/multiModalLearning/Comment.png" alt="" style="width: 16px; height: 16px;">
-              <span nz-tooltip nzTooltipTitle="评论"
-                style="display: flex;align-items: center;">{{common.toThousands(item.UserTopOneVideo[0].coment_cnt)}}</span>
-            </div>
-            <div style="display: flex;align-items: center;margin-left: 4px;">
-              <img src="/assets/multiModalLearning/Share.png" alt="" style="width: 16px; height: 16px;">
-              <span nz-tooltip nzTooltipTitle="分享"
-                style="display: flex;align-items: center;">{{common.toThousands(item.UserTopOneVideo[0].share_cnt)}}</span>
-            </div>
-            <div style="display: flex;align-items: center;margin-left: 4px;">
-              <img src="/assets/multiModalLearning/Collection.png" alt="" style="width: 16px; height: 16px;">
-              <span nz-tooltip nzTooltipTitle="收藏"
-                style="display: flex;align-items: center;">{{common.toThousands(item.UserTopOneVideo[0].follow_cnt)}}</span>
-            </div>
-          </div>
-          <div style="display: flex;align-items: center;margin-top: 4px;">
-            <img src="/assets/multiModalLearning/timeDayTo.png" alt="" style="width: 16px; height: 16px;">
-            <span nz-tooltip nzTooltipTitle="最火时间段"
-              style="display: flex;align-items: center;">{{getTimeCode(item.UserTopOneVideo)}}</span>
-          </div>
-        </div>
-      </div>
-  </div>
-</div>
+<nz-card [nzLoading]="loading" [nzHoverable]='true' style="margin-left:10px;margin-bottom: 20px;border-radius: 6px;color: rgba(0, 0, 0, 0.6);border-color: rgba(0, 0, 0, 0.6);">
+	<div style="font-size: 16px;margin-bottom: 8px;">巨量算数达人搜索</div>
+	<div *ngIf='MassiveArithmeticDaRen.length==0'>
+		[ 暂无数据 ]
+	</div>
+	<div style="width: 100%;height: 400px;overflow-y: auto" class='scrollList' *ngIf='MassiveArithmeticDaRen.length>0'>
+		<div class="list-item" *ngFor="let item of MassiveArithmeticDaRen">
+			<img [src]="item.user_head_logo" alt="" style="width: 45px;height: 45px;border-radius: 50%;"
+				*ngIf="item.user_head_logo">
+			<div style="margin-left: 8px;">
+				<div style="display: flex;align-items: center;">
+					<span style="font-size: 16px;color: #000;cursor: pointer;" nz-tooltip nzTooltipTitle="前往主页"
+						(click)="OpenDy(item.aweme_url)">{{item.user_name}}</span>
+					<div style="display: flex;align-items: center;margin-left: 8px;">
+						<img src="/assets/multiModalLearning/Fans.png" alt="" style="width: 16px; height: 16px;">
+						<span nz-tooltip nzTooltipTitle="粉丝数"
+							style="display: flex;align-items: center;">{{common.toThousands(item.follow_count)}}</span>
+					</div>
+					<div style="display: flex;align-items: center;margin-left: 8px;margin-left: 2px;">
+						<img src="/assets/multiModalLearning/LikeCount.png" alt="" style="width: 16px; height: 16px;">
+						<span nz-tooltip nzTooltipTitle="总获赞数"
+							style="display: flex;align-items: center;">{{common.toThousands(item.follow_count)}}</span>
+					</div>
+				</div>
+				<div style="display: flex;align-items: center;">
+					<div *ngIf="item.dayWeek" style="display: flex;margin-top: 8px;">
+						<div style="display: flex;align-items: center;">
+							<img src="/assets/multiModalLearning/AverageLike.png" alt=""
+								style="width: 16px; height: 16px;">
+							<span nz-tooltip nzTooltipTitle="均赞"
+								style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.like_info[0].like_average_count_by_week)}}</span>
+						</div>
+						<div style="display: flex;align-items: center;margin-left: 4px;">
+							<img src="/assets/multiModalLearning/AverageFollowers.png" alt=""
+								style="width: 16px; height: 16px;">
+							<span nz-tooltip nzTooltipTitle="均涨粉"
+								style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.fans_info[0].fans_average_count_by_week)}}</span>
+						</div>
+						<div style="display: flex;align-items: center;margin-left: 4px;">
+							<img src="/assets/multiModalLearning/AverageShare.png" alt=""
+								style="width: 16px; height: 16px;">
+							<span nz-tooltip nzTooltipTitle="均分享"
+								style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.share_info[0].share_average_count_by_week)}}</span>
+						</div>
+						<div style="display: flex;align-items: center;margin-left: 4px;">
+							<img src="/assets/multiModalLearning/AverageComment.png" alt=""
+								style="width: 16px; height: 16px;">
+							<span nz-tooltip nzTooltipTitle="均评论"
+								style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.comment_info[0].comment_average_count_by_week)}}</span>
+						</div>
+					</div>
+					<div *ngIf="!item.dayWeek" style="display: flex;margin-top: 8px;">
+						<div style="display: flex;align-items: center;">
+							<img src="/assets/multiModalLearning/AverageLike.png" alt=""
+								style="width: 16px; height: 16px;">
+							<span nz-tooltip nzTooltipTitle="均赞"
+								style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.like_info[0].like_average_count_by_month)}}</span>
+						</div>
+						<div style="display: flex;align-items: center;margin-left: 4px;">
+							<img src="/assets/multiModalLearning/AverageFollowers.png" alt=""
+								style="width: 16px; height: 16px;">
+							<span nz-tooltip nzTooltipTitle="均涨粉"
+								style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.fans_info[0].fans_average_count_by_month)}}</span>
+						</div>
+						<div style="display: flex;align-items: center;margin-left: 4px;">
+							<img src="/assets/multiModalLearning/AverageShare.png" alt=""
+								style="width: 16px; height: 16px;">
+							<span nz-tooltip nzTooltipTitle="均分享"
+								style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.share_info[0].share_average_count_by_month)}}</span>
+						</div>
+						<div style="display: flex;align-items: center;margin-left: 4px;">
+							<img src="/assets/multiModalLearning/AverageComment.png" alt=""
+								style="width: 16px; height: 16px;">
+							<span nz-tooltip nzTooltipTitle="均评论"
+								style="display: flex;align-items: center;">{{common.toThousands(item.MileInfo.comment_info[0].comment_average_count_by_month)}}</span>
+						</div>
+					</div>
+					<div style="margin-left: 8px;margin-top: 8px;">
+						<div *ngIf="!item.dayWeek"
+							style="color: rgb(39, 39, 214);cursor: pointer;display: flex;align-items: center;"
+							(click)="ChangeWeek(item)">切换7天</div>
+						<div *ngIf="item.dayWeek"
+							style="color: rgb(39, 39, 214);cursor: pointer;display: flex;align-items: center;"
+							(click)="ChangeWeek(item)">切换30天</div>
+					</div>
+				</div>
+			</div>
+			<div style="margin-left: 30px;" *ngIf="item.UserTopOneVideo.length>0">
+				<div>
+					<div nz-tooltip [nzTooltipTitle]="item.UserTopOneVideo[0].video_text"
+						style="max-width: 220px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;cursor: pointer;"
+						(click)="OpenDy(item.UserTopOneVideo[0].video_url)">
+						{{item.UserTopOneVideo[0].video_text}}
+					</div>
+				</div>
+				<div>
+					<div style="display: flex;align-items: center;">
+						<div style="display: flex;align-items: center;">
+							<img src="/assets/multiModalLearning/Like.png" alt="" style="width: 16px; height: 16px;">
+							<span nz-tooltip nzTooltipTitle="点赞"
+								style="display: flex;align-items: center;">{{common.toThousands(item.UserTopOneVideo[0].like_cnt)}}</span>
+						</div>
+						<div style="display: flex;align-items: center;margin-left: 4px;">
+							<img src="/assets/multiModalLearning/Comment.png" alt="" style="width: 16px; height: 16px;">
+							<span nz-tooltip nzTooltipTitle="评论"
+								style="display: flex;align-items: center;">{{common.toThousands(item.UserTopOneVideo[0].coment_cnt)}}</span>
+						</div>
+						<div style="display: flex;align-items: center;margin-left: 4px;">
+							<img src="/assets/multiModalLearning/Share.png" alt="" style="width: 16px; height: 16px;">
+							<span nz-tooltip nzTooltipTitle="分享"
+								style="display: flex;align-items: center;">{{common.toThousands(item.UserTopOneVideo[0].share_cnt)}}</span>
+						</div>
+						<div style="display: flex;align-items: center;margin-left: 4px;">
+							<img src="/assets/multiModalLearning/Collection.png" alt=""
+								style="width: 16px; height: 16px;">
+							<span nz-tooltip nzTooltipTitle="收藏"
+								style="display: flex;align-items: center;">{{common.toThousands(item.UserTopOneVideo[0].follow_cnt)}}</span>
+						</div>
+					</div>
+					<div style="display: flex;align-items: center;margin-top: 4px;">
+						<img src="/assets/multiModalLearning/timeDayTo.png" alt="" style="width: 16px; height: 16px;">
+						<span nz-tooltip nzTooltipTitle="最火时间段"
+							style="display: flex;align-items: center;">{{getTimeCode(item.UserTopOneVideo)}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</nz-card>

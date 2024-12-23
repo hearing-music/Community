@@ -1,352 +1,373 @@
-<div *ngIf="ComprehensiveRankingList[0][1].length > 0 || ComprehensiveRankingList[1][1].length > 0||ComprehensiveRankingList[2][1].length > 0"
-	class="item_list" style="margin-left: 20px">
+<nz-card [nzLoading]="loading" [nzHoverable]='true' style="margin-bottom: 20px;border-radius: 6px;min-height: 430px;border-color:rgba(0, 0, 0, 0.6);"class='item_list'>
 	<div style="font-size: 16px;">综合榜单</div>
-	<div *ngFor="let item of ComprehensiveRankingList">
-		
-		<!-- 咪咕尖叫新歌榜 -->
-		<div *ngIf="item[0] == '咪咕尖叫新歌榜'&&item[1].length>0" style="border-bottom: 1px dashed #ccc;padding: 12px 0;">
-			<div style="font-size: 16px;margin-bottom: 6px;">
-				{{item[0]}}
-			</div>
-			<div *ngFor="let items of item[1]" style="display: flex;margin-left: 8px;color: #000;">
-				<div style="display: flex;align-items: center;">
-					<img *ngIf='!items.playNumDesc' [src]="items.albumImgs[0].img" style="width: 66px;height: 66px;object-fit: cover;border-radius: 4px;">
-					<img *ngIf='items.playNumDesc' [src]="items.albumImgs" style="width: 66px;height: 66px;object-fit: cover;border-radius: 4px;">
-				</div>
-				<div style="margin-left: 14px;">
-					<div (click)="OpenLink(items.music_url)" nz-tooltip [nzTooltipTitle]="items.songName"
-						style="cursor: pointer;font-size: 16px;font-weight: bold;max-width: 350px;" class='hid'>
-						{{items.songName}}
-					</div>
-					<div style="font-size: 13px;display: flex;align-items: center;margin-top: 4px;">
-						<!-- 歌手 -->
-						<div *ngIf='items.singer' nz-tooltip [nzTooltipTitle]="items.singer" style="max-width: 150px;cursor: pointer;" class='hid'
-							(click)="OpenLink(items.singer_url)">
-							{{items.singer}}
-						</div>
-							
-						<div *ngIf='items.singerList' nz-tooltip [nzTooltipTitle]="items.singerName"
-							style="display: flex;align-items: center;max-width: 150px;cursor: pointer;" class='hid'>
-							<div *ngFor='let singer of items.singerList;let si = index;' (click)="OpenLink(singer.singer_url)">
-								{{si==items.singerList.length-1?singer.name:singer.name+"，"}}
-							</div>
-						</div>
-						
-						<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
-						<!-- 专辑 -->
-						<div nz-tooltip [nzTooltipTitle]="items.album" style="max-width: 150px;cursor: pointer;" class='hid'
-							(click)="OpenLink(items.album_url)">
-							{{items.album}}
-						</div>
-							
-						<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
-						<!-- 所在期数时间 -->
-						<div *ngIf='items.ReleaseTime' style="" nz-tooltip nzTooltipTitle="所在期数时间">
-							{{common.getDate(items.ReleaseTime)}}
-						</div>
-						<div *ngIf='items.periodId' style="" nz-tooltip nzTooltipTitle="所在期数时间">
-							{{items.periodId}}
-						</div>
-					</div>
-					<div style="font-size: 13px;display: flex;align-items: center;margin-top: 4px;">
-						
-						<div *ngIf='items.playNumDesc' nz-tooltip nzTooltipTitle="播放量" style="display: flex;align-items: center;">
-							<img src="/assets/multiModalLearning/play.png" class='icon'>
-							{{items.playNumDesc}}
-						</div>
-						<div *ngIf='items.playNumDesc' nz-tooltip nzTooltipTitle="排行" style="display: flex;align-items: center;margin-left: 8px;">
-							<img src="/assets/multiModalLearning/index.png" class='icon'>
-							{{items.rank}}
-						</div>
-						<div *ngIf='!items.playNumDesc' nz-tooltip nzTooltipTitle="播放量" style="display: flex;align-items: center;">
-							<img src="/assets/multiModalLearning/play.png" class='icon'>
-							{{common.toThousands(items.playNum)}}
-						</div>
-						<div *ngIf='!items.playNumDesc' nz-tooltip nzTooltipTitle="收藏量" style="display: flex;align-items: center;margin-left: 8px;">
-							<img src="/assets/multiModalLearning/Collection.png" class='icon'>
-							{{common.toThousands(items.keepNum)}}
-						</div>
-						<div *ngIf='!items.playNumDesc' nz-tooltip nzTooltipTitle="评论量" style="display: flex;align-items: center;margin-left: 8px;">
-							<img src="/assets/multiModalLearning/Comment.png" class='icon'>
-							{{common.toThousands(items.commentNum)}}
-						</div>
-						<div *ngIf='!items.playNumDesc' nz-tooltip nzTooltipTitle="分享量" style="display: flex;align-items: center;margin-left: 8px;">
-							<img src="/assets/multiModalLearning/Share.png" class='icon'>
-							{{common.toThousands(items.shareNum)}}
-						</div>
-						
-						<!-- 历史期数 -->
-						<div style="font-size: 13px;margin-left: 12px;">
-							<div style="display: flex;align-items: center;cursor: pointer;color:limegreen;" nz-popover nzPopoverTrigger="click"
-								[nzPopoverContent]="HistorycontentTemplate">
-								<img src="/assets/multiModalLearning/time.png" class='icon'>
-								历史期数
-							</div>
-							<ng-template #HistorycontentTemplate>
-								<div *ngIf='item[2].length>0'
-									style="max-height:350px;overflow-y: auto;">
-									<div *ngFor='let his of item[2];'
-										style="padding: 8px;border-bottom: 1px dashed #ccc;display: flex;align-items: center;">
-										<div nz-tooltip nzTooltipTitle="播放量"
-											style="display: flex;align-items: center;">
-											<img src="/assets/multiModalLearning/play.png" class='icon'>
-											{{his.playNumDesc}}
-										</div>
-										<div nz-tooltip nzTooltipTitle="排行"
-											style="display: flex;align-items: center;margin-left: 16px;">
-											<img src="/assets/multiModalLearning/index.png" class='icon'>
-											{{his.rank}}
-										</div>
-										<div style="margin-left: 16px;" nz-tooltip
-											nzTooltipTitle="所在期数时间">
-											{{his.periodId}}
-										</div>
-									</div>
-								
-								</div>
-								<div *ngIf='item[2].length==0'>
-									暂无历史
-								</div>
-							</ng-template>
-						</div>
-					</div>
-				</div>
-				
-			</div>
-		</div>
-		
-		
-		<!-- 全站音乐榜单 -->
-		<div *ngIf="item[0] == '全站音乐榜单'&&item[1].length>0" style="border-bottom: 1px dashed #ccc;padding: 12px 0;">
-			<div style="font-size: 16px;margin-bottom: 6px;">
-				{{item[0]}}
-			</div>
-			<div *ngFor="let items of item[1]" style="display: flex;margin-left: 8px;color: #000;">
-				<div style="display: flex;align-items: center;">
-					<img [src]="items.mv_cover" style="width: 66px;height: 66px;object-fit: cover;border-radius: 4px;">
-				</div>
-				<div style="margin-left: 14px;">
-					<div (click)="OpenLink(items.music_url)" nz-tooltip [nzTooltipTitle]="items.music_title"
-						style="font-size: 16px;cursor: pointer;font-weight: bold;max-width: 350px;" class='hid'>
-						{{items.music_title}}
-					</div>
-					
-					<div style="font-size: 13px;display: flex;align-items: center;margin-top: 4px;">
-						
-						<div nz-tooltip [nzTooltipTitle]="items.singer"
-							style="max-width: 150px;" class="hid">
-							{{items.singer}}
-						</div>
-						
-						<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
-						
-						<div nz-tooltip [nzTooltipTitle]="items.album"
-							style="max-width: 150px;" class="hid">
-							{{items.album}}
-						</div>
-						
-						<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
-						
-						<div nz-tooltip nzTooltipTitle="所在期数时间">
-							{{common.getDate(items.ReleaseTime)}}
-						</div>
-					</div>
-					
-					<div style="display: flex;align-items: center;margin-top: 4px;font-size: 13px;">
-						<div style="display: flex;align-items: center;margin-right: 8px;">
-							<img src="/assets/multiModalLearning/hot.png" class="icon">
-							<div nz-tooltip nzTooltipTitle="热度" class="hid">
-								{{common.toThousands(items.heat)}}
-							</div>
-						</div>
-						<div *ngFor="let itemss of items.achievements" style="margin-right: 8px;">
-							{{itemss}}
-						</div>
-						<div style="margin-left: 2px;">
-							<div style="display: flex;align-items: center;cursor: pointer;color:limegreen" nz-popover nzPopoverTrigger="click"
-								[nzPopoverContent]="HistorycontentTemplate">
-								<img src="/assets/multiModalLearning/time.png" class="icon">
-								历史期数
-							</div>
-							<ng-template #HistorycontentTemplate>
-								<div *ngIf='item[2].length>0' style="max-height:350px;overflow-y: auto;font-size: 14px;">
-									<div *ngFor='let his of item[2];' style="padding: 8px;border-bottom: 1px dashed #ccc;">
-										<div style="display: flex;align-items: center;">
-											<img src="/assets/multiModalLearning/hot.png" class="icon">
-											<div nz-tooltip nzTooltipTitle="热度">
-												{{common.toThousands(his.heat)}}
-											</div>
-											<div style="margin-left: 8px;">
-												{{his.achievements[0]}}
-											</div>
-											<div style="margin-left: 8px;" nz-tooltip nzTooltipTitle="所在期数时间">
-												{{common.getTime(his.ReleaseTime)}}
-											</div>
-										</div>
-										<div style="display: flex;align-items: center;">
-											<img src="/assets/multiModalLearning/play.png" class="icon">
-											<div nz-tooltip nzTooltipTitle="播放量">
-												{{common.toThousands(his.creation_play)}}
-											</div>
-											<div style="cursor: pointer;color: blue;margin-left: 8px;font-size: 13px;"
-												(click)="OpenLink(his.video_url)">
-												去看视频
-											</div>
-										</div>
-									</div>
-						
-								</div>
-								<div *ngIf='item[2].length==0'>
-									暂无历史
-								</div>
-							</ng-template>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div style="margin-left: 8px;margin-top: 10px;">视频相关</div>
-			<div *ngFor="let items of item[1]" style="display: flex;margin-left: 14px;color: #000;">
-				<div style="display: flex;align-items: center;">
-					<img [src]="items.creation_cover" style="width: 42px;height:42px;border-radius: 4px;object-fit: cover;">
-				</div>
-				<div style="margin-left: 14px;">
-					<div (click)="OpenLink(items.video_url)" nz-tooltip [nzTooltipTitle]="items.creation_title"
-						style="font-size: 15px;cursor: pointer;font-weight: bold;max-width: 320px;" class="hid">
-						{{items.creation_title}}
-					</div>
-					<div style="font-size: 13px;display: flex;align-items: center;">
-						<div (click)="OpenLink('https://space.bilibili.com/'+items.creation_up)" nz-tooltip [nzTooltipTitle]="items.creation_nickname"
-							style="max-width: 150px;" class="hid">
-							{{items.creation_nickname}}
-						</div>
-						
-						<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
-						
-						<img src="/assets/multiModalLearning/play.png" class="icon">
-						<div nz-tooltip nzTooltipTitle="播放量">
-							{{common.toThousands(items.creation_play)}}
-						</div>
-						
-						<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
-						
-						<div>
-							{{items.creation_reason}}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<!-- 咪咕铃声榜 -->
-		<div *ngIf="item[0] == '咪咕铃声榜'&&item[1].MiGuRingtonesList.length>0" style='padding:12px 0'>
-			<div style="font-size: 16px;margin-bottom: 6px;">
-				{{item[0]}}
-			</div>
-			<div *ngFor="let items of item[1].MiGuRingtonesList" style="display: flex;margin-left: 8px;color: #000;margin-bottom: 12px;">
-				<div style="display: flex;align-items: center;">
-					<img [src]="items.albumImgs[0].img" style="width: 66px;height: 66px;object-fit: cover;border-radius: 4px;">
-				</div>
-				<div style="margin-left: 14px;">
-					
-					<div (click)="OpenLink(items.music_url)" nz-tooltip [nzTooltipTitle]="items.songName"
-						style="cursor: pointer;font-size: 16px;font-weight: bold;max-width: 350px;" class="hid">
-						{{items.songName}}
-					</div>
-					
-					<div style="font-size: 13px;display: flex;align-items: center;margin-top: 4px;">
-						<div nz-tooltip [nzTooltipTitle]="items.singer" style="max-width: 150px;cursor: pointer;" class="hid"
-							(click)="OpenLink(items.singer_url)">
-							{{items.singer}}
-						</div>
-							
-						<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
-						<div nz-tooltip [nzTooltipTitle]="items.album" style="max-width: 150px;cursor: pointer;" class="hid"
-							(click)="OpenLink(items.album_url)">
-							{{items.album}}
-						</div>
-						<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
-						<!-- 所在期数时间 -->
-						<div nz-tooltip nzTooltipTitle="所在期数时间">
-							{{common.getDate(items.AddTime)}}
-						</div>
-					</div>
-					
-					<div style="font-size: 13px;display: flex;align-items: center;margin-top: 4px;">
-						<div nz-tooltip nzTooltipTitle="播放量" style="display: flex;align-items: center;">
-							<img src="/assets/multiModalLearning/play.png" alt="" class="icon">
-							{{common.toThousands(items.playNum)}}
-						</div>
-						<div nz-tooltip nzTooltipTitle="收藏量" style="display: flex;align-items: center;margin-left: 8px;">
-							<img src="/assets/multiModalLearning/Collection.png" alt="" class="icon">
-							{{common.toThousands(items.keepNum)}}
-						</div>
-						<div nz-tooltip nzTooltipTitle="评论量" style="display: flex;align-items: center;margin-left: 8px;">
-							<img src="/assets/multiModalLearning/Comment.png" alt="" class="icon">
-							{{common.toThousands(items.commentNum)}}
-						</div>
-						<div nz-tooltip nzTooltipTitle="分享量" style="display: flex;align-items: center;margin-left: 8px;">
-							<img src="/assets/multiModalLearning/Share.png" alt="" class="icon">
-							{{common.toThousands(items.shareNum)}}
-						</div>
-						<div nz-tooltip nzTooltipTitle="排行" style="display: flex;align-items: center;margin-left: 8px;">
-							<img src="/assets/multiModalLearning/index.png" class="icon">
-							{{common.toThousands(items.rank)}}
-						</div>
-						
-						
-						<div style="font-size: 13px;margin-left: 10px;">
-							<div style="display: flex;align-items: center;cursor: pointer;color: limegreen;" nz-popover nzPopoverTrigger="click"
-								[nzPopoverContent]="HistorycontentTemplate">
-								<img src="/assets/multiModalLearning/time.png" alt="" class="icon">
-								历史期数
-							</div>
-							<ng-template #HistorycontentTemplate>
-								<div *ngIf='items.history.length>0'
-									style="max-height:350px;overflow-y: auto;">
-									<div *ngFor='let his of items.history;'
-										style="padding: 8px;border-bottom: 1px dashed #ccc;display: flex;align-items: center;">
-										<div nz-tooltip nzTooltipTitle="排行"
-											style="display: flex;align-items: center;color: #000;width: 50px;">
-											<img src="/assets/multiModalLearning/index.png" class="icon">
-											{{common.toThousands(his.rank)}}
-										</div>
-										<div nz-tooltip nzTooltipTitle="播放量"
-											style="display: flex;align-items: center;color: #000;width: 90px;">
-											<img src="/assets/multiModalLearning/play.png" class="icon">
-											{{common.toThousands(his.playNum)}}
-										</div>
-										<div nz-tooltip nzTooltipTitle="收藏量"
-											style="display: flex;align-items: center;color: #000;width:60px;">
-											<img src="/assets/multiModalLearning/Collection.png" class="icon">
-											{{common.toThousands(his.keepNum)}}
-										</div>
-										<div nz-tooltip nzTooltipTitle="评论量"
-											style="display: flex;align-items: center;width:60px;">
-											<img src="/assets/multiModalLearning/Comment.png" class="icon">
-											{{common.toThousands(his.commentNum)}}
-										</div>
-										<div nz-tooltip nzTooltipTitle="分享量"
-											style="display: flex;align-items: center;color: #000;width:60px;">
-											<img src="/assets/multiModalLearning/Share.png" class="icon">
-											{{common.toThousands(his.shareNum)}}
-										</div>
-										<div style="margin-left: 16px;" nz-tooltip nzTooltipTitle="所在期数时间">
-											{{common.getDate(his.AddTime)}}
-										</div>
-									</div>
-						
-								</div>
-								<div *ngIf='items.history.length==0'>
-									暂无历史
-								</div>
-							</ng-template>
-						</div>
-					</div>
-				</div>
-				
-			</div>
-		</div>
-		
-		
+	<div
+		*ngIf="!ComprehensiveRankingList[0] && !ComprehensiveRankingList[1]&&!ComprehensiveRankingList[2]">
+		[ 暂无数据 ]
 	</div>
-</div>
+	<div *ngIf="ComprehensiveRankingList[0] || ComprehensiveRankingList[1] || ComprehensiveRankingList[2]">
+		<div *ngFor="let item of ComprehensiveRankingList">
+
+			<!-- 咪咕尖叫新歌榜 -->
+			<div *ngIf="item[0] == '咪咕尖叫新歌榜'&&item[1].length>0" style="border-bottom: 1px dashed #ccc;padding: 12px 0;">
+				<div style="font-size: 16px;margin-bottom: 6px;">
+					{{item[0]}}
+				</div>
+				<div *ngFor="let items of item[1]" style="display: flex;margin-left: 8px;color: #000;">
+					<div style="display: flex;align-items: center;">
+						<img *ngIf='!items.playNumDesc' [src]="items.albumImgs[0].img"
+							style="width: 66px;height: 66px;object-fit: cover;border-radius: 4px;">
+						<img *ngIf='items.playNumDesc' [src]="items.albumImgs"
+							style="width: 66px;height: 66px;object-fit: cover;border-radius: 4px;">
+					</div>
+					<div style="margin-left: 14px;">
+						<div (click)="OpenLink(items.music_url)" nz-tooltip [nzTooltipTitle]="items.songName"
+							style="cursor: pointer;font-size: 16px;font-weight: bold;max-width: 350px;" class='hid'>
+							{{items.songName}}
+						</div>
+						<div style="font-size: 13px;display: flex;align-items: center;margin-top: 4px;">
+							<!-- 歌手 -->
+							<div *ngIf='items.singer' nz-tooltip [nzTooltipTitle]="items.singer"
+								style="max-width: 150px;cursor: pointer;" class='hid'
+								(click)="OpenLink(items.singer_url)">
+								{{items.singer}}
+							</div>
+
+							<div *ngIf='items.singerList' nz-tooltip [nzTooltipTitle]="items.singerName"
+								style="display: flex;align-items: center;max-width: 150px;cursor: pointer;" class='hid'>
+								<div *ngFor='let singer of items.singerList;let si = index;'
+									(click)="OpenLink(singer.singer_url)">
+									{{si==items.singerList.length-1?singer.name:singer.name+"，"}}
+								</div>
+							</div>
+
+							<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+							<!-- 专辑 -->
+							<div nz-tooltip [nzTooltipTitle]="items.album" style="max-width: 150px;cursor: pointer;"
+								class='hid' (click)="OpenLink(items.album_url)">
+								{{items.album}}
+							</div>
+
+							<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+							<!-- 所在期数时间 -->
+							<div *ngIf='items.ReleaseTime' style="" nz-tooltip nzTooltipTitle="所在期数时间">
+								{{common.getDate(items.ReleaseTime)}}
+							</div>
+							<div *ngIf='items.periodId' style="" nz-tooltip nzTooltipTitle="所在期数时间">
+								{{items.periodId}}
+							</div>
+						</div>
+						<div style="font-size: 13px;display: flex;align-items: center;margin-top: 4px;">
+
+							<div *ngIf='items.playNumDesc' nz-tooltip nzTooltipTitle="播放量"
+								style="display: flex;align-items: center;">
+								<img src="/assets/multiModalLearning/play.png" class='icon'>
+								{{items.playNumDesc}}
+							</div>
+							<div *ngIf='items.playNumDesc' nz-tooltip nzTooltipTitle="排行"
+								style="display: flex;align-items: center;margin-left: 8px;">
+								<img src="/assets/multiModalLearning/index.png" class='icon'>
+								{{items.rank}}
+							</div>
+							<div *ngIf='!items.playNumDesc' nz-tooltip nzTooltipTitle="播放量"
+								style="display: flex;align-items: center;">
+								<img src="/assets/multiModalLearning/play.png" class='icon'>
+								{{common.toThousands(items.playNum)}}
+							</div>
+							<div *ngIf='!items.playNumDesc' nz-tooltip nzTooltipTitle="收藏量"
+								style="display: flex;align-items: center;margin-left: 8px;">
+								<img src="/assets/multiModalLearning/Collection.png" class='icon'>
+								{{common.toThousands(items.keepNum)}}
+							</div>
+							<div *ngIf='!items.playNumDesc' nz-tooltip nzTooltipTitle="评论量"
+								style="display: flex;align-items: center;margin-left: 8px;">
+								<img src="/assets/multiModalLearning/Comment.png" class='icon'>
+								{{common.toThousands(items.commentNum)}}
+							</div>
+							<div *ngIf='!items.playNumDesc' nz-tooltip nzTooltipTitle="分享量"
+								style="display: flex;align-items: center;margin-left: 8px;">
+								<img src="/assets/multiModalLearning/Share.png" class='icon'>
+								{{common.toThousands(items.shareNum)}}
+							</div>
+
+							<!-- 历史期数 -->
+							<div style="font-size: 13px;margin-left: 12px;">
+								<div style="display: flex;align-items: center;cursor: pointer;color:limegreen;"
+									nz-popover nzPopoverTrigger="click" [nzPopoverContent]="HistorycontentTemplate">
+									<img src="/assets/multiModalLearning/time.png" class='icon'>
+									历史期数
+								</div>
+								<ng-template #HistorycontentTemplate>
+									<div *ngIf='item[2].length>0' style="max-height:350px;overflow-y: auto;">
+										<div *ngFor='let his of item[2];'
+											style="padding: 8px;border-bottom: 1px dashed #ccc;display: flex;align-items: center;">
+											<div nz-tooltip nzTooltipTitle="播放量"
+												style="display: flex;align-items: center;">
+												<img src="/assets/multiModalLearning/play.png" class='icon'>
+												{{his.playNumDesc}}
+											</div>
+											<div nz-tooltip nzTooltipTitle="排行"
+												style="display: flex;align-items: center;margin-left: 16px;">
+												<img src="/assets/multiModalLearning/index.png" class='icon'>
+												{{his.rank}}
+											</div>
+											<div style="margin-left: 16px;" nz-tooltip nzTooltipTitle="所在期数时间">
+												{{his.periodId}}
+											</div>
+										</div>
+
+									</div>
+									<div *ngIf='item[2].length==0'>
+										暂无历史
+									</div>
+								</ng-template>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+			<!-- 全站音乐榜单 -->
+			<div *ngIf="item[0] == '全站音乐榜单'&&item[1].length>0" style="border-bottom: 1px dashed #ccc;padding: 12px 0;">
+				<div style="font-size: 16px;margin-bottom: 6px;">
+					{{item[0]}}
+				</div>
+				<div *ngFor="let items of item[1]" style="display: flex;margin-left: 8px;color: #000;">
+					<div style="display: flex;align-items: center;">
+						<img [src]="items.mv_cover"
+							style="width: 66px;height: 66px;object-fit: cover;border-radius: 4px;">
+					</div>
+					<div style="margin-left: 14px;">
+						<div (click)="OpenLink(items.music_url)" nz-tooltip [nzTooltipTitle]="items.music_title"
+							style="font-size: 16px;cursor: pointer;font-weight: bold;max-width: 350px;" class='hid'>
+							{{items.music_title}}
+						</div>
+
+						<div style="font-size: 13px;display: flex;align-items: center;margin-top: 4px;">
+
+							<div nz-tooltip [nzTooltipTitle]="items.singer" style="max-width: 150px;" class="hid">
+								{{items.singer}}
+							</div>
+
+							<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+
+							<div nz-tooltip [nzTooltipTitle]="items.album" style="max-width: 150px;" class="hid">
+								{{items.album}}
+							</div>
+
+							<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+
+							<div nz-tooltip nzTooltipTitle="所在期数时间">
+								{{common.getDate(items.ReleaseTime)}}
+							</div>
+						</div>
+
+						<div style="display: flex;align-items: center;margin-top: 4px;font-size: 13px;">
+							<div style="display: flex;align-items: center;margin-right: 8px;">
+								<img src="/assets/multiModalLearning/hot.png" class="icon">
+								<div nz-tooltip nzTooltipTitle="热度" class="hid">
+									{{common.toThousands(items.heat)}}
+								</div>
+							</div>
+							<div *ngFor="let itemss of items.achievements" style="margin-right: 8px;">
+								{{itemss}}
+							</div>
+							<div style="margin-left: 2px;">
+								<div style="display: flex;align-items: center;cursor: pointer;color:limegreen"
+									nz-popover nzPopoverTrigger="click" [nzPopoverContent]="HistorycontentTemplate">
+									<img src="/assets/multiModalLearning/time.png" class="icon">
+									历史期数
+								</div>
+								<ng-template #HistorycontentTemplate>
+									<div *ngIf='item[2].length>0'
+										style="max-height:350px;overflow-y: auto;font-size: 14px;">
+										<div *ngFor='let his of item[2];'
+											style="padding: 8px;border-bottom: 1px dashed #ccc;">
+											<div style="display: flex;align-items: center;">
+												<img src="/assets/multiModalLearning/hot.png" class="icon">
+												<div nz-tooltip nzTooltipTitle="热度">
+													{{common.toThousands(his.heat)}}
+												</div>
+												<div style="margin-left: 8px;">
+													{{his.achievements[0]}}
+												</div>
+												<div style="margin-left: 8px;" nz-tooltip nzTooltipTitle="所在期数时间">
+													{{common.getTime(his.ReleaseTime)}}
+												</div>
+											</div>
+											<div style="display: flex;align-items: center;">
+												<img src="/assets/multiModalLearning/play.png" class="icon">
+												<div nz-tooltip nzTooltipTitle="播放量">
+													{{common.toThousands(his.creation_play)}}
+												</div>
+												<div style="cursor: pointer;color: blue;margin-left: 8px;font-size: 13px;"
+													(click)="OpenLink(his.video_url)">
+													去看视频
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div *ngIf='item[2].length==0'>
+										暂无历史
+									</div>
+								</ng-template>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="margin-left: 8px;margin-top: 10px;">视频相关</div>
+				<div *ngFor="let items of item[1]" style="display: flex;margin-left: 14px;color: #000;">
+					<div style="display: flex;align-items: center;">
+						<img [src]="items.creation_cover"
+							style="width: 42px;height:42px;border-radius: 4px;object-fit: cover;">
+					</div>
+					<div style="margin-left: 14px;">
+						<div (click)="OpenLink(items.video_url)" nz-tooltip [nzTooltipTitle]="items.creation_title"
+							style="font-size: 15px;cursor: pointer;font-weight: bold;max-width: 320px;" class="hid">
+							{{items.creation_title}}
+						</div>
+						<div style="font-size: 13px;display: flex;align-items: center;">
+							<div (click)="OpenLink('https://space.bilibili.com/'+items.creation_up)" nz-tooltip
+								[nzTooltipTitle]="items.creation_nickname" style="max-width: 150px;" class="hid">
+								{{items.creation_nickname}}
+							</div>
+
+							<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+
+							<img src="/assets/multiModalLearning/play.png" class="icon">
+							<div nz-tooltip nzTooltipTitle="播放量">
+								{{common.toThousands(items.creation_play)}}
+							</div>
+
+							<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+
+							<div>
+								{{items.creation_reason}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 咪咕铃声榜 -->
+			<div *ngIf="item[0] == '咪咕铃声榜'&&item[1].MiGuRingtonesList.length>0" style='padding:12px 0'>
+				<div style="font-size: 16px;margin-bottom: 6px;">
+					{{item[0]}}
+				</div>
+				<div *ngFor="let items of item[1].MiGuRingtonesList"
+					style="display: flex;margin-left: 8px;color: #000;margin-bottom: 12px;">
+					<div style="display: flex;align-items: center;">
+						<img [src]="items.albumImgs[0].img"
+							style="width: 66px;height: 66px;object-fit: cover;border-radius: 4px;">
+					</div>
+					<div style="margin-left: 14px;">
+
+						<div (click)="OpenLink(items.music_url)" nz-tooltip [nzTooltipTitle]="items.songName"
+							style="cursor: pointer;font-size: 16px;font-weight: bold;max-width: 350px;" class="hid">
+							{{items.songName}}
+						</div>
+
+						<div style="font-size: 13px;display: flex;align-items: center;margin-top: 4px;">
+							<div nz-tooltip [nzTooltipTitle]="items.singer" style="max-width: 150px;cursor: pointer;"
+								class="hid" (click)="OpenLink(items.singer_url)">
+								{{items.singer}}
+							</div>
+
+							<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+							<div nz-tooltip [nzTooltipTitle]="items.album" style="max-width: 150px;cursor: pointer;"
+								class="hid" (click)="OpenLink(items.album_url)">
+								{{items.album}}
+							</div>
+							<span nz-icon nzType="right" nzTheme="outline" style="color: #ccc"></span>
+							<!-- 所在期数时间 -->
+							<div nz-tooltip nzTooltipTitle="所在期数时间">
+								{{common.getDate(items.AddTime)}}
+							</div>
+						</div>
+
+						<div style="font-size: 13px;display: flex;align-items: center;margin-top: 4px;">
+							<div nz-tooltip nzTooltipTitle="播放量" style="display: flex;align-items: center;">
+								<img src="/assets/multiModalLearning/play.png" alt="" class="icon">
+								{{common.toThousands(items.playNum)}}
+							</div>
+							<div nz-tooltip nzTooltipTitle="收藏量"
+								style="display: flex;align-items: center;margin-left: 8px;">
+								<img src="/assets/multiModalLearning/Collection.png" alt="" class="icon">
+								{{common.toThousands(items.keepNum)}}
+							</div>
+							<div nz-tooltip nzTooltipTitle="评论量"
+								style="display: flex;align-items: center;margin-left: 8px;">
+								<img src="/assets/multiModalLearning/Comment.png" alt="" class="icon">
+								{{common.toThousands(items.commentNum)}}
+							</div>
+							<div nz-tooltip nzTooltipTitle="分享量"
+								style="display: flex;align-items: center;margin-left: 8px;">
+								<img src="/assets/multiModalLearning/Share.png" alt="" class="icon">
+								{{common.toThousands(items.shareNum)}}
+							</div>
+							<div nz-tooltip nzTooltipTitle="排行"
+								style="display: flex;align-items: center;margin-left: 8px;">
+								<img src="/assets/multiModalLearning/index.png" class="icon">
+								{{common.toThousands(items.rank)}}
+							</div>
+
+
+							<div style="font-size: 13px;margin-left: 10px;">
+								<div style="display: flex;align-items: center;cursor: pointer;color: limegreen;"
+									nz-popover nzPopoverTrigger="click" [nzPopoverContent]="HistorycontentTemplate">
+									<img src="/assets/multiModalLearning/time.png" alt="" class="icon">
+									历史期数
+								</div>
+								<ng-template #HistorycontentTemplate>
+									<div *ngIf='items.history.length>0' style="max-height:350px;overflow-y: auto;">
+										<div *ngFor='let his of items.history;'
+											style="padding: 8px;border-bottom: 1px dashed #ccc;display: flex;align-items: center;">
+											<div nz-tooltip nzTooltipTitle="排行"
+												style="display: flex;align-items: center;color: #000;width: 50px;">
+												<img src="/assets/multiModalLearning/index.png" class="icon">
+												{{common.toThousands(his.rank)}}
+											</div>
+											<div nz-tooltip nzTooltipTitle="播放量"
+												style="display: flex;align-items: center;color: #000;width: 90px;">
+												<img src="/assets/multiModalLearning/play.png" class="icon">
+												{{common.toThousands(his.playNum)}}
+											</div>
+											<div nz-tooltip nzTooltipTitle="收藏量"
+												style="display: flex;align-items: center;color: #000;width:60px;">
+												<img src="/assets/multiModalLearning/Collection.png" class="icon">
+												{{common.toThousands(his.keepNum)}}
+											</div>
+											<div nz-tooltip nzTooltipTitle="评论量"
+												style="display: flex;align-items: center;width:60px;">
+												<img src="/assets/multiModalLearning/Comment.png" class="icon">
+												{{common.toThousands(his.commentNum)}}
+											</div>
+											<div nz-tooltip nzTooltipTitle="分享量"
+												style="display: flex;align-items: center;color: #000;width:60px;">
+												<img src="/assets/multiModalLearning/Share.png" class="icon">
+												{{common.toThousands(his.shareNum)}}
+											</div>
+											<div style="margin-left: 16px;" nz-tooltip nzTooltipTitle="所在期数时间">
+												{{common.getDate(his.AddTime)}}
+											</div>
+										</div>
+
+									</div>
+									<div *ngIf='items.history.length==0'>
+										暂无历史
+									</div>
+								</ng-template>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+</nz-card>

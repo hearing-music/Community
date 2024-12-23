@@ -15,6 +15,7 @@ export class ComprehensiveRankingComponent implements OnInit, OnChanges {
 		}
 	}
 	@Input() ComprehensiveRankingList : any = [];
+	@Input() loading : any = true;
 	OpenLink(link : any) {
 		window.open(link);
 	}

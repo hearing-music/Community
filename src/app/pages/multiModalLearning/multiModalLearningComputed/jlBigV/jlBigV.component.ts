@@ -16,6 +16,7 @@ export class JlBigVComponent implements OnInit {
   async ngOnInit() {}
 
   @Input() MassiveArithmeticDaRen: any = [];
+  @Input() loading: any = true;
 
   //巨量达人跳转主页  || 视频主页
   OpenDy(item: any) {

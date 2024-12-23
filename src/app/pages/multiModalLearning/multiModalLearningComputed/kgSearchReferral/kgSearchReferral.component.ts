@@ -13,10 +13,15 @@ export class KgSearchReferralComponent implements OnInit {
     public common: CommonService,
     private toast: ToastrService
   ) {}
-  async ngOnInit() {
-  }
-@Input() KGSearchRecommendations:any=[]
+  @Input() KGSearchRecommendations:any=[]
+  @Input() loading=true;
+  async ngOnInit() {}
+  
+  
+  
 isVisibleRecommendations=false;
+
+
 handleCancelRecommendations(): void {
     this.isVisibleRecommendations = false;
   }

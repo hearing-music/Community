@@ -1,23 +1,38 @@
-	<div class="item_list" *ngIf='obData.QQ[0].record.length>0'>
-		<div>
-			<div>QQ排行榜</div>
-			<div style="font-size: 13px;font-weight: bold;color:rgba(26,26,26,.6);">
-				<div *ngFor='let r of obData.QQ[0].record;'>
-					{{r}}
+<nz-card [nzLoading]="loading" [nzHoverable]='true'
+	style="margin-bottom: 20px;border-radius: 6px;margin-left: 10px;border-color: rgba(0, 0, 0, 0.6);">
+	<div style="display: flex;flex-direction: column;min-height: 430px;">
+		<div class="item_list" style="flex:1;">
+			<div style="font-size: 16px;">QQ排行榜</div>
+			<div *ngIf="!obData.QQ[0]">
+				[ 没有搜索关键字 ]
+			</div>
+			<div *ngIf="obData.QQ[0]">
+				<div *ngIf="obData.QQ[0].record.length==0">
+					[ 暂无数据 ]
+				</div>
+				<div style="font-size: 13px;font-weight: bold;color:rgba(26,26,26,.6);">
+					<div *ngFor='let r of obData.QQ[0].record;'>
+						{{r}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item_list" style="flex:1;">
+			<div style="font-size: 16px;">酷狗排行榜</div>
+			<div *ngIf="!obData.KG[0]">
+				[ 没有搜索关键字 ]
+			</div>
+			<div *ngIf="obData.KG[0]">
+				<div *ngIf="obData.KG[0].record.length==0">
+					[ 暂无数据 ]
+				</div>
+				<div style="font-size: 13px;font-weight: bold;color:rgba(26,26,26,.6);">
+					<div *ngFor='let r of obData.KG[0].record;'>
+						{{r.rank_name}} 当期排名{{r.rank_sort_list[0].sort}} 历史在榜{{r.rank_times+'期'}}
+						最高排名{{r.highest_rank}}
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-	<div class="item_list" *ngIf='obData.KG[0].record.length>0'>
-		<div>
-			<div>酷狗排行榜</div>
-			<div style="font-size: 13px;font-weight: bold;color:rgba(26,26,26,.6);">
-				<div *ngFor='let r of obData.KG[0].record;'>
-					{{r.rank_name}} 当期排名{{r.rank_sort_list[0].sort}} 历史在榜{{r.rank_times+'期'}}
-					最高排名{{r.highest_rank}}
-				</div>
-			</div>
-		</div>
-	</div>
+</nz-card>

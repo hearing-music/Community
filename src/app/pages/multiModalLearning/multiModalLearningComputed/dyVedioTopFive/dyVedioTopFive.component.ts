@@ -16,6 +16,7 @@ export class DyVedioTopFiveComponent implements OnInit {
   async ngOnInit() {
   }
 @Input() DyVedioTopFive:any=[]
+@Input() loading:any=true;
 @Input() DyVedioTopFiveTime=300;
 openDetail(item: any) {
     window.open("https://www.douyin.com/discover?modal_id=" + item);

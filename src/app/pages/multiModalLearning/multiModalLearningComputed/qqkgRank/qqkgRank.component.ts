@@ -15,5 +15,6 @@ export class QqkgRankComponent implements OnInit {
   ) {}
   async ngOnInit() {
   }
+  @Input() loading=true;
 @Input() obData:any={}
 }

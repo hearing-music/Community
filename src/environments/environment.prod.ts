@@ -8,6 +8,7 @@ export const environment = {
 	hmr: false,
 	// downloadUrl:'http://139.224.133.131:3223',
 	downloadUrl:'https://communities.tingjianmusic.cn:444',
+	windowUrl:'https://community.tingjianmusic.cn:444',
 	// downloadUrl:'http://communities.tingjianmusic.cn:81',
 	downloadUrl2:'https://spleeter.jinzhoushaokao.top:444/',
 	baseUrl:'https://communities.tingjianmusic.cn:444',

@@ -11,6 +11,7 @@
 export const environment = {
     production: false,
     hmr: true,
+  windowUrl:'http://localhost:4200',
     downloadUrl:'http://localhost:3222',
     downloadUrl2:'https://spleeter.jinzhoushaokao.top:444/',
     // downloadUrl:'http://192.168.43.44:3222',

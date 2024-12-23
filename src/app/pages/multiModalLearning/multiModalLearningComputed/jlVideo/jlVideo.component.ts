@@ -18,6 +18,7 @@ export class JlVideoComponent implements OnInit {
   }
   
 @Input() MassiveArithmeticVedio:any=[]
+  @Input() loading: any = true;
 paginatedData:any=[]
  //巨量达人跳转主页  || 视频主页
   OpenDy(item: any) {

@@ -14,7 +14,6 @@ export class ApiService {
 	constructor(private http : HttpClient) {
 
 	}
-	
 	async fetchFile(fileUrl : string) {
 		// 使用fetch获取文件
 		const response = await fetch(this.downloadUrl + fileUrl);
