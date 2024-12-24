@@ -29,10 +29,14 @@ export class PerfectedSongsComponent implements OnInit {
     this.publish_timeClick.emit();
   }
   @Output() reloadExponent: EventEmitter<any> = new EventEmitter<any>();
-  reloadExponents(item:any) {
-    this.reloadExponent.emit({item:item});
+  reloadExponents(item: any) {
+    this.reloadExponent.emit({ item: item });
   }
-  constructor(public common: CommonService,public api: ApiService,private toast: ToastrService) {}
+  constructor(
+    public common: CommonService,
+    public api: ApiService,
+    private toast: ToastrService
+  ) {}
   ngOnInit(): void {
     this.ModifyTime = new Date().getTime();
   }
@@ -62,5 +66,12 @@ export class PerfectedSongsComponent implements OnInit {
   splitEm(inputString: any) {
     let cleanedString = inputString.replace(/<em>|<\/em>/g, "");
     return cleanedString;
+  }
+  linkAlbum(item: any) {
+    if (item.AlbumId) {
+      window.open("http://www2.kugou.kugou.com/yueku/v8/album/single/"+item.AlbumId + "-0-1.html")
+    } else {
+      this.toast.info("未找到专辑");
+    }
   }
 }

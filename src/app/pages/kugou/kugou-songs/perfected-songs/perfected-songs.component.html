@@ -54,7 +54,7 @@
         <td nzAlign="center">{{ item.Grp ? item.Grp : 0 }}</td>
         <td nzAlign="center">{{ item.Company ? item.Company : "无" }}</td>
         <td nzAlign="center">{{ item.Ime_public ? item.Ime_public : "无" }}</td>
-        <td nzAlign="center">{{ item.AlbumName ? item.AlbumName : "无" }}</td>
+        <td nzAlign="center"  (click)='linkAlbum(item)' style="cursor: pointer;">{{ item.AlbumName ? item.AlbumName : "无" }}</td>
         <td nzAlign="center">
           <div *ngFor="let s of item.SingerInfo; let si = index" (click)="openSingerHome(s.id)" style="cursor: pointer">
             {{ splitEm(s.name) }}{{ si != item.SingerInfo.length - 1 ? "," : "" }}

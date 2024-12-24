@@ -173,18 +173,20 @@ export class kugouSongsComponent implements OnInit {
   }
   //检查图片重新赋值
   updateImageField(data:any) {
-    data.forEach((song:any) => {
+    data.forEach((song: any) => {
         if (!song.Image) {
             if (song.Alternative && song.Alternative.length > 0) {
                 const alt = song.Alternative[0];
                 if (alt.cover) {
-                    song.Image = alt.cover;
+                    song.Image = alt.cover.replace(/{size}/, '240');
                 } else if (alt.union_cover) {
-                    song.Image = alt.union_cover;
-                } else if (alt.avatar) {
-                    song.Image = alt.avatar;
+                    song.Image = alt.union_cover.replace(/{size}/, '240');
+                } else if (alt.avatar && typeof(alt.avatar)!="object") {
+                  song.Image = alt.avatar.replace(/{size}/, '240');
                 }
             }
+        } else {
+          song.Image=song.Image.replace(/{size}/, '240')
         }
     });
   }
