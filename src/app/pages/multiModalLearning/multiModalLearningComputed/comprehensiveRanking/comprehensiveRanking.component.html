@@ -1,10 +1,10 @@
 <nz-card [nzLoading]="loading" [nzHoverable]='true' style="margin-bottom: 20px;border-radius: 6px;min-height: 430px;border-color:rgba(0, 0, 0, 0.6);"class='item_list'>
 	<div style="font-size: 16px;">综合榜单</div>
-	<div
-		*ngIf="!ComprehensiveRankingList[0] && !ComprehensiveRankingList[1]&&!ComprehensiveRankingList[2]">
-		[ 暂无数据 ]
-	</div>
 	<div *ngIf="ComprehensiveRankingList[0] || ComprehensiveRankingList[1] || ComprehensiveRankingList[2]">
+		<div
+			*ngIf="ComprehensiveRankingList[0][1].length==0 && ComprehensiveRankingList[1][1].length==0&&ComprehensiveRankingList[2][1].MiGuRingtonesList.length==0&&ComprehensiveRankingList[2][1].MiGuChatterNewSongList.length==0&&ComprehensiveRankingList[2][1].MiGuRingtonesList.length==0">
+			[ 暂无数据 ]
+		</div>
 		<div *ngFor="let item of ComprehensiveRankingList">
 
 			<!-- 咪咕尖叫新歌榜 -->

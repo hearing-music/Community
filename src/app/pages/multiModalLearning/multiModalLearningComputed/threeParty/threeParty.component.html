@@ -1,0 +1,16 @@
+	<nz-card [nzLoading]="loading" [nzHoverable]='true' style="margin: 20px 0;border-radius: 6px;margin-left:10px;border-color: rgba(0, 0, 0, 0.6);">
+		<div class="item_list">
+			<div style="font-size: 16px;margin-bottom: 8px;">三方接口(榜单&&热搜词)</div>
+			<div *ngIf="ThreePartyInterface.length==0">
+				[ 暂无数据 ]
+			</div>
+			<div *ngFor="let item of ThreePartyInterface">
+				<span style="color: #8c8c8c;">
+					{{item[0]}}
+				</span>
+				<span style="margin-left: 8px;color: #000;">
+					{{item[1]}}
+				</span>
+			</div>
+		</div>
+	</nz-card>

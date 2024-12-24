@@ -240,19 +240,21 @@
 					<!-- 酷狗搜索推荐数据 -->
 					<ngx-kgSearchReferral [KGSearchRecommendations]='KGSearchRecommendations'
 						[loading]='KGSearchRecommendationsLoading'></ngx-kgSearchReferral>
-					<!-- 酷狗飙升榜 三方接口(榜单&&热搜词) -->
-					<ngx-kgSoaring [KGSoaringSongs]='KGSoaringSongs' [ThreePartyInterface]='ThreePartyInterface'
-						[ThreePartyInterfaceLoading]='ThreePartyInterfaceLoading'
-						[KGSoaringSongsLoading]='KGSoaringSongsLoading'></ngx-kgSoaring>
+					<!-- 酷狗飙升榜 -->
+					<ngx-kgSoaring [KGSoaringSongs]='KGSoaringSongs' 
+						[loading]='KGSoaringSongsLoading'></ngx-kgSoaring>
+					<!-- 三方接口(榜单&&热搜词) -->
+					<ngx-threeParty [ThreePartyInterface]='ThreePartyInterface'
+						[loading]='ThreePartyInterfaceLoading'></ngx-threeParty>
 				</div>
 				<div nz-col nzSpan="1"></div>
-				<div nz-col nzSpan="6">
+				<div nz-col nzSpan="7">
 					<!-- 抖音该词条前五的数据 -->
 					<ngx-dyVedioTopFive [DyVedioTopFiveTime]='DyVedioTopFiveTime' [DyVedioTopFive]='DyVedioTopFive'
 						[loading]='DyVedioTopFiveLoading'></ngx-dyVedioTopFive>
 				</div>
 				<div nz-col nzSpan="1"></div>
-				<div nz-col nzSpan="8">
+				<div nz-col nzSpan="7">
 					<!-- 抖音挑战榜 -->
 					<ngx-dyChallenge [DyChallengeList]='DyChallengeList'
 						[loading]='DyChallengeListLoading'></ngx-dyChallenge>

@@ -1,0 +1,18 @@
+.item_list {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6);
+  background: #ffffff;
+  height: auto;
+}
+.scrollList::-webkit-scrollbar {
+		width:8px;
+	}
+	.scrollList::-webkit-scrollbar-thumb {
+	    border-radius: 10px;
+	    background: rgba(0,0,0,0.2);
+	}
+	
+	.scrollList::-webkit-scrollbar-track {
+	    border-radius: 10px;
+	    background: rgba(0,0,0,0.1);
+	}

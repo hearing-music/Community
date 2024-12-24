@@ -9,7 +9,7 @@
 				*ngIf="item.user_head_logo">
 			<div style="margin-left: 8px;">
 				<div style="display: flex;align-items: center;">
-					<span style="font-size: 16px;color: #000;cursor: pointer;" nz-tooltip nzTooltipTitle="前往主页"
+					<span style="font-size: 16px;color: #000;max-width: 120px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;cursor: pointer;" nz-tooltip [nzTooltipTitle]="item.user_name"
 						(click)="OpenDy(item.aweme_url)">{{item.user_name}}</span>
 					<div style="display: flex;align-items: center;margin-left: 8px;">
 						<img src="/assets/multiModalLearning/Fans.png" alt="" style="width: 16px; height: 16px;">

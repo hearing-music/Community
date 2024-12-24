@@ -21,9 +21,7 @@ export class KgSoaringComponent implements OnInit,OnChanges {
   	}
   }
 @Input() KGSoaringSongs:any=[]
-@Input() KGSoaringSongsLoading:any=true;
-@Input() ThreePartyInterface:any=[]
-@Input() ThreePartyInterfaceLoading:any=true;
+@Input() loading:any=true;
 
 //酷狗歌手页
   openLink(id: string | number) {

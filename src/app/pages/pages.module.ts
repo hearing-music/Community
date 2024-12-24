@@ -216,6 +216,7 @@ import {DyVedioTopFiveComponent} from './multiModalLearning/multiModalLearningCo
 import {DyChallengeComponent} from './multiModalLearning/multiModalLearningComputed/dyChallenge/dyChallenge.component';
 import {JlBigVComponent} from './multiModalLearning/multiModalLearningComputed/jlBigV/jlBigV.component';
 import {JlVideoComponent} from './multiModalLearning/multiModalLearningComputed/jlVideo/jlVideo.component';
+import {ThreePartyComponent} from './multiModalLearning/multiModalLearningComputed/threeParty/threeParty.component';
 import{ComprehensiveRankingComponent} from './multiModalLearning/multiModalLearningComputed/comprehensiveRanking/comprehensiveRanking.component'
 registerLocaleData(zh);
 @NgModule({
@@ -272,6 +273,7 @@ registerLocaleData(zh);
 		KaraokeSubTitleComponent,
 		SearchMvComponent,
 		QqkgInfoComponent,
+		ThreePartyComponent,
 		QqkgRankComponent,
 		PredictDataComponent,
 		KgSearchReferralComponent,

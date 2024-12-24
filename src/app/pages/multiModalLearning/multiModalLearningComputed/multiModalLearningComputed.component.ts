@@ -645,7 +645,11 @@ export class MultiModalLearningComputedComponent implements OnInit {
 		}
 		clearInterval(this.DyVedioTopFiveSchedule);
 		this.DyVedioTopFiveSchedule = null;
-		this.sendMessage(message);
+		message.Functionality.forEach((item:any)=>{
+			this.sendMessage({
+				Functionality:[item]
+			});
+		})
 		// 存入数据
 		this.ObservationDataStorage(res.data, res2.data || {});
 	}
@@ -654,7 +658,9 @@ export class MultiModalLearningComputedComponent implements OnInit {
 		console.log(this.chooseQQKGData);
 		let QMid = [this.chooseQQKGData.qqData.mid];
 		let Qid = [this.chooseQQKGData.qqData.id];
+		let QSingers = [this.chooseQQKGData.qqData.singer];
 		let KScid = [this.chooseQQKGData.kgData.Scid];
+		let KSingers = [this.chooseQQKGData.kgData.Singers];
 		let KQbjId = [
 			{
 				MixSongID: this.chooseQQKGData.kgData.MixSongID,
@@ -670,6 +676,8 @@ export class MultiModalLearningComputedComponent implements OnInit {
 			KQbjId,
 			KMixSongID,
 			KEMixSongID,
+			KSingers,
+			QSingers
 		};
 		return new Promise((resolve : any) => {
 			this.api.ObservationalData(obj).subscribe(

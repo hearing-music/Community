@@ -27,12 +27,33 @@ export class MultiModalLearningShowComponent implements OnInit {
 				if (res.success) {
 					for (let i = 0; i < res.data.res.length; i++) {
 						let data = res.data.res[i];
+						if(data.PlatformData.KG){
+							if(data.PlatformData.KG.length==0){
+								delete data.PlatformData.KG
+							}
+						}
+						if(data.PlatformData.QQ){
+							if(data.PlatformData.QQ.length==0){
+								delete data.PlatformData.QQ
+							}
+						}
+						// 歌手飙升
+						if(data.PlatformData.SingerSoaring){
+							data.PlatformData.SingerSoaring = this.SoaringKgSinger(data.PlatformData.SingerSoaring);
+						}
 						if (data.PlatformData.KG && data.PlatformData.KG.length > 0) {
 							data.isMore = false;
 							//酷狗数据拆分
 							data.PlatformData = this.splitKG(data.PlatformData);
 						}
 						if (data.PlatformData.QQ && data.PlatformData.QQ.length > 0) {
+							data.PlatformData.QQ.forEach((item:any)=>{
+								item.record = item.record || []
+							})
+							
+							data.PlatformData.KG.forEach((item:any)=>{
+								item.record = item.record || []
+							})
 							data.isMore = false;
 							//QQ数据拆分
 							data.PlatformData = this.splitQQ(data.PlatformData);
@@ -63,6 +84,31 @@ export class MultiModalLearningShowComponent implements OnInit {
 				this.loading = false;
 			}
 		);
+	}
+	SoaringKgSinger(item : any) {
+		const result = Object.values(
+			item.reduce((acc : any, item : any) => {
+				// 使用 Name 作为 key
+				const key = item.Name;
+				// 如果 key 不存在，则初始化
+				if (!acc[key]) {
+					acc[key] = { Name: key, other: [] };
+				}
+	
+				// 将当前 item 放到 other 数组中
+				acc[key].other.push({
+					Ran: item.Ran,
+					Strend: item.Strend,
+					Trend: item.Trend,
+					SingerId: item.SingerId,
+					Href: item.Href,
+					Time: item.Time,
+				});
+	
+				return acc;
+			}, {})
+		);
+		return result;
 	}
 	moreVersion(item : any) {
 		item.isMore = item.isMore ? false : true;
