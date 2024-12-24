@@ -158,6 +158,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				{
 					icon: '📢',
 					color: 'bg-azure-95',
+					title: '2024年12月24日16:05',
+					newAdd: ["抖音榜单 挑战榜"],//新增
+					optimize: [],//优化
+					bugs: [],//修复bug
+				},
+				{
+					icon: '📢',
+					color: 'bg-azure-95',
 					title: '2024年12月24日14:57',
 					newAdd: ["预估计算器查看新增榜单及歌手飙升"],//新增
 					optimize: [],//优化

@@ -206,6 +206,8 @@ import { MvQqComponent } from "./cut-video/search-mv/mv-qq/mv-qq.component";
 import { MvKgComponent } from "./cut-video/search-mv/mv-kg/mv-kg.component";
 import { LsddKeywordComponent } from "./lsdd-page/lsdd-hotKeyword/lsdd-hotKeyword.component";
 import {KaraokeSubTitleComponent} from '../components/karaokeSubTitle/karaokeSubTitle.component'
+import {DyChallComponent} from './douyin/douyin-list/dy-chall/dy-chall.component';
+
 
 import {QqkgInfoComponent} from './multiModalLearning/multiModalLearningComputed/qqkgInfo/qqkgInfo.component';
 import {QqkgRankComponent} from './multiModalLearning/multiModalLearningComputed/qqkgRank/qqkgRank.component';
@@ -271,6 +273,7 @@ registerLocaleData(zh);
 		
 		HighlightBracketsPipe,
 		KaraokeSubTitleComponent,
+		DyChallComponent,
 		SearchMvComponent,
 		QqkgInfoComponent,
 		ThreePartyComponent,

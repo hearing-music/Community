@@ -25,7 +25,11 @@ export class DouyinListComponent implements OnInit {
 	},{
 		name: '亚运会热榜',
 		holder: '亚运会热榜搜索'
+	},{
+		name: '抖音挑战榜',
+		holder: '抖音挑战榜搜索'
 	},]
+	
 	selectItem = '抖音热榜';
 	searchValue = '';
 	loading = false;
@@ -34,6 +38,7 @@ export class DouyinListComponent implements OnInit {
 	dyMusicList=[]
 	dyVideoList=[]
 	dyYyhList=[]
+	dychallengeList=[]
 	onSelect(item: any) {
 		this.selectItem = item.name;
 		this.searchHolder = item.holder;
@@ -49,6 +54,9 @@ export class DouyinListComponent implements OnInit {
 		}
 		if (this.selectItem == '亚运会热榜'&&this.dyYyhList.length==0) {
 			this.getDouyinYyhList()
+		}
+		if (this.selectItem == '抖音挑战榜'&&this.dychallengeList.length==0) {
+			this.getDouyinChallengeList()
 		}
 	}
 	// search(value: string) {
@@ -70,6 +78,19 @@ export class DouyinListComponent implements OnInit {
 	// 	}
 		
 	// }
+	// 挑战榜
+	getDouyinChallengeList(){
+		this.loading = true;
+		this.api.getDouyinChallengeList().subscribe((res: any) => {
+			this.loading = false;
+			if(res.success){
+				this.dychallengeList=res.data;
+			}
+		}, (err: any) => {
+			console.log(err)
+			this.loading = false;
+		})
+	}
 	// 亚运会
 	getDouyinYyhList(){
 		this.loading = true;

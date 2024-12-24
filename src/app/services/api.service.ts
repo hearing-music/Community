@@ -347,6 +347,10 @@ export class ApiService {
 	getDouyinHotList() {
 		return this.http.get(this.baseUrl + "/douyin/SearchHotList")
 	}
+	//抖音 挑战榜
+	getDouyinChallengeList() {
+		return this.http.get(this.baseUrl + "/douyin/SearchChallengeList")
+	}
 	//抖音 音乐热歌榜
 	getDouyinMusicHotList() {
 		return this.http.get(this.baseUrl + "/douyin/SetsListOf?sign=Dgey31RvZq")

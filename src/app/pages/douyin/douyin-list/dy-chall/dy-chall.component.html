@@ -1,16 +1,16 @@
 <nz-empty
-  *ngIf="dyHotList.length == 0"
+  *ngIf="dychallengeList.length == 0"
   style="margin-top: 160px"
 ></nz-empty>
 <div class="list">
-  <div *ngFor="let item of dyHotList; let i = index">
+  <div *ngFor="let item of dychallengeList; let i = index">
     <div class="list-item">
       <div class="item-left">
 		  <div style="font-size: 22px;color:#000;font-weight: bold;margin-right: 16px;">
 			  {{item.position}}
 		  </div>
         <div class="left-avatar">
-		  <img nz-image width="70px" height="70px" [nzSrc]="item.word_cover.url_list[0]" style="border-radius: 12px;object-fit: cover;"
+		  <img nz-image width="70px" height="70px" [nzSrc]="item.word_cover[0]" style="border-radius: 12px;object-fit: cover;"
 		  	[nzFallback]="fallback" alt="" />
         </div>
         <div class="left-text">
@@ -25,22 +25,21 @@
               {{ item.word }}
             </div>
           </div>
-          <div class="subTitle">
+         <!-- <div class="subTitle">
             <div style="display: flex; align-items: center">
-              <!-- Demo发布时间 -->
               <div>
                 {{ common.timeFormat(item.event_time) }}
               </div>
             </div>
-          </div>
+          </div> -->
           
         </div>
       </div>
     
       <div style="flex: 1;display: flex;align-items: center;">
-		  <img src="../../../../assets/img/redu.svg" class="icon" />
+		  <img src="/assets/img/redu.svg" class="icon" />
 		  <div style="margin-left: 4px;">
-			  {{ common.toThousands(item.view_count) }}
+			  {{ common.toThousands(item.hot_value) }}
 		  </div>
       </div>
     </div>
