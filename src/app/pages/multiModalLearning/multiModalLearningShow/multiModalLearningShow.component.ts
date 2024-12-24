@@ -40,6 +40,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 						// 歌手飙升
 						if(data.PlatformData.SingerSoaring){
 							data.PlatformData.SingerSoaring = this.SoaringKgSinger(data.PlatformData.SingerSoaring);
+							this.setOptionIndexSingerSoaring(data.PlatformData);
 						}
 						if (data.PlatformData.KG && data.PlatformData.KG.length > 0) {
 							data.isMore = false;
@@ -116,6 +117,63 @@ export class MultiModalLearningShowComponent implements OnInit {
 	changeIndex(index : any) {
 		this.params.Offset = index;
 		this.GetObservationData();
+	}
+	// 歌手飙升
+	setOptionIndexSingerSoaring(data:any){
+		let color = [
+			"#14195d",
+			"#535bc7",
+			"#a9ade3",
+		];
+		let dateListNow = []
+		let series = []
+		data.SingerSoaring.forEach((item:any)=>{
+			let ran = item.other.map((e:any)=>e.Ran)
+			let serie = {
+					type:"line",
+					name:item.Name,
+					data:ran,
+					smooth: true,
+				}
+			series.push(serie)
+			let date = item.other.map((e:any)=>{
+				return this.common.getDate(e.Time)
+			})
+			dateListNow.push(...date)
+		})
+		dateListNow = this.removeDuplicates(dateListNow)
+		data.SingerSoaringOptions = {
+			color: color,
+			legend: {
+				show:true
+			},
+			tooltip: {
+				confine: true,
+				trigger: "axis", // 触发方式为坐标轴触发
+			},
+			grid: {
+				left: 60,
+				right: 60,
+				top: 60,
+				bottom: 20,
+			},
+			xAxis: [
+				{
+					type: "category",
+					data: dateListNow,
+					axisTick: {
+						alignWithLabel: true,
+					},
+				},
+			],
+			yAxis: [
+				{
+					type: "value",
+				},
+			],
+			series: series,
+			height: 150,
+		};
 	}
 	// 指数 收听 排名
 	setOptionIndex(iitem : any) {
@@ -237,56 +295,6 @@ export class MultiModalLearningShowComponent implements OnInit {
 				data: dataList8,
 				smooth: true,
 			},
-		];
-		let selected = {
-			酷狗指数: true, // 默认显示
-			QQ指数: true, // 默认显示
-			酷狗收听: false, // 默认隐藏
-			QQ收听: false, // 默认隐藏
-			酷狗指数上涨: false, // 默认隐藏
-			QQ指数上涨: false, // 默认隐藏
-		};
-		iitem.optionsIndex = {
-			color: color,
-			legend: {
-				selected: selected,
-			},
-			tooltip: {
-				confine: true,
-				trigger: "axis", // 触发方式为坐标轴触发
-			},
-			grid: {
-				left: 60,
-				right: 60,
-				top: 60,
-				bottom: 20,
-			},
-			xAxis: [
-				{
-					type: "category",
-					data: dateListNow,
-					axisTick: {
-						alignWithLabel: true,
-					},
-				},
-			],
-			yAxis: [
-				{
-					type: "value",
-				},
-			],
-			series: series,
-			height: 150,
-		};
-		let selected1 = {
-			酷狗排名: true, // 默认隐藏
-			QQ排名: true, // 默认隐藏
-			酷狗排名上涨: false, // 默认隐藏
-			QQ排名上涨: false,
-			酷狗评论: false, // 默认隐藏
-			QQ评论: false,
-		};
-		let series1 = [
 			{
 				type: "line",
 				name: "酷狗排名",
@@ -324,10 +332,24 @@ export class MultiModalLearningShowComponent implements OnInit {
 				smooth: true,
 			},
 		];
-		iitem.optionsIndex1 = {
+		let selected = {
+			酷狗指数: true, // 默认显示
+			QQ指数: true, // 默认显示
+			酷狗收听: false, // 默认隐藏
+			QQ收听: false, // 默认隐藏
+			酷狗指数上涨: false, // 默认隐藏
+			QQ指数上涨: false, // 默认隐藏
+			酷狗排名: false, // 默认隐藏
+			QQ排名: false, // 默认隐藏
+			酷狗排名上涨: false, // 默认隐藏
+			QQ排名上涨: false,
+			酷狗评论: false, // 默认隐藏
+			QQ评论: false,
+		};
+		iitem.optionsIndex = {
 			color: color,
 			legend: {
-				selected: selected1,
+				selected: selected,
 			},
 			tooltip: {
 				confine: true,
@@ -342,7 +364,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 			xAxis: [
 				{
 					type: "category",
-					data: dateListNow1,
+					data: dateListNow,
 					axisTick: {
 						alignWithLabel: true,
 					},
@@ -353,9 +375,41 @@ export class MultiModalLearningShowComponent implements OnInit {
 					type: "value",
 				},
 			],
-			series: series1,
+			series: series,
 			height: 150,
 		};
+		// iitem.optionsIndex1 = {
+		// 	color: color,
+		// 	legend: {
+		// 		selected: selected1,
+		// 	},
+		// 	tooltip: {
+		// 		confine: true,
+		// 		trigger: "axis", // 触发方式为坐标轴触发
+		// 	},
+		// 	grid: {
+		// 		left: 60,
+		// 		right: 60,
+		// 		top: 60,
+		// 		bottom: 20,
+		// 	},
+		// 	xAxis: [
+		// 		{
+		// 			type: "category",
+		// 			data: dateListNow1,
+		// 			axisTick: {
+		// 				alignWithLabel: true,
+		// 			},
+		// 		},
+		// 	],
+		// 	yAxis: [
+		// 		{
+		// 			type: "value",
+		// 		},
+		// 	],
+		// 	series: series1,
+		// 	height: 150,
+		// };
 	}
 	quchong(tempArr:any,key:string) {
 	    let result = [];
