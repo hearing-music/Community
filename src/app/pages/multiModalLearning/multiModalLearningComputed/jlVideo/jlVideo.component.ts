@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
 import { ApiService } from "../../../../services/api.service";
 import { CommonService } from "../../../../services/common.service";
 import { ToastrService } from "ngx-toastr";
@@ -13,10 +13,12 @@ export class JlVideoComponent implements OnInit {
     public common: CommonService,
     private toast: ToastrService
   ) {}
-  async ngOnInit() {
-	  this.loadPage()
+  async ngOnInit() { }
+  ngOnChanges(changes : SimpleChanges) {
+  	if (changes.MassiveArithmeticVedio.currentValue.length>0) {
+  		this.loadPage();
+  	}
   }
-  
 @Input() MassiveArithmeticVedio:any=[]
   @Input() loading: any = true;
 paginatedData:any=[]
