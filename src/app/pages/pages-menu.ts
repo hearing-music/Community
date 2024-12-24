@@ -44,6 +44,10 @@ export let MENU_ITEMS : NbMenuItem[] = [
 				link: '/pages/kugou/hotSearchList',
 			},
 			{
+				title: "曲库达人",
+				link: "/pages/kugou/kugou-songs",
+			},
+			{
 				title: '监控歌曲',
 				link: '/pages/kugou/songsControl',
 			},
@@ -77,8 +81,8 @@ export let MENU_ITEMS : NbMenuItem[] = [
 			// 	link: '/pages/douyin/douyin-hot',
 			// },
 			{
-				title:"即将上线功能",
-				children:[
+				title: "即将上线功能",
+				children: [
 					{
 						title: '功能1号',
 						link: '/pages/douyin/douyin-comprehensiveSearch',
@@ -133,10 +137,10 @@ export let MENU_ITEMS : NbMenuItem[] = [
 			icon: 'soda',
 			pack: 'my-icons',
 		},
-		children:[
+		children: [
 			{
-				title:"汽水热搜",
-				link:"/pages/qishui/qishuiHotSearch"
+				title: "汽水热搜",
+				link: "/pages/qishui/qishuiHotSearch"
 			}
 		]
 	},
@@ -182,26 +186,26 @@ export let MENU_ITEMS : NbMenuItem[] = [
 		link: '/pages/find-inspiration'
 	},
 	{
-	    title: "话术",
-	    icon: {
-	      icon: "huashu",
-	      pack: "my-icons",
-	    },
-	    children: [
-	      {
-	        title: "话术搜索",
-	        link: "/pages/script-prompts",
-	      },
-	      {
-	        title: "话术添加",
-	        link: "/pages/script-prompts-insert",
-	      },
-	 		{
-	        title: "话术修改",
-	        link: "/pages/script-prompts-updata",
-	      },
-	    ],
-	  },
+		title: "话术",
+		icon: {
+			icon: "huashu",
+			pack: "my-icons",
+		},
+		children: [
+			{
+				title: "话术搜索",
+				link: "/pages/script-prompts",
+			},
+			{
+				title: "话术添加",
+				link: "/pages/script-prompts-insert",
+			},
+			{
+				title: "话术修改",
+				link: "/pages/script-prompts-updata",
+			},
+		],
+	},
 	{
 		title: '投票打分',
 		icon: {

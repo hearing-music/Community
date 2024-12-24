@@ -17,7 +17,7 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { DouyinListComponent } from './douyin/douyin-list/douyin-list.component';
 import { YunjiaobenComponent } from './yunjiaoben/yunjiaoben.component';
 import { FreeQQKGComponent } from "./freeQQKG/freeQQKG.component";
-import {SongRatingComponent} from './song-rating/song-rating.component'
+import { SongRatingComponent } from './song-rating/song-rating.component'
 // import { DouyinHotComponent } from './douyin/douyin-hot/douyin-hot.component';
 import { DouyinVideoComponent } from './douyin/douyin-video/douyin-video.component';
 import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
@@ -75,7 +75,7 @@ import { TimeControlComponent } from './monitor/timeControl/timeControl.componen
 import { UserControlComponent } from './monitor/userControl/userControl.component';
 import { BehaviorControlComponent } from './monitor/behaviorControl/behaviorControl.component';
 import { AudioProcessingComponent } from './audioProcessing/audioProcessing.component';
-import {SongsControlComponent} from './kugou/songsControl/songsControl.component';
+import { SongsControlComponent } from './kugou/songsControl/songsControl.component';
 import { DouyinComprehensiveSearchComponent } from "./douyin/douyin-comprehensiveSearch/douyin-comprehensiveSearch.component";
 import { CodonceComponent } from './codonce/codonce.component';
 import { UiStoreComponent } from './uiStore/uiStore.component';
@@ -83,6 +83,7 @@ import { MultiModalLearningComponent } from "./multiModalLearning/multiModalLear
 import { SearchMvComponent } from "./cut-video/search-mv/search-mv.component";
 import { MonitoringMvComponent } from "./cut-video/monitoring-mv/monitoring-mv.component";
 import { QishuiHotSearchComponent } from "./qishui/qishuiHotSearch/qishuiHotSearch.component";
+import { kugouSongsComponent } from "./kugou/kugou-songs/kugouSongs.component";
 const routes : Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -152,6 +153,12 @@ const routes : Routes = [{
 			path: 'kugou/auto-search',
 			component: AutoSearchComponent,
 			canActivate: [PermissionGuard]
+		},
+		// 酷狗待完善歌曲,酷狗实时免费歌曲
+		{
+			path: "kugou/kugou-songs",
+			component: kugouSongsComponent,
+			canActivate: [PermissionGuard],
 		},
 		// 酷狗免费歌曲
 		{
@@ -469,11 +476,11 @@ const routes : Routes = [{
 			canActivate: [PermissionGuard],
 		},
 		// 话术修改
-		      {
-		        path: "script-prompts-updata",
-		        component: ScriptPromptsUpdataComponent,
-		        canActivate: [PermissionGuard],
-		      },
+		{
+			path: "script-prompts-updata",
+			component: ScriptPromptsUpdataComponent,
+			canActivate: [PermissionGuard],
+		},
 		//定时监控
 		{
 			path: "timeControl",
@@ -541,7 +548,7 @@ const routes : Routes = [{
 			component: NewTankBattleComponent,
 			canActivate: [PermissionGuard],
 		},
-		
+
 		{
 			path: "codonce",
 			component: CodonceComponent,

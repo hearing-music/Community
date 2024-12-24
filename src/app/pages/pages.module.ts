@@ -220,6 +220,8 @@ import {JlBigVComponent} from './multiModalLearning/multiModalLearningComputed/j
 import {JlVideoComponent} from './multiModalLearning/multiModalLearningComputed/jlVideo/jlVideo.component';
 import {ThreePartyComponent} from './multiModalLearning/multiModalLearningComputed/threeParty/threeParty.component';
 import{ComprehensiveRankingComponent} from './multiModalLearning/multiModalLearningComputed/comprehensiveRanking/comprehensiveRanking.component'
+import { PerfectedSongsComponent } from "./kugou/kugou-songs/perfected-songs/perfected-songs.component";
+import { kugouSongsComponent } from "./kugou/kugou-songs/kugouSongs.component";
 registerLocaleData(zh);
 @NgModule({
 	imports: [
@@ -272,7 +274,9 @@ registerLocaleData(zh);
 	declarations: [
 		
 		HighlightBracketsPipe,
+		PerfectedSongsComponent,
 		KaraokeSubTitleComponent,
+		kugouSongsComponent,
 		DyChallComponent,
 		SearchMvComponent,
 		QqkgInfoComponent,

@@ -1,0 +1,80 @@
+<div class="perfected-songs">
+  <nz-table #basicTable [nzData]="list" nzTitle="" [nzFrontPagination]="false">
+    <thead>
+      <tr>
+        <th nzAlign="center"></th>
+        <th nzAlign="center">歌曲名称</th>
+        <th nzAlign="center">更多音源</th>
+        <th nzAlign="center">发行公司</th>
+        <th nzAlign="center" (click)="publish_timeOrder()" style="cursor: pointer">
+          <div>发行时间</div>
+          <span *ngIf="publish_timeOrderby == 'asc'" nz-icon nzType="caret-up" nzTheme="outline" style="color: blue"></span>
+          <span *ngIf="publish_timeOrderby == ''" nz-icon nzType="line" nzTheme="outline" style="color: blue"></span>
+          <span *ngIf="publish_timeOrderby == 'desc'" nz-icon nzType="caret-down" nzTheme="outline" style="color: blue"></span>
+        </th>
+        <th nzAlign="center">专辑名称</th>
+        <th nzAlign="center">歌手名称</th>
+        <th nzAlign="center" (click)="exponentOrder()" style="cursor: pointer">
+          <div>指数</div>
+          <span *ngIf="exponentOrderby == 'asc'" nz-icon nzType="caret-up" nzTheme="outline" style="color: blue"></span>
+          <span *ngIf="exponentOrderby == ''" nz-icon nzType="line" nzTheme="outline" style="color: blue"></span>
+          <span *ngIf="exponentOrderby == 'desc'" nz-icon nzType="caret-down" nzTheme="outline" style="color: blue"></span>
+        </th>
+        <th nzAlign="center">平台添加时间</th>
+        <th nzAlign="center">歌曲版本名</th>
+        <th nzWidth="80px" nzAlign="center">查看</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of basicTable.data; let i = index">
+        <td nzAlign="center">
+          <div (click)="playAudio(item, i)" style="position: relative;width: 74px;box-shadow: 1px 4px 8px #ccc;cursor: pointer;">
+            <img [nzDisablePreview]="true" nz-image width="74px" height="74px" style="border-radius: 4px; display: block" [nzSrc]="item.Image ? item.Image : null" [nzFallback]="common.fallback"/>
+            <img *ngIf="!item.isPlay" src="assets/img/play-blue.png" style="width: 32px;height: 32px;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);"/>
+            <img *ngIf="item.isPlay" src="assets/img/pause-blue.png" style="width: 32px;height: 32px;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);"/>
+          </div>
+        </td>
+        <td nzAlign="center">
+          <div>
+            <div>
+              <span style="cursor: pointer" nz-tooltip [nzTooltipTitle]="'点击复制'" (click)="copy(item.SongName)">
+                {{ item.SongName }}
+              </span>
+              <img nz-tooltip [nzTooltipTitle]="'词曲版权搜索'" src="../../../assets/img/banquan.svg" class="icon" style="margin-left: 4px;width: 14px;height: 14px;cursor: pointer;" *ngIf="item.SongName" (click)="gotoCopyright(item.SongName, $event)"/>
+              <img src="../../../assets/img/yuanchang.svg" class="icon" style="margin-left: 4px" *ngIf="item.IsOriginal == 1"/>
+              <img [src]="item.Price == 0 || item.Price == null ? '../../../assets/img/price.png' : '../../../assets/img/price-blue.png'" class="icon" style="margin-left: 4px"/>
+            </div>
+            <div style="font-size: 12px; color: #929292">
+              <span *ngIf="ModifyTime < item.ModifyTime">下次更新:{{ common.getDate(item.ModifyTime) }}</span>
+              <span *ngIf="ModifyTime > item.ModifyTime">更新时间:{{ common.getDate(item.ModifyTime) }}</span>
+              <span style="margin-left: 8px">语种:{{ item.Language }}</span>
+            </div>
+          </div>
+        </td>
+        <td nzAlign="center">{{ item.Grp ? item.Grp : 0 }}</td>
+        <td nzAlign="center">{{ item.Company ? item.Company : "无" }}</td>
+        <td nzAlign="center">{{ item.Ime_public ? item.Ime_public : "无" }}</td>
+        <td nzAlign="center">{{ item.AlbumName ? item.AlbumName : "无" }}</td>
+        <td nzAlign="center">
+          <div *ngFor="let s of item.SingerInfo; let si = index" (click)="openSingerHome(s.id)" style="cursor: pointer">
+            {{ splitEm(s.name) }}{{ si != item.SingerInfo.length - 1 ? "," : "" }}
+          </div>
+        </td>
+        <td nzAlign='center' style="cursor: pointer;" (click)='reloadExponents(item)'>
+          <span nz-tooltip [nzTooltipTitle]="'点击刷新'">
+          <span nz-icon nzType="redo" nzTheme="outline" style="color: royalblue;"></span>
+            <div>
+              {{item.Exponents?common.toThousands(item.Exponents):0}}
+            </div>
+          <div style="color: red;">
+            {{item.newExponent?common.toThousands(item.newExponent):''}}
+          </div>
+          </span>
+        </td>
+        <td nzAlign="center">{{ item.Create_time ? item.Create_time : "无" }}</td>
+        <td nzAlign="center">{{ item.Suffix ? splitEm(item.Suffix) : "无" }}</td>
+        <td nzAlign="center" style="color: blue; cursor: pointer" (click)="openLink(item)">查看</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

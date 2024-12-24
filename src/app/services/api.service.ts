@@ -25,74 +25,79 @@ export class ApiService {
 		const blob = await response.blob();
 		return blob;
 	}
-	// 抖音 视频链接听歌识曲版权扫描
-	recognizeMusic(data){
-		return this.http.post(this.baseUrl + '/douyin/recognizeMusic',data)
+	//   酷狗待完善歌曲
+	AllActivityShow(params : any) {
+		let url = this.baseUrl + "/kugou/AllActivityShow";
+		return this.http.post(url, params);
 	}
-	
-	  //铃声多多热搜榜
-	  lsdd_gethotkeyword() {
-	    return this.http.get(this.baseUrl + "/lsdd/lsdd_gethotkeyword")
-	  }
+	// 抖音 视频链接听歌识曲版权扫描
+	recognizeMusic(data) {
+		return this.http.post(this.baseUrl + '/douyin/recognizeMusic', data)
+	}
+
+	//铃声多多热搜榜
+	lsdd_gethotkeyword() {
+		return this.http.get(this.baseUrl + "/lsdd/lsdd_gethotkeyword")
+	}
 	// 汽水歌曲详情
-	HotSearchRecommendedAdditional(data:any){
-		return this.http.post(this.baseUrl + '/qishui/HotSearchRecommendedAdditional',data)
+	HotSearchRecommendedAdditional(data : any) {
+		return this.http.post(this.baseUrl + '/qishui/HotSearchRecommendedAdditional', data)
 	}
 	// 汽水热搜
-	HotSearchRecommended(){
-		return this.http.post(this.baseUrl + '/qishui/HotSearchRecommended',{})
+	HotSearchRecommended() {
+		return this.http.post(this.baseUrl + '/qishui/HotSearchRecommended', {})
 	}
-	
+
 	// 剪辑 搜索mv
-	MvInfoUrlProxyQQ(data:any){
-		return this.http.post(this.baseUrl + '/qq/MvInfoUrlProxy',data)
+	MvInfoUrlProxyQQ(data : any) {
+		return this.http.post(this.baseUrl + '/qq/MvInfoUrlProxy', data)
 	}
-	MvInfoUrlProxyKG(data:any){
-		return this.http.post(this.baseUrl + '/kugou/MvDetailProxy',data)
+	MvInfoUrlProxyKG(data : any) {
+		return this.http.post(this.baseUrl + '/kugou/MvDetailProxy', data)
 	}
 	// mv搜索酷狗详细数据
-	searchKeywordKGForMv(data:any){
-		return this.http.post(this.baseUrl + '/kugou/searchKeywordKGForMv',data)
+	searchKeywordKGForMv(data : any) {
+		return this.http.post(this.baseUrl + '/kugou/searchKeywordKGForMv', data)
 	}
 	// mv存库 监控
-	EnterMvInfo(data:any){
-		return this.http.post(this.baseUrl + '/qq/EnterMvInfo',data)
+	EnterMvInfo(data : any) {
+		return this.http.post(this.baseUrl + '/qq/EnterMvInfo', data)
 	}
 	// mv获取监控
-	GetMvInfo(data:any){
-		return this.http.post(this.baseUrl + '/qq/GetMvInfo',data)
+	GetMvInfo(data : any) {
+		return this.http.post(this.baseUrl + '/qq/GetMvInfo', data)
 	}
 	// mv修改信息
-	EditMvInfo(data:any){
-		return this.http.post(this.baseUrl + '/qq/EditMvInfo',data)
+	EditMvInfo(data : any) {
+		return this.http.post(this.baseUrl + '/qq/EditMvInfo', data)
 	}
 	// 预估计算器
-	TJMusicMultiModalLearning(data:any){
+	TJMusicMultiModalLearning(data : any) {
 		// return this.http.post('https://communities.tingjianmusic.cn:444/multi-modal-algorithm/TJMusicMultiModalLearning',data)
-		return this.http.post(this.baseUrl + '/multi-modal-algorithm/TJMusicMultiModalLearning',data)
+		return this.http.post(this.baseUrl + '/multi-modal-algorithm/TJMusicMultiModalLearning', data)
 	}
 	// 双平台搜索
-	searchQQ_multi(data:any){
-		return this.http.post(this.baseUrl + '/multi-modal-algorithm/searchQQ',data)
+	searchQQ_multi(data : any) {
+		return this.http.post(this.baseUrl + '/multi-modal-algorithm/searchQQ', data)
 	}
-	searchKG_multi(data:any){
-		return this.http.post(this.baseUrl + '/multi-modal-algorithm/searchKG',data)
+	searchKG_multi(data : any) {
+		return this.http.post(this.baseUrl + '/multi-modal-algorithm/searchKG', data)
 	}
 	// 双平台数据搜索
-	ObservationalData(data:any){
+	ObservationalData(data : any) {
 		// return this.http.post(this.baseUrl+'/multi-modal-algorithm/ObservationalData',data)
-		return this.http.post(this.baseUrl + '/multi-modal-algorithm/ObservationalData',data)
+		return this.http.post(this.baseUrl + '/multi-modal-algorithm/ObservationalData', data)
 	}
 	// 存入数据
-	ObservationDataStorage(data:any){
+	ObservationDataStorage(data : any) {
 		// return this.http.post(this.baseUrl+'/multi-modal-algorithm/ObservationDataStorage',data)
-		return this.http.post(this.baseUrl + '/multi-modal-algorithm/ObservationDataStorage',data)
-  }
-  //查询添加
-  GetObservationData(data:any) {
-    	// return this.http.post(this.baseUrl+'/multi-modal-algorithm/ObservationDataStorage',data)
-		return this.http.post(this.baseUrl + '/multi-modal-algorithm/GetObservationData',data)
-  }
+		return this.http.post(this.baseUrl + '/multi-modal-algorithm/ObservationDataStorage', data)
+	}
+	//查询添加
+	GetObservationData(data : any) {
+		// return this.http.post(this.baseUrl+'/multi-modal-algorithm/ObservationDataStorage',data)
+		return this.http.post(this.baseUrl + '/multi-modal-algorithm/GetObservationData', data)
+	}
 	// qq搜索歌曲
 	getQQ(params : any) {
 		let {
@@ -101,10 +106,10 @@ export class ApiService {
 			type
 		} = params;
 		// return this.http.get(this.tencentUrl + "/music?action=search_qq&params=" + JSON.stringify({ keyword, page }))
-		return this.http.get(this.baseUrl + '/qq/search_qq?page=' + page + '&keyword=' + keyword+'&type='+type)
+		return this.http.get(this.baseUrl + '/qq/search_qq?page=' + page + '&keyword=' + keyword + '&type=' + type)
 	}
 	// 酷狗添加监控 搜索qq
-	search_qqFree(params:any){
+	search_qqFree(params : any) {
 		let {
 			keyword,
 		} = params;
@@ -140,11 +145,11 @@ export class ApiService {
 			sort + "&publish_timeOrderby=" + publish_timeOrderby + "&exponentOrderby=" + exponentOrderby
 		return this.http.get(url);
 	}
-	  // 获取更新时间
-	  GetQqUpdataTime() {
-	    let url = this.baseUrl + "/qq/freeSongsUpdateSetting";
-	    return this.http.get(url);
-	  }
+	// 获取更新时间
+	GetQqUpdataTime() {
+		let url = this.baseUrl + "/qq/freeSongsUpdateSetting";
+		return this.http.get(url);
+	}
 	//获取免费歌曲排序标签
 	GetSortList() {
 		// GetSortList
@@ -165,7 +170,7 @@ export class ApiService {
 			mid
 		} = params;
 		let url = this.baseUrl + '/qq/getSongMusicUrl'
-		return this.http.post(url,{mid})
+		return this.http.post(url, { mid })
 	}
 	// 根据mid获取 收听 指数 排名
 	getQq_exponent(params : any) {
@@ -254,11 +259,11 @@ export class ApiService {
 		return this.http.get(`${this.baseUrl}/kugou/search_kugou?keyword=${keyword}&page=${page}`)
 	}
 	// 酷狗歌曲链接
-	getKugouSongUrl(params: any) {
-	  let { EMixSongID } = params;
-	  return this.http.get(
-	    this.baseUrl + '/kugou/getKugouSongUrl?EMixSongID=' + EMixSongID
-	  );
+	getKugouSongUrl(params : any) {
+		let { EMixSongID } = params;
+		return this.http.get(
+			this.baseUrl + '/kugou/getKugouSongUrl?EMixSongID=' + EMixSongID
+		);
 	}
 	getV3_2(params : any) {
 		let {
@@ -310,11 +315,11 @@ export class ApiService {
 		return this.http.get(url);
 	}
 	// 获取URL预览 qq
-	GetPreview(params:any){
+	GetPreview(params : any) {
 		let {
 			Url
 		} = params;
-		return this.http.post(this.baseUrl + "/qq/GetPreview",{Url})
+		return this.http.post(this.baseUrl + "/qq/GetPreview", { Url })
 	}
 	// 腾讯音乐人搜索
 	getMusicianTx(params : any) {
@@ -329,11 +334,11 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/qq/search_qq_musician_phone?uinList=" + JSON.stringify(params.uinList))
 	}
 	//抖音待上线功能
-	ComprehensiveSearch(params: any) {
-	  let { KeyWord } = params;
-	  let data = new FormData();
-	  data.append("KeyWord", KeyWord);
-	  return this.http.post(this.baseUrl + "/douyin/ComprehensiveSearch", params);
+	ComprehensiveSearch(params : any) {
+		let { KeyWord } = params;
+		let data = new FormData();
+		data.append("KeyWord", KeyWord);
+		return this.http.post(this.baseUrl + "/douyin/ComprehensiveSearch", params);
 	}
 	// 抖音热点
 	getDouyinHot() {
@@ -477,8 +482,8 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/douyin/DouYinSearchVideoDetails?keyword=" + keyword + '&type=' + type)
 	}
 	// 达人搜索 视频链接搜索
-	DouYinSearchBigVForVideoLink(params:any){
-		return this.http.post(this.baseUrl + "/douyin/DouYinSearchBigVForVideoLink",{link:params.link})
+	DouYinSearchBigVForVideoLink(params : any) {
+		return this.http.post(this.baseUrl + "/douyin/DouYinSearchBigVForVideoLink", { link: params.link })
 	}
 	// 抖音 获取音乐跟拍 arr
 	getMusicInfo(params : any) {
@@ -509,9 +514,9 @@ export class ApiService {
 		return this.http.get(this.baseUrl + "/douyin/douyin_darenTypeList")
 	}
 	// 修改 最新声源名字
-	updateDouyinListenSourdSourceName(params:any){
+	updateDouyinListenSourdSourceName(params : any) {
 		let { ID, originalVoice } = params;
-			return this.http.post(this.baseUrl + "/douyin/updateDouyinListenSourdSourceName",{ID, originalVoice});
+		return this.http.post(this.baseUrl + "/douyin/updateDouyinListenSourdSourceName", { ID, originalVoice });
 	}
 	// 获取监控声源
 	getDouyinListenSourdSource(params : any) {
@@ -523,13 +528,13 @@ export class ApiService {
 		}
 	}
 	// music_id获取音源
-	getDouyinAudioForMusic_id(params:any){
+	getDouyinAudioForMusic_id(params : any) {
 		let { music_id } = params;
-			return this.http.get(this.baseUrl + "/douyin/getDouyinAudioForMusic_id?music_id=" + music_id);
+		return this.http.get(this.baseUrl + "/douyin/getDouyinAudioForMusic_id?music_id=" + music_id);
 	}
 	//抖音上升热点
 	DouRiseSearch(params : any) {
-		let { keyword, page, pageSize,tag } = params;
+		let { keyword, page, pageSize, tag } = params;
 		return this.http.get(
 			this.baseUrl +
 			"/douyin/DouRiseSearch?keyword=" +
@@ -537,7 +542,7 @@ export class ApiService {
 			"&page=" +
 			page +
 			"&page_size=" +
-			pageSize+'&tag='+tag
+			pageSize + '&tag=' + tag
 		);
 	}
 	//抖音上升热点详情
@@ -766,9 +771,9 @@ export class ApiService {
 		let url = this.baseUrl + '/qq_kugou/getqq_kugouKeywordInfo?mid=' + mid + '&scid=' + scid
 		return this.http.get(url)
 	}
-	FreeQQKG(params:any){
+	FreeQQKG(params : any) {
 		let url = this.baseUrl + '/qq_kugou/FreeQQKG'
-		return this.http.post(url, {page:params.page,pageSize:params.pageSize})
+		return this.http.post(url, { page: params.page, pageSize: params.pageSize })
 	}
 	//酷狗刷搜索
 	kuGouAutoSearch(params : any) {
@@ -793,7 +798,7 @@ export class ApiService {
 		return this.http.get(url)
 	}
 	// 查询ranking数据 全部 用于监控
-	getqq_kugouInfoAll(){
+	getqq_kugouInfoAll() {
 		let url = this.baseUrl + '/qq_kugou/getqq_kugouInfoAll'
 		return this.http.get(url)
 	}
@@ -984,15 +989,15 @@ export class ApiService {
 
 	}
 	// ogg - mp3
-	OggToMp3(params:any){
+	OggToMp3(params : any) {
 		let {
 			typeOf,
 			file,
 		} = params;
-			const formData : FormData = new FormData();
-			formData.append('file', file);
+		const formData : FormData = new FormData();
+		formData.append('file', file);
 		let url = this.baseUrl + '/zhuanhuanyun/OggToMp3?typeOf=' + typeOf
-		return this.http.post(url,formData);
+		return this.http.post(url, formData);
 	}
 	// 图片识别文字
 	TextExtractionImage(params : any) {
@@ -1454,14 +1459,14 @@ export class ApiService {
 		let url = this.baseUrl + "/wisdom_knowledge_base/AdditionalDataInfo";
 		return this.http.post(url, params);
 	}
-	  updataScriptPromptsAnswer(params: any): Promise<any> {
-	    let url = this.baseUrl + "/wisdom_knowledge_base/updateAnswer";
-	    return this.http.post(url, params).toPromise();
-	  }
-	  updataScriptPromptsQuestion(params: any) {
-	    let url = this.baseUrl + "/wisdom_knowledge_base/updateQuestion";
-	    return this.http.post(url, params);
-	  }
+	updataScriptPromptsAnswer(params : any) : Promise<any> {
+		let url = this.baseUrl + "/wisdom_knowledge_base/updateAnswer";
+		return this.http.post(url, params).toPromise();
+	}
+	updataScriptPromptsQuestion(params : any) {
+		let url = this.baseUrl + "/wisdom_knowledge_base/updateQuestion";
+		return this.http.post(url, params);
+	}
 	// 转换视频
 	AllAudioConversion(params : any) {
 		let { files } = params;
@@ -1471,140 +1476,140 @@ export class ApiService {
 		return this.http.post(url, formData);
 	}
 	// 获取用户行为
-	SearchUserBehaviour(params:any){
+	SearchUserBehaviour(params : any) {
 		let data = JSON.stringify({
-		    "UserId":params.ids,
-			"Offset":params.Offset,
-			"pageSize":params.pageSize,
-			"timestampStart":params.timeStart,
-			"timestampEnd":params.timeEnd,
+			"UserId": params.ids,
+			"Offset": params.Offset,
+			"pageSize": params.pageSize,
+			"timestampStart": params.timeStart,
+			"timestampEnd": params.timeEnd,
 		})
 		let url = this.baseUrl + "/login/SearchUserBehaviour";
 		return this.http.post(url, data);
 	}
 	// 行为分析
-	SummaryAnalysis(){
+	SummaryAnalysis() {
 		let url = this.baseUrl + "/data-analysis/SummaryAnalysis";
 		return this.http.get(url);
 	}
 	// 获取用户行为 老
-	SearchUserBehaviour2(params:any){
+	SearchUserBehaviour2(params : any) {
 		let data = JSON.stringify({
-		    "UserId":params.ids,
-			"Offset":params.Offset,
-			"pageSize":params.pageSize,
-			"timestampStart":params.timeStart,
-			"timestampEnd":params.timeEnd,
+			"UserId": params.ids,
+			"Offset": params.Offset,
+			"pageSize": params.pageSize,
+			"timestampStart": params.timeStart,
+			"timestampEnd": params.timeEnd,
 		})
 		let url = this.baseUrl + "/login/SearchUserBehaviour2";
 		return this.http.post(url, data);
 	}
 	// 获取用户行为 clone
-	SearchUserBehaviour3(params:any){
+	SearchUserBehaviour3(params : any) {
 		let data = JSON.stringify({
-		    "UserId":params.ids,
-			"Offset":params.Offset,
-			"pageSize":params.pageSize,
-			"timestampStart":params.timeStart,
-			"timestampEnd":params.timeEnd,
+			"UserId": params.ids,
+			"Offset": params.Offset,
+			"pageSize": params.pageSize,
+			"timestampStart": params.timeStart,
+			"timestampEnd": params.timeEnd,
 		})
 		let url = this.baseUrl + "/login/SearchUserBehaviour3";
 		return this.http.post(url, data);
 	}
 	// 新用户行为导出今日表格
-	UserBehaviourExcel(params:any){
+	UserBehaviourExcel(params : any) {
 		let {
-			timeStart,timeEnd,userId
+			timeStart, timeEnd, userId
 		} = params
-		let data = {timeStart,timeEnd,userId}
+		let data = { timeStart, timeEnd, userId }
 		let url = this.baseUrl + "/login/UserBehaviourExcel";
 		return this.http.post(url, data);
 	}
 	// 老用户行为导出今日表格
-	UserBehaviourExcel2(params:any){
+	UserBehaviourExcel2(params : any) {
 		let {
-			timeStart,timeEnd,userId
+			timeStart, timeEnd, userId
 		} = params
-		let data = {timeStart,timeEnd,userId}
+		let data = { timeStart, timeEnd, userId }
 		let url = this.baseUrl + "/login/UserBehaviourExcel2";
 		return this.http.post(url, data);
 	}
 	// clone行为导出今日表格
-	UserBehaviourExcel3(params:any){
+	UserBehaviourExcel3(params : any) {
 		let {
-			timeStart,timeEnd,userId
+			timeStart, timeEnd, userId
 		} = params
-		let data = {timeStart,timeEnd,userId}
+		let data = { timeStart, timeEnd, userId }
 		let url = this.baseUrl + "/login/UserBehaviourExcel3";
 		return this.http.post(url, data);
 	}
 	// 获取全部用户
-	get_webUsersName(){
+	get_webUsersName() {
 		let url = this.baseUrl + "/login/get_webUsersName";
 		return this.http.post(url, {});
 	}
 	// 获取全部用户老网站
-	get_webUsersName2(){
+	get_webUsersName2() {
 		let url = this.baseUrl + "/login/get_webUsersName2";
 		return this.http.post(url, {});
 	}
 	// 获取全部用户克隆网站
-	get_webUsersName3(){
+	get_webUsersName3() {
 		let url = this.baseUrl + "/login/get_webUsersName3";
 		return this.http.post(url, {});
 	}
 	// 获取监控定时描述
-	getTimed_task_lists(){
+	getTimed_task_lists() {
 		let url = `${this.baseUrl}/articles/getTimed_task_lists`;
 		return this.http.get(url);
 	}
 	// 酷狗免费歌曲定时 监控 获取更新时间
-	freeSongsControlKG(){
+	freeSongsControlKG() {
 		let url = `${this.baseUrl}/kugou/freeSongsControl`;
 		return this.http.get(url);
 	}
 	// 酷狗监控 歌曲 指数评论定时 监控 获取更新时间
-	kgSongsControl(){
+	kgSongsControl() {
 		let url = `${this.baseUrl}/kugou/kgSongsControl`;
 		return this.http.get(url);
 	}
 	// qq免费歌曲定时 监控 获取更新时间
-	freeSongsControlQQ(){
+	freeSongsControlQQ() {
 		let url = `${this.baseUrl}/qq/freeSongsControl`;
 		return this.http.get(url);
 	}
 	// 酷狗热搜榜单
-	DevTipListKugou(){
+	DevTipListKugou() {
 		let url = `${this.baseUrl}/kugou/DevTipList`;
 		return this.http.get(url);
 	}
 	// 酷狗热搜榜单 单独请求
-	DevTipListWeChatMini(params:any){
+	DevTipListWeChatMini(params : any) {
 		let url = `${this.baseUrl}/kugou/DevTipListWeChatMini?info=${params.info}`;
 		return this.http.get(url);
 	}
 	// 抖音监控声源 进度
-	douyinSoundSourceControl(){
+	douyinSoundSourceControl() {
 		let url = `${this.baseUrl}/douyin/douyinSoundSourceControl`;
 		return this.http.get(url);
 	}
 	//抖音监控达人进度
-	douyinDarenControl(){
+	douyinDarenControl() {
 		let url = `${this.baseUrl}/douyin/douyinDarenControl`;
 		return this.http.get(url);
 	}
 	// 抖音监控视频进度
-	douyinVideoControl(){
+	douyinVideoControl() {
 		let url = `${this.baseUrl}/douyin/douyinVideoControl`;
 		return this.http.get(url);
 	}
 	// 云图涨幅100首监控进度
-	GetMusicLimitHundred2(){
+	GetMusicLimitHundred2() {
 		let url = `${this.baseUrl}/tme_map/GetMusicLimitHundred2`;
 		return this.http.get(url);
 	}
 	// 添加酷狗监控歌曲
-	kgSurveillanceSongs(params:any){
+	kgSurveillanceSongs(params : any) {
 		// let {
 		// 	SCID,EMixSongID,AlbumID,CommentID,length
 		// } = params
@@ -1613,31 +1618,31 @@ export class ApiService {
 		return this.http.post(url, params);
 	}
 	//  查看监控歌曲 标签
-	getSurvillanceSongsTag(){
+	getSurvillanceSongsTag() {
 		let data = {}
 		let url = this.baseUrl + "/kugou/getSurvillanceSongsTag";
 		return this.http.post(url, data);
 	}
 	//  查看监控歌曲
-	kgSurveillanceSongsInfo(params:any){
-		let data = {ID:params.ID,page:params.page,pageSize:params.pageSize,State:params.State,Contract:params.Contract}
+	kgSurveillanceSongsInfo(params : any) {
+		let data = { ID: params.ID, page: params.page, pageSize: params.pageSize, State: params.State, Contract: params.Contract }
 		let url = this.baseUrl + "/kugou/SurveillanceSongsInfo";
 		return this.http.post(url, data);
 	}
 	// 取消酷狗监控歌曲
-	SurveillanceSongsInfoCancel(params:any){
-		let data = {ID:params.ID,contract:params.contract}
+	SurveillanceSongsInfoCancel(params : any) {
+		let data = { ID: params.ID, contract: params.contract }
 		let url = this.baseUrl + "/kugou/SurveillanceSongsInfoCancel";
 		return this.http.post(url, data);
 	}
 	// codonce 查询语言
-	ProgrammingLanguageAll(){
+	ProgrammingLanguageAll() {
 		let data = {}
 		let url = this.baseUrl + "/coding-clip/ProgrammingLanguageAll";
 		return this.http.post(url, data);
 	}
 	// 查询指定分类或全部或关键字code
-	codingClipSelectAll(params:any){
+	codingClipSelectAll(params : any) {
 		let data = {
 			"Type": params.Type,
 			"KeyWord": params.KeyWord,
@@ -1648,7 +1653,7 @@ export class ApiService {
 		return this.http.post(url, data);
 	}
 	// 添加语言
-	ProgrammingLanguageIncrease(params:any){
+	ProgrammingLanguageIncrease(params : any) {
 		let data = {
 			"ProgrammingLanguage": params.ProgrammingLanguage,
 		}
@@ -1656,10 +1661,10 @@ export class ApiService {
 		return this.http.post(url, data);
 	}
 	// 添加代码片段
-	StoreCvIncrease(params:any){
+	StoreCvIncrease(params : any) {
 		let data = new FormData();
 		data.append('mov', params.video);
-		data.append('ProgrammingLanguage',params.ProgrammingLanguage);
+		data.append('ProgrammingLanguage', params.ProgrammingLanguage);
 		data.append('Title', params.Title);
 		data.append('PlId', params.PlId);
 		data.append('CodingClip', params.CodingClip);
@@ -1670,11 +1675,11 @@ export class ApiService {
 	}
 
 	// 添加ui
-	UiStoreCvIncrease(params:any){
+	UiStoreCvIncrease(params : any) {
 		let data = new FormData();
 		data.append('Video', params.Video);
 		data.append('FigmaExt', params.FigmaExt);
-		data.append('Title',params.Title);
+		data.append('Title', params.Title);
 		data.append('Synopsis', params.Synopsis);
 		data.append('Branch', params.Branch);
 		data.append('UserId', params.UserId);
@@ -1683,38 +1688,38 @@ export class ApiService {
 		return this.http.post(url, data);
 	}
 	// 查询ui
-	UiStoreCvSelectDate(params:any){
+	UiStoreCvSelectDate(params : any) {
 		let data = {
-			Title:params.Title, limit:params.limit, offset:params.offset
+			Title: params.Title, limit: params.limit, offset: params.offset
 		}
 		let url = this.baseUrl + "/coding-clip/UiStoreCvSelectDate";
 		return this.http.post(url, data);
 	}
 	// 上传音频
-	UploadAudio(params:any){
+	UploadAudio(params : any) {
 		let data = new FormData();
 		data.append('UserId', params.UserId);
 		data.append('Audio', params.Audio);
-		data.append('FileName',params.FileName);
-		data.append('Lyric',params.Lyric);
-		data.append('Reason',params.Reason);
+		data.append('FileName', params.FileName);
+		data.append('Lyric', params.Lyric);
+		data.append('Reason', params.Reason);
 		let url = this.baseUrl + "/song-rating/UploadAudio";
 		return this.http.post(url, data);
 	}
 	//评价歌曲
-	Referendum(params:any){
-		let data ={
-			"UserId":params.UserId,
-			"SongId":params.SongId,
-			"Opinion":params.Opinion
+	Referendum(params : any) {
+		let data = {
+			"UserId": params.UserId,
+			"SongId": params.SongId,
+			"Opinion": params.Opinion
 		}
 		let url = this.baseUrl + "/song-rating/Referendum";
 		return this.http.post(url, data);
 	}
 	//查询歌曲
-	SearchAllSongs(params:any){
-		let data ={
-			"UserId":params.UserId,
+	SearchAllSongs(params : any) {
+		let data = {
+			"UserId": params.UserId,
 		}
 		let url = this.baseUrl + "/song-rating/SearchAllSongs";
 		return this.http.post(url, data);

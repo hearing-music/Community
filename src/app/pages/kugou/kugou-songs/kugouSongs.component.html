@@ -1,0 +1,26 @@
+<div class="home">
+  <div class="home-top">
+    <!-- tab栏 -->
+    <div style="width: 100%;display: flex;justify-content: space-between;align-items: center;">
+      <div class="tagList">
+        <div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item" [ngClass]="{ 'tagList-itemActive': item.name == selectItem }">
+          {{ item.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 数据 -->
+  <div class="home-main">
+    <ngx-perfected-songs *ngIf="list.length > 0" [list]="list" [exponentOrderby]="perfectedSongsList[choseValue].exponentOrderby" [publish_timeOrderby]="perfectedSongsList[choseValue].publish_timeOrderby" (playMusic)="playMusic($event)" (exponentClick)="exponentClick()" (publish_timeClick)="publish_timeClick()" (reloadExponent)="reloadExponent($event)"></ngx-perfected-songs>
+  </div>
+  <!-- 分页 -->
+  <div style="display: flex; justify-content: center; padding-bottom: 10px">
+    <nz-pagination [nzPageIndex]="perfectedSongsList[choseValue].pageCurrent" [nzPageSize]="pageSize" [nzTotal]="perfectedSongsList[choseValue].pageTotal" (nzPageIndexChange)="nzPageIndexChange($event)" nzShowQuickJumper></nz-pagination>
+  </div>
+  <!-- 播放器 -->
+  <div class="play" [ngClass]="{ playhide: !isPlay }">
+    <audio id="audio" controls [src]="audioSrc" (play)="play()" (pause)="pause()"></audio>
+  </div>
+  <ngx-loading *ngIf="loading"></ngx-loading>
+</div>
+
