@@ -37,8 +37,12 @@ export class SongsControlComponent implements OnInit {
 	page=1;
 	pageSize=30;
 	pageTotal=0;
-	
-	
+	searchValue=''
+	search(e:any){
+		this.page = 1;
+		this.searchValue = e;
+		this.SurveillanceSongsInfo(this.tagList[this.selectIndex].ID,this.page,this.pageSize)
+	}
 	mouseenter(arr:any){
 		this.listenData = arr;
 	}
@@ -57,7 +61,7 @@ export class SongsControlComponent implements OnInit {
 	// 	this.switch = e;
 	// 	this.SurveillanceSongsInfo()
 	// }
-
+	
 
 	openAlbum(item : any) {
 		if (!item.AlbumID) return
@@ -232,7 +236,7 @@ export class SongsControlComponent implements OnInit {
 		}
 		this.loading = true;
 		// ID=0 = 全部
-		this.api.kgSurveillanceSongsInfo({ ID,page,pageSize,Contract,State }).subscribe((res : any) => {
+		this.api.kgSurveillanceSongsInfo({ ID,page,pageSize,Contract,State,KeyWord:this.searchValue }).subscribe((res : any) => {
 			this.loading = false;
 			if (res.success) {
 				

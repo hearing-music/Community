@@ -1625,7 +1625,7 @@ export class ApiService {
 	}
 	//  查看监控歌曲
 	kgSurveillanceSongsInfo(params : any) {
-		let data = { ID: params.ID, page: params.page, pageSize: params.pageSize, State: params.State, Contract: params.Contract }
+		let data = { ID: params.ID, page: params.page, pageSize: params.pageSize, State: params.State, Contract: params.Contract,KeyWord:params.KeyWord }
 		let url = this.baseUrl + "/kugou/SurveillanceSongsInfo";
 		return this.http.post(url, data);
 	}

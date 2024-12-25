@@ -14,19 +14,23 @@
 				{{item.username}}
 		</div>
 	</div>
-	<div class="tagList" *ngIf='tagList.length>0'>
-		<div (click)="onSelect2(0)" class="tagList-item"
-			[ngClass]="{'tagList-itemActive': 0==selectIndex2}">
-			监控中
+	<div class="tagList" style="justify-content: space-between;" *ngIf='tagList.length>0'>
+		<div style="display: flex;">
+			<div (click)="onSelect2(0)" class="tagList-item"
+				[ngClass]="{'tagList-itemActive': 0==selectIndex2}">
+				监控中
+			</div>
+			<div (click)="onSelect2(1)" class="tagList-item"
+				[ngClass]="{'tagList-itemActive': 1==selectIndex2}">
+				取消监控
+			</div>
+			<div (click)="onSelect2(2)" class="tagList-item"
+				[ngClass]="{'tagList-itemActive': 2==selectIndex2}">
+				已签约
+			</div>
 		</div>
-		<div (click)="onSelect2(1)" class="tagList-item"
-			[ngClass]="{'tagList-itemActive': 1==selectIndex2}">
-			取消监控
-		</div>
-		<div (click)="onSelect2(2)" class="tagList-item"
-			[ngClass]="{'tagList-itemActive': 2==selectIndex2}">
-			已签约
-		</div>
+		<ngx-search [searchValue]='searchValue' [searchHolder]='"歌曲名模糊查询"' (childSearch)='search($event)'>
+		</ngx-search>
 	</div>
 	<nz-empty *ngIf="list.length==0" style="margin-top: 160px;"></nz-empty>
 	<div class="list" *ngIf='list.length!=0'>
