@@ -4,16 +4,15 @@
       <tr>
         <th nzAlign="center"></th>
         <th nzAlign="center">歌曲名称</th>
-        <th nzAlign="center">更多音源</th>
-        <th nzAlign="center">发行公司</th>
+        <th nzAlign="center">歌手名称</th>
+        <th nzAlign="center">专辑名称</th>
         <th nzAlign="center" (click)="publish_timeOrder()" style="cursor: pointer">
           <div>发行时间</div>
           <span *ngIf="publish_timeOrderby == 'asc'" nz-icon nzType="caret-up" nzTheme="outline" style="color: blue"></span>
           <span *ngIf="publish_timeOrderby == ''" nz-icon nzType="line" nzTheme="outline" style="color: blue"></span>
           <span *ngIf="publish_timeOrderby == 'desc'" nz-icon nzType="caret-down" nzTheme="outline" style="color: blue"></span>
         </th>
-        <th nzAlign="center">专辑名称</th>
-        <th nzAlign="center">歌手名称</th>
+        <th nzAlign="center">发行公司</th>
         <th nzAlign="center" (click)="exponentOrder()" style="cursor: pointer">
           <div>指数</div>
           <span *ngIf="exponentOrderby == 'asc'" nz-icon nzType="caret-up" nzTheme="outline" style="color: blue"></span>
@@ -22,6 +21,7 @@
         </th>
         <th nzAlign="center">平台添加时间</th>
         <th nzAlign="center">歌曲版本名</th>
+        <th nzAlign="center">更多音源</th>
         <th nzWidth="80px" nzAlign="center">查看</th>
       </tr>
     </thead>
@@ -34,6 +34,7 @@
             <img *ngIf="item.isPlay" src="assets/img/pause-blue.png" style="width: 32px;height: 32px;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);"/>
           </div>
         </td>
+        <!-- 歌曲名称 -->
         <td nzAlign="center">
           <div>
             <div>
@@ -51,15 +52,19 @@
             </div>
           </div>
         </td>
-        <td nzAlign="center">{{ item.Grp ? item.Grp : 0 }}</td>
-        <td nzAlign="center">{{ item.Company ? item.Company : "无" }}</td>
-        <td nzAlign="center">{{ item.Ime_public ? item.Ime_public : "无" }}</td>
-        <td nzAlign="center"  (click)='linkAlbum(item)' style="cursor: pointer;">{{ item.AlbumName ? item.AlbumName : "无" }}</td>
+        <!-- 歌手名称 -->
         <td nzAlign="center">
           <div *ngFor="let s of item.SingerInfo; let si = index" (click)="openSingerHome(s.id)" style="cursor: pointer">
             {{ splitEm(s.name) }}{{ si != item.SingerInfo.length - 1 ? "," : "" }}
           </div>
         </td>
+        <!-- 专辑名称 -->
+        <td nzAlign="center"  (click)='linkAlbum(item)' style="cursor: pointer;">{{ item.AlbumName ? item.AlbumName : "无" }}</td>
+        <!-- 发行时间 -->
+        <td nzAlign="center">{{ item.Ime_public ? item.Ime_public : "无" }}</td>
+        <!-- 发行公司 -->
+        <td nzAlign="center">{{ item.Company ? item.Company : "无" }}</td>
+        <!-- 指数 -->
         <td nzAlign='center' style="cursor: pointer;" (click)='reloadExponents(item)'>
           <span nz-tooltip [nzTooltipTitle]="'点击刷新'">
           <span nz-icon nzType="redo" nzTheme="outline" style="color: royalblue;"></span>
@@ -71,8 +76,12 @@
           </div>
           </span>
         </td>
+        <!-- 平台添加时间 -->
         <td nzAlign="center">{{ item.Create_time ? item.Create_time : "无" }}</td>
+        <!-- 歌曲版本名 -->
         <td nzAlign="center">{{ item.Suffix ? splitEm(item.Suffix) : "无" }}</td>
+         <!-- 多版本 -->
+         <td nzAlign="center">{{ item.Grp ? item.Grp : 0 }}</td>
         <td nzAlign="center" style="color: blue; cursor: pointer" (click)="openLink(item)">查看</td>
       </tr>
     </tbody>
