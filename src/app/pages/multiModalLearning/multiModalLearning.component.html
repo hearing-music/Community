@@ -1,17 +1,25 @@
 <div class="multiModalLearning">
-
   <!-- tab栏 -->
+  <div style="display: flex;justify-content: space-between;align-items: center;">
     <div class="tagList">
-		<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item" [ngClass]="{ 'tagList-itemActive': item.name == selectItem }">
-		  {{ item.name }}
-		</div>
+      <div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item" [ngClass]="{ 'tagList-itemActive': item.name == selectItem }">
+        {{ item.name }}
+      </div>
     </div>
-    <div *ngIf="selectItem == '计算器'" class="mainBox">
-		<ngx-multiModalLearningComputed></ngx-multiModalLearningComputed>
-	</div>
-    <div *ngIf="selectItem == '我的评估'" class="mainBox">
-      <ngx-multiModalLearningShow></ngx-multiModalLearningShow>
+    <div *ngIf="selectItem == '我的评估'">
+      <nz-input-group [nzSuffix]="suffixIconSearch" style="border-radius: 8px;">
+        <input type="text" nz-input placeholder="请搜索歌曲关键词" [(ngModel)]="searchFilter"  (focus)="focus($event)" (blur)="blur()"/>
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <span nz-icon nzType="search" nzTheme="outline" style="font-size: 20px; color: #08c;" class="search-icon"></span>
+      </ng-template>
     </div>
+  </div>
 
- 
+  <div *ngIf="selectItem == '计算器'" class="mainBox">
+    <ngx-multiModalLearningComputed></ngx-multiModalLearningComputed>
+  </div>
+  <div *ngIf="selectItem == '我的评估'" class="mainBox">
+    <ngx-multiModalLearningShow [searchFilter]="searchFilter"></ngx-multiModalLearningShow>
+  </div>
 </div>

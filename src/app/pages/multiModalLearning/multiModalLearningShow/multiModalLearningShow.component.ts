@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
 import { CommonService } from "../../../services/common.service";
 @Component({
@@ -7,22 +7,32 @@ import { CommonService } from "../../../services/common.service";
 	styleUrls: ["./multiModalLearningShow.component.scss"],
 })
 export class MultiModalLearningShowComponent implements OnInit {
-	GetObservationDataArr : any = [];
+  @Input() searchFilter: any;
+  GetObservationDataArr: any = [];
+  // @Output() reloadObservationDataArr: EventEmitter<any> = new EventEmitter<any>();
+  // reloadObservationDataArrs(item: any) {
+  //   this.reloadObservationDataArr.emit({ item: item });
+  // }
 	loading = false;
 	params = {
 		UserId: localStorage.getItem("userId") || "0",
 		Limit: 10,
 		Offset: 1,
+		KeyWord:""
 	};
 	total = 0;
 	constructor(public api : ApiService, public common : CommonService) { }
 	async ngOnInit() {
 		this.GetObservationData();
-	}
-	GetObservationData() {
+  }
+  filterSearch() {
+	this.params.Offset = 1;
+    this.params.KeyWord = this.searchFilter;
+    this.GetObservationData()
+  }
+  GetObservationData() {
 		this.loading = true;
-		this.api.GetObservationData(this.params).subscribe(
-			(res : any) => {
+		this.api.GetObservationData(this.params).subscribe((res : any) => {
 				this.loading = false;
 				if (res.success) {
 					for (let i = 0; i < res.data.res.length; i++) {
@@ -51,7 +61,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 							data.PlatformData.QQ.forEach((item:any)=>{
 								item.record = item.record || []
 							})
-							
+
 							data.PlatformData.KG.forEach((item:any)=>{
 								item.record = item.record || []
 							})
@@ -59,13 +69,13 @@ export class MultiModalLearningShowComponent implements OnInit {
 							//QQ数据拆分
 							data.PlatformData = this.splitQQ(data.PlatformData);
 							this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.IndexQQ);
-							
-							
+
+
 							this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.ListenKG);
 							this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.ListenQQ);
 							this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.indexRateQQ);
 							this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.indexRateKG);
-							
+
 							// this.fillMissingDates(data.PlatformData.ListenKG, data.PlatformData.ListenQQ);
 							// this.fillMissingDates(data.PlatformData.indexRateKG, data.PlatformData.indexRateQQ);
 							this.fillMissingDates(data.PlatformData.RankKG, data.PlatformData.RankQQ);
@@ -77,7 +87,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 							this.setOptionIndex(res.data.res[i].PlatformData);
 						}
 					}
-					this.GetObservationDataArr = res.data.res;
+          this.GetObservationDataArr = res.data.res;
 					this.total = res.data.count;
 				}
 			},
@@ -95,7 +105,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 				if (!acc[key]) {
 					acc[key] = { Name: key, other: [] };
 				}
-	
+
 				// 将当前 item 放到 other 数组中
 				acc[key].other.push({
 					Ran: item.Ran,
@@ -105,7 +115,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 					Href: item.Href,
 					Time: item.Time,
 				});
-	
+
 				return acc;
 			}, {})
 		);
@@ -185,7 +195,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 			...iitem.indexRateKG,
 			...iitem.indexRateQQ,
 		];
-		
+
 		iitem.ListenKG.forEach((item:any)=>{
 			item.Time = this.common.getDate(item.Time);
 		})
@@ -198,7 +208,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 		iitem.indexRateQQ.forEach((item:any)=>{
 			item.Time = this.common.getDate(item.Time);
 		})
-		
+
 		iitem.IndexKG.forEach((item:any)=>{
 			item.Time = this.common.getDate(item.Time);
 		})
@@ -446,7 +456,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 		data.indexRateKG = [];
 		data.RankDiffKG = [];
 		data.commentKG = [];
-		
+
 		let Kg = data.KG;
 		if (Kg[0].KShareExponents && Kg[0].KShareExponents.length > 0) {
 			for (let j = 0; j < Kg[0].KShareExponents.length; j++) {
