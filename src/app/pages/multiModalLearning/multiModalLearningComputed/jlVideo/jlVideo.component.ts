@@ -15,9 +15,11 @@ export class JlVideoComponent implements OnInit {
   ) {}
   async ngOnInit() { }
   ngOnChanges(changes : SimpleChanges) {
-  	if (changes.MassiveArithmeticVedio.currentValue.length>0) {
-  		this.loadPage();
-  	}
+	  if(changes.MassiveArithmeticVedio){
+		  if (changes.MassiveArithmeticVedio.currentValue.length>0) {
+		  	this.loadPage();
+		  }
+	  }
   }
 @Input() MassiveArithmeticVedio:any=[]
   @Input() loading: any = true;
@@ -45,6 +47,9 @@ paginatedData:any=[]
   loadPage(page: number=1): void {
     if (this.isLoading || !this.hasMore) return;
     this.isLoading = true;
+	if(page==1){
+		this.paginatedData=[]
+	}
     setTimeout(() => {
       const start = (page - 1) * this.pageSize;
       const end = start + this.pageSize;
