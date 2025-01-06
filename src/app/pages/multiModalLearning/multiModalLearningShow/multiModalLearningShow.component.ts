@@ -469,7 +469,16 @@ export class MultiModalLearningShowComponent implements OnInit {
 		for (let i = 0; i < Kg.length; i++) {
 			Kg[i].KExponents = Kg[i].KExponents || {}
 			Kg[i].KExponents.data = Kg[i].KExponents.data||{}
-
+			if(i>0){
+				if (Kg[i].KShareExponents && Kg[i].KShareExponents.length > 0) {
+					for (let j = 0; j < Kg[i].KShareExponents.length; j++) {
+						data.IndexKG.push({
+							Index: Kg[i].KShareExponents[j].exponent,
+							Time: Kg[i].KShareExponents[j].date * 1000,
+						});
+					}
+				}
+			}
 
 			if (Kg[i].KExponents && Kg[i].KExponents.data.exponent) {
 				data.IndexKG.push({
@@ -521,6 +530,9 @@ export class MultiModalLearningShowComponent implements OnInit {
 		for (let i = 0; i < qq.length; i++) {
 			const date = new Date(qq[i].realtimeData.updateTime);
 			const zeroHourTimestamp = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1).getTime();
+			
+			
+			
 			data.IndexQQ.push({
 				Index: qq[i].realtimeData.yesterdayIndex,
 				Time: zeroHourTimestamp,
