@@ -7,90 +7,93 @@ import { CommonService } from "../../../services/common.service";
 	styleUrls: ["./multiModalLearningShow.component.scss"],
 })
 export class MultiModalLearningShowComponent implements OnInit {
-  @Input() searchFilter: any;
-  GetObservationDataArr: any = [];
-  // @Output() reloadObservationDataArr: EventEmitter<any> = new EventEmitter<any>();
-  // reloadObservationDataArrs(item: any) {
-  //   this.reloadObservationDataArr.emit({ item: item });
-  // }
+	@Input() searchFilter : any;
+	GetObservationDataArr : any = [];
+	// @Output() reloadObservationDataArr: EventEmitter<any> = new EventEmitter<any>();
+	// reloadObservationDataArrs(item: any) {
+	//   this.reloadObservationDataArr.emit({ item: item });
+	// }
 	loading = false;
 	params = {
 		UserId: localStorage.getItem("userId") || "0",
 		Limit: 10,
 		Offset: 1,
-		KeyWord:""
+		KeyWord: ""
 	};
 	total = 0;
 	constructor(public api : ApiService, public common : CommonService) { }
 	async ngOnInit() {
 		this.GetObservationData();
-  }
-  filterSearch() {
-	this.params.Offset = 1;
-    this.params.KeyWord = this.searchFilter;
-    this.GetObservationData()
-  }
-  GetObservationData() {
+	}
+	filterSearch() {
+		this.params.Offset = 1;
+		this.params.KeyWord = this.searchFilter;
+		this.GetObservationData()
+	}
+	GetObservationData() {
 		this.loading = true;
 		this.api.GetObservationData(this.params).subscribe((res : any) => {
-				this.loading = false;
-				if (res.success) {
-					for (let i = 0; i < res.data.res.length; i++) {
-						let data = res.data.res[i];
-						if(data.PlatformData.KG){
-							if(data.PlatformData.KG.length==0){
-								delete data.PlatformData.KG
-							}
-						}
-						if(data.PlatformData.QQ){
-							if(data.PlatformData.QQ.length==0){
-								delete data.PlatformData.QQ
-							}
-						}
-						// 歌手飙升
-						if(data.PlatformData.SingerSoaring){
-							data.PlatformData.SingerSoaring = this.SoaringKgSinger(data.PlatformData.SingerSoaring);
-							this.setOptionIndexSingerSoaring(data.PlatformData);
-						}
-						if (data.PlatformData.KG && data.PlatformData.KG.length > 0) {
-							data.isMore = false;
-							//酷狗数据拆分
-							data.PlatformData = this.splitKG(data.PlatformData);
-						}
-						if (data.PlatformData.QQ && data.PlatformData.QQ.length > 0) {
-							data.PlatformData.QQ.forEach((item:any)=>{
-								item.record = item.record || []
-							})
-
-							data.PlatformData.KG.forEach((item:any)=>{
-								item.record = item.record || []
-							})
-							data.isMore = false;
-							//QQ数据拆分
-							data.PlatformData = this.splitQQ(data.PlatformData);
-							this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.IndexQQ);
-
-
-							this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.ListenKG);
-							this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.ListenQQ);
-							this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.indexRateQQ);
-							this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.indexRateKG);
-
-							// this.fillMissingDates(data.PlatformData.ListenKG, data.PlatformData.ListenQQ);
-							// this.fillMissingDates(data.PlatformData.indexRateKG, data.PlatformData.indexRateQQ);
-							this.fillMissingDates(data.PlatformData.RankKG, data.PlatformData.RankQQ);
-							this.fillMissingDates(data.PlatformData.RankDiffKG, data.PlatformData.RankDiffQQ);
-							this.fillMissingDates(data.PlatformData.commentKG, data.PlatformData.commentQQ);
-						}
-						res.data.res[i] = data;
-						if (data.PlatformData.KG) {
-							this.setOptionIndex(res.data.res[i].PlatformData);
+			this.loading = false;
+			if (res.success) {
+				for (let i = 0; i < res.data.res.length; i++) {
+					let data = res.data.res[i];
+					if (data.PlatformData.KG) {
+						if (data.PlatformData.KG.length == 0) {
+							delete data.PlatformData.KG
 						}
 					}
-          this.GetObservationDataArr = res.data.res;
-					this.total = res.data.count;
+					if (data.PlatformData.QQ) {
+						if (data.PlatformData.QQ.length == 0) {
+							delete data.PlatformData.QQ
+						}
+					}
+					// 歌手飙升
+					if (data.PlatformData.SingerSoaring) {
+						data.PlatformData.SingerSoaring = this.SoaringKgSinger(data.PlatformData.SingerSoaring);
+						this.setOptionIndexSingerSoaring(data.PlatformData);
+					}
+					if (data.PlatformData.KG && data.PlatformData.KG.length > 0) {
+						data.isMore = false;
+						//酷狗数据拆分
+						data.PlatformData = this.splitKG(data.PlatformData);
+					}
+					if (data.PlatformData.QQ && data.PlatformData.QQ.length > 0) {
+						data.PlatformData.QQ.forEach((item : any) => {
+							item.record = item.record || []
+						})
+
+						data.PlatformData.KG.forEach((item : any) => {
+							item.record = item.record || []
+						})
+						data.isMore = false;
+						//QQ数据拆分
+						data.PlatformData = this.splitQQ(data.PlatformData);
+						this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.IndexQQ);
+
+
+						this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.ListenKG);
+						this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.commentKG);
+						this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.ListenQQ);
+						this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.indexRateQQ);
+						this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.indexRateKG);
+						this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.RankDiffKG);
+						this.fillMissingDates(data.PlatformData.IndexKG, data.PlatformData.RankKG);
+
+						// this.fillMissingDates(data.PlatformData.ListenKG, data.PlatformData.ListenQQ);
+						// this.fillMissingDates(data.PlatformData.indexRateKG, data.PlatformData.indexRateQQ);
+						this.fillMissingDates(data.PlatformData.RankKG, data.PlatformData.RankQQ);
+						this.fillMissingDates(data.PlatformData.RankDiffKG, data.PlatformData.RankDiffQQ);
+						this.fillMissingDates(data.PlatformData.commentKG, data.PlatformData.commentQQ);
+					}
+					res.data.res[i] = data;
+					if (data.PlatformData.KG) {
+						this.setOptionIndex(res.data.res[i].PlatformData);
+					}
 				}
-			},
+				this.GetObservationDataArr = res.data.res;
+				this.total = res.data.count;
+			}
+		},
 			(err : any) => {
 				this.loading = false;
 			}
@@ -129,7 +132,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 		this.GetObservationData();
 	}
 	// 歌手飙升
-	setOptionIndexSingerSoaring(data:any){
+	setOptionIndexSingerSoaring(data : any) {
 		let color = [
 			"#14195d",
 			"#535bc7",
@@ -137,16 +140,16 @@ export class MultiModalLearningShowComponent implements OnInit {
 		];
 		let dateListNow = []
 		let series = []
-		data.SingerSoaring.forEach((item:any)=>{
-			let ran = item.other.map((e:any)=>e.Ran)
+		data.SingerSoaring.forEach((item : any) => {
+			let ran = item.other.map((e : any) => e.Ran)
 			let serie = {
-					type:"line",
-					name:item.Name,
-					data:ran,
-					smooth: true,
-				}
+				type: "line",
+				name: item.Name,
+				data: ran,
+				smooth: true,
+			}
 			series.push(serie)
-			let date = item.other.map((e:any)=>{
+			let date = item.other.map((e : any) => {
 				return this.common.getDate(e.Time)
 			})
 			dateListNow.push(...date)
@@ -155,7 +158,7 @@ export class MultiModalLearningShowComponent implements OnInit {
 		data.SingerSoaringOptions = {
 			color: color,
 			legend: {
-				show:true
+				show: true
 			},
 			tooltip: {
 				confine: true,
@@ -196,27 +199,27 @@ export class MultiModalLearningShowComponent implements OnInit {
 			...iitem.indexRateQQ,
 		];
 
-		iitem.ListenKG.forEach((item:any)=>{
+		iitem.ListenKG.forEach((item : any) => {
 			item.Time = this.common.getDate(item.Time);
 		})
-		iitem.ListenQQ.forEach((item:any)=>{
+		iitem.ListenQQ.forEach((item : any) => {
 			item.Time = this.common.getDate(item.Time);
 		})
-		iitem.indexRateKG.forEach((item:any)=>{
+		iitem.indexRateKG.forEach((item : any) => {
 			item.Time = this.common.getDate(item.Time);
 		})
-		iitem.indexRateQQ.forEach((item:any)=>{
+		iitem.indexRateQQ.forEach((item : any) => {
 			item.Time = this.common.getDate(item.Time);
 		})
 
-		iitem.IndexKG.forEach((item:any)=>{
+		iitem.IndexKG.forEach((item : any) => {
 			item.Time = this.common.getDate(item.Time);
 		})
-		iitem.IndexKG = this.quchong(iitem.IndexKG,'Time')
-		iitem.IndexQQ.forEach((item:any)=>{
+		iitem.IndexKG = this.quchong(iitem.IndexKG, 'Time')
+		iitem.IndexQQ.forEach((item : any) => {
 			item.Time = this.common.getDate(item.Time);
 		})
-		iitem.IndexQQ = this.quchong(iitem.IndexQQ,'Time')
+		iitem.IndexQQ = this.quchong(iitem.IndexQQ, 'Time')
 		dateListNow = dateListNow.sort((a : any, b : any) => a.Time - b.Time);
 		dateListNow = dateListNow.map((e : any) => e.Time);
 		dateListNow = this.removeDuplicates(dateListNow);
@@ -421,16 +424,16 @@ export class MultiModalLearningShowComponent implements OnInit {
 		// 	height: 150,
 		// };
 	}
-	quchong(tempArr:any,key:string) {
-	    let result = [];
-	    let obj = {};
-	    for (let i = 0; i < tempArr.length; i++) {
-	        if (!obj[tempArr[i][key]]) {
-	            result.push(tempArr[i]);
-	            obj[tempArr[i][key]] = true;
-	        };
-	    };
-	    return result;
+	quchong(tempArr : any, key : string) {
+		let result = [];
+		let obj = {};
+		for (let i = 0; i < tempArr.length; i++) {
+			if (!obj[tempArr[i][key]]) {
+				result.push(tempArr[i]);
+				obj[tempArr[i][key]] = true;
+			};
+		};
+		return result;
 	}
 	// 去重
 	removeDuplicates(array : any) {
@@ -468,8 +471,8 @@ export class MultiModalLearningShowComponent implements OnInit {
 		}
 		for (let i = 0; i < Kg.length; i++) {
 			Kg[i].KExponents = Kg[i].KExponents || {}
-			Kg[i].KExponents.data = Kg[i].KExponents.data||{}
-			if(i>0){
+			Kg[i].KExponents.data = Kg[i].KExponents.data || {}
+			if (i > 0) {
 				if (Kg[i].KShareExponents && Kg[i].KShareExponents.length > 0) {
 					for (let j = 0; j < Kg[i].KShareExponents.length; j++) {
 						data.IndexKG.push({
@@ -479,7 +482,29 @@ export class MultiModalLearningShowComponent implements OnInit {
 					}
 				}
 			}
-
+			if(Kg[i].KShareExponents){
+				data.ListenKG.push({
+					Count: Kg[i].listenPeopleCount.count || 0,
+					Time: Kg[i].KShareExponents[Kg[i].KShareExponents.length - 1].date * 1000,
+				});
+				data.RankKG.push({
+					Rank: Kg[i].KExponents.data.rank || 0,
+					Time: Kg[i].KShareExponents[Kg[i].KShareExponents.length - 1].date * 1000,
+				});
+				data.indexRateKG.push({
+					indexRate: Kg[i].KExponents.data.exponent_diff || 0,
+					Time: Kg[i].KShareExponents[Kg[i].KShareExponents.length - 1].date * 1000,
+				});
+				data.RankDiffKG.push({
+					rankDiff: Kg[i].KExponents.data.rank_diff || 0,
+					Time: Kg[i].KShareExponents[Kg[i].KShareExponents.length - 1].date * 1000,
+				});
+				data.commentKG.push({
+					count: Kg[i].comment.cnt || 0,
+					Time: Kg[i].KShareExponents[Kg[i].KShareExponents.length - 1].date * 1000,
+				});
+				
+			}
 			if (Kg[i].KExponents && Kg[i].KExponents.data.exponent) {
 				data.IndexKG.push({
 					Index: Kg[i].KExponents.data.exponent,
@@ -523,16 +548,16 @@ export class MultiModalLearningShowComponent implements OnInit {
 			for (let j = 0; j < qq[0].QShareExponents.length; j++) {
 				data.IndexQQ.push({
 					Index: qq[0].QShareExponents[j].exponent,
-					Time: qq[0].QShareExponents[j].date*1000,
+					Time: qq[0].QShareExponents[j].date * 1000,
 				});
 			}
 		}
 		for (let i = 0; i < qq.length; i++) {
 			const date = new Date(qq[i].realtimeData.updateTime);
 			const zeroHourTimestamp = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1).getTime();
-			
-			
-			
+
+
+
 			data.IndexQQ.push({
 				Index: qq[i].realtimeData.yesterdayIndex,
 				Time: zeroHourTimestamp,
