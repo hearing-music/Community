@@ -103,7 +103,7 @@ export class DouyinOriginalCopyrightComponent implements OnInit {
 			this.loading = false;
 			if (res.success) {
 				res.data.forEach((item:any)=>{
-					item.CopyrightInfo.music = item.CopyrightInfo.music || item.CopyrightInfo.humming || []
+					item.CopyrightInfo.music = item.CopyrightInfo.music || item.CopyrightInfo.humming || item.CopyrightInfo.oriFun || []
 				})
 				this.result = res.data;
 				this.pageTotal = res.count;
