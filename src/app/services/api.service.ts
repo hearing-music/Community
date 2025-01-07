@@ -25,6 +25,11 @@ export class ApiService {
 		const blob = await response.blob();
 		return blob;
 	}
+	// 抖音原声版权展示
+	  AcousticCopyrightDisplay(params : any) {
+	  	let url = this.baseUrl + "/douyin/AcousticCopyrightDisplay";
+	  	return this.http.post(url, params);
+	  }
 	//   酷狗待完善歌曲
 	AllActivityShow(params : any) {
 		let url = this.baseUrl + "/kugou/AllActivityShow";

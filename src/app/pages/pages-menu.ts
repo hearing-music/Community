@@ -83,10 +83,15 @@ export let MENU_ITEMS : NbMenuItem[] = [
 			{
 				title: "即将上线功能",
 				children: [
+					// {
+					// 	title: '功能1号',
+					// 	link: '/pages/douyin/douyin-comprehensiveSearch',
+					// }
 					{
-						title: '功能1号',
-						link: '/pages/douyin/douyin-comprehensiveSearch',
+						title: '原声版权',
+						link: '/pages/douyin/douyin-originalCopyright',
 					}
+					
 				]
 			},
 			{

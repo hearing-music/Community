@@ -66,6 +66,7 @@ import { DouyinListComponent } from './douyin/douyin-list/douyin-list.component'
 import { DouyinAssayVideoComponent } from './douyin/douyin-assayVideo/douyin-assayVideo.component';
 import { DouyinVideoComponent } from './douyin/douyin-video/douyin-video.component';
 import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
+import { DouyinOriginalCopyrightComponent } from './douyin/douyin-originalCopyright/douyin-originalCopyright.component';
 import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-listenDaren.component';
 import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-listenVideo.component';
 import { DouyinSoundSourceComponent } from './douyin/douyin-soundSource/douyin-soundSource.component';
@@ -371,6 +372,7 @@ registerLocaleData(zh);
 		RiseRankingTempComponent,
 		// DouyinHotComponent,
 		DouyinDarenComponent,
+		DouyinOriginalCopyrightComponent,
 		DouyinListenDarenComponent,
 		DouyinListenVideoComponent,
 		FufuSearchComponent,

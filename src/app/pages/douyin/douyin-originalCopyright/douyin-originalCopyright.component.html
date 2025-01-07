@@ -1,0 +1,150 @@
+<div class="douyin">
+
+	<div class="list">
+		<div *ngFor='let item of result;let i = index;'>
+
+			<div class="list-item">
+				<div style='flex-shrink:0;'>
+					<img (click)='playMusic(item)' *ngIf='!item.isplay' src="/assets/img/play-purple.png"
+						style="width: 60px;height: 60px;cursor: pointer;" />
+					<img (click)='pauseMusic(item)' *ngIf='item.isplay' src="/assets/img/pause-purple.png"
+						style="width: 60px;height: 60px;cursor: pointer;" />
+				</div>
+				<div style="flex:1;margin-left:24px;">
+					<div style='display:flex;align-items: center;'>
+						<div class='title' (click)='common.copy(item.title)'>
+							{{item.title}}
+						</div>
+						<div nz-icon nzType="sound" nzTheme="outline"
+							style="cursor: pointer;color:#818181;font-size: 16px;margin-left: 12px;" nz-tooltip
+							nzTooltipTitle="音源主页" (click)="openMusicUrl(item.musicId)"></div>
+						<div nz-icon nzType="video-camera" nzTheme="outline"
+							style="cursor: pointer;color:#818181;font-size: 16px;margin-left: 12px;" nz-tooltip
+							nzTooltipTitle="视频主页" (click)="openVideoUrl(item.Url)"></div>
+					</div>
+					<div class='subTitle'>
+						<div style='display:flex;align-items: center;'>
+							<img [src]="item.author_url" style="width: 30px;height: 30px;border-radius: 50%;">
+							<div style="color: blue;cursor: pointer;margin-left: 10px;"
+								(click)='openAuthorUrl(item.sec_uid)'>
+								作者主页
+							</div>
+						</div>
+						<div style="margin-left: 12px;display: flex;align-items: center;" nz-tooltip
+							nzTooltipTitle="音源使用量">
+							<img src="/assets/img/yinyue.svg" style="width: 16px; height: 16px;" />
+							<div style="margin-left: 6px;">{{common.toThousands(item.user_count)}}</div>
+						</div>
+					</div>
+					<div class='subTitle'>
+						<div style='display:flex;align-items: center;'>
+							<div style="display: flex;align-items: center;" nz-tooltip
+								nzTooltipTitle="视频点赞">
+								<img src="/assets/img/dianzan.svg" class="icon2" />
+								<div>
+									{{common.toThousands(item.digg_count)}}
+								</div>
+							</div>
+							<div style="display: flex;align-items: center;margin-left: 6px;" nz-tooltip
+								nzTooltipTitle="视频收藏">
+								<img src="/assets/img/shoucang.svg" class="icon2" />
+								<div>
+									{{common.toThousands(item.collect_count)}}
+								</div>
+							</div>
+							<div style="display: flex;align-items: center;margin-left: 6px;" nz-tooltip
+								nzTooltipTitle="视频分享">
+								<img src="/assets/img/fenxiang.svg" class="icon2" />
+								<div>
+									{{common.toThousands(item.share_count)}}
+								</div>
+							</div>
+							<div style="display: flex;align-items: center;margin-left: 6px;" nz-tooltip
+								nzTooltipTitle="视频评论">
+								<img src="/assets/img/pinglun.svg" class="icon2" />
+								<div>
+									{{common.toThousands(item.comment_count)}}
+								</div>
+							</div>
+						</div>
+						<button nz-button nzType="primary" (click)="openVideo(item)" nzGhost nzSize='small' style="margin-left: 10px;">
+							播放视频
+						</button>
+						<button nz-button nzType="primary" (click)="openCopyright(item)" nzGhost nzSize='small' style="margin-left: 10px;">
+							{{item.copyrightShow?'收起':'查看版权'}}
+						</button>
+					</div>
+				</div>
+				<div>
+					<div nz-tooltip [nzTooltipTitle]="item.Name" style="text-align: right;">
+						加入时间：{{common.getTime(item.AddTime)}}
+					</div>
+					<div style="margin-top: 12px;">
+						视频发布时间：{{common.getTime(item.create_time*1000)}}
+					</div>
+				</div>
+			</div>
+			<div *ngIf='item.copyrightShow'>
+				<nz-table #basicTable [nzData]="item.CopyrightInfo" nzTitle='' [nzFrontPagination]='false'>
+					<thead>
+						<tr>
+							<th nzAlign='center'>歌曲</th>
+							<th nzAlign='center'>专辑</th>
+							<th nzAlign='center'>歌手</th>
+							<th nzAlign='center'>时长</th>
+							<th nzAlign='center'>作曲家</th>
+							<th nzAlign='center'>专辑发布时间</th>
+							<th nzAlign='center'>版权方</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of basicTable.data; let i = index">
+							<td nzAlign='center'>
+								{{item.songname}}
+							</td>
+							<td nzAlign='center'>
+								{{item.albumname}}
+							</td>
+							<td nzAlign='center'>
+								{{item.singer}}
+							</td>
+							<td nzAlign='center'>
+								<div *ngIf='item.timelength'>
+									{{common.toFixed2(item.timelength/1000) + 's'}}
+								</div>
+							</td>
+							<td nzAlign='center'>
+								{{item.verison}}
+							</td>
+							<td nzAlign='center'>
+								{{item.publish_date}}
+							</td>
+							<td nzAlign='center'>
+								{{item.copyright}}
+							</td>
+						</tr>
+					</tbody>
+				</nz-table>
+			</div>
+		</div>
+	</div>
+
+	<div style="display: flex;justify-content: center;">
+		<nz-pagination *ngIf='result.length>0' [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+			(nzPageIndexChange)='pageChange($event)' nzShowQuickJumper></nz-pagination>
+		<ngx-loading *ngIf="loading"></ngx-loading>
+	</div>
+	<!-- 播放器 -->
+	<div class="play" [ngClass]="{playhide : !isPlay}">
+		<audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()' (error)='error($event)'>
+		</audio>
+	</div>
+	<nz-modal [(nzVisible)]="videoShow" [nzFooter]="null" (nzOnCancel)="closeVideo()"
+		[nzTitle]="videoTitle">
+		<ng-container *nzModalContent>
+			<div style="display: flex; justify-content: center">
+				<video [src]="videoSrc" style="width: 260px" id="v" controls></video>
+			</div>
+		</ng-container>
+	</nz-modal>
+</div>

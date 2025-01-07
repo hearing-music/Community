@@ -31,11 +31,14 @@ export class IdentificationComponent implements OnInit {
 		}).subscribe((res: any) => {
 			this.loading = false;
 			if(res.success){
-				this.fileNameArr = []
-				for(let i = 0;i<this.files.length;i++){
-					this.fileNameArr.push(this.files[i].name)
+				let identList = []
+				for(let i = 0;i<res.result.length;i++){
+					res.result[i].forEach((item:any)=>{
+						item.fileName = this.files[i].name
+					})
+					identList.push(...res.result[i])
 				}
-				this.identList = res.result;
+				this.identList = identList;
 			}
 			console.log(res)
 		}, (err: any) => {

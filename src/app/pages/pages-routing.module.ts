@@ -27,14 +27,15 @@ import { DouyinAssayVideoComponent } from './douyin/douyin-assayVideo/douyin-ass
 import { DouyinPopularAccountsComponent } from "./douyin/douyin-popular-accounts/douyin-popular-accounts.component";
 import { DouyinSoundSourceComponent } from './douyin/douyin-soundSource/douyin-soundSource.component';
 import { DouyinListenSoundSourceComponent } from './douyin/douyin-listenSoundSource/douyin-listenSoundSource.component';
-import { kuaishouPotentialComponent } from './kuaishou-searchindex/kuaishou-potential/kuaishou-potential.component'
+import { DouyinOriginalCopyrightComponent } from './douyin/douyin-originalCopyright/douyin-originalCopyright.component';
+// import { kuaishouPotentialComponent } from './kuaishou-searchindex/kuaishou-potential/kuaishou-potential.component'
 import { KuaishouVideoDetailsComponent } from './kuaishou-searchindex/kuaishou-videoDetails/kuaishou-videoDetails.component';
 import { RisingHotComponent } from "./douyin/rising-hot/rising-hot.component";
 import { LsddPageComponent } from './lsdd-page/lsdd-page.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
 import { FufuBillboardComponent } from './fufuleida/fufu-billboard/fufu-billboard.component'
 import { FindInspirationComponent } from './find-inspiration/find-inspiration.component'
-import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
+// import { KuaishouSearchindexComponent } from './kuaishou-searchindex/kuaishou-searchindex.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { CopyrightScanningComponent } from './copyright-scanning/copyright-scanning.component';
 import { GetRankingComponent } from './qq_kugou-ranking/get-ranking/get-ranking.component';
@@ -254,6 +255,12 @@ const routes : Routes = [{
 		{
 			path: 'douyin/douyin-listenSoundSource',
 			component: DouyinListenSoundSourceComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 抖音原声版权
+		{
+			path: 'douyin/douyin-originalCopyright',
+			component: DouyinOriginalCopyrightComponent,
 			canActivate: [PermissionGuard]
 		},
 		{
