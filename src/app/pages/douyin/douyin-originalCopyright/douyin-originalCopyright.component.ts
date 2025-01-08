@@ -94,6 +94,7 @@ export class DouyinOriginalCopyrightComponent implements OnInit {
   pageChange(page:any){
 	  this.lastPage = this.page;
 	  this.page = page;
+	  this.AcousticCopyrightDisplay()
   }
 	AcousticCopyrightDisplay() {
 		this.loading = true;

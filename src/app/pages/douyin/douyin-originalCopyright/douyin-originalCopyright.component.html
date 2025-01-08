@@ -116,7 +116,7 @@
 								</div>
 							</td>
 							<td nzAlign='center' [ngStyle]='{"color":item.score==100?"red":"#000"}'>
-								{{item.score}}
+								{{item.score==-1?"":item.score}}
 							</td>
 							<td nzAlign='center'>
 								{{item.release_date}}
