@@ -115,8 +115,9 @@
 									{{common.toFixed2(item.duration_ms/1000) + 's'}}
 								</div>
 							</td>
-							<td nzAlign='center' [ngStyle]='{"color":item.score==100?"red":"#000"}'>
-								{{item.score==-1?"":item.score}}
+							<td nzAlign='center' [ngStyle]='{"color":item.score==100?"red":"#000"}' nz-tooltip
+								[nzTooltipTitle]="tipTemplate">
+								{{item.score}}
 							</td>
 							<td nzAlign='center'>
 								{{item.release_date}}
@@ -149,4 +150,15 @@
 			</div>
 		</ng-container>
 	</nz-modal>
+	<ng-template #tipTemplate let-thing>
+	    <div>
+			-1 = 听歌识曲
+		</div>
+		<div>
+			0-1 = 哼唱识别
+		</div>
+		<div>
+			1-100 = 原曲识别
+		</div>
+	</ng-template>
 </div>
