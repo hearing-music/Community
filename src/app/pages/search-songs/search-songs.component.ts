@@ -93,16 +93,17 @@ export class SearchSongsComponent implements OnInit {
 		holder: 'qq搜索'
 	}, {
 		name: '酷狗V3',
-		child:[
-			{
-				name:'酷狗V3',
-				holder: '酷狗V3搜索'
-			},
-			{
-				name:'多版本',
-				holder:'酷狗多版本搜索'
-			}
-		]
+		holder: '酷狗V3搜索'
+		// child:[
+		// 	{
+		// 		name:'酷狗V3',
+		// 		holder: '酷狗V3搜索'
+		// 	},
+		// 	{
+		// 		name:'多版本',
+		// 		holder:'酷狗多版本搜索'
+		// 	}
+		// ]
 	}, {
 		name: '酷我音乐',
 		holder: '酷我搜索'
@@ -180,6 +181,7 @@ export class SearchSongsComponent implements OnInit {
 	kugouV3List: any[] =[]
 	qqPage = 1;
 	kugouV3Page = 1;
+	kugouV3Total=0;
 	
 	audioSrc = '';
 	lyricData:any = [];
@@ -1159,11 +1161,13 @@ export class SearchSongsComponent implements OnInit {
 					names=names.substr(0,names.length-1)
 					item.singerNames = names
 				})
-				if (this.kugouV3Page == 1) {
-					this.kugouV3List = res.result;
-				} else {
-					this.kugouV3List = [...this.kugouV3List, ...res.result];
-				}
+				this.kugouV3Total = res.count;
+				this.kugouV3List = res.result;
+				// if (this.kugouV3Page == 1) {
+				// 	this.kugouV3List = res.result;
+				// } else {
+				// 	this.kugouV3List = [...this.kugouV3List, ...res.result];
+				// }
 			}
 		}, (err: any) => {
 			console.log(err)
@@ -1219,11 +1223,11 @@ export class SearchSongsComponent implements OnInit {
 		this.loading = true;
 		this.searchWangyiyun()
 	}
-	kugouV3PageNext() {
+	kugouV3PageNext(page:any) {
 		if (this.kugouV3List.length == 0) {
 			return
 		}
-		this.kugouV3Page += 1;
+		this.kugouV3Page = page;
 		this.loading = true;
 		this.searchV3()
 	}

@@ -48,7 +48,7 @@
 	<!-- 数据 -->
 	<div class="home-main" [ngClass]='{"home-main2":selectItem2!=""}'>
 		<ngx-qq *ngIf='selectItem=="QQ音乐"' [qqList]="qqList" (change)="qqSrcChange($event)"></ngx-qq>
-		<ngx-v3 *ngIf='selectItem2=="酷狗V3"' [kugouV3List]="kugouV3List" (change)="kgSrcChange($event)"></ngx-v3>
+		<ngx-v3 *ngIf='selectItem=="酷狗V3"' [kugouV3List]="kugouV3List" (change)="kgSrcChange($event)"></ngx-v3>
 		<ngx-newV3 *ngIf='selectItem2=="多版本"' [kugouNewV3List]="kugouNewV3List"></ngx-newV3>
 		<ngx-kuwo *ngIf='selectItem=="酷我音乐"' [kuwoList]="kuwoList" (change)="kuwoSrcChange($event)"></ngx-kuwo>
 		<ngx-wangyiyun *ngIf='selectItem=="网易云"' [wangyiyunList]="wangyiyunList" (change)="wangyiyunSrcChange($event)"></ngx-wangyiyun>
@@ -70,8 +70,8 @@
 	<div class="pagination">
 		<span *ngIf='selectItem=="QQ音乐"&&qqList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='qqPageNext()' style="cursor: pointer;"></span>
-		<span *ngIf='selectItem2=="酷狗V3"&&kugouV3List.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
-			(click)='kugouV3PageNext()' style="cursor: pointer;"></span>
+		<nz-pagination *ngIf='selectItem=="酷狗V3"&&kugouV3List.length>0' [nzPageIndex]="kugouV3Page" [nzPageSize]='10' [nzTotal]="kugouV3Total"
+			(nzPageIndexChange)='kugouV3PageNext($event)' nzShowQuickJumper></nz-pagination>
 		<span *ngIf='selectItem=="酷我音乐"&&kuwoList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='kuwoPageNext()' style="cursor: pointer;"></span>
 		<span *ngIf='selectItem=="网易云"&&wangyiyunList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
@@ -130,8 +130,8 @@
 	<div class="pagination">
 		<span *ngIf='selectItem=="QQ音乐"&&qqList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='qqPageNext()' style="cursor: pointer;"></span>
-		<span *ngIf='selectItem=="酷狗V3"&&kugouV3List.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
-			(click)='kugouV3PageNext()' style="cursor: pointer;"></span>
+		<nz-pagination *ngIf='selectItem=="酷狗V3"&&kugouV3List.length>0' [nzPageIndex]="kugouV3Page" [nzPageSize]='10' [nzTotal]="kugouV3Total"
+			(nzPageIndexChange)='kugouV3PageNext($event)' nzShowQuickJumper></nz-pagination>
 		<span *ngIf='selectItem=="网易云"&&wangyiyunList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
 			(click)='wangyiyunPageNext()' style="cursor: pointer;"></span>
 		<span *ngIf='selectItem=="酷我音乐"&&kuwoList.length>0' nz-icon nzType="down-circle" nzTheme="twotone"
