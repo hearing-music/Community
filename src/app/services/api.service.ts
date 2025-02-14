@@ -1492,6 +1492,24 @@ export class ApiService {
 		let url = this.baseUrl + "/login/SearchUserBehaviour";
 		return this.http.post(url, data);
 	}
+	// 看见用户
+	SearchKJSongListUser(params : any) {
+		let data = JSON.stringify({})
+		let url = this.baseUrl + "/login/SearchKJSongListUser";
+		return this.http.post(url, data);
+	}
+	// 看见歌单用户行为
+	SearchUserBehaviourKJSongList(params : any) {
+		let data = JSON.stringify({
+			"UserId": params.ids,
+			"Offset": params.Offset,
+			"pageSize": params.pageSize,
+			"timestampStart": params.timeStart,
+			"timestampEnd": params.timeEnd,
+		})
+		let url = this.baseUrl + "/login/SearchUserBehaviourKJSongList";
+		return this.http.post(url, data);
+	}
 	// 行为分析
 	SummaryAnalysis() {
 		let url = this.baseUrl + "/data-analysis/SummaryAnalysis";
@@ -1546,6 +1564,15 @@ export class ApiService {
 		} = params
 		let data = { timeStart, timeEnd, userId }
 		let url = this.baseUrl + "/login/UserBehaviourExcel3";
+		return this.http.post(url, data);
+	}
+	// 看见歌单行为导出今日表格
+	UserBehaviourExcel4(params : any) {
+		let {
+			timeStart, timeEnd, userId
+		} = params
+		let data = { timeStart, timeEnd, userId }
+		let url = this.baseUrl + "/login/UserBehaviourExcel4";
 		return this.http.post(url, data);
 	}
 	// 获取全部用户
