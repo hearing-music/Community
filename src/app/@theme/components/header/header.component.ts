@@ -158,6 +158,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				{
 					icon: '📢',
 					color: 'bg-azure-95',
+					title: '2025年02月18日16:33',
+					newAdd: [],//新增
+					optimize: ["抖音监控声源添加删除功能"],//优化
+					bugs: [],//修复bug
+				},
+				{
+					icon: '📢',
+					color: 'bg-azure-95',
 					title: '2025年01月25日12:07',
 					newAdd: [],//新增
 					optimize: ["酷狗搜索分页"],//优化

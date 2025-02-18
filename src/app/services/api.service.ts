@@ -514,6 +514,13 @@ export class ApiService {
 			requestBody
 		);
 	}
+	// 删除抖音监控声源
+	delDouyinListenSourdSource(params : any) {
+		return this.http.post(
+			this.baseUrl + "/douyin/delDouyinListenSourdSource",
+			{id:params.id}
+		);
+	}
 	// 	 获取抖音达人类别列表
 	douyin_darenTypeList() {
 		return this.http.get(this.baseUrl + "/douyin/douyin_darenTypeList")

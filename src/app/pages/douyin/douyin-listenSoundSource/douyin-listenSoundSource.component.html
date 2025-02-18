@@ -27,6 +27,7 @@
         <th nzAlign="center">今日使用量</th>
         <th nzAlign="center">增长使用量</th>
         <th nzAlign="center">播放音源</th>
+        <th nzAlign="center" *ngIf='type'>功能</th>
       </tr>
     </thead>
     <tbody>
@@ -96,6 +97,16 @@
 		       重新加载
 		   </button>
        </td>
+	   <td nzAlign='center' *ngIf='type'>
+	   		<button nz-button nzType="primary" nzSize='small' nzDanger [nzLoading]='delLoading' [disabled]='delLoading'
+			nz-popconfirm
+			      nzPopconfirmTitle="是否删除?"
+			      nzPopconfirmPlacement="bottom"
+			      (nzOnConfirm)="delDouyinListenSourdSource(data)"
+			      (nzOnCancel)="delDouyinListenSourdSourceCancel()">
+				删除
+	   		</button>
+	   </td>
       </tr>
     </tbody>
   </nz-table>

@@ -24,6 +24,22 @@ export class DouyinListenSoundSourceComponent implements OnInit {
 		this.highUserList = highUserList || ['1', '2', '3', '4', '5', '8', '11', '13', '17', '26', '34']
 	this.getDouyinListenSourdSource();
   }
+  delLoading=false;
+  delDouyinListenSourdSourceCancel(){
+	  
+  }
+  delDouyinListenSourdSource(data:any){
+	  this.delLoading = true;
+	  this.api.delDouyinListenSourdSource({id:data.ID}).subscribe((res:any)=>{
+		  this.delLoading = false;
+		  if(res.success){
+			  this.toast.success('删除成功');
+			  this.getDouyinListenSourdSource();
+		  }
+	  },(err:any)=>{
+		  this.delLoading = false;
+	  })
+  }
   ngModelChange() {
     this.type = !this.type;
     this.dataSet = [];
