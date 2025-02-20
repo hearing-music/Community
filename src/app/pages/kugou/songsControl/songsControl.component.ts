@@ -91,7 +91,8 @@ export class SongsControlComponent implements OnInit {
 		this.audioSrc = src;
 		let audio : any = document.getElementById('audio')
 		setTimeout(() => {
-			this.list[this.selectIndex][1].forEach((item : any, index : number) => {
+			// this.list[this.selectIndex][1].forEach((item : any, index : number) => {
+			this.list.forEach((item : any, index : number) => {
 				if (index == i) {
 					item.isPlay = !item.isPlay
 					if (item.isPlay) {
@@ -107,18 +108,20 @@ export class SongsControlComponent implements OnInit {
 	}
 	play(element : any) {
 		this.pause();
-		this.list.forEach((item : any) => {
-			var i = item[1].findIndex((e : any) => e.AudioUrl == element.srcElement.currentSrc)
-			if (i !== -1) {
-				item[1][i].isPlay = true;
-			}
-		})
+		var i = this.list.findIndex((e : any) => e.AudioUrl == element.srcElement.currentSrc)
+		if (i !== -1) {
+			this.list[i].isPlay = true;
+		}
+		// this.list.forEach((item : any) => {
+		// 	var i = item[1].findIndex((e : any) => e.AudioUrl == element.srcElement.currentSrc)
+		// 	if (i !== -1) {
+		// 		item[1][i].isPlay = true;
+		// 	}
+		// })
 	}
 	pause() {
 		this.list.forEach((item : any) => {
-			item[1].forEach((iitem : any) => {
-				iitem.isPlay = false;
-			})
+			item.isPlay = false;
 		})
 
 	}
@@ -142,12 +145,16 @@ export class SongsControlComponent implements OnInit {
 	}
 	audioError(ele : any) {
 		if (this.isPlay) {
-			this.toast.error("播放歌曲错误")
+			// this.toast.error("播放歌曲错误")
 			for (let i = 0; i < this.list.length; i++) {
 				let item = this.list[i];
-				let index = item[1].findIndex((e : any) => e.AudioUrl == ele.srcElement.currentSrc)
-				item[1][index].isPlay = false;
-				this.getKugouSongUrl(item[1][index], index)
+				// let index = item[1].findIndex((e : any) => e.AudioUrl == ele.srcElement.currentSrc)
+				// item[1][index].isPlay = false;
+				var index = this.list.findIndex((e : any) => e.AudioUrl == ele.srcElement.currentSrc)
+				if (i !== -1) {
+					this.list[index].isPlay = false;
+				}
+				// this.getKugouSongUrl(item[1][index], index)
 				break;
 			}
 		}
@@ -157,11 +164,17 @@ export class SongsControlComponent implements OnInit {
 		this.api.getKugouSongUrl({ EMixSongID: item.EMixSongID }).subscribe((res : any) => {
 			console.log(res)
 			if (res.success) {
+				if(!res.result[0]){
+					this.toast.error("获取歌曲失败")
+				}
 				item.AudioUrl = res.result[0];
 				this.playAudio(item, i)
+			}else{
+				this.toast.error("获取歌曲失败")
 			}
 			this.loading = false;
 		}, (err : any) => {
+			this.toast.error("获取歌曲失败")
 			console.log(err)
 			this.loading = false;
 		})
