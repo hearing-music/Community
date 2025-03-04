@@ -1,0 +1,273 @@
+<div class="freeSongs">
+	<!-- 顶部信息 -->
+	<div class="freeSongs-title">
+		<div style="width: 150px;">
+			<div>指数波动幅度</div>
+			<div style='color: #666;font-size: 12px;'>*每日8点更新</div>
+			<nz-progress [nzPercent]="qqPercent" *ngIf='type=="QQ音乐"'></nz-progress>
+			<nz-progress [nzPercent]="kgPercent" *ngIf='type=="酷狗音乐"'></nz-progress>
+		</div>
+		<div class="tagList">
+			<div (click)="onSelect('QQ音乐')" class="tagList-item" [ngClass]="{'tagList-itemActive': type=='QQ音乐'}">
+				QQ音乐
+			</div>
+			<div (click)="onSelect('酷狗音乐')" class="tagList-item" [ngClass]="{'tagList-itemActive': type=='酷狗音乐'}">
+				酷狗音乐
+			</div>
+		</div>
+		<div style="display: flex;align-items: center;" *ngIf='type=="QQ音乐"'>
+			<div style="font-size: 12px;color: #666;margin-right: 2px;">免费</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;" [(ngModel)]="qqFree"
+				(ngModelChange)='ngModelQQFree($event)'>
+				<nz-option *ngFor="let item of qqFreeList;" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+			</nz-select>
+			
+			<div style="font-size: 12px;color: #666;margin-right: 2px;margin-left: 12px;">公司</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;" [(ngModel)]="qqCompany"
+				(ngModelChange)='ngModelQQCompany($event)'>
+				<nz-option *ngFor="let item of qqCompanyList;" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+			</nz-select>
+			
+			<div style="font-size: 12px;color: #666;margin-right: 2px;margin-left: 12px;">排序</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;" [(ngModel)]="qqSort"
+				(ngModelChange)='ngModelQQSort($event)'>
+				<nz-option *ngFor="let item of qqSortList;" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+			</nz-select>
+		</div>
+		<div style="display: flex;align-items: center;" *ngIf='type=="酷狗音乐"'>
+			<div style="font-size: 12px;color: #666;margin-right: 2px;">免费</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;" [(ngModel)]="kgFree"
+				(ngModelChange)='ngModelKGFree($event)'>
+				<nz-option *ngFor="let item of kgFreeList;" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+			</nz-select>
+			
+			<div style="font-size: 12px;color: #666;margin-right: 2px;margin-left: 12px;">公司</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;" [(ngModel)]="kgCompany"
+				(ngModelChange)='ngModelKGCompany($event)'>
+				<nz-option *ngFor="let item of kgCompanyList;" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+			</nz-select>
+			
+			<div style="font-size: 12px;color: #666;margin-right: 2px;margin-left: 12px;">排序</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;" [(ngModel)]="kgSort"
+				(ngModelChange)='ngModelKGSort($event)'>
+				<nz-option *ngFor="let item of kgSortList;" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+			</nz-select>
+		</div>
+	</div>
+	<!-- 内容区域 -->
+	<nz-empty *ngIf='(type=="QQ音乐"&&qqlist.length==0)||(type=="酷狗音乐"&&kglist.length==0)' style="margin-top: 160px;"></nz-empty>
+	<div class='qqkgMain' *ngIf='type=="QQ音乐"'>
+		<div *ngFor='let item of qqlist;let i = index;' style="display: flex;justify-content: space-between;">
+			<!-- qq -->
+			<div class='qq-item'>
+				<div style="display: flex;align-items: center;width: 70%;">
+					<div class="left-icon" (click)='qqPlayAudio(item,i)' style="position: relative;">
+						<img [nzDisablePreview]='true' nz-image width="84px" height="84px" style="border-radius: 4px;"
+							[nzSrc]="item.url" [nzFallback]="common.fallback" />
+						<img *ngIf='!item.isPlay' src="assets/img/play-green.png"
+							style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);" />
+						<img *ngIf='item.isPlay' src="assets/img/pause-green.png"
+							style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);">
+					</div>
+					<div style="margin-left: 16px;">
+						<div style="display: flex;align-items: center;">
+							<!-- 歌名 -->
+							<div class="title" (click)='common.copy(item.name)' nz-tooltip [nzTooltipTitle]="item.name">
+								{{item.name}}
+							</div>
+							<!-- 歌曲主页链接 -->
+							<div (click)="openSongDetail(item.mid)" class="linkIcon" style="margin-left: 6px;">
+								<span nz-icon nzType="select" nzTheme="outline"
+									style="color:#35C035;font-size: 14px;"></span>
+							</div>
+							<!-- 当前指数 -->
+							<div class="" style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="当前指数">
+								<img src="/assets/img/shuangzhexian.png" class="icon" />
+								<div>{{common.toThousands(item.realtimeData.todayIndex)}}</div>
+							</div>
+							<!-- 指数链接 -->
+							<div (click)="openLink(item.mid)" class="linkIcon" style="margin-left: 2px;">
+								<span nz-icon nzType="link" nzTheme="outline" style='color:#35C035;font-size: 14px;'></span>
+							</div>
+							<!-- 昨日指数 -->
+							<div class="" style="display: flex;align-items: center;margin-left: 2px;" nz-tooltip nzTooltipTitle="昨日指数">
+								<img src="/assets/img/shijian.png" class="icon" />
+								<div>{{common.toThousands(item.realtimeData.yesterdayIndex)}}</div>
+							</div>
+							<!-- 指数增长率 -->
+							<div class="" v-if='item.realtimeData.indexRate!=0' style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="指数增长率">
+								<span *ngIf='item.realtimeData.indexRate<0' nz-icon nzType="arrow-down" style='color:green;'
+									nzTheme="outline"></span>
+								<span *ngIf='item.realtimeData.indexRate>0' nz-icon nzType="arrow-up" style='color:red;'
+									nzTheme="outline"></span>
+								<div>{{common.tFixed(item.realtimeData.indexRate)}}</div>
+							</div>
+						</div>
+						<!-- title -->
+						<div class="title2" (click)='common.copy(item.title)' nz-tooltip [nzTooltipTitle]="item.title">
+							{{item.title}}
+						</div>
+						<div class="subTitle" style="display: flex;align-items: center;">
+							<!-- 歌手 发行时间 -->
+							<div style="max-width: 200px;display: flex;flex-wrap: wrap;">
+								<div *ngFor='let singer of item.singerJson;let singerI = index;'
+									(click)='openSinger(singer.mid)' style="cursor: pointer;">
+									{{singer.name}}{{singerI==item.singerJson.length-1?"":"、"}}
+								</div>
+							</div>
+							<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+							<div>
+								{{item.time_public?common.getDate(item.time_public):'无'}}
+							</div>
+							<span *ngIf='item.grp' nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+							<div *ngIf='item.grp'>
+								更多版本：{{item.grp!=null?item.grp:'null'}}
+							</div>
+							<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+							<!-- 钱币图标 -->
+							<img [src]="item.pay_play==0?'/assets/img/price.png':'/assets/img/price-green.png'"
+								class="icon" />
+							<!-- 音乐图标 -->
+							<img [src]="item.pay_down==0?'/assets/img/music.png':'/assets/img/music-green.png'"
+								class="icon" />
+							<div style="color: #41c1ff;margin-left: 12px;">
+								更新时间：{{common.getTimeStr(item.updated_at)}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='exophanie'>
+					<!-- 专辑名字 -->
+					<div class="exophanie-item u-line-1" (click)='openAlbum(item.album.mid)' >
+						{{item.album.name?item.album.name:'无'}}
+					</div>
+					<div class="exophanie-item u-line-1" (click)="openCompay(item.publisher_id)" >
+						外显：{{item.publisher ||'无'}}</div>
+					<div class="exophanie-item u-line-1" (click)="openCompay(item.company_id)" >
+						原始：{{item.company || '无'}}</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class='qqkgMain' *ngIf='type=="酷狗音乐"'>
+		<!-- 酷狗 -->
+		<div *ngFor='let item of kglist;let i = index;' style="display: flex;justify-content: space-between;">
+			<div class="kg-item">
+				<div style="display: flex;align-items: center;width: 70%;">
+					<div class="left-icon" (click)='kgPlayAudio(item,i)' style="position: relative;">
+						<img [nzDisablePreview]='true' nz-image width="84px" height="84px" style="border-radius: 4px;"
+							[nzSrc]="item.url" [nzFallback]="common.fallback" />
+						<img *ngIf='!item.isPlay' src="assets/img/play-blue.png"
+							style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);" />
+						<img *ngIf='item.isPlay' src="assets/img/pause-blue.png"
+							style="width: 32px;height: 32px;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);">
+					</div>
+					<div style="margin-left: 16px;">
+						<div style="display: flex;align-items: center;">
+							<!-- 歌名 -->
+							<div class="title" (click)='common.copy(item.songName)'>
+								<span nz-tooltip [nzTooltipTitle]="common.deleteEM(item.songName)">
+									{{common.deleteEM(item.songName)}}
+								</span>
+							</div>
+							<img src="/assets/img/yuanchang.svg" class="icon" style='margin-left: 4px;'
+								*ngIf='item.isOriginal.data==1' />
+							<button nz-button nzShape="circle" nzType="text" (click)="openSongDetailKG(item)"
+								class="linkIcon" style="margin-left: 10px;">
+								<span nz-icon nzType="select" nzTheme="outline"
+									style="color:blue;font-size: 14px;"></span>
+							</button>
+							<!-- 收听 -->
+							<span nz-tooltip [nzTooltipTitle]="'总收听'">
+								<div class="" style="display: flex;align-items: center;margin-left: 2px;">
+									<img src="/assets/img/erji.png" class="icon" />
+									<div>{{common.toThousands(item.realtimeData.listener_num)}}</div>
+								</div>
+							</span>
+							<!-- 指数 -->
+							<div nz-tooltip [nzTooltipTitle]="item.realtimeData.date"
+								style="display: flex;align-items: center;margin-left: 8px;">
+								<img src="/assets/img/shuangzhexian.png" class="icon" />
+								<div>{{common.toThousands(item.realtimeData.exponent)}}</div>
+							</div>
+							<!-- 指数链接 -->
+							<button (click)="openExponentLinkKG(item)" nz-button nzShape="circle" nzType="text" class="linkIcon"
+								style="margin-left: 2px;">
+								<span nz-icon nzType="link" nzTheme="outline" style='color:blue;font-size: 14px;'></span>
+							</button>
+							<!-- 前日指数 -->
+							<div class=""
+								style="display: flex;align-items: center;margin-left: 2px;" nz-tooltip nzTooltipTitle="前日指数">
+								<img src="/assets/img/shijian.png" class="icon" />
+								<div>{{common.toThousands(item.realtimeData.exponent - (item.realtimeData.exponent_diff - 0))}}
+								</div>
+							</div>
+							<!-- 指数增长率 -->
+							<div class=""
+								style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="指数增长">
+								<span *ngIf='item.realtimeData.exponent_diff<0' nz-icon nzType="arrow-down" style='color:green;'
+									nzTheme="outline"></span>
+								<span *ngIf='item.realtimeData.exponent_diff>0' nz-icon nzType="arrow-up" style='color:red;'
+									nzTheme="outline"></span>
+								<div>{{common.toThousands(item.realtimeData.exponent_diff)}}</div>
+							</div>
+
+						</div>
+						<div class="title2" (click)='common.copy(item.suffix)' nz-tooltip [nzTooltipTitle]="item.suffix">
+							{{item.suffix}}
+						</div>
+						<div class="subTitle" style="display: flex;align-items: center;">
+							<!-- 歌手 发行时间 -->
+							<div style="max-width: 200px;display: flex;flex-wrap: wrap;">
+								<div *ngFor='let singer of item.singerId;let singerI = index;'
+									(click)='openSingerKG(singer.id)' style="cursor: pointer;">
+									{{common.deleteEM(singer.name)}}{{singerI==item.singerId.length-1?"":"、"}}
+								</div>
+							</div>
+							<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+							<div>
+								{{item.publish_time?item.publish_time:'无'}}
+							</div>
+							<span *ngIf='item.grp' nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+							<div *ngIf='item.grp'>
+								更多版本：{{item.grp}}
+							</div>
+							<span nz-icon nzType="right" nzTheme="outline" style='color:#ccc;'></span>
+							<!-- 钱币图标 -->
+							<img [src]="item.price==0?'/assets/img/price.png':'/assets/img/price-blue.png'"
+								class="icon" />
+							<div style="color: #41c1ff;margin-left: 12px;">
+								更新时间：{{common.getTimeStr(item.updated_at)}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='exophanie'>
+					<!-- 专辑名字 -->
+					<div class="exophanie-item" (click)='openAlbumKG(item)' >
+						{{common.deleteEM(item.album_name)}}
+					</div>
+					<div class="exophanie-item2">
+						公司：{{common.deleteEM(item.company)}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 分页 -->
+	<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='type=="QQ音乐"'>
+		<nz-pagination [nzPageIndex]="qqPageCurrent" [nzPageSize]='qqPageSize' [nzTotal]="qqPageTotal"
+			(nzPageIndexChange)='nzPageIndexChangeQQ($event)' nzShowQuickJumper></nz-pagination>
+	</div>
+	<div style="display: flex;justify-content: center;padding-bottom: 10px;" *ngIf='type=="酷狗音乐"'>
+		<nz-pagination [nzPageIndex]="kgPageCurrent" [nzPageSize]='kgPageSize' [nzTotal]="kgPageTotal"
+			(nzPageIndexChange)='nzPageIndexChangeKG($event)' nzShowQuickJumper></nz-pagination>
+	</div>
+	<!-- 播放器 -->
+	<div class="play" [ngClass]="{playhide : !isPlay}">
+		<audio id='audio' controls [src]="audioSrc" (play)='play()' (pause)='pause()'></audio>
+	</div>
+	<!-- loading -->
+	<ngx-loading *ngIf='loading'></ngx-loading>
+</div>

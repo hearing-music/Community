@@ -14,6 +14,22 @@ export class ApiService {
 	constructor(private http : HttpClient) {
 
 	}
+	qqfreeSongs2(params:any){
+		let url = this.baseUrl + "/qq/freeSongs2";
+		return this.http.post(url, params);
+	}
+	qqfreeSongs2Progress(params:any){
+		let url = this.baseUrl + "/qq/freeSongs2Progress";
+		return this.http.post(url, params);
+	}
+	kgfreeSongs2(params:any){
+		let url = this.baseUrl + "/kugou/freeSongs2";
+		return this.http.post(url, params);
+	}
+	kgfreeSongs2Progress(params:any){
+		let url = this.baseUrl + "/kugou/freeSongs2Progress";
+		return this.http.post(url, params);
+	}
 	async fetchFile(fileUrl : string) {
 		// 使用fetch获取文件
 		const response = await fetch(this.downloadUrl + fileUrl);

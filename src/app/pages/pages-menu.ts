@@ -70,6 +70,14 @@ export let MENU_ITEMS : NbMenuItem[] = [
 		link: '/pages/freeQQKG',
 	},
 	{
+		title: '指数波动幅度',
+		icon: {
+			icon: 'volatilityIcon',
+			pack: 'my-icons',
+		},
+		link: '/pages/volatility',
+	},
+	{
 		title: '抖音',
 		icon: {
 			icon: 'dy_icon',

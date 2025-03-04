@@ -38,6 +38,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { MultiModalLearningComponent } from "./multiModalLearning/multiModalLearning.component";
 import { DouDiZhuComponent } from "./game/dou-di-zhu/dou-di-zhu.component";
 import { FreeQQKGComponent } from "./freeQQKG/freeQQKG.component";
+import { VolatilityComponent } from "./volatility/volatility.component";
 import { CardGameComponent } from "./game/card-game/card-game.component";
 import { SongRoomComponent } from "./game/song-room/song-room.component";
 import { MaJiangComponent } from "./game/ma-jiang/ma-jiang.component";
@@ -305,6 +306,7 @@ registerLocaleData(zh);
 		VideoPlayerComponent,
 		SongRatingComponent,
 		FreeQQKGComponent,
+		VolatilityComponent,
 		SongsControlComponent,
 		HotSearchListComponent,
 		HotSearchListAllComponent,
