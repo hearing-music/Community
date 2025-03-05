@@ -3,8 +3,8 @@
 	<div class="freeSongs-title">
 		<div style="width: 150px;">
 			<div>指数波动幅度</div>
-			<div style='color: #666;font-size: 12px;' *ngIf="type=='QQ音乐'">*每日6点更新</div>
-			<div style='color: #666;font-size: 12px;' *ngIf="type=='酷狗音乐'">*每日11点更新</div>
+			<div style='color: #666;font-size: 12px;' *ngIf="type=='QQ音乐'">*每日5点更新</div>
+			<div style='color: #666;font-size: 12px;' *ngIf="type=='酷狗音乐'">*每日10点更新</div>
 			<nz-progress [nzPercent]="qqPercent" *ngIf='type=="QQ音乐"'></nz-progress>
 			<nz-progress [nzPercent]="kgPercent" *ngIf='type=="酷狗音乐"'></nz-progress>
 		</div>
