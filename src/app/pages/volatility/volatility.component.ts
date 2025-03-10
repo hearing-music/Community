@@ -15,6 +15,7 @@ export class VolatilityComponent implements OnInit {
 		this.getQq_freeSongs();
 		this.qqfreeSongs2Progress()
 	}
+	keyword='';
 	type = 'QQ音乐'
 	loading = false;
 	qqPageCurrent = 1;
@@ -91,6 +92,19 @@ export class VolatilityComponent implements OnInit {
 		value: 1,
 		label:"指数增长"
 	}]
+	
+	search(e:any){
+		this.keyword = e;
+		if(this.type=='QQ音乐'){
+			this.getQq_freeSongs()
+		}
+		if(this.type=='酷狗音乐'){
+			this.getKg_freeSongs()
+		}
+	}
+	childInput(e:any){
+		this.keyword = e;
+	}
 	onSelect(str : string) {
 		this.type = str;
 		if(this.type=='QQ音乐'){
@@ -145,7 +159,7 @@ export class VolatilityComponent implements OnInit {
 	}
 	getQq_freeSongs() {
 		this.loading = true;
-		this.api.qqfreeSongs2({ page: this.qqPageCurrent, pageSize: this.qqPageSize, sort: this.qqSort,company:this.qqCompany,free:this.qqFree}).subscribe((res : any) => {
+		this.api.qqfreeSongs2({ keyword:this.keyword,page: this.qqPageCurrent, pageSize: this.qqPageSize, sort: this.qqSort,company:this.qqCompany,free:this.qqFree}).subscribe((res : any) => {
 			this.loading = false;
 			if (res.success) {
 				this.qqlist = res.data;
@@ -174,7 +188,7 @@ export class VolatilityComponent implements OnInit {
 	}
 	getKg_freeSongs() {
 		this.loading = true;
-		this.api.kgfreeSongs2({ page: this.kgPageCurrent, pageSize: this.kgPageSize, sort: this.kgSort,company:this.kgCompany,free:this.kgFree }).subscribe((res : any) => {
+		this.api.kgfreeSongs2({ keyword:this.keyword,page: this.kgPageCurrent, pageSize: this.kgPageSize, sort: this.kgSort,company:this.kgCompany,free:this.kgFree }).subscribe((res : any) => {
 			this.loading = false;
 			console.log(res)
 			if (res.success) {

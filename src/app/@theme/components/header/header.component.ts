@@ -158,6 +158,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				{
 					icon: '📢',
 					color: 'bg-azure-95',
+					title: '2025年03月10日13:23',
+					newAdd: [],//新增
+					optimize: ['指数波动幅度 新增模糊查询'],//优化
+					bugs: [],//修复bug
+				},
+				{
+					icon: '📢',
+					color: 'bg-azure-95',
 					title: '2025年03月04日17:43',
 					newAdd: ['新增 指数波动幅度'],//新增
 					optimize: [],//优化
