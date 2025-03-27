@@ -86,19 +86,19 @@
 								<span nz-icon nzType="select" nzTheme="outline"
 									style="color:#35C035;font-size: 14px;"></span>
 							</div>
-							<!-- 当前指数 -->
-							<div class="" style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="当前指数">
+							<!-- 昨日指数 -->
+							<div class="" style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="昨日指数">
 								<img src="/assets/img/shuangzhexian.png" class="icon" />
-								<div>{{common.toThousands(item.realtimeData.todayIndex)}}</div>
+								<div>{{common.toThousands(item.realtimeData.yesterdayIndex)}}</div>
 							</div>
 							<!-- 指数链接 -->
 							<div (click)="openLink(item.mid)" class="linkIcon" style="margin-left: 2px;">
 								<span nz-icon nzType="link" nzTheme="outline" style='color:#35C035;font-size: 14px;'></span>
 							</div>
-							<!-- 昨日指数 -->
-							<div class="" style="display: flex;align-items: center;margin-left: 2px;" nz-tooltip nzTooltipTitle="昨日指数">
+							<!-- 前日指数 -->
+							<div class="" style="display: flex;align-items: center;margin-left: 2px;" nz-tooltip nzTooltipTitle="前日指数">
 								<img src="/assets/img/shijian.png" class="icon" />
-								<div>{{common.toThousands(item.realtimeData.yesterdayIndex)}}</div>
+								<div>{{common.toThousands(item.realtimeData.yesterdayIndex/(item.realtimeData.indexRate+1))}}</div>
 							</div>
 							<!-- 指数增长率 -->
 							<div class="" v-if='item.realtimeData.indexRate!=0' style="display: flex;align-items: center;margin-left: 8px;" nz-tooltip nzTooltipTitle="指数增长率">
@@ -204,7 +204,7 @@
 							</button>
 							<!-- 前日指数 -->
 							<div class=""
-								style="display: flex;align-items: center;margin-left: 2px;" nz-tooltip nzTooltipTitle="前日指数">
+								style="display: flex;align-items: center;margin-left: 2px;" nz-tooltip nzTooltipTitle="前一日指数">
 								<img src="/assets/img/shijian.png" class="icon" />
 								<div>{{common.toThousands(item.realtimeData.exponent - (item.realtimeData.exponent_diff - 0))}}
 								</div>
