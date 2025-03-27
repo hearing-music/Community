@@ -63,38 +63,6 @@
 			</div>
 			<div nz-col nzSpan="1"></div>
 			<div nz-col nzSpan="9">
-				<!-- 录入歌曲近24H雷达播放 -->
-				<div class="formsBox">
-					<div class="formsLabel">录入歌曲近24H雷达播放：</div>
-					<nz-input-group [nzSuffix]="suffixTemplateInfo2">
-						<input type="text" nz-input placeholder="请输入..." [(ngModel)]="_24HourRadarPlayback" />
-					</nz-input-group>
-					<ng-template #suffixTemplateInfo2>
-						<span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入24H播放数" nzType="info-circle"></span>
-					</ng-template>
-					<div class="picTip" nz-popover [nzPopoverContent]="picTemplate2" nzPopoverPlacement="bottomRight">
-						<span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-					</div>
-					<ng-template #picTemplate2 let-thing>
-						<img src="/assets/img/24HourRadarPlayback.png" />
-					</ng-template>
-				</div>
-			</div>
-		</div>
-		<div nz-row style="margin-top: 20px">
-			<div nz-col nzSpan="5">
-				<!-- 星期 -->
-				<div class="formsBox">
-					<div class="formsLabel">对应星期：</div>
-					<nz-select [(ngModel)]="Week" [nzDropdownMatchSelectWidth]="false" style="width: 85px">
-						<nz-option *ngFor="let item of WeekArr" [nzValue]="item" [nzLabel]="item"></nz-option>
-					</nz-select>
-					<div class="picTip" nz-tooltip nzTooltipTitle="选择今日对应的星期">
-						<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
-					</div>
-				</div>
-			</div>
-			<div nz-col nzSpan="9">
 				<!-- 录入歌曲小时播放数 -->
 				<div class="formsBox">
 					<div class="formsLabel">录入歌曲小时播放数：</div>
@@ -112,25 +80,24 @@
 					</ng-template>
 				</div>
 			</div>
-			<div nz-col nzSpan="1"></div>
-			<div nz-col nzSpan="9">
-				<!-- 录入歌曲分数播放数 -->
+			<!-- 录入歌曲近24H雷达播放 -->
+			<!-- <div nz-col nzSpan="9">
 				<div class="formsBox">
-					<div class="formsLabel">录入歌曲分钟播放数：</div>
-					<nz-input-group [nzSuffix]="suffixTemplateInfo5">
-						<input type="text" nz-input placeholder="请输入..." [(ngModel)]="ScorePlayback" />
+					<div class="formsLabel">录入歌曲近24H雷达播放：</div>
+					<nz-input-group [nzSuffix]="suffixTemplateInfo2">
+						<input type="text" nz-input placeholder="请输入..." [(ngModel)]="_24HourRadarPlayback" />
 					</nz-input-group>
-					<ng-template #suffixTemplateInfo5>
-						<span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入5min播放数" nzType="info-circle"></span>
+					<ng-template #suffixTemplateInfo2>
+						<span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入24H播放数" nzType="info-circle"></span>
 					</ng-template>
-					<div class="picTip" nz-popover [nzPopoverContent]="picTemplate4" nzPopoverPlacement="bottomRight">
+					<div class="picTip" nz-popover [nzPopoverContent]="picTemplate2" nzPopoverPlacement="bottomRight">
 						<span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
 					</div>
-					<ng-template #picTemplate4 let-thing>
-						<img src="/assets/img/ScorePlayback.png" />
+					<ng-template #picTemplate2 let-thing>
+						<img src="/assets/img/24HourRadarPlayback.png" />
 					</ng-template>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div nz-row style="margin-top: 20px">
 			<div nz-col nzSpan="5">
@@ -191,7 +158,63 @@
 		</div>
 		<div nz-row style="margin-top: 20px">
 			<div nz-col nzSpan="5">
-				<!-- 播放分钟时间 -->
+				<!-- 星期 -->
+				<div class="formsBox">
+					<div class="formsLabel">对应星期：</div>
+					<nz-select [(ngModel)]="Week" [nzDropdownMatchSelectWidth]="false" style="width: 85px">
+						<nz-option *ngFor="let item of WeekArr" [nzValue]="item" [nzLabel]="item"></nz-option>
+					</nz-select>
+					<div class="picTip" nz-tooltip nzTooltipTitle="选择今日对应的星期">
+						<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+				</div>
+			</div>
+			<!-- 录入歌曲小时播放数 -->
+			<!-- <div nz-col nzSpan="9">
+				<div class="formsBox">
+					<div class="formsLabel">录入歌曲小时播放数：</div>
+					<nz-input-group [nzSuffix]="suffixTemplateInfo4">
+						<input type="text" nz-input placeholder="请输入..." [(ngModel)]="HourlyPlayback" />
+					</nz-input-group>
+					<ng-template #suffixTemplateInfo4>
+						<span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入1H播放数" nzType="info-circle"></span>
+					</ng-template>
+					<div class="picTip" nz-popover [nzPopoverContent]="picTemplate3" nzPopoverPlacement="bottomRight">
+						<span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+					<ng-template #picTemplate3 let-thing>
+						<img src="/assets/img/HourlyPlayback.png" />
+					</ng-template>
+				</div>
+			</div> -->
+			<!-- <div nz-col nzSpan="1"></div> -->
+			<!-- 录入歌曲分数播放数 -->
+			<!-- <div nz-col nzSpan="9">
+				<div class="formsBox">
+					<div class="formsLabel">录入歌曲分钟播放数：</div>
+					<nz-input-group [nzSuffix]="suffixTemplateInfo5">
+						<input type="text" nz-input placeholder="请输入..." [(ngModel)]="ScorePlayback" />
+					</nz-input-group>
+					<ng-template #suffixTemplateInfo5>
+						<span nz-icon nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入5min播放数" nzType="info-circle"></span>
+					</ng-template>
+					<div class="picTip" nz-popover [nzPopoverContent]="picTemplate4" nzPopoverPlacement="bottomRight">
+						<span nz-icon nzType="picture" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
+					</div>
+					<ng-template #picTemplate4 let-thing>
+						<img src="/assets/img/ScorePlayback.png" />
+					</ng-template>
+				</div>
+			</div> -->
+			<div nz-col nzSpan="7">
+				<button nz-button nzType="primary" (click)="begin()" [disabled]="loadingSpin">
+					开始预估
+				</button>
+			</div>
+		</div>
+		<!-- 播放分钟时间 -->
+		<!-- <div nz-row style="margin-top: 20px">
+			<div nz-col nzSpan="5">
 				<div class="formsBox">
 					<div class="formsLabel">播放分钟：</div>
 					<nz-select [(ngModel)]="MinuteTime" [nzDropdownMatchSelectWidth]="false" style="width: 85px">
@@ -213,7 +236,7 @@
 					开始预估
 				</button>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	<div class="Show">
 		<div class="loadingSpin" *ngIf="loadingSpin">

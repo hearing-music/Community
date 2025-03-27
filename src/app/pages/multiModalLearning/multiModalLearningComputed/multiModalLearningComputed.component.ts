@@ -15,7 +15,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
 	KGSoaringSongs : any = []
 	DyVedioTopFive : any = []
 	ThreePartyInterface : any = []
-	MassiveArithmeticDaRen : any =[]
+	MassiveArithmeticDaRen : any = []
 	BigVArr : any = [];
 	MassiveArithmeticVedio : any = []
 	paginatedData : any[] = []; // 分页后的数据
@@ -43,16 +43,16 @@ export class MultiModalLearningComputedComponent implements OnInit {
 		this.getMinuteTime();
 
 	}
-	obDataLoading=false;
+	obDataLoading = false;
 	KGSearchRecommendationsLoading = false;
-	KGSoaringSongsLoading=false;
-	ThreePartyInterfaceLoading=false;
-	DyChallengeListLoading=false;
-	DyVedioTopFiveLoading=false;
-	ComprehensiveRankingListLoading=false;
-	MassiveArithmeticDaRenLoading=false;
-	MassiveArithmeticVedioLoading=false;
-	
+	KGSoaringSongsLoading = false;
+	ThreePartyInterfaceLoading = false;
+	DyChallengeListLoading = false;
+	DyVedioTopFiveLoading = false;
+	ComprehensiveRankingListLoading = false;
+	MassiveArithmeticDaRenLoading = false;
+	MassiveArithmeticVedioLoading = false;
+
 	// 建立 WebSocket 连接
 	connect() : void {
 		this.socket = new WebSocket(environment.websocketUrl);
@@ -67,7 +67,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
 				this.toast.info(result.message);
 			}
 			if (result.message == "抖音该词条前五的数据") {
-				this.DyVedioTopFiveLoading=false;
+				this.DyVedioTopFiveLoading = false;
 				if (result.data.length > 0) {
 					let obg = {
 						digg_count: 0,
@@ -111,18 +111,18 @@ export class MultiModalLearningComputedComponent implements OnInit {
 					this.KGSearchRecommendations = result.data;
 				}
 			} else if (result.message == "酷狗飙升榜查询") {
-				this.KGSoaringSongsLoading=false;
+				this.KGSoaringSongsLoading = false;
 				if (result.data.length > 0) {
 					result.data = this.SoaringKgSinger(result.data);
 					this.KGSoaringSongs = [...this.KGSoaringSongs, ...result.data];
 				}
 			} else if (result.message == "三方接口(榜单&&热搜词)") {
-				this.ThreePartyInterfaceLoading=false;
+				this.ThreePartyInterfaceLoading = false;
 				if (result.data.length > 0) {
 					this.ThreePartyInterface = result.data;
 				}
 			} else if (result.message == "巨量算数达人搜索") {
-				this.MassiveArithmeticDaRenLoading=false;
+				this.MassiveArithmeticDaRenLoading = false;
 				if (result.data.length > 0) {
 					result.data.forEach((ele : any) => {
 						ele.dayWeek = false;
@@ -135,7 +135,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
 					console.log(this.BigVArr);
 				}
 			} else if (result.message == "巨量算数视频搜索") {
-				this.MassiveArithmeticVedioLoading=false;
+				this.MassiveArithmeticVedioLoading = false;
 				if (result.data.data.length > 0) {
 					this.MassiveArithmeticVedio = [];
 					this.MassiveArithmeticVedio = result.data.data;
@@ -143,13 +143,13 @@ export class MultiModalLearningComputedComponent implements OnInit {
 					// this.jlVideo.loadPage();
 				}
 			} else if (result.message == "抖音挑战榜") {
-				this.DyChallengeListLoading=false;
+				this.DyChallengeListLoading = false;
 				if (result.data.length > 0) {
 					result.data = this.sortByKeyword(result.data, this.keyword);
 					this.DyChallengeList = result.data;
 				}
 			} else if (result.message == "综合榜单") {
-				this.ComprehensiveRankingListLoading=false;
+				this.ComprehensiveRankingListLoading = false;
 				this.ComprehensiveRankingList = result.data;
 			}
 		};
@@ -272,7 +272,7 @@ export class MultiModalLearningComputedComponent implements OnInit {
 	// 预估数据
 	Data = [];
 	// 双平台数据
-	obData : any = {QQ:[],KG:[]};
+	obData : any = { QQ: [], KG: [] };
 
 	keyword : string = "";
 	qqkgData : any = {};
@@ -562,16 +562,16 @@ export class MultiModalLearningComputedComponent implements OnInit {
 		if (
 			this._1HTotalPVPlayback === "" ||
 			!/^\d+$/.test(this._1HTotalPVPlayback) ||
-			this._24HourRadarPlayback === "" ||
-			!/^\d+$/.test(this._24HourRadarPlayback) ||
+			// this._24HourRadarPlayback === "" ||
+			// !/^\d+$/.test(this._24HourRadarPlayback) ||
 			this._24HourTotalPVPlayback === "" ||
 			!/^\d+$/.test(this._24HourTotalPVPlayback) ||
 			this.EcologyPlayedYesterday === "" ||
 			!/^\d+$/.test(this.EcologyPlayedYesterday) ||
 			this.HourlyPlayback === "" ||
-			!/^\d+$/.test(this.HourlyPlayback) ||
-			this.ScorePlayback === "" ||
-			!/^\d+$/.test(this.ScorePlayback)
+			!/^\d+$/.test(this.HourlyPlayback)
+			// || this.ScorePlayback === "" ||
+			// !/^\d+$/.test(this.ScorePlayback)
 		) {
 			this.toast.info("请检查输入项");
 			return;
@@ -580,19 +580,19 @@ export class MultiModalLearningComputedComponent implements OnInit {
 			this.toast.info("请填入关键字");
 			return;
 		}
-		
+
 		this.loadingSpin = true;
 		this.KGSearchRecommendationsLoading = true;
-		this.KGSoaringSongsLoading=true;
-		this.ThreePartyInterfaceLoading=true;
-		this.DyChallengeListLoading=true;
+		this.KGSoaringSongsLoading = true;
+		this.ThreePartyInterfaceLoading = true;
+		this.DyChallengeListLoading = true;
 		this.obDataLoading = true;
-		this.DyVedioTopFiveLoading=true;
-		this.ComprehensiveRankingListLoading=true;
-		this.MassiveArithmeticDaRenLoading=true;
-		this.MassiveArithmeticVedioLoading=true;
-		
-		
+		this.DyVedioTopFiveLoading = true;
+		this.ComprehensiveRankingListLoading = true;
+		this.MassiveArithmeticDaRenLoading = true;
+		this.MassiveArithmeticVedioLoading = true;
+
+
 		let res : any = await this.TJMusicMultiModalLearning();
 		this.Data = res.res;
 		this.loadingSpin = false;
@@ -604,11 +604,11 @@ export class MultiModalLearningComputedComponent implements OnInit {
 			res2.res.QQ[0].record = res2.res.QQ[0].record || [];
 			this.obData = res2.res;
 			this.obDataLoading = false;
-		}else{
-			
+		} else {
+
 			this.obDataLoading = false;
 		}
-		
+
 		this.KGSearchRecommendations = [];
 		this.KGSoaringSongs = [];
 		this.ThreePartyInterface = [];
@@ -645,9 +645,9 @@ export class MultiModalLearningComputedComponent implements OnInit {
 		}
 		clearInterval(this.DyVedioTopFiveSchedule);
 		this.DyVedioTopFiveSchedule = null;
-		message.Functionality.forEach((item:any)=>{
+		message.Functionality.forEach((item : any) => {
 			this.sendMessage({
-				Functionality:[item]
+				Functionality: [item]
 			});
 		})
 		// 存入数据
@@ -704,6 +704,8 @@ export class MultiModalLearningComputedComponent implements OnInit {
 			QQ: [],
 			KG: [],
 		};
+		this._24HourRadarPlayback = 0;
+		this.ScorePlayback = 0;
 		let data = {
 			"1HTotalPVPlayback": this._1HTotalPVPlayback - 0,
 			"24HourRadarPlayback": this._24HourRadarPlayback - 0,

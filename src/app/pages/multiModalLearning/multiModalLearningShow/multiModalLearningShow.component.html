@@ -43,8 +43,8 @@
 							<div style="display: flex;align-items: center;">
 								<div>
 									播放分钟时间:
-									<span
-										style="margin-left: 8px;color: black;">{{ item.MeasuredParameter.MinuteTime.substr(0,item.MeasuredParameter.MinuteTime.length-3) }}</span>
+									<!-- <span style="margin-left: 8px;color: black;">{{ item.MeasuredParameter.MinuteTime.substr(0,item.MeasuredParameter.MinuteTime.length-3) }}</span> -->
+									<span style="margin-left: 8px;color: black;">{{ '暂无' }}</span>
 								</div>
 								<div class="picTip" nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入最新数据的时间">
 									<span nz-icon nzType="info-circle" nzTheme="outline"
@@ -79,7 +79,7 @@
 								</ng-template>
 							</div>
 						</div>
-						<div style="margin-left: 20px;">
+						<div style="margin-left: 40px;">
 							<div style="display: flex;align-items: center;">
 								<div>
 									录入歌曲生态昨日播放:
@@ -99,28 +99,7 @@
 									<img src="/assets/img/EcologyPlayedYesterday.png" />
 								</ng-template>
 							</div>
-							<div style="margin-top: 8px;display: flex;align-items: center;">
-								<div>
-									录入歌曲近24H雷达播放:
-									<span
-										style="margin-left: 8px;color: black;">{{item.MeasuredParameter["24HourRadarPlayback"]}}</span>
-								</div>
-								<div class="picTip" nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入24H播放数">
-									<span nz-icon nzType="info-circle" nzTheme="outline"
-										style="color: rgba(0, 0, 0, 0.85)"></span>
-								</div>
-								<div class="picTip" nz-popover [nzPopoverContent]="picTemplate2"
-									nzPopoverPlacement="bottomRight">
-									<span nz-icon nzType="picture" nzTheme="outline"
-										style="color: rgba(0, 0, 0, 0.85)"></span>
-								</div>
-								<ng-template #picTemplate2 let-thing>
-									<img src="/assets/img/24HourRadarPlayback.png" />
-								</ng-template>
-							</div>
-						</div>
-						<div style="margin-left: 20px;">
-							<div style="display: flex;align-items: center;">
+							<div style="display: flex;align-items: center;margin-top: 8px;">
 								<div>
 									录入歌曲小时播放数:
 									<span
@@ -139,7 +118,9 @@
 									<img src="/assets/img/HourlyPlayback.png" />
 								</ng-template>
 							</div>
-							<div style="margin-top: 8px;display: flex;align-items: center;">
+						</div>
+						<!-- <div style="margin-left: 20px;">
+							<div style="margin-top: 8px;display: flex;align-items: center;" *ngIf='item.MeasuredParameter.ScorePlayback'>
 								<div>
 									录入歌曲分数播放数:
 									<span
@@ -158,8 +139,27 @@
 									<img src="/assets/img/ScorePlayback.png" />
 								</ng-template>
 							</div>
-						</div>
-						<div style="margin-left: 20px;">
+							<div style="margin-top: 8px;display: flex;align-items: center;" *ngIf='item.MeasuredParameter["24HourRadarPlayback"]'>
+								<div>
+									录入歌曲近24H雷达播放:
+									<span
+										style="margin-left: 8px;color: black;">{{item.MeasuredParameter["24HourRadarPlayback"]}}</span>
+								</div>
+								<div class="picTip" nz-tooltip nzTooltipTitle="打开雷达音乐-搜索歌曲-点击分钟录入24H播放数">
+									<span nz-icon nzType="info-circle" nzTheme="outline"
+										style="color: rgba(0, 0, 0, 0.85)"></span>
+								</div>
+								<div class="picTip" nz-popover [nzPopoverContent]="picTemplate2"
+									nzPopoverPlacement="bottomRight">
+									<span nz-icon nzType="picture" nzTheme="outline"
+										style="color: rgba(0, 0, 0, 0.85)"></span>
+								</div>
+								<ng-template #picTemplate2 let-thing>
+									<img src="/assets/img/24HourRadarPlayback.png" />
+								</ng-template>
+							</div>
+						</div> -->
+						<div style="margin-left: 40px;">
 							<div style="display: flex;align-items: center;">
 								<div>
 									录入歌曲近1H总PV搜索数:
@@ -215,7 +215,7 @@
 									style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;" nz-tooltip
 									nzTooltipTitle="这是按小时预估24H可能会产生的播放量"></span>
 							</div>
-							<div style="display: flex;align-items: center;margin-left: 10px;">
+							<div *ngIf='item.MeasurementResults[6][1]' style="display: flex;align-items: center;margin-left: 10px;">
 								<span style="margin-left: 8px;font-weight: bolder;margin-right: 8px;"
 									[ngClass]="{ upColor: item.MeasurementResults[6][1] >= 1000, downColor: item.MeasurementResults[6][1] < 1000}">
 									{{ common.toThousands(item.MeasurementResults[6][1]) }}
@@ -278,7 +278,7 @@
 					<div style="display: flex;align-items: center;justify-content: space-between;width: 100%;">
 						<div style="display: flex;width: 31%;">
 							<div>{{ item.MeasurementResults[1][0] }}</div>
-							<div style="display: flex;align-items: center;">
+							<div *ngIf='item.MeasurementResults[1][1]' style="display: flex;align-items: center;">
 								<span style="margin-left: 8px;color: black;font-weight: bolder;">
 									{{ common.toThousands(item.MeasurementResults[1][1]) }}
 								</span>
@@ -286,7 +286,7 @@
 									style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;"  nz-tooltip
 									nzTooltipTitle="这是按分钟预估24H可能会产生的播放量"></span>
 							</div>
-							<div style="display: flex;align-items: center;margin-left: 10px;">
+							<div style="display: flex;align-items: center;">
 								<span style="margin-left: 8px;font-weight: bolder;margin-right: 8px;"
 									[ngClass]="{ upColor: item.MeasurementResults[7][1] >= 1000, downColor: item.MeasurementResults[7][1] < 1000}">
 									{{ common.toThousands(item.MeasurementResults[7][1]) }}

@@ -10,12 +10,12 @@
 			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
 		</div>
 	</div>
-	<div nz-col nzSpan="3" style="display: flex; align-items: center">
+	<!-- <div nz-col nzSpan="3" style="display: flex; align-items: center">
 		<div [ngClass]="{upColor: Data[6][1] >= 1000,downColor: Data[6][1] < 1000}">
 			{{ common.toThousands(Data[6][1]) }}
 		</div>
-	</div>
-	<div nz-col nzSpan="1" style="display: flex; align-items: center">
+	</div> -->
+	<!-- <div nz-col nzSpan="1" style="display: flex; align-items: center">
 		<div style="display: flex; align-items: center; margin-left: 8px">
 			<i *ngIf="Data[6][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
 			<i *ngIf="Data[6][1] < 1000" nz-icon nzType="arrow-down" nzTheme="outline" class="downColor"></i>
@@ -23,30 +23,32 @@
 		<div class="picTip" nz-tooltip nzTooltipTitle="计算雷达近24H较今日小时预估播放量涨幅情况 >1000 增长 | <1000 下滑">
 			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
 		</div>
-	</div>
+	</div> -->
 </div>
 <div nz-row style="margin-top: 20px">
 	<div nz-col nzSpan="12" style="display: flex; align-items: center">
 		<div class="formsLabel">计算今日分钟预估播放量</div>
 	</div>
-	<div nz-col nzSpan="3" style="display: flex; align-items: center">
+	<!-- <div nz-col nzSpan="3" style="display: flex; align-items: center">
 		{{ common.toThousands(Data[1][1]) }}
 	</div>
 	<div nz-col nzSpan="2" style="display: flex; align-items: center">
 		<div class="picTip" nz-tooltip nzTooltipTitle="这是按分钟预估24H可能会产生的播放量">
 			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
 		</div>
-	</div>
-	<div nz-col nzSpan="3">
+	</div> -->
+	<div nz-col nzSpan="2">
 		<div [ngClass]="{upColor: Data[7][1] >= 1000,downColor: Data[7][1] < 1000}">
 			{{ common.toThousands(Data[7][1]) }}
 		</div>
 	</div>
-	<div nz-col nzSpan="1" style="display: flex; align-items: center">
+	<div nz-col nzSpan="1" style="display: flex; align-items: center;justify-content: flex-end">
 		<div style="display: flex; align-items: center; margin-left: 8px">
 			<i *ngIf="Data[7][1] >= 1000" nz-icon nzType="arrow-up" nzTheme="outline" class="upColor"></i>
 			<i *ngIf="Data[7][1] < 1000" nz-icon nzType="arrow-down" nzTheme="outline" class="downColor"></i>
 		</div>
+	</div>
+	<div nz-col nzSpan="1" style="display: flex; align-items: center;">
 		<div class="picTip" nz-tooltip nzTooltipTitle="计算雷达近24H较今日分钟预估播放量涨幅情况 >1000 增长 | <1000 下滑">
 			<span nz-icon nzType="info-circle" nzTheme="outline" style="color: rgba(0, 0, 0, 0.85)"></span>
 		</div>
