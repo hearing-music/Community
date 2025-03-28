@@ -79,7 +79,7 @@
 								</ng-template>
 							</div>
 						</div>
-						<div style="margin-left: 40px;">
+						<div style="margin-left: 60px;">
 							<div style="display: flex;align-items: center;">
 								<div>
 									录入歌曲生态昨日播放:
@@ -159,7 +159,7 @@
 								</ng-template>
 							</div>
 						</div> -->
-						<div style="margin-left: 40px;">
+						<div style="margin-left: 60px;">
 							<div style="display: flex;align-items: center;">
 								<div>
 									录入歌曲近1H总PV搜索数:
@@ -203,7 +203,7 @@
 						</div>
 					</div>
 				</div>
-				<div style="display: flex; flex-wrap: wrap;font-size: 13px;margin-left: 8px;width: 100%;">
+				<div style="display: flex; flex-wrap: wrap;font-size: 13px;margin-left: 8px;width: 100%;padding-bottom:8px;">
 					<div style="display: flex;align-items: center;justify-content: space-between;width: 100%;">
 						<div style="display: flex;width: 31%;">
 							<div>{{ item.MeasurementResults[0][0] }}</div>
@@ -275,8 +275,8 @@
 
 						</div>
 					</div>
-					<div style="display: flex;align-items: center;justify-content: space-between;width: 100%;">
-						<div style="display: flex;width: 31%;">
+					<div style="display: flex;align-items: center;width: 100%;">
+						<!-- <div style="display: flex;width: 31%;">
 							<div>{{ item.MeasurementResults[1][0] }}</div>
 							<div *ngIf='item.MeasurementResults[1][1]' style="display: flex;align-items: center;">
 								<span style="margin-left: 8px;color: black;font-weight: bolder;">
@@ -299,7 +299,7 @@
 									style="color: rgba(0, 0, 0, 0.85);margin-left: 8px;"  nz-tooltip
 									nzTooltipTitle="计算雷达近24H较今日分钟预估播放虽涨幅情况>1000 增长|<1000下滑"></span>
 							</div>
-						</div>
+						</div> -->
 						<div style="display: flex;width: 31%">
 							<div style="display: flex;align-items: center;">
 								{{ item.MeasurementResults[3][0] }}
@@ -338,7 +338,7 @@
 								</div>
 							</div>
 						</div>
-						<div style="width: 6%;display: flex;justify-content: flex-end;margin-right: 1%;">
+						<div style="display: flex;width: 31%">
 							<div>
 								<div nz-popover nzPopoverTrigger="click" [nzPopoverContent]="contentTemplate2"
 									style="width: 100%;display: flex;align-items: center;justify-content: center;color: blue;cursor: pointer;font-size: 14px;"
