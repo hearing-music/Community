@@ -159,6 +159,7 @@ export class V3AddSongControlComponent implements OnInit {
 		let kgPlayUrl = [];
 		let kgSongName = [];
 		let publicTime = []
+		let qqCnts = [];
 		this.cartData.forEach((item:any)=>{
 			SCID.push(item.scid);
 			EMixSongID.push(item.EMixSongID)
@@ -172,13 +173,13 @@ export class V3AddSongControlComponent implements OnInit {
 			kgPlayUrl.push(item.MusicUrl || "")
 			publicTime.push(item.time_public || "")
 			
-			
 			let qqData:any = {}
 			let QQData = item.QQData.filter((e:any)=>e.isSelect==true)
 			if(QQData.length>0){
 				qqData = QQData[0];
 				Mid.push(qqData.mid)
 				Ids.push(qqData.id)
+				qqCnts.push(qqData.cnt);
 			}else{
 				Mid.push(false)
 				Ids.push(false)
@@ -192,6 +193,7 @@ export class V3AddSongControlComponent implements OnInit {
 		Parameters['length']=length;
 		Parameters['Mid']=Mid;
 		Parameters['Ids']=Ids;
+		Parameters['qqCnts']=qqCnts;
 		
 		Parameters['publicTime'] = publicTime;
 		Parameters['kgSinger']=kgSinger;
