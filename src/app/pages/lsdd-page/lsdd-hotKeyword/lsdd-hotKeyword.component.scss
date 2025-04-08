@@ -4,6 +4,26 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  .tagList{
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .tagList-item{
+      flex-shrink: 0;
+      padding: 6px 16px;
+      color: #494F66;
+      font-size: 14px;
+      background: #F6F7FB;
+      border-radius: 100px;
+      margin-right: 12px;
+      cursor: pointer;
+    }
+    .tagList-itemActive{
+      background: #40f680;
+      color:#fff;
+    }
+  }
 }
 
 .isnew {

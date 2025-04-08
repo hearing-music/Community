@@ -1,7 +1,10 @@
 <div class="list" *ngIf="list.hot.length != 0">
 	<div style="width: 40%;">
-		<div>
-			铃声多多热词上升
+		<div class="tagList">
+			<div *ngFor="let item of tagList" (click)="onSelect(item)" class="tagList-item"
+				[ngClass]="{'tagList-itemActive': item.name==selectItem}">
+				{{item.name}}
+			</div>
 		</div>
 		<div style="display: flex; flex-wrap: wrap; gap: 10px;margin-top: 10px;">
 			<div *ngFor="let item of list.trend; let i = index"
@@ -12,7 +15,11 @@
 					</div>
 					<div *ngIf="item.trend"
 						style="font-size: 13px;display: flex;align-items: center;justify-content: center; width: 35px;">
+						<span class="isnew" *ngIf="item.trend == 'new'">{{ item.trend }}</span>
 						<span class="up" *ngIf="item.trend>0">{{ item.trend }}</span>
+						<span class="down" *ngIf="item.trend<0">{{ item.trend.replace("-","") }}</span>
+						<span *ngIf='item.trend<0' nz-icon nzType="arrow-down" nzTheme="outline"
+							style="color:rgb(0, 204, 255);"></span>
 						<span *ngIf='item.trend>0' nz-icon nzType="arrow-up" nzTheme="outline"
 							style="color:red;"></span>
 					</div>
