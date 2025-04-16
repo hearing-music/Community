@@ -86,6 +86,8 @@ import { SearchMvComponent } from "./cut-video/search-mv/search-mv.component";
 import { MonitoringMvComponent } from "./cut-video/monitoring-mv/monitoring-mv.component";
 import { QishuiHotSearchComponent } from "./qishui/qishuiHotSearch/qishuiHotSearch.component";
 import { kugouSongsComponent } from "./kugou/kugou-songs/kugouSongs.component";
+import { DouyinDarenYXHComponent } from './yingxiaohao/douyin-daren/douyin-daren.component';
+import { DouyinListenDarenYXHComponent } from './yingxiaohao/douyin-listenDaren/douyin-listenDaren.component';
 const routes : Routes = [{
 	path: '',
 	component: PagesComponent,
@@ -220,6 +222,18 @@ const routes : Routes = [{
 		{
 			path: 'douyin/douyin-listenDaren',
 			component: DouyinListenDarenComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 抖音达人
+		{
+			path: 'yingxiaohao/douyin-daren',
+			component: DouyinDarenYXHComponent,
+			canActivate: [PermissionGuard]
+		},
+		// 抖音监控达人
+		{
+			path: 'yingxiaohao/douyin-listenDaren',
+			component: DouyinListenDarenYXHComponent,
 			canActivate: [PermissionGuard]
 		},
 		// 抖音视频搜索

@@ -1,0 +1,259 @@
+<div class="douyin">
+
+	<div style='margin-bottom:16px;display: flex;align-items: center;justify-content: space-between;'>
+		<ngx-search [searchValue]='searchValue' [searchWidth]='"156px"' [searchHolder]='searchHolder' (childSearch)='search($event)'></ngx-search>
+		<ngx-search [searchValue]='searchValueNote' [searchWidth]='"156px"' searchHolder='备注搜索' (childSearch)='search2($event)'></ngx-search>
+		<div style="display: flex;align-items: center;">
+			<div style="font-size: 12px;color: #666;">类型</div>
+			<nz-select *ngIf='typeList.length>0' [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="yirenType" (ngModelChange)='ngModelType($event)'>
+				<nz-option *ngFor="let item of typeList;" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+			</nz-select>
+			<div style="font-size: 12px;color: #666;">视频费用</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="fees" (ngModelChange)='ngModelFees($event)'>
+				<nz-option *ngFor="let item of feesList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
+			</nz-select>
+			<div style="font-size: 12px;color: #666;">低赞</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="minimum" (ngModelChange)='ngModelMin($event)'>
+				<nz-option *ngFor="let item of minimumList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
+			</nz-select>
+			<div style="font-size: 12px;color: #666;">均赞</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="diggCountAve" (ngModelChange)='ngModelAve($event)'>
+				<nz-option *ngFor="let item of diggCountAveList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
+			</nz-select>
+			<div style="font-size: 12px;color: #666;">活跃</div>
+			<nz-select [nzDropdownMatchSelectWidth]='false' style="width: 100px;margin-right: 15px;" [(ngModel)]="activity" (ngModelChange)='ngModelActivity($event)'>
+				<nz-option *ngFor="let item of activityList;" [nzValue]="item.value" [nzLabel]="item.value"></nz-option>
+			</nz-select>
+			<nz-switch [ngModel]="type" nzCheckedChildren="我的" nzUnCheckedChildren="全部" (ngModelChange)='ngModelChange()'></nz-switch>
+		</div>
+	</div>
+	<nz-empty *ngIf="list.length==0" style="margin-top: 160px;"></nz-empty>
+	<div class="list" *ngIf='list.length!=0'>
+		<div *ngFor="let item of list;let i =index;">
+			<div class="list-item">
+				<div class="item-left">
+					<div style="position: relative;">
+						<img *ngIf='item.SingleDay' src="../../../assets/img/kulou.svg" class="icon" style="position: absolute;left:0;top:0;width: 20px;height: 20px;"/>
+						<img nz-image width="74px" height="74px" [nzSrc]="item.urlList" style="border-radius: 50%;"
+							[nzFallback]="fallback" alt="" />
+					</div>
+					<div class="left-text">
+						<div class="title-area">
+							<div class="title" (click)='common.copy(item.Nickname)'>
+								<span nz-tooltip [nzTooltipTitle]="item.Nickname">
+									{{item.Nickname}}
+								</span>
+							</div>
+							<img *ngIf='item.Sex=="男"' src="../../../assets/img/nan.svg" class="icon" />
+							<img *ngIf='item.Sex=="女"' src="../../../assets/img/nv.svg" class="icon" />
+							<button nz-button nzShape="circle" nzType="text" (click)="goHomeUrl(item.homeUrl)" class="linkIcon"
+								style="margin-left: 4px;">
+								<span nz-icon nzType="select" nzTheme="outline" style="color:#000;font-size: 14px;"></span>
+							</button>
+							<div class="signature" style="margin-left: 6px;">
+								<span nz-tooltip [nzTooltipTitle]="item.signature">
+									{{item.signature}}
+								</span>
+							</div>
+						</div>
+						<div class="subTitle">
+							<!-- 达人点赞数 -->
+							<div style="display: flex;align-items: center;">
+								<span nz-tooltip [nzTooltipTitle]="'达人获赞数'">
+									<div style="display: flex;align-items: center;">
+										<img src="../../../assets/img/dianzan.svg" class="icon" />
+										{{item.totalFavorited?common.toThousands(item.totalFavorited):common.toThousands(item.Clicklike)}}
+									</div>
+								</span>
+							</div>
+							<!-- 达人粉丝数 -->
+							<div style="display: flex;align-items: center;margin-left:6px;">
+								<span nz-tooltip [nzTooltipTitle]="'达人粉丝数'">
+									<div style="display: flex;align-items: center;">
+										<img src="../../../assets/img/FANS.svg" class="icon" />
+										{{item.followerCount?common.toThousands(item.followerCount):common.toThousands(item.Fans)}}
+									</div>
+								</span>
+							</div>
+							<!-- 平均点赞 -->
+							<div style="display: flex;align-items: center;margin-left:6px;cursor: pointer;" (click)='common.copy(item.diggCountAve)'>
+								<span nz-tooltip [nzTooltipTitle]="'平均点赞'">
+									<div style="display: flex;align-items: center;">
+										<img src="../../../assets/img/pingjun.svg" class="icon" />
+										{{common.toThousands(item.diggCountAve)}}
+									</div>
+								</span>
+							</div>
+							<!-- 最低点赞 -->
+							<div style="display: flex;align-items: center;margin-left:6px;cursor: pointer;" (click)='common.copy(item.minimum)'>
+								<span nz-tooltip [nzTooltipTitle]="'最低点赞'">
+									<div style="display: flex;align-items: center;">
+										<img src="../../../assets/img/zuidi.svg" class="icon" />
+										{{common.toThousands(item.minimum)}}
+									</div>
+								</span>
+							</div>
+							<!-- 活跃度 -->
+							<div style="display: flex;align-items: center;margin-left:6px;">
+								<span nz-tooltip [nzTooltipTitle]="'近期活跃度'">
+									<div style="display: flex;align-items: center;">
+										<img src="../../../assets/img/activity.svg" class="icon" />
+										{{item.activity?common.toThousands(item.activity):0}}
+									</div>
+								</span>
+							</div>
+						</div>
+						
+						
+						<div class="subTitle">
+							<div style="">
+								<div *ngIf='item.TypeJson'>
+									类型：<span class="value" *ngFor='let t of item.TypeJson.res;let ti = index;'>{{ti==item.TypeJson.res.length-1?t.TypeName:t.TypeName+'/'}}</span>
+								</div>
+								<div *ngIf='!item.TypeJson'>
+									类型：<span class="value">无</span>
+								</div>
+							</div>
+								<div style="margin-left: 16px;">
+									视频费用：<span class="value">{{item.Fees?item.Fees:'无'}}</span>
+								</div>
+						</div>
+						<div class="subTitle">
+							备注：<span class="value">{{item.Note?item.Note:'无'}}</span>
+						</div>
+						<div class="subTitle">
+							<div style="display: flex;align-items: center;cursor: pointer;" (click)='common.copy(item.UniqueId)'>
+								<div>
+									<span style="color:#000;">抖音号：</span>{{item.UniqueId}}
+								</div>
+							</div>
+							<div *ngIf='(item.seeVideo&&item.loadingFinished&&item.BloggerVideo.length>0&&!item.BloggerVideoErr)||!item.seeVideo'
+								style="cursor: pointer;color: blue;margin-left: 16px;" (click)='openVideoView(item)'>
+								{{item.isShowRadio?'收起':'查看视频'}}
+							</div>
+							<div *ngIf='item.seeVideo&&item.loadingFinished&&item.BloggerVideo.length==0&&!item.BloggerVideoErr' style="margin-left: 16px;">
+								暂无
+							</div>
+							<div *ngIf='item.seeVideo&&!item.loadingFinished' style="margin-left: 16px;">
+								<nz-spin nzSimple [nzSize]='"small"'></nz-spin>
+							</div>
+							<div *ngIf='item.seeVideo&&item.BloggerVideoErr&&item.loadingFinished' (click)='getVideoDetail(item)' style="margin-left: 16px;cursor: pointer;color: blue;">
+								重新加载
+							</div>
+							
+							<div *ngIf='(item.seeVideo2&&item.loadingFinished2&&item.BloggerVideo2.length>0&&!item.BloggerVideoErr2)||!item.seeVideo2'
+								style="cursor: pointer;color: blue;margin-left: 16px;" (click)='openVideoView2(item)'>
+								{{item.isShowRadio2?'收起':'更多视频'}}
+							</div>
+							<div *ngIf='item.seeVideo2&&item.loadingFinished2&&item.BloggerVideo2.length==0&&!item.BloggerVideoErr2' style="margin-left: 16px;">
+								暂无
+							</div>
+							<div *ngIf='item.seeVideo2&&!item.loadingFinished2' style="margin-left: 16px;">
+								<nz-spin nzSimple [nzSize]='"small"'></nz-spin>
+							</div>
+							<div *ngIf='item.seeVideo2&&item.BloggerVideoErr2&&item.loadingFinished2' (click)='getVideoDetail2(item)' style="margin-left: 16px;cursor: pointer;color: blue;">
+								重新加载
+							</div>
+							
+							<div *ngIf="(item.seeVideo3 &&item.loadingFinished3 &&item.author &&!item.BloggerVideoErr3) ||!item.seeVideo3" style="cursor: pointer; color: blue; margin-left: 16px" (click)="openVideoView3(item)">
+							  {{ item.isShowRadio3 ? "收起" : "作者数据趋势" }}
+							</div>
+							<div *ngIf="item.seeVideo3 && item.loadingFinished3 && !item.author &&!item.BloggerVideoErr3 " style="margin-left: 16px">
+							  暂无
+							</div>
+							<div *ngIf="item.seeVideo3 && !item.loadingFinished3" style="margin-left: 16px">
+							  <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+							</div>
+							<div *ngIf=" item.seeVideo3 && item.BloggerVideoErr3 && item.loadingFinished3" (click)="douSentenceDetail(item)" style="margin-left: 16px; cursor: pointer; color: blue">
+							  重新加载
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="item-center">
+						<div style="cursor: pointer;" (click)='common.copy(item.Information)'>
+							联系方式：<span class="value" >{{item.Information?item.Information:'无'}}</span>
+						</div>
+						<div>
+							加入时间：<span class="value">{{common.getDate(item.RecordingTime)}}</span>
+						</div>
+						<div>
+							归属人：<span class="value">{{item.username}}</span>
+						</div>
+				</div>
+				<div class="item-right">
+					<div class='right-btn' *ngIf='item.homeUrl' (click)='common.copy(item.homeUrl)'>
+						<span nz-icon nzType="share-alt" nzTheme="outline" style='font-size:24px;'></span>
+						<div>
+							抖音链接
+						</div>
+					</div>
+					<div class='right-btn' *ngIf='item.Home' (click)='common.copy(item.Home)' style="margin-left: 14px;">
+						<span nz-icon nzType="share-alt" nzTheme="outline" style='font-size:24px;'></span>
+						<div>
+							Q音链接
+						</div>
+					</div>
+					<div (click)='popUpEdit(item)' *ngIf='userId==item.UserId' style="margin-left: 14px;display: flex;align-items: center;justify-content: center;cursor: pointer;flex-direction: column;">
+						<span nz-icon nzType="edit" nzTheme="outline" style="font-size: 24px;"></span>
+						<div>
+							修改
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 作者趋势 -->
+			<ngx-dyAuthor *ngIf="item.isShowRadio3" [result]="item"></ngx-dyAuthor>
+			<!-- 视频列表 -->
+			<ngx-bloggerVideos *ngIf="item.isShowRadio"  [BloggerVideo]='item.BloggerVideo' [secUid]='item.SecUid' [NewFans]='item.NewFans'></ngx-bloggerVideos>
+			<ngx-bloggerVideos *ngIf="item.isShowRadio2" (toMore)='videoToMore($event)' [type]='"more"' [loadingFinished]='item.isMoreLoadingFinished' [total]='item.NewFans2PageTotal' [BloggerVideo]='item.BloggerVideo2' [secUid]='item.SecUid' [NewFans]='item.NewFans2'></ngx-bloggerVideos>
+		</div>
+	</div>
+	<!-- 分页 -->
+	<div class="pagination">
+		<nz-pagination [nzPageIndex]="page" [nzPageSize]='pageSize' [nzTotal]="pageTotal"
+			(nzPageIndexChange)='nzPageIndexChange($event)' nzShowQuickJumper nzShowSizeChanger [nzPageSizeOptions]='pageSizeOptions' (nzPageSizeChange)='nzPageSizeChange($event)'></nz-pagination>
+	</div>
+	<ngx-loading *ngIf='loading'></ngx-loading>
+	
+	
+	<!-- 修改 -->
+	<nz-modal [nzStyle]="{'width':'600px'}" [(nzVisible)]="isVisible" [nzFooter]='null' (nzOnCancel)='handleCancel()'  [nzClosable]='false' nzTitle="抖音达人数据修改" >
+	  <ng-container *nzModalContent >
+	    <p>输入达人的微信或手机号码</p>
+	   <input  nz-input placeholder="微信/电话" [(ngModel)]="editItem.Information" />
+	    <div style="display: flex;justify-content: space-between;margin-top: 14px;">
+	      <div style='width100%;'>
+	        <!-- 艺人类型 Type -->
+	        <p>艺人类型</p>
+	        <!-- <input nz-input placeholder="艺人类型" [(ngModel)]="editItem.Type" /> -->
+			<nz-checkbox-group  [(ngModel)]="editItem.typeList"></nz-checkbox-group>
+	      </div>
+	    </div>
+	    <div style="display: flex;margin-top: 14px;" >
+		  <div style="width: 160px;">
+		    <!-- 翻唱视频费用 Fees -->
+		    <p>视频费用</p>
+			<input nz-input placeholder="翻唱视频费用" [(ngModel)]="editItem.Fees" />
+		  </div>
+		  <div style="width: 160px;margin-left:16px;">
+		   <!-- 视频费用 FeesShow -->
+		    <p>最低价格</p>
+		    <input nz-input placeholder="最低价(数字)" [(ngModel)]="editItem.FeesShow" />
+		  </div>
+	    </div>
+	    <!-- 备注  Note -->
+	    <p style="margin-top: 10px">备注</p>
+	    <input nz-input placeholder="备注" [(ngModel)]="editItem.Note" />
+	    <div class='modalBtns'>
+	    	<button class='btnCancel' (click)='handleCancel()'>
+	    		取消
+	    	</button>
+	    	<button (click)='handleOk()' class='btnConfirm'>
+	    		修改
+	    	</button>
+	    </div>
+	  </ng-container>
+	</nz-modal>
+	
+</div>

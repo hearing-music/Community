@@ -67,6 +67,8 @@ import { DouyinListComponent } from './douyin/douyin-list/douyin-list.component'
 import { DouyinAssayVideoComponent } from './douyin/douyin-assayVideo/douyin-assayVideo.component';
 import { DouyinVideoComponent } from './douyin/douyin-video/douyin-video.component';
 import { DouyinDarenComponent } from './douyin/douyin-daren/douyin-daren.component';
+import { DouyinDarenYXHComponent } from './yingxiaohao/douyin-daren/douyin-daren.component';
+import { DouyinListenDarenYXHComponent } from './yingxiaohao/douyin-listenDaren/douyin-listenDaren.component';
 import { DouyinOriginalCopyrightComponent } from './douyin/douyin-originalCopyright/douyin-originalCopyright.component';
 import { DouyinListenDarenComponent } from './douyin/douyin-listenDaren/douyin-listenDaren.component';
 import { DouyinListenVideoComponent } from './douyin/douyin-listenVideo/douyin-listenVideo.component';
@@ -278,6 +280,8 @@ registerLocaleData(zh);
 		HighlightBracketsPipe,
 		PerfectedSongsComponent,
 		KaraokeSubTitleComponent,
+		DouyinDarenYXHComponent,
+		DouyinListenDarenYXHComponent,
 		kugouSongsComponent,
 		DyChallComponent,
 		SearchMvComponent,

@@ -1,0 +1,503 @@
+<div class="douyin">
+  <div style="display: flex;align-items:center;">
+    <ngx-search
+      [searchValue]="searchValue"
+      [searchHolder]="searchTypeList[searchTypeIndex].searchHolder"
+      (childSearch)="search($event)"
+      *ngIf="ToExle.isSelect"
+    >
+    </ngx-search>
+    <ngx-searchTip [tipStr]='searchTypeList[searchTypeIndex].tip'></ngx-searchTip>
+    <div style="margin-left: 12px">
+    	<nz-select [(ngModel)]="searchType" (ngModelChange)='ngModelChangeSelect($event)' [nzDropdownMatchSelectWidth]='false'>
+    		<nz-option *ngFor="let l of searchTypeList" [nzValue]="l.value" [nzLabel]="l.label"></nz-option>
+    	</nz-select>
+    </div>
+	<div>
+	  <button nz-button nzType="primary" style="margin-left: 20px" nzGhost (click)="selectExle()" *ngIf="!ToExle.isSelect">
+	    上传Exel
+	  </button>
+	  <button
+	    nz-button
+	    nzType="primary"
+	    style="margin-left: 20px"
+	    (click)="changeToExel(ToExle)"
+	  >
+	    {{ ToExle.name }}
+	  </button>
+	</div>
+  </div>
+  <div *ngIf="!ToExle.isSelect" style="margin-top: 15px">
+    <nz-table
+      #fixedTable
+      [nzData]="listContent"
+      [nzScroll]="{ x: '100%' }"
+      nzShowPagination="true"
+      [nzPageSize]="10"
+      [nzTotal]="listContent.length"
+      [nzHideOnSinglePage]="true"
+      [nzShowQuickJumper]="true"
+      [nzPageIndex]="excelPage"
+      (nzPageIndexChange)="nzPageIndexChange($event)"
+    >
+      <thead>
+        <tr>
+          <th *ngIf="listKeys.length > 0" nzAlign="center">ID</th>
+          <th *ngFor="let data of listKeys" nzAlign="center">
+            {{ data }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-template ngFor let-item let-j="index" [ngForOf]="fixedTable.data">
+          <tr>
+            <td nzAlign="center">
+              {{ j + 1 }}
+            </td>
+            <td
+              *ngFor="let datas of item; let i = index"
+              nzAlign="center"
+              nzEllipsis
+            >
+              <div *ngIf="i == linkToDy">
+                <button
+                  nz-button
+                  nzType="primary"
+                  nzGhost
+                  nzSize="small"
+                  (click)="ToSee(datas)"
+                >
+                  复制链接
+                </button>
+              </div>
+              <span
+                *ngIf="i != secUidIndex && i != linkToDy"
+                nz-tooltip
+                [nzTooltipTitle]="datas"
+              >
+                {{ datas }}
+              </span>
+              <span
+                nz-tooltip
+                [nzTooltipPlacement]="'topLeft'"
+                [nzTooltipTitle]="datas"
+                *ngIf="i == secUidIndex"
+                style="cursor: pointer"
+                (click)="copy(datas)"
+              >
+                {{ datas }}
+              </span>
+            </td>
+            <td>
+              <div
+                style="color: blue; cursor: pointer"
+                (click)="seeVideo(item, j)"
+              >
+                {{ item.expand ? "收起" : "查看视频" }}
+              </div>
+            </td>
+          </tr>
+          <tr [nzExpand]="item.expand">
+            <!-- 视频列表 -->
+            <ngx-bloggerVideos
+              [BloggerVideo]="item.video"
+              [secUid]="item[secUidIndex]"
+              [NewFans]="item.NewFans || []"
+            ></ngx-bloggerVideos>
+          </tr>
+        </ng-template>
+      </tbody>
+    </nz-table>
+  </div>
+  <div *ngIf="ToExle.isSelect">
+    <nz-empty *ngIf="list.length == 0" style="margin-top: 160px"></nz-empty>
+    <div class="list" *ngIf="list.length != 0">
+      <div *ngFor="let item of list; let i = index">
+        <div class="list-item">
+          <div class="item-left">
+            <div>
+              <img
+                nz-image
+                width="64px"
+                height="64px"
+                [nzSrc]="item.urlList"
+                style="border-radius: 50%"
+                [nzFallback]="fallback"
+                alt=""
+              />
+            </div>
+            <div class="left-text">
+              <div class="title-area">
+                <div class="title" (click)="goHomeUrl(item.homeUrl)">
+                  <span nz-tooltip [nzTooltipTitle]="item.nickName">
+                    {{ item.nickName }}
+                  </span>
+                </div>
+                <div class="signature" style="margin-left: 6px">
+                  <span nz-tooltip [nzTooltipTitle]="item.signature">
+                    {{ item.signature }}
+                  </span>
+                </div>
+              </div>
+              <div class="subTitle">
+                <!-- 达人点赞数 -->
+                <div style="display: flex; align-items: center">
+                  <span nz-tooltip [nzTooltipTitle]="'达人获赞数'">
+                    <div style="display: flex; align-items: center">
+                      <img src="../../../assets/img/dianzan.svg" class="icon" />
+                      {{ common.toThousands(item.totalFavorited) }}
+                    </div>
+                  </span>
+                </div>
+                <!-- 达人粉丝数 -->
+                <div
+                  style="display: flex; align-items: center; margin-left: 6px"
+                >
+                  <span nz-tooltip [nzTooltipTitle]="'达人粉丝数'">
+                    <div style="display: flex; align-items: center">
+                      <img src="../../../assets/img/FANS.svg" class="icon" />
+                      {{ common.toThousands(item.followerCount) }}
+                    </div>
+                  </span>
+                </div>
+                <!-- 平均点赞 -->
+                <div
+                  style="display: flex; align-items: center; margin-left: 6px"
+                  *ngIf="item.diggCountAve"
+                >
+                  <span nz-tooltip [nzTooltipTitle]="'平均点赞'">
+                    <div style="display: flex; align-items: center">
+                      <img src="../../../assets/img/pingjun.svg" class="icon" />
+                      {{ common.toThousands(item.diggCountAve) }}
+                    </div>
+                  </span>
+                </div>
+                <!-- 最低点赞 -->
+                <div
+                  style="display: flex; align-items: center; margin-left: 6px"
+                  *ngIf="item.diggCountMin"
+                >
+                  <span nz-tooltip [nzTooltipTitle]="'最低点赞'">
+                    <div style="display: flex; align-items: center">
+                      <img src="../../../assets/img/zuidi.svg" class="icon" />
+                      {{ common.toThousands(item.diggCountMin) }}
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <div class="subTitle">
+                <div style="display: flex; align-items: center">
+                  <div>
+                    <span style="color: #000">抖音号：</span>{{ item.uniqueId }}
+                  </div>
+                </div>
+                <div
+                  *ngIf="
+                    (item.seeVideo &&
+                      item.loadingFinished &&
+                      item.BloggerVideo.length > 0 &&
+                      !item.BloggerVideoErr) ||
+                    !item.seeVideo
+                  "
+                  style="cursor: pointer; color: blue; margin-left: 16px"
+                  (click)="openVideoView(item)"
+                >
+                  {{ item.isShowRadio ? "收起" : "查看视频" }}
+                </div>
+                <div
+                  *ngIf="
+                    item.seeVideo &&
+                    item.loadingFinished &&
+                    item.BloggerVideo.length == 0 &&
+                    !item.BloggerVideoErr
+                  "
+                  style="margin-left: 16px"
+                >
+                  暂无
+                </div>
+                <div
+                  *ngIf="item.seeVideo && !item.loadingFinished"
+                  style="margin-left: 16px"
+                >
+                  <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+                </div>
+                <div
+                  *ngIf="
+                    item.seeVideo &&
+                    item.BloggerVideoErr &&
+                    item.loadingFinished
+                  "
+                  (click)="getVideoDetail(item)"
+                  style="margin-left: 16px; cursor: pointer; color: blue"
+                >
+                  重新加载
+                </div>
+
+                <div
+                  *ngIf="
+                    (item.seeVideo2 &&
+                      item.loadingFinished2 &&
+                      item.BloggerVideo2.length > 0 &&
+                      !item.BloggerVideoErr2) ||
+                    !item.seeVideo2
+                  "
+                  style="cursor: pointer; color: blue; margin-left: 16px"
+                  (click)="openVideoView2(item)"
+                >
+                  {{ item.isShowRadio2 ? "收起" : "更多视频" }}
+                </div>
+                <div
+                  *ngIf="
+                    item.seeVideo2 &&
+                    item.loadingFinished2 &&
+                    item.BloggerVideo2.length == 0 &&
+                    !item.BloggerVideoErr2
+                  "
+                  style="margin-left: 16px"
+                >
+                  暂无
+                </div>
+                <div
+                  *ngIf="item.seeVideo2 && !item.loadingFinished2"
+                  style="margin-left: 16px"
+                >
+                  <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+                </div>
+                <div
+                  *ngIf="
+                    item.seeVideo2 &&
+                    item.BloggerVideoErr2 &&
+                    item.loadingFinished2
+                  "
+                  (click)="getVideoDetail2(item)"
+                  style="margin-left: 16px; cursor: pointer; color: blue"
+                >
+                  重新加载
+                </div>
+
+
+                <div 
+					*ngIf="
+					(item.seeVideo3 &&
+					item.loadingFinished3 &&
+					item.author &&
+					!item.BloggerVideoErr3) ||
+					!item.seeVideo3
+				"
+                  style="cursor: pointer; color: blue; margin-left: 16px"
+                  (click)="openVideoView3(item)"
+                >
+                  {{ item.isShowRadio3 ? "收起" : "作者数据趋势" }}
+                </div>
+				
+                <div
+                  *ngIf="
+                    item.seeVideo3 &&
+                    item.loadingFinished3 &&
+                    !item.author &&
+                    !item.BloggerVideoErr3
+                  "
+                  style="margin-left: 16px"
+                >
+                  暂无
+                </div>
+                <div
+                  *ngIf="item.seeVideo3 && !item.loadingFinished3"
+                  style="margin-left: 16px"
+                >
+                  <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+                </div>
+                <div
+                  *ngIf="
+                    item.seeVideo3 &&
+                    item.BloggerVideoErr3 &&
+                    item.loadingFinished3
+                  "
+                  (click)="getDouAuthorInfo(item)"
+                  style="margin-left: 16px; cursor: pointer; color: blue"
+                >
+                  重新加载
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="item-center"></div>
+          <div class="item-right">
+            <div class="right-btn" (click)="common.copy(item.homeUrl)">
+              <span
+                nz-icon
+                nzType="share-alt"
+                nzTheme="outline"
+                style="font-size: 24px"
+              ></span>
+              <div>复制链接</div>
+            </div>
+			<!-- 只有pid为1 -->
+            <div 
+              class="right-btn"
+              style="margin-left: 12px"
+              (click)="listenDaren(item, i)"
+            >
+              <span
+                nz-icon
+                nzType="user-add"
+                nzTheme="outline"
+                style="font-size: 24px"
+              ></span>
+              <div>监控达人</div>
+            </div>
+          </div>
+        </div>
+		<!-- 作者趋势 -->
+		<ngx-dyAuthor *ngIf="item.isShowRadio3" [result]="item"></ngx-dyAuthor>
+        <!-- 视频列表 -->
+        <ngx-bloggerVideos
+          *ngIf="item.isShowRadio"
+          [BloggerVideo]="item.BloggerVideo"
+          [secUid]="item.secUid"
+          [NewFans]="item.NewFans"
+        ></ngx-bloggerVideos>
+        <ngx-bloggerVideos
+          *ngIf="item.isShowRadio2"
+          (toMore)="videoToMore($event)"
+          [type]="'more'"
+          [loadingFinished]="item.isMoreLoadingFinished"
+          [total]="item.NewFans2PageTotal"
+          [BloggerVideo]="item.BloggerVideo2"
+          [secUid]="item.secUid"
+          [NewFans]="item.NewFans2"
+        ></ngx-bloggerVideos>
+      </div>
+
+      <!-- 分页 -->
+	  <div class="pagination" *ngIf="ToExle.isSelect && paginationShow">
+        <span
+          *ngIf="list.length > 0"
+          nz-icon
+          nzType="down-circle"
+          nzTheme="twotone"
+          (click)="pageNext()"
+          style="cursor: pointer"
+        ></span>
+      </div>
+      <nz-modal
+        [nzStyle]="{ width: '600px' }"
+        [(nzVisible)]="isVisible"
+        [nzFooter]="null"
+        (nzOnCancel)="handleCancel()"
+        [nzClosable]="false"
+        nzTitle="抖音达人数据监控申请"
+      >
+        <ng-container *nzModalContent>
+          <p>输入达人的微信或手机号码</p>
+          <input
+            [disabled]="selectIndex === '' ? true : list[selectIndex].isListen"
+            nz-input
+            placeholder="微信/电话"
+            [(ngModel)]="information"
+          />
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: 14px;
+            "
+          >
+            <div style="width: 100%;">
+              <!-- 艺人类型 Type -->
+              <p>艺人类型</p>
+             <!-- <input
+                [disabled]="
+                  selectIndex === '' ? true : list[selectIndex].isListen
+                "
+                nz-input
+                placeholder="艺人类型 "
+                [(ngModel)]="Type"
+              /> -->
+			  <nz-checkbox-group [disabled]="
+                  selectIndex === '' ? true : list[selectIndex].isListen" [(ngModel)]="typeList" (ngModelChange)="typeChange($event)"></nz-checkbox-group>
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              margin-top: 14px;
+            "
+          >
+
+            <div style="width: 160px;">
+              <!-- 视频费用 Fees -->
+              <p>视频费用</p>
+              <input
+                [disabled]="
+                  selectIndex === '' ? true : list[selectIndex].isListen
+                "
+                nz-input
+                placeholder="翻唱视频费用"
+                [(ngModel)]="Fees"
+              />
+            </div>
+            <div style="width: 160px;margin-left: 16px;">
+              <!-- 翻唱视频费用 FeesShow -->
+              <p>最低价格</p>
+              <input
+                [disabled]="
+                  selectIndex === '' ? true : list[selectIndex].isListen
+                "
+                nz-input
+                placeholder="最低价(数字)"
+                [(ngModel)]="FeesShow"
+              />
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: 14px;
+            "
+          >
+          </div>
+          <!-- 备注  Note -->
+          <p style="margin-top: 10px">备注</p>
+          <input
+            [disabled]="selectIndex === '' ? true : list[selectIndex].isListen"
+            nz-input
+            placeholder="备注"
+            [(ngModel)]="Note"
+          />
+
+          <div
+            *ngIf="selectIndex === '' ? false : list[selectIndex].isListen"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-top: 12px;
+            "
+          >
+            该达人已添加监控。
+          </div>
+          <div class="modalBtns">
+            <button class="btnCancel" (click)="handleCancel()">取消</button>
+            <button
+              (click)="handleOk()"
+              *ngIf="selectIndex === '' ? false : !list[selectIndex].isListen"
+              class="btnConfirm"
+            >
+              录入
+            </button>
+            <button
+              *ngIf="selectIndex === '' ? true : list[selectIndex].isListen"
+              class="btnConfirm btnDis"
+            >
+              录入
+            </button>
+          </div>
+        </ng-container>
+      </nz-modal>
+    </div>
+  </div>
+  <ngx-loading *ngIf="loading"></ngx-loading>
+</div>

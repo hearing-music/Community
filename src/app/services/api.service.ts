@@ -14,6 +14,55 @@ export class ApiService {
 	constructor(private http : HttpClient) {
 
 	}
+	//抖音 获取监控列表
+	douyin_getListenDarenMarketability(params : any) {
+		// let {
+		// 	page,
+		// 	keyword,
+		// 	type,
+		// 	diggCountAveMax, diggCountAveMin, activityNum,
+		// 	minimumMax,minimumMin
+		// } = params;
+		// let pageSize: any = params.pageSize
+		return this.http.get(this.baseUrl + "/douyin/douyin_getListenDarenMarketability", { params })
+	}
+	// 抖音达人搜索
+	DouYinSearchBigVMarketability(params : any) {
+		let {
+			keyword,
+			page
+		} = params;
+		return this.http.get(this.baseUrl + "/douyin/DouYinSearchBigVMarketability?keyword=" + keyword + "&offset=" + (page - 1) + "&count=10")
+	}
+	// 抖音达人是否被监控 true为被监控
+	douyin_isListenMarketability(params : any) {
+		let {
+			SecUid
+		} = params;
+		return this.http.get(this.baseUrl + "/douyin/douyin_isListenMarketability?SecUid=" + SecUid)
+	}
+	//抖音 添加监控达人
+	douyin_listenDarenMarketability(params : any) {
+		return this.http.post(this.baseUrl + "/douyin/douyin_listenDarenMarketability", { ...params })
+	}
+	// 抖音 修改监控达人基本信息
+	douyin_listenDarenEditMarketability(params : any) {
+		return this.http.post(this.baseUrl + "/douyin/douyin_listenDarenEditMarketability", { ...params })
+	}
+	DouYinSearchVideoDetailsListMarketability(params : any) {
+		let {
+			arr,
+			type
+		} = params;
+		return this.http.post(this.baseUrl + "/douyin/DouYinSearchVideoDetailsListMarketability", { arr, type })
+	}
+	// 	 获取抖音达人类别列表
+	douyin_darenTypeListMarketability() {
+		return this.http.get(this.baseUrl + "/douyin/douyin_darenTypeListMarketability")
+	}
+	DouYinSearchBigVForVideoLinkMarketability(params:any){
+		return this.http.post(this.baseUrl + "/douyin/DouYinSearchBigVForVideoLinkMarketability",{link:params.link})
+	}
 	qqfreeSongs2(params:any){
 		let url = this.baseUrl + "/qq/freeSongs2";
 		return this.http.post(url, params);

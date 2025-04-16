@@ -158,6 +158,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				{
 					icon: '📢',
 					color: 'bg-azure-95',
+					title: '2025年04月16日18:34',
+					newAdd: ['营销号'],//新增
+					optimize:[],
+					bugs: [],//修复bug
+				},
+				{
+					icon: '📢',
+					color: 'bg-azure-95',
 					title: '2025年03月27日17:45',
 					newAdd: [],//新增
 					optimize: ['指数波动幅度 QQ新增前日指数，去除当日指数(取的时候数据很小 感觉没什么参考性)','预估计算器去除 录入歌曲近24H雷达播放 录入歌曲分钟播放数 播放分钟'],//优化

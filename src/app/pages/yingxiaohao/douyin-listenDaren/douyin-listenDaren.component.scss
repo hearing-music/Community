@@ -1,0 +1,176 @@
+.douyin{
+	background-color: #fff;
+	border-radius: 12px;
+	height: 100%;
+	min-height: calc(100vh - 4.75rem - 4rem);
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	color: #000;
+	.icon {
+		width: 16px;
+		height: 16px;
+	}
+	.linkIcon{
+		    display: flex;
+		    align-items: center;
+		    width: 32px;
+		    height: 32px;
+		    cursor: pointer;
+		    justify-content: center;
+	}
+	.list {
+		// overflow: scroll;
+		padding: 12px;
+		.icon {
+			width: 16px;
+			margin-right: 4px;
+			height: 16px;
+		}
+		.list-item {
+			font-size: 12px;
+			color: rgba(0, 0, 0, 0.6);
+			margin-bottom: 20px;
+			background: #FFFFFF;
+			border: 1px solid rgba(0,0,0,0.12);
+			border-radius: 12px;
+			// height: 80px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 12px 16px;
+		
+			.item-left {
+				width: 760px;
+				display: flex;
+				flex-shrink: 0;
+				align-items: center;
+				.linkIcon{
+					    display: flex;
+					    align-items: center;
+					    width: 32px;
+					    height: 32px;
+					    cursor: pointer;
+					    justify-content: center;
+				}
+				.left-icon{
+					flex-shrink: 0;
+					width: 32px;
+					height: 32px;
+					cursor: pointer;
+				}
+				.left-text{
+					margin-left: 16px;
+				}
+				.title-area {
+					display: flex;
+					align-items: center;
+					.title {
+						font-weight: bold;
+						font-size: 16px;
+						color: #000;
+						max-width: 155px;
+						cursor: pointer;
+						overflow: hidden;
+						white-space: nowrap;
+						text-overflow: ellipsis;
+					}
+					.signature{
+						max-width: 480px;
+						overflow: hidden;
+						white-space: nowrap;
+						text-overflow: ellipsis;
+					}
+				}
+				.subTitle {
+					margin-top: 6px;
+					display: flex;
+					align-items: center;
+				}
+			}
+			.item-center{
+				flex-shrink: 0;
+				flex:1;
+				.exophanie-item {
+					margin-top: 6px;
+					font-weight: bold;
+					width:200px;
+					cursor: pointer;
+					text-decoration-line: underline;
+					overflow: hidden;
+					        white-space: nowrap;
+					        text-overflow: ellipsis;
+				}
+			}
+			.item-right{
+				display: flex;
+				align-items: center;
+				.right-btn{
+					cursor: pointer;
+					display: flex;
+					align-items: center;
+					flex-direction: column;
+					color:rgba(35, 35, 35, 1);
+				}
+			}
+		}
+	}
+	.pagination{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.value{
+		color: rgba(0, 0, 0, 0.9);
+		font-size: 13px;
+		font-weight: bold;
+	}
+	.gongchuang{
+		position: absolute;
+		left:40px;top:40px;
+		padding:2px 6px;
+		border: 2px solid #fff;
+		color:#fff;
+		font-weight: bold;
+		font-size: 13px;
+	}
+}
+.modalBtns{
+			margin-top:16px;
+			display:flex;
+			align-items:center;
+			justify-content:center;
+			.btnCancel{
+				width:120px;
+				height:40px;
+				border-radius: 4px;
+				background: rgba(0, 0, 0, 0.05);
+				display:flex;
+				align-items:center;
+				justify-content:center;
+				color: rgba(7, 193, 96, 1);
+				font-size:17px;
+				font-weight:bold;
+				border:none!important;
+				outline:none!important;
+			}
+			.btnDis{
+				opacity: 0.5;
+				cursor: not-allowed!important;
+			}
+			.btnConfirm{
+				margin-left:16px;
+				width:120px;
+				height:40px;
+				border-radius: 4px;
+				background: rgba(7, 193, 96, 1);
+				display:flex;
+				align-items:center;
+				justify-content:center;
+				color: #fff;
+				font-size:17px;
+				font-weight:bold;
+				border:none!important;
+				outline:none!important;
+			}
+		}

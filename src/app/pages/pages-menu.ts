@@ -145,6 +145,23 @@ export let MENU_ITEMS : NbMenuItem[] = [
 		],
 	},
 	{
+		title: '营销号',
+		icon: {
+			icon: 'dy_icon',
+			pack: 'my-icons',
+		},
+		children: [
+			{
+				title: '达人搜索',
+				link: '/pages/yingxiaohao/douyin-daren',
+			},
+			{
+				title: '监控达人',
+				link: '/pages/yingxiaohao/douyin-listenDaren',
+			}
+		],
+	},
+	{
 		title: '汽水音乐',
 		icon: {
 			icon: 'soda',
